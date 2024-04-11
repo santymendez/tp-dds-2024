@@ -1,0 +1,92 @@
+@startuml
+
+class Heladera {
+    -longitud: Float
+    -latitud: Float
+    -direccion: String
+    -nombre: String
+    -capacidadMaximaViandas: Integer
+    -List<Vianda> viandas
+    -fechaCreacion: Date
+
+    +void agregarVianda(Vianda vianda)
+}
+
+class Vianda {
+    -comida: String
+    -vencimiento: Date
+    -fechaDonacion: Date
+    -colaborador: Colaborador
+    -heladera: Heladera
+    -calorias: Integer
+    -peso: Integer
+    -entregada: Boolean
+}
+
+class Vulnerable {
+    -nombre: String
+    -fechaNacimiento: Date
+    -fechaRegistro: Date
+    -tieneDomicilio: Boolean
+    -domicilio: String
+    -tieneDNI: Boolean
+    -dni: String
+    -tieneMenoresACargo: Boolean
+    -cantMenoresACargo: Integer
+}
+
+class PersonaFisica {
+    -nombre: String
+    -apellido: String
+    -fechaNacimiento: Date
+    -medioContacto: String
+    -direccion: String
+    -tipoColaboracion: Colaboracion
+
+}
+
+class PersonaJuridica {
+    -razonSocial: String
+    -tipo: String
+    -rubro: String
+    -medioContacto: String
+    -direccion: String
+    -tipoDonacion: Colaboracion
+
+}
+
+interface Colaboracion {
+    +void realizar()
+}
+
+class DonacionDinero implements Colaboracion {
+    -fechaDonacion: Date
+    -monto: Integer
+    -frecuencia: String
+
+    +void realizar()
+}
+
+class DonacionViandas implements Colaboracion {
+    -List<Vianda> viandas
+
+    +void realizar()
+}
+
+class DistribucionViandas implements Colaboracion {
+    -heladeraOrigen: Heladera
+    -heladeraDestino: Heladera
+    -cantViandas: Integer
+    -motivoDistribucion: String
+    -fechaDistribucion: Date
+
+    +void realizar()
+}
+
+class ColocarHeladera implements Colaboracion {
+    +void realizar()
+}
+
+Heladera ->"*" Vianda
+
+@enduml

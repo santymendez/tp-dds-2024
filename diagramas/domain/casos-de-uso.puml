@@ -1,0 +1,51 @@
+@startuml
+
+left to right direction
+actor :personaFisica: as fisica
+actor :personaJuridica: as juridica
+actor :ONG: as ong
+
+rectangle DominioPrincipal {
+    usecase "Registrarse" as UC0
+
+    usecase "Completar formulario" as UC1
+
+    usecase "Admnistrar colaborador" as UC2
+
+    usecase "Dar alta vulnerable" as UC3
+
+    usecase "Admnistrar heladera" as UC4
+
+    usecase "Donar vianda" as UC5
+    usecase "Donar dinero" as UC6
+    usecase "Colocar heladera" as UC7
+    usecase "Distribuir viandas" as UC8
+
+    usecase "Visualizar mapa de heladeras" as UC9
+}
+
+fisica --> UC0
+juridica --> UC0
+
+fisica --> UC5
+fisica --> UC6
+fisica --> UC8
+
+juridica --> UC6
+juridica --> UC7
+
+ong --> UC2
+ong --> UC3
+ong --> UC4
+
+fisica --> UC9
+juridica --> UC9
+ong --> UC9
+
+UC5 ..> UC1 : <<includes>>
+UC6 ..> UC1 : <<includes>>
+UC7 ..> UC1 : <<includes>>
+UC8 ..> UC1 : <<includes>>
+UC1 ..> UC0 : <<includes>>
+
+@enduml

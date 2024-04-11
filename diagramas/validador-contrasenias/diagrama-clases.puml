@@ -1,5 +1,32 @@
 @startuml
 
-class
+class Usuario {
+   -nombre: String
+   -contrasenia: String
+}
+
+class Registro {
+   -usuario: Usuario
+   -controlador: Controlador
+
+   +Boolean sePuedeRegistrar()
+}
+
+class Controlador {
+    -longitudMaxima: Integer
+    -longitudMinima: Integer
+    -List<String> palabrasProhibidas
+    -List<String> top10000PeoresContrasenias
+
+    +Boolean esValida(String clave)
+
+    +boolean cumplePoliticasDeContrasenias(String clave)
+    +boolean noPerteneceAPeoresContrasenias(String clave)
+    +boolean noUtilizaCredenciales(String)
+}
+
+Registro o-- Usuario
+Registro o-- Controlador
 
 @enduml
+

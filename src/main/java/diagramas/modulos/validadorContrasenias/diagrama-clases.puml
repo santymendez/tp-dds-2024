@@ -1,15 +1,15 @@
 @startuml
 
-class Usuario {
-   -nombre: String
-   -contrasenia: String
-}
-
 class Registro {
    -usuario: Usuario
    -controlador: Controlador
 
    +Boolean sePuedeRegistrar()
+}
+
+class Usuario {
+   -nombre: String
+   -contrasenia: String
 }
 
 class Controlador {

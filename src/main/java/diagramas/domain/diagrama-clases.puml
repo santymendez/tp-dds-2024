@@ -16,7 +16,7 @@ class Vianda {
     -comida: String
     -vencimiento: Date
     -fechaDonacion: Date
-    -colaborador: Colaborador
+    -colaborador: String
     -heladera: Heladera
     -calorias: Integer
     -peso: Integer
@@ -41,8 +41,9 @@ class PersonaFisica {
     -fechaNacimiento: Date
     -medioContacto: String
     -direccion: String
-    -tipoColaboracion: Colaboracion
+    -List<Colaboracion> colaboraciones
 
+    +void realizarColaboracion(Colaboracion colaboracion)
 }
 
 class PersonaJuridica {
@@ -51,42 +52,37 @@ class PersonaJuridica {
     -rubro: String
     -medioContacto: String
     -direccion: String
-    -tipoDonacion: Colaboracion
+    -List<Colaboracion> colaboraciones
 
+    +void realizarColaboracion(Colaboracion colaboracion)
 }
 
-interface Colaboracion {
-    +void realizar()
-}
-
-class DonacionDinero implements Colaboracion {
+class Colaboracion {
     -fechaDonacion: Date
     -monto: Integer
     -frecuencia: String
-
-    +void realizar()
-}
-
-class DonacionViandas implements Colaboracion {
     -List<Vianda> viandas
-
-    +void realizar()
-}
-
-class DistribucionViandas implements Colaboracion {
     -heladeraOrigen: Heladera
     -heladeraDestino: Heladera
     -cantViandas: Integer
     -motivoDistribucion: String
     -fechaDistribucion: Date
-
-    +void realizar()
+    -tipoColaboracion: TipoColaboracion
 }
 
-class ColocarHeladera implements Colaboracion {
-    +void realizar()
+enum TipoColaboracion {
+    DONAR_DINERO,
+    DONAR_VIANDA,
+    DISTRIBUIR_VIANDA,
+    COLOCAR_HELADERA
 }
 
-Heladera ->"*" Vianda
+Heladera o-"*" Vianda
+Vianda -> Heladera
+Colaboracion -> TipoColaboracion
+PersonaFisica ->"*" Colaboracion
+PersonaJuridica ->"*" Colaboracion
+Colaboracion ->"*" Vianda
+Colaboracion -> Heladera
 
 @enduml

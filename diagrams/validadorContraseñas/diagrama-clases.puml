@@ -15,14 +15,9 @@ class Usuario {
 class Controlador {
     -longitudMaxima: Integer
     -longitudMinima: Integer
-    -List<String> palabrasProhibidas
-    -List<String> top10000PeoresContrasenias
+    -top10000PeoresContrasenias: File
 
     +Boolean esValida(String clave)
-
-    +boolean cumplePoliticasDeContrasenias(String clave)
-    +boolean noPerteneceAPeoresContrasenias(String clave)
-    +boolean noUtilizaCredenciales(String)
 }
 
 Registro o-- Usuario

@@ -1,4 +1,4 @@
-package modulos.validadorContrasenias;
+package modules.validadorContrasenias;
 
 import lombok.Getter;
 

@@ -1,5 +1,8 @@
-package modulos.validadorContrasenias;
+package modules.validadorContrasenias;
 
+import modules.validadorContrasenias.Controlador;
+import modules.validadorContrasenias.Registro;
+import modules.validadorContrasenias.Usuario;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

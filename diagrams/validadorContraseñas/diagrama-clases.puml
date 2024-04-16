@@ -16,12 +16,17 @@ class Controlador {
     -longitudMaxima: Integer
     -longitudMinima: Integer
     -top10000PeoresContrasenias: File
+    -regex: Regex
 
     +Boolean esValida(String clave)
 }
 
+class Regex {
+    +Boolean cumpleRegex(String clave, Integer longitudMinima, Integer longitudMaxima)
+}
+
 Registro o-- Usuario
 Registro o-- Controlador
+Controlador o-- Regex
 
 @enduml
-

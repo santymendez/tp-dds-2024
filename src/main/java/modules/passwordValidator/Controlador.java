@@ -1,4 +1,4 @@
-package modules.validadorContrasenias;
+package modules.passwordValidator;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,14 +6,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-@Getter
+
 @Setter
 public class Controlador {
     private Integer longitudMaxima = 64; //64 caracteres
     private Integer longitudMinima = 8; //8 caracteres
-    private File top10000PeoresContrasenias = new File("src/main/java/modulos/validadorContrasenias/top10000.txt");
+    private File top10000PeoresContrasenias = new File("src/main/resources/passwordValidator/top10000.txt");
+    private Regex regex;
 
-    public Controlador(){}
+    public Controlador(Regex regex){
+        this.regex = regex;
+    }
 
     public Boolean esValida(String clave){
         return this.cumplePoliticasDeContrasenias(clave) &&
@@ -40,11 +43,6 @@ public class Controlador {
     }
 
     public Boolean cumplePoliticasDeContrasenias(String clave){
-        return this.cumpleLongitud(clave);
-    }
-
-    public Boolean cumpleLongitud(String clave){
-        return longitudMinima <= clave.length() && //cumple longitud minima
-                clave.length() <= longitudMaxima; //cumple longitud maxima
+        return regex.cumpleRegex(clave, longitudMinima, longitudMaxima);
     }
 }

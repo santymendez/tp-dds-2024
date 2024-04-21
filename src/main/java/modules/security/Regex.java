@@ -1,4 +1,4 @@
-package modules.passwordValidator;
+package modules.security;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

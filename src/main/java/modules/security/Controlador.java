@@ -1,6 +1,5 @@
-package modules.passwordValidator;
+package modules.security;
 
-import lombok.Getter;
 import lombok.Setter;
 import java.io.BufferedReader;
 import java.io.File;

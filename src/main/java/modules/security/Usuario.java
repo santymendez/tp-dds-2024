@@ -1,4 +1,4 @@
-package modules.passwordValidator;
+package modules.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,5 @@
-package modules.passwordValidator02.rules;
+package modules.passwordValidator.rules;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;

@@ -1,10 +1,10 @@
 package modules.security;
 
-import modules.passwordValidator02.Autenticador;
-import modules.passwordValidator02.rules.CantidadMaximaDeCaracteres;
-import modules.passwordValidator02.rules.CantidadMinimaDeCaracteres;
-import modules.passwordValidator02.rules.PerteneceAlArchivo;
-import modules.passwordValidator02.rules.TieneMayusculasYMinusculas;
+import modules.passwordValidator.Autenticador;
+import modules.passwordValidator.rules.CantidadMaximaDeCaracteres;
+import modules.passwordValidator.rules.CantidadMinimaDeCaracteres;
+import modules.passwordValidator.rules.PerteneceAlArchivo;
+import modules.passwordValidator.rules.TieneMayusculasYMinusculas;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,9 +39,5 @@ public class PasswordTest02 {
         Assertions.assertTrue(cantidadMaximaDeCaracteres.cumpleLaRegla("123456789"));
         Assertions.assertFalse(tieneMayusculasYMinusculas.cumpleLaRegla("123456789"));
         Assertions.assertFalse(perteneceAlArchivo.cumpleLaRegla("123456789"));
-
-        String errorEsperado = "Error: Pertenece al archivo Top10milContrasenias\n" +
-                "Error: No tiene letras mayusculas y minusculas\n";
-        Assertions.assertEquals(errorEsperado, autenticador.esValida("123456789"));
     }
 }

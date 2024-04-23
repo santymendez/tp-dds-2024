@@ -1,9 +1,8 @@
-package modules.passwordValidator02;
+package modules.passwordValidator;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import modules.passwordValidator02.rules.Regla;
+import modules.passwordValidator.rules.Regla;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +42,7 @@ public class Autenticador {
         String mensajeCompleto = "";
 
         for (String mensaje : mensajes) {
-            mensajeCompleto += "Error: " + mensaje + "\n";
+            mensajeCompleto.append("Error: ").append(mensaje).append("  ");
         }
 
         return mensajeCompleto;

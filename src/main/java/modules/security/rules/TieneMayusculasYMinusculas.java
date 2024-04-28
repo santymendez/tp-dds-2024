@@ -1,4 +1,4 @@
-package modules.passwordValidator.rules;
+package modules.security.rules;
 
 public class TieneMayusculasYMinusculas extends Regla{
     public TieneMayusculasYMinusculas(){

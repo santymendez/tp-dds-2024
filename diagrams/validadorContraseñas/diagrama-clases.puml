@@ -1,32 +1,55 @@
 @startuml
 
-class Registro {
-   -usuario: Usuario
-   -controlador: Controlador
+class Autenticador {
+    -politicas: HashSet<Regla>
 
-   +Boolean sePuedeRegistrar()
+    +Boolean esValida(String contrasenia)
+    +Boolean esValida(String contrasenia)
 }
 
-class Usuario {
-   -nombre: String
-   -contrasenia: String
+abstract class Regla {
+    -mensajeError: String
+
+    +Boolean esValida(String unaContrasenia, List<String> mensajes)
+    +Boolean cumpleLaRegla(String unaContrasenia)
 }
 
-class Controlador {
-    -longitudMaxima: Integer
-    -longitudMinima: Integer
-    -top10000PeoresContrasenias: File
-    -regex: Regex
+class CantidadMaximaDeCaracteres {
+    -CantidadMaxima: Integer
 
-    +Boolean esValida(String clave)
+    +Boolean cumpleLaRegla(String unaContrasenia)
 }
 
-class Regex {
-    +Boolean cumpleRegex(String clave, Integer longitudMinima, Integer longitudMaxima)
+class CantidadMinimaDeCaracteres {
+    -CantidadMinima: Integer
+
+    +Boolean cumpleLaRegla(String unaContrasenia)
 }
 
-Registro o-- Usuario
-Registro o-- Controlador
-Controlador o-- Regex
+class PerteneceAlArchivo {
+    -palabrasDelArchivo: List<String>
+
+    +Boolean cumpleLaRegla(String unaContrasenia)
+}
+
+class TieneCaracteresEspeciales{
+    +Boolean cumpleLaRegla(String unaContrasenia)
+}
+
+class TieneMayusculasyMinusculas{
+    +Boolean cumpleLaRegla(String unaContrasenia)
+}
+
+class TieneNumeros{
+    +Boolean cumpleLaRegla(String unaContrasenia)
+}
+
+Autenticador o----"*" Regla
+CantidadMaximaDeCaracteres --|> Regla
+CantidadMinimaDeCaracteres --|> Regla
+PerteneceAlArchivo --|> Regla
+TieneCaracteresEspeciales --|> Regla
+TieneMayusculasyMinusculas --|> Regla
+TieneNumeros --|> Regla
 
 @enduml

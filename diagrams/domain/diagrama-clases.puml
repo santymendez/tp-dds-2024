@@ -1,26 +1,34 @@
 @startuml
 
 class Heladera {
-    -longitud: Float
-    -latitud: Float
-    -direccion: String
+    -direccion: Direccion
     -nombre: String
     -capacidadMaximaViandas: Integer
-    -List<Vianda> viandas
+    -viandas: List<Vianda>
     -fechaCreacion: Date
 
     +void agregarVianda(Vianda vianda)
 }
 
+class Direccion {
+    -ubicacion: String
+    -longitud: Float
+    -latitud: Float
+}
+
 class Vianda {
-    -comida: String
-    -vencimiento: Date
+    -comida: Comida
     -fechaDonacion: Date
     -colaborador: String
     -heladera: Heladera
     -calorias: Integer
     -peso: Integer
     -entregada: Boolean
+}
+
+class Comida {
+    -nombre: String
+    -vencimiento: Date
 }
 
 class Vulnerable {
@@ -31,8 +39,7 @@ class Vulnerable {
     -domicilio: String
     -tieneDNI: Boolean
     -dni: String
-    -tieneMenoresACargo: Boolean
-    -cantMenoresACargo: Integer
+    -menoresACargo: List<Vulnerable>
 }
 
 class PersonaFisica {
@@ -40,7 +47,7 @@ class PersonaFisica {
     -apellido: String
     -fechaNacimiento: Date
     -medioContacto: String
-    -direccion: String
+    -direccion: Direccion
     -List<Colaboracion> colaboraciones
 
     +void realizarColaboracion(Colaboracion colaboracion)
@@ -51,7 +58,7 @@ class PersonaJuridica {
     -tipo: String
     -rubro: String
     -medioContacto: String
-    -direccion: String
+    -direccion: Direccion
     -List<Colaboracion> colaboraciones
 
     +void realizarColaboracion(Colaboracion colaboracion)
@@ -70,6 +77,13 @@ class Colaboracion {
     -tipoColaboracion: TipoColaboracion
 }
 
+'TODO'
+class Formulario {
+}
+
+class RespuestaFormulario {
+}
+
 enum TipoColaboracion {
     DONAR_DINERO,
     DONAR_VIANDA,
@@ -84,5 +98,10 @@ PersonaFisica ->"*" Colaboracion
 PersonaJuridica ->"*" Colaboracion
 Colaboracion ->"*" Vianda
 Colaboracion -> Heladera
+Vulnerable ->"*" Vulnerable
+Heladera o-- Direccion
+PersonaFisica o-- Direccion
+PersonaJuridica o-- Direccion
+Vianda o-- Comida
 
 @enduml

@@ -1,17 +1,15 @@
-package modules.passwordValidator.rules;
+package modules.security.rules;
 
-import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 
 @Setter
-@Getter
 public abstract class Regla {
     private String mensajeError;
 
     public Boolean esValida(String unaContrasenia, List<String> mensajes){
         if(!this.cumpleLaRegla(unaContrasenia)){
-            mensajes.add(this.getMensajeError());
+            mensajes.add(this.mensajeError);
         }
         return this.cumpleLaRegla(unaContrasenia);
     }

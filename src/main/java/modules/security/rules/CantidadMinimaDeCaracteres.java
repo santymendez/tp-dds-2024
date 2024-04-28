@@ -1,4 +1,4 @@
-package modules.passwordValidator.rules;
+package modules.security.rules;
 
 import lombok.Getter;
 import lombok.Setter;

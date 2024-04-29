@@ -4,7 +4,6 @@ class Autenticador {
     -politicas: HashSet<Regla>
 
     +Boolean esValida(String contrasenia)
-    +Boolean esValida(String contrasenia)
 }
 
 abstract class Regla {
@@ -17,30 +16,36 @@ abstract class Regla {
 class CantidadMaximaDeCaracteres {
     -CantidadMaxima: Integer
 
+    +Boolean esValida(String unaContrasenia, List<String> mensajes)
     +Boolean cumpleLaRegla(String unaContrasenia)
 }
 
 class CantidadMinimaDeCaracteres {
     -CantidadMinima: Integer
 
+    +Boolean esValida(String unaContrasenia, List<String> mensajes)
     +Boolean cumpleLaRegla(String unaContrasenia)
 }
 
 class PerteneceAlArchivo {
     -palabrasDelArchivo: List<String>
 
+    +Boolean esValida(String unaContrasenia, List<String> mensajes)
     +Boolean cumpleLaRegla(String unaContrasenia)
 }
 
 class TieneCaracteresEspeciales{
+    +Boolean esValida(String unaContrasenia, List<String> mensajes)
     +Boolean cumpleLaRegla(String unaContrasenia)
 }
 
 class TieneMayusculasyMinusculas{
+    +Boolean esValida(String unaContrasenia, List<String> mensajes)
     +Boolean cumpleLaRegla(String unaContrasenia)
 }
 
 class TieneNumeros{
+    +Boolean esValida(String unaContrasenia, List<String> mensajes)
     +Boolean cumpleLaRegla(String unaContrasenia)
 }
 

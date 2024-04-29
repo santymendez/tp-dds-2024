@@ -7,19 +7,41 @@ class Heladera {
     -viandas: List<Vianda>
     -fechaCreacion: Date
 
-    +void agregarVianda(Vianda vianda)
+    +void agregarVianda (Vianda vianda)
 }
 
+'TODO''revisar la parte de ubicacion'
 class Direccion {
+    'habria q ver si esta bien lo de ubicacion'
     -ubicacion: String
     -longitud: Float
     -latitud: Float
+    -provincia: Provincia
+
+    '+ detalleDireccion: String'
+}
+
+class Provincia {
+    -nombreProvincia: String
+    -ciudad: Ciudad
+}
+
+class Ciudad {
+    -nombreCiudad: String
+    -barrio: Barrio
+}
+
+class Barrio {
+    -nombreBarrio: String
+    -calle: String
+    -numero: Integer
+    '-infoExtra: String tipo primer piso/casa/segundo a'
 }
 
 class Vianda {
     -comida: Comida
     -fechaDonacion: Date
-    -colaborador: String
+    -colaborador: PersonaFisica
     -heladera: Heladera
     -calorias: Integer
     -peso: Integer
@@ -45,12 +67,11 @@ class Vulnerable {
 class PersonaFisica {
     -nombre: String
     -apellido: String
-    -fechaNacimiento: Date
     -medioContacto: String
-    -direccion: Direccion
+    -formulario: Formulario
     -List<Colaboracion> colaboraciones
 
-    +void realizarColaboracion(Colaboracion colaboracion)
+    +void realizarColaboracion (Colaboracion colaboracion)
 }
 
 class PersonaJuridica {
@@ -59,9 +80,10 @@ class PersonaJuridica {
     -rubro: String
     -medioContacto: String
     -direccion: Direccion
+    -formulario: Formulario
     -List<Colaboracion> colaboraciones
 
-    +void realizarColaboracion(Colaboracion colaboracion)
+    +void realizarColaboracion (Colaboracion colaboracion)
 }
 
 class Colaboracion {
@@ -77,11 +99,25 @@ class Colaboracion {
     -tipoColaboracion: TipoColaboracion
 }
 
-'TODO'
 class Formulario {
+    List<Pregunta> preguntas
+    respuestaFormulario: RespuestaFormulario
+
+    +Respuesta respuestaAPregunta (Pregunta pregunta)
 }
 
 class RespuestaFormulario {
+    List<Respuesta> respuestas
+
+    +void responderPregunta (Respuesta respuesta)
+}
+
+class Pregunta {
+    pregunta: String
+}
+
+class Respuesta {
+    respuesta: String
 }
 
 enum TipoColaboracion {
@@ -100,8 +136,16 @@ Colaboracion ->"*" Vianda
 Colaboracion -> Heladera
 Vulnerable ->"*" Vulnerable
 Heladera o-- Direccion
-PersonaFisica o-- Direccion
 PersonaJuridica o-- Direccion
 Vianda o-- Comida
+Vianda o-- PersonaFisica
+Formulario o--"*" Pregunta
+Formulario *-- RespuestaFormulario
+RespuestaFormulario o--"*" Respuesta
+PersonaFisica o-- Formulario
+PersonaJuridica o-- Formulario
+Direccion -> Provincia
+Provincia -> Ciudad
+Ciudad -> Barrio
 
 @enduml

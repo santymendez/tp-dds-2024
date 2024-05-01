@@ -1,5 +1,6 @@
 
 @startuml
+'========================================== Clases de la entrega 1 ============================================='
 
 class Heladera {
     -direccion: Direccion
@@ -8,7 +9,13 @@ class Heladera {
     -List<Vianda> viandas
     -fechaCreacion: Date
 
+    'TODO'
+    -modeloHeladera: ModeloHeladera
+    -ultimaTemperatura: Float
+    -sensorMovimiento: SensorMovimiento
+
     +void agregarVianda (Vianda vianda)
+    +boolean estaActiva ()
 }
 
 class Direccion {
@@ -53,46 +60,36 @@ class Vulnerable {
     -nombre: String
     -fechaNacimiento: Date
     -fechaRegistro: Date
-    -tieneDomicilio: Boolean
-    -domicilio: String
-    -tieneDNI: Boolean
-    -dni: String
+    -domicilio: Direccion
+    -tipoDocumento: TipoDocumento
+    -numeroDeDocumento: Integer
     -List<Vulnerable> menoresACargo
+    -tarjeta: Tarjeta
 }
 
-class PersonaFisica {
+class Colaborador{
+    'De Persona Fisica'
     -nombre: String
     -apellido: String
     -medioContacto: String
-    -respuestaFormulario: RespuestaFormulario
-    -List<Colaboracion> colaboraciones
 
-    +void realizarColaboracion (Colaboracion colaboracion)
-}
-
-class PersonaJuridica {
+    'De Persona Juridica'
     -razonSocial: String
     -tipo: String
     -rubro: String
-    -medioContacto: String
     -direccion: Direccion
+
+    -tipoColaborador: TipoColaborador
     -respuestaFormulario: RespuestaFormulario
+    -reconocimiento: Reconocimiento
     -List<Colaboracion> colaboraciones
 
     +void realizarColaboracion (Colaboracion colaboracion)
 }
 
-class Colaboracion {
-    -fechaDonacion: Date
-    -monto: Integer
-    -frecuencia: String
-    -List<Vianda> viandas
-    -heladeraOrigen: Heladera
-    -heladeraDestino: Heladera
-    -cantViandas: Integer
-    -motivoDistribucion: String
-    -fechaDistribucion: Date
-    -tipoColaboracion: TipoColaboracion
+enum TipoColaborador {
+    FISICO,
+    JURIDICO
 }
 
 class Formulario {
@@ -100,17 +97,21 @@ class Formulario {
 }
 
 class RespuestaFormulario {
+    -nombre: String
+    -descripcion: String
     -List<Respuesta> respuestas
     -formulario: Formulario
 }
 
 class Pregunta {
     -pregunta: String
+    -esOpcional: Boolean
     -Set<Opcion> opciones
     -tipoDeSuRespuesta: TipoPregunta
 }
 
 class Respuesta {
+    -pregunta: Pregunta
     -respuestaTextoLibre: String
     -Set<Opcion> respuestaMultipleChoice
     -respuestaSingleChoice: Opcion
@@ -127,46 +128,138 @@ enum TipoPregunta {
     TEXTO_LIBRE
 }
 
+class Colaboracion {
+    -fechaDonacion: Date
+    -monto: Integer
+    -frecuencia: String
+    -List<Vianda> viandas
+    -heladeraOrigen: Heladera
+    -heladeraDestino: Heladera
+    -cantViandas: Integer
+    -motivoDistribucion: String
+    -fechaDistribucion: Date
+    -cantTarjetas: Integer
+    -tipoColaboracion: TipoColaboracion
+}
+
 enum TipoColaboracion {
     DONAR_DINERO,
     DONAR_VIANDA,
     DISTRIBUIR_VIANDA,
-    COLOCAR_HELADERA
+    COLOCAR_HELADERA,
+    DISTRIBUIR_TARJETAS
+}
+
+'========================================== Clases de la entrega 2 ============================================='
+
+class ModeloHeladera {
+    -temperaturaMinima: Float
+    -temperaturaMaxima: Float
+}
+
+class SensorMovimiento {
+    -ubicacionActual: Direccion
+
+    +void alertarAlSistema()
+}
+
+'TODO'
+class Reconocimiento {
+    -puntosActuales: Float
+    -puntosUsados: Float
+    -formulaCalculoDePuntos: Formula
+
+    +Float calcularPuntos ()
+}
+
+class Formula {
+    +Float calcular(Reconocimiento unReconocimiento)
+}
+
+class Tarjeta {
+    -codigo: String
+    -cantidadDeUsos: Integer
+    -Set<RegistroUso> registroUsos
+    -informacionRegistro: InformacionRegistro
+
+    +void actualizarCantidadUsos(Vulnerable unVulnerable)
+}
+
+class RegistroUso {
+    -fechaUtilizacion: Date
+    -heladera: Heladera
+}
+
+class InformacionRegistro {
+    -colaborador: PersonaFisica
+    -vulnerable: Vulnerable
 }
 
 class Tecnico {
     -nombre: String
     -apellido: String
     -tipoDocumento: TipoDocumento
-    -documento: Integer
+    -numeroDeDocumento: Integer
     -cuil: Integer
     -medioContacto: String
-    -areaDeCobertura: Direccion
+    -areaDeCobertura: Provincia
 }
 
-Heladera o-"*" Vianda
-Vianda -> Heladera
-Colaboracion -> TipoColaboracion
-PersonaFisica ->"*" Colaboracion
-PersonaJuridica ->"*" Colaboracion
-Colaboracion ->"*" Vianda
+enum TipoDocumento {
+    DNI,
+    LIBRETA_ENROLAMIENTO,
+    PASAPORTE
+}
+
+'TODO'
+class EmpresaAsociada {
+    -List<Oferta> ofertas
+}
+
+class Oferta {
+    -nombre: String
+    -puntosNecesarios: Float
+    -imagenIlustrativa: Image
+}
+
+'================================================== Relaciones ================================================'
+
+Heladera o--"*" Vianda
+Vianda --> Heladera
+Colaboracion --> TipoColaboracion
+Colaborador -->"*" Colaboracion
+Colaboracion --->"*" Vianda
 Colaboracion -> Heladera
 Vulnerable ->"*" Vulnerable
 Heladera o-- Direccion
-PersonaJuridica o--- Direccion
+Colaborador o--- Direccion
 Vianda o-- Comida
-Vianda o-- PersonaFisica
-Formulario o---"*" Pregunta
+Vianda o- Colaborador
+Formulario o--"*" Pregunta
 RespuestaFormulario o--"*" Respuesta
-RespuestaFormulario o- Formulario
-PersonaFisica o--- RespuestaFormulario
-PersonaJuridica o--- RespuestaFormulario
-Respuesta *-"*" Opcion
-Pregunta *-"*" Opcion
-Pregunta --> TipoPregunta
-Respuesta -> TipoPregunta
-Direccion -> Provincia
-Provincia -> Ciudad
-Ciudad -> Barrio
+RespuestaFormulario o-- Formulario
+Colaborador o--- RespuestaFormulario
+Respuesta -->"*" Opcion
+Respuesta o-- Pregunta
+Pregunta ->"*" Opcion
+Pregunta *--> TipoPregunta
+Respuesta o-- TipoPregunta
+Direccion --> Provincia
+Provincia --> Ciudad
+Ciudad --> Barrio
+Vulnerable o-- Direccion
+Vulnerable o-- TipoDocumento
+Tecnico o-- TipoDocumento
+Vulnerable o-- Tarjeta
+Tarjeta o--"*" RegistroUso
+Tarjeta *-- InformacionRegistro
+InformacionRegistro o-- Colaborador
+InformacionRegistro o-- Vulnerable
+Reconocimiento o-- Formula
+Formula ..> Reconocimiento
+SensorMovimiento o-- Direccion
+EmpresaAsociada o--"*" Oferta
+Heladera --> ModeloHeladera
+Colaborador *--- TipoColaborador
 
 @enduml

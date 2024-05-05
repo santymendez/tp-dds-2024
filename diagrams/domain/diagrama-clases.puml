@@ -60,7 +60,7 @@ class Vulnerable {
     -domicilio: Direccion
     -tipoDocumento: TipoDocumento
     -numeroDeDocumento: Integer
-    -List<Vulnerable> menoresACargo
+    -Set<Vulnerable> menoresAcargo
     -tarjeta: Tarjeta
 }
 
@@ -279,5 +279,6 @@ SensorMovimiento o-- Direccion
 EmpresaAsociada o--"*" Oferta
 Heladera --> ModeloHeladera
 Colaborador *--- TipoColaborador
+Heladera o--> SensorMovimiento
 
 @enduml

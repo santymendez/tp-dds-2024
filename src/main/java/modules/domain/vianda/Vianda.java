@@ -1,6 +1,7 @@
 package modules.domain.vianda;
 
 import java.util.Date;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.heladera.Heladera;
@@ -12,6 +13,7 @@ import modules.domain.heladera.Heladera;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class Vianda {
   private Comida comida;
   private Date fechaDonacion;

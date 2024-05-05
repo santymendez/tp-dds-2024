@@ -1,7 +1,7 @@
 package modules.domain.personas.vulnerable;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.HashSet;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.direccion.Direccion;
@@ -22,6 +22,6 @@ public class Vulnerable {
   private Direccion domicilio;
   private TipoDocumento tipoDocumento;
   private Integer numeroDeDocumento;
-  private Set<Vulnerable> menoresAcargo; //TODO Aca puse set, y esta list en el diagrama, revisar
+  private HashSet<Vulnerable> menoresAcargo; //TODO Aca puse set, y esta list en el diagrama, revisar
   private Tarjeta tarjeta;
 }

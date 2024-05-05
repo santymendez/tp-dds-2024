@@ -1,4 +1,3 @@
-
 @startuml
 '========================================== Clases de la entrega 1 ============================================='
 
@@ -9,9 +8,7 @@ class Heladera {
     -List<Vianda> viandas
     -fechaCreacion: Date
 
-    'TODO'
     -modeloHeladera: ModeloHeladera
-    -ultimaTemperatura: Float
     -sensorMovimiento: SensorMovimiento
 
     +void agregarVianda (Vianda vianda)
@@ -47,7 +44,7 @@ class Vianda {
     -colaborador: PersonaFisica
     -heladera: Heladera
     -calorias: Integer
-    -peso: Integer
+    -peso: Float
     -entregada: Boolean
 }
 
@@ -129,16 +126,27 @@ enum TipoPregunta {
 }
 
 class Colaboracion {
-    -fechaDonacion: Date
+    'DONAR_DINERO'
+    -fechaDonacionDinero: Date
     -monto: Integer
     -frecuencia: String
+
+    'DONAR_VIANDA'
     -List<Vianda> viandas
+
+    'DISTRIBUIR_VIANDA'
     -heladeraOrigen: Heladera
     -heladeraDestino: Heladera
     -cantViandas: Integer
     -motivoDistribucion: String
     -fechaDistribucion: Date
+
+    'COLOCAR_HELADERA'
+    -heladera: Heladera
+
+    'DISTRIBUIR_TARJETAS'
     -cantTarjetas: Integer
+
     -tipoColaboracion: TipoColaboracion
 }
 
@@ -153,8 +161,14 @@ enum TipoColaboracion {
 '========================================== Clases de la entrega 2 ============================================='
 
 class ModeloHeladera {
+    -modelo: String
+    -sensorTemperatura: SensorTemperatura
+}
+
+class SensorTemperatura {
     -temperaturaMinima: Float
     -temperaturaMaxima: Float
+    -ultimaTemperatura: Float
 }
 
 class SensorMovimiento {
@@ -163,7 +177,6 @@ class SensorMovimiento {
     +void alertarAlSistema()
 }
 
-'TODO'
 class Reconocimiento {
     -puntosActuales: Float
     -puntosUsados: Float
@@ -172,8 +185,14 @@ class Reconocimiento {
     +Float calcularPuntos ()
 }
 
+'TODO'
 class Formula {
-    +Float calcular(Reconocimiento unReconocimiento)
+    +void decodificarColaboraciones(List<Colaboracion> colaboraciones)
+    +Float calcular(List<Colaboracion> colaboraciones)
+}
+
+class Coeficiente {
+    -coeficiente: Float
 }
 
 class Tarjeta {
@@ -211,7 +230,6 @@ enum TipoDocumento {
     PASAPORTE
 }
 
-'TODO'
 class EmpresaAsociada {
     -List<Oferta> ofertas
 }

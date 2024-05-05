@@ -19,8 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Format with Google Java Format
-        run: mvn fmt:format
       - name: Build with Maven
         run: mvn -B package --file pom.xml
       - name: Test with Maven

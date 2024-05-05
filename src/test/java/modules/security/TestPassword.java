@@ -11,7 +11,7 @@ public class TestPassword {
     CantidadMaximaDeCaracteres cantidadMaximaDeCaracteres;
     CantidadMinimaDeCaracteres cantidadMinimaDeCaracteres;
     PerteneceAlArchivo perteneceAlArchivo;
-    TieneMayusculasYMinusculas tieneMayusculasYMinusculas;
+    TieneMayusculasMinusculas tieneMayusculasMinusculas;
     TieneNumeros tieneNumeros;
     TieneCaracteresEspeciales tieneCaracteresEspeciales;
 
@@ -20,7 +20,7 @@ public class TestPassword {
         cantidadMaximaDeCaracteres = new CantidadMaximaDeCaracteres(64);
         cantidadMinimaDeCaracteres = new CantidadMinimaDeCaracteres(8);
         perteneceAlArchivo = new PerteneceAlArchivo("Top10milPeoresContrasenias", "src/main/resources/passwordValidator/top10000.txt");
-        tieneMayusculasYMinusculas = new TieneMayusculasYMinusculas();
+        tieneMayusculasMinusculas = new TieneMayusculasMinusculas();
         tieneNumeros = new TieneNumeros();
         tieneCaracteresEspeciales = new TieneCaracteresEspeciales();
 
@@ -29,7 +29,7 @@ public class TestPassword {
                 cantidadMaximaDeCaracteres,
                 cantidadMinimaDeCaracteres,
                 perteneceAlArchivo,
-                tieneMayusculasYMinusculas,
+            tieneMayusculasMinusculas,
                 tieneNumeros,
                 tieneCaracteresEspeciales);
     }
@@ -55,7 +55,7 @@ public class TestPassword {
     @Test
     @DisplayName("La contraseña 'klaTYHG' tiene mayusculas y minusculas")
     public void contraseniaTieneMayusculasYMinusculas(){
-        Assertions.assertTrue(tieneMayusculasYMinusculas.cumpleLaRegla("klaTYHG"));
+        Assertions.assertTrue(tieneMayusculasMinusculas.cumpleLaRegla("klaTYHG"));
     }
 
     @Test

@@ -1,6 +1,5 @@
 package modules.domain.personas.colaborador.reconocimiento.formula;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.colaboracion.Colaboracion;
@@ -8,14 +7,33 @@ import modules.domain.colaboracion.Colaboracion;
 /**
  * Representa una formula de calculo de puntos.
  */
+
 @Getter
 @Setter
 public class Formula {
 
-  public void decodificarColaboraciones(List<Colaboracion> colaboraciones) {
-  }
+  private Float coefPesosDonados;
+  private Float coefDonarVianda;
 
-  public Float calcular(List<Colaboracion> colaboraciones) {
-    return 1.0f;
+  /** Calcula los puntos de cada colaboracion que recibe como parametro.
+   *
+   * @param colaboracion es la colaboracion a la que se le calculara los puntos correspondientes
+   * @return Float
+   */
+
+  //TODO
+  public Float calcularPuntosDe(Colaboracion colaboracion) {
+    switch (colaboracion.getTipoColaboracion()) {
+      case DONAR_DINERO -> {
+        Integer monto = colaboracion.getMonto();
+        return monto * this.coefPesosDonados;
+      }
+      case DONAR_VIANDA -> {
+        return this.coefDonarVianda;
+      }
+      default -> {
+        return 0f;
+      }
+    }
   }
 }

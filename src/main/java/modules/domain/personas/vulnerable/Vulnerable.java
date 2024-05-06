@@ -24,4 +24,6 @@ public class Vulnerable {
   private Integer numeroDeDocumento;
   private HashSet<Vulnerable> menoresAcargo; //TODO Set, y esta list en el diagrama, revisar
   private Tarjeta tarjeta;
+
+
 }

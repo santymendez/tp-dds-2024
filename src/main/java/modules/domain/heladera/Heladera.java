@@ -53,6 +53,6 @@ public class Heladera {
   }
 
   public Boolean estaActiva() {
-    return sensorMovimiento.estaActiva(direccion) && modelo.estaActiva();
+    return !sensorMovimiento.estaActiva() && modelo.estaActiva();
   }
 }

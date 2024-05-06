@@ -17,4 +17,10 @@ public class RespuestaFormulario {
   private String descripcion;
   private List<Respuesta> respuestas;
   private Formulario formulario;
+
+  /*public String respuestaNombre(){
+    return respuestas.stream().findFirst(r -> r.getPregunta().getPregunta() == "Nombre")
+    .getRespuestaTextoLibre();
+  }
+  */
 }

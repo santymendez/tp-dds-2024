@@ -1,5 +1,6 @@
 package modules.domain.personas.colaborador.reconocimiento;
 
+import modules.domain.colaboracion.Colaboracion;
 import modules.domain.personas.colaborador.reconocimiento.formula.Formula;
 
 /**
@@ -12,7 +13,7 @@ public class Reconocimiento {
 
   private Formula formulaCalculoDePuntos;
 
-  public Float calcularPuntos() {
-    return 1.0f;
+  public void sumarPuntos(Colaboracion colaboracion) {
+    puntosActuales += formulaCalculoDePuntos.calcularPuntosDe(colaboracion);
   }
 }

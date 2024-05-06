@@ -18,7 +18,6 @@ public class Colaborador {
   //Persona fisica
   private String nombre;
   private String apellido;
-  private String medioContacto;
 
   //Persona Juridica
   private String razonSocial;
@@ -27,12 +26,49 @@ public class Colaborador {
   private Direccion direccion;
 
   //Ambos
+  private String medioContacto;
   private TipoColaborador tipoColaborador;
   private RespuestaFormulario respuestaFormulario;
   private Reconocimiento reconocimiento;
   private List<Colaboracion> colaboraciones;
+  /*
+  /**
+   * Constructor dependiendo del tipo de colaborador
+
+
+  public Colaborador(TipoColaborador tipoColaborador,
+   RespuestaFormulario respuestaFormulario) {
+
+    this.tipoColaborador = tipoColaborador;
+    this.respuestaFormulario = respuestaFormulario;
+    this.rellenarDatosConRespuestas(tipoColaborador, respuestaFormulario);
+    this.reconocimiento = new Reconocimiento();
+  }
+
+  public void rellenarDatosConRespuestas(TipoColaborador tipoColaborador,
+   RespuestaFormulario respuestaFormulario) {
+
+    this.medioContacto = respuestaFormulario.getNombre();
+    switch(tipoColaborador) {
+      case FISICO -> {
+        this.nombre = respuestaFormulario.respuestaNombre();
+        this.apellido = respuestaFormulario.getNombre();
+      }
+      case JURIDICO -> {
+        this.razonSocial = respuestaFormulario.getNombre();
+        this.tipo = respuestaFormulario.getNombre();
+        this.rubro = respuestaFormulario.getNombre();
+        //this.direccion = respuestaFormulario.getNombre();
+      }
+    }
+  }*/
 
   public void realizarColaboracion(Colaboracion colaboracion) {
     colaboraciones.add(colaboracion);
+    this.reconocer(colaboracion);
+  }
+
+  public void reconocer(Colaboracion colaboracion) {
+    this.reconocimiento.sumarPuntos(colaboracion);
   }
 }

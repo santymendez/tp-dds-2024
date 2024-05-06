@@ -1,8 +1,9 @@
 package modules.domain.form;
 
+import java.util.HashSet;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.HashSet;
+
 
 /**
  * Representa una pregunta de un formulario.

@@ -23,6 +23,8 @@ public class Heladera {
   private Date fechaDeCreacion;
 
   /**
+   * Se inicializa la heladera.
+   *
    * @param direccion es la direccion actual de la heladera.
    * @param nombre es el nombre de la heladera.
    * @param capacidadMaximaViandas es la capacidad maxima de viandas.
@@ -31,7 +33,6 @@ public class Heladera {
    * @param fechaDeCreacion fecha en la que se coloco la heladera.
    * @param viandas es una lista con las viandas que hay dentro de la heladera.
    */
-
   public Heladera(Direccion direccion, String nombre, Integer capacidadMaximaViandas,
                   SensorMovimiento sensorMovimiento, Modelo modelo, Date fechaDeCreacion, List<Vianda> viandas) {
     this.direccion = direccion;

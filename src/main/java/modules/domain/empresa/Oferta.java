@@ -1,6 +1,6 @@
 package modules.domain.empresa;
 
-import java.awt.*;
+import java.awt.Image;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -22,6 +22,6 @@ public class Vulnerable {
   private Direccion domicilio;
   private TipoDocumento tipoDocumento;
   private Integer numeroDeDocumento;
-  private HashSet<Vulnerable> menoresAcargo; //TODO Aca puse set, y esta list en el diagrama, revisar
+  private HashSet<Vulnerable> menoresAcargo; //TODO Set, y esta list en el diagrama, revisar
   private Tarjeta tarjeta;
 }

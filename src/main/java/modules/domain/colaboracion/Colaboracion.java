@@ -28,7 +28,7 @@ public class Colaboracion {
   //Distribuir vianda
   private Heladera heladeraOrigen;
   private Heladera heladeraDestino;
-  private Integer cantidadViandas;
+  private Integer cantViandasDistribuidas;
   private String motivoDistribucion;
   private Date fechaDistribucion;
 

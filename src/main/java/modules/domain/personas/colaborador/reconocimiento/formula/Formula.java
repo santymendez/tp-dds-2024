@@ -11,9 +11,11 @@ import modules.domain.colaboracion.Colaboracion;
 @Getter
 @Setter
 public class Formula {
-
   private Float coefPesosDonados;
-  private Float coefDonarVianda;
+  private Float coefViandasDonadas;
+  private Float coefViandasDistribuidas;
+  private Float coefTarjetasRepartidas;
+  private Float coefHeladerasActivas;
 
   /** Calcula los puntos de cada colaboracion que recibe como parametro.
    *
@@ -25,11 +27,19 @@ public class Formula {
   public Float calcularPuntosDe(Colaboracion colaboracion) {
     switch (colaboracion.getTipoColaboracion()) {
       case DONAR_DINERO -> {
-        Integer monto = colaboracion.getMonto();
-        return monto * this.coefPesosDonados;
+        return colaboracion.getMonto() * this.coefPesosDonados;
       }
       case DONAR_VIANDA -> {
-        return this.coefDonarVianda;
+        return colaboracion.getViandas().size() * this.coefViandasDonadas;
+      }
+      case DISTRIBUIR_VIANDA -> {
+        return colaboracion.getCantViandasDistribuidas() * this.coefViandasDistribuidas;
+      }
+      case DISTRIBUIR_TARJETAS -> {
+        return colaboracion.getCantidadTarjetas() * this.coefTarjetasRepartidas;
+      }
+      case COLOCAR_HELADERA -> {
+        return colaboracion.getHeladera().mesesActiva() * this.getCoefHeladerasActivas();
       }
       default -> {
         return 0f;

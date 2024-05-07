@@ -13,7 +13,7 @@ import modules.domain.vianda.Vianda;
  */
 
 @Getter
-@Setter
+@Setter //(Modificacion de heladeras)
 public class Heladera {
   private Direccion direccion;
   private String nombre;
@@ -24,14 +24,14 @@ public class Heladera {
   private SensorMovimiento sensorMovimiento;
 
   /**
-   * Se inicializa la heladera.
+   * Se inicializa la heladera (Dar de alta).
    *
    * @param direccion              es la direccion actual de la heladera.
    * @param nombre                 es el nombre de la heladera.
    * @param capacidadMaximaViandas es la capacidad maxima de viandas.
    * @param sensorMovimiento       es el sensor de movimiento propio de la heladera.
    * @param modelo                 es el modelo de la heladera.
-   * @param fechaDeCreacion        fecha en la que se coloco la heladera.
+   * @param fechaDeCreacion        fecha en la que se colocó la heladera.
    * @param viandas                es una lista con las viandas que hay dentro de la heladera.
    */
 
@@ -53,6 +53,11 @@ public class Heladera {
   }
 
   public Boolean estaActiva() {
-    return !sensorMovimiento.estaActiva() && modelo.estaActiva();
+    return !sensorMovimiento.estaActiva() && modelo.getSensorTemperatura().estaActiva();
+  }
+
+  //TODO
+  public Float mesesActiva() {
+    return 0f;
   }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import modules.domain.direccion.Provincia;
 import modules.domain.personas.TipoDocumento;
+import modules.domain.personas.contacto.MedioContacto;
 
 /**
  * Representa a un técnico en el sistema.
@@ -19,6 +20,6 @@ public class Tecnico {
   private TipoDocumento tipoDocumento;
   private Integer numeroDeDocumento;
   private Integer cuil;
-  private String medioContacto; //TODO revisar si queremos enum
-  private Provincia areaDeCobertura; //TODO revisar si queremos otro tipo
+  private MedioContacto medioContacto;
+  private Provincia areaDeCobertura;
 }

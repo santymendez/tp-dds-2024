@@ -6,5 +6,5 @@ package modules.domain.personas;
 public enum TipoDocumento {
   DNI,
   LIBRETA_ENROLAMIENTO,
-  PASAPORTE
+  LIBRETA_CIVICA
 }

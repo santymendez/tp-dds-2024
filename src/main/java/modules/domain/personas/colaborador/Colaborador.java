@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import modules.domain.colaboracion.Colaboracion;
 import modules.domain.direccion.Direccion;
+import modules.domain.empresa.Oferta;
 import modules.domain.form.RespuestaFormulario;
 import modules.domain.personas.colaborador.reconocimiento.Reconocimiento;
 
@@ -31,10 +32,8 @@ public class Colaborador {
   private RespuestaFormulario respuestaFormulario;
   private Reconocimiento reconocimiento;
   private List<Colaboracion> colaboraciones;
-  /*
-  /**
-   * Constructor dependiendo del tipo de colaborador
 
+  /* //Constructor dependiendo del tipo de colaborador;
 
   public Colaborador(TipoColaborador tipoColaborador,
    RespuestaFormulario respuestaFormulario) {
@@ -61,14 +60,25 @@ public class Colaborador {
         //this.direccion = respuestaFormulario.getNombre();
       }
     }
-  }*/
+  } */
 
   public void realizarColaboracion(Colaboracion colaboracion) {
-    colaboraciones.add(colaboracion);
-    this.reconocer(colaboracion);
-  }
-
-  public void reconocer(Colaboracion colaboracion) {
     this.reconocimiento.sumarPuntos(colaboracion);
   }
+
+  /**
+   * El colaborador usa puntos para comprar una oferta si tiene suficientes.
+   *
+   * @param oferta La oferta es lo que el colabrador desea comprar con puntos.
+   */
+
+  public void usarPuntos(Oferta oferta) {
+    if (reconocimiento.getPuntosPorColaborar() >= oferta.getPuntosNecesarios()) {
+      this.reconocimiento.restarPuntos(oferta.getPuntosNecesarios());
+    } else {
+      throw new RuntimeException(
+          "No tenes puntos suficientes para comprar esa oferta");
+    }
+  }
+
 }

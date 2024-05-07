@@ -13,8 +13,4 @@ import lombok.Setter;
 public class Modelo {
   private String modelo;
   private SensorTemperatura sensorTemperatura;
-
-  public Boolean estaActiva() {
-    return sensorTemperatura.estaActiva();
-  }
 }

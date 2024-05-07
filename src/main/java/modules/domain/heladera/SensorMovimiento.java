@@ -2,47 +2,28 @@ package modules.domain.heladera;
 
 import lombok.Getter;
 import lombok.Setter;
-import modules.domain.direccion.Direccion;
 
 /**
- * Representa un sensor de movimiento con la dirección actual.
+ * Representa un sensor de movimiento.
  */
 
 @Getter
 @Setter
 public class SensorMovimiento {
-  private Direccion ubicacionActual;
-  private Boolean sensorActivado = false;
-  /*
-  /**
-   * Crea una nueva regla que verifica si una contraseña pertenece a un archivo.
-   *
-   * @param direccion el nombre del archivo a verificar
-   * @return valor de si está activa o no.
-   */
+  private Boolean sensorActivado;
 
   /**
-   * Para que la pipeline no moleste, el real seria el comentado.
+   * Comprueba si el sensor está activado y debe alertar al sistema.
    *
-   * @return valor.
+   * @return Devuelve si la heladera se encuentra activa.
    */
 
   public Boolean estaActiva() {
-    /*
-   if (!this.getUbicacionActual().equals(direccion)) {
-      this.alertarAlSistema();
-    }
-    return this.getUbicacionActual().equals(direccion);
-    */
-    return !this.sensorActivado;
+    return !sensorActivado;
   }
 
-  public void hayMovimiento() {
-    this.alertarAlSistema();
-    this.sensorActivado = true;
-  }
-
-  public void alertarAlSistema() {
+  public void activarSensor() {
     System.out.println("La heladera fue o esta siendo robada");
+    sensorActivado = true;
   }
 }

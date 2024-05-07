@@ -1,19 +1,29 @@
 package modules.domain.personas.colaborador.reconocimiento;
 
+import lombok.Getter;
+import lombok.Setter;
 import modules.domain.colaboracion.Colaboracion;
 import modules.domain.personas.colaborador.reconocimiento.formula.Formula;
 
 /**
- * Representa el reconocimiento que recieben los colaboradores.
+ * Representa el reconocimiento que reciben los colaboradores.
  */
 
 public class Reconocimiento {
-  private Float puntosActuales;
-  private Float puntosUsados;
-
+  @Getter
+  private Float puntosPorColaborar;
+  @Setter
   private Formula formulaCalculoDePuntos;
 
+  public Reconocimiento() {
+    this.puntosPorColaborar = 0f;
+  }
+
   public void sumarPuntos(Colaboracion colaboracion) {
-    puntosActuales += formulaCalculoDePuntos.calcularPuntosDe(colaboracion);
+    puntosPorColaborar += formulaCalculoDePuntos.calcularPuntosDe(colaboracion);
+  }
+
+  public void restarPuntos(Float puntos) {
+    puntosPorColaborar -= puntos;
   }
 }

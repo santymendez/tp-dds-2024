@@ -7,7 +7,7 @@ import lombok.Setter;
 
 /**
  * Representa una pregunta de un formulario.
- * Tiene la pregunta en si misma, la opcionalidad, las opciones y el tipo de la respuesta.
+ * Tiene la pregunta en sí misma, la opcionalidad, las opciones y el tipo de la respuesta.
  */
 
 @Getter

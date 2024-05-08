@@ -4,14 +4,14 @@ import modules.domain.colaboracion.Colaboracion;
 import modules.domain.empresa.Oferta;
 import modules.domain.form.RespuestaFormulario;
 import modules.domain.personas.colaborador.reconocimiento.Reconocimiento;
-import modules.domain.personas.contacto.MedioContacto;
+import modules.domain.personas.contacto.TipoContacto;
 
 /**
  * Clase abstracta que representa a los colaboradores.
  */
 
 public abstract class ColaboradorAlt {
-  protected MedioContacto medioContacto;
+  protected TipoContacto medioContacto;
   protected RespuestaFormulario respuestaFormulario;
   protected Reconocimiento reconocimiento;
 

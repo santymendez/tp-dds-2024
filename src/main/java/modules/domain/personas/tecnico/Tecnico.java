@@ -1,10 +1,11 @@
 package modules.domain.personas.tecnico;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.direccion.Provincia;
 import modules.domain.personas.TipoDocumento;
-import modules.domain.personas.contacto.MedioContacto;
+import modules.domain.personas.contacto.TipoContacto;
 
 /**
  * Representa a un técnico en el sistema.
@@ -13,13 +14,15 @@ import modules.domain.personas.contacto.MedioContacto;
  */
 
 @Getter
-@Setter
+@Setter //Modificacion de tecnicos.
+@AllArgsConstructor //Dar de alta tecnicos.
 public class Tecnico {
   private String nombre;
   private String apellido;
   private TipoDocumento tipoDocumento;
   private Integer numeroDeDocumento;
   private Integer cuil;
-  private MedioContacto medioContacto;
+  private TipoContacto tipoContacto;
+  private String medioContacto;
   private Provincia areaDeCobertura;
 }

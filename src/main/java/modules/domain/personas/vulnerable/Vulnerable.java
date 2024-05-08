@@ -6,6 +6,7 @@ import java.util.HashSet;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.direccion.Direccion;
+import modules.domain.heladera.Heladera;
 import modules.domain.personas.TipoDocumento;
 import modules.domain.tarjeta.Tarjeta;
 
@@ -40,5 +41,18 @@ public class Vulnerable {
     this.tipoDocumento = tipoDocumento;
     this.numeroDeDocumento = numeroDeDocumento;
     this.menoresAcargo = menoresAcargo;
+    this.tarjeta = null;
+  }
+
+  /**
+   * Metodo que permite al vulnerable utilizar su tarjeta.
+   *
+   * @param heladera Es la heladera donde se quiere utilizar la tarjeta.
+   */
+
+  public void usarTarjeta(Heladera heladera) {
+    if (this.tarjeta.puedeUtilizarse(heladera)) {
+      this.tarjeta.registrarUso(heladera);
+    }
   }
 }

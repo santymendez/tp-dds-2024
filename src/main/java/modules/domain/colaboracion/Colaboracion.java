@@ -2,10 +2,12 @@ package modules.domain.colaboracion;
 
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.heladera.Heladera;
+import modules.domain.tarjeta.Tarjeta;
 import modules.domain.vianda.Vianda;
 
 /**
@@ -36,5 +38,5 @@ public class Colaboracion {
   private Heladera heladera;
 
   //Distribuir tarjetas
-  private Integer cantidadTarjetas;
+  private HashSet<Tarjeta> tarjetas;
 }

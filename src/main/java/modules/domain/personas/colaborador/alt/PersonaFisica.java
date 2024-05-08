@@ -3,7 +3,7 @@ package modules.domain.personas.colaborador.alt;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.form.RespuestaFormulario;
-import modules.domain.personas.contacto.MedioContacto;
+import modules.domain.personas.contacto.TipoContacto;
 //import modules.domain.personas.colaborador.reconocimiento.Reconocimiento;
 
 /**
@@ -26,7 +26,7 @@ public class PersonaFisica extends ColaboradorAlt {
    */
   
   public PersonaFisica(String nombre, String apellido,
-                       MedioContacto medioContacto, RespuestaFormulario respuestaFormulario) {
+                       TipoContacto medioContacto, RespuestaFormulario respuestaFormulario) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.medioContacto = medioContacto;

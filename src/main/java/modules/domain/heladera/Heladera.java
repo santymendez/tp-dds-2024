@@ -47,9 +47,24 @@ public class Heladera {
     this.sensorMovimiento = sensorMovimiento;
   }
 
+  //TODO No se si esto es asi (Mati)
+  public void darHeladeraDeBaja() {
+    //this = null;
+  }
+
+  /**
+   * Se agrega una vianda a la heladera.
+   *
+   * @param vianda es la vianda que se busca agregar a la heladera.
+   */
+
   public void agregarVianda(Vianda vianda) {
-    this.viandas.add(vianda);
-    vianda.setEntregada(true);
+    if (this.tieneEspacio()) {
+      this.viandas.add(vianda);
+      vianda.setEntregada(true);
+    } else {
+      throw new RuntimeException("No hay mas espacio en la heladera");
+    }
   }
 
   public Boolean estaActiva() {
@@ -59,5 +74,23 @@ public class Heladera {
   //TODO
   public Float mesesActiva() {
     return 0f;
+  }
+
+  /**
+   * Remueve una vianda de la heladera si es posible.
+   */
+
+  public void entregarVianda() {
+    viandas.remove(0);
+  }
+
+  //==================================== Metodos auxiliares ========================================
+
+  public Boolean tieneViandas() {
+    return !this.viandas.isEmpty();
+  }
+
+  public Boolean tieneEspacio() {
+    return this.capacidadMaximaViandas > this.viandas.size();
   }
 }

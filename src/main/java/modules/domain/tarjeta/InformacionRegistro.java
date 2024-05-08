@@ -1,7 +1,9 @@
 package modules.domain.tarjeta;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import modules.domain.personas.colaborador.Colaborador;
 import modules.domain.personas.vulnerable.Vulnerable;
 
 /**
@@ -10,7 +12,8 @@ import modules.domain.personas.vulnerable.Vulnerable;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class InformacionRegistro {
-  //private PersonaFisica colaborador;
+  private Colaborador colaborador;
   private Vulnerable vulnerable;
 }

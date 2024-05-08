@@ -1,8 +1,13 @@
 package modules.domain.tarjeta;
 
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashSet;
 import lombok.Getter;
 import lombok.Setter;
+import modules.domain.heladera.Heladera;
+import modules.domain.personas.colaborador.Colaborador;
+import modules.domain.personas.vulnerable.Vulnerable;
 
 /**
  * Representa una tarjeta con un código, cantidad de usos, registros de
@@ -13,11 +18,47 @@ import lombok.Setter;
 @Setter
 public class Tarjeta {
   private String codigo;
-  private Integer cantidadDeUsos;
-  private Set<RegistroUso> registroUsos;
+  private Integer cantidadDeUsosMaxima;
+  private HashSet<RegistroUso> registroUsos;
   private InformacionRegistro informacionRegistro;
 
-  /*public void actualizarCantidadUsos() {
-    //TODO
-  } */
+  /**
+   * Constructor de la clase Tarjeta.
+   *
+   * @param colaborador Es el colaborador que distribuye la tarjeta y registra al vulnerable.
+   * @param vulnerable Es el vulnerable que recibe la tarjeta y es registrado.
+   */
+
+  public Tarjeta(Colaborador colaborador, Vulnerable vulnerable) {
+    //this.codigo = RandomString(11);
+    this.cantidadDeUsosMaxima = 4 + 2 * vulnerable.getMenoresAcargo().size();
+    this.informacionRegistro = new InformacionRegistro(colaborador, vulnerable);
+  }
+
+  /**
+   * Metodo que comprueba si la tarjeta puede utilizarse.
+   *
+   * @param heladera Es la heladera donde quiere utilizarse la tarjeta.
+   * @return Si la tarjeta puede utilizarse.
+   */
+
+  public boolean puedeUtilizarse(Heladera heladera) {
+    if (!heladera.tieneViandas()) {
+      throw new RuntimeException("La heladera no tiene viandas");
+    }
+    if (registroUsos.size() == cantidadDeUsosMaxima) {
+      throw new RuntimeException("Llegaste al limite de usos diarios");
+    }
+    return true;
+  }
+
+  public void registrarUso(Heladera heladera) {
+    registroUsos.add(new RegistroUso(new Date(), heladera));
+    heladera.entregarVianda();
+  }
+
+  //Cuando comienza un nuevo día se reinician los usos.
+  public void reiniciarUsos() {
+    this.registroUsos.clear();
+  }
 }

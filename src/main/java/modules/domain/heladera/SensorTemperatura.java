@@ -9,14 +9,14 @@ import lombok.Setter;
  */
 
 @Getter
-@Setter
+@Setter //Permite recibir una nueva ultima temperatura
+//Tambien permite modificar las temperaturas max y min
 public class SensorTemperatura {
   private Float temperaturaMinima;
   private Float temperaturaMaxima;
   private Float ultimaTemperatura;
 
   public Boolean estaActiva() {
-
     return ultimaTemperatura < temperaturaMaxima && ultimaTemperatura > temperaturaMinima;
   }
 }

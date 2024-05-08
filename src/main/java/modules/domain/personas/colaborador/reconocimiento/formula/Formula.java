@@ -23,7 +23,7 @@ public class Formula {
    * @return Float
    */
 
-  // TODO: Confirmar
+  // TODO: Corregir
   public Float calcularPuntosDe(Colaboracion colaboracion) {
     switch (colaboracion.getTipoColaboracion()) {
       case DONAR_DINERO -> {
@@ -35,8 +35,8 @@ public class Formula {
       case DISTRIBUIR_VIANDA -> {
         return colaboracion.getCantViandasDistribuidas() * this.coefViandasDistribuidas;
       }
-      case DISTRIBUIR_TARJETAS -> {
-        return colaboracion.getTarjetas().size() * this.coefTarjetasRepartidas;
+      case ENTREGAR_TARJETA -> {
+        return this.coefTarjetasRepartidas;
       }
       case COLOCAR_HELADERA -> {
         return colaboracion.getHeladera().mesesActiva() * this.getCoefHeladerasActivas();

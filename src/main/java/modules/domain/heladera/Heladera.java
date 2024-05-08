@@ -77,11 +77,13 @@ public class Heladera {
   }
 
   /**
-   * Remueve una vianda de la heladera si es posible.
+   * Se elimina una vianda de la heladera.
    */
 
-  public void entregarVianda() {
-    viandas.remove(0);
+  public void removerVianda() {
+    if (!this.viandas.isEmpty()) {
+      viandas.remove(0);
+    }
   }
 
   //==================================== Metodos auxiliares ========================================

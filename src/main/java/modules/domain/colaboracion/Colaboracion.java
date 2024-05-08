@@ -38,5 +38,5 @@ public class Colaboracion {
   private Heladera heladera;
 
   //Distribuir tarjetas
-  private HashSet<Tarjeta> tarjetas;
+  private Tarjeta tarjetaEntregada;
 }

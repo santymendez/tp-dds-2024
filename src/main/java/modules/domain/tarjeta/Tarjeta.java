@@ -1,6 +1,5 @@
 package modules.domain.tarjeta;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import lombok.Getter;
@@ -17,6 +16,7 @@ import modules.domain.personas.vulnerable.Vulnerable;
 @Getter
 @Setter
 public class Tarjeta {
+  //TODO Codigo de la Tarjeta
   private String codigo;
   private Integer cantidadDeUsosMaxima;
   private HashSet<RegistroUso> registroUsos;
@@ -50,15 +50,5 @@ public class Tarjeta {
       throw new RuntimeException("Llegaste al limite de usos diarios");
     }
     return true;
-  }
-
-  public void registrarUso(Heladera heladera) {
-    registroUsos.add(new RegistroUso(new Date(), heladera));
-    heladera.entregarVianda();
-  }
-
-  //Cuando comienza un nuevo día se reinician los usos.
-  public void reiniciarUsos() {
-    this.registroUsos.clear();
   }
 }

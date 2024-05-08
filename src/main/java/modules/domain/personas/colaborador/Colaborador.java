@@ -68,38 +68,12 @@ public class Colaborador {
    * @param oferta La oferta es lo que el colabrador desea comprar con puntos.
    */
 
-  public void usarPuntos(Oferta oferta) {
-    if (reconocimiento.getPuntosPorColaborar() >= oferta.getPuntosNecesarios()) {
-      this.reconocimiento.restarPuntos(oferta.getPuntosNecesarios());
-    } else {
-      throw new RuntimeException("No tenes puntos suficientes");
-    }
+  public Boolean puedeCanjear(Oferta oferta) {
+    return reconocimiento.getPuntosPorColaborar() >= oferta.getPuntosNecesarios();
   }
 
-  //====================================== Metodos auxiliares ======================================
-  /*
-    public void repartirTarjetas(List<Tarjeta> tarjetas, List<DatosVulnerable> vulnerables) {
-      if (tarjetas.size() == vulnerables.size()) {
-        vulnerables.forEach(datos ->  );
-      }
-    }
-
-  /**
-   * El colaborador registra un vulnerable.
-   *
-   * @param datosDelVulnerable Estructura que contiene los datos del vulnerable.
-   *
-
-  public void resgistrarVulnerable(DatosVulnerable datosDelVulnerable) {
-    Vulnerable vulnerable = new Vulnerable(
-        datosDelVulnerable.getNombre(),
-        datosDelVulnerable.getFechaNacimiento(),
-        datosDelVulnerable.getDomicilio(),
-        datosDelVulnerable.getTipoDocumento(),
-        datosDelVulnerable.getNumeroDeDocumento(),
-        datosDelVulnerable.getMenoresAcargo()
-    );
-    vulnerable.setTarjeta(new Tarjeta(this, vulnerable));
+  public void aumentarReconocimiento(Colaboracion colaboracion) {
+    this.reconocimiento.sumarPuntos(colaboracion);
   }
-  */
+
 }

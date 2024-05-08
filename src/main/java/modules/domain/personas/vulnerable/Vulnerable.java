@@ -50,9 +50,7 @@ public class Vulnerable {
    * @param heladera Es la heladera donde se quiere utilizar la tarjeta.
    */
 
-  public void usarTarjeta(Heladera heladera) {
-    if (this.tarjeta.puedeUtilizarse(heladera)) {
-      this.tarjeta.registrarUso(heladera);
-    }
+  public boolean puedeUsarTarjeta(Heladera heladera) {
+    return this.tarjeta.puedeUtilizarse(heladera);
   }
 }

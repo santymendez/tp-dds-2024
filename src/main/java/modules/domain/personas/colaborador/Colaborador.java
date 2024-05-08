@@ -4,14 +4,10 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.colaboracion.Colaboracion;
-import modules.domain.colaboracion.TipoColaboracion;
 import modules.domain.direccion.Direccion;
 import modules.domain.empresa.Oferta;
 import modules.domain.form.RespuestaFormulario;
 import modules.domain.personas.colaborador.reconocimiento.Reconocimiento;
-import modules.domain.personas.vulnerable.DatosVulnerable;
-import modules.domain.personas.vulnerable.Vulnerable;
-import modules.domain.tarjeta.Tarjeta;
 
 /**
  * Representa a un colaborador en el sistema.
@@ -81,28 +77,29 @@ public class Colaborador {
   }
 
   //====================================== Metodos auxiliares ======================================
+  /*
+    public void repartirTarjetas(List<Tarjeta> tarjetas, List<DatosVulnerable> vulnerables) {
+      if (tarjetas.size() == vulnerables.size()) {
+        vulnerables.forEach(datos ->  );
+      }
+    }
 
-  //  public void repartirTarjetas(List<Tarjeta> tarjetas, List<DatosVulnerable> vulnerables) {
-  //    if (tarjetas.size() == vulnerables.size()) {
-  //      vulnerables.forEach(datos ->  );
-  //    }
-  //  }
-//
-//  /**
-//   * El colaborador registra un vulnerable.
-//   *
-//   * @param datosDelVulnerable Estructura que contiene los datos del vulnerable.
-//   */
-//
-//  public void resgistrarVulnerable(DatosVulnerable datosDelVulnerable) {
-//    Vulnerable vulnerable = new Vulnerable(
-//        datosDelVulnerable.getNombre(),
-//        datosDelVulnerable.getFechaNacimiento(),
-//        datosDelVulnerable.getDomicilio(),
-//        datosDelVulnerable.getTipoDocumento(),
-//        datosDelVulnerable.getNumeroDeDocumento(),
-//        datosDelVulnerable.getMenoresAcargo()
-//    );
-//    vulnerable.setTarjeta(new Tarjeta(this, vulnerable));
-//  }
+  /**
+   * El colaborador registra un vulnerable.
+   *
+   * @param datosDelVulnerable Estructura que contiene los datos del vulnerable.
+   *
+
+  public void resgistrarVulnerable(DatosVulnerable datosDelVulnerable) {
+    Vulnerable vulnerable = new Vulnerable(
+        datosDelVulnerable.getNombre(),
+        datosDelVulnerable.getFechaNacimiento(),
+        datosDelVulnerable.getDomicilio(),
+        datosDelVulnerable.getTipoDocumento(),
+        datosDelVulnerable.getNumeroDeDocumento(),
+        datosDelVulnerable.getMenoresAcargo()
+    );
+    vulnerable.setTarjeta(new Tarjeta(this, vulnerable));
+  }
+  */
 }

@@ -1,7 +1,7 @@
 package modules.domain.tarjeta;
 
-import java.util.Date;
 import java.util.HashSet;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.heladera.Heladera;
@@ -16,7 +16,6 @@ import modules.domain.personas.vulnerable.Vulnerable;
 @Getter
 @Setter
 public class Tarjeta {
-  //TODO Codigo de la Tarjeta
   private String codigo;
   private Integer cantidadDeUsosMaxima;
   private HashSet<RegistroUso> registroUsos;
@@ -30,9 +29,9 @@ public class Tarjeta {
    */
 
   public Tarjeta(Colaborador colaborador, Vulnerable vulnerable) {
-    //this.codigo = RandomString(11);
-    this.cantidadDeUsosMaxima = 4 + 2 * vulnerable.getMenoresAcargo().size();
+    this.cantidadDeUsosMaxima = this.calcularUsosPara(vulnerable);
     this.informacionRegistro = new InformacionRegistro(colaborador, vulnerable);
+    this.codigo = this.generarCodigoAlfanumerico();
   }
 
   /**
@@ -51,4 +50,13 @@ public class Tarjeta {
     }
     return true;
   }
+
+  private Integer calcularUsosPara(Vulnerable vulnerable) {
+    return 4 + 2 * vulnerable.getMenoresAcargo().size();
+  }
+
+  private String generarCodigoAlfanumerico() {
+    return UUID.randomUUID().toString().replace("-", "").substring(0, 11);
+  }
 }
+

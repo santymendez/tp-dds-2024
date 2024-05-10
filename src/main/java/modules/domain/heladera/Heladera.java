@@ -71,15 +71,6 @@ public class Heladera {
     return 0f;
   }
 
-  //TODO los pongo aca pero a lo mejor con los setters en el sensor basta
-  public void nuevaTemperaturaMax(Float temperatura) {
-    this.modelo.nuevaTemperaturaMax(temperatura);
-  }
-
-  public void nuevaTemperaturaMin(Float temperatura) {
-    this.modelo.nuevaTemperaturaMin(temperatura);
-  } //Fin To Do
-
   //==================================== Metodos auxiliares ========================================
 
   public Boolean tieneViandas() {

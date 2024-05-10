@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.heladera.Heladera;
+import modules.domain.personas.colaborador.Colaborador;
 
 /**
  * Representa una vianda que incluye una comida, fecha de donación, heladera, calorías,
@@ -12,14 +13,14 @@ import modules.domain.heladera.Heladera;
  */
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class Vianda {
   private Comida comida;
   private Date fechaDonacion;
-  //private PersonaFisica colaborador; //TODO
+  private Colaborador colaborador;
   private Heladera heladera;
   private Integer calorias;
   private Float peso;
+  @Setter
   private Boolean entregada;
 }

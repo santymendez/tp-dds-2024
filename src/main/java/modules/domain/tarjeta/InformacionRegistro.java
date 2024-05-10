@@ -11,7 +11,6 @@ import modules.domain.personas.vulnerable.Vulnerable;
  */
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class InformacionRegistro {
   private Colaborador colaborador;

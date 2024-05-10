@@ -3,6 +3,7 @@ package modules.domain.personas.colaborador.reconocimiento.formula;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.function.Function;
+
 import lombok.Setter;
 import modules.domain.colaboracion.Colaboracion;
 import modules.domain.colaboracion.TipoColaboracion;
@@ -62,7 +63,8 @@ public class Formula {
     return colaboracion.tiempoActivaHeladera() * this.coefHeladerasActivas;
   }
 
-  /** Calcula los puntos de cada colaboración que recibe como parámetro.
+  /**
+   * Calcula los puntos de cada colaboración que recibe como parámetro.
    *
    * @param colaboracion es la colaboración a la que se le calculara los puntos correspondientes
    * @return Float
@@ -86,12 +88,16 @@ public class Formula {
    * @param colaboraciones lista de colaboraciones cuyos puntos se quiere calcular.
    * @return puntos totales.
    */
-  
-  //En caso de ser necesario calcular para una lista de colaboraciones.
 
+  //En caso de ser necesario calcular para una lista de colaboraciones.
   public Float calcularPuntosDeLista(List<Colaboracion> colaboraciones) {
     float puntosTotales = 0f;
-    colaboraciones.forEach(colab -> this.sumarizarPuntos(puntosTotales, this.calcularPuntosDe_alt(colab)));
+    colaboraciones.forEach(
+        colab -> this.sumarizarPuntos(
+            puntosTotales,
+            this.calcularPuntosDe_alt(colab)
+        )
+    );
     return puntosTotales;
   }
 

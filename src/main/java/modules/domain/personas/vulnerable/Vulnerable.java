@@ -16,14 +16,14 @@ import modules.domain.tarjeta.Tarjeta;
  */
 
 @Getter
-@Setter //TODO me parece que podemos poner setter solo para tarjeta
 public class Vulnerable {
-  private String nombre;
-  private Date fechaNacimiento;
-  private LocalDate fechaRegistro;
-  private Direccion domicilio;
-  private Documento documento;
-  private HashSet<Vulnerable> menoresAcargo;
+  private final String nombre;
+  private final Date fechaNacimiento;
+  private final LocalDate fechaRegistro;
+  private final Direccion domicilio;
+  private final Documento documento;
+  private final HashSet<Vulnerable> menoresAcargo;
+  @Setter
   private Tarjeta tarjeta;
 
   /**
@@ -38,7 +38,6 @@ public class Vulnerable {
     this.domicilio = domicilio;
     this.documento = documento;
     this.menoresAcargo = menoresAcargo;
-    this.tarjeta = null;
   }
 
   /**
@@ -50,4 +49,5 @@ public class Vulnerable {
   public boolean puedeUsarTarjeta(Heladera heladera) {
     return this.tarjeta.puedeUtilizarse(heladera);
   }
+
 }

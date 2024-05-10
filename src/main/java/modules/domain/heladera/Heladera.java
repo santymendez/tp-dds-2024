@@ -47,11 +47,6 @@ public class Heladera {
     this.sensorMovimiento = sensorMovimiento;
   }
 
-  //TODO No se si esto es asi (Mati)
-  public void darHeladeraDeBaja() {
-    //this = null;
-  }
-
   /**
    * Se agrega una vianda a la heladera.
    *
@@ -76,15 +71,14 @@ public class Heladera {
     return 0f;
   }
 
-  /**
-   * Se elimina una vianda de la heladera.
-   */
-
-  public void removerVianda() {
-    if (!this.viandas.isEmpty()) {
-      viandas.remove(0);
-    }
+  //TODO los pongo aca pero a lo mejor con los setters en el sensor basta
+  public void nuevaTemperaturaMax(Float temperatura) {
+    this.modelo.nuevaTemperaturaMax(temperatura);
   }
+
+  public void nuevaTemperaturaMin(Float temperatura) {
+    this.modelo.nuevaTemperaturaMin(temperatura);
+  } //Fin To Do
 
   //==================================== Metodos auxiliares ========================================
 
@@ -94,5 +88,15 @@ public class Heladera {
 
   public Boolean tieneEspacio() {
     return this.capacidadMaximaViandas > this.viandas.size();
+  }
+
+  /**
+   * Se elimina una vianda de la heladera (sirve para la distribucion).
+   */
+
+  public void removerVianda() {
+    if (!this.viandas.isEmpty()) {
+      viandas.remove(0);
+    }
   }
 }

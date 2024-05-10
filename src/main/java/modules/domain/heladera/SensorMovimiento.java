@@ -11,7 +11,6 @@ import lombok.Setter;
 @Setter
 public class SensorMovimiento {
   private Boolean sensorActivado = false;
-  //TODO chequear si les parece inicializar en false
 
   /**
    * Comprueba si el sensor está activado y debe alertar al sistema.

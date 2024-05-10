@@ -8,6 +8,7 @@ import modules.domain.direccion.Direccion;
 import modules.domain.empresa.Oferta;
 import modules.domain.form.RespuestaFormulario;
 import modules.domain.personas.colaborador.reconocimiento.Reconocimiento;
+import modules.domain.personas.contacto.Contacto;
 
 /**
  * Representa a un colaborador en el sistema.
@@ -27,40 +28,15 @@ public class Colaborador {
   private Direccion direccion;
 
   //Ambos
-  private String medioContacto;
+  private Contacto contacto;
   private TipoColaborador tipoColaborador;
   private RespuestaFormulario respuestaFormulario;
   private Reconocimiento reconocimiento;
-  private List<Colaboracion> colaboraciones;
+  private List<Colaboracion> colaboraciones; //Opcion 1, opcion 2 es no tenerla
 
-  /* //Constructor dependiendo del tipo de colaborador;
-
-  public Colaborador(TipoColaborador tipoColaborador,
-   RespuestaFormulario respuestaFormulario) {
-
-    this.tipoColaborador = tipoColaborador;
-    this.respuestaFormulario = respuestaFormulario;
-    this.rellenarDatosConRespuestas(tipoColaborador, respuestaFormulario);
+  public Colaborador() {
     this.reconocimiento = new Reconocimiento();
   }
-
-  public void rellenarDatosConRespuestas(TipoColaborador tipoColaborador,
-   RespuestaFormulario respuestaFormulario) {
-
-    this.medioContacto = respuestaFormulario.getNombre();
-    switch(tipoColaborador) {
-      case FISICO -> {
-        this.nombre = respuestaFormulario.respuestaNombre();
-        this.apellido = respuestaFormulario.getNombre();
-      }
-      case JURIDICO -> {
-        this.razonSocial = respuestaFormulario.getNombre();
-        this.tipo = respuestaFormulario.getNombre();
-        this.rubro = respuestaFormulario.getNombre();
-        //this.direccion = respuestaFormulario.getNombre();
-      }
-    }
-  } */
 
   /**
    * El colaborador usa puntos para comprar una oferta si tiene suficientes.
@@ -75,5 +51,9 @@ public class Colaborador {
   public void aumentarReconocimiento(Colaboracion colaboracion) {
     this.reconocimiento.sumarPuntos(colaboracion);
   }
+
+  public void agregarColaboracion(Colaboracion colaboracion) {
+    this.colaboraciones.add(colaboracion);
+  } //TODO si sacamos la lista, sacamos este metodo
 
 }

@@ -17,7 +17,7 @@ import modules.domain.heladera.Heladera;
 public class Vianda {
   private Comida comida;
   private Date fechaDonacion;
-  //private PersonaFisica colaborador;
+  //private PersonaFisica colaborador; //TODO
   private Heladera heladera;
   private Integer calorias;
   private Float peso;

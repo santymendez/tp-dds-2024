@@ -20,23 +20,40 @@ public class Colaboracion {
   private TipoColaboracion tipoColaboracion;
 
   //Donar dinero
-  private Date fechaDonacion;
-  private Integer monto;
-  private String frecuencia;
+  private Date fechaDonacion = null;
+  private Integer monto = 0;
+  private String frecuencia = null;
 
   //Donar vianda
-  private List<Vianda> viandas;
+  private List<Vianda> viandas = null;
 
   //Distribuir vianda
-  private Heladera heladeraOrigen;
-  private Heladera heladeraDestino;
-  private Integer cantViandasDistribuidas;
-  private String motivoDistribucion;
-  private Date fechaDistribucion;
+  private Heladera heladeraOrigen = null;
+  private Heladera heladeraDestino = null;
+  private Integer cantViandasDistribuidas = 0;
+  private String motivoDistribucion = null;
+  private Date fechaDistribucion = null;
 
   //Colocar heladera
-  private Heladera heladera;
+  private Heladera heladera = null;
 
   //Distribuir tarjetas
-  private Tarjeta tarjetaEntregada;
+  private HashSet<Tarjeta> tarjetasEntregadas;
+
+  public Colaboracion() {}
+  //Se crea sin datos y se agregan los necesarios con setters
+
+  //============================== Metodos Auxiliares ========================================
+
+  public Float tiempoActivaHeladera() {
+    return this.heladera.mesesActiva();
+  }
+
+  public Integer cantViandasDonadas() {
+    return this.viandas.size();
+  }
+
+  public Integer cantTarjetasEntregadas() {
+    return this.tarjetasEntregadas.size();
+  }
 }

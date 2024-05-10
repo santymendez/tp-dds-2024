@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import modules.domain.direccion.Direccion;
 import modules.domain.heladera.Heladera;
-import modules.domain.personas.TipoDocumento;
+import modules.domain.personas.documento.Documento;
 import modules.domain.tarjeta.Tarjeta;
 
 /**
@@ -16,14 +16,13 @@ import modules.domain.tarjeta.Tarjeta;
  */
 
 @Getter
-@Setter
+@Setter //TODO me parece que podemos poner setter solo para tarjeta
 public class Vulnerable {
   private String nombre;
   private Date fechaNacimiento;
   private LocalDate fechaRegistro;
   private Direccion domicilio;
-  private TipoDocumento tipoDocumento;
-  private Integer numeroDeDocumento;
+  private Documento documento;
   private HashSet<Vulnerable> menoresAcargo;
   private Tarjeta tarjeta;
 
@@ -32,14 +31,12 @@ public class Vulnerable {
    */
 
   public Vulnerable(String nombre, Date fechaNacimiento, Direccion domicilio,
-                    TipoDocumento tipoDocumento, Integer numeroDeDocumento,
-                    HashSet<Vulnerable> menoresAcargo) {
+                    Documento documento, HashSet<Vulnerable> menoresAcargo) {
     this.nombre = nombre;
     this.fechaNacimiento = fechaNacimiento;
     this.fechaRegistro = LocalDate.now();
     this.domicilio = domicilio;
-    this.tipoDocumento = tipoDocumento;
-    this.numeroDeDocumento = numeroDeDocumento;
+    this.documento = documento;
     this.menoresAcargo = menoresAcargo;
     this.tarjeta = null;
   }

@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.direccion.Provincia;
-import modules.domain.personas.TipoDocumento;
-import modules.domain.personas.contacto.TipoContacto;
+import modules.domain.personas.documento.Documento;
+import modules.domain.personas.contacto.Contacto;
 
 /**
  * Representa a un técnico en el sistema.
@@ -19,10 +19,8 @@ import modules.domain.personas.contacto.TipoContacto;
 public class Tecnico {
   private String nombre;
   private String apellido;
-  private TipoDocumento tipoDocumento;
-  private Integer numeroDeDocumento;
+  private Documento documento;
   private Integer cuil;
-  private TipoContacto tipoContacto;
-  private String medioContacto;
+  private Contacto contacto;
   private Provincia areaDeCobertura;
 }

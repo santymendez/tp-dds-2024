@@ -1,4 +1,4 @@
-package modules.domain.personas;
+package modules.domain.personas.documento;
 
 /**
  * Representa los diferentes tipos de documentos que puede tener una persona.

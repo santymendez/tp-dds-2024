@@ -1,6 +1,7 @@
 package modules.domain.heladera;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +20,11 @@ public class Heladera {
   private String nombre;
   private Integer capacidadMaximaViandas;
   private List<Vianda> viandas;
-  private Date fechaDeCreacion;
+  private LocalDate fechaDeCreacion;
+  private LocalDate ultVezInactiva;
   private Modelo modelo;
   private SensorMovimiento sensorMovimiento;
+  private Integer mesesActiva;
 
   /**
    * Se inicializa la heladera (Dar de alta).
@@ -36,13 +39,14 @@ public class Heladera {
    */
 
   public Heladera(Direccion direccion, String nombre,
-                  Integer capacidadMaximaViandas, List<Vianda> viandas, Date fechaDeCreacion,
+                  Integer capacidadMaximaViandas, List<Vianda> viandas, LocalDate fechaDeCreacion,
                   Modelo modelo, SensorMovimiento sensorMovimiento) {
     this.direccion = direccion;
     this.nombre = nombre;
     this.capacidadMaximaViandas = capacidadMaximaViandas;
     this.viandas = viandas;
     this.fechaDeCreacion = fechaDeCreacion;
+    this.ultVezInactiva = fechaDeCreacion;
     this.modelo = modelo;
     this.sensorMovimiento = sensorMovimiento;
   }
@@ -66,12 +70,13 @@ public class Heladera {
     return !sensorMovimiento.estaActiva() && modelo.getSensorTemperatura().estaActiva();
   }
 
-  //TODO
-  public Float mesesActiva() {
-    return 0f;
-  }
-
   //==================================== Metodos auxiliares ========================================
+
+  //TODO Revisar y consultar
+  public void calcularMesesActiva() {
+    Period period = Period.between(ultVezInactiva, LocalDate.now());
+    mesesActiva += period.getYears() * 12 + period.getMonths();
+  }
 
   public Boolean tieneViandas() {
     return !this.viandas.isEmpty();

@@ -3,7 +3,6 @@ package modules.domain.personas.colaborador.reconocimiento.formula;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.function.Function;
-
 import lombok.Setter;
 import modules.domain.colaboracion.Colaboracion;
 import modules.domain.colaboracion.TipoColaboracion;

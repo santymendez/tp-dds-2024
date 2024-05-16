@@ -13,7 +13,6 @@ import lombok.Setter;
 public class SensorMovimiento {
   private Heladera heladera;
   private Boolean sensorActivado = false;
-  private LocalDate ultFechaActiva;
 
   /**
    * Comprueba si el sensor está activado y debe alertar al sistema.

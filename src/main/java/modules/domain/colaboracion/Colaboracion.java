@@ -45,8 +45,8 @@ public class Colaboracion {
 
   //============================== Metodos Auxiliares ========================================
 
-  public Float tiempoActivaHeladera() {
-    return this.heladera.mesesActiva();
+  public Integer tiempoActivaHeladera() {
+    return this.heladera.getMesesActiva();
   }
 
   public Integer cantViandasDonadas() {

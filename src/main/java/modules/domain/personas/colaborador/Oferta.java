@@ -1,4 +1,4 @@
-package modules.domain.empresa;
+package modules.domain.personas.colaborador;
 
 import java.awt.Image;
 import lombok.Getter;

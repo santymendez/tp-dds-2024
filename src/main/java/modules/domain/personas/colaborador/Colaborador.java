@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import modules.domain.colaboracion.Colaboracion;
 import modules.domain.direccion.Direccion;
-import modules.domain.empresa.Oferta;
 import modules.domain.form.RespuestaFormulario;
 import modules.domain.personas.colaborador.reconocimiento.Reconocimiento;
 import modules.domain.personas.contacto.Contacto;
@@ -34,6 +33,10 @@ public class Colaborador {
   private Reconocimiento reconocimiento;
   private List<Colaboracion> colaboraciones; //Opcion 1, opcion 2 es no tenerla
 
+
+  //Empresa Asociada
+  private List<Oferta> ofertas;
+
   public Colaborador() {
     this.reconocimiento = new Reconocimiento();
   }
@@ -54,6 +57,6 @@ public class Colaborador {
 
   public void agregarColaboracion(Colaboracion colaboracion) {
     this.colaboraciones.add(colaboracion);
-  } //TODO si sacamos la lista, sacamos este metodo
+  } //TODO estamos usando las listas para algo ? o hacemos los puntos en base a la colaboracion?
 
 }

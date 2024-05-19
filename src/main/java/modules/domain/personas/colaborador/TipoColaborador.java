@@ -5,5 +5,5 @@ package modules.domain.personas.colaborador;
  */
 
 public enum TipoColaborador {
-  FISICO, JURIDICO
+  FISICO, JURIDICO, EMPRESA_ASOCIADA
 }

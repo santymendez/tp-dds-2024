@@ -31,11 +31,6 @@ public class Colaborador {
   private TipoColaborador tipoColaborador;
   private RespuestaFormulario respuestaFormulario;
   private Reconocimiento reconocimiento;
-  private List<Colaboracion> colaboraciones; //Opcion 1, opcion 2 es no tenerla
-
-
-  //Empresa Asociada
-  private List<Oferta> ofertas;
 
   public Colaborador() {
     this.reconocimiento = new Reconocimiento();
@@ -54,9 +49,4 @@ public class Colaborador {
   public void aumentarReconocimiento(Colaboracion colaboracion) {
     this.reconocimiento.sumarPuntos(colaboracion);
   }
-
-  public void agregarColaboracion(Colaboracion colaboracion) {
-    this.colaboraciones.add(colaboracion);
-  } //TODO estamos usando las listas para algo ? o hacemos los puntos en base a la colaboracion?
-
 }

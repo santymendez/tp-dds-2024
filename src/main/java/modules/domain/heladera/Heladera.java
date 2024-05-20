@@ -21,7 +21,7 @@ public class Heladera {
   private Integer capacidadMaximaViandas;
   private List<Vianda> viandas;
   private LocalDate fechaDeCreacion;
-  private LocalDate ultVezInactiva;
+  private LocalDate ultVezActivada;
   private Modelo modelo;
   private SensorMovimiento sensorMovimiento;
   private Integer mesesActiva;
@@ -46,7 +46,7 @@ public class Heladera {
     this.capacidadMaximaViandas = capacidadMaximaViandas;
     this.viandas = viandas;
     this.fechaDeCreacion = fechaDeCreacion;
-    this.ultVezInactiva = fechaDeCreacion;
+    this.ultVezActivada = fechaDeCreacion;
     this.modelo = modelo;
     this.sensorMovimiento = sensorMovimiento;
   }
@@ -73,9 +73,18 @@ public class Heladera {
   //==================================== Metodos auxiliares ========================================
 
   //TODO Revisar y consultar
-  public void calcularMesesActiva() {
-    Period period = Period.between(ultVezInactiva, LocalDate.now());
-    mesesActiva += period.getYears() * 12 + period.getMonths();
+  /**
+   * Metodo para calcular los meses que una heladera estuvo activa hasta el momento
+   * en que se pide calcular.
+   *
+   * @return los mesesActiva calculados en la última desactivacion
+   *         más los meses que estuvo activada luego de esa desactivacion.
+   */
+
+  public Integer calcularMesesActiva() {
+    Period period = Period.between(ultVezActivada, LocalDate.now());
+    int mesesActuales = period.getYears() * 12 + period.getMonths();
+    return mesesActiva + mesesActuales;
   }
 
   public Boolean tieneViandas() {

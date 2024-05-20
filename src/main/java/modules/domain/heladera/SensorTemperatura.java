@@ -17,10 +17,9 @@ public class SensorTemperatura {
   private Float temperaturaMinima;
   private Float temperaturaMaxima;
   private Float ultimaTemperatura;
-  private Boolean sensorActivado = false;
 
   public Boolean estaActiva() {
-    return !sensorActivado;
+    return ultimaTemperatura < temperaturaMaxima && ultimaTemperatura > temperaturaMinima;
   }
 
   /**
@@ -28,12 +27,10 @@ public class SensorTemperatura {
    */
 
   public void activarSensor() {
-    sensorActivado = true;
-    this.heladera.calcularMesesActiva();
+    this.heladera.setMesesActiva(this.heladera.calcularMesesActiva());
   }
 
   public void desactivarSensor() {
-    sensorActivado = false;
-    this.heladera.setUltVezInactiva(LocalDate.now());
+    this.heladera.setUltVezActivada(LocalDate.now());
   }
 }

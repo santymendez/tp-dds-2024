@@ -25,17 +25,17 @@ public class SensorMovimiento {
   }
 
   /**
-   * Metodo que activa el sensor de movimiento.
+   * Metodo que activa el sensor de movimiento y calcula los meses que estuvo activa.
    */
 
   public void activarSensor() {
     System.out.println("La heladera fue o esta siendo robada");
     sensorActivado = true;
-    this.heladera.calcularMesesActiva();
+    this.heladera.setMesesActiva(this.heladera.calcularMesesActiva());
   }
 
   public void desactivarSensor() {
     sensorActivado = false;
-    this.heladera.setUltVezInactiva(LocalDate.now());
+    this.heladera.setUltVezActivada(LocalDate.now());
   }
 }

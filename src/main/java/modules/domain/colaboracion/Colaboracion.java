@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.heladera.Heladera;
+import modules.domain.personas.colaborador.Oferta;
 import modules.domain.tarjeta.Tarjeta;
 import modules.domain.vianda.Vianda;
 
@@ -40,13 +41,16 @@ public class Colaboracion {
   //Distribuir tarjetas
   private HashSet<Tarjeta> tarjetasEntregadas;
 
+  //Realizar ofertas
+  private List<Oferta> ofertas;
+
   public Colaboracion() {}
   //Se crea sin datos y se agregan los necesarios con setters
 
   //============================== Metodos Auxiliares ========================================
 
   public Integer tiempoActivaHeladera() {
-    return this.heladera.getMesesActiva();
+    return this.heladera.calcularMesesActiva();
   }
 
   public Integer cantViandasDonadas() {

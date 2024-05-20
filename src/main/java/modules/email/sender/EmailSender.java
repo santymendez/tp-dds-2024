@@ -30,6 +30,7 @@ public class EmailSender {
   /**
    * Se configuran las propiedades del servidor.
    */
+  //TODO implementar como singleton
   public EmailSender() {
     // Configuración de las propiedades del servidor de correo
     Properties propiedadesDelServidorDeCorreo = new Properties();

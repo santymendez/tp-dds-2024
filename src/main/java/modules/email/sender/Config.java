@@ -4,13 +4,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-
+/**
+ * Esta clase se utiliza para cargar la configuracion para usar el email_sender.
+ */
 
 public class Config {
   private static Properties properties = new Properties();
 
   static {
-    try (InputStream input = Config.class.getClassLoader().getResourceAsStream("config.properties")) {
+    try (InputStream input = Config
+        .class
+        .getClassLoader()
+        .getResourceAsStream("config.properties")) {
       properties.load(input);
     } catch (IOException ex) {
       throw new RuntimeException("Error loading configuration", ex);

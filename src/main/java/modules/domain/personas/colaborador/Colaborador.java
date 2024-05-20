@@ -1,6 +1,5 @@
 package modules.domain.personas.colaborador;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import modules.domain.colaboracion.Colaboracion;

@@ -8,8 +8,10 @@ import retrofit2.http.Query;
 /**
  * La API que provee la consultora para la selección de puntos.
  */
-public interface ServiceRecommendation {
+public interface RecommendationService {
   @GET("puntos")
-  Call<ListadoDepuntos> municipios(@Query("latitud") int latitud,@Query("longitud") int longitud);
-
+  Call<ListadoDepuntos> puntos(
+      @Query("latitud") int lat,
+      @Query("longitud") int lon,
+      @Query("radio") int rad);
 }

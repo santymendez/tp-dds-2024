@@ -7,10 +7,6 @@ import java.util.List;
  */
 
 public class ListadoDepuntos {
-  public int latitud;
-  public int longitud;
-  public int radio;
-  public String direccion;
   public List<Punto> puntos;
   public int cantidad;
   public int inicio;

@@ -6,6 +6,8 @@ import java.util.Properties;
 
 /**
  * Esta clase se utiliza para cargar la configuracion para usar el email_sender.
+ * Sigue sin ser seguro tener en texto plano una contraseña, pero es mejor que subirla
+ * al repositorio de github.
  */
 
 public class Config {

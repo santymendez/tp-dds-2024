@@ -47,7 +47,7 @@ public class ServicioRecomendacion {
    * @param lon la longitud
    * @param rad el radio
    * @return ListadoDepuntos un listado con los puntos
-   * @throws IOException
+   * @throws IOException si ocurre un error lanza una excepción.
    */
 
   public ListadoDepuntos listadoDePuntos(int lat, int lon, int rad) throws IOException {

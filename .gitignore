@@ -27,6 +27,7 @@ target/**
 
 # IJ files
 *.iml
-.idea/**
+.idea/*
 
-/config.properties
+src/main/resources/config.properties
+

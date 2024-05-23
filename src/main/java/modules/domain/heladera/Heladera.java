@@ -25,6 +25,7 @@ public class Heladera {
   private Modelo modelo;
   private SensorMovimiento sensorMovimiento;
   private Integer mesesActiva;
+  private Boolean estaActiva;
 
   /**
    * Se inicializa la heladera (Dar de alta).
@@ -66,13 +67,6 @@ public class Heladera {
     }
   }
 
-  public Boolean estaActiva() {
-    return !sensorMovimiento.estaActiva() && modelo.getSensorTemperatura().estaActiva();
-  }
-
-  //==================================== Metodos auxiliares ========================================
-
-  //TODO Revisar y consultar
   /**
    * Metodo para calcular los meses que una heladera estuvo activa hasta el momento
    * en que se pide calcular.
@@ -86,6 +80,8 @@ public class Heladera {
     int mesesActuales = period.getYears() * 12 + period.getMonths();
     return mesesActiva + mesesActuales;
   }
+
+  //==================================== Metodos auxiliares ========================================
 
   public Boolean tieneViandas() {
     return !this.viandas.isEmpty();

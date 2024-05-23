@@ -1,5 +1,6 @@
 package modules.domain.tarjeta;
 
+import java.time.LocalDate;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,6 @@ import modules.domain.heladera.Heladera;
 @Getter
 @AllArgsConstructor
 public class RegistroUso {
-  private Date fechaUtilizacion;
+  private LocalDate fechaUtilizacion;
   private Heladera heladera;
 }

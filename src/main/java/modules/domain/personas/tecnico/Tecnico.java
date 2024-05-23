@@ -3,7 +3,7 @@ package modules.domain.personas.tecnico;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import modules.domain.direccion.Provincia;
+import modules.domain.direccion.Ciudad;
 import modules.domain.personas.contacto.Contacto;
 import modules.domain.personas.documento.Documento;
 
@@ -22,5 +22,5 @@ public class Tecnico {
   private Documento documento;
   private Integer cuil;
   private Contacto contacto;
-  private Provincia areaDeCobertura;
+  private Ciudad areaDeCobertura;
 }

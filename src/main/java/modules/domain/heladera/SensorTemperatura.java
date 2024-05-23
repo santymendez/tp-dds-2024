@@ -28,9 +28,11 @@ public class SensorTemperatura {
 
   public void activarSensor() {
     this.heladera.setMesesActiva(this.heladera.calcularMesesActiva());
+    this.heladera.setEstaActiva(false);
   }
 
   public void desactivarSensor() {
     this.heladera.setUltVezActivada(LocalDate.now());
+    this.heladera.setEstaActiva(true);
   }
 }

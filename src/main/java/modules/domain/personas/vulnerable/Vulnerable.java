@@ -1,7 +1,6 @@
 package modules.domain.personas.vulnerable;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +17,7 @@ import modules.domain.tarjeta.Tarjeta;
 @Getter
 public class Vulnerable {
   private final String nombre;
-  private final Date fechaNacimiento;
+  private final LocalDate fechaNacimiento;
   private final LocalDate fechaRegistro;
   private final Direccion domicilio;
   private final Documento documento;
@@ -30,7 +29,7 @@ public class Vulnerable {
    * Constructor de vulnerable, sirve para dar de alta.
    */
 
-  public Vulnerable(String nombre, Date fechaNacimiento, Direccion domicilio,
+  public Vulnerable(String nombre, LocalDate fechaNacimiento, Direccion domicilio,
                     Documento documento, HashSet<Vulnerable> menoresAcargo) {
     this.nombre = nombre;
     this.fechaNacimiento = fechaNacimiento;

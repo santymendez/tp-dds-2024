@@ -21,7 +21,6 @@ public class CargaCsv {
   private static final Logger logger = LogManager.getLogger(EmailSender.class);
   private static final String ruta_archivo = "src/main/resources/lista_colaboradores.csv";
 
-
   /**
    * Lectura del archivo csv.
    *

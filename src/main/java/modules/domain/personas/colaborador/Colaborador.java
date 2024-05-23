@@ -2,6 +2,7 @@ package modules.domain.personas.colaborador;
 
 import lombok.Getter;
 import lombok.Setter;
+import modules.authentication.Usuario;
 import modules.domain.colaboracion.Colaboracion;
 import modules.domain.direccion.Direccion;
 import modules.domain.form.RespuestaFormulario;
@@ -15,6 +16,8 @@ import modules.domain.personas.contacto.Contacto;
 @Getter
 @Setter
 public class Colaborador {
+  private Usuario usuario;
+
   //Persona fisica
   private String nombre;
   private String apellido;

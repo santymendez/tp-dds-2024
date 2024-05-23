@@ -1,6 +1,6 @@
 package modules.domain.vianda;
 
-import java.util.Date;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,5 +12,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Comida {
   private String nombre;
-  private Date vencimiento;
+  private LocalDate vencimiento;
 }

@@ -61,46 +61,4 @@ public class Formula {
   private Float calcHeladerasActivas(Colaboracion colaboracion) {
     return colaboracion.tiempoActivaHeladera() * this.coefHeladerasActivas;
   }
-
-  /**
-   * Calcula los puntos de cada colaboración que recibe como parámetro.
-   *
-   * @param colaboracion es la colaboración a la que se le calculara los puntos correspondientes
-   * @return Float
-   */
-
-  // alternativa 2 = instancia de alguna manera que podamos calcular
-  // independientemente del tipo
-  public Float calcularPuntosDe_alt(Colaboracion colaboracion) {
-    float total = 0f;
-    total += colaboracion.getMonto() * this.coefPesosDonados;
-    total += colaboracion.cantViandasDonadas() * this.coefViandasDonadas;
-    total += colaboracion.getCantViandasDistribuidas() * this.coefViandasDistribuidas;
-    total += colaboracion.cantTarjetasEntregadas() * this.coefTarjetasRepartidas;
-    total += colaboracion.tiempoActivaHeladera() * this.coefHeladerasActivas;
-    return total;
-  }
-
-  /**
-   * Permite calcular los puntos de varias colaboraciones.
-   *
-   * @param colaboraciones lista de colaboraciones cuyos puntos se quiere calcular.
-   * @return puntos totales.
-   */
-
-  //En caso de ser necesario calcular para una lista de colaboraciones.
-  public Float calcularPuntosDeLista(List<Colaboracion> colaboraciones) {
-    float puntosTotales = 0f;
-    colaboraciones.forEach(
-        colab -> this.sumarizarPuntos(
-            puntosTotales,
-            this.calcularPuntosDe_alt(colab)
-        )
-    );
-    return puntosTotales;
-  }
-
-  public void sumarizarPuntos(Float puntosTotales, Float unosPuntos) {
-    puntosTotales += unosPuntos;
-  }
 }

@@ -4,6 +4,7 @@ left to right direction
 actor :personaFisica: as fisica
 actor :personaJuridica: as juridica
 actor :ONG: as ong
+actor :empresaAsociada: as empresaAsociada
 
 rectangle DominioPrincipal {
     usecase "Registrarse" as UC0
@@ -16,12 +17,22 @@ rectangle DominioPrincipal {
 
     usecase "Admnistrar heladera" as UC4
 
+    usecase "Administrar tecnico" as UC11
+
     usecase "Donar vianda" as UC5
     usecase "Donar dinero" as UC6
     usecase "Colocar heladera" as UC7
     usecase "Distribuir viandas" as UC8
+    usecase "Entregar tarjetas" as UC10
+
+    usecase "Ofrecer producto" as UC14
 
     usecase "Visualizar mapa de heladeras" as UC9
+    usecase "Cargar colaboradores masivamente" as UC12
+
+    usecase "Canjear puntos" as UC13
+
+    usecase "Solicitar recomendacion de puntos de colocacion" as UC15
 }
 
 fisica --> UC0
@@ -30,22 +41,33 @@ juridica --> UC0
 fisica --> UC5
 fisica --> UC6
 fisica --> UC8
+fisica --> UC3
+fisica --> UC10
+fisica --> UC13
 
 juridica --> UC6
 juridica --> UC7
+juridica --> UC13
+juridica --> UC15
 
 ong --> UC2
 ong --> UC3
 ong --> UC4
+ong --> UC11
+ong --> UC12
 
 fisica --> UC9
 juridica --> UC9
 ong --> UC9
 
+empresaAsociada --> UC14
+
 UC5 ..> UC1 : <<includes>>
 UC6 ..> UC1 : <<includes>>
 UC7 ..> UC1 : <<includes>>
 UC8 ..> UC1 : <<includes>>
+UC10 ..> UC1 : <<includes>>
+UC14 ..> UC1 : <<includes>>
 UC1 ..> UC0 : <<includes>>
 
 @enduml

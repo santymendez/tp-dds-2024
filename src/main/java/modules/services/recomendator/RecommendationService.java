@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 public interface RecommendationService {
   @GET("puntos")
   Call<ListadoDepuntos> puntos(
-      @Query("latitud") int lat,
-      @Query("longitud") int lon,
-      @Query("radio") int rad);
+      @Query("lat") int lat,
+      @Query("lon") int lon,
+      @Query("rad") int rad);
 }

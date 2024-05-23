@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServicioRecomendacion {
   private static  ServicioRecomendacion instancia = null;
-  private static final String urAPI = "PONER URL";
+  private static final String urAPI = "https://71f019a3-8787-49bf-891b-05a9650407ed.mock.pstmn.io/";
   private Retrofit retrofit;
 
 

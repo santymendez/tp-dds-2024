@@ -1,4 +1,4 @@
-package modules.domain.form;
+package modules.domain.formulario;
 
 import lombok.Getter;
 import lombok.Setter;

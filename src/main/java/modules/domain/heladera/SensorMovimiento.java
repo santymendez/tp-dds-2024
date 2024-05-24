@@ -13,10 +13,6 @@ import lombok.Setter;
 public class SensorMovimiento {
   private Heladera heladera;
 
-  public Boolean estaActiva() {
-    return null; //TODO A chequear
-  }
-
   /**
    * Metodo que activa el sensor de movimiento y calcula los meses que estuvo activa.
    */

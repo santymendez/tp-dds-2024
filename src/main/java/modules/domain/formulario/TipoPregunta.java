@@ -1,4 +1,4 @@
-package modules.domain.form;
+package modules.domain.formulario;
 
 /**
  * Representa los diferentes tipos de preguntas que pueden presentarse.

@@ -5,7 +5,7 @@ import lombok.Setter;
 import modules.authentication.Usuario;
 import modules.domain.colaboracion.Colaboracion;
 import modules.domain.direccion.Direccion;
-import modules.domain.form.RespuestaFormulario;
+import modules.domain.formulario.RespuestaFormulario;
 import modules.domain.personas.colaborador.reconocimiento.Reconocimiento;
 import modules.domain.personas.contacto.Contacto;
 

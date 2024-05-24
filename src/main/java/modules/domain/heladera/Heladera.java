@@ -25,7 +25,7 @@ public class Heladera {
   private Modelo modelo;
   private SensorMovimiento sensorMovimiento;
   private Integer mesesActiva;
-  private Boolean estaActiva;
+  private Boolean estaActiva; //Con su getter se verifica si esta activa
 
   /**
    * Se inicializa la heladera (Dar de alta).
@@ -50,6 +50,7 @@ public class Heladera {
     this.ultVezActivada = fechaDeCreacion;
     this.modelo = modelo;
     this.sensorMovimiento = sensorMovimiento;
+    this.estaActiva = true;
   }
 
   /**
@@ -76,8 +77,13 @@ public class Heladera {
    */
 
   public Integer calcularMesesActiva() {
-    Period period = Period.between(ultVezActivada, LocalDate.now());
-    int mesesActuales = period.getYears() * 12 + period.getMonths();
+    int mesesActuales;
+    if (this.getEstaActiva()) {
+      Period period = Period.between(ultVezActivada, LocalDate.now());
+      mesesActuales = period.getYears() * 12 + period.getMonths();
+    } else {
+      mesesActuales = 0;
+    }
     return mesesActiva + mesesActuales;
   }
 

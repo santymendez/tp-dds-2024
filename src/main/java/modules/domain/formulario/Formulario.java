@@ -1,4 +1,4 @@
-package modules.domain.form;
+package modules.domain.formulario;
 
 import java.util.List;
 import lombok.Getter;

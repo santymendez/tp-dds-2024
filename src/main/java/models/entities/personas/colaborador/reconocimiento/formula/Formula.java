@@ -32,7 +32,7 @@ public class Formula {
     this.mapCalculos = new EnumMap<>(TipoColaboracion.class);
     this.mapCalculos.put(TipoColaboracion.DONAR_DINERO, this::calcPesosDonados);
     this.mapCalculos.put(TipoColaboracion.DONAR_VIANDA, this::calcViandasDonadas);
-    this.mapCalculos.put(TipoColaboracion.DISTRIBUIR_VIANDA, this::calcDistribuirViandas);
+    this.mapCalculos.put(TipoColaboracion.DISTRIBUIR_VIANDAS, this::calcDistribuirViandas);
     this.mapCalculos.put(TipoColaboracion.ENTREGAR_TARJETA, this::calcTarjetasRepartidas);
     this.mapCalculos.put(TipoColaboracion.COLOCAR_HELADERA, this::calcHeladerasActivas);
   }
@@ -46,7 +46,7 @@ public class Formula {
   }
 
   private Float calcViandasDonadas(Colaboracion colaboracion) {
-    return colaboracion.cantViandasDonadas() * this.coefViandasDonadas;
+    return colaboracion.getCantViandas() * this.coefViandasDonadas;
   }
 
   private Float calcDistribuirViandas(Colaboracion colaboracion) {
@@ -54,7 +54,7 @@ public class Formula {
   }
 
   private Float calcTarjetasRepartidas(Colaboracion colaboracion) {
-    return colaboracion.cantTarjetasEntregadas() * this.coefTarjetasRepartidas;
+    return colaboracion.getCantTarjetasEntregadas() * this.coefTarjetasRepartidas;
   }
 
   private Float calcHeladerasActivas(Colaboracion colaboracion) {

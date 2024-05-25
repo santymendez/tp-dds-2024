@@ -2,12 +2,14 @@ package models.entities.personas.colaborador;
 
 import lombok.Getter;
 import lombok.Setter;
-import models.entities.formulario.RespuestaFormulario;
-import models.entities.personas.contacto.Contacto;
-import services.authentication.Usuario;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
+import models.entities.formulario.RespuestaFormulario;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
+import models.entities.personas.contacto.Contacto;
+import models.entities.personas.documento.Documento;
+import modules.authentication.Usuario;
+
 
 /**
  * Representa a un colaborador en el sistema.
@@ -21,6 +23,7 @@ public class Colaborador {
   //Persona fisica
   private String nombre;
   private String apellido;
+  private Documento documento;
 
   //Persona Juridica
   private String razonSocial;

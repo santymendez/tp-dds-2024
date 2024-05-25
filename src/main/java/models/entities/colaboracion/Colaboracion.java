@@ -27,6 +27,7 @@ public class Colaboracion {
 
   //Donar vianda
   private List<Vianda> viandas;
+  private Integer cantViandas;
 
   //Distribuir vianda
   private Heladera heladeraOrigen;
@@ -40,6 +41,7 @@ public class Colaboracion {
 
   //Distribuir tarjetas
   private HashSet<Tarjeta> tarjetasEntregadas;
+  private Integer cantTarjetasEntregadas;
 
   //Realizar ofertas
   private List<Oferta> ofertas;
@@ -53,6 +55,7 @@ public class Colaboracion {
     return this.heladera.calcularMesesActiva();
   }
 
+  /*
   public Integer cantViandasDonadas() {
     return this.viandas.size();
   }
@@ -60,4 +63,5 @@ public class Colaboracion {
   public Integer cantTarjetasEntregadas() {
     return this.tarjetasEntregadas.size();
   }
+  */
 }

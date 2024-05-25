@@ -5,7 +5,7 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="services.email.sender" level="info" additivity="false">
+        <Logger name="modules.email.sender" level="info" additivity="false">
             <AppenderRef ref="MailLog"/>
         </Logger>
         <Root level="error">

@@ -16,17 +16,13 @@ public class SensorTemperatura {
   private Heladera heladera;
   private Float temperaturaMinima;
   private Float temperaturaMaxima;
-  //TODO revisar si lo volamos
   private Float ultimaTemperatura;
 
-  //TODO revisar si hace falta
   public Boolean estaActiva() {
     return ultimaTemperatura < temperaturaMaxima && ultimaTemperatura > temperaturaMinima;
   }
 
-  /**
-   * Metodo que activa el sensor de temperatura.
-   */
+  public void recibirMedicion() {}
 
   public void activarSensor() {
     this.heladera.setMesesActiva(this.heladera.calcularMesesActiva());

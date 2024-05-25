@@ -71,6 +71,7 @@ class Colaborador{
     'De Persona Fisica'
     -nombre: String
     -apellido: String
+    -documento: Documento
 
     'De Persona Juridica'
     -razonSocial: String
@@ -318,5 +319,6 @@ Colaborador ..> Colaboracion
 Colaborador --> Contacto
 Colaboracion -->"*" Oferta
 Colaborador --> Usuario
+Colaborador --> Documento
 
 @enduml

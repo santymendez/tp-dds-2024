@@ -5,6 +5,6 @@ package models.entities.personas.documento;
  */
 public enum TipoDocumento {
   DNI,
-  LIBRETA_ENROLAMIENTO,
-  LIBRETA_CIVICA
+  LC,
+  LE
 }

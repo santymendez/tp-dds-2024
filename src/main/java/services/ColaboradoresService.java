@@ -3,6 +3,7 @@ package services;
 import dtos.ColaboradorInputDto;
 import java.util.Optional;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.reconocimiento.formula.Formula;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
@@ -19,10 +20,10 @@ import modules.email.sender.Mensaje;
 
 public class ColaboradoresService {
 
-  private final ColaboradoresRepository colaboradorRepository;
+  private final ColaboradoresRepository colaboradoresRepository;
 
   public ColaboradoresService(ColaboradoresRepository colaboradorRepository) {
-    this.colaboradorRepository = colaboradorRepository;
+    this.colaboradoresRepository = colaboradorRepository;
   }
 
   /**
@@ -32,13 +33,6 @@ public class ColaboradoresService {
    */
 
   public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
-
-    Optional<Colaborador> unColaborador =
-        colaboradorRepository.buscar(colaboradorInputDto.getNumeroDocumento());
-
-    if (unColaborador.isPresent()) {
-      return unColaborador.get();
-    }
 
     Colaborador colaborador = new Colaborador();
     colaborador.setNombre(colaboradorInputDto.getNombre());
@@ -58,14 +52,24 @@ public class ColaboradoresService {
     EmailSender emailsender = EmailSender.getInstance();
     Mensaje message = new Mensaje("Creación de Nuevo Usuario",
         "Se le ha creado un nuevo usuario en el sistema para ingresar. \n"
-            + "\nSus credenciales son: \nUsuario = "
+            + "\nSus credenciales son: \nUsuario: "
             + colaboradorInputDto.getEmail()
-            + "\nContraseña = "
+            + "\nContraseña: "
             + colaboradorInputDto.getApellido()
             + "\nPuede cambiarlas si así lo desea.\n\nSaludos!");
     emailsender.enviar(message, colaboradorInputDto.getEmail());
 
-    colaboradorRepository.guardar(colaborador);
+    //Para los test, en realidad la formula ya deberia estar creada
+    // y solo deberiamos hacer el set al reconocimiento.
+    Formula formula = new Formula();
+    formula.setCoefPesosDonados(0.5f);
+    formula.setCoefViandasDonadas(1.5f);
+    formula.setCoefHeladerasActivas(5f);
+    formula.setCoefViandasDistribuidas(1.0f);
+    formula.setCoefTarjetasRepartidas(2f);
+    colaborador.getReconocimiento().setFormulaCalculoDePuntos(formula);
+
+    colaboradoresRepository.guardar(colaborador);
 
     return colaborador;
   }

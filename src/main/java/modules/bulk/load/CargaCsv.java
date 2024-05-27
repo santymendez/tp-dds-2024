@@ -3,6 +3,7 @@ package modules.bulk.load;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import controllers.ColaboradoresController;
 import dtos.ColaboracionInputDto;
 import dtos.ColaboradorInputDto;
 import java.io.FileNotFoundException;
@@ -23,14 +24,14 @@ public class CargaCsv {
 
   private static final Logger logger = LogManager.getLogger(EmailSender.class);
   private static final String ruta_archivo = "src/main/resources/lista_colaboradores.csv";
-  private final ColaboradoresService colaboradoresService;
+  private final ColaboradoresController colaboradoresController;
   private final ColaboracionesService colaboracionesService;
 
   public CargaCsv(
-      ColaboradoresService colaboradoresService,
+      ColaboradoresController colaboradoresController,
       ColaboracionesService colaboracionesService
   ) {
-    this.colaboradoresService = colaboradoresService;
+    this.colaboradoresController = colaboradoresController;
     this.colaboracionesService = colaboracionesService;
   }
 
@@ -57,7 +58,7 @@ public class CargaCsv {
         colaboracion.setTipoColaboracion(nextLine[6]);
         colaboracion.setCantidad(Integer.parseInt(nextLine[7]));
 
-        Colaborador unColaborador = colaboradoresService.crear(colaboradorInputDto);
+        Colaborador unColaborador = colaboradoresController.crear(colaboradorInputDto);
         Colaboracion unaColaboracion = colaboracionesService.crear(colaboracion);
 
         unColaborador.aumentarReconocimiento(unaColaboracion);

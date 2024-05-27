@@ -1,5 +1,6 @@
 package modules.csv_test;
 
+import controllers.ColaboradoresController;
 import models.repositories.ColaboradoresRepository;
 import modules.bulk.load.CargaCsv;
 import org.junit.jupiter.api.Assertions;
@@ -11,6 +12,7 @@ import services.ColaboradoresService;
 
 public class TestCsv {
   CargaCsv bulkLoader;
+  ColaboradoresController colaboradoresController;
   ColaboradoresService colaboradoresService;
   ColaboracionesService colaboracionesService;
   ColaboradoresRepository colaboradoresRepository;
@@ -18,9 +20,10 @@ public class TestCsv {
   @BeforeEach
   void inicializar() {
     colaboradoresRepository = new ColaboradoresRepository();
-    colaboradoresService = new ColaboradoresService(colaboradoresRepository);
     colaboracionesService = new ColaboracionesService();
-    bulkLoader = new CargaCsv(colaboradoresService, colaboracionesService);
+    colaboradoresService = new ColaboradoresService(colaboradoresRepository);
+    colaboradoresController = new ColaboradoresController(colaboradoresRepository, colaboradoresService);
+    bulkLoader = new CargaCsv(colaboradoresController, colaboracionesService);
   }
 
   @Test

@@ -18,10 +18,6 @@ public class SensorTemperatura {
   private Float temperaturaMaxima;
   private Float ultimaTemperatura;
 
-  public Boolean estaActiva() {
-    return ultimaTemperatura < temperaturaMaxima && ultimaTemperatura > temperaturaMinima;
-  }
-
   public void recibirMedicion() {}
 
   public void activarSensor() {

@@ -41,8 +41,6 @@ juridica --> UC0
 fisica --> UC5
 fisica --> UC6
 fisica --> UC8
-'TODO en este caso (Abajo) no conlleva un include de UC1?'
-'TODO pero eso rompe el de ONG.'
 fisica --> UC3
 fisica --> UC10
 fisica --> UC13

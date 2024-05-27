@@ -1,8 +1,8 @@
-LC,12345678,Ana,García,mjastrebow@frba.utn.edu.ar,27/01/2005,DONAR_DINERO,1234567
-LE,87654321,Carlos,Martínez,mjastrebow@frba.utn.edu.ar,27/01/2005,DONAR_VIANDA,300
-DNI,10293847,María,López,mjastrebow@frba.utn.edu.ar,27/01/2005,DISTRIBUIR_VIANDAS,23
-LC,56473829,Luis,Hernández,mjastrebow@frba.utn.edu.ar,27/01/2005,ENTREGAR_TARJETA,300
-LE,84736291,Elena,González,mjastrebow@frba.utn.edu.ar,27/01/2005,DONAR_DINERO,7543210
-LC,56473829,Luis,Hernández,mjastrebow@frba.utn.edu.ar,27/01/2005,DONAR_DINERO,500
+LC,12345678,Ana,García,ilorences@frba.utn.edu.ar,27/01/2005,DONAR_DINERO,1234567
+LE,87654321,Carlos,Martínez,lwilk@frba.utn.edu.ar,27/01/2005,DONAR_VIANDA,300
+DNI,10293847,María,López,amazzini@frba.utn.edu.ar,27/01/2005,DISTRIBUIR_VIANDAS,23
+LC,56473829,Luis,Hernández,samendez@frba.utn.edu.ar,27/01/2005,ENTREGAR_TARJETA,300
+LE,84736291,Elena,González,amazzini@frba.utn.edu.ar,27/01/2005,DONAR_DINERO,7543210
+LC,56473829,Luis,Hernández,ilorences@frba.utn.edu.ar,27/01/2005,DONAR_DINERO,500
 LC,56473829,Luis,Hernández,mjastrebow@frba.utn.edu.ar,27/01/2005,ENTREGAR_TARJETA,300
 LE,84736291,Elena,González,mjastrebow@frba.utn.edu.ar,27/01/2005,ENTREGAR_TARJETA,10

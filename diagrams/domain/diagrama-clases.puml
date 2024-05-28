@@ -236,7 +236,7 @@ class Tecnico {
     -documento: Documento
     -cuil: Integer
     -contacto: Contacto
-    -areaDeCobertura: Provincia
+    -areaDeCobertura: Ciudad
 }
 
 enum TipoDocumento {

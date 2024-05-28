@@ -15,7 +15,4 @@ public class ColaboradorInputDto {
   private String nombre;
   private String apellido;
   private String email;
-  private String fecha;
-  private String tipoColaboracion;
-  private Integer cantidad;
 }

@@ -1,11 +1,11 @@
 package models.repositories;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.personas.colaborador.Colaborador;
-
 
 /**
  * Clase de Colaborador para cargar los datos del CSV.
@@ -13,7 +13,7 @@ import models.entities.personas.colaborador.Colaborador;
 @Getter
 @Setter
 public class ColaboradoresRepository {
-  HashSet<Colaborador> colaboradores = new HashSet<>();
+  List<Colaborador> colaboradores = new ArrayList<>();
 
   public void guardar(Colaborador colaborador) {
     colaboradores.add(colaborador);

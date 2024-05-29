@@ -10,7 +10,6 @@ import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import modules.authentication.Usuario;
 
-
 /**
  * Representa a un colaborador en el sistema.
  */

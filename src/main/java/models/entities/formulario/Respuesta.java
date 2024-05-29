@@ -1,6 +1,6 @@
 package models.entities.formulario;
 
-import java.util.HashSet;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +16,6 @@ public class Respuesta {
 
   //Las respuestas segun el tipo
   private String respuestaTextoLibre;
-  private HashSet<Opcion> opciones;
+  private List<Opcion> opciones;
   private Opcion respuestaSingleChoice;
 }

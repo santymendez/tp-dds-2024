@@ -2,7 +2,6 @@ package modules.security;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +15,10 @@ import modules.security.rules.Regla;
 @Setter
 @Getter
 public class Autenticador {
-  private HashSet<Regla> politicas;
+  private List<Regla> politicas;
 
   public Autenticador() {
-    this.setPoliticas(new HashSet<>());
+    this.setPoliticas(new ArrayList<>());
   }
 
   public void agregarPoliticas(Regla... reglas) {

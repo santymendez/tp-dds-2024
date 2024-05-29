@@ -1,12 +1,12 @@
 package models.entities.personas.vulnerable;
 
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import models.entities.personas.documento.Documento;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
+import models.entities.personas.documento.Documento;
 import models.entities.tarjeta.Tarjeta;
 
 /**
@@ -21,7 +21,7 @@ public class Vulnerable {
   private final LocalDate fechaRegistro;
   private final Direccion domicilio;
   private final Documento documento;
-  private final HashSet<Vulnerable> menoresAcargo;
+  private final List<Vulnerable> menoresAcargo;
   @Setter
   private Tarjeta tarjeta;
 
@@ -30,7 +30,7 @@ public class Vulnerable {
    */
 
   public Vulnerable(String nombre, LocalDate fechaNacimiento, Direccion domicilio,
-                    Documento documento, HashSet<Vulnerable> menoresAcargo) {
+                    Documento documento, List<Vulnerable> menoresAcargo) {
     this.nombre = nombre;
     this.fechaNacimiento = fechaNacimiento;
     this.fechaRegistro = LocalDate.now();

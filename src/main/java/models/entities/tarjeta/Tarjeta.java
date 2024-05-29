@@ -1,6 +1,6 @@
 package models.entities.tarjeta;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ import models.entities.personas.vulnerable.Vulnerable;
 public class Tarjeta {
   private String codigo;
   private Integer cantidadDeUsosMaxima;
-  private HashSet<RegistroUso> registroUsos;
+  private List<RegistroUso> registroUsos;
   private InformacionRegistro informacionRegistro;
 
   /**

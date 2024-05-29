@@ -1,9 +1,8 @@
 package models.entities.formulario;
 
-import java.util.HashSet;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-
 
 /**
  * Representa una pregunta de un formulario.
@@ -15,6 +14,6 @@ import lombok.Setter;
 public class Pregunta {
   private String pregunta;
   private Boolean esOpcional;
-  private HashSet<Opcion> opciones;
+  private List<Opcion> opciones;
   private TipoPregunta tipoDeSuRespuesta;
 }

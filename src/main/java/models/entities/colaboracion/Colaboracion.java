@@ -2,7 +2,6 @@ package models.entities.colaboracion;
 
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,7 +39,7 @@ public class Colaboracion {
   private Heladera heladera;
 
   //Distribuir tarjetas
-  private HashSet<Tarjeta> tarjetasEntregadas;
+  private List<Tarjeta> tarjetasEntregadas;
   private Integer cantTarjetasEntregadas;
 
   //Realizar ofertas
@@ -55,13 +54,11 @@ public class Colaboracion {
     return this.heladera.calcularMesesActiva();
   }
 
-  /*
-  public Integer cantViandasDonadas() {
-    return this.viandas.size();
+  public void cantViandasDonadas() {
+    this.cantViandas = this.viandas.size();
   }
 
-  public Integer cantTarjetasEntregadas() {
-    return this.tarjetasEntregadas.size();
+  public void cantTarjetasEntregadas() {
+    this. cantTarjetasEntregadas = tarjetasEntregadas.size();
   }
-  */
 }

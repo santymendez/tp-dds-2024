@@ -1,8 +1,7 @@
 package modules.csv_test;
 
-import controllers.ColaboradoresController;
 import models.repositories.ColaboradoresRepository;
-import modules.bulk.load.CargaCsv;
+import modules.bulk.load.CsvController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,8 +10,7 @@ import services.ColaboracionesService;
 import services.ColaboradoresService;
 
 public class TestCsv {
-  CargaCsv bulkLoader;
-  ColaboradoresController colaboradoresController;
+  CsvController csvController;
   ColaboradoresService colaboradoresService;
   ColaboracionesService colaboracionesService;
   ColaboradoresRepository colaboradoresRepository;
@@ -22,15 +20,14 @@ public class TestCsv {
     colaboradoresRepository = new ColaboradoresRepository();
     colaboracionesService = new ColaboracionesService();
     colaboradoresService = new ColaboradoresService(colaboradoresRepository);
-    colaboradoresController = new ColaboradoresController(colaboradoresRepository, colaboradoresService);
-    bulkLoader = new CargaCsv(colaboradoresController, colaboracionesService);
+    csvController = new CsvController(colaboradoresRepository, colaboradoresService, colaboracionesService);
   }
 
   @Test
   @DisplayName("Se realiza la carga, se guardan los usuarios y se les envia un mail")
   public void losUsuariosRecibenMail() {
     try {
-      bulkLoader.leerArchivoCsv();
+      csvController.leerArchivoCsv();
       Assertions.assertTrue(colaboradoresRepository.buscar(12345678).isPresent());
     } catch (Exception e) {
       e.printStackTrace();

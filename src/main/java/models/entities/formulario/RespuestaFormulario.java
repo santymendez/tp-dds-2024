@@ -4,7 +4,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-
 /**
  * Representa las respuestas de los contribuidores a la totalidad de un formulario.
  * Tiene un nombre, la descripcion, las respuestas y el formulario al que responde.

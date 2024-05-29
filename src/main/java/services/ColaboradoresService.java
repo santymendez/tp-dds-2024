@@ -1,7 +1,6 @@
 package services;
 
 import dtos.ColaboradorInputDto;
-import java.util.Optional;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.reconocimiento.formula.Formula;
 import models.entities.personas.contacto.Contacto;
@@ -12,7 +11,6 @@ import models.repositories.ColaboradoresRepository;
 import modules.authentication.Usuario;
 import modules.email.sender.EmailSender;
 import modules.email.sender.Mensaje;
-
 
 /**
  * Instancia el colaborador y lo guarda en el repositorio.

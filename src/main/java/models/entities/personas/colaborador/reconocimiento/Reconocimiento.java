@@ -3,7 +3,7 @@ package models.entities.personas.colaborador.reconocimiento;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.colaboracion.Colaboracion;
-import models.entities.personas.colaborador.reconocimiento.formula.Formula;
+import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 
 /**
  * Representa el reconocimiento que reciben los colaboradores.

@@ -2,7 +2,7 @@ package services;
 
 import dtos.ColaboradorInputDto;
 import models.entities.personas.colaborador.Colaborador;
-import models.entities.personas.colaborador.reconocimiento.formula.Formula;
+import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
@@ -60,11 +60,6 @@ public class ColaboradoresService {
     //Para los test, en realidad la formula ya deberia estar creada
     // y solo deberiamos hacer el set al reconocimiento.
     Formula formula = new Formula();
-    formula.setCoefPesosDonados(0.5f);
-    formula.setCoefViandasDonadas(1.5f);
-    formula.setCoefHeladerasActivas(5f);
-    formula.setCoefViandasDistribuidas(1.0f);
-    formula.setCoefTarjetasRepartidas(2f);
     colaborador.getReconocimiento().setFormulaCalculoDePuntos(formula);
 
     colaboradoresRepository.guardar(colaborador);

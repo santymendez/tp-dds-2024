@@ -1,4 +1,4 @@
-package models.entities.personas.colaborador;
+package models.entities.personas.colaborador.canje;
 
 import java.awt.Image;
 import lombok.Getter;

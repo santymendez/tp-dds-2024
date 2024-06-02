@@ -42,7 +42,7 @@ class Barrio {
 
 class Vianda {
     -comida: Comida
-    -fechaDonacion: LocalDate
+    -fechaDonacion: Date
     -colaborador: Colaborador
     -heladera: Heladera
     -calorias: Integer
@@ -61,7 +61,7 @@ class Vulnerable {
     -fechaRegistro: LocalDate
     -domicilio: Direccion
     -documento: Documento
-    -Set<Vulnerable> menoresAcargo
+    -List<Vulnerable> menoresAcargo
     -tarjeta: Tarjeta
 
     +boolean puedeUsarTarjeta(Heladera heladera)
@@ -83,6 +83,8 @@ class Colaborador{
     -tipoColaborador: TipoColaborador
     -respuestaFormulario: RespuestaFormulario
     -reconocimiento: Reconocimiento
+
+    -adapterServicioRecomendacion: AdapterServicioRecomendacion
 
     +boolean puedeCanjear(Oferta oferta)
     +void aumentarReconocimiento(Colaboracion colaboracion)
@@ -108,7 +110,7 @@ class RespuestaFormulario {
 class Pregunta {
     -pregunta: String
     -esOpcional: Boolean
-    -Set<Opcion> opciones
+    -List<Opcion> opciones
     -tipoDeSuRespuesta: TipoPregunta
 }
 
@@ -116,7 +118,7 @@ class Respuesta {
     -pregunta: Pregunta
     -tipoRespuesta: TipoPregunta
     -respuestaTextoLibre: String
-    -Set<Opcion> respuestaMultipleChoice
+    -List<Opcion> opciones
     -respuestaSingleChoice: Opcion
 }
 
@@ -140,31 +142,32 @@ class Colaboracion {
 
     'DONAR_VIANDA'
     -List<Vianda> viandas
+    -cantViandas: Integer
 
     'DISTRIBUIR_VIANDA'
     -heladeraOrigen: Heladera
     -heladeraDestino: Heladera
-    -cantViandas: Integer
+    -cantViandasDistribuidas: Integer
     -motivoDistribucion: String
-    -fechaDistribucion: Date
+    -fechaDistribucion: LocalDate
 
     'COLOCAR_HELADERA'
     -heladera: Heladera
 
     'DISTRIBUIR_TARJETAS'
-    -Set<Tarjeta> tarjetasEntregadas
+    -List<Tarjeta> tarjetasEntregadas
+    -cantTarjetasEntregadas: Integer
 
     'REALIZAR_OFERTAS'
     -List<Oferta> ofertas
-
 }
 
 enum TipoColaboracion {
     DONAR_DINERO,
     DONAR_VIANDA,
-    DISTRIBUIR_VIANDA,
+    DISTRIBUIR_VIANDAS,
     COLOCAR_HELADERA,
-    DISTRIBUIR_TARJETAS,
+    ENTREGAR_TARJETA,
     REALIZAR_OFERTAS
 }
 
@@ -200,21 +203,50 @@ class Reconocimiento {
     +void restarPuntos(Float puntos)
 }
 
+interface InterfazFormula {
+    +Float calcularPuntosDe(Colaboracion colaboracion)
+}
+
 class Formula {
-    -coefPesosDonados: Float
-    -coefViandasDonadas: Float
-    -coefViandasDistribuidas: Float
-    -coefTarjetasRepartidas: Float
-    -coefHeladerasActivas: Float
     -mapCalculos: EnumMap<TipoColaboracion, Function<Colaboracion, Float>>;
 
     +Float calcularPuntosDe(Colaboracion colaboracion)
 }
 
+class CalculoPesosDonados {
+    -Float coeficiente
+
+    +public Float calcularPuntosDe(Colaboracion colaboracion)
+}
+
+class CalculoViandasDonadas {
+    Float coeficiente
+
+    +public Float calcularPuntosDe(Colaboracion colaboracion)
+}
+
+class CalculoViandasDistribuidas {
+    -Float coeficiente
+
+    +public Float calcularPuntosDe(Colaboracion colaboracion)
+}
+
+class CalculoTarjetasRepartidas {
+    -Float coeficiente
+
+    +public Float calcularPuntosDe(Colaboracion colaboracion)
+}
+
+class CalculoHeladerasActivas {
+    -Float coeficiente
+
+    +public Float calcularPuntosDe(Colaboracion colaboracion)
+}
+
 class Tarjeta {
     -codigo: String
     -cantidadDeUsosMaxima: Integer
-    -HashSet<RegistroUso> registroUsos
+    -List<RegistroUso> registroUsos
     -informacionRegistro: InformacionRegistro
 
     +boolean puedeUtilizarse(Heladera heladera)
@@ -241,14 +273,19 @@ class Tecnico {
 
 enum TipoDocumento {
     DNI,
-    LIBRETA_ENROLAMIENTO,
-    PASAPORTE
+    LC,
+    LE
 }
 
 class Oferta {
     -nombre: String
     -puntosNecesarios: Float
     -imagenIlustrativa: Image
+}
+
+class Canje {
+    -colaborador: Colaborador
+    -oferta: Oferta
 }
 
 class Documento {
@@ -266,58 +303,132 @@ enum TipoContacto {
     CELULAR,
     MAIL
 }
+
+interface InterfaceAdapterServicioRecomendacion {
+    +ListadoDepuntos listadoDePuntos(int lat, int lon, int rad)
+}
+
+class AdapterServicioRecomendacion{
+    -instancia: AdapterServicioRecomendacion
+    -urlAPI: String
+    -retrofit: Retrofit 'retrofit es una clase, pero lo tomamos como tipo de dato ya que es una dependencia'
+
+    +ListadoDepuntos listadoDePuntos(int lat, int lon, int rad)
+}
 '================================================== Relaciones ================================================'
 
-Heladera o--"*" Vianda
-Vianda --> Heladera
-Colaboracion --> TipoColaboracion
-Colaboracion --->"*" Vianda
-Colaboracion -> Heladera
-Vulnerable ->"*" Vulnerable
+'DIRECCIONES'
+Direccion o-- Provincia
+Provincia o-- Ciudad
+Ciudad o-- Barrio
+
+'HELADERA'
 Heladera o-- Direccion
-Colaborador o--- Direccion
-Vianda o-- Comida
-Vianda o- Colaborador
-Formulario o--"*" Pregunta
-RespuestaFormulario o--"*" Respuesta
-RespuestaFormulario o-- Formulario
+Heladera <-->"*" Vianda
+Heladera *-- Modelo
+Heladera *-- SensorMovimiento
+
+'VIANDA'
+Vianda *-- Comida
+Vianda --> Colaborador
+
+'MODELO'
+Modelo *-- SensorTemperatura
+
+'SENSOR TEMPERATURA'
+SensorTemperatura --> Heladera
+
+'SENSOR MOVIMIENTO'
+SensorMovimiento --> Heladera
+
+'COLABORADOR'
+Colaborador ---> Documento
+Colaborador ---> Direccion
+Colaborador ---> Contacto
+Colaborador o--- TipoColaborador
 Colaborador o--- RespuestaFormulario
-Respuesta -->"*" Opcion
-Respuesta o-- Pregunta
-Pregunta ->"*" Opcion
-Pregunta *--> TipoPregunta
-Respuesta o-- TipoPregunta
-Direccion --> Provincia
-Provincia --> Ciudad
-Ciudad --> Barrio
-Vulnerable o-- Direccion
-Vulnerable o-- Documento
-Tecnico o-- Documento
-Vulnerable o-- Tarjeta
-Tarjeta o--"*" RegistroUso
-Tarjeta *-- InformacionRegistro
-InformacionRegistro o-- Colaborador
-InformacionRegistro o-- Vulnerable
-Reconocimiento o-- Formula
-Formula ..> Colaboracion
-Heladera --> Modelo
-Colaborador *--- TipoColaborador
-Heladera o--> SensorMovimiento
-Colaboracion -->"*" Tarjeta
-Modelo o--> SensorTemperatura
-Tarjeta ..> Heladera
-Heladera o-- SensorTemperatura
-Tecnico o-- Contacto
-Contacto *-- TipoContacto
-Documento *-- TipoDocumento
-Tecnico --> Ciudad
-RegistroUso --> Heladera
-Colaborador o-- Reconocimiento
+Colaborador o--- Reconocimiento
+Colaborador ---> AdapterServicioRecomendacion
+
+'DOCUMENTO'
+Documento o-- TipoDocumento
+
+'CONTACTO'
+Contacto o-- TipoContacto
+
+'SERVICIO RECOMENDACION'
+AdapterServicioRecomendacion --> AdapterServicioRecomendacion
+AdapterServicioRecomendacion ..|> InterfaceAdapterServicioRecomendacion
+
+'RECONOCIMIENTO'
+Reconocimiento *-- Formula
 Reconocimiento ..> Colaboracion
-Colaborador ..> Colaboracion
-Colaborador --> Contacto
+
+'FORMULA'
+Formula ..|> InterfazFormula
+Formula ..> Colaboracion
+Formula ..> CalculoPesosDonados
+Formula ..> CalculoViandasDonadas
+Formula ..> CalculoTarjetasRepartidas
+Formula ..> CalculoHeladerasActivas
+Formula ..> CalculoViandasDistribuidas
+
+'RESPUESTA FORMULARIO'
+RespuestaFormulario o--"*" Respuesta
+RespuestaFormulario *-- Formulario
+
+'FORMULARIO'
+Formulario o--"*" Pregunta
+
+'PREGUNTA'
+Pregunta -->"*" Opcion
+Pregunta *-- TipoPregunta
+
+'RESPUESTA'
+Respuesta o-- Pregunta
+Respuesta *-- TipoPregunta
+Respuesta -->"*" Opcion
+
+'COLABORACION'
+Colaboracion *-- TipoColaboracion
+Colaboracion -->"*" Vianda
+Colaboracion --> Heladera
+Colaboracion -->"*" Tarjeta
 Colaboracion -->"*" Oferta
-Colaborador --> Usuario
-Colaborador --> Documento
+
+'TARJETA'
+Tarjeta o---"*" RegistroUso
+Tarjeta ---> InformacionRegistro
+Tarjeta ...> Heladera
+
+'REGISTRO USO'
+RegistroUso *--- Heladera
+
+'INFORMACION REGISTRO'
+InformacionRegistro *--- Colaborador
+InformacionRegistro *--- Vulnerable
+
+'VULNERABLE'
+Vulnerable ---> Direccion
+Vulnerable ---> Documento
+Vulnerable --->"*" Vulnerable
+Vulnerable ---> Tarjeta
+Vulnerable ..> Heladera
+
+'TECNICO'
+Tecnico *- Documento
+Tecnico *-- Contacto
+Tecnico *-- Ciudad
+
+'CANJE'
+Canje *-- Colaborador
+Canje *-- Oferta
+
+'CALCULOS'
+CalculoPesosDonados ..> Colaboracion
+CalculoViandasDonadas ..> Colaboracion
+CalculoTarjetasRepartidas ..> Colaboracion
+CalculoHeladerasActivas ..> Colaboracion
+CalculoViandasDistribuidas ..> Colaboracion
 
 @enduml

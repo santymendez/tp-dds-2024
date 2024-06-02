@@ -51,6 +51,8 @@ public class Tarjeta {
     return true;
   }
 
+  // =========================== Metodos Auxiliares ===========================
+
   private Integer calcularUsosPara(Vulnerable vulnerable) {
     return 4 + 2 * vulnerable.getMenoresAcargo().size();
   }

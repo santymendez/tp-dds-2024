@@ -10,6 +10,7 @@ import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import modules.authentication.Usuario;
+import modules.recomendator.adapter.AdapterServicioRecomendacion;
 
 /**
  * Representa a un colaborador en el sistema.
@@ -36,6 +37,8 @@ public class Colaborador {
   private TipoColaborador tipoColaborador;
   private RespuestaFormulario respuestaFormulario;
   private Reconocimiento reconocimiento;
+
+  private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
   public Colaborador() {
     this.reconocimiento = new Reconocimiento();

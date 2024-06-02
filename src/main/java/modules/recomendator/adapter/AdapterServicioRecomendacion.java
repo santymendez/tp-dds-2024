@@ -1,6 +1,7 @@
-package modules.recomendator;
+package modules.recomendator.adapter;
 
 import java.io.IOException;
+import modules.recomendator.RecommendationService;
 import modules.recomendator.entities.ListadoDepuntos;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -11,13 +12,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Representa a un recomendador de puntos de colocacion para las empresas.
  */
 
-public class ServicioRecomendacion {
-  private static  ServicioRecomendacion instancia = null;
+public class AdapterServicioRecomendacion implements InterfaceAdapterServicioRecomendacion {
+  private static AdapterServicioRecomendacion instancia = null;
   private static final String urAPI = "https://71f019a3-8787-49bf-891b-05a9650407ed.mock.pstmn.io/";
   private Retrofit retrofit;
 
-
-  private ServicioRecomendacion() {
+  private AdapterServicioRecomendacion() {
     this.retrofit = new Retrofit.Builder()
         .baseUrl(urAPI)
         .addConverterFactory(GsonConverterFactory.create())
@@ -25,16 +25,15 @@ public class ServicioRecomendacion {
   }
 
   /**
-   * se encarga de devolver el objeto, si no estaba instanciado
+   * Se encarga de devolver el objeto, si no estaba instanciado
    * lo crea.
    *
    * @return ServicioRecomendacion
    */
 
-
-  public static ServicioRecomendacion getInstancia() {
+  public static AdapterServicioRecomendacion getInstancia() {
     if (instancia == null) {
-      instancia = new ServicioRecomendacion();
+      instancia = new AdapterServicioRecomendacion();
     }
     return instancia;
   }

@@ -31,4 +31,5 @@ target/**
 
 src/main/resources/config.properties
 
-/src/test/java/modules/csv_test/
+/src/test/java/modules/csv_test/*
+/src/test/java/modules/csv_test/.*

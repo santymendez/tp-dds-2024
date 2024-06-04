@@ -10,11 +10,12 @@ class Heladera {
     -ultVezActivada: LocalDate;
     -modelo: Modelo;
     -sensorMovimiento: SensorMovimiento;
-    -mesesActiva: Integer;
-    -estaActiva: Boolean;
+    -estadoActual: Estado
+    -List<Estado> estadosHeladera;
 
     +void agregarVianda(Vianda vianda)
     +Integer calcularMesesActiva()
+    +void generarAlerta()
 }
 
 class Direccion {
@@ -179,20 +180,20 @@ class Modelo{
 }
 
 class SensorTemperatura {
-    -heladera: Heladera
     -temperaturaMinima: Float
     -temperaturaMaxima: Float
     -ultimaTemperatura: Float
 
-    +void activarSensor()
-    +void desactivarSensor()
+    +void recibirMedicion(Heladera heladera, Float ultimaTemperatura)
+    +void activarSensor(Heladera heladera))
+    +void desactivarSensor(Heladera heladera))
 }
 
 class SensorMovimiento {
-    -heladera: Heladera
 
-    +void activarSensor()
-    +void desactivarSensor()
+    +void recibirMedicion(Heladera heladera, Float lat, Float lon)
+    +void activarSensor(Heladera heladera))
+    +void desactivarSensor(Heladera heladera))
 }
 
 class Reconocimiento {
@@ -315,6 +316,22 @@ class AdapterServicioRecomendacion{
 
     +ListadoDepuntos listadoDePuntos(int lat, int lon, int rad)
 }
+
+class Estado{
+    -estado: TipoEstado
+    -fechaInicial: LocalDate
+    -fechaFinal: LocalDate
+
+    +Integer calcularMeses()
+}
+
+enum TipoEstado{
+    ACTIVA,
+    INACTIVA_FUNCIONAL,
+    INACTIVA_TEMPERATURA,
+    INACTIVA_FRAUDE,
+    INACTIVA_FALLA_CONEXION
+}
 '================================================== Relaciones ================================================'
 
 'DIRECCIONES'
@@ -327,6 +344,7 @@ Heladera o-- Direccion
 Heladera <-->"*" Vianda
 Heladera *-- Modelo
 Heladera *-- SensorMovimiento
+Heladera -->"*" Estado
 
 'VIANDA'
 Vianda *-- Comida
@@ -334,12 +352,6 @@ Vianda --> Colaborador
 
 'MODELO'
 Modelo *-- SensorTemperatura
-
-'SENSOR TEMPERATURA'
-SensorTemperatura --> Heladera
-
-'SENSOR MOVIMIENTO'
-SensorMovimiento --> Heladera
 
 'COLABORADOR'
 Colaborador ---> Documento
@@ -430,5 +442,8 @@ CalculoViandasDonadas ..> Colaboracion
 CalculoTarjetasRepartidas ..> Colaboracion
 CalculoHeladerasActivas ..> Colaboracion
 CalculoViandasDistribuidas ..> Colaboracion
+
+'Estado'
+Estado *-- TipoEstado
 
 @enduml

@@ -5,28 +5,48 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Representa un sensor de temperatura con la última temperatura, las temperaturas maximas
+ * Representa un sensor de temperatura con la última temperatura, las temperaturas máximas
  * y minimas.
  */
 
 @Getter
-@Setter //Permite recibir una nueva última temperatura
+@Setter
+//Permite recibir una nueva última temperatura
 //También permite modificar las temperaturas max y min
 public class SensorTemperatura {
-  private Heladera heladera;
   private Float temperaturaMinima;
   private Float temperaturaMaxima;
-  private Float ultimaTemperatura;
+  private Float ultTemperatura;
 
-  public void recibirMedicion() {}
+  /**
+   * Función que recibe la heladera y te activa el sensor si la temperatura no está en el rango.
+   */
 
-  public void activarSensor() {
-    this.heladera.setMesesActiva(this.heladera.calcularMesesActiva());
-    this.heladera.setEstaActiva(false);
+  public void recibirMedicion(Heladera heladera, Float ultTemperatura) {
+    if (ultTemperatura > temperaturaMaxima || ultTemperatura < temperaturaMinima) {
+      this.activarSensor(heladera);
+      heladera.generarAlerta();
+    }
+    this.setUltTemperatura(ultTemperatura);
   }
 
-  public void desactivarSensor() {
-    this.heladera.setUltVezActivada(LocalDate.now());
-    this.heladera.setEstaActiva(true);
+  public void activarSensor(Heladera heladera) {
+    this.modificarEstado(heladera, TipoEstado.INACTIVA_TEMPERATURA);
+    heladera.generarAlerta();
+  }
+
+  public void desactivarSensor(Heladera heladera) {
+    this.modificarEstado(heladera, TipoEstado.ACTIVA);
+  }
+
+  /**
+   * Setea la fecha final del estado anterior y crea el nuevo estado actual.
+   */
+
+  public void modificarEstado(Heladera heladera, TipoEstado estado) {
+    heladera.getEstadoActual().setFechaFinal(LocalDate.now());
+    heladera.setEstadoActual(new Estado(estado));
+    heladera.getEstadoActual().setFechaInicial(LocalDate.now());
+    heladera.getEstadosHeladera().add(heladera.getEstadoActual());
   }
 }

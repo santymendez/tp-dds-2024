@@ -2,6 +2,8 @@ package modules.csv_test;
 
 import models.repositories.ColaboradoresRepository;
 import modules.bulk.load.CsvController;
+import modules.sender.Destinatario;
+import modules.sender.Mensaje;
 import modules.sender.channels.EmailSender;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +26,7 @@ public class TestCsv {
     colaboracionesService = new ColaboracionesService();
     colaboradoresService = new ColaboradoresService(colaboradoresRepository);
     EmailSender emailSender = mock(EmailSender.class);
+    doNothing().when(emailSender).enviar(any(Mensaje.class), any(Destinatario.class));
     colaboradoresService.setEmailsender(emailSender);
     csvController = new CsvController(colaboradoresRepository, colaboradoresService, colaboracionesService);
   }

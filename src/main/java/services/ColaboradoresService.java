@@ -11,9 +11,9 @@ import models.entities.personas.documento.TipoDocumento;
 import models.repositories.ColaboradoresRepository;
 import modules.authentication.Usuario;
 import modules.sender.Destinatario;
+import modules.sender.Mensaje;
 import modules.sender.TipoDestinatario;
 import modules.sender.channels.EmailSender;
-import modules.sender.Mensaje;
 
 /**
  * Instancia el colaborador y lo guarda en el repositorio.
@@ -61,7 +61,8 @@ public class ColaboradoresService {
             + colaboradorInputDto.getApellido()
             + "\nPuede cambiarlas si así lo desea.\n\nSaludos!");
 
-    // TODO revisar si esta bien tratar polimorficamente el sender ya que como consecuencia tenemos que
+    // TODO revisar si esta bien tratar polimorficamente
+    //  TODO el sender ya que como consecuencia tenemos que
     // mostrar mas logica del modulo (Quizas con un factory se puede arreglar, no se si vale
     // la pena).
     Destinatario destinatario = new Destinatario();

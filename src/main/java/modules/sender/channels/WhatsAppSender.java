@@ -12,13 +12,13 @@ import modules.sender.TipoDestinatario;
  */
 
 public class WhatsAppSender {
-  private final String account_sid;
+  private final String accountSid;
   private final String tokenAutenticacion;
   private final String nroEnvio;
   private static WhatsAppSender instance;
 
   private WhatsAppSender() {
-    account_sid = Config.getWhatsappSid();
+    accountSid = Config.getWhatsappSid();
     tokenAutenticacion = Config.getWhatsappAuthToken();
     nroEnvio = "whatsapp:+" + Config.getWhatsappNumber();
   }
@@ -48,7 +48,7 @@ public class WhatsAppSender {
     String nroDestinatario = "whatsapp:+" + nroDest;
     String newMensaje = mensaje.aplanarMensaje();
 
-    Twilio.init(account_sid, tokenAutenticacion);
+    Twilio.init(accountSid, tokenAutenticacion);
     Message message = Message.creator(
               new com.twilio.type.PhoneNumber(nroDestinatario),
               new com.twilio.type.PhoneNumber(nroEnvio),

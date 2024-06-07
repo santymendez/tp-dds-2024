@@ -21,8 +21,8 @@ import org.apache.logging.log4j.Logger;
  * electrónico especificando el destinatario y el mensaje a enviar.
  */
 public class EmailSender {
-  private final String nombreDeUsuario = Config.getUser();
-  private final String contrasenia = Config.getApiKey(); // Acá se usa la API key
+  private final String nombreDeUsuario = Config.getEmailUser();
+  private final String contrasenia = Config.getEmailApiKey(); // Acá se usa la API key
   private final Session sesion;
 
   private static final Logger logger = LogManager.getLogger(EmailSender.class);

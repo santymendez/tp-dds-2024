@@ -24,11 +24,31 @@ public class Config {
     }
   }
 
-  public static String getApiKey() {
-    return properties.getProperty("api.key");
+  public static String getEmailApiKey() {
+    return properties.getProperty("email.api.key");
   }
 
-  public static String getUser() {
-    return properties.getProperty("user");
+  public static String getEmailUser() {
+    return properties.getProperty("email.user");
+  }
+
+  public static String getWhatsappSid() {
+    return properties.getProperty("whatsapp.account.sid");
+  }
+
+  public static String getWhatsappNumber() {
+    return properties.getProperty("whatsapp.account.num");
+  }
+
+  public static String getWhatsappAuthToken() {
+    return properties.getProperty("whatsapp.account.token");
+  }
+
+  public static String getTelegramBotUser() {
+    return properties.getProperty("telegram.bot.username");
+  }
+
+  public static String getTelegramBotToken() {
+    return properties.getProperty("telegram.bot.token");
   }
 }

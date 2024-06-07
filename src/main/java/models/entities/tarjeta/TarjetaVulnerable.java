@@ -15,7 +15,7 @@ import models.entities.personas.vulnerable.Vulnerable;
 
 @Getter
 @Setter
-public class Tarjeta {
+public class TarjetaVulnerable {
   private String codigo;
   private Integer cantidadDeUsosMaxima;
   private List<RegistroUso> registroUsos;
@@ -28,7 +28,7 @@ public class Tarjeta {
    * @param vulnerable Es el vulnerable que recibe la tarjeta y es registrado.
    */
 
-  public Tarjeta(Colaborador colaborador, Vulnerable vulnerable) {
+  public TarjetaVulnerable(Colaborador colaborador, Vulnerable vulnerable) {
     this.cantidadDeUsosMaxima = this.calcularUsosPara(vulnerable);
     this.informacionRegistro = new InformacionRegistro(colaborador, vulnerable);
     this.codigo = this.generarCodigoAlfanumerico();

@@ -2,20 +2,25 @@
 '========================================== Clases de la entrega 1 ============================================='
 
 class Heladera {
-    -direccion: Direccion;
-    -nombre: String;
-    -capacidadMaximaViandas: Integer;
-    -List<Vianda> viandas;
-    -fechaDeCreacion: LocalDate;
-    -ultVezActivada: LocalDate;
-    -modelo: Modelo;
-    -sensorMovimiento: SensorMovimiento;
+    -direccion: Direccion
+    -nombre: String
+    -capacidadMaximaViandas: Integer
+    -List<Vianda> viandas
+    -fechaDeCreacion: LocalDate
+    -ultVezActivada: LocalDate
+    -modelo: Modelo
+    -sensorMovimiento: SensorMovimiento
     -estadoActual: Estado
-    -List<Estado> estadosHeladera;
+    -List<Estado> estadosHeladera
+    -List<TarjetaColaborador> tarjetasHabilitadas
+    -estaAbierta: Boolean
 
     +void agregarVianda(Vianda vianda)
     +Integer calcularMesesActiva()
-    +void generarAlerta()
+    +void imprimirAlerta()
+    +void modificarEstado(TipoEstado estado)
+    +void puedeAbrirseCon(TarjetaColaborador tarjeta)
+    '+void cerrarHeladera(TarjetaColaborador tarjeta) TODO Ver de incluir en la Apertura'
 }
 
 class Direccion {
@@ -63,11 +68,12 @@ class Vulnerable {
     -domicilio: Direccion
     -documento: Documento
     -List<Vulnerable> menoresAcargo
-    -tarjeta: Tarjeta
+    -tarjeta: TarjetaVulnerable
 
     +boolean puedeUsarTarjeta(Heladera heladera)
 }
 
+'TODO revisar datos opcionales con builder'
 class Colaborador{
     'De Persona Fisica'
     -nombre: String
@@ -87,8 +93,13 @@ class Colaborador{
 
     -adapterServicioRecomendacion: AdapterServicioRecomendacion
 
+    -tarjeta: TarjetaColaborador
+
     +boolean puedeCanjear(Oferta oferta)
     +void aumentarReconocimiento(Colaboracion colaboracion)
+
+    +void solicitarAperturaDeHeladera()
+    +void reportarFallaTecnica(Heladera heladera)
 }
 
 enum TipoColaborador {
@@ -156,7 +167,7 @@ class Colaboracion {
     -heladera: Heladera
 
     'DISTRIBUIR_TARJETAS'
-    -List<Tarjeta> tarjetasEntregadas
+    -List<TarjetaVulnerable> tarjetasEntregadas
     -cantTarjetasEntregadas: Integer
 
     'REALIZAR_OFERTAS'
@@ -179,21 +190,27 @@ class Modelo{
     -sensorTemperatura: SensorTemperatura
 }
 
+interface Sensor {
+    void activarSensor(Heladera heladera)
+    void activarHeladera(Heladera heladera)
+    void desactivarHeladera(Heladera heladera)
+}
+
 class SensorTemperatura {
     -temperaturaMinima: Float
     -temperaturaMaxima: Float
     -ultimaTemperatura: Float
 
     +void recibirMedicion(Heladera heladera, Float ultimaTemperatura)
-    +void activarSensor(Heladera heladera))
-    +void desactivarSensor(Heladera heladera))
+    +void activarSensor(Heladera heladera)
+    +void desactivarHeladera(Heladera heladera)
+    +void activarHeladera(Heladera heladera)
 }
 
 class SensorMovimiento {
-
-    +void recibirMedicion(Heladera heladera, Float lat, Float lon)
-    +void activarSensor(Heladera heladera))
-    +void desactivarSensor(Heladera heladera))
+    +void activarSensor(Heladera heladera)
+    +void desactivarHeladera(Heladera heladera)
+    +void activarHeladera(Heladera heladera)
 }
 
 class Reconocimiento {
@@ -244,7 +261,7 @@ class CalculoHeladerasActivas {
     +public Float calcularPuntosDe(Colaboracion colaboracion)
 }
 
-class Tarjeta {
+class TarjetaVulnerable {
     -codigo: String
     -cantidadDeUsosMaxima: Integer
     -List<RegistroUso> registroUsos
@@ -270,6 +287,7 @@ class Tecnico {
     -cuil: Integer
     -contacto: Contacto
     -areaDeCobertura: Ciudad
+    -List<VisitaTecnica> visitasTecnicas
 }
 
 enum TipoDocumento {
@@ -332,6 +350,55 @@ enum TipoEstado{
     INACTIVA_FRAUDE,
     INACTIVA_FALLA_CONEXION
 }
+
+'========================================== Clases de la entrega 3 ============================================='
+
+class TarjetaColaborador {
+    -String codigo
+    -List<UsoTarjetaColaborador> usos
+}
+
+class UsoTarjetaColaborador {
+    -tiempoLimitado: Float
+    -solicitud: SolicitudApertura
+    -apertura: Apertura
+}
+
+class SolicitudApertura {
+    -fechaSolicitud: LocalDateTime
+}
+
+class Apertura {
+    -fechaApertura: LocalDateTime
+    -heladeraAbierta: Heladera
+}
+
+'TODO implementar datos opcionales con builder en implementacion'
+class Incidente {
+    -tipoIncidente: TipoIncidente
+    -momentoIncidente: LocalDateTime
+
+    'Alerta'
+    -tipoAlerta: TipoEstado
+
+    'Falla Tecnica'
+    -colaborador: Colaborador
+    -descripcionIncidente: String
+    -fotoIncidente: Image
+}
+
+enum TipoIncidente {
+    ALERTA,
+    FALLA_TECNICA
+}
+
+class VisitaTecnica {
+    -fechaVisita: LocalDate
+    -trabajoRealizado: String
+    -fotoVisita: Image
+    -incidenteSolucionado: Boolean
+}
+
 '================================================== Relaciones ================================================'
 
 'DIRECCIONES'
@@ -345,6 +412,7 @@ Heladera <-->"*" Vianda
 Heladera *-- Modelo
 Heladera *-- SensorMovimiento
 Heladera -->"*" Estado
+Heladera -->"*" TarjetaColaborador
 
 'VIANDA'
 Vianda *-- Comida
@@ -352,6 +420,12 @@ Vianda --> Colaborador
 
 'MODELO'
 Modelo *-- SensorTemperatura
+
+'SENSORES'
+SensorMovimiento ..|> Sensor
+SensorMovimiento ..> Heladera
+SensorTemperatura ..|> Sensor
+SensorTemperatura ..> Heladera
 
 'COLABORADOR'
 Colaborador ---> Documento
@@ -361,6 +435,8 @@ Colaborador o--- TipoColaborador
 Colaborador o--- RespuestaFormulario
 Colaborador o--- Reconocimiento
 Colaborador ---> AdapterServicioRecomendacion
+Colaborador --> TarjetaColaborador
+Colaborador ..> Heladera
 
 'DOCUMENTO'
 Documento o-- TipoDocumento
@@ -405,13 +481,13 @@ Respuesta -->"*" Opcion
 Colaboracion *-- TipoColaboracion
 Colaboracion -->"*" Vianda
 Colaboracion --> Heladera
-Colaboracion -->"*" Tarjeta
+Colaboracion -->"*" TarjetaVulnerable
 Colaboracion -->"*" Oferta
 
 'TARJETA'
-Tarjeta o---"*" RegistroUso
-Tarjeta ---> InformacionRegistro
-Tarjeta ...> Heladera
+TarjetaVulnerable o---"*" RegistroUso
+TarjetaVulnerable ---> InformacionRegistro
+TarjetaVulnerable ...> Heladera
 
 'REGISTRO USO'
 RegistroUso *--- Heladera
@@ -424,13 +500,14 @@ InformacionRegistro *--- Vulnerable
 Vulnerable ---> Direccion
 Vulnerable ---> Documento
 Vulnerable --->"*" Vulnerable
-Vulnerable ---> Tarjeta
+Vulnerable ---> TarjetaVulnerable
 Vulnerable ..> Heladera
 
 'TECNICO'
 Tecnico *- Documento
 Tecnico *-- Contacto
 Tecnico *-- Ciudad
+Tecnico -->"*" VisitaTecnica
 
 'CANJE'
 Canje *-- Colaborador
@@ -443,7 +520,22 @@ CalculoTarjetasRepartidas ..> Colaboracion
 CalculoHeladerasActivas ..> Colaboracion
 CalculoViandasDistribuidas ..> Colaboracion
 
-'Estado'
+'ESTADO'
 Estado *-- TipoEstado
+
+'TARJETA DEL COLABORADOR'
+TarjetaColaborador -->"*" UsoTarjetaColaborador
+
+'USO TARJETA DEL COLABORADOR'
+UsoTarjetaColaborador *-- SolicitudApertura
+UsoTarjetaColaborador --> Apertura
+
+'APERTURA'
+Apertura o-- Heladera
+
+'INCIDENTE'
+Incidente *-- TipoIncidente
+Incidente --> TipoEstado
+Incidente --> Colaborador
 
 @enduml

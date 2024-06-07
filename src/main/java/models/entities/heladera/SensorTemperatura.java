@@ -11,42 +11,36 @@ import lombok.Setter;
 
 @Getter
 @Setter
-//Permite recibir una nueva última temperatura
-//También permite modificar las temperaturas max y min
-public class SensorTemperatura {
+public class SensorTemperatura implements Sensor {
   private Float temperaturaMinima;
   private Float temperaturaMaxima;
   private Float ultTemperatura;
 
-  /**
-   * Función que recibe la heladera y te activa el sensor si la temperatura no está en el rango.
-   */
-
   public void recibirMedicion(Heladera heladera, Float ultTemperatura) {
-    if (ultTemperatura > temperaturaMaxima || ultTemperatura < temperaturaMinima) {
-      this.activarSensor(heladera);
-      heladera.generarAlerta();
-    }
     this.setUltTemperatura(ultTemperatura);
-  }
-
-  public void activarSensor(Heladera heladera) {
-    this.modificarEstado(heladera, TipoEstado.INACTIVA_TEMPERATURA);
-    heladera.generarAlerta();
-  }
-
-  public void desactivarSensor(Heladera heladera) {
-    this.modificarEstado(heladera, TipoEstado.ACTIVA);
+    this.activarSensor(heladera);
   }
 
   /**
-   * Setea la fecha final del estado anterior y crea el nuevo estado actual.
+   * Función que desactiva el sensor si la temperatura no está en el rango.
    */
 
-  public void modificarEstado(Heladera heladera, TipoEstado estado) {
-    heladera.getEstadoActual().setFechaFinal(LocalDate.now());
-    heladera.setEstadoActual(new Estado(estado));
-    heladera.getEstadoActual().setFechaInicial(LocalDate.now());
-    heladera.getEstadosHeladera().add(heladera.getEstadoActual());
+  @Override
+  public void activarSensor(Heladera heladera) {
+    if (ultTemperatura > temperaturaMaxima || ultTemperatura < temperaturaMinima) {
+      this.desactivarHeladera(heladera);
+      heladera.imprimirAlerta();
+    }
+  }
+
+  @Override
+  public void desactivarHeladera(Heladera heladera) {
+    heladera.modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
+    heladera.imprimirAlerta();
+  }
+
+  @Override
+  public void activarHeladera(Heladera heladera) {
+    heladera.modificarEstado(TipoEstado.ACTIVA);
   }
 }

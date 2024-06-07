@@ -14,7 +14,7 @@ public class Mensaje {
   private String asunto;
   private String cuerpo;
 
-  public String aplanarMensaje(){
+  public String aplanarMensaje() {
     return this.getAsunto() + "\n\n" + this.getCuerpo();
   }
 }

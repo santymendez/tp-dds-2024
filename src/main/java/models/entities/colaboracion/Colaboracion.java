@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.canje.Oferta;
-import models.entities.tarjeta.Tarjeta;
+import models.entities.tarjeta.TarjetaVulnerable;
 import models.entities.vianda.Vianda;
 
 /**
@@ -39,7 +39,7 @@ public class Colaboracion {
   private Heladera heladera;
 
   //Distribuir tarjetas
-  private List<Tarjeta> tarjetasEntregadas;
+  private List<TarjetaVulnerable> tarjetasEntregadas;
   private Integer cantTarjetasEntregadas;
 
   //Realizar ofertas

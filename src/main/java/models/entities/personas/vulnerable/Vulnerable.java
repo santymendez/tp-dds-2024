@@ -7,7 +7,7 @@ import lombok.Setter;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.personas.documento.Documento;
-import models.entities.tarjeta.Tarjeta;
+import models.entities.tarjeta.TarjetaVulnerable;
 
 /**
  * Representa una persona vulnerable con nombre, fecha de nacimiento, fecha de registro,
@@ -23,7 +23,7 @@ public class Vulnerable {
   private final Documento documento;
   private final List<Vulnerable> menoresAcargo;
   @Setter
-  private Tarjeta tarjeta;
+  private TarjetaVulnerable tarjeta;
 
   /**
    * Constructor de vulnerable, sirve para dar de alta.

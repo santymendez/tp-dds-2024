@@ -25,6 +25,7 @@ public class Heladera {
   private SensorMovimiento sensorMovimiento;
   private Estado estadoActual;
   private List<Estado> estadosHeladera;
+  private Boolean estaAbierta;
 
   /**
    * Se inicializa la heladera (Dar de alta).
@@ -95,12 +96,16 @@ public class Heladera {
    * Método que genera una alerta a partir del estado actual.
    */
 
-  public void generarAlerta() {
+  public void imprimirAlerta() {
     switch (estadoActual.getEstado()) {
-      case INACTIVA_FRAUDE -> System.out.println("LA HELADERA ESTA SIENDO ROBADA");
-      case INACTIVA_TEMPERATURA -> System.out.println("LA TEMPERATURA SALIO DEL RANGO RECOMENDADO");
-      case INACTIVA_FALLA_CONEXION -> System.out.println("HA FALLADO LA CONEXION CON EL SENSOR DE TEMPERATURA");
-      default -> System.out.println("FALSA ALARMA, HELADERA ACTIVA");
+      case INACTIVA_FRAUDE ->
+          System.out.println("LA HELADERA ESTA SUFRIENDO FRAUDE");
+      case INACTIVA_TEMPERATURA ->
+          System.out.println("LA TEMPERATURA SALIO DEL RANGO DE TEMPERATURA RECOMENDADO");
+      case INACTIVA_FALLA_CONEXION ->
+          System.out.println("FALLO EN LA CONEXION CON EL SENSOR DE TEMPERATURA");
+      default ->
+          System.out.println("FALSA ALARMA, HELADERA ACTIVA");
     }
   }
 
@@ -123,4 +128,17 @@ public class Heladera {
       viandas.remove(0);
     }
   }
+
+  /**
+   * Setea la fecha final del estado anterior y crea el nuevo estado actual.
+   */
+
+  public void modificarEstado(TipoEstado estado) {
+    this.estadoActual.setFechaFinal(LocalDate.now());
+    this.estadoActual = new Estado(estado);
+    this.estadoActual.setFechaInicial(LocalDate.now());
+    this.estadosHeladera.add(this.estadoActual);
+  }
 }
+
+

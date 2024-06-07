@@ -11,6 +11,10 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
   falta lo mas importante, crear al bot
  */
 
+/**
+ * Clase Bot para el Telegram Sender.
+ */
+
 public class Bot extends TelegramLongPollingBot {
 
   @Override
@@ -46,7 +50,14 @@ public class Bot extends TelegramLongPollingBot {
     super.onUpdatesReceived(updates);
   }
 
-  public void sendText(Long who, String what){
+  /**
+   * Metodo que envia un texto.
+   *
+   * @param who Destinatario.
+   * @param what El motivo.
+   */
+
+  public void sendText(Long who, String what) {
     SendMessage sm = SendMessage.builder()
         .chatId(who.toString())
         .text(what).build();

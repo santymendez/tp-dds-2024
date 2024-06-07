@@ -7,6 +7,10 @@ import modules.sender.Destinatario;
 import modules.sender.Mensaje;
 import modules.sender.TipoDestinatario;
 
+/**
+ * Clase que representa el WhatsAppSender.
+ */
+
 public class WhatsAppSender {
   private final String account_sid;
   private final String tokenAutenticacion;
@@ -19,20 +23,33 @@ public class WhatsAppSender {
     nroEnvio = "whatsapp:+" + Config.getWhatsappNumber();
   }
 
-  public static WhatsAppSender getInstance(){
-    if (instance == null){
+  /**
+   * Metodo para instanciar el WhatsAppSender.
+   *
+   * @return la instancia del WhatsAppSender.
+   */
+
+  public static WhatsAppSender getInstance() {
+    if (instance == null) {
       instance = new WhatsAppSender();
     }
     return instance;
   }
 
-  public void enviar(Mensaje mensaje, Destinatario destinatario){
+  /**
+   * Metodo para enviar un mensaje.
+   *
+   * @param mensaje Mensaje a enviar.
+   * @param destinatario Destinatario.
+   */
+
+  public void enviar(Mensaje mensaje, Destinatario destinatario) throws Exception {
     String nroDest = destinatario.obtenerMedidoContacto(TipoDestinatario.WHATSAPP);
     String nroDestinatario = "whatsapp:+" + nroDest;
     String newMensaje = mensaje.aplanarMensaje();
 
     Twilio.init(account_sid, tokenAutenticacion);
-      Message message = Message.creator(
+    Message message = Message.creator(
               new com.twilio.type.PhoneNumber(nroDestinatario),
               new com.twilio.type.PhoneNumber(nroEnvio),
               newMensaje)

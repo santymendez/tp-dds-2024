@@ -50,6 +50,12 @@ public class EmailSender {
     });
   }
 
+  /**
+   * Metodo para instanciar el EmailSender.
+   *
+   * @return la instancia del EmailSender.
+   */
+
   // Método estático para obtener la instancia única de EmailSender
   public static EmailSender getInstance() {
     if (instance == null) {

@@ -9,8 +9,8 @@ import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
 import models.repositories.ColaboradoresRepository;
 import modules.authentication.Usuario;
-import modules.email.sender.EmailSender;
-import modules.email.sender.Mensaje;
+import modules.sender.channels.EmailSender;
+import modules.sender.Mensaje;
 
 /**
  * Instancia el colaborador y lo guarda en el repositorio.

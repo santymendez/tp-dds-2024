@@ -12,7 +12,7 @@ import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.repositories.ColaboradoresRepository;
-import modules.email.sender.EmailSender;
+import modules.sender.channels.EmailSender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.ColaboracionesService;

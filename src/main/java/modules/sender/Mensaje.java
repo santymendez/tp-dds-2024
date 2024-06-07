@@ -1,4 +1,4 @@
-package modules.email.sender;
+package modules.sender;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

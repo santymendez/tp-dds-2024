@@ -1,4 +1,4 @@
-package modules.email.sender;
+package modules.sender;
 
 import java.io.IOException;
 import java.io.InputStream;

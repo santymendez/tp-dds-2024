@@ -3,7 +3,9 @@ package modules.sender.channels;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import modules.sender.Config;
+import modules.sender.Destinatario;
 import modules.sender.Mensaje;
+import modules.sender.TipoDestinatario;
 
 public class WhatsAppSender {
   private final String account_sid;
@@ -24,7 +26,8 @@ public class WhatsAppSender {
     return instance;
   }
 
-  public void enviar(Mensaje mensaje, String nroDest){
+  public void enviar(Mensaje mensaje, Destinatario destinatario){
+    String nroDest = destinatario.obtenerMedidoContacto(TipoDestinatario.WHATSAPP);
     String nroDestinatario = "whatsapp:+" + nroDest;
     String newMensaje = mensaje.aplanarMensaje();
 

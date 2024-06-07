@@ -1,15 +1,23 @@
 package modules.sender;
 
-import lombok.AllArgsConstructor;
+import java.util.HashMap;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+@NoArgsConstructor
 public class Destinatario {
-  private String direccionMail;
-  private String nroTelefonico;
-  private Long telegramId;
+  private HashMap<TipoDestinatario, String> mediosDeContacto;
+  // Alternativa por si quisieramos que tuviera mas de un nro de telefono, mail, etc.
+  //private HashMap<TipoDestinatario, List<String>> mediosDeContacto;
 
-  /*
-  podria ser la alternativa para que cumplieran todos los senders la interfaz
-  enviar(Mensaje men, Destinatario dest);
-   */
+  public void agregarMedioDeContacto(TipoDestinatario tipo, String contacto){
+    if (mediosDeContacto == null) {
+      mediosDeContacto = new HashMap<TipoDestinatario, String>();
+    }
+
+    mediosDeContacto.put(tipo, contacto);
+  }
+
+  public String obtenerMedidoContacto(TipoDestinatario tipo){
+    return mediosDeContacto.get(tipo);
+  }
 }

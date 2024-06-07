@@ -1,6 +1,7 @@
 package services;
 
 import dtos.ColaboradorInputDto;
+import lombok.Setter;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 import models.entities.personas.contacto.Contacto;
@@ -9,6 +10,8 @@ import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
 import models.repositories.ColaboradoresRepository;
 import modules.authentication.Usuario;
+import modules.sender.Destinatario;
+import modules.sender.TipoDestinatario;
 import modules.sender.channels.EmailSender;
 import modules.sender.Mensaje;
 
@@ -19,6 +22,9 @@ import modules.sender.Mensaje;
 public class ColaboradoresService {
 
   private final ColaboradoresRepository colaboradoresRepository;
+  // TODO revisar si esta bien (lo saque afuera para poder moquearlo)
+  @Setter
+  private EmailSender emailsender = EmailSender.getInstance();
 
   public ColaboradoresService(ColaboradoresRepository colaboradorRepository) {
     this.colaboradoresRepository = colaboradorRepository;
@@ -47,7 +53,6 @@ public class ColaboradoresService {
     Usuario usuario =  new Usuario(colaborador.getNombre(), colaborador.getApellido());
     colaborador.setUsuario(usuario);
 
-    EmailSender emailsender = EmailSender.getInstance();
     Mensaje message = new Mensaje("Creación de Nuevo Usuario",
         "Se le ha creado un nuevo usuario en el sistema para ingresar. \n"
             + "\nSus credenciales son: \nUsuario: "
@@ -55,7 +60,14 @@ public class ColaboradoresService {
             + "\nContraseña: "
             + colaboradorInputDto.getApellido()
             + "\nPuede cambiarlas si así lo desea.\n\nSaludos!");
-    emailsender.enviar(message, colaboradorInputDto.getEmail());
+
+    // TODO revisar si esta bien tratar polimorficamente el sender ya que como consecuencia tenemos que
+    // mostrar mas logica del modulo (Quizas con un factory se puede arreglar, no se si vale
+    // la pena).
+    Destinatario destinatario = new Destinatario();
+    destinatario.agregarMedioDeContacto(TipoDestinatario.MAIL, colaboradorInputDto.getEmail());
+
+    emailsender.enviar(message, destinatario);
 
     //Para los test, en realidad la formula ya deberia estar creada
     // y solo deberiamos hacer el set al reconocimiento.

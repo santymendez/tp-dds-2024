@@ -1,6 +1,8 @@
 package modules.sender.channels;
 
+import modules.sender.Destinatario;
 import modules.sender.Mensaje;
+import modules.sender.TipoDestinatario;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
@@ -22,8 +24,10 @@ public class TelegramBotSender {
     return instance;
   }
 
-  public void enviar(Long destinatario, Mensaje mensaje){
+  public void enviar(Mensaje mensaje, Destinatario destinatario){
+    String idTelegram = destinatario.obtenerMedidoContacto(TipoDestinatario.TELEGRAM);
+    Long destinatarioId = Long.parseLong(idTelegram);
     String men = mensaje.aplanarMensaje();
-    bot.sendText(destinatario, men);
+    bot.sendText(destinatarioId, men);
   }
 }

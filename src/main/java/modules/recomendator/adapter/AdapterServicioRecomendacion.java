@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AdapterServicioRecomendacion implements InterfaceAdapterServicioRecomendacion {
   private static AdapterServicioRecomendacion instancia = null;
   private static final String urAPI = "https://71f019a3-8787-49bf-891b-05a9650407ed.mock.pstmn.io/";
-  private Retrofit retrofit;
+  private final Retrofit retrofit;
 
   private AdapterServicioRecomendacion() {
     this.retrofit = new Retrofit.Builder()

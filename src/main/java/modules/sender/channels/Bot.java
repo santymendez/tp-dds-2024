@@ -24,17 +24,26 @@ public class Bot extends TelegramLongPollingBot {
   }
 
   @Override
-  public void onRegister() {
-    super.onRegister();
+  public void onUpdateReceived(Update update) {
+
+    if (update.hasMessage() && update.getMessage().hasText()) {
+      String messageText = update.getMessage().getText();
+      Long chatId = update.getMessage().getChatId();
+
+      if (messageText.equalsIgnoreCase("/start")) {
+        sendText(chatId, "¡Bienvenido! ¿En qué puedo ayudarte?");
+      } else if (messageText.equalsIgnoreCase("/help")) {
+        sendText(chatId, "Estos son los comandos disponibles:\n/start - Iniciar\n/help - Ayuda");
+      } else {
+        sendText(chatId, "Mensaje recibido: " + messageText);
+      }
+    }
   }
+
 
   @Override
   public void onUpdatesReceived(List<Update> updates) {
     super.onUpdatesReceived(updates);
-  }
-
-  @Override
-  public void onUpdateReceived(Update update) {
   }
 
   public void sendText(Long who, String what){

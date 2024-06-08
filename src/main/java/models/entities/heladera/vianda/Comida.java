@@ -1,4 +1,4 @@
-package models.entities.vianda;
+package models.entities.heladera.vianda;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;

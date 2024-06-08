@@ -1,7 +1,6 @@
-package models.entities.tarjetas.colaborador;
+package models.entities.personas.tarjetas.colaborador;
 
 import java.time.LocalDateTime;
-import models.entities.heladera.Heladera;
 
 /**
  * Clase que representa la apertura real de una heladera y lo que conlleva en el sistema.
@@ -9,5 +8,5 @@ import models.entities.heladera.Heladera;
 
 public class Apertura {
   private LocalDateTime fechaApertura;
-  private Heladera heladera;
+  private SolicitudApertura solicitud;
 }

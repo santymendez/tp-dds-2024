@@ -5,7 +5,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.direccion.Direccion;
-import models.entities.vianda.Vianda;
+import models.entities.heladera.sensores.SensorMovimiento;
+import models.entities.heladera.vianda.Vianda;
 
 /**
  * Representa una heladera con una dirección, nombre, capacidad máxima de viandas, lista
@@ -25,6 +26,7 @@ public class Heladera {
   private SensorMovimiento sensorMovimiento;
   private Estado estadoActual;
   private List<Estado> estadosHeladera;
+  private Float limiteDeTiempo;
   private Boolean estaAbierta;
 
   /**
@@ -50,7 +52,6 @@ public class Heladera {
     this.ultVezActivada = fechaDeCreacion;
     this.modelo = modelo;
     this.sensorMovimiento = sensorMovimiento;
-    //this.estaActiva = true;
   }
 
   /**

@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.canje.Oferta;
-import models.entities.tarjetas.vulnerable.TarjetaVulnerable;
-import models.entities.vianda.Vianda;
+import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
+import models.entities.heladera.vianda.Vianda;
 
 /**
  * Representa una colaboracion dentro del sistema.

@@ -7,7 +7,7 @@ import lombok.Setter;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.personas.documento.Documento;
-import models.entities.tarjetas.vulnerable.TarjetaVulnerable;
+import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 
 /**
  * Representa una persona vulnerable con nombre, fecha de nacimiento, fecha de registro,

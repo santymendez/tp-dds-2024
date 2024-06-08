@@ -1,4 +1,4 @@
-package models.entities.tarjetas.colaborador;
+package models.entities.personas.tarjetas.colaborador;
 
 import java.time.LocalDateTime;
 

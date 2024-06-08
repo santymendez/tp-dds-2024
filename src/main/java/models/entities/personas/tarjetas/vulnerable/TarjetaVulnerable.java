@@ -1,4 +1,4 @@
-package models.entities.tarjetas.vulnerable;
+package models.entities.personas.tarjetas.vulnerable;
 
 import java.util.List;
 import java.util.UUID;

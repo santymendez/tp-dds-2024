@@ -196,12 +196,6 @@ class Modelo{
     -sensorTemperatura: SensorTemperatura
 }
 
-interface Sensor {
-    void activarSensor(Heladera heladera)
-    void activarHeladera(Heladera heladera)
-    void desactivarHeladera(Heladera heladera)
-}
-
 class SensorTemperatura {
     -temperaturaMinima: Float
     -temperaturaMaxima: Float
@@ -381,6 +375,7 @@ class Apertura {
 
 'TODO implementar datos opcionales con builder en implementacion'
 class Incidente {
+    -heladera: Heladera
     -tipoIncidente: TipoIncidente
     -momentoIncidente: LocalDateTime
 
@@ -399,6 +394,7 @@ enum TipoIncidente {
 }
 
 class VisitaTecnica {
+    -Incidente: incidente
     -fechaVisita: LocalDate
     -trabajoRealizado: String
     -fotoVisita: Image
@@ -414,7 +410,7 @@ class Suscripcion {
     -notificador: SenderInterface
 }
 
-enum TipoSuscripcion {
+enum TipoNotificacion {
     QUEDAN_VIANDAS,
     FALTAN_VIANDAS,
     DESPERFECTO
@@ -472,9 +468,7 @@ Vianda --> Colaborador
 Modelo *-- SensorTemperatura
 
 'SENSORES'
-SensorMovimiento ..|> Sensor
 SensorMovimiento ..> Heladera
-SensorTemperatura ..|> Sensor
 SensorTemperatura ..> Heladera
 
 'COLABORADOR'
@@ -488,7 +482,7 @@ Colaborador ---> AdapterServicioRecomendacion
 Colaborador --> TarjetaColaborador
 Colaborador ..> Heladera
 Colaborador --> Suscripcion
-Colaborador ..> TipoSuscripcion
+Colaborador ..> TipoNotificacion
 
 'DOCUMENTO'
 Documento o-- TipoDocumento
@@ -584,12 +578,16 @@ UsoTarjetaColaborador --> Apertura
 UsoTarjetaColaborador o-- Heladera
 
 'APERTURA'
-Apertura o-- Heladera
+Apertura o-- SolicitudApertura
 
 'INCIDENTE'
+Incidente o-- Heladera
 Incidente *-- TipoIncidente
 Incidente --> TipoEstado
 Incidente --> Colaborador
+
+'VISITA TECNICA'
+VisitaTecnica o-- Incidente
 
 'REPORTES'
 ReporteGeneral -->"*" ReporteHeladera
@@ -603,7 +601,7 @@ Suscripcion o-- SenderInterface
 Suscripcion --> QuedanViandas
 Suscripcion --> FaltanViandas
 Suscripcion --> Desperfecto
-Suscripcion ..> TipoSuscripcion
+Suscripcion ..> TipoNotificacion
 
 'NOTIFICACIONES'
 Desperfecto -->"*" Heladera

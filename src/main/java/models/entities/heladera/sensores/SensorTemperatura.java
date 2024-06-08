@@ -1,8 +1,9 @@
-package models.entities.heladera;
+package models.entities.heladera.sensores;
 
-import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
+import models.entities.heladera.Heladera;
+import models.entities.heladera.TipoEstado;
 
 /**
  * Representa un sensor de temperatura con la última temperatura, las temperaturas máximas
@@ -11,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SensorTemperatura implements Sensor {
+public class SensorTemperatura {
   private Float temperaturaMinima;
   private Float temperaturaMaxima;
   private Float ultTemperatura;
@@ -25,7 +26,6 @@ public class SensorTemperatura implements Sensor {
    * Función que desactiva el sensor si la temperatura no está en el rango.
    */
 
-  @Override
   public void activarSensor(Heladera heladera) {
     if (ultTemperatura > temperaturaMaxima || ultTemperatura < temperaturaMinima) {
       this.desactivarHeladera(heladera);
@@ -33,13 +33,11 @@ public class SensorTemperatura implements Sensor {
     }
   }
 
-  @Override
   public void desactivarHeladera(Heladera heladera) {
     heladera.modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
     heladera.imprimirAlerta();
   }
 
-  @Override
   public void activarHeladera(Heladera heladera) {
     heladera.modificarEstado(TipoEstado.ACTIVA);
   }

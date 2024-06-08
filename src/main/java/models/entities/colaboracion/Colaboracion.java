@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.canje.Oferta;
-import models.entities.tarjeta.TarjetaVulnerable;
+import models.entities.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.vianda.Vianda;
 
 /**

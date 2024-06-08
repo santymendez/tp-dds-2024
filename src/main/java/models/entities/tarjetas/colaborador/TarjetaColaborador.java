@@ -1,11 +1,12 @@
-package models.entities.tarjetas;
+package models.entities.tarjetas.colaborador;
 
-import models.entities.colaboracion.TipoColaboracion;
+import java.util.List;
 
 /**
  * Clase que representa la tarjeta que posee el Colaborador.
  */
 
 public class TarjetaColaborador {
-  TipoColaboracion tipo;
+  private String codigo;
+  private List<UsoTarjetaColaborador> usos;
 }

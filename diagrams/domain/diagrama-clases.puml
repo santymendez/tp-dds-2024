@@ -8,11 +8,15 @@ class Heladera {
     -List<Vianda> viandas
     -fechaDeCreacion: LocalDate
     -ultVezActivada: LocalDate
+
     -modelo: Modelo
     -sensorMovimiento: SensorMovimiento
+
     -estadoActual: Estado
     -List<Estado> estadosHeladera
+
     -List<TarjetaColaborador> tarjetasHabilitadas
+    -limiteDeTiempo: Float
     -estaAbierta: Boolean
 
     +void agregarVianda(Vianda vianda)
@@ -94,6 +98,8 @@ class Colaborador{
     -adapterServicioRecomendacion: AdapterServicioRecomendacion
 
     -tarjeta: TarjetaColaborador
+
+    -suscripcion: Suscripcion
 
     +boolean puedeCanjear(Oferta oferta)
     +void aumentarReconocimiento(Colaboracion colaboracion)
@@ -320,7 +326,7 @@ class Contacto {
 enum TipoContacto {
     TELEFONO_FIJO,
     CELULAR,
-    MAIL
+    MAIL,
 }
 
 interface InterfaceAdapterServicioRecomendacion {
@@ -359,9 +365,9 @@ class TarjetaColaborador {
 }
 
 class UsoTarjetaColaborador {
-    -tiempoLimitado: Float
     -solicitud: SolicitudApertura
     -apertura: Apertura
+    -heladera: Heladera
 }
 
 class SolicitudApertura {
@@ -369,8 +375,8 @@ class SolicitudApertura {
 }
 
 class Apertura {
+    -solicitud: SolicitudApertura
     -fechaApertura: LocalDateTime
-    -heladeraAbierta: Heladera
 }
 
 'TODO implementar datos opcionales con builder en implementacion'
@@ -397,6 +403,50 @@ class VisitaTecnica {
     -trabajoRealizado: String
     -fotoVisita: Image
     -incidenteSolucionado: Boolean
+}
+
+'TODO no olvidarse las relaciones de aca para abajo'
+class Suscripcion {
+    -heladera: Heladera
+    -quedanViandas: QuedanViandas
+    -faltanViandas: FaltanViandas
+    -desperfecto: Desperfecto
+    -notificador: SenderInterface
+}
+
+enum TipoSuscripcion {
+    QUEDAN_VIANDAS,
+    FALTAN_VIANDAS,
+    DESPERFECTO
+}
+
+class QuedanViandas {
+    -viandasDisponibles: Integer
+}
+
+class FaltanViandas {
+    -viandasFaltantes: Integer
+}
+
+class Desperfecto {
+    -List<Heladera> heladerasSugeridas
+}
+
+class ReporteGeneral {
+    -List<ReporteHeladera> reportes
+}
+
+class ReporteHeladera {
+    -heladera: Heladera
+    -fallas: Integer
+    -viandasColocadas: Integer
+    -viandasRetiradas: Integer
+    -List<ViandasPorColaborador> viandasPorColaborador
+}
+
+class ViandasPorColaborador {
+    -viandas: Integer
+    -colaborador: Colaborador
 }
 
 '================================================== Relaciones ================================================'
@@ -437,6 +487,8 @@ Colaborador o--- Reconocimiento
 Colaborador ---> AdapterServicioRecomendacion
 Colaborador --> TarjetaColaborador
 Colaborador ..> Heladera
+Colaborador --> Suscripcion
+Colaborador ..> TipoSuscripcion
 
 'DOCUMENTO'
 Documento o-- TipoDocumento
@@ -529,6 +581,7 @@ TarjetaColaborador -->"*" UsoTarjetaColaborador
 'USO TARJETA DEL COLABORADOR'
 UsoTarjetaColaborador *-- SolicitudApertura
 UsoTarjetaColaborador --> Apertura
+UsoTarjetaColaborador o-- Heladera
 
 'APERTURA'
 Apertura o-- Heladera
@@ -537,5 +590,22 @@ Apertura o-- Heladera
 Incidente *-- TipoIncidente
 Incidente --> TipoEstado
 Incidente --> Colaborador
+
+'REPORTES'
+ReporteGeneral -->"*" ReporteHeladera
+ReporteHeladera o-- Heladera
+ReporteHeladera -->"*" ViandasPorColaborador
+ViandasPorColaborador o-- Colaborador
+
+'SUSCRIPCION'
+Suscripcion o-- Heladera
+Suscripcion o-- SenderInterface
+Suscripcion --> QuedanViandas
+Suscripcion --> FaltanViandas
+Suscripcion --> Desperfecto
+Suscripcion ..> TipoSuscripcion
+
+'NOTIFICACIONES'
+Desperfecto -->"*" Heladera
 
 @enduml

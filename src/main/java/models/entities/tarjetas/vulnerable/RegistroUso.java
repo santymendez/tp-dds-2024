@@ -1,4 +1,4 @@
-package models.entities.tarjeta;
+package models.entities.tarjetas.vulnerable;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package models.entities.tarjeta;
+package models.entities.tarjetas.vulnerable;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package models.entities.tarjeta;
+package models.entities.tarjetas;
 
 import models.entities.colaboracion.TipoColaboracion;
 

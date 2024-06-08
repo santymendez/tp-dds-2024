@@ -1,4 +1,4 @@
-package models.entities.tarjeta;
+package models.entities.tarjetas.vulnerable;
 
 import java.util.List;
 import java.util.UUID;
@@ -7,6 +7,8 @@ import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.vulnerable.Vulnerable;
+import models.entities.tarjetas.InformacionRegistro;
+import models.entities.tarjetas.RegistroUso;
 
 /**
  * Representa una tarjeta con un código, cantidad de usos, registros de

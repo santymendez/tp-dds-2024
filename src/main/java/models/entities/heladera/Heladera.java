@@ -1,6 +1,6 @@
 package models.entities.heladera;
 
-import java.awt.*;
+import java.awt.Image;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

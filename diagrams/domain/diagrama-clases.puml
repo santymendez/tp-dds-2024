@@ -7,7 +7,6 @@ class Heladera {
     -capacidadMaximaViandas: Integer
     -List<Vianda> viandas
     -fechaDeCreacion: LocalDate
-    -ultVezActivada: LocalDate
 
     -modelo: Modelo
     -sensorMovimiento: SensorMovimiento
@@ -22,8 +21,9 @@ class Heladera {
     +void agregarVianda(Vianda vianda)
     +Integer calcularMesesActiva()
     +void imprimirAlerta()
-    +void modificarEstado(TipoEstado estado)
-    +void puedeAbrirseCon(TarjetaColaborador tarjeta)
+    +void intentarAbrirCon(TarjetaColaborador tarjeta)
+    +void reportarIncidente(TipoEstado tipoAlerta)
+    +void reportarIncidente(Colaborador colaborador, String descripcion, Image imagen)
     '+void cerrarHeladera(TarjetaColaborador tarjeta) TODO Ver de incluir en la Apertura'
 }
 
@@ -104,8 +104,8 @@ class Colaborador{
     +boolean puedeCanjear(Oferta oferta)
     +void aumentarReconocimiento(Colaboracion colaboracion)
 
-    +void solicitarAperturaDeHeladera()
-    +void reportarFallaTecnica(Heladera heladera)
+    +void crearSolicitudAperturaDeHeladera(Heladera heladera)
+    +void reportarFallaTecnica(Heladera heladera, String descrpicion, Image imagen)
 }
 
 enum TipoColaborador {
@@ -349,6 +349,7 @@ enum TipoEstado{
     INACTIVA_TEMPERATURA,
     INACTIVA_FRAUDE,
     INACTIVA_FALLA_CONEXION
+    INACTIVA_FALLA_TECNICA
 }
 
 '========================================== Clases de la entrega 3 ============================================='

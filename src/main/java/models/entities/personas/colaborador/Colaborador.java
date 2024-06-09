@@ -5,10 +5,18 @@ import lombok.Setter;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
 import models.entities.formulario.RespuestaFormulario;
+import models.entities.heladera.Heladera;
+import models.entities.heladera.TipoEstado;
+import models.entities.heladera.incidente.Incidente;
+import models.entities.heladera.incidente.TipoIncidente;
+import java.awt.Image;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
+import models.entities.personas.colaborador.suscripcion.Suscripcion;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
+import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
+import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 import modules.authentication.Usuario;
 import modules.recomendator.adapter.AdapterServicioRecomendacion;
 
@@ -40,6 +48,9 @@ public class Colaborador {
 
   private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
+  private TarjetaColaborador tarjeta;
+  private Suscripcion suscripcion;
+
   public Colaborador() {
     this.reconocimiento = new Reconocimiento();
   }
@@ -57,4 +68,31 @@ public class Colaborador {
   public void aumentarReconocimiento(Colaboracion colaboracion) {
     this.reconocimiento.sumarPuntos(colaboracion);
   }
+
+  /**
+   * Crea la solicitud para abrir una heladera.
+   *
+   * @param heladera Heladera que se busca abrir.
+   */
+
+  public void crearSolicitudAperturaDeHeladera(Heladera heladera) {
+    UsoTarjetaColaborador nuevoUso = new UsoTarjetaColaborador(heladera);
+    this.tarjeta.getUsos().add(nuevoUso);
+    heladera.getTarjetasHabilitadas().add(this.tarjeta);
+  }
+
+  //TODO Ver que hacer con los incidentes
+
+  /**
+   * Método para reportar una falla en la heladera y generar el incidente.
+   *
+   * @param heladera a.
+   * @param descripcion b.
+   * @param imagen c.
+   */
+  public void reportarFallaTecnica(Heladera heladera, String descripcion, Image imagen) {
+    heladera.reportarIncidente(this, descripcion, imagen);
+  }
+
+
 }

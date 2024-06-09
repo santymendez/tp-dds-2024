@@ -1,12 +1,22 @@
 package models.entities.heladera;
 
+import java.awt.*;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.direccion.Direccion;
+import models.entities.heladera.incidente.Incidente;
+import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.SensorMovimiento;
 import models.entities.heladera.vianda.Vianda;
+import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.tarjetas.colaborador.SolicitudApertura;
+import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
+import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 
 /**
  * Representa una heladera con una dirección, nombre, capacidad máxima de viandas, lista
@@ -21,12 +31,16 @@ public class Heladera {
   private Integer capacidadMaximaViandas;
   private List<Vianda> viandas;
   private LocalDate fechaDeCreacion;
-  private LocalDate ultVezActivada;
+
   private Modelo modelo;
   private SensorMovimiento sensorMovimiento;
+
   private Estado estadoActual;
   private List<Estado> estadosHeladera;
+
+  private List<TarjetaColaborador> tarjetasHabilitadas;
   private Float limiteDeTiempo;
+
   private Boolean estaAbierta;
 
   /**
@@ -38,20 +52,24 @@ public class Heladera {
    * @param sensorMovimiento       es el sensor de movimiento propio de la heladera.
    * @param modelo                 es el modelo de la heladera.
    * @param fechaDeCreacion        fecha en la que se colocó la heladera.
-   * @param viandas                es una lista con las viandas que hay dentro de la heladera.
    */
 
   public Heladera(Direccion direccion, String nombre,
-                  Integer capacidadMaximaViandas, List<Vianda> viandas, LocalDate fechaDeCreacion,
+                  Integer capacidadMaximaViandas, LocalDate fechaDeCreacion,
                   Modelo modelo, SensorMovimiento sensorMovimiento) {
     this.direccion = direccion;
     this.nombre = nombre;
     this.capacidadMaximaViandas = capacidadMaximaViandas;
-    this.viandas = viandas;
+    this.viandas = new ArrayList<>();
     this.fechaDeCreacion = fechaDeCreacion;
-    this.ultVezActivada = fechaDeCreacion;
     this.modelo = modelo;
     this.sensorMovimiento = sensorMovimiento;
+    this.estadosHeladera = new ArrayList<>();
+    this.estadoActual = new Estado(TipoEstado.ACTIVA);
+    this.estadosHeladera.add(estadoActual);
+    this.tarjetasHabilitadas = new ArrayList<>();
+    this.limiteDeTiempo = 3.0f; //Su valor original es 3
+    this.estaAbierta = false;
   }
 
   /**
@@ -69,17 +87,6 @@ public class Heladera {
     }
   }
 
-  //  public Integer calcularMesesActiva() {
-  //    int mesesActuales;
-  //    if (this.getEstaActiva()) {
-  //      Period period = Period.between(ultVezActivada, LocalDate.now());
-  //      mesesActuales = period.getYears() * 12 + period.getMonths();
-  //    } else {
-  //      mesesActuales = 0;
-  //    }
-  //    return mesesActiva + mesesActuales;
-  //  }
-
   /**
    * Método para calcular los meses que una heladera estuvo activa hasta el momento
    * en que se pide calcular.
@@ -94,7 +101,7 @@ public class Heladera {
   }
 
   /**
-   * Método que genera una alerta a partir del estado actual.
+   * Genera una alerta a partir del estado actual.
    */
 
   public void imprimirAlerta() {
@@ -108,6 +115,55 @@ public class Heladera {
       default ->
           System.out.println("FALSA ALARMA, HELADERA ACTIVA");
     }
+  }
+
+  /**
+   * Reporta un incidente.
+   *
+   * @param tipoAlerta representa el tipo de alerta.
+   */
+
+  //TODO Ver que hacer con los incidentes
+  public void reportarIncidente(TipoEstado tipoAlerta) {
+    Incidente incidente = new Incidente(TipoIncidente.ALERTA, this);
+    incidente.setTipoAlerta(tipoAlerta);
+  }
+
+  /**
+   * Reporta un incidente.
+   *
+   * @param colaborador representa el colaborador que reporta la falla.
+   * @param descripcion representa la descripcion opcional proporcionada por el colaborador.
+   * @param imagen representa la posible imagen UwU. //Top 10 Easter Eggs
+   */
+
+  public void reportarIncidente(Colaborador colaborador, String descripcion, Image imagen) {
+    Incidente incidente = new Incidente(TipoIncidente.FALLA_TECNICA, this);
+    incidente.setColaborador(colaborador);
+    incidente.setDescripcion(descripcion);
+    incidente.setImagen(imagen);
+    this.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
+  }
+
+  /**
+   * Verifica si la heladera puede ser abierta con una tarjeta en particular.
+   *
+   * @param tarjeta Es la tarjeta con la que se desea abrir la heladera.
+   */
+
+  public Boolean intentarAbrirCon(TarjetaColaborador tarjeta) {
+    if (!tarjetasHabilitadas.contains(tarjeta)) {
+      throw new RuntimeException("No posees los permisos necesarios para abrir la heladera.");
+    }
+
+    UsoTarjetaColaborador ultimoUso = this.hallarUltimoUso(tarjeta);
+
+    if (!this.estaVigente(ultimoUso.getSolicitud())) {
+      throw new RuntimeException("Tu solicitud ha expirado.");
+    }
+
+    ultimoUso.getApertura().setFechaApertura(LocalDateTime.now());
+    return true;
   }
 
   //==================================== Métodos auxiliares ========================================
@@ -132,6 +188,8 @@ public class Heladera {
 
   /**
    * Setea la fecha final del estado anterior y crea el nuevo estado actual.
+   *
+   * @param estado Nuevo estado de la heladera.
    */
 
   public void modificarEstado(TipoEstado estado) {
@@ -139,6 +197,31 @@ public class Heladera {
     this.estadoActual = new Estado(estado);
     this.estadoActual.setFechaInicial(LocalDate.now());
     this.estadosHeladera.add(this.estadoActual);
+  }
+
+  /**
+   * Obtiene el último uso de una tarjeta.
+   *
+   * @param tarjeta de la que quiere obtener el uso.
+   * @return UsoTarjetaColaborador el último uso.
+   */
+
+  public UsoTarjetaColaborador hallarUltimoUso(TarjetaColaborador tarjeta) {
+    List<UsoTarjetaColaborador> usosFiltradosPorHeladera =
+        tarjeta.getUsos().stream().filter(uso -> uso.getHeladera() == this).toList();
+    return usosFiltradosPorHeladera.get(usosFiltradosPorHeladera.size() - 1);
+  }
+
+  /**
+   * Verifica si una solicitud está vigente.
+   *
+   * @param ultimaSolicitud Solicitud que se intenta verificar si se encuentra vigente.
+   */
+
+  public Boolean estaVigente(SolicitudApertura ultimaSolicitud) {
+    Duration duration = Duration.between(ultimaSolicitud.getFechaSolicitud(), LocalDateTime.now());
+    float horas = duration.toHours();
+    return horas < limiteDeTiempo;
   }
 }
 

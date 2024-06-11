@@ -1,11 +1,11 @@
 package utils.sender.channels;
 
 import java.util.List;
-import utils.sender.Config;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import utils.sender.Config;
 
 /*
   falta lo mas importante, crear al bot

@@ -1,11 +1,11 @@
 package utils.sender.channels;
 
-import utils.sender.Destinatario;
-import utils.sender.Mensaje;
-import utils.sender.TipoDestinatario;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import utils.sender.Destinatario;
+import utils.sender.Mensaje;
+import utils.sender.TipoDestinatario;
 
 /**
  * Clase que representa el Telegram Bot Sender.

@@ -9,12 +9,12 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import utils.sender.Config;
 import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.TipoDestinatario;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Esta clase encapsula la funcionalidad de envío de correos electrónicos.

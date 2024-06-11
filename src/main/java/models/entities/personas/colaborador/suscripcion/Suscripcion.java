@@ -1,7 +1,7 @@
 package models.entities.personas.colaborador.suscripcion;
 
 import models.entities.heladera.Heladera;
-import modules.sender.SenderInterface;
+import utils.sender.SenderInterface;
 
 /**
  * Clase que representa una suscripcion a una heladera.

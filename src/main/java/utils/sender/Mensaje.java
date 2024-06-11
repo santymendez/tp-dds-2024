@@ -1,4 +1,4 @@
-package modules.sender;
+package utils.sender;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

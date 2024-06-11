@@ -1,4 +1,4 @@
-package services;
+package models.factories;
 
 import dtos.ColaboracionInputDto;
 import java.time.LocalDate;
@@ -7,23 +7,27 @@ import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 
 /**
- * Instancia la colaboracion y la guarda en su repositorio correspondiente.
+ * Representa un Factory para las colaboraciones.
  */
 
-public class ColaboracionesService {
+public class FactoryColaboracion {
 
   /**
-   * Se crea una colaboracion a partir del input del csv.
+   * Crea una colaboracion a partir de un input Colaboracion.
    *
-   * @param colaboracionInputDto Input de la colaboracion.
+   * @param colaboracionInputDto El input para crear la colaboracion.
+   * @return Una instancia de una Colaboracion.
    */
 
-  public Colaboracion crear(ColaboracionInputDto colaboracionInputDto) {
+  public static Colaboracion crearCon(ColaboracionInputDto colaboracionInputDto) {
     Colaboracion unaColaboracion = new Colaboracion();
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     unaColaboracion.setFechaDonacion(LocalDate.parse(colaboracionInputDto.getFecha(), formatter));
+
     unaColaboracion.setTipoColaboracion(TipoColaboracion
-                                    .valueOf(colaboracionInputDto.getTipoColaboracion()));
+        .valueOf(colaboracionInputDto.getTipoColaboracion()));
+
     Integer cantidad = colaboracionInputDto.getCantidad();
 
     switch (unaColaboracion.getTipoColaboracion()) {
@@ -33,6 +37,7 @@ public class ColaboracionesService {
       case ENTREGAR_TARJETA -> unaColaboracion.setCantTarjetasEntregadas(cantidad);
       default -> throw new RuntimeException("No existe esa forma de colaborar");
     }
+
     return unaColaboracion;
   }
 }

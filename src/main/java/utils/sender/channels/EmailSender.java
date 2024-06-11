@@ -1,4 +1,4 @@
-package modules.sender.channels;
+package utils.sender.channels;
 
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
@@ -9,10 +9,10 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
-import modules.sender.Config;
-import modules.sender.Destinatario;
-import modules.sender.Mensaje;
-import modules.sender.TipoDestinatario;
+import utils.sender.Config;
+import utils.sender.Destinatario;
+import utils.sender.Mensaje;
+import utils.sender.TipoDestinatario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

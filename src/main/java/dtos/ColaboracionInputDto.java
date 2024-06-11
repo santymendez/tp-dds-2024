@@ -1,5 +1,6 @@
 package dtos;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +8,7 @@ import lombok.Setter;
  * Clase de ColaboracionInput para setear atributos y el controller instancia.
  */
 
-@Getter
-@Setter
+@Data
 public class ColaboracionInputDto {
   private String fecha;
   private String tipoColaboracion;

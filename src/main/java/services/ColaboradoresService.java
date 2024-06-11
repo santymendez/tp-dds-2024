@@ -9,11 +9,11 @@ import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
 import models.repositories.ColaboradoresRepository;
-import modules.authentication.Usuario;
-import modules.sender.Destinatario;
-import modules.sender.Mensaje;
-import modules.sender.TipoDestinatario;
-import modules.sender.channels.EmailSender;
+import utils.security.Usuario;
+import utils.sender.Destinatario;
+import utils.sender.Mensaje;
+import utils.sender.TipoDestinatario;
+import utils.sender.channels.EmailSender;
 
 /**
  * Instancia el colaborador y lo guarda en el repositorio.

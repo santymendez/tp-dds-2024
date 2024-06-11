@@ -1,11 +1,11 @@
-package modules.security;
+package utils.security;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import modules.security.rules.Regla;
+import utils.security.rules.Regla;
 
 /**
  * Representa un autenticador que verifica si una contraseña cumple con un conjunto de reglas.

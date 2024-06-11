@@ -1,11 +1,11 @@
-package modules.sender.channels;
+package utils.sender.channels;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import modules.sender.Config;
-import modules.sender.Destinatario;
-import modules.sender.Mensaje;
-import modules.sender.TipoDestinatario;
+import utils.sender.Config;
+import utils.sender.Destinatario;
+import utils.sender.Mensaje;
+import utils.sender.TipoDestinatario;
 
 /**
  * Clase que representa el WhatsAppSender.

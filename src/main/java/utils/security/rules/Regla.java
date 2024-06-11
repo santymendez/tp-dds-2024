@@ -1,4 +1,4 @@
-package modules.security.rules;
+package utils.security.rules;
 
 import java.util.List;
 import lombok.Setter;

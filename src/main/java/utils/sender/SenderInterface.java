@@ -1,4 +1,4 @@
-package modules.sender;
+package utils.sender;
 
 /**
  * Interfaz para los senders.

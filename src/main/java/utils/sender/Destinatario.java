@@ -1,4 +1,4 @@
-package modules.sender;
+package utils.sender;
 
 import java.util.HashMap;
 import lombok.NoArgsConstructor;

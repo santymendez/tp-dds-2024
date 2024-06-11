@@ -14,8 +14,8 @@ import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
-import modules.authentication.Usuario;
 import modules.recomendator.adapter.AdapterServicioRecomendacion;
+import utils.security.Usuario;
 
 /**
  * Representa a un colaborador en el sistema.

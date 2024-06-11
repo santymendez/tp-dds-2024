@@ -1,4 +1,4 @@
-package modules.authentication;
+package utils.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

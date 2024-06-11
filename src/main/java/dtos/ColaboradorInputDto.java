@@ -1,5 +1,6 @@
 package dtos;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +8,7 @@ import lombok.Setter;
  * Misma idea que el ColaboracionInputDto.
  */
 
-@Getter
-@Setter
+@Data
 public class ColaboradorInputDto {
   private String tipoDocumento;
   private Integer numeroDocumento;

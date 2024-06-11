@@ -1,4 +1,4 @@
-package modules.security.rules;
+package utils.security.rules;
 
 /**
  * Representa una regla que verifica si una contraseña contiene tanto letras

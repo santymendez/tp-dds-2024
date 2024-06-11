@@ -1,4 +1,4 @@
-package modules.security.rules;
+package utils.security.rules;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,10 +1,16 @@
 package modules.security;
 
-import modules.security.rules.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import utils.security.Autenticador;
+import utils.security.rules.CantidadMaximaDeCaracteres;
+import utils.security.rules.CantidadMinimaDeCaracteres;
+import utils.security.rules.PerteneceAlArchivo;
+import utils.security.rules.TieneCaracteresEspeciales;
+import utils.security.rules.TieneMayusculasMinusculas;
+import utils.security.rules.TieneNumeros;
 
 public class TestPassword {
     Autenticador autenticador;

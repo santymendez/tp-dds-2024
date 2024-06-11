@@ -1,4 +1,4 @@
-package modules.sender;
+package utils.sender;
 
 /**
  * Enum con los tipos de destinatarios.

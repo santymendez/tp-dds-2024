@@ -1,4 +1,4 @@
-package modules.bulk.load;
+package controllers;
 
 
 import com.opencsv.CSVReader;
@@ -9,14 +9,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Optional;
+import models.factories.FactoryColaboracion;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.repositories.ColaboradoresRepository;
-import modules.sender.channels.EmailSender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import services.ColaboracionesService;
 import services.ColaboradoresService;
+import utils.sender.channels.EmailSender;
 
 /**
  * Carga del contenido del archivo csv.
@@ -27,24 +27,20 @@ public class CsvController {
   private static final String ruta_archivo = "src/main/resources/lista_colaboradores.csv";
   private final ColaboradoresRepository colaboradoresRepository;
   private final ColaboradoresService colaboradoresService;
-  private final ColaboracionesService colaboracionesService;
 
   /**
    * Constructor para el CSV Controller.
    *
    * @param colaboradoresRepository Es el repositorio de colaboradores.
    * @param colaboradoresService Es el Service de los Colaboradores.
-   * @param colaboracionesService Es el Service de las Colaboraciones.
    */
 
   public CsvController(
       ColaboradoresRepository colaboradoresRepository,
-      ColaboradoresService colaboradoresService,
-      ColaboracionesService colaboracionesService
+      ColaboradoresService colaboradoresService
   ) {
     this.colaboradoresRepository = colaboradoresRepository;
     this.colaboradoresService = colaboradoresService;
-    this.colaboracionesService = colaboracionesService;
   }
 
   /**
@@ -94,8 +90,8 @@ public class CsvController {
       ColaboradorInputDto colaboradorInputDto,
       ColaboracionInputDto colaboracionInputDto
   ) {
-    Colaborador unColaborador = this.crearColaborador(colaboradorInputDto);
-    Colaboracion unaColaboracion = this.crearColaboracion(colaboracionInputDto);
+    Colaborador unColaborador = this.crear(colaboradorInputDto);
+    Colaboracion unaColaboracion = FactoryColaboracion.crearCon(colaboracionInputDto);
 
     unColaborador.aumentarReconocimiento(unaColaboracion);
   }
@@ -107,14 +103,10 @@ public class CsvController {
    * @return El colaborador ya creado.
    */
 
-  public Colaborador crearColaborador(ColaboradorInputDto colaboradorInputDto) {
+  public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
     Optional<Colaborador> unColaborador =
         colaboradoresRepository.buscar(colaboradorInputDto.getNumeroDocumento());
 
     return unColaborador.orElseGet(() -> colaboradoresService.crear(colaboradorInputDto));
-  }
-
-  public Colaboracion crearColaboracion(ColaboracionInputDto colaboracionInputDto) {
-    return colaboracionesService.crear(colaboracionInputDto);
   }
 }

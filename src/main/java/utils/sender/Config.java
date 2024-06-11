@@ -1,4 +1,4 @@
-package modules.sender;
+package utils.sender;
 
 import java.io.IOException;
 import java.io.InputStream;

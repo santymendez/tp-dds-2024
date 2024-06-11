@@ -7,10 +7,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import utils.sender.Config;
 
-/*
-  falta lo mas importante, crear al bot
- */
-
 /**
  * Clase Bot para el Telegram Sender.
  */
@@ -36,10 +32,13 @@ public class Bot extends TelegramLongPollingBot {
 
       if (messageText.equalsIgnoreCase("/start")) {
         sendText(chatId, "¡Bienvenido! ¿En qué puedo ayudarte?");
+      } else if (messageText.equalsIgnoreCase("/register")) {
+        // aca si te guardas chatId ya podrias hablar con la persona
+        sendText(chatId, "ID Registrada: " + chatId);
       } else if (messageText.equalsIgnoreCase("/help")) {
-        sendText(chatId, "Estos son los comandos disponibles:\n/start - Iniciar\n/help - Ayuda");
+        sendText(chatId, "Estos son los comandos disponibles:\n/register - Registrarse\n/help - Ayuda");
       } else {
-        sendText(chatId, "Mensaje recibido: " + messageText);
+        sendText(chatId, "El sig mensaje no es un comando valido: " + messageText);
       }
     }
   }

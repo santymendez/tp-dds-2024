@@ -8,7 +8,8 @@ import utils.sender.Mensaje;
 import utils.sender.TipoDestinatario;
 
 /**
- * Clase que representa el WhatsAppSender.
+ * Clase que representa el WhatsAppSender para el envio de WhatsApp a destinatarios.
+ * (Twilio cobra 0,1 US$ por mensaje en la sandbox. Por lo tanto solo usar en la presentacion).
  */
 
 public class WhatsAppSender {

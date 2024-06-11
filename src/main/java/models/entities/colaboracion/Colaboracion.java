@@ -1,6 +1,5 @@
 package models.entities.colaboracion;
 
-
 import java.time.LocalDate;
 import java.util.List;
 import lombok.Getter;
@@ -61,4 +60,6 @@ public class Colaboracion {
   public void cantTarjetasEntregadas() {
     this. cantTarjetasEntregadas = tarjetasEntregadas.size();
   }
+
+
 }

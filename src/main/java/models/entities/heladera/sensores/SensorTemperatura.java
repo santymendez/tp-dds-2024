@@ -17,6 +17,7 @@ public class SensorTemperatura {
   private Float temperaturaMaxima;
   private Float ultTemperatura;
 
+  //TODO agregar patron broker y CRONJOB
   public void recibirMedicion(Heladera heladera, Float ultTemperatura) {
     this.setUltTemperatura(ultTemperatura);
     this.activarSensor(heladera);
@@ -29,13 +30,12 @@ public class SensorTemperatura {
   public void activarSensor(Heladera heladera) {
     if (ultTemperatura > temperaturaMaxima || ultTemperatura < temperaturaMinima) {
       this.desactivarHeladera(heladera);
-      heladera.imprimirAlerta();
     }
   }
 
   public void desactivarHeladera(Heladera heladera) {
     heladera.modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
-    heladera.imprimirAlerta();
+    heladera.reportarIncidente(TipoEstado.INACTIVA_TEMPERATURA);
   }
 
   public void activarHeladera(Heladera heladera) {

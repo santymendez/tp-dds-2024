@@ -1,12 +1,17 @@
 package models.entities.personas.colaborador;
 
 import java.awt.Image;
+import java.util.Arrays;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
 import models.entities.formulario.RespuestaFormulario;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.TipoEstado;
+import models.entities.heladera.incidente.Incidente;
+import models.entities.heladera.incidente.TipoIncidente;
+import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
 import models.entities.personas.colaborador.suscripcion.Suscripcion;
@@ -80,16 +85,28 @@ public class Colaborador {
 
   //TODO Ver que hacer con los incidentes
 
+
   /**
-   * Método para reportar una falla en la heladera y generar el incidente.
+   * Reporta un incidente.
    *
-   * @param heladera a.
-   * @param descripcion b.
-   * @param imagen c.
+   * @param heladera representa el colaborador que reporta la falla.
+   * @param descripcion representa la descripcion opcional proporcionada por el colaborador.
+   * @param imagen representa la posible imagen.
    */
-  public void reportarFallaTecnica(Heladera heladera, String descripcion, Image imagen) {
-    heladera.reportarIncidente(this, descripcion, imagen);
+
+  public void reportarIncidente(Heladera heladera, String descripcion, Image imagen) {
+    Incidente incidente = new Incidente(TipoIncidente.FALLA_TECNICA, heladera);
+    incidente.setColaborador(this);
+    incidente.setDescripcion(descripcion);
+    incidente.setImagen(imagen);
+    heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
+    heladera.imprimirAlerta();
+    heladera.getReporteHeladera().ocurrioUnaFalla();
   }
 
+  public void colocarViandas(Heladera heladera, Vianda ... vianda) {
+    Integer cantViandas = (int) Arrays.stream(vianda).count();
+    heladera.getReporteHeladera().colaboracionRealizada(this, cantViandas);
+  }
 
 }

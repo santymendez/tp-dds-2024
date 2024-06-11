@@ -1,6 +1,5 @@
 package controllers;
 
-
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import dtos.ColaboracionInputDto;
@@ -12,7 +11,8 @@ import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.factories.FactoryColaboracion;
-import models.repositories.ColaboradoresRepository;
+import models.repositories.InterfaceColaboradoresRepository;
+import models.repositories.imp.ColaboradoresRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.ColaboradoresService;
@@ -25,7 +25,7 @@ public class CsvController {
 
   private static final Logger logger = LogManager.getLogger(EmailSender.class);
   private static final String ruta_archivo = "src/main/resources/lista_colaboradores.csv";
-  private final ColaboradoresRepository colaboradoresRepository;
+  private final InterfaceColaboradoresRepository colaboradoresRepository;
   private final ColaboradoresService colaboradoresService;
 
   /**
@@ -36,7 +36,7 @@ public class CsvController {
    */
 
   public CsvController(
-      ColaboradoresRepository colaboradoresRepository,
+      InterfaceColaboradoresRepository colaboradoresRepository,
       ColaboradoresService colaboradoresService
   ) {
     this.colaboradoresRepository = colaboradoresRepository;

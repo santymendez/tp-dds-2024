@@ -1,6 +1,5 @@
 package models.entities.heladera;
 
-import java.awt.Image;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,10 +12,10 @@ import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.SensorMovimiento;
 import models.entities.heladera.vianda.Vianda;
-import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.colaborador.SolicitudApertura;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
+import models.entities.reporte.ReporteHeladera;
 
 /**
  * Representa una heladera con una dirección, nombre, capacidad máxima de viandas, lista
@@ -42,6 +41,8 @@ public class Heladera {
   private Float limiteDeTiempo;
 
   private Boolean estaAbierta;
+
+  private ReporteHeladera reporteHeladera;
 
   /**
    * Se inicializa la heladera (Dar de alta).
@@ -70,6 +71,7 @@ public class Heladera {
     this.tarjetasHabilitadas = new ArrayList<>();
     this.limiteDeTiempo = 3.0f; //Su valor original es 3
     this.estaAbierta = false;
+    this.reporteHeladera = new ReporteHeladera(this);
   }
 
   /**
@@ -82,6 +84,7 @@ public class Heladera {
     if (this.tieneEspacio()) {
       this.viandas.add(vianda);
       vianda.setEntregada(true);
+      reporteHeladera.viandaColocada();
     } else {
       throw new RuntimeException("No hay mas espacio en la heladera");
     }
@@ -127,22 +130,7 @@ public class Heladera {
   public void reportarIncidente(TipoEstado tipoAlerta) {
     Incidente incidente = new Incidente(TipoIncidente.ALERTA, this);
     incidente.setTipoAlerta(tipoAlerta);
-  }
-
-  /**
-   * Reporta un incidente.
-   *
-   * @param colaborador representa el colaborador que reporta la falla.
-   * @param descripcion representa la descripcion opcional proporcionada por el colaborador.
-   * @param imagen representa la posible imagen UwU. //Top 10 Easter Eggs
-   */
-
-  public void reportarIncidente(Colaborador colaborador, String descripcion, Image imagen) {
-    Incidente incidente = new Incidente(TipoIncidente.FALLA_TECNICA, this);
-    incidente.setColaborador(colaborador);
-    incidente.setDescripcion(descripcion);
-    incidente.setImagen(imagen);
-    this.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
+    this.imprimirAlerta();
   }
 
   /**
@@ -183,6 +171,7 @@ public class Heladera {
   public void removerVianda() {
     if (!this.viandas.isEmpty()) {
       viandas.remove(0);
+      reporteHeladera.viandaRetirada();
     }
   }
 

@@ -5,6 +5,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import utils.sender.Destinatario;
 import utils.sender.Mensaje;
+import utils.sender.SenderInterface;
 import utils.sender.TipoDestinatario;
 
 /**

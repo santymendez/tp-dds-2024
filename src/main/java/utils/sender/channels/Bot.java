@@ -36,7 +36,8 @@ public class Bot extends TelegramLongPollingBot {
         // aca si te guardas chatId ya podrias hablar con la persona
         sendText(chatId, "ID Registrada: " + chatId);
       } else if (messageText.equalsIgnoreCase("/help")) {
-        sendText(chatId, "Estos son los comandos disponibles:\n/register - Registrarse\n/help - Ayuda");
+        sendText(chatId,
+            "Estos son los comandos disponibles:\n/register - Registrarse\n/help - Ayuda");
       } else {
         sendText(chatId, "El sig mensaje no es un comando valido: " + messageText);
       }

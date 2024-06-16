@@ -1,4 +1,4 @@
-package models.entities.heladera.sensores;
+package models.entities.heladera.sensores.temperatura;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,6 @@ public class SensorTemperatura {
   private Float temperaturaMaxima;
   private Float ultTemperatura;
 
-  //TODO agregar patron broker y CRONJOB
   public void recibirMedicion(Heladera heladera, Float ultTemperatura) {
     this.setUltTemperatura(ultTemperatura);
     this.activarSensor(heladera);

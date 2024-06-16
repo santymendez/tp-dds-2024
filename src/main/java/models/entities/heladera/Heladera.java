@@ -130,6 +130,7 @@ public class Heladera {
   public void reportarIncidente(TipoEstado tipoAlerta) {
     Incidente incidente = new Incidente(TipoIncidente.ALERTA, this);
     incidente.setTipoAlerta(tipoAlerta);
+    this.reportarFalla();
     this.imprimirAlerta();
   }
 
@@ -212,6 +213,11 @@ public class Heladera {
     float horas = duration.toHours();
     return horas < limiteDeTiempo;
   }
+
+  public void reportarFalla() {
+    this.reporteHeladera.ocurrioUnaFalla();
+  }
+
 }
 
 

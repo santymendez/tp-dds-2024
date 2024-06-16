@@ -18,6 +18,8 @@ class Heladera {
     -limiteDeTiempo: Float
     -estaAbierta: Boolean
 
+    -reporteHeladera: ReporteHeladera
+
     +void agregarVianda(Vianda vianda)
     +Integer calcularMesesActiva()
     +void imprimirAlerta()
@@ -460,6 +462,8 @@ Heladera *-- Modelo
 Heladera *-- SensorMovimiento
 Heladera -->"*" Estado
 Heladera -->"*" TarjetaColaborador
+Heladera --> ReporteHeladera
+'TODO revisar el tipo de relacion de arriba'
 
 'VIANDA'
 Vianda *-- Comida

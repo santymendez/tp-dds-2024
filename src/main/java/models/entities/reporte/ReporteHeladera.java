@@ -34,12 +34,6 @@ public class ReporteHeladera {
     this.nuevoReporteSemanal();
   }
 
-  //TODO Cronjob para realizarlo una vez por semana
-  public void imprimirReporte() {
-    //IMPRIMIR
-    this.nuevoReporteSemanal();
-  }
-
   /**
    * Método que reinicia los datos cada semana.
    */

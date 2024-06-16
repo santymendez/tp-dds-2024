@@ -101,7 +101,7 @@ public class Colaborador {
     incidente.setImagen(imagen);
     heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
     heladera.imprimirAlerta();
-    heladera.getReporteHeladera().ocurrioUnaFalla();
+    heladera.reportarFalla();
   }
 
   public void colocarViandas(Heladera heladera, Vianda ... vianda) {

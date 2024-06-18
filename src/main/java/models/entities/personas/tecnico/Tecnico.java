@@ -24,5 +24,4 @@ public class Tecnico {
   private Contacto contacto;
   private Ciudad areaDeCobertura;
 
-  
 }

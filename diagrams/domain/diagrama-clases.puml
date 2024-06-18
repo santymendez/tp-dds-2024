@@ -409,8 +409,8 @@ interface InterfazSuscripcion {
 }
 
 enum TipoSuscripcion {
-    QUEDAN_VIANDAS,
-    FALTAN_VIANDAS,
+    QUEDAN_N_VIANDAS,
+    FALTAN_N_VIANDAS,
     DESPERFECTO
 }
 
@@ -639,7 +639,7 @@ QuedanViandas --> SenderInterface
 
 'FALTAN_VIANDAS'
 FaltanViandas --o Colaborador
-FaltanViandas --o Heladera
+FaltanViandas --o"*" Heladera
 FaltanViandas --> SenderInterface
 
 'SENDER'

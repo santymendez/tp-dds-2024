@@ -1,4 +1,4 @@
-package modules.security;
+package security;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

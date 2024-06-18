@@ -24,11 +24,13 @@ public class ColaboradoresService {
   // TODO revisar si esta bien (lo saque afuera para poder moquearlo)
   @Setter
   private EmailSender emailsender;
-  // flaco, si queres que ande descomenta lo segundo y comenta lo primero
-  //private EmailSender emailsender = EmailSender.getInstance;
 
-  public ColaboradoresService(InterfaceColaboradoresRepository colaboradorRepository) {
+  public ColaboradoresService(
+      InterfaceColaboradoresRepository colaboradorRepository,
+      EmailSender sender
+  ) {
     this.colaboradoresRepository = colaboradorRepository;
+    this.emailsender = sender;
   }
 
   /**

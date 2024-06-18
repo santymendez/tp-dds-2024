@@ -20,13 +20,14 @@ class Heladera {
 
     -reporteHeladera: ReporteHeladera
 
-    +void agregarVianda(Vianda vianda)
+    -List<InterfazSuscripcion> suscripciones;
+
+    +agregarVianda(Vianda vianda)
     +Integer calcularMesesActiva()
-    +void imprimirAlerta()
-    +void intentarAbrirCon(TarjetaColaborador tarjeta)
-    +void reportarIncidente(TipoEstado tipoAlerta)
-    +void reportarIncidente(Colaborador colaborador, String descripcion, Image imagen)
-    '+void cerrarHeladera(TarjetaColaborador tarjeta) TODO Ver de incluir en la Apertura'
+    +imprimirAlerta()
+    +intentarAbrirCon(TarjetaColaborador tarjeta)
+    +reportarIncidente(TipoEstado tipoAlerta)
+    +intentarNotificarSuscriptores()
 }
 
 class Direccion {
@@ -79,7 +80,6 @@ class Vulnerable {
     +boolean puedeUsarTarjeta(Heladera heladera)
 }
 
-'TODO revisar datos opcionales con builder'
 class Colaborador{
     'De Persona Fisica'
     -nombre: String
@@ -101,13 +101,13 @@ class Colaborador{
 
     -tarjeta: TarjetaColaborador
 
-    -suscripcion: Suscripcion
+    -List<InterfazSuscripcion> suscripciones;
 
     +boolean puedeCanjear(Oferta oferta)
     +void aumentarReconocimiento(Colaboracion colaboracion)
 
     +void crearSolicitudAperturaDeHeladera(Heladera heladera)
-    +void reportarFallaTecnica(Heladera heladera, String descrpicion, Image imagen)
+    +void reportarIncidente(Heladera heladera, String descrpicion, Image imagen)
 }
 
 enum TipoColaborador {
@@ -376,7 +376,6 @@ class Apertura {
     -fechaApertura: LocalDateTime
 }
 
-'TODO implementar datos opcionales con builder en implementacion'
 class Incidente {
     -heladera: Heladera
     -tipoIncidente: TipoIncidente
@@ -404,35 +403,45 @@ class VisitaTecnica {
     -incidenteSolucionado: Boolean
 }
 
-'TODO no olvidarse las relaciones de aca para abajo'
-class Suscripcion {
-    -heladera: Heladera
-    -quedanViandas: QuedanViandas
-    -faltanViandas: FaltanViandas
-    -desperfecto: Desperfecto
-    -notificador: SenderInterface
+interface InterfazSuscripcion {
+    +intentarNotificar()
+    +notificar()
 }
 
-enum TipoNotificacion {
+enum TipoSuscripcion {
     QUEDAN_VIANDAS,
     FALTAN_VIANDAS,
     DESPERFECTO
 }
 
 class QuedanViandas {
+    -colaborador: Colaborador
+    -heladera: Heladera
     -viandasDisponibles: Integer
+    -senderInterface: SenderInterface
+
+    +intentarNotificar()
+    +notificar()
 }
 
 class FaltanViandas {
+    -colaborador: Colaborador
+    -heladera: Heladera
     -viandasFaltantes: Integer
+    -senderInterface: SenderInterface
+
+    +intentarNotificar()
+    +notificar()
 }
 
 class Desperfecto {
+    -colaborador: Colaborador
+    -heladera: Heladera
+    -senderInterface: SenderInterface
     -List<Heladera> heladerasSugeridas
-}
 
-class ReporteGeneral {
-    -List<ReporteHeladera> reportes
+    +intentarNotificar()
+    +notificar()
 }
 
 class ReporteHeladera {
@@ -446,6 +455,19 @@ class ReporteHeladera {
 class ViandasPorColaborador {
     -viandas: Integer
     -colaborador: Colaborador
+}
+
+interface SenderInterface {
+    +enviar(Mensaje men, Destinatario dest);
+}
+
+class Mensaje {
+    -asunto: String
+    -cuerpo: String
+}
+
+class Destinatario {
+    -HashMap<TipoContacto, String> mediosDeContacto
 }
 
 '================================================== Relaciones ================================================'
@@ -463,7 +485,7 @@ Heladera *-- SensorMovimiento
 Heladera -->"*" Estado
 Heladera -->"*" TarjetaColaborador
 Heladera --> ReporteHeladera
-'TODO revisar el tipo de relacion de arriba'
+Heladera -->"*" InterfazSuscripcion
 
 'VIANDA'
 Vianda *-- Comida
@@ -487,7 +509,8 @@ Colaborador ---> AdapterServicioRecomendacion
 Colaborador --> TarjetaColaborador
 Colaborador ..> Heladera
 Colaborador --> Suscripcion
-Colaborador ..> TipoNotificacion
+Colaborador ..> TipoSuscripcion
+Colaborador -->"*" InterfazSuscripcion
 
 'DOCUMENTO'
 Documento o-- TipoDocumento
@@ -595,20 +618,35 @@ Incidente --> Colaborador
 VisitaTecnica o-- Incidente
 
 'REPORTES'
-ReporteGeneral -->"*" ReporteHeladera
 ReporteHeladera o-- Heladera
 ReporteHeladera -->"*" ViandasPorColaborador
 ViandasPorColaborador o-- Colaborador
 
-'SUSCRIPCION'
-Suscripcion o-- Heladera
-Suscripcion o-- SenderInterface
-Suscripcion --> QuedanViandas
-Suscripcion --> FaltanViandas
-Suscripcion --> Desperfecto
-Suscripcion ..> TipoNotificacion
+'INTERFAZ SUSCRIPCION'
+Desperfecto ..|> InterfazSuscripcion
+QuedanViandas ..|> InterfazSuscripcion
+FaltanViandas ..|> InterfazSuscripcion
 
-'NOTIFICACIONES'
+'DESPERFECTO TODO DESPERFECTO HELADERAS'
+Desperfecto --> SenderInterface
+Desperfecto --> Colaborador
 Desperfecto -->"*" Heladera
+
+'QUEDAN_VIANDAS'
+QuedanViandas --o Colaborador
+QuedanViandas --o Heladera
+QuedanViandas --> SenderInterface
+
+'FALTAN_VIANDAS'
+FaltanViandas --o Colaborador
+FaltanViandas --o Heladera
+FaltanViandas --> SenderInterface
+
+'SENDER'
+SenderInterface ..> Mensaje
+SenderInterface ..> Destinatario
+
+'DESTINATARIO'
+Destinatario --> TipoContacto
 
 @enduml

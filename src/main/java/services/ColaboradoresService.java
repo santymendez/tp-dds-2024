@@ -12,7 +12,6 @@ import models.repositories.InterfaceColaboradoresRepository;
 import utils.security.Usuario;
 import utils.sender.Destinatario;
 import utils.sender.Mensaje;
-import utils.sender.TipoDestinatario;
 import utils.sender.channels.EmailSender;
 
 /**
@@ -66,7 +65,7 @@ public class ColaboradoresService {
     // mostrar mas logica del modulo (Quizas con un factory se puede arreglar, no se si vale
     // la pena).
     Destinatario destinatario = new Destinatario();
-    destinatario.agregarMedioDeContacto(TipoDestinatario.MAIL, colaboradorInputDto.getEmail());
+    destinatario.agregarMedioDeContacto(TipoContacto.MAIL, colaboradorInputDto.getEmail());
 
     emailsender.enviar(message, destinatario);
 

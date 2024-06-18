@@ -33,6 +33,10 @@ rectangle DominioPrincipal {
     usecase "Canjear puntos" as UC13
 
     usecase "Solicitar recomendacion de puntos de colocacion" as UC15
+
+    usecase "Reportar falla tecnica" as UC16
+
+    usecase "Suscribirse a heladera" as UC17
 }
 
 fisica --> UC0
@@ -61,6 +65,12 @@ juridica --> UC9
 ong --> UC9
 
 empresaAsociada --> UC14
+
+juridica --> UC16
+fisica --> UC16
+
+fisica --> UC17
+juridica --> UC17
 
 UC5 ..> UC1 : <<includes>>
 UC6 ..> UC1 : <<includes>>

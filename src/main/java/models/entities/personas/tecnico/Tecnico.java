@@ -23,4 +23,6 @@ public class Tecnico {
   private Integer cuil;
   private Contacto contacto;
   private Ciudad areaDeCobertura;
+
+  
 }

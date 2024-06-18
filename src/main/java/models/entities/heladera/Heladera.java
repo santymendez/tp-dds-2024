@@ -45,7 +45,7 @@ public class Heladera {
 
   private ReporteHeladera reporteHeladera;
 
-  private List<InterfazSuscripcion> suscriptores;
+  private List<InterfazSuscripcion> suscripciones;
 
   /**
    * Se inicializa la heladera (Dar de alta).
@@ -77,6 +77,8 @@ public class Heladera {
     this.reporteHeladera = new ReporteHeladera(this);
   }
 
+  //================================== Movimiento de viandas ======================================
+
   /**
    * Se agrega una vianda a la heladera.
    *
@@ -84,16 +86,36 @@ public class Heladera {
    */
 
   public void agregarVianda(Vianda vianda) {
-    if (this.tieneEspacio()) {
-      this.viandas.add(vianda);
-      vianda.setEntregada(true);
-      reporteHeladera.viandaColocada();
-    } else {
+    if (!this.tieneEspacio()) {
       throw new RuntimeException("No hay mas espacio en la heladera");
     }
-    //TODO
-    //forEachIntentarNotificar()
+
+    this.viandas.add(vianda);
+    vianda.setEntregada(true);
+    reporteHeladera.viandaColocada();
+
+    this.intentarNotificarSuscriptores();
   }
+
+  /**
+   * Se elimina una vianda de la heladera (sirve para la distribución).
+   */
+
+  public void removerVianda() {
+    if (this.viandas.isEmpty()) {
+      throw new RuntimeException("No hay viandas para retirar");
+    }
+
+    //Se retira la vianda
+    viandas.remove(0);
+    reporteHeladera.viandaRetirada();
+
+    if (!this.suscripciones.isEmpty()) {
+      this.intentarNotificarSuscriptores();
+    }
+  }
+
+  //==================================== Calcular meses ========================================
 
   /**
    * Método para calcular los meses que una heladera estuvo activa hasta el momento
@@ -106,6 +128,22 @@ public class Heladera {
         .filter(estado -> estado.getEstado() == TipoEstado.ACTIVA)
         .mapToInt(Estado::calcularMeses)
         .sum();
+  }
+
+  //==================================== incidentes ========================================
+
+  /**
+   * Reporta un incidente.
+   *
+   * @param tipoAlerta representa el tipo de alerta.
+   */
+
+  public void reportarIncidente(TipoEstado tipoAlerta) {
+    Incidente incidente = new Incidente(TipoIncidente.ALERTA, this);
+    incidente.setTipoAlerta(tipoAlerta);
+    this.reportarFalla();
+    this.imprimirAlerta();
+    this.intentarNotificarSuscriptores();
   }
 
   /**
@@ -126,23 +164,12 @@ public class Heladera {
   }
 
   /**
-   * Reporta un incidente.
-   *
-   * @param tipoAlerta representa el tipo de alerta.
-   */
-
-  public void reportarIncidente(TipoEstado tipoAlerta) {
-    Incidente incidente = new Incidente(TipoIncidente.ALERTA, this);
-    incidente.setTipoAlerta(tipoAlerta);
-    this.reportarFalla();
-    this.imprimirAlerta();
-  }
-
-  /**
    * Verifica si la heladera puede ser abierta con una tarjeta en particular.
    *
    * @param tarjeta Es la tarjeta con la que se desea abrir la heladera.
    */
+
+  //================================= Tarjetas de colaborador =====================================
 
   public Boolean intentarAbrirCon(TarjetaColaborador tarjeta) {
     if (!tarjetasHabilitadas.contains(tarjeta)) {
@@ -159,6 +186,26 @@ public class Heladera {
     return true;
   }
 
+  //==================================== Suscripciones ========================================
+
+  /**
+   * Intentara notificar a sus suscriptores.
+   */
+
+  public void intentarNotificarSuscriptores() {
+    if (!this.suscripciones.isEmpty()) {
+      this.suscripciones.parallelStream().forEach(InterfazSuscripcion::intentarNotificar);
+    }
+  }
+
+  public void agregarSuscripcion(InterfazSuscripcion suscripcion) {
+    this.getSuscripciones().add(suscripcion);
+  }
+
+  public void eliminarSuscripcion(InterfazSuscripcion suscripcion) {
+    this.getSuscripciones().remove(suscripcion);
+  }
+
   //==================================== Métodos auxiliares ========================================
 
   public Boolean tieneViandas() {
@@ -167,20 +214,6 @@ public class Heladera {
 
   public Boolean tieneEspacio() {
     return this.capacidadMaximaViandas > this.viandas.size();
-  }
-
-  /**
-   * Se elimina una vianda de la heladera (sirve para la distribución).
-   */
-
-  public void removerVianda() {
-    if (this.viandas.isEmpty()) {
-      throw new RuntimeException("No hay viandas para retirar");
-    }
-
-    //Se retira la vianda
-    viandas.remove(0);
-    reporteHeladera.viandaRetirada();
   }
 
   /**
@@ -224,7 +257,6 @@ public class Heladera {
   public void reportarFalla() {
     this.reporteHeladera.ocurrioUnaFalla();
   }
-
 
   public Integer consultarStock() {
     return this.viandas.size();

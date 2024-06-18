@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import models.entities.heladera.incidente.Incidente;
 
 /**
- * Clase que representa la visita tecnica que realiza un tecnico a un heladera.
+ * Clase que representa la visita técnica que realiza un técnico a una heladera.
  */
 
 public class VisitaTecnica {
@@ -13,5 +13,5 @@ public class VisitaTecnica {
   private LocalDate fechaVisita;
   private String trabajoRealizado;
   private Image fotoVisita;
-  private Boolean inicdenteSolucionado;
+  private Boolean incidenteSolucionado;
 }

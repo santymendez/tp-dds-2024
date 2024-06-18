@@ -2,11 +2,11 @@ package utils.sender.channels;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import models.entities.personas.contacto.TipoContacto;
 import utils.sender.Config;
 import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
-import utils.sender.TipoDestinatario;
 
 /**
  * Clase que representa el WhatsAppSender para el envio de WhatsApp a destinatarios.
@@ -46,7 +46,7 @@ public class WhatsAppSender implements SenderInterface {
    */
 
   public void send(Mensaje mensaje, Destinatario destinatario) throws Exception {
-    String nroDest = destinatario.obtenerMedidoContacto(TipoDestinatario.WHATSAPP);
+    String nroDest = destinatario.obtenerMedidoContacto(TipoContacto.WHATSAPP);
     String nroDestinatario = "whatsapp:+" + nroDest;
     String newMensaje = mensaje.aplanarMensaje();
 
@@ -58,7 +58,6 @@ public class WhatsAppSender implements SenderInterface {
           .create();
   }
 
-  @Override
   public void enviar(Mensaje mensaje, Destinatario destinatario) {
     try {
       this.send(mensaje, destinatario);

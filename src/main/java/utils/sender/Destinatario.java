@@ -2,6 +2,7 @@ package utils.sender;
 
 import java.util.HashMap;
 import lombok.NoArgsConstructor;
+import models.entities.personas.contacto.TipoContacto;
 
 /**
  * Clase destintatario.
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class Destinatario {
-  private HashMap<TipoDestinatario, String> mediosDeContacto;
+  private HashMap<TipoContacto, String> mediosDeContacto;
   // Alternativa por si quisieramos que tuviera mas de un nro de telefono, mail, etc.
   //private HashMap<TipoDestinatario, List<String>> mediosDeContacto;
 
@@ -20,7 +21,7 @@ public class Destinatario {
    * @param contacto El contacto como string.
    */
 
-  public void agregarMedioDeContacto(TipoDestinatario tipo, String contacto) {
+  public void agregarMedioDeContacto(TipoContacto tipo, String contacto) {
     if (mediosDeContacto == null) {
       mediosDeContacto = new HashMap<>();
     }
@@ -28,7 +29,7 @@ public class Destinatario {
     mediosDeContacto.put(tipo, contacto);
   }
 
-  public String obtenerMedidoContacto(TipoDestinatario tipo) {
+  public String obtenerMedidoContacto(TipoContacto tipo) {
     return mediosDeContacto.get(tipo);
   }
 }

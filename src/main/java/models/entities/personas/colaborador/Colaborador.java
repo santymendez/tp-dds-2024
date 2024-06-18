@@ -1,7 +1,6 @@
 package models.entities.personas.colaborador;
 
 import java.awt.Image;
-import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,10 +11,13 @@ import models.entities.heladera.Heladera;
 import models.entities.heladera.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
-import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
+import models.entities.personas.colaborador.suscripcion.Desperfecto;
+import models.entities.personas.colaborador.suscripcion.FaltanViandas;
 import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
+import models.entities.personas.colaborador.suscripcion.QuedanViandas;
+import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
@@ -84,10 +86,8 @@ public class Colaborador {
     heladera.getTarjetasHabilitadas().add(this.tarjeta);
   }
 
-  //TODO Ver que hacer con los incidentes
-
   /**
-   * Reporta un incidente.
+   * Permite al colaborador reportar un incidente.
    *
    * @param heladera representa el colaborador que reporta la falla.
    * @param descripcion representa la descripcion opcional proporcionada por el colaborador.
@@ -99,14 +99,42 @@ public class Colaborador {
     incidente.setColaborador(this);
     incidente.setDescripcion(descripcion);
     incidente.setImagen(imagen);
+
     heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
     heladera.imprimirAlerta();
     heladera.reportarFalla();
+    heladera.intentarNotificarSuscriptores();
   }
 
-  public void colocarViandas(Heladera heladera, Vianda ... vianda) {
-    Integer cantViandas = (int) Arrays.stream(vianda).count();
-    heladera.getReporteHeladera().colaboracionRealizada(this, cantViandas);
+  /**
+   * Permite suscribirse a una heladera.
+   *
+   * @param heladera Heladera a la cual se desea suscribir.
+   * @param tipo Tipo de suscripcion seleccionada.
+   * @param cantidadViandas Cantidad de viandas a partir de la que se debe notificar.
+   */
+  
+  public void suscribirseHeladera(
+      Heladera heladera, TipoSuscripcion tipo, Integer cantidadViandas) {
+    switch (tipo) {
+      case QUEDAN_N_VIANDAS -> {
+        QuedanViandas suscripcion = new QuedanViandas(this, heladera, cantidadViandas);
+        this.suscripciones.add(suscripcion);
+        heladera.agregarSuscripcion(suscripcion);
+      }
+      case FALTAN_N_VIANDAS -> {
+        FaltanViandas suscripcion = new FaltanViandas(this, heladera, cantidadViandas);
+        this.suscripciones.add(suscripcion);
+        heladera.agregarSuscripcion(suscripcion);
+      }
+      case OCURRIO_DESPERFECTO -> {
+        Desperfecto suscripcion = new Desperfecto(this, heladera);
+        this.suscripciones.add(suscripcion);
+        heladera.agregarSuscripcion(suscripcion);
+      }
+      default ->
+        throw new RuntimeException("No existe ese tipo de suscrpcion.");
+    }
   }
 
 }

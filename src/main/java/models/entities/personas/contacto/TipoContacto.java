@@ -5,7 +5,7 @@ package models.entities.personas.contacto;
  */
 
 public enum TipoContacto {
-  TELEFONO_FIJO,
-  CELULAR,
-  MAIL
+  MAIL,
+  WHATSAPP,
+  TELEGRAM
 }

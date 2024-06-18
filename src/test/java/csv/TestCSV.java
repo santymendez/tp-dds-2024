@@ -23,9 +23,9 @@ public class TestCSV {
   @BeforeEach
   void inicializar() {
     colaboradoresRepository = new ColaboradoresRepository();
+    colaboradoresService = new ColaboradoresService(colaboradoresRepository);
     EmailSender emailSender = mock(EmailSender.class);
     doNothing().when(emailSender).enviar(any(Mensaje.class), any(Destinatario.class));
-    colaboradoresService = new ColaboradoresService(colaboradoresRepository);
     colaboradoresService.setEmailsender(emailSender);
     csvController = new CsvController(colaboradoresRepository, colaboradoresService);
   }

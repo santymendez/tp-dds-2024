@@ -5,6 +5,7 @@ import com.twilio.rest.api.v2010.account.Message;
 import utils.sender.Config;
 import utils.sender.Destinatario;
 import utils.sender.Mensaje;
+import utils.sender.SenderInterface;
 import utils.sender.TipoDestinatario;
 
 /**
@@ -12,7 +13,7 @@ import utils.sender.TipoDestinatario;
  * (Twilio cobra 0,1 US$ por mensaje en la sandbox. Por lo tanto solo usar en la presentacion).
  */
 
-public class WhatsAppSender {
+public class WhatsAppSender implements SenderInterface {
   private final String accountSid;
   private final String tokenAutenticacion;
   private final String nroEnvio;
@@ -44,7 +45,7 @@ public class WhatsAppSender {
    * @param destinatario Destinatario.
    */
 
-  public void enviar(Mensaje mensaje, Destinatario destinatario) throws Exception {
+  public void send(Mensaje mensaje, Destinatario destinatario) throws Exception {
     String nroDest = destinatario.obtenerMedidoContacto(TipoDestinatario.WHATSAPP);
     String nroDestinatario = "whatsapp:+" + nroDest;
     String newMensaje = mensaje.aplanarMensaje();
@@ -55,6 +56,17 @@ public class WhatsAppSender {
               new com.twilio.type.PhoneNumber(nroEnvio),
               newMensaje)
           .create();
+  }
+
+  @Override
+  public void enviar(Mensaje mensaje, Destinatario destinatario) {
+    try {
+      this.send(mensaje, destinatario);
+    } catch (Exception e) {
+      // Manejo de la excepción
+      System.err.println("Error al enviar el mensaje: " + e.getMessage());
+      e.printStackTrace();
+    }
   }
 
 }

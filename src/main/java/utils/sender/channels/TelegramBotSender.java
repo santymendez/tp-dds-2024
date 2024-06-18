@@ -12,7 +12,7 @@ import utils.sender.TipoDestinatario;
  * Clase que representa el Telegram Bot Sender.
  */
 
-public class TelegramBotSender {
+public class TelegramBotSender implements  SenderInterface{
   private static Bot bot;
   private static TelegramBotSender instance;
 
@@ -43,6 +43,7 @@ public class TelegramBotSender {
    * @param destinatario Destinatario.
    */
 
+  @Override
   public void enviar(Mensaje mensaje, Destinatario destinatario) {
     String idTelegram = destinatario.obtenerMedidoContacto(TipoDestinatario.TELEGRAM);
     Long destinatarioId = Long.parseLong(idTelegram);

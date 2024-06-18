@@ -1,6 +1,10 @@
 package utils.sender;
 
+import java.util.ArrayList;
+import java.util.List;
+import utils.sender.channels.EmailSender;
 import utils.sender.channels.TelegramBotSender;
+import utils.sender.channels.WhatsAppSender;
 
 public class ExampleSender {
 
@@ -55,6 +59,7 @@ public class ExampleSender {
     telegramBotSender.enviar(men, destinatario3);
     telegramBotSender.enviar(men, destinatario4);
     telegramBotSender.enviar(men, destinatario5);*/
+    
   }
 
 }

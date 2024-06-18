@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import utils.sender.Config;
 import utils.sender.Destinatario;
 import utils.sender.Mensaje;
+import utils.sender.SenderInterface;
 import utils.sender.TipoDestinatario;
 
 /**
@@ -22,7 +23,7 @@ import utils.sender.TipoDestinatario;
  * Se recomienda utilizar el método enviar() para enviar un mensaje de correo
  * electrónico especificando el destinatario y el mensaje a enviar.
  */
-public class EmailSender {
+public class EmailSender implements SenderInterface {
   private final String nombreDeUsuario = Config.getEmailUser();
   private final String contrasenia = Config.getEmailApiKey(); // Acá se usa la API key
   private final Session sesion;
@@ -56,7 +57,6 @@ public class EmailSender {
    * @return la instancia del EmailSender.
    */
 
-  // Método estático para obtener la instancia única de EmailSender
   public static EmailSender getInstance() {
     if (instance == null) {
       instance = new EmailSender();
@@ -71,6 +71,8 @@ public class EmailSender {
    * @param mensajeAenviar el mensaje que se quiere enviar
    * @param destinatario   el destinatario al cual se quiere enviar el mensaje
    */
+
+  @Override
   public void enviar(Mensaje mensajeAenviar, Destinatario destinatario) {
     String mailDestinatario = destinatario.obtenerMedidoContacto(TipoDestinatario.MAIL);
     try {

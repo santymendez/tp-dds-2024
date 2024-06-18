@@ -12,6 +12,7 @@ import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.SensorMovimiento;
 import models.entities.heladera.vianda.Vianda;
+import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
 import models.entities.personas.tarjetas.colaborador.SolicitudApertura;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
@@ -43,6 +44,8 @@ public class Heladera {
   private Boolean estaAbierta;
 
   private ReporteHeladera reporteHeladera;
+
+  private List<InterfazSuscripcion> suscriptores;
 
   /**
    * Se inicializa la heladera (Dar de alta).
@@ -88,6 +91,8 @@ public class Heladera {
     } else {
       throw new RuntimeException("No hay mas espacio en la heladera");
     }
+    //TODO
+    //forEachIntentarNotificar()
   }
 
   /**
@@ -126,7 +131,6 @@ public class Heladera {
    * @param tipoAlerta representa el tipo de alerta.
    */
 
-  //TODO Ver que hacer con los incidentes
   public void reportarIncidente(TipoEstado tipoAlerta) {
     Incidente incidente = new Incidente(TipoIncidente.ALERTA, this);
     incidente.setTipoAlerta(tipoAlerta);
@@ -170,10 +174,13 @@ public class Heladera {
    */
 
   public void removerVianda() {
-    if (!this.viandas.isEmpty()) {
-      viandas.remove(0);
-      reporteHeladera.viandaRetirada();
+    if (this.viandas.isEmpty()) {
+      throw new RuntimeException("No hay viandas para retirar");
     }
+
+    //Se retira la vianda
+    viandas.remove(0);
+    reporteHeladera.viandaRetirada();
   }
 
   /**
@@ -218,6 +225,13 @@ public class Heladera {
     this.reporteHeladera.ocurrioUnaFalla();
   }
 
+
+  public Integer consultarStock() {
+    return this.viandas.size();
+  }
+
+  public Integer consultarEspacioSobrante() {
+    return this.capacidadMaximaViandas - this.consultarStock();
+  }
+
 }
-
-

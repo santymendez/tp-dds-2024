@@ -14,7 +14,7 @@ public class Destinatario {
   //private HashMap<TipoDestinatario, List<String>> mediosDeContacto;
 
   /**
-   * Metodo que agrega el metodo de contacto.
+   * Método que agrega el metodo de contacto.
    *
    * @param tipo El tipo de destinatario.
    * @param contacto El contacto como string.

@@ -2,6 +2,7 @@ package models.entities.personas.colaborador;
 
 import java.awt.Image;
 import java.util.Arrays;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.colaboracion.Colaboracion;
@@ -14,7 +15,7 @@ import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
-import models.entities.personas.colaborador.suscripcion.Suscripcion;
+import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
@@ -51,7 +52,7 @@ public class Colaborador {
   private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
   private TarjetaColaborador tarjeta;
-  private Suscripcion suscripcion;
+  private List<InterfazSuscripcion> suscripciones;
 
   public Colaborador() {
     this.reconocimiento = new Reconocimiento();
@@ -84,7 +85,6 @@ public class Colaborador {
   }
 
   //TODO Ver que hacer con los incidentes
-
 
   /**
    * Reporta un incidente.

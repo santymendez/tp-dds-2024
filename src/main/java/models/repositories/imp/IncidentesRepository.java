@@ -12,12 +12,8 @@ import models.repositories.InterfaceIncidentesRepository;
 public class IncidentesRepository implements InterfaceIncidentesRepository {
   List<Incidente> incidentes;
 
+  @Override
   public void guardar(Incidente incidente) {
     incidentes.add(incidente);
-  }
-
-  @Override
-  public Optional<Incidente> buscarIncidentePorId() {
-    return Optional.empty();
   }
 }

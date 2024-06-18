@@ -9,6 +9,4 @@ import models.entities.heladera.incidente.Incidente;
 
 public interface InterfaceIncidentesRepository {
   void guardar(Incidente incidente);
-
-  Optional<Incidente> buscarIncidentePorId();
 }

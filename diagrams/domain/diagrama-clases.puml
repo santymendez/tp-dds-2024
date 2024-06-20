@@ -97,6 +97,8 @@ class Colaborador{
     -respuestaFormulario: RespuestaFormulario
     -reconocimiento: Reconocimiento
 
+    -List<Colaboracion> colaboraciones;
+
     -adapterServicioRecomendacion: AdapterServicioRecomendacion
 
     -tarjeta: TarjetaColaborador
@@ -470,6 +472,25 @@ class Destinatario {
     -HashMap<TipoContacto, String> mediosDeContacto
 }
 
+class BuscadorTecnicosCercanos {
+    -tecnicosRepository: TecnicosRepository
+    -List<Tecnico> buscarTecnicosCercanosA(Heladera heladera)
+}
+
+'========================================== Repositorios ============================================='
+
+interface InterfaceTecnicosRepository {
+    +guardar(Tecnico tecnico)
+    +List<Tecnico> buscar(String ciudad)
+}
+
+class TecnicosRepository {
+    -List<Tecnico> tecnicos
+
+    +guardar(Tecnico tecnico)
+    +List<Tecnico> buscar(String ciudad)
+}
+
 '================================================== Relaciones ================================================'
 
 'DIRECCIONES'
@@ -486,6 +507,7 @@ Heladera -->"*" Estado
 Heladera -->"*" TarjetaColaborador
 Heladera --> ReporteHeladera
 Heladera -->"*" InterfazSuscripcion
+Heladera --> BuscadorTecnicosCercanosBuscadorTecnicosCercanosBuscadorTecnicosCercanos
 
 'VIANDA'
 Vianda *-- Comida
@@ -511,6 +533,7 @@ Colaborador ..> Heladera
 Colaborador --> Suscripcion
 Colaborador ..> TipoSuscripcion
 Colaborador -->"*" InterfazSuscripcion
+Colaborador -->"*" Colaboraciones
 
 'DOCUMENTO'
 Documento o-- TipoDocumento
@@ -639,7 +662,7 @@ QuedanViandas --> SenderInterface
 
 'FALTAN_VIANDAS'
 FaltanViandas --o Colaborador
-FaltanViandas --o"*" Heladera
+FaltanViandas --o Heladera
 FaltanViandas --> SenderInterface
 
 'SENDER'
@@ -648,5 +671,12 @@ SenderInterface ..> Destinatario
 
 'DESTINATARIO'
 Destinatario --> TipoContacto
+
+'BUSCADOR TECNICOS'
+BuscadorTecnicosCercanos --> TecnicosRepository
+Buscador ..> Heladera
+
+'TECNICOS REPOSITORY'
+TecnicosRepository *--"*" Tecnico
 
 @enduml

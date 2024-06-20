@@ -17,6 +17,7 @@ import models.entities.personas.tarjetas.colaborador.SolicitudApertura;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 import models.entities.reporte.ReporteHeladera;
+import models.entities.searchers.BuscadorTecnicosCercanos;
 
 /**
  * Representa una heladera con una dirección, nombre, capacidad máxima de viandas, lista
@@ -37,10 +38,10 @@ public class Heladera {
 
   private Estado estadoActual;
   private List<Estado> estadosHeladera;
+  private BuscadorTecnicosCercanos buscadorTecnicosCercanos;
 
   private List<TarjetaColaborador> tarjetasHabilitadas;
   private Float limiteDeTiempo;
-
   private Boolean estaAbierta;
 
   private ReporteHeladera reporteHeladera;

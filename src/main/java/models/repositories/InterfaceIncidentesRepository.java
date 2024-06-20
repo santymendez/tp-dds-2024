@@ -4,7 +4,7 @@ import java.util.Optional;
 import models.entities.heladera.incidente.Incidente;
 
 /**
- * Representa una interfaz para un repositorio de Incidentes.
+ * Interfaz Repositorio para los Incidentes.
  */
 
 public interface InterfaceIncidentesRepository {

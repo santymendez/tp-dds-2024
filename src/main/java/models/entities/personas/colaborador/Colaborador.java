@@ -1,6 +1,7 @@
 package models.entities.personas.colaborador;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -51,13 +52,21 @@ public class Colaborador {
   private RespuestaFormulario respuestaFormulario;
   private Reconocimiento reconocimiento;
 
+  private List<Colaboracion> colaboraciones;
+
   private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
   private TarjetaColaborador tarjeta;
   private List<InterfazSuscripcion> suscripciones;
 
+  /**
+   * Instancia un Colaborador.
+   */
+
   public Colaborador() {
     this.reconocimiento = new Reconocimiento();
+    this.colaboraciones = new ArrayList<>();
+    this.suscripciones = new ArrayList<>();
   }
 
   /**

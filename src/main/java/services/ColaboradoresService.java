@@ -8,7 +8,7 @@ import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
-import models.repositories.InterfaceColaboradoresRepository;
+import models.repositories.personas.InterfaceColaboradoresRepository;
 import utils.security.Usuario;
 import utils.sender.Destinatario;
 import utils.sender.Mensaje;

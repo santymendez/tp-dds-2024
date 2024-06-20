@@ -6,7 +6,7 @@ import models.entities.heladera.incidente.Incidente;
 import models.repositories.InterfaceIncidentesRepository;
 
 /**
- * Clase que guarda todos los incidentes ocurridos.
+ * Repositorio para los Incidentes.
  */
 
 public class IncidentesRepository implements InterfaceIncidentesRepository {

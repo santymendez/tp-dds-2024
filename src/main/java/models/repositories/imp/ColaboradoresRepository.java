@@ -6,10 +6,10 @@ import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.personas.colaborador.Colaborador;
-import models.repositories.InterfaceColaboradoresRepository;
+import models.repositories.personas.InterfaceColaboradoresRepository;
 
 /**
- * Clase de Colaborador para cargar los datos del CSV.
+ * Repositorio para los Colaboradores.
  */
 @Getter
 @Setter

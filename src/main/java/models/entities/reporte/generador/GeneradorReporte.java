@@ -34,7 +34,6 @@ public class GeneradorReporte {
    * Genera un reporte semanal.
    */
 
-  //TODO HEAVY 
   public static void main(String[] args) {
 
     LocalDate semanaActual = LocalDate.now();

@@ -23,7 +23,8 @@ public class FactoryColaboracion {
     Colaboracion unaColaboracion = new Colaboracion();
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    unaColaboracion.setFechaDonacion(LocalDate.parse(colaboracionInputDto.getFecha(), formatter));
+    unaColaboracion
+        .setFechaColaboracion(LocalDate.parse(colaboracionInputDto.getFecha(), formatter));
 
     unaColaboracion.setTipoColaboracion(TipoColaboracion
         .valueOf(colaboracionInputDto.getTipoColaboracion()));

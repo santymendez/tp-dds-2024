@@ -1,13 +1,15 @@
 package models.entities.searchers;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.colaboracion.Colaboracion;
+import models.entities.colaboracion.TipoColaboracion;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.Colaborador;
 
 /**
@@ -16,6 +18,8 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Getter
 @Setter
+
+//TODO TESTEAR
 public class BuscadorHeladerasFrecuentes {
   private Integer cantidadRequerida;
 
@@ -23,20 +27,49 @@ public class BuscadorHeladerasFrecuentes {
    * Busca las heladeras mas frecuentes para un Colaborador dada una lista de Colaboraciones.
    *
    * @param colaborador El Colaborador que frecuenta las heladeras.
-   * @param colaboraciones Las colaboraciones realizadas.
    * @return Lista de Heladeras frecuentes.
    */
 
   public List<Heladera> heladerasFrecuentes(
-      Colaborador colaborador,
-      List<Colaboracion> colaboraciones
+      Colaborador colaborador
   ) {
-    Stream<Colaboracion> distribucionesDeViandas = colaboraciones.stream()
-        .filter(colab -> colab.getHeladeraDestino() != null);
-    Stream<Colaboracion> donacionesDeViandas = colaboraciones.stream()
-        .filter(colaboracion -> !colaboracion.getViandas().isEmpty());
+    Stream<Colaboracion> distribucionesDeViandas = colaborador.getColaboraciones().stream()
+        .filter(colab -> colab.getTipoColaboracion().equals(TipoColaboracion.DISTRIBUIR_VIANDAS));
 
-    Stream<Colaboracion> colaboracionesConHeladeras =
-        Stream.concat(distribucionesDeViandas, donacionesDeViandas);
+    Stream<Colaboracion> donacionesDeViandas = colaborador.getColaboraciones().stream()
+        .filter(colab -> colab.getTipoColaboracion().equals(TipoColaboracion.DONAR_VIANDA));
+
+    Stream<Colaboracion> colaboracionesOrdenadas =
+        Stream.concat(distribucionesDeViandas, donacionesDeViandas)
+            .sorted(Comparator.comparing(Colaboracion::getFechaColaboracion));
+
+    return this.obtenerHeladerasRequeridas(colaboracionesOrdenadas.toList());
+  }
+
+  /**
+   * Crea una lista de Heladeras a partir de una lista de Colaboraciones.
+   *
+   * @param colaboraciones Lista de Colaboraciones.
+   * @return Lista de Heladeras.
+   */
+
+  public List<Heladera> obtenerHeladerasRequeridas(List<Colaboracion> colaboraciones) {
+    List<Heladera> heladeras = new ArrayList<>();
+
+    for (Colaboracion colaboracion : colaboraciones) {
+      switch (colaboracion.getTipoColaboracion()) {
+        case DISTRIBUIR_VIANDAS -> heladeras.add(colaboracion.getHeladeraDestino());
+
+        case DONAR_VIANDA -> {
+          for (Vianda vianda : colaboracion.getViandas()) {
+            heladeras.add(vianda.getHeladera());
+          }
+        }
+
+        default -> throw new RuntimeException("Hay una Colaboracion no valida");
+      }
+
+    }
+    return heladeras.stream().limit(this.cantidadRequerida).toList();
   }
 }

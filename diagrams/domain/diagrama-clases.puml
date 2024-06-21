@@ -156,9 +156,9 @@ enum TipoPregunta {
 
 class Colaboracion {
     -tipoColaboracion: TipoColaboracion
+    -fechaColaboracion: LocalDate
 
     'DONAR_DINERO'
-    -fechaDonacionDinero: LocalDate
     -monto: Integer
     -frecuencia: String
 
@@ -171,7 +171,6 @@ class Colaboracion {
     -heladeraDestino: Heladera
     -cantViandasDistribuidas: Integer
     -motivoDistribucion: String
-    -fechaDistribucion: LocalDate
 
     'COLOCAR_HELADERA'
     -nuevaHeladera: Heladera
@@ -440,6 +439,7 @@ class Desperfecto {
     -colaborador: Colaborador
     -heladera: Heladera
     -senderInterface: SenderInterface
+    -buscadorHeladerasFrecuentes: BuscadorHeladerasFrecuentes
     -List<Heladera> heladerasSugeridas
 
     +intentarNotificar()
@@ -475,6 +475,12 @@ class Destinatario {
 class BuscadorTecnicosCercanos {
     -tecnicosRepository: TecnicosRepository
     -List<Tecnico> buscarTecnicosCercanosA(Heladera heladera)
+}
+
+class BuscadorHeladerasFrecuentes {
+    -cantidadRequerida: Integer
+
+    +List<Heladera> heladerasFrecuentes(Colaborador colaborador)
 }
 
 '========================================== Repositorios ============================================='
@@ -678,5 +684,8 @@ Buscador ..> Heladera
 
 'TECNICOS REPOSITORY'
 TecnicosRepository *--"*" Tecnico
+
+'BUSCADOR HELADERAS TODO VER SI SE RELACIONA CON LA HELADERA'
+BuscadorHeladerasFrecuentes ..> Colaborador
 
 @enduml

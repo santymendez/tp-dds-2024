@@ -17,9 +17,9 @@ import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 @Setter
 public class Colaboracion {
   private TipoColaboracion tipoColaboracion;
+  private LocalDate fechaColaboracion;
 
   //Donar dinero
-  private LocalDate fechaDonacion;
   private Integer monto;
   private String frecuencia;
 
@@ -32,7 +32,6 @@ public class Colaboracion {
   private Heladera heladeraDestino;
   private Integer cantViandasDistribuidas;
   private String motivoDistribucion;
-  private LocalDate fechaDistribucion;
 
   //Colocar heladera
   private Heladera nuevaHeladera;

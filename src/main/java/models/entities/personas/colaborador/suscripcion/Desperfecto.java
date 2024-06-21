@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.searchers.BuscadorHeladerasFrecuentes;
 import modules.recomendator.adapter.AdapterServicioRecomendacion;
 import modules.recomendator.entities.ListadoDepuntos;
 import modules.recomendator.entities.Punto;
@@ -20,6 +21,7 @@ public class Desperfecto implements InterfazSuscripcion {
   private Colaborador colaborador;
   private Heladera heladera;
   private SenderInterface senderInterface;
+  private BuscadorHeladerasFrecuentes buscadorHeladerasFrecuentes;
   private List<Heladera> heladerasSugeridas;
   
   /**

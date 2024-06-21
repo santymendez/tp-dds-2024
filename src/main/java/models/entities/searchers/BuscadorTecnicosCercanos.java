@@ -9,6 +9,7 @@ import models.repositories.imp.TecnicosRepository;
  * Busca tecnicos cercanos a una heladera en particular.
  */
 
+//TODO PROBAR
 public class BuscadorTecnicosCercanos {
   private final TecnicosRepository tecnicosRepository;
 

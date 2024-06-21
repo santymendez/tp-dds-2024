@@ -55,7 +55,7 @@ class Barrio {
 
 class Vianda {
     -comida: Comida
-    -fechaDonacion: Date
+    -fechaDonacion: LocalDate
     -colaborador: Colaborador
     -heladera: Heladera
     -calorias: Integer
@@ -174,7 +174,7 @@ class Colaboracion {
     -fechaDistribucion: LocalDate
 
     'COLOCAR_HELADERA'
-    -heladera: Heladera
+    -nuevaHeladera: Heladera
 
     'DISTRIBUIR_TARJETAS'
     -List<TarjetaVulnerable> tarjetasEntregadas

@@ -1,6 +1,6 @@
 package models.entities.heladera.vianda;
 
-import java.util.Date;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import models.entities.personas.colaborador.Colaborador;
 @AllArgsConstructor
 public class Vianda {
   private Comida comida;
-  private Date fechaDonacion;
+  private LocalDate fechaDonacion;
   private Colaborador colaborador;
   private Heladera heladera;
   private Integer calorias;

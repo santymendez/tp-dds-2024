@@ -35,7 +35,7 @@ public class Colaboracion {
   private LocalDate fechaDistribucion;
 
   //Colocar heladera
-  private Heladera heladera;
+  private Heladera nuevaHeladera;
 
   //Distribuir tarjetas
   private List<TarjetaVulnerable> tarjetasEntregadas;
@@ -50,7 +50,7 @@ public class Colaboracion {
   //============================== Metodos Auxiliares ========================================
 
   public Integer tiempoActivaHeladera() {
-    return this.heladera.calcularMesesActiva();
+    return this.nuevaHeladera.calcularMesesActiva();
   }
 
   public void cantViandasDonadas() {

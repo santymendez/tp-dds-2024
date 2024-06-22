@@ -5,10 +5,13 @@ import java.util.List;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.contacto.Contacto;
 import models.entities.searchers.BuscadorHeladerasFrecuentes;
 import modules.recomendator.adapter.AdapterServicioRecomendacion;
 import modules.recomendator.entities.ListadoDepuntos;
 import modules.recomendator.entities.Punto;
+import utils.sender.Destinatario;
+import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 
 /**
@@ -34,29 +37,8 @@ public class Desperfecto implements InterfazSuscripcion {
   public Desperfecto(Colaborador colaborador, Heladera heladera) {
     this.colaborador = colaborador;
     this.heladera = heladera;
+    this.buscadorHeladerasFrecuentes = new BuscadorHeladerasFrecuentes();
     // TODO instanciar el sender
-  }
-  
-  /**
-   * Obtiene una lista de heladeras sugeridas.
-   *
-   * @param lat latitud.
-   * @param lon longitud.
-   * @param rad radio.
-   * @return lista de heladeras.
-   */
-
-  // TODO hacer logica en base a patrón repository
-  private List<Heladera> obtenerHeladerasSugeridas(int lat, int lon, int rad) throws IOException {
-    AdapterServicioRecomendacion recomendador = AdapterServicioRecomendacion.getInstancia();
-    ListadoDepuntos listado = recomendador.listadoDePuntos(lat, lon, rad);
-    List<Punto> puntos = listado.puntos;
-
-    // List<Heladera> heladeras = HeladeraRepository aca habria que filtrar de todas las
-    // heladeras que existen las que tengan esa lat y lon
-    // este metodo iria a un controller
-
-    return null;
   }
 
   /**
@@ -69,6 +51,38 @@ public class Desperfecto implements InterfazSuscripcion {
     }
   }
 
-  //TODO
-  public void notificar() {}
+  /**
+   * Envia una notificacion al colaborador.
+   */
+
+  public void notificar() {
+    Destinatario destinatario = new Destinatario();
+    Contacto contacto = colaborador.getContacto();
+    destinatario.agregarMedioDeContacto(contacto.getTipoContacto(),
+        contacto.getContacto());
+
+    String asunto = "La heladera " + this.heladera.getNombre() + " ha sufrido un desperfecto"
+        + " y las viandas deben ser redistribuidas.";
+    String cuerpo = "Estas son algunas de las heladeras a las que puedes llevar las viandas:\n"
+        + this.nombresDeHeladerasString();
+
+    Mensaje mensaje = new Mensaje(asunto, cuerpo);
+    this.senderInterface.enviar(mensaje, destinatario);
+  }
+
+  /**
+   * Genera un string con los nombres de las heladeras frecuentes.
+   *
+   * @return El string generado.
+   */
+
+  public String nombresDeHeladerasString() {
+    List<Heladera> heladerasFrecuentes =
+        this.buscadorHeladerasFrecuentes.heladerasFrecuentes(this.colaborador);
+    StringBuilder s = new StringBuilder();
+    for (Heladera heladera : heladerasFrecuentes) {
+      s.append(heladera.getNombre()).append("\n");
+    }
+    return s.toString();
+  }
 }

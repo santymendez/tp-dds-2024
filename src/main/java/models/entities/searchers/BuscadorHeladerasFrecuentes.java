@@ -18,8 +18,6 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Getter
 @Setter
-
-//TODO TESTEAR
 public class BuscadorHeladerasFrecuentes {
   private Integer cantidadRequerida;
 
@@ -58,17 +56,22 @@ public class BuscadorHeladerasFrecuentes {
 
     for (Colaboracion colaboracion : colaboraciones) {
       switch (colaboracion.getTipoColaboracion()) {
-        case DISTRIBUIR_VIANDAS -> heladeras.add(colaboracion.getHeladeraDestino());
-
-        case DONAR_VIANDA -> {
-          for (Vianda vianda : colaboracion.getViandas()) {
-            heladeras.add(vianda.getHeladera());
+        case DISTRIBUIR_VIANDAS -> {
+          if (colaboracion.getHeladeraDestino().consultarEspacioSobrante() != 0) {
+            heladeras.add(colaboracion.getHeladeraDestino());
           }
         }
-
+        case DONAR_VIANDA -> {
+          for (Vianda vianda : colaboracion.getViandas()) {
+            if (vianda.getHeladera().consultarEspacioSobrante() != 0) {
+              heladeras.add(vianda.getHeladera());
+            } else {
+              break;
+            }
+          }
+        }
         default -> throw new RuntimeException("Hay una Colaboracion no valida");
       }
-
     }
     return heladeras.stream().limit(this.cantidadRequerida).toList();
   }

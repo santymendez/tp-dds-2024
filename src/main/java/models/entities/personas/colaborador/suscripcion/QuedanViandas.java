@@ -48,7 +48,6 @@ public class QuedanViandas implements InterfazSuscripcion {
    * Enviar notificacion al colaborador.
    */
 
-  //TODO
   public void notificar() {
     Contacto contacto = colaborador.getContacto();
     Destinatario destinatario = new Destinatario();

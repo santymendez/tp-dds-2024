@@ -46,10 +46,9 @@ public class FaltanViandas implements InterfazSuscripcion {
   }
 
   /**
-   * Enviar notificacion al colaborador.
+   * Envia una notificacion al colaborador.
    */
 
-  //TODo
   public void notificar() {
     Destinatario destinatario = new Destinatario();
     Contacto contacto = colaborador.getContacto();

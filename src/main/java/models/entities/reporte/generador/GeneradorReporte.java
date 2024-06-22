@@ -2,6 +2,7 @@ package models.entities.reporte.generador;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,11 @@ public class GeneradorReporte {
   private static final Integer maxLines = 34;
   private static Integer currentLines;
   private static List<Heladera> heladeras;
+
+  public GeneradorReporte(List<Heladera> heladerasParaReporte) {
+    heladeras = new ArrayList<>();
+    heladeras.addAll(heladerasParaReporte);
+  }
 
   /**
    * Genera un reporte semanal.

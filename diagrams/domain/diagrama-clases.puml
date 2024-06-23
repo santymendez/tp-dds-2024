@@ -298,8 +298,7 @@ class Tecnico {
     -contacto: Contacto
     -areaDeCobertura: Ciudad
 
-    +void realzarVisita(Heladera heladera)
-    +void cargarResultadoVisita(VisitaTecnica visitasTecnica, Boolean resultado)
+    +void puedeVisitarHeladera(Heladera heladera)
 }
 
 enum TipoDocumento {

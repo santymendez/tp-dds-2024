@@ -33,7 +33,8 @@ public class QuedanViandas implements InterfazSuscripcion {
     this.colaborador = colaborador;
     this.heladera = heladera;
     this.viandasDisponibles = viandas;
-    this.senderInterface = FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
+    this.senderInterface =
+        FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
   }
 
   /**

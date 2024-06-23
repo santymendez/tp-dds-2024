@@ -35,7 +35,8 @@ public class Desperfecto implements InterfazSuscripcion {
     this.colaborador = colaborador;
     this.heladera = heladera;
     this.buscadorHeladerasFrecuentes = new BuscadorHeladerasFrecuentes();
-    this.senderInterface = FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
+    this.senderInterface =
+        FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
   }
 
   /**

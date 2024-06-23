@@ -33,7 +33,8 @@ public class FaltanViandas implements InterfazSuscripcion {
     this.colaborador = colaborador;
     this.heladera = heladera;
     this.viandasFaltantes = viandas;
-    this.senderInterface = FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
+    this.senderInterface =
+        FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
   }
 
   /**

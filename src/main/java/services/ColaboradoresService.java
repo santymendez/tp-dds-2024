@@ -21,7 +21,6 @@ import utils.sender.channels.EmailSender;
 public class ColaboradoresService {
 
   private final InterfaceColaboradoresRepository colaboradoresRepository;
-  // TODO revisar si esta bien (lo saque afuera para poder moquearlo)
   @Setter
   private EmailSender emailsender;
 

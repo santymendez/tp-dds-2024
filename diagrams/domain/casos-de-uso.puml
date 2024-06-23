@@ -5,6 +5,7 @@ actor :personaFisica: as fisica
 actor :personaJuridica: as juridica
 actor :ONG: as ong
 actor :empresaAsociada: as empresaAsociada
+actor :tecnico: as tecnico
 
 rectangle DominioPrincipal {
     usecase "Registrarse" as UC0
@@ -37,6 +38,8 @@ rectangle DominioPrincipal {
     usecase "Reportar falla tecnica" as UC16
 
     usecase "Suscribirse a heladera" as UC17
+
+    usecase "Visitar heladera" as UC18
 }
 
 fisica --> UC0
@@ -71,6 +74,8 @@ fisica --> UC16
 
 fisica --> UC17
 juridica --> UC17
+
+tecnico --> UC18
 
 UC5 ..> UC1 : <<includes>>
 UC6 ..> UC1 : <<includes>>

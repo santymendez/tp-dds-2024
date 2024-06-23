@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.direccion.Direccion;
@@ -15,7 +16,6 @@ import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
-import models.entities.personas.tecnico.Tecnico;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.searchers.BuscadorTecnicosCercanos;
 
@@ -39,6 +39,7 @@ public class Heladera {
   private Estado estadoActual;
   private List<Estado> estadosHeladera;
   private BuscadorTecnicosCercanos buscadorTecnicosCercanos;
+  private List<Incidente> incidentes;
 
   private List<TarjetaColaborador> tarjetasHabilitadas;
   private Float limiteDeTiempo;
@@ -145,6 +146,7 @@ public class Heladera {
     this.reportarFalla();
     this.imprimirAlerta();
     this.intentarNotificarSuscriptores();
+    this.incidentes.add(incidente);
   }
 
   /**
@@ -173,12 +175,13 @@ public class Heladera {
    * la heladera cuandp se reporta una falla tecnica.
    */
 
-  public void reportarFallaTecnica() {
+  public void reportarFallaTecnica(Incidente incidente) {
     this.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
     this.imprimirAlerta();
     this.reportarFalla();
     this.intentarNotificarSuscriptores();
     this.notificarTecnicos();
+    this.incidentes.add(incidente);
   }
 
   //================================= Tarjetas de colaborador =====================================
@@ -194,7 +197,7 @@ public class Heladera {
       throw new RuntimeException("No posees los permisos necesarios para abrir la heladera.");
     }
 
-    UsoTarjetaColaborador ultimoUso = this.hallarUltimoUso(tarjeta);
+    UsoTarjetaColaborador ultimoUso = this.ultimoUsoDe(tarjeta);
 
     if (!this.estaVigente(ultimoUso.getFechaSolicitud())) {
       throw new RuntimeException("Tu solicitud ha expirado.");
@@ -254,7 +257,7 @@ public class Heladera {
    * @return UsoTarjetaColaborador el último uso.
    */
 
-  public UsoTarjetaColaborador hallarUltimoUso(TarjetaColaborador tarjeta) {
+  public UsoTarjetaColaborador ultimoUsoDe(TarjetaColaborador tarjeta) {
     List<UsoTarjetaColaborador> usosFiltradosPorHeladera =
         tarjeta.getUsos().stream().filter(uso -> uso.getHeladera() == this).toList();
     return usosFiltradosPorHeladera.get(usosFiltradosPorHeladera.size() - 1);
@@ -284,4 +287,17 @@ public class Heladera {
     return this.capacidadMaximaViandas - this.consultarStock();
   }
 
+  /**
+   * Busca la ultima falla de la heladera.
+   *
+   * @return La ultima falla tecnica.
+   */
+
+  public Incidente ultimaFallaTecnica() {
+    Optional<Incidente> ultimoIncidente = this.incidentes.stream()
+        .filter(incidente -> incidente.getTipo() == TipoIncidente.FALLA_TECNICA)
+        .findFirst();
+
+    return ultimoIncidente.orElse(null);
+  }
 }

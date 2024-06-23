@@ -9,7 +9,6 @@ import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
 import models.entities.formulario.RespuestaFormulario;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.personas.colaborador.canje.Oferta;
@@ -109,7 +108,7 @@ public class Colaborador {
     incidente.setDescripcion(descripcion);
     incidente.setImagen(imagen);
 
-    heladera.reportarFallaTecnica();
+    heladera.reportarFallaTecnica(incidente);
   }
 
   /**

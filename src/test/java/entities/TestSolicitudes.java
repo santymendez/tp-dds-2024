@@ -41,7 +41,7 @@ public class TestSolicitudes {
   @DisplayName("Un colaborador no puede abrir una heladera porque la solicitud ha expirado")
   public void test02() throws InterruptedException {
     LocalDateTime fechaConHora = LocalDateTime.of(2024, 6, 5, 12, 30, 0);
-    this.colaborador.getTarjeta().getUsos().get(0).getSolicitud().setFechaSolicitud(fechaConHora);
+    this.colaborador.getTarjeta().getUsos().get(0).setFechaSolicitud(fechaConHora);
     Assertions.assertThrows(RuntimeException.class, () -> heladera1.intentarAbrirCon(colaborador.getTarjeta()));
   }
 }

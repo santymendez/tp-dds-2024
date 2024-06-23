@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.direccion.Ciudad;
+import models.entities.heladera.Heladera;
+import models.entities.heladera.TipoEstado;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 
@@ -14,8 +16,8 @@ import models.entities.personas.documento.Documento;
  */
 
 @Getter
-@Setter //Modificacion de tecnicos.
-@AllArgsConstructor //Dar de alta tecnicos.
+@Setter // Modificación de técnicos.
+@AllArgsConstructor // Dar de alta técnicos.
 public class Tecnico {
   private String nombre;
   private String apellido;
@@ -24,6 +26,14 @@ public class Tecnico {
   private Contacto contacto;
   private Ciudad areaDeCobertura;
 
-  //TODO REGISTRAR VISITA
+  /**
+   * Método que permite al técnico registrar una visita a una heladera.
+   *
+   * @param heladera Heladera visitada para arreglar.
+   */
+
+  public Boolean puedeVisitar(Heladera heladera) {
+    return !heladera.getEstadoActual().getEstado().equals(TipoEstado.ACTIVA);
+  }
 
 }

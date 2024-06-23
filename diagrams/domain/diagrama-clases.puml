@@ -244,31 +244,31 @@ class Formula {
 class CalculoPesosDonados {
     -Float coeficiente
 
-    +public Float calcularPuntosDe(Colaboracion colaboracion)
+    +Float calcularPuntosDe(Colaboracion colaboracion)
 }
 
 class CalculoViandasDonadas {
     Float coeficiente
 
-    +public Float calcularPuntosDe(Colaboracion colaboracion)
+    +Float calcularPuntosDe(Colaboracion colaboracion)
 }
 
 class CalculoViandasDistribuidas {
     -Float coeficiente
 
-    +public Float calcularPuntosDe(Colaboracion colaboracion)
+    +Float calcularPuntosDe(Colaboracion colaboracion)
 }
 
 class CalculoTarjetasRepartidas {
     -Float coeficiente
 
-    +public Float calcularPuntosDe(Colaboracion colaboracion)
+    +Float calcularPuntosDe(Colaboracion colaboracion)
 }
 
 class CalculoHeladerasActivas {
     -Float coeficiente
 
-    +public Float calcularPuntosDe(Colaboracion colaboracion)
+    +Float calcularPuntosDe(Colaboracion colaboracion)
 }
 
 class TarjetaVulnerable {
@@ -277,7 +277,7 @@ class TarjetaVulnerable {
     -List<RegistroUso> registroUsos
     -informacionRegistro: InformacionRegistro
 
-    +boolean puedeUtilizarse(Heladera heladera)
+    +Boolean puedeUtilizarse(Heladera heladera)
 }
 
 class RegistroUso {
@@ -297,7 +297,9 @@ class Tecnico {
     -cuil: Integer
     -contacto: Contacto
     -areaDeCobertura: Ciudad
-    -List<VisitaTecnica> visitasTecnicas
+
+    +void realzarVisita(Heladera heladera)
+    +void cargarResultadoVisita(VisitaTecnica visitasTecnica, Boolean resultado)
 }
 
 enum TipoDocumento {
@@ -614,6 +616,7 @@ Tecnico *- Documento
 Tecnico *-- Contacto
 Tecnico *-- Ciudad
 Tecnico -->"*" VisitaTecnica
+Tecnico ..> Heladera
 
 'CANJE'
 Canje *-- Colaborador

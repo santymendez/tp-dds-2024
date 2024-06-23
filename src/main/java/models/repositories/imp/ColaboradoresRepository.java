@@ -11,10 +11,28 @@ import models.repositories.personas.InterfaceColaboradoresRepository;
 /**
  * Repositorio para los Colaboradores.
  */
+
 @Getter
-@Setter
 public class ColaboradoresRepository implements InterfaceColaboradoresRepository {
-  List<Colaborador> colaboradores = new ArrayList<>();
+  private final List<Colaborador> colaboradores;
+  private static ColaboradoresRepository instance;
+
+  private ColaboradoresRepository() {
+    colaboradores = new ArrayList<>();
+  }
+
+  /**
+   * Singleton para el repositorio de Colaboradores.
+   *
+   * @return Instancia del repositorio de Colaboradores.
+   */
+
+  public static ColaboradoresRepository getInstance() {
+    if (instance == null) {
+      instance = new ColaboradoresRepository();
+    }
+    return instance;
+  }
 
   public void guardar(Colaborador colaborador) {
     colaboradores.add(colaborador);

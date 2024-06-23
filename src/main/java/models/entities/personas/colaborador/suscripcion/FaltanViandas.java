@@ -4,6 +4,7 @@ import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.contacto.Contacto;
+import models.factories.FactorySender;
 import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
@@ -32,7 +33,7 @@ public class FaltanViandas implements InterfazSuscripcion {
     this.colaborador = colaborador;
     this.heladera = heladera;
     this.viandasFaltantes = viandas;
-    // TODO instanciar el sender
+    this.senderInterface = FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
   }
 
   /**

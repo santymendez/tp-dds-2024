@@ -12,9 +12,9 @@ import lombok.Setter;
 @Getter
 public class Apertura {
   private LocalDateTime fechaApertura;
-  private SolicitudApertura solicitud;
+  private LocalDateTime fechaSolicitud;
 
-  public Apertura(SolicitudApertura solicitud) {
-    this.solicitud = solicitud;
+  public Apertura(LocalDateTime solicitud) {
+    this.fechaSolicitud = solicitud;
   }
 }

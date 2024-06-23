@@ -1,5 +1,6 @@
 package models.entities.searchers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,7 +14,7 @@ import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.Colaborador;
 
 /**
- * Busca las heladeras que un Colaborador mas frecuenta segun una lista de colaboraciones.
+ * Busca las heladeras que un Colaborador más frecuenta según una lista de colaboraciones.
  */
 
 @Getter
@@ -22,7 +23,7 @@ public class BuscadorHeladerasFrecuentes {
   private Integer cantidadRequerida;
 
   /**
-   * Busca las heladeras mas frecuentes para un Colaborador dada una lista de Colaboraciones.
+   * Busca las heladeras más frecuentes para un Colaborador dada una lista de Colaboraciones.
    *
    * @param colaborador El Colaborador que frecuenta las heladeras.
    * @return Lista de Heladeras frecuentes.
@@ -70,7 +71,7 @@ public class BuscadorHeladerasFrecuentes {
             }
           }
         }
-        default -> throw new RuntimeException("Hay una Colaboracion no valida");
+        default -> throw new RuntimeException("Hay una Colaboración no valida");
       }
     }
     return heladeras.stream().limit(this.cantidadRequerida).toList();

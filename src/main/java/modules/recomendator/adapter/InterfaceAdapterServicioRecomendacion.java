@@ -3,8 +3,8 @@ package modules.recomendator.adapter;
 import java.io.IOException;
 import modules.recomendator.entities.ListadoDepuntos;
 
-/** TODO (el javadoc)
- * AAAA.
+/**
+ * Interfaz Adapter para el Servicio de Recomendacion de Puntos.
  */
 interface InterfaceAdapterServicioRecomendacion {
 

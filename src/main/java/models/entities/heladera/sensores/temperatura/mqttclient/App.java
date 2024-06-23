@@ -1,5 +1,6 @@
 package models.entities.heladera.sensores.temperatura.mqttclient;
 
+import models.entities.heladera.sensores.temperatura.SensorTemperatura;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -34,7 +35,7 @@ public class App {
       System.out.println("Connected");
 
       System.out.println("Build our receptor");
-      MyCustomMessageReceptor receptor = new MyCustomMessageReceptor();
+      SensorTemperatura receptor = new SensorTemperatura();
 
       System.out.println("Now we subscribe to the topic");
       sampleClient.subscribe(topic, receptor);
@@ -46,6 +47,7 @@ public class App {
       System.out.println("loc " + me.getLocalizedMessage());
       System.out.println("cause " + me.getCause());
       System.out.println("excep " + me);
+
       me.printStackTrace();
     }
   }

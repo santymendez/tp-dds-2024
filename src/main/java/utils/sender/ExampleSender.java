@@ -2,11 +2,23 @@ package utils.sender;
 
 import java.util.ArrayList;
 import java.util.List;
+import models.entities.personas.contacto.TipoContacto;
 import utils.sender.channels.EmailSender;
 import utils.sender.channels.TelegramBotSender;
 import utils.sender.channels.WhatsAppSender;
 
+/**
+ * Ejemplo de utilizacion del SenderInterface
+ */
+
 public class ExampleSender {
+
+  /**
+   * Metodo comentado en el que se ejemplifica el uso de la interfaz sender
+   *
+   * @param argv argumentos
+   * @throws Exception si ocurre algun error
+   */
 
   public static void main(String[] argv) throws Exception {
 
@@ -24,11 +36,11 @@ public class ExampleSender {
     String nro4 = "5491138711900"; // santi
     String nro5 = "5491161267515"; // mati
 
-    destinatario1.agregarMedioDeContacto(TipoDestinatario.WHATSAPP, nro1);
-    destinatario2.agregarMedioDeContacto(TipoDestinatario.WHATSAPP, nro2);
-    destinatario3.agregarMedioDeContacto(TipoDestinatario.WHATSAPP, nro3);
-    destinatario4.agregarMedioDeContacto(TipoDestinatario.WHATSAPP, nro4);
-    destinatario5.agregarMedioDeContacto(TipoDestinatario.WHATSAPP, nro5);
+    destinatario1.agregarMedioDeContacto(TipoContacto.WHATSAPP, nro1);
+    destinatario2.agregarMedioDeContacto(TipoContacto.WHATSAPP, nro2);
+    destinatario3.agregarMedioDeContacto(TipoContacto.WHATSAPP, nro3);
+    destinatario4.agregarMedioDeContacto(TipoContacto.WHATSAPP, nro4);
+    destinatario5.agregarMedioDeContacto(TipoContacto.WHATSAPP, nro5);
 
     Mensaje men = new Mensaje("Hola", "mensaje de prueba desde twilio");
 
@@ -46,11 +58,11 @@ public class ExampleSender {
     String idTelegram4 = "7250395212"; // santi
     String idTelegram5 = "6587582903"; // mati
 
-    destinatario1.agregarMedioDeContacto(TipoDestinatario.TELEGRAM, idTelegram1);
-    destinatario2.agregarMedioDeContacto(TipoDestinatario.TELEGRAM, idTelegram2);
-    destinatario3.agregarMedioDeContacto(TipoDestinatario.TELEGRAM, idTelegram3);
-    destinatario4.agregarMedioDeContacto(TipoDestinatario.TELEGRAM, idTelegram4);
-    destinatario5.agregarMedioDeContacto(TipoDestinatario.TELEGRAM, idTelegram5);
+    destinatario1.agregarMedioDeContacto(TipoContacto.TELEGRAM, idTelegram1);
+    destinatario2.agregarMedioDeContacto(TipoContacto.TELEGRAM, idTelegram2);
+    destinatario3.agregarMedioDeContacto(TipoContacto.TELEGRAM, idTelegram3);
+    destinatario4.agregarMedioDeContacto(TipoContacto.TELEGRAM, idTelegram4);
+    destinatario5.agregarMedioDeContacto(TipoContacto.TELEGRAM, idTelegram5);
 
     Mensaje men = new Mensaje("hola", "Mensaje enviado desde java");
 
@@ -59,7 +71,7 @@ public class ExampleSender {
     telegramBotSender.enviar(men, destinatario3);
     telegramBotSender.enviar(men, destinatario4);
     telegramBotSender.enviar(men, destinatario5);*/
-    
+
   }
 
 }

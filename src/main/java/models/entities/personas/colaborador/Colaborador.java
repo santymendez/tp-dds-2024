@@ -109,10 +109,7 @@ public class Colaborador {
     incidente.setDescripcion(descripcion);
     incidente.setImagen(imagen);
 
-    heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
-    heladera.imprimirAlerta();
-    heladera.reportarFalla();
-    heladera.intentarNotificarSuscriptores();
+    heladera.reportarFallaTecnica();
   }
 
   /**

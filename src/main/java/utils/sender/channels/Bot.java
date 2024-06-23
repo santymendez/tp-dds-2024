@@ -39,7 +39,7 @@ public class Bot extends TelegramLongPollingBot {
         sendText(chatId,
             "Estos son los comandos disponibles:\n/register - Registrarse\n/help - Ayuda");
       } else {
-        sendText(chatId, "El sig mensaje no es un comando valido: " + messageText);
+        sendText(chatId, "El siguiente mensaje no es un comando valido: " + messageText);
       }
     }
   }

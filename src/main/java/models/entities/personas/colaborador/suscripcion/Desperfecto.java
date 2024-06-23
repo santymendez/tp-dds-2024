@@ -1,15 +1,12 @@
 package models.entities.personas.colaborador.suscripcion;
 
-import java.io.IOException;
 import java.util.List;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.contacto.Contacto;
 import models.entities.searchers.BuscadorHeladerasFrecuentes;
-import modules.recomendator.adapter.AdapterServicioRecomendacion;
-import modules.recomendator.entities.ListadoDepuntos;
-import modules.recomendator.entities.Punto;
+import models.factories.FactorySender;
 import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
@@ -38,7 +35,7 @@ public class Desperfecto implements InterfazSuscripcion {
     this.colaborador = colaborador;
     this.heladera = heladera;
     this.buscadorHeladerasFrecuentes = new BuscadorHeladerasFrecuentes();
-    // TODO instanciar el sender
+    this.senderInterface = FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
   }
 
   /**

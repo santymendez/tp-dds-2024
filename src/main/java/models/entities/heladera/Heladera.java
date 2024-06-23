@@ -13,9 +13,9 @@ import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.SensorMovimiento;
 import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
-import models.entities.personas.tarjetas.colaborador.SolicitudApertura;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
+import models.entities.personas.tecnico.Tecnico;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.searchers.BuscadorTecnicosCercanos;
 
@@ -25,7 +25,7 @@ import models.entities.searchers.BuscadorTecnicosCercanos;
  */
 
 @Getter
-@Setter //(Modificacion de heladeras)
+@Setter
 public class Heladera {
   private Direccion direccion;
   private String nombre;
@@ -131,7 +131,7 @@ public class Heladera {
         .sum();
   }
 
-  //==================================== incidentes ========================================
+  //==================================== Incidentes ========================================
 
   /**
    * Reporta un incidente.
@@ -164,13 +164,30 @@ public class Heladera {
     }
   }
 
+  public void notificarTecnicos() {
+    buscadorTecnicosCercanos.buscarTecnicosCercanosA(this);
+  }
+
+  /**
+   * Metodo auxiliar con todas los metodos que ejecuta
+   * la heladera cuandp se reporta una falla tecnica.
+   */
+
+  public void reportarFallaTecnica() {
+    this.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
+    this.imprimirAlerta();
+    this.reportarFalla();
+    this.intentarNotificarSuscriptores();
+    this.notificarTecnicos();
+  }
+
+  //================================= Tarjetas de colaborador =====================================
+
   /**
    * Verifica si la heladera puede ser abierta con una tarjeta en particular.
    *
    * @param tarjeta Es la tarjeta con la que se desea abrir la heladera.
    */
-
-  //================================= Tarjetas de colaborador =====================================
 
   public Boolean intentarAbrirCon(TarjetaColaborador tarjeta) {
     if (!tarjetasHabilitadas.contains(tarjeta)) {
@@ -179,7 +196,7 @@ public class Heladera {
 
     UsoTarjetaColaborador ultimoUso = this.hallarUltimoUso(tarjeta);
 
-    if (!this.estaVigente(ultimoUso.getSolicitud())) {
+    if (!this.estaVigente(ultimoUso.getFechaSolicitud())) {
       throw new RuntimeException("Tu solicitud ha expirado.");
     }
 
@@ -249,8 +266,8 @@ public class Heladera {
    * @param ultimaSolicitud Solicitud que se intenta verificar si se encuentra vigente.
    */
 
-  public Boolean estaVigente(SolicitudApertura ultimaSolicitud) {
-    Duration duration = Duration.between(ultimaSolicitud.getFechaSolicitud(), LocalDateTime.now());
+  public Boolean estaVigente(LocalDateTime ultimaSolicitud) {
+    Duration duration = Duration.between(ultimaSolicitud, LocalDateTime.now());
     float horas = duration.toHours();
     return horas < limiteDeTiempo;
   }

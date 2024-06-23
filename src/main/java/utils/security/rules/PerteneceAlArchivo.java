@@ -32,7 +32,7 @@ public class PerteneceAlArchivo extends Regla {
    */
 
   public PerteneceAlArchivo(String nombreArchivo, String path) {
-    this.setPalabrasDelArchivo(new ArrayList<>());
+    this.palabrasDelArchivo = new ArrayList<>();
     this.setMensajeError("Pertenece al archivo " + nombreArchivo);
     File archivo = new File(path);
 

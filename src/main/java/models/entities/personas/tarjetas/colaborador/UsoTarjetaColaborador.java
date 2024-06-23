@@ -12,7 +12,7 @@ import models.entities.heladera.Heladera;
 @Getter
 @Setter
 public class UsoTarjetaColaborador {
-  private SolicitudApertura solicitud;
+  private LocalDateTime fechaSolicitud;
   private Apertura apertura;
   private Heladera heladera;
 
@@ -23,8 +23,8 @@ public class UsoTarjetaColaborador {
    */
 
   public UsoTarjetaColaborador(Heladera heladera) {
-    this.solicitud = new SolicitudApertura(LocalDateTime.now());
-    this.apertura = new Apertura(this.solicitud);
+    this.fechaSolicitud = LocalDateTime.now();
+    this.apertura = new Apertura(this.fechaSolicitud);
     this.heladera = heladera;
   }
 }

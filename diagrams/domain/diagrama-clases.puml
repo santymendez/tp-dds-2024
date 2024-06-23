@@ -27,6 +27,8 @@ class Heladera {
     +imprimirAlerta()
     +intentarAbrirCon(TarjetaColaborador tarjeta)
     +reportarIncidente(TipoEstado tipoAlerta)
+    +void reportarFallaTecnica()
+    +void notificarTecnicos()
     +intentarNotificarSuscriptores()
 }
 
@@ -199,21 +201,26 @@ class Modelo{
     -sensorTemperatura: SensorTemperatura
 }
 
-class SensorTemperatura {
+class SensorTemperatura implements IMqttMessageListener{
     -temperaturaMinima: Float
     -temperaturaMaxima: Float
     -ultimaTemperatura: Float
+    -heladera: Heladera
+    -topic: String
 
-    +void recibirMedicion(Heladera heladera, Float ultimaTemperatura)
-    +void activarSensor(Heladera heladera)
-    +void desactivarHeladera(Heladera heladera)
-    +void activarHeladera(Heladera heladera)
+    +void messageArrived(String s, MqttMessage mqttMessage)
+    +void activarSensor()
+    +void desactivarHeladera()
+    +void activarHeladera()
 }
 
 class SensorMovimiento {
-    +void activarSensor(Heladera heladera)
-    +void desactivarHeladera(Heladera heladera)
-    +void activarHeladera(Heladera heladera)
+    -topic: String
+    -heladera: Heladera
+
+    +void activarSensor()
+    +void desactivarHeladera()
+    +void activarHeladera()
 }
 
 class Reconocimiento {
@@ -363,17 +370,13 @@ class TarjetaColaborador {
 }
 
 class UsoTarjetaColaborador {
-    -solicitud: SolicitudApertura
+    -fechaSolicitud: LocalDateTime
     -apertura: Apertura
     -heladera: Heladera
 }
 
-class SolicitudApertura {
-    -fechaSolicitud: LocalDateTime
-}
-
 class Apertura {
-    -solicitud: SolicitudApertura
+    -fechaSolicitud: LocalDateTime
     -fechaApertura: LocalDateTime
 }
 
@@ -523,8 +526,8 @@ Vianda --> Colaborador
 Modelo *-- SensorTemperatura
 
 'SENSORES'
-SensorMovimiento ..> Heladera
-SensorTemperatura ..> Heladera
+SensorMovimiento *-- Heladera
+SensorTemperatura *-- Heladera
 
 'COLABORADOR'
 Colaborador ---> Documento
@@ -630,12 +633,8 @@ Estado *-- TipoEstado
 TarjetaColaborador -->"*" UsoTarjetaColaborador
 
 'USO TARJETA DEL COLABORADOR'
-UsoTarjetaColaborador *-- SolicitudApertura
 UsoTarjetaColaborador --> Apertura
 UsoTarjetaColaborador o-- Heladera
-
-'APERTURA'
-Apertura o-- SolicitudApertura
 
 'INCIDENTE'
 Incidente o-- Heladera
@@ -656,10 +655,11 @@ Desperfecto ..|> InterfazSuscripcion
 QuedanViandas ..|> InterfazSuscripcion
 FaltanViandas ..|> InterfazSuscripcion
 
-'DESPERFECTO TODO DESPERFECTO HELADERAS'
+'DESPERFECTO'
 Desperfecto --> SenderInterface
 Desperfecto --> Colaborador
 Desperfecto -->"*" Heladera
+Desperfecto *-- BuscadorHeladerasFrecuentes
 
 'QUEDAN_VIANDAS'
 QuedanViandas --o Colaborador
@@ -685,7 +685,7 @@ Buscador ..> Heladera
 'TECNICOS REPOSITORY'
 TecnicosRepository *--"*" Tecnico
 
-'BUSCADOR HELADERAS TODO VER SI SE RELACIONA CON LA HELADERA'
+'BUSCADOR HELADERAS'
 BuscadorHeladerasFrecuentes ..> Colaborador
 
 @enduml

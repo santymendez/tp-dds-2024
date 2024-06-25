@@ -54,7 +54,7 @@ public class SensorTemperatura {
     return this.periodoEnMinutos(fecha) > 5;
   }
 
-  //==================================================================================================
+  //=========================================================================================
 
   private Long periodoEnMinutos(LocalDateTime fecha) {
     LocalDateTime instanteActual = LocalDateTime.now();

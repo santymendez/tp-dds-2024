@@ -30,5 +30,6 @@ target/**
 .idea/*
 
 src/main/resources/config.properties
+src/main/java/utils/sender/ExampleSender.java
 
 cronjobs/*

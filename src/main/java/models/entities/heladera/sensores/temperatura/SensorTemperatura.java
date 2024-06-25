@@ -1,6 +1,5 @@
 package models.entities.heladera.sensores.temperatura;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
@@ -18,23 +17,28 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class SensorTemperatura implements IMqttMessageListener {
   private Float temperaturaMinima;
   private Float temperaturaMaxima;
-  private Float ultTemperatura;
+  private MedicionSensorTemp ultMedicion;
   private String topic = "dds2024/heladeras/almagro/medrano";
   private Heladera heladera;
 
   @Override
   public void messageArrived(String s, MqttMessage mqttMessage) {
     String mensaje = mqttMessage.toString();
-    this.setUltTemperatura(Float.parseFloat(mensaje));
+    Float temp = Float.parseFloat(mensaje);
+    this.ultMedicion = new MedicionSensorTemp(temp);
     this.activarSensor();
   }
+  //TODO main del cronjob
+  //TODO ver si queremos tener una lista de mediciones
+  //TODO decirme que les parece la nueva clase
 
   /**
    * Función que desactiva el sensor si la temperatura no está en el rango.
    */
 
   public void activarSensor() {
-    if (ultTemperatura > temperaturaMaxima || ultTemperatura < temperaturaMinima) {
+    if (ultMedicion.getTemperatura() > temperaturaMaxima
+        || ultMedicion.getTemperatura() < temperaturaMinima) {
       this.desactivarHeladera();
     }
   }

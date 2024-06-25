@@ -13,11 +13,7 @@ import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
-import models.entities.personas.colaborador.suscripcion.Desperfecto;
-import models.entities.personas.colaborador.suscripcion.FaltanViandas;
 import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
-import models.entities.personas.colaborador.suscripcion.QuedanViandas;
-import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
@@ -111,35 +107,9 @@ public class Colaborador {
     heladera.reportarFallaTecnica(incidente);
   }
 
-  /**
-   * Permite suscribirse a una heladera.
-   *
-   * @param heladera Heladera a la cual se desea suscribir.
-   * @param tipo Tipo de suscripcion seleccionada.
-   * @param cantidadViandas Cantidad de viandas a partir de la que se debe notificar.
-   */
-  
-  public void suscribirseHeladera(
-      Heladera heladera, TipoSuscripcion tipo, Integer cantidadViandas) {
-    switch (tipo) {
-      case QUEDAN_N_VIANDAS -> {
-        QuedanViandas suscripcion = new QuedanViandas(this, heladera, cantidadViandas);
-        this.suscripciones.add(suscripcion);
-        heladera.agregarSuscripcion(suscripcion);
-      }
-      case FALTAN_N_VIANDAS -> {
-        FaltanViandas suscripcion = new FaltanViandas(this, heladera, cantidadViandas);
-        this.suscripciones.add(suscripcion);
-        heladera.agregarSuscripcion(suscripcion);
-      }
-      case OCURRIO_DESPERFECTO -> {
-        Desperfecto suscripcion = new Desperfecto(this, heladera);
-        this.suscripciones.add(suscripcion);
-        heladera.agregarSuscripcion(suscripcion);
-      }
-      default ->
-        throw new RuntimeException("No existe ese tipo de suscrpcion.");
-    }
+  //Permite registrar las suscripciones a heladeras
+  public void agregarSuscripcion(InterfazSuscripcion suscripcion) {
+    this.suscripciones.add(suscripcion);
   }
 
 }

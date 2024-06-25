@@ -112,6 +112,8 @@ class Colaborador{
 
     +void crearSolicitudAperturaDeHeladera(Heladera heladera)
     +void reportarIncidente(Heladera heladera, String descrpicion, Image imagen)
+
+    +void agregarSuscripcion(InterfazSuscripcion suscripcion)
 }
 
 enum TipoColaborador {

@@ -18,14 +18,4 @@ public class MedicionSensorTemp {
     this.fecha = LocalDateTime.now();
   }
 
-  //TODO aca les dejo una manera de comparar que encontre
-  public Long periodoEnMinutos() {
-    LocalDateTime instanteActual = LocalDateTime.now();
-    return ChronoUnit.MINUTES.between(this.fecha, instanteActual);
-  }
-
-  public Boolean pasaronMenosDe5Min() {
-    return this.periodoEnMinutos() < 5;
-  }
-
 }

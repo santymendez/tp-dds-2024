@@ -9,7 +9,6 @@ import models.repositories.personas.InterfaceTecnicosRepository;
 /**
  * Repositorio para los Tecnicos.
  */
-
 @Getter
 public class TecnicosRepository implements InterfaceTecnicosRepository {
   private final List<Tecnico> tecnicos;
@@ -39,8 +38,8 @@ public class TecnicosRepository implements InterfaceTecnicosRepository {
   /**
    * Busca Tecnicos en el Repositorio.
    *
-   * @param ciudad Parametro de busqueda.
-   * @return Una lista de Tecnicos si existen, sino una lista vacia.
+   * @param ciudad Parámetro de búsqueda.
+   * @return Una lista de Técnicos si llegasen a existir, en otro caso una lista vacía.
    */
 
   public List<Tecnico> buscar(String ciudad) {

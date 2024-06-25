@@ -3,7 +3,7 @@ package entities;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
-import models.entities.heladera.sensores.SensorMovimiento;
+import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +34,7 @@ public class TestSolicitudes {
   @Test
   @DisplayName("Un colaborador puede abrir una heladera")
   public void test01() {
-    Assertions.assertTrue(this.heladera1.intentarAbrirCon(colaborador.getTarjeta()));
+    Assertions.assertTrue(this.heladera1.intentarAbrir(colaborador.getTarjeta().getCodigo()));
   }
 
   @Test
@@ -42,6 +42,6 @@ public class TestSolicitudes {
   public void test02() throws InterruptedException {
     LocalDateTime fechaConHora = LocalDateTime.of(2024, 6, 5, 12, 30, 0);
     this.colaborador.getTarjeta().getUsos().get(0).setFechaSolicitud(fechaConHora);
-    Assertions.assertThrows(RuntimeException.class, () -> heladera1.intentarAbrirCon(colaborador.getTarjeta()));
+    Assertions.assertThrows(RuntimeException.class, () -> heladera1.intentarAbrir(colaborador.getTarjeta().getCodigo()));
   }
 }

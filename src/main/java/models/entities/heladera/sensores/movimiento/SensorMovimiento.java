@@ -1,12 +1,10 @@
-package models.entities.heladera.sensores;
+package models.entities.heladera.sensores.movimiento;
 
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.TipoEstado;
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 /**
@@ -15,9 +13,11 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 @Getter
 @Setter
+//TODO
 public class SensorMovimiento implements IMqttMessageListener {
+  private Integer id;
   private Heladera heladera;
-  private String topic;
+  private String topic = "sensor-movimiento";
 
   @Override
   public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {

@@ -17,6 +17,7 @@ class Heladera {
     -List<TarjetaColaborador> tarjetasHabilitadas
     -limiteDeTiempo: Float
     -estaAbierta: Boolean
+    -lector: LectorTarjetas
 
     -reporteHeladera: ReporteHeladera
 
@@ -25,7 +26,8 @@ class Heladera {
     +agregarVianda(Vianda vianda)
     +Integer calcularMesesActiva()
     +imprimirAlerta()
-    +intentarAbrirCon(TarjetaColaborador tarjeta)
+    +intentarAbrir(String codigo)
+    +validarSolicitud(TarjetaColaborador tarjeta)
     +reportarIncidente(TipoEstado tipoAlerta)
     +void reportarFallaTecnica()
     +void notificarTecnicos()
@@ -203,26 +205,40 @@ class Modelo{
     -sensorTemperatura: SensorTemperatura
 }
 
-class SensorTemperatura implements IMqttMessageListener{
+class SensorTemperatura{
+    -id: Integer
     -temperaturaMinima: Float
     -temperaturaMaxima: Float
-    -ultimaTemperatura: Float
+    -List<MedicionSensorTemp> mediciones
     -heladera: Heladera
-    -topic: String
 
-    +void messageArrived(String s, MqttMessage mqttMessage)
+    +void recibirMedicion(Float temperatura)
+    +void activarSensor(Float temperatura)
+    +void desactivarHeladera()
+    +void activarHeladera()
+    +Boolean fallaConexion()
+}
+
+class MedicionSensorTemp{
+    -temperatura: Float
+    -fecha: LocalDateTime
+}
+
+class SensorMovimiento {
+    -id: Integer
+    -heladera: Heladera
+
     +void activarSensor()
     +void desactivarHeladera()
     +void activarHeladera()
 }
 
-class SensorMovimiento {
-    -topic: String
+'TODO REVISAR'
+class LectorTarjetas {
+    -id: Integer
     -heladera: Heladera
 
-    +void activarSensor()
-    +void desactivarHeladera()
-    +void activarHeladera()
+    +leerCodigo(String codigo)
 }
 
 class Reconocimiento {
@@ -519,7 +535,8 @@ Heladera -->"*" Estado
 Heladera -->"*" TarjetaColaborador
 Heladera --> ReporteHeladera
 Heladera -->"*" InterfazSuscripcion
-Heladera --> BuscadorTecnicosCercanosBuscadorTecnicosCercanosBuscadorTecnicosCercanos
+Heladera --> BuscadorTecnicosCercanos
+Heladera --> LectorTarjetas
 
 'VIANDA'
 Vianda *-- Comida
@@ -531,6 +548,7 @@ Modelo *-- SensorTemperatura
 'SENSORES'
 SensorMovimiento *-- Heladera
 SensorTemperatura *-- Heladera
+LectorTarjetas *-- Heladera
 
 'COLABORADOR'
 Colaborador ---> Documento

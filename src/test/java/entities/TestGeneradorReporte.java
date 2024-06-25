@@ -3,11 +3,12 @@ package entities;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
-import models.entities.heladera.sensores.SensorMovimiento;
+import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ViandasPorColaborador;
 import models.entities.reporte.generador.GeneradorReporte;
+import models.repositories.imp.HeladerasRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class TestGeneradorReporte {
     Colaborador mati = new Colaborador();
     mati.setNombre("Mati");
 
-    List<Heladera> heladeras = new ArrayList<>();
+
 
     Heladera liam = new Heladera(
         new Direccion(), "Liam", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
@@ -36,7 +37,7 @@ public class TestGeneradorReporte {
     liam.getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
     liam.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 10));
     liam.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 10));
-    heladeras.add(liam);
+    HeladerasRepository.getInstance().guardar(liam);
 
     Heladera augusto = new Heladera(
         new Direccion(), "Augusto", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
@@ -48,7 +49,7 @@ public class TestGeneradorReporte {
     augusto.getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
     augusto.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 15));
     augusto.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 15));
-    heladeras.add(augusto);
+    HeladerasRepository.getInstance().guardar(augusto);
 
     //PERDON NO ME DEJA CHECKSTLE
     Heladera iniaki = new Heladera(
@@ -61,9 +62,7 @@ public class TestGeneradorReporte {
     iniaki.getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
     iniaki.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 20));
     iniaki.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 20));
-    heladeras.add(iniaki);
-
-    GeneradorReporte generadorReporte = new GeneradorReporte(heladeras);
+    HeladerasRepository.getInstance().guardar(iniaki);
   }
 
   @Test

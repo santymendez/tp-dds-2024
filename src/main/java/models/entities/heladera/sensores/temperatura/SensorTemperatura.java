@@ -1,5 +1,8 @@
 package models.entities.heladera.sensores.temperatura;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
@@ -14,31 +17,25 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 @Getter
 @Setter
-public class SensorTemperatura implements IMqttMessageListener {
+public class SensorTemperatura {
+  private Integer id;
   private Float temperaturaMinima;
   private Float temperaturaMaxima;
-  private MedicionSensorTemp ultMedicion;
-  private String topic = "dds2024/heladeras/almagro/medrano";
+  private List<MedicionSensorTemp> mediciones;
   private Heladera heladera;
 
-  @Override
-  public void messageArrived(String s, MqttMessage mqttMessage) {
-    String mensaje = mqttMessage.toString();
-    Float temp = Float.parseFloat(mensaje);
-    this.ultMedicion = new MedicionSensorTemp(temp);
-    this.activarSensor();
+  public void recibirMedicion(Float temp) {
+    this.mediciones.add(new MedicionSensorTemp(temp));
+    this.activarSensor(temp);
   }
-  //TODO main del cronjob
-  //TODO ver si queremos tener una lista de mediciones
-  //TODO decirme que les parece la nueva clase
 
   /**
-   * Función que desactiva el sensor si la temperatura no está en el rango.
+   * Desactiva el sensor si la temperatura no está en el rango.
    */
 
-  public void activarSensor() {
-    if (ultMedicion.getTemperatura() > temperaturaMaxima
-        || ultMedicion.getTemperatura() < temperaturaMinima) {
+  public void activarSensor(Float temperatura) {
+    if (temperatura > temperaturaMaxima
+        || temperatura < temperaturaMinima) {
       this.desactivarHeladera();
     }
   }
@@ -52,4 +49,15 @@ public class SensorTemperatura implements IMqttMessageListener {
     this.heladera.modificarEstado(TipoEstado.ACTIVA);
   }
 
+  public Boolean fallaConexion() {
+    LocalDateTime fecha = mediciones.get(0).getFecha();
+    return this.periodoEnMinutos(fecha) > 5;
+  }
+
+  //==================================================================================================
+
+  private Long periodoEnMinutos(LocalDateTime fecha) {
+    LocalDateTime instanteActual = LocalDateTime.now();
+    return ChronoUnit.MINUTES.between(fecha, instanteActual);
+  }
 }

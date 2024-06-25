@@ -11,7 +11,8 @@ import lombok.Setter;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
-import models.entities.heladera.sensores.SensorMovimiento;
+import models.entities.heladera.sensores.lector.LectorTarjetas;
+import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
@@ -44,6 +45,7 @@ public class Heladera {
   private List<TarjetaColaborador> tarjetasHabilitadas;
   private Float limiteDeTiempo;
   private Boolean estaAbierta;
+  private LectorTarjetas lector;
 
   private ReporteHeladera reporteHeladera;
 
@@ -186,16 +188,30 @@ public class Heladera {
 
   //================================= Tarjetas de colaborador =====================================
 
+
+  /**
+   * Permite intentar abrir la heladera con una tarjeta a partir de su codigo.
+   *
+   * @param codigo de la tarjeta con la que se intenta abrir.
+   */
+
+  public Boolean intentarAbrir(String codigo) {
+    Optional<TarjetaColaborador> tarjetaOpc = tarjetasHabilitadas.stream()
+        .filter(t -> t.getCodigo().equals(codigo)).findFirst();
+    if (tarjetaOpc.isEmpty()) {
+      throw new RuntimeException("No posees los permisos necesarios.");
+    }
+
+    return this.validarSolicitud(tarjetaOpc.get());
+  }
+
   /**
    * Verifica si la heladera puede ser abierta con una tarjeta en particular.
    *
-   * @param tarjeta Es la tarjeta con la que se desea abrir la heladera.
+   * @param tarjeta Es la tarjeta cuyo uso debe ser validado.
    */
 
-  public Boolean intentarAbrirCon(TarjetaColaborador tarjeta) {
-    if (!tarjetasHabilitadas.contains(tarjeta)) {
-      throw new RuntimeException("No posees los permisos necesarios para abrir la heladera.");
-    }
+  public Boolean validarSolicitud(TarjetaColaborador tarjeta) {
 
     UsoTarjetaColaborador ultimoUso = this.ultimoUsoDe(tarjeta);
 
@@ -204,6 +220,7 @@ public class Heladera {
     }
 
     ultimoUso.getApertura().setFechaApertura(LocalDateTime.now());
+    System.out.println("Heladera abierta con exito");
     return true;
   }
 

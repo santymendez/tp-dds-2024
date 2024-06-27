@@ -6,6 +6,10 @@ import utils.sender.channels.EmailSender;
 import utils.sender.channels.TelegramBotSender;
 import utils.sender.channels.WhatsAppSender;
 
+/**
+ * Service Locator para poder obtener una instancia del Sender adecuado.
+ */
+
 public class SenderLocator {
   private static HashMap<TipoContacto, SenderInterface> services = new HashMap<>();
 
@@ -19,7 +23,7 @@ public class SenderLocator {
     return services.get(tipoContacto);
   }
 
-  public static void enviar(Mensaje mensaje, String destinatario, TipoContacto tipoContacto){
+  public static void enviar(Mensaje mensaje, String destinatario, TipoContacto tipoContacto) {
     getService(tipoContacto).enviar(mensaje, destinatario);
   }
 }

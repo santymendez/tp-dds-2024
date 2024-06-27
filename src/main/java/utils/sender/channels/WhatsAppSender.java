@@ -58,6 +58,13 @@ public class WhatsAppSender implements SenderInterface {
           .create();
   }
 
+  /**
+   * Se inicializa la heladera (Dar de alta).
+   *
+   * @param mensaje             mensaje para enviar.
+   * @param destinatario        destinatario a quien enviar.
+   */
+
   public void enviar(Mensaje mensaje, String destinatario) {
     try {
       this.send(mensaje, destinatario);

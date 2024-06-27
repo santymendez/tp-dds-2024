@@ -1,12 +1,10 @@
 package utils.sender.channels;
 
-import models.entities.personas.contacto.TipoContacto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 
@@ -17,7 +15,6 @@ import utils.sender.SenderInterface;
 public class TelegramBotSender implements  SenderInterface {
   private static Bot bot;
   private static TelegramBotSender instance;
-
   private static final Logger logger = LogManager.getLogger(TelegramBotSender.class);
 
   private TelegramBotSender() throws TelegramApiException {
@@ -51,9 +48,8 @@ public class TelegramBotSender implements  SenderInterface {
    * @param destinatario Destinatario.
    */
 
-  public void enviar(Mensaje mensaje, Destinatario destinatario) {
-    String idTelegram = destinatario.obtenerMedidoContacto(TipoContacto.TELEGRAM);
-    Long destinatarioId = Long.parseLong(idTelegram);
+  public void enviar(Mensaje mensaje, String destinatario) {
+    Long destinatarioId = Long.parseLong(destinatario);
     String men = mensaje.aplanarMensaje();
     bot.sendText(destinatarioId, men);
   }

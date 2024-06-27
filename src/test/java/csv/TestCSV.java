@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import services.ColaboradoresService;
-import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
 
@@ -28,7 +27,7 @@ public class TestCSV {
     colaboradoresRepository = ColaboradoresRepository.getInstance();
     colaboracionesRepository = ColaboracionesRepository.getInstance();
     EmailSender emailSender = mock(EmailSender.class);
-    doNothing().when(emailSender).enviar(any(Mensaje.class), any(Destinatario.class));
+    doNothing().when(emailSender).enviar(any(Mensaje.class), any(String.class));
     colaboradoresService = new ColaboradoresService(colaboradoresRepository, emailSender);
     csvController = new CsvController(colaboradoresRepository, colaboracionesRepository, colaboradoresService);
   }

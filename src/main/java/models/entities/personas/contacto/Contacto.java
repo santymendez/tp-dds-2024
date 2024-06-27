@@ -10,6 +10,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Contacto {
-  private final String contacto;
+  private final String info;
   private final TipoContacto tipoContacto;
 }

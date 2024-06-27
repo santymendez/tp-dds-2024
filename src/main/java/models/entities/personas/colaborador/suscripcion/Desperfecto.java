@@ -4,12 +4,10 @@ import java.util.List;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
-import models.entities.personas.contacto.Contacto;
 import models.entities.searchers.BuscadorHeladerasFrecuentes;
-import models.factories.FactorySender;
-import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
+import utils.sender.SenderLocator;
 
 /**
  * Clase que representa la notificacion referida
@@ -36,7 +34,7 @@ public class Desperfecto implements InterfazSuscripcion {
     this.heladera = heladera;
     this.buscadorHeladerasFrecuentes = new BuscadorHeladerasFrecuentes();
     this.senderInterface =
-        FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
+        SenderLocator.getService(colaborador.getContacto().getTipoContacto());
   }
 
   /**
@@ -54,10 +52,7 @@ public class Desperfecto implements InterfazSuscripcion {
    */
 
   public void notificar() {
-    Destinatario destinatario = new Destinatario();
-    Contacto contacto = colaborador.getContacto();
-    destinatario.agregarMedioDeContacto(contacto.getTipoContacto(),
-        contacto.getContacto());
+    String destinatario = colaborador.getContacto().getInfo();
 
     String asunto = "La heladera " + this.heladera.getNombre() + " ha sufrido un desperfecto"
         + " y las viandas deben ser redistribuidas.";

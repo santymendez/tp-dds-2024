@@ -10,7 +10,6 @@ import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
 import models.repositories.personas.InterfaceColaboradoresRepository;
 import utils.security.Usuario;
-import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
 
@@ -67,8 +66,7 @@ public class ColaboradoresService {
     //  TODO el sender ya que como consecuencia tenemos que
     // mostrar mas logica del modulo (Quizas con un factory se puede arreglar, no se si vale
     // la pena).
-    Destinatario destinatario = new Destinatario();
-    destinatario.agregarMedioDeContacto(TipoContacto.MAIL, colaboradorInputDto.getEmail());
+    String destinatario = colaboradorInputDto.getEmail();
 
     emailsender.enviar(message, destinatario);
 

@@ -6,6 +6,6 @@ package utils.sender;
 
 public interface SenderInterface {
 
-  void enviar(Mensaje men, Destinatario dest);
+  void enviar(Mensaje men, String dest);
 
 }

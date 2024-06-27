@@ -9,11 +9,9 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
-import models.entities.personas.contacto.TipoContacto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.sender.Config;
-import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 
@@ -72,13 +70,12 @@ public class EmailSender implements SenderInterface {
    * @param destinatario   el destinatario al cual se quiere enviar el mensaje
    */
 
-  public void enviar(Mensaje mensajeAenviar, Destinatario destinatario) {
-    String mailDestinatario = destinatario.obtenerMedidoContacto(TipoContacto.MAIL);
+  public void enviar(Mensaje mensajeAenviar, String destinatario) {
     try {
       // Crear un mensaje de correo electrónico
       Message message = new MimeMessage(sesion);
       message.setFrom(new InternetAddress(nombreDeUsuario)); // Dirección de quien lo envía
-      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailDestinatario));
+      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
       message.setSubject(mensajeAenviar.getAsunto());
       message.setText(mensajeAenviar.getCuerpo());
 

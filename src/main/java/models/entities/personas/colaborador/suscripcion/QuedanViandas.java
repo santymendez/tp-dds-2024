@@ -3,11 +3,9 @@ package models.entities.personas.colaborador.suscripcion;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
-import models.entities.personas.contacto.Contacto;
-import models.factories.FactorySender;
-import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
+import utils.sender.SenderLocator;
 
 /**
  * Clase que representa la notificacion referida
@@ -34,7 +32,7 @@ public class QuedanViandas implements InterfazSuscripcion {
     this.heladera = heladera;
     this.viandasDisponibles = viandas;
     this.senderInterface =
-        FactorySender.obtenerInstanciaSegun(colaborador.getContacto().getTipoContacto());
+        SenderLocator.getService(colaborador.getContacto().getTipoContacto());
   }
 
   /**
@@ -52,10 +50,7 @@ public class QuedanViandas implements InterfazSuscripcion {
    */
 
   public void notificar() {
-    Contacto contacto = colaborador.getContacto();
-    Destinatario destinatario = new Destinatario();
-    destinatario.agregarMedioDeContacto(contacto.getTipoContacto(),
-        contacto.getContacto());
+    String destinatario = colaborador.getContacto().getInfo();
     String asunto = "Quedan sólo " + viandasDisponibles + " en una heladera.";
     String cuerpo = "Acercate a la heladera: " + heladera.getNombre() + " para rellenarla";
     Mensaje mensaje = new Mensaje(asunto, cuerpo);

@@ -3,11 +3,10 @@ package models.entities.searchers;
 import java.util.List;
 import models.entities.heladera.Heladera;
 import models.entities.personas.tecnico.Tecnico;
-import models.factories.FactorySender;
 import models.repositories.imp.TecnicosRepository;
-import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
+import utils.sender.SenderLocator;
 
 /**
  * Busca tecnicos cercanos a una heladera en particular.
@@ -41,7 +40,7 @@ public class BuscadorTecnicosCercanos {
   public void notificarTecnicos(List<Tecnico> tecnicos, Heladera heladera) {
     tecnicos.parallelStream().forEach(tecnico -> {
       SenderInterface sender =
-          FactorySender.obtenerInstanciaSegun(tecnico.getContacto().getTipoContacto());
+          SenderLocator.getService(tecnico.getContacto().getTipoContacto());
 
       String asunto = "La heladera " + heladera.getNombre() + " ha sufrido una falla tecnica";
       String cuerpo = "Podes acercarte a revisarla, se encuentra en: "
@@ -49,9 +48,7 @@ public class BuscadorTecnicosCercanos {
 
       Mensaje mensaje = new Mensaje(asunto, cuerpo);
 
-      Destinatario destinatario = new Destinatario();
-      destinatario.agregarMedioDeContacto(tecnico.getContacto().getTipoContacto(),
-          tecnico.getContacto().getContacto());
+      String destinatario = tecnico.getContacto().getInfo();
 
       sender.enviar(mensaje, destinatario);
     });

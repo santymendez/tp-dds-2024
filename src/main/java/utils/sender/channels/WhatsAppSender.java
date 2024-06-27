@@ -2,9 +2,9 @@ package utils.sender.channels;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-import models.entities.personas.contacto.TipoContacto;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import utils.sender.Config;
-import utils.sender.Destinatario;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 
@@ -18,6 +18,7 @@ public class WhatsAppSender implements SenderInterface {
   private final String tokenAutenticacion;
   private final String nroEnvio;
   private static WhatsAppSender instance;
+  private static final Logger logger = LogManager.getLogger(WhatsAppSender.class);
 
   private WhatsAppSender() {
     accountSid = Config.getWhatsappSid();
@@ -45,9 +46,8 @@ public class WhatsAppSender implements SenderInterface {
    * @param destinatario Destinatario.
    */
 
-  public void send(Mensaje mensaje, Destinatario destinatario) throws Exception {
-    String nroDest = destinatario.obtenerMedidoContacto(TipoContacto.WHATSAPP);
-    String nroDestinatario = "whatsapp:+" + nroDest;
+  public void send(Mensaje mensaje, String destinatario) throws Exception {
+    String nroDestinatario = "whatsapp:+" + destinatario;
     String newMensaje = mensaje.aplanarMensaje();
 
     Twilio.init(accountSid, tokenAutenticacion);
@@ -58,13 +58,12 @@ public class WhatsAppSender implements SenderInterface {
           .create();
   }
 
-  public void enviar(Mensaje mensaje, Destinatario destinatario) {
+  public void enviar(Mensaje mensaje, String destinatario) {
     try {
       this.send(mensaje, destinatario);
     } catch (Exception e) {
-      // Manejo de la excepción
-      System.err.println("Error al enviar el mensaje: " + e.getMessage());
-      e.printStackTrace();
+      logger.error("Error al enviar un mensaje de Whatsapp", e);
+      throw new RuntimeException("Error al enviar un mensaje de Whatsapp");
     }
   }
 

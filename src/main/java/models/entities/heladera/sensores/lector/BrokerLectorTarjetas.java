@@ -1,6 +1,5 @@
 package models.entities.heladera.sensores.lector;
 
-import models.entities.heladera.sensores.temperatura.SensorTemperatura;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;

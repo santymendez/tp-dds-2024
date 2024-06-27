@@ -17,7 +17,7 @@ public class Config {
     try (InputStream input = Config
         .class
         .getClassLoader()
-        .getResourceAsStream("diagrams/config.properties")) {
+        .getResourceAsStream("config.properties")) {
       properties.load(input);
     } catch (IOException ex) {
       throw new RuntimeException("Error loading configuration", ex);

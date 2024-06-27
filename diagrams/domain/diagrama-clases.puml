@@ -17,7 +17,6 @@ class Heladera {
     -List<TarjetaColaborador> tarjetasHabilitadas
     -limiteDeTiempo: Float
     -estaAbierta: Boolean
-    -lector: LectorTarjetas
 
     -reporteHeladera: ReporteHeladera
 
@@ -26,8 +25,7 @@ class Heladera {
     +agregarVianda(Vianda vianda)
     +Integer calcularMesesActiva()
     +imprimirAlerta()
-    +intentarAbrir(String codigo)
-    +validarSolicitud(TarjetaColaborador tarjeta)
+    +intentarAbrirCon(TarjetaColaborador tarjeta)
     +reportarIncidente(TipoEstado tipoAlerta)
     +void reportarFallaTecnica()
     +void notificarTecnicos()
@@ -231,14 +229,6 @@ class SensorMovimiento {
     +void activarSensor()
     +void desactivarHeladera()
     +void activarHeladera()
-}
-
-'TODO REVISAR'
-class LectorTarjetas {
-    -id: Integer
-    -heladera: Heladera
-
-    +leerCodigo(String codigo)
 }
 
 class Reconocimiento {
@@ -536,7 +526,6 @@ Heladera -->"*" TarjetaColaborador
 Heladera --> ReporteHeladera
 Heladera -->"*" InterfazSuscripcion
 Heladera --> BuscadorTecnicosCercanos
-Heladera --> LectorTarjetas
 
 'VIANDA'
 Vianda *-- Comida
@@ -548,7 +537,6 @@ Modelo *-- SensorTemperatura
 'SENSORES'
 SensorMovimiento *-- Heladera
 SensorTemperatura *-- Heladera
-LectorTarjetas *-- Heladera
 
 'COLABORADOR'
 Colaborador ---> Documento

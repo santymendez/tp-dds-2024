@@ -11,7 +11,7 @@ import utils.sender.channels.WhatsAppSender;
  */
 
 public class SenderLocator {
-  private static HashMap<TipoContacto, SenderInterface> services = new HashMap<>();
+  private static final HashMap<TipoContacto, SenderInterface> services = new HashMap<>();
 
   static {
     services.put(TipoContacto.MAIL, EmailSender.getInstance());

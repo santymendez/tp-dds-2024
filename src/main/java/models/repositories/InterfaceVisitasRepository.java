@@ -3,7 +3,7 @@ package models.repositories;
 import models.entities.personas.tecnico.VisitaTecnica;
 
 /**
- * Interfaz del repositorio que registra las visitas realizadas por los tecnicos.
+ * Interfaz Repositorio para las Visitas Técnicas.
  */
 
 public interface InterfaceVisitasRepository {

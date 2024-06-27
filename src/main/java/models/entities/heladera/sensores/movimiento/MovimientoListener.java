@@ -2,7 +2,8 @@ package models.entities.heladera.sensores.movimiento;
 
 import java.util.Optional;
 import lombok.Setter;
-import models.repositories.imp.SensoresMovimientoRepository;
+import models.repositories.heladera.InterfaceSensoresMovimientoRepository;
+import models.repositories.heladera.SensoresMovimientoRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -13,6 +14,11 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 @Setter
 public class MovimientoListener implements IMqttMessageListener {
   private String topic = "sensor-movimiento";
+  private InterfaceSensoresMovimientoRepository movimientoRepository;
+
+  public MovimientoListener(InterfaceSensoresMovimientoRepository movimientoRepository) {
+    this.movimientoRepository = movimientoRepository;
+  }
 
   @Override
   public void messageArrived(String topic, MqttMessage message) throws Exception {
@@ -21,7 +27,7 @@ public class MovimientoListener implements IMqttMessageListener {
   }
 
   private void activarSensor(int sensorId) {
-    Optional<SensorMovimiento> sensor = SensoresMovimientoRepository.getInstance().buscar(sensorId);
+    Optional<SensorMovimiento> sensor = movimientoRepository.buscar(sensorId);
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }

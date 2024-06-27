@@ -8,12 +8,13 @@ import models.entities.personas.colaborador.Colaborador;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ViandasPorColaborador;
 import models.entities.reporte.generador.GeneradorReporte;
-import models.repositories.imp.HeladerasRepository;
+import models.repositories.heladera.HeladerasRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestGeneradorReporte {
 
@@ -23,8 +24,7 @@ public class TestGeneradorReporte {
     santi.setNombre("Santi");
     Colaborador mati = new Colaborador();
     mati.setNombre("Mati");
-
-
+    HeladerasRepository heladerasRepository = new HeladerasRepository();
 
     Heladera liam = new Heladera(
         new Direccion(), "Liam", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
@@ -36,7 +36,7 @@ public class TestGeneradorReporte {
     liam.getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
     liam.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 10));
     liam.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 10));
-    HeladerasRepository.getInstance().guardar(liam);
+    heladerasRepository.guardar(liam);
 
     Heladera augusto = new Heladera(
         new Direccion(), "Augusto", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
@@ -48,9 +48,8 @@ public class TestGeneradorReporte {
     augusto.getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
     augusto.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 15));
     augusto.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 15));
-    HeladerasRepository.getInstance().guardar(augusto);
+    heladerasRepository.guardar(augusto);
 
-    //PERDON NO ME DEJA CHECKSTLE
     Heladera iniaki = new Heladera(
         new Direccion(), "Iñaki", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
     );
@@ -61,7 +60,9 @@ public class TestGeneradorReporte {
     iniaki.getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
     iniaki.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 20));
     iniaki.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 20));
-    HeladerasRepository.getInstance().guardar(iniaki);
+    heladerasRepository.guardar(iniaki);
+
+    GeneradorReporte generadorReporte = new GeneradorReporte(heladerasRepository);
   }
 
   @Test

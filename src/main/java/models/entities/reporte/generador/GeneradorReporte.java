@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.reporte.ViandasPorColaborador;
-import models.repositories.imp.HeladerasRepository;
+import models.repositories.heladera.HeladerasRepository;
+import models.repositories.heladera.InterfaceHeladerasRepository;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -29,6 +30,11 @@ public class GeneradorReporte {
   private static final Integer leading = 20;
   private static final Integer maxLines = 34;
   private static Integer currentLines;
+  private static InterfaceHeladerasRepository heladerasRepository;
+
+  public GeneradorReporte(InterfaceHeladerasRepository heladerasRepository) {
+    GeneradorReporte.heladerasRepository = heladerasRepository;
+  }
 
   /**
    * Genera un reporte semanal.
@@ -41,7 +47,7 @@ public class GeneradorReporte {
     String path = "reportes/reporte-semana-" + semanaActual + ".pdf";
 
     try (PDDocument document = new PDDocument()) {
-      List<Heladera> heladeras = HeladerasRepository.getInstance().getHeladeras();
+      List<Heladera> heladeras = heladerasRepository.obtenerHeladeras();
 
       for (Heladera heladera : heladeras) {
         String nombreHeladera = heladera.getNombre();

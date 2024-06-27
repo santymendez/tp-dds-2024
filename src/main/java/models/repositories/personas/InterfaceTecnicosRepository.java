@@ -4,7 +4,7 @@ import java.util.List;
 import models.entities.personas.tecnico.Tecnico;
 
 /**
- * Interfaz Repositorio para los Tecnicos.
+ * Interfaz Repositorio para los Técnicos.
  */
 
 public interface InterfaceTecnicosRepository {

@@ -2,7 +2,8 @@ package models.entities.heladera.sensores.temperatura;
 
 import java.util.Optional;
 import lombok.Setter;
-import models.repositories.imp.SensoresTemperaturaRepository;
+import models.repositories.heladera.InterfaceSensoresTemperaturaRepository;
+import models.repositories.heladera.SensoresTemperaturaRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -12,6 +13,11 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 @Setter
 public class TemperaturaListener implements IMqttMessageListener {
   private String topic = "dds2024/heladeras/almagro/medrano";
+  private InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
+
+  public TemperaturaListener(InterfaceSensoresTemperaturaRepository repository) {
+    this.sensoresTemperaturaRepository = repository;
+  }
 
   @Override
   public void messageArrived(String topic, MqttMessage message) throws Exception {
@@ -29,7 +35,7 @@ public class TemperaturaListener implements IMqttMessageListener {
 
   public void enviarMedicion(int sensorId, Float temp) {
     Optional<SensorTemperatura> sensor =
-        SensoresTemperaturaRepository.getInstance().buscar(sensorId);
+        this.sensoresTemperaturaRepository.buscar(sensorId);
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }

@@ -3,7 +3,8 @@ package models.entities.searchers;
 import java.util.List;
 import models.entities.heladera.Heladera;
 import models.entities.personas.tecnico.Tecnico;
-import models.repositories.imp.TecnicosRepository;
+import models.repositories.personas.InterfaceTecnicosRepository;
+import models.repositories.personas.TecnicosRepository;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 import utils.sender.SenderLocator;
@@ -13,9 +14,9 @@ import utils.sender.SenderLocator;
  */
 
 public class BuscadorTecnicosCercanos {
-  private final TecnicosRepository tecnicosRepository;
+  private final InterfaceTecnicosRepository tecnicosRepository;
 
-  public BuscadorTecnicosCercanos(TecnicosRepository tecnicosRepository) {
+  public BuscadorTecnicosCercanos(InterfaceTecnicosRepository tecnicosRepository) {
     this.tecnicosRepository = tecnicosRepository;
   }
 

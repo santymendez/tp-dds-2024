@@ -1,10 +1,9 @@
-package models.repositories.imp;
+package models.repositories.heladera;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
-import models.entities.heladera.Heladera;
 import models.entities.heladera.sensores.temperatura.SensorTemperatura;
 
 /**
@@ -12,25 +11,11 @@ import models.entities.heladera.sensores.temperatura.SensorTemperatura;
  */
 
 @Getter
-public class SensoresTemperaturaRepository {
+public class SensoresTemperaturaRepository implements InterfaceSensoresTemperaturaRepository {
   private final List<SensorTemperatura> sensores;
-  private static SensoresTemperaturaRepository instance;
 
-  private SensoresTemperaturaRepository() {
+  public SensoresTemperaturaRepository() {
     this.sensores = new ArrayList<>();
-  }
-
-  /**
-   * Singleton para el repositorio de Sensores de Temperatura.
-   *
-   * @return Instancia del repositorio de Sensores de Temperatura.
-   */
-
-  public static SensoresTemperaturaRepository getInstance() {
-    if (instance == null) {
-      instance = new SensoresTemperaturaRepository();
-    }
-    return instance;
   }
 
   /**

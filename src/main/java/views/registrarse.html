@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heladeras Solidarias ONG</title>
+    <link rel="stylesheet" href="css/css.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="header__texto">
+        <a href="mainPage.html"><h1 class="header__titulo">Heladeras Solidarias <strong>ONG</strong></h1></a>
+    </div>
+</header>
+<nav class="nav-container">
+    <ul>
+        <li><a href="registrarse.html">Registrarse</a></li>
+        <li><a href="colaborar.html">Colaborar</a></li>
+        <li><a href="mapa.html">Mapa de Heladeras</a></li>
+    </ul>
+</nav>
+<main>
+    <section id="registro-form">
+        <h2>Registro</h2>
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="username">Ingrese Nombre de Usuario:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Ingrese Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Reingrese Contraseña:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <div class="form-group">
+                <label>Registrarse como:</label>
+                <div class="radio-group">
+                    <input type="radio" id="persona-humana" name="tipo" value="humana">
+                    <label for="persona-humana">Persona Física</label>
+                    <input type="radio" id="persona-juridica" name="tipo" value="juridica">
+                    <label for="persona-juridica">Persona Jurídica</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="button">Registrarse</button>
+            </div>
+        </form>
+        <p class="centrar-texto"><i>¿Ya tenés cuenta? <a href="colaborar.html">Iniciar Sesión</a></i></p>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 Heladeras Solidarias ONG</p>
+</footer>
+</body>
+</html>

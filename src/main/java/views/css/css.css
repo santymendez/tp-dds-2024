@@ -1,0 +1,252 @@
+/* CSS.css */
+
+:root {
+    --fuenteHeading: 'PT Sans', sans-serif;
+    --fuenteParrafos: 'Open Sans', sans-serif;
+
+    --primario: #784d3c;
+    --blanco: #ffffff;
+    --negro: #000000;
+    --gris: #e1e1e1;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: var(--fuenteParrafos);
+    font-size: 1.6rem;
+    line-height: 2;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.contenedor {
+    max-width: 120rem;
+    width: 90%;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--fuenteHeading);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 4.8rem;
+}
+
+h2 {
+    font-size: 4rem;
+    color: black;
+    text-align: center;
+}
+
+h3 {
+    font-size: 3.2rem;
+}
+
+h4 {
+    font-size: 2.8rem;
+}
+
+img {
+    max-width: 100%;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.centrar-texto {
+    text-align: center;
+}
+
+.header {
+    background-image: url('../imgs/img_header.png');
+    height: 20rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--blanco);
+    position: relative;
+}
+
+.header__texto {
+    text-align: center;
+}
+
+.header__titulo {
+    color: var(--blanco);
+}
+
+nav.nav-container {
+    background-color: #002E85;
+    padding: 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    text-align: center;
+}
+
+nav ul li {
+    text-align: center;
+    position: relative;
+    flex: 1;
+}
+
+nav ul li:nth-child(1) {
+    margin-right: auto;
+}
+
+nav ul li:nth-child(2) {
+    margin: 0 auto;
+}
+
+nav ul li:nth-child(3) {
+    margin-left: auto;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px 20px;
+    display: block;
+}
+
+nav ul li:hover {
+    background-color: #108901;
+}
+
+nav ul li:hover a {
+    color: white;
+}
+
+.main-content {
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    line-height: 1.6;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: #00256A;
+    color: white;
+    text-align: center;
+    padding: 2px;
+    width: 100%;
+    margin-top: auto;
+}
+
+#login-form, #registro-form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#login-form form, #registro-form form {
+    display: grid;
+    gap: 10px;
+}
+
+.form-group {
+    display: grid;
+    gap: 5px;
+}
+
+.form-group label {
+    text-align: left;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-group label {
+    font-weight: normal;
+}
+
+.button {
+    width: 100%;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #002E85;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #001d5c;
+}
+
+#login-form p, #registro-form p {
+    text-align: center;
+    margin-top: 10px;
+}
+#map {
+    width: 100%; /* Ajusta el ancho del mapa al 100% del contenedor */
+    height: 67vh; /* Altura del mapa del 60% del alto de la ventana */
+
+}

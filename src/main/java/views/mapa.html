@@ -4,11 +4,25 @@
     <meta charset="UTF-8">
     <title>Mapa con Leaflet</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <style>
-        #map { height: 400px; }
-    </style>
+    <link rel="stylesheet" href="css/css.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<header class="header">
+    <div class="header__texto">
+        <a href="mainPage.html"><h1 class="header__titulo">Heladeras Solidarias <strong>ONG</strong></h1></a>
+    </div>
+</header>
+<nav class="nav-container">
+    <ul>
+        <li><a href="registrarse.html">Registrarse</a></li>
+        <li><a href="colaborar.html">Colaborar</a></li>
+        <li><a href="mapa.html">Mapa de Heladeras</a></li>
+    </ul>
+</nav>
 
 <div id="map"></div>
 
@@ -42,6 +56,8 @@
         })
         .catch(error => console.error('Error cargando el JSON:', error));
 </script>
-
+<footer>
+    <p>&copy; 2024 Heladeras Solidarias ONG</p>
+</footer>
 </body>
 </html>

@@ -14,7 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TestGeneradorReporte {
 
@@ -29,37 +28,37 @@ public class TestGeneradorReporte {
     Heladera liam = new Heladera(
         new Direccion(), "Liam", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
     );
-    liam.setReporteHeladera(new ReporteHeladera(liam));
-    liam.getReporteHeladera().setFallas(50);
-    liam.getReporteHeladera().setViandasColocadas(20);
-    liam.getReporteHeladera().setViandasRetiradas(10);
-    liam.getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
-    liam.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 10));
-    liam.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 10));
+    liam.getModReportes().setReporteHeladera(new ReporteHeladera(liam));
+    liam.getModReportes().getReporteHeladera().setFallas(50);
+    liam.getModReportes().getReporteHeladera().setViandasColocadas(20);
+    liam.getModReportes().getReporteHeladera().setViandasRetiradas(10);
+    liam.getModReportes().getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
+    liam.getModReportes().getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 10));
+    liam.getModReportes().getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 10));
     heladerasRepository.guardar(liam);
 
     Heladera augusto = new Heladera(
         new Direccion(), "Augusto", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
     );
-    augusto.setReporteHeladera(new ReporteHeladera(liam));
-    augusto.getReporteHeladera().setFallas(100);
-    augusto.getReporteHeladera().setViandasColocadas(30);
-    augusto.getReporteHeladera().setViandasRetiradas(20);
-    augusto.getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
-    augusto.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 15));
-    augusto.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 15));
+    augusto.getModReportes().setReporteHeladera(new ReporteHeladera(liam));
+    augusto.getModReportes().getReporteHeladera().setFallas(100);
+    augusto.getModReportes().getReporteHeladera().setViandasColocadas(30);
+    augusto.getModReportes().getReporteHeladera().setViandasRetiradas(20);
+    augusto.getModReportes().getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
+    augusto.getModReportes().getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 15));
+    augusto.getModReportes().getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 15));
     heladerasRepository.guardar(augusto);
 
     Heladera iniaki = new Heladera(
         new Direccion(), "Iñaki", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
     );
-    iniaki.setReporteHeladera(new ReporteHeladera(liam));
-    iniaki.getReporteHeladera().setFallas(150);
-    iniaki.getReporteHeladera().setViandasColocadas(40);
-    iniaki.getReporteHeladera().setViandasRetiradas(25);
-    iniaki.getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
-    iniaki.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 20));
-    iniaki.getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 20));
+    iniaki.getModReportes().setReporteHeladera(new ReporteHeladera(liam));
+    iniaki.getModReportes().getReporteHeladera().setFallas(150);
+    iniaki.getModReportes().getReporteHeladera().setViandasColocadas(40);
+    iniaki.getModReportes().getReporteHeladera().setViandasRetiradas(25);
+    iniaki.getModReportes().getReporteHeladera().setViandasPorColaboradores(new ArrayList<>());
+    iniaki.getModReportes().getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(santi, 20));
+    iniaki.getModReportes().getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 20));
     heladerasRepository.guardar(iniaki);
 
     GeneradorReporte generadorReporte = new GeneradorReporte(heladerasRepository);

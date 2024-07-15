@@ -63,9 +63,9 @@ public class ColaboradoresService {
             + "\nPuede cambiarlas si así lo desea.\n\nSaludos!");
 
     // TODO revisar si esta bien tratar polimorficamente
-    //  TODO el sender ya que como consecuencia tenemos que
-    // mostrar mas logica del modulo (Quizas con un factory se puede arreglar, no se si vale
-    // la pena).
+    // TODO el sender ya que como consecuencia tenemos que
+    //  mostrar mas logica del modulo (Quizas con un factory se puede arreglar, no se si vale
+    //  la pena).
     String destinatario = colaboradorInputDto.getEmail();
 
     emailsender.enviar(message, destinatario);

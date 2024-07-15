@@ -6,9 +6,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.TipoEstado;
-import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import models.entities.heladera.estados.TipoEstado;
 
 /**
  * Representa un sensor de temperatura con la última temperatura, las temperaturas máximas
@@ -41,12 +39,12 @@ public class SensorTemperatura {
   }
 
   public void desactivarHeladera() {
-    this.heladera.modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
-    this.heladera.reportarIncidente(TipoEstado.INACTIVA_TEMPERATURA);
+    this.heladera.getModEstados().modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
+    this.heladera.getModIncidentes().reportarIncidente(TipoEstado.INACTIVA_TEMPERATURA, heladera);
   }
 
   public void activarHeladera() {
-    this.heladera.modificarEstado(TipoEstado.ACTIVA);
+    this.heladera.getModEstados().modificarEstado(TipoEstado.ACTIVA);
   }
 
   public Boolean fallaConexion() {
@@ -54,7 +52,7 @@ public class SensorTemperatura {
     return this.periodoEnMinutos(fecha) > 5;
   }
 
-  //=========================================================================================
+  //================================== Metodos auxiliares =========================================
 
   private Long periodoEnMinutos(LocalDateTime fecha) {
     LocalDateTime instanteActual = LocalDateTime.now();

@@ -3,7 +3,7 @@ package models.entities.heladera.sensores.movimiento;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.TipoEstado;
+import models.entities.heladera.estados.TipoEstado;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -13,7 +13,6 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 @Getter
 @Setter
-//TODO
 public class SensorMovimiento implements IMqttMessageListener {
   private Integer id;
   private Heladera heladera;
@@ -35,12 +34,12 @@ public class SensorMovimiento implements IMqttMessageListener {
   }
 
   public void desactivarHeladera() {
-    this.heladera.modificarEstado(TipoEstado.INACTIVA_FRAUDE);
-    this.heladera.reportarIncidente(TipoEstado.INACTIVA_FRAUDE);
+    this.heladera.getModEstados().modificarEstado(TipoEstado.INACTIVA_FRAUDE);
+    this.heladera.getModIncidentes().reportarIncidente(TipoEstado.INACTIVA_FRAUDE, heladera);
   }
 
   public void activarHeladera() {
-    this.heladera.modificarEstado(TipoEstado.ACTIVA);
+    this.heladera.getModEstados().modificarEstado(TipoEstado.ACTIVA);
   }
 
 }

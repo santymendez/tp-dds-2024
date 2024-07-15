@@ -40,7 +40,7 @@ public class QuedanViandas implements InterfazSuscripcion {
    */
 
   public void intentarNotificar() {
-    if (this.heladera.consultarStock().equals(this.viandasDisponibles)) {
+    if (this.heladera.getModAlmacenamiento().consultarStock().equals(this.viandasDisponibles)) {
       this.notificar();
     }
   }

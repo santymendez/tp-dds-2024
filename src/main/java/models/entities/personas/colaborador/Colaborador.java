@@ -104,7 +104,7 @@ public class Colaborador {
     incidente.setDescripcion(descripcion);
     incidente.setImagen(imagen);
 
-    heladera.reportarFallaTecnica(incidente);
+    heladera.getModIncidentes().reportarFallaTecnica(incidente, heladera);
   }
 
   //Permite registrar las suscripciones a heladeras

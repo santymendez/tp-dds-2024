@@ -1,4 +1,4 @@
-package models.entities.heladera;
+package models.entities.heladera.estados;
 
 
 import java.time.LocalDate;

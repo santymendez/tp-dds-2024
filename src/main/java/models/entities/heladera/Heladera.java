@@ -1,23 +1,22 @@
 package models.entities.heladera;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.direccion.Direccion;
+import models.entities.heladera.estados.Estado;
+import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
+import models.entities.heladera.modulos.ModuloDeAlmacenamiento;
+import models.entities.heladera.modulos.ModuloDeAperturas;
+import models.entities.heladera.modulos.ModuloDeEstados;
+import models.entities.heladera.modulos.ModuloDeIncidentes;
+import models.entities.heladera.modulos.ModuloDeReportes;
+import models.entities.heladera.modulos.ModuloDeSuscripciones;
+import models.entities.heladera.modulos.ModuloDeTecnicos;
 import models.entities.heladera.sensores.movimiento.SensorMovimiento;
-import models.entities.heladera.vianda.Vianda;
-import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
-import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
-import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
-import models.entities.reporte.ReporteHeladera;
-import models.entities.searchers.BuscadorTecnicosCercanos;
 
 /**
  * Representa una heladera con una dirección, nombre, capacidad máxima de viandas, lista
@@ -29,25 +28,20 @@ import models.entities.searchers.BuscadorTecnicosCercanos;
 public class Heladera {
   private Direccion direccion;
   private String nombre;
-  private Integer capacidadMaximaViandas;
-  private List<Vianda> viandas;
   private LocalDate fechaDeCreacion;
 
   private Modelo modelo;
   private SensorMovimiento sensorMovimiento;
 
-  private Estado estadoActual;
-  private List<Estado> estadosHeladera;
-  private BuscadorTecnicosCercanos buscadorTecnicosCercanos;
-  private List<Incidente> incidentes;
-
-  private List<TarjetaColaborador> tarjetasHabilitadas;
-  private Float limiteDeTiempo;
   private Boolean estaAbierta;
 
-  private ReporteHeladera reporteHeladera;
-
-  private List<InterfazSuscripcion> suscripciones;
+  private ModuloDeAlmacenamiento modAlmacenamiento;
+  private ModuloDeSuscripciones modSuscripciones;
+  private ModuloDeReportes modReportes;
+  private ModuloDeIncidentes modIncidentes;
+  private ModuloDeEstados modEstados;
+  private ModuloDeTecnicos modTecnicos;
+  private ModuloDeAperturas modAperturas;
 
   /**
    * Se inicializa la heladera (Dar de alta).
@@ -65,56 +59,20 @@ public class Heladera {
                   Modelo modelo, SensorMovimiento sensorMovimiento) {
     this.direccion = direccion;
     this.nombre = nombre;
-    this.capacidadMaximaViandas = capacidadMaximaViandas;
-    this.viandas = new ArrayList<>();
     this.fechaDeCreacion = fechaDeCreacion;
     this.modelo = modelo;
     this.sensorMovimiento = sensorMovimiento;
-    this.estadosHeladera = new ArrayList<>();
-    this.estadoActual = new Estado(TipoEstado.ACTIVA);
-    this.estadosHeladera.add(estadoActual);
-    this.tarjetasHabilitadas = new ArrayList<>();
-    this.limiteDeTiempo = 3.0f; //Su valor original es 3
     this.estaAbierta = false;
-    this.reporteHeladera = new ReporteHeladera(this);
-  }
 
-  //================================== Movimiento de viandas ======================================
-
-  /**
-   * Se agrega una vianda a la heladera.
-   *
-   * @param vianda es la vianda que se busca agregar a la heladera.
-   */
-
-  public void agregarVianda(Vianda vianda) {
-    if (!this.tieneEspacio()) {
-      throw new RuntimeException("No hay mas espacio en la heladera");
-    }
-
-    this.viandas.add(vianda);
-    vianda.setEntregada(true);
-    reporteHeladera.viandaColocada();
-
-    this.intentarNotificarSuscriptores();
-  }
-
-  /**
-   * Se elimina una vianda de la heladera (sirve para la distribución).
-   */
-
-  public void removerVianda() {
-    if (this.viandas.isEmpty()) {
-      throw new RuntimeException("No hay viandas para retirar");
-    }
-
-    //Se retira la vianda
-    viandas.remove(0);
-    reporteHeladera.viandaRetirada();
-
-    if (!this.suscripciones.isEmpty()) {
-      this.intentarNotificarSuscriptores();
-    }
+    this.modReportes = new ModuloDeReportes(this);
+    this.modSuscripciones = new ModuloDeSuscripciones();
+    this.modAlmacenamiento =
+        new ModuloDeAlmacenamiento(capacidadMaximaViandas, modReportes, modSuscripciones);
+    this.modEstados = new ModuloDeEstados();
+    this.modTecnicos = new ModuloDeTecnicos();
+    this.modIncidentes =
+        new ModuloDeIncidentes(modReportes, modSuscripciones, modEstados, modTecnicos);
+    this.modAperturas = new ModuloDeAperturas();
   }
 
   //==================================== Calcular meses ========================================
@@ -125,177 +83,23 @@ public class Heladera {
    */
 
   public Integer calcularMesesActiva() {
-    return estadosHeladera
+    return modEstados.getEstadosHeladera()
         .stream()
         .filter(estado -> estado.getEstado() == TipoEstado.ACTIVA)
         .mapToInt(Estado::calcularMeses)
         .sum();
   }
 
-  //==================================== Incidentes ========================================
-
-  /**
-   * Reporta un incidente.
-   *
-   * @param tipoAlerta representa el tipo de alerta.
-   */
-
-  public void reportarIncidente(TipoEstado tipoAlerta) {
-    Incidente incidente = new Incidente(TipoIncidente.ALERTA, this);
-    incidente.setTipoAlerta(tipoAlerta);
-    this.reportarFalla();
-    this.imprimirAlerta();
-    this.intentarNotificarSuscriptores();
-    this.incidentes.add(incidente);
-  }
-
-  /**
-   * Genera una alerta a partir del estado actual.
-   */
-
-  public void imprimirAlerta() {
-    switch (estadoActual.getEstado()) {
-      case INACTIVA_FRAUDE ->
-          System.out.println("LA HELADERA ESTA SUFRIENDO FRAUDE");
-      case INACTIVA_TEMPERATURA ->
-          System.out.println("LA TEMPERATURA SALIO DEL RANGO DE TEMPERATURA RECOMENDADO");
-      case INACTIVA_FALLA_CONEXION ->
-          System.out.println("FALLO EN LA CONEXION CON EL SENSOR DE TEMPERATURA");
-      default ->
-          System.out.println("FALSA ALARMA, HELADERA ACTIVA");
-    }
-  }
-
-  public void notificarTecnicos() {
-    buscadorTecnicosCercanos.buscarTecnicosCercanosA(this);
-  }
-
-  /**
-   * Metodo auxiliar con todas los metodos que ejecuta
-   * la heladera cuandp se reporta una falla tecnica.
-   */
-
-  public void reportarFallaTecnica(Incidente incidente) {
-    this.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
-    this.imprimirAlerta();
-    this.reportarFalla();
-    this.intentarNotificarSuscriptores();
-    this.notificarTecnicos();
-    this.incidentes.add(incidente);
-  }
-
-  //================================= Tarjetas de colaborador =====================================
-
-
-  /**
-   * Permite intentar abrir la heladera con una tarjeta a partir de su codigo.
-   *
-   * @param tarjeta de la tarjeta con la que se intenta abrir.
-   */
-
-  public Boolean intentarAbrirCon(TarjetaColaborador tarjeta) {
-    if (!tarjetasHabilitadas.contains(tarjeta)) {
-      throw new RuntimeException("No posees los permisos necesarios para abrir la heladera.");
-    }
-
-    UsoTarjetaColaborador ultimoUso = this.ultimoUsoDe(tarjeta);
-
-    if (!this.estaVigente(ultimoUso.getFechaSolicitud())) {
-      throw new RuntimeException("Tu solicitud ha expirado.");
-    }
-
-    ultimoUso.getApertura().setFechaApertura(LocalDateTime.now());
-    return true;
-  }
-
-  //==================================== Suscripciones ========================================
-
-  /**
-   * Intentara notificar a sus suscriptores.
-   */
-
-  public void intentarNotificarSuscriptores() {
-    if (!this.suscripciones.isEmpty()) {
-      this.suscripciones.parallelStream().forEach(InterfazSuscripcion::intentarNotificar);
-    }
-  }
-
-  public void agregarSuscripcion(InterfazSuscripcion suscripcion) {
-    this.getSuscripciones().add(suscripcion);
-  }
-
-  public void eliminarSuscripcion(InterfazSuscripcion suscripcion) {
-    this.getSuscripciones().remove(suscripcion);
-  }
-
   //==================================== Métodos auxiliares ========================================
-
-  public Boolean tieneViandas() {
-    return !this.viandas.isEmpty();
-  }
-
-  public Boolean tieneEspacio() {
-    return this.capacidadMaximaViandas > this.viandas.size();
-  }
-
-  /**
-   * Setea la fecha final del estado anterior y crea el nuevo estado actual.
-   *
-   * @param estado Nuevo estado de la heladera.
-   */
-
-  public void modificarEstado(TipoEstado estado) {
-    this.estadoActual.setFechaFinal(LocalDate.now());
-    this.estadoActual = new Estado(estado);
-    this.estadoActual.setFechaInicial(LocalDate.now());
-    this.estadosHeladera.add(this.estadoActual);
-  }
-
-  /**
-   * Obtiene el último uso de una tarjeta.
-   *
-   * @param tarjeta de la que quiere obtener el uso.
-   * @return UsoTarjetaColaborador el último uso.
-   */
-
-  public UsoTarjetaColaborador ultimoUsoDe(TarjetaColaborador tarjeta) {
-    List<UsoTarjetaColaborador> usosFiltradosPorHeladera =
-        tarjeta.getUsos().stream().filter(uso -> uso.getHeladera() == this).toList();
-    return usosFiltradosPorHeladera.get(usosFiltradosPorHeladera.size() - 1);
-  }
-
-  /**
-   * Verifica si una solicitud está vigente.
-   *
-   * @param ultimaSolicitud Solicitud que se intenta verificar si se encuentra vigente.
-   */
-
-  public Boolean estaVigente(LocalDateTime ultimaSolicitud) {
-    Duration duration = Duration.between(ultimaSolicitud, LocalDateTime.now());
-    float horas = duration.toHours();
-    return horas < limiteDeTiempo;
-  }
-
-  public void reportarFalla() {
-    this.reporteHeladera.ocurrioUnaFalla();
-  }
-
-  public Integer consultarStock() {
-    return this.viandas.size();
-  }
-
-  public Integer consultarEspacioSobrante() {
-    return this.capacidadMaximaViandas - this.consultarStock();
-  }
 
   /**
    * Busca la ultima falla de la heladera.
    *
    * @return La ultima falla tecnica.
    */
-
+  //TODO y esto para que esta?
   public Incidente ultimaFallaTecnica() {
-    Optional<Incidente> ultimoIncidente = this.incidentes.stream()
+    Optional<Incidente> ultimoIncidente = this.modIncidentes.getIncidentes().stream()
         .filter(incidente -> incidente.getTipo() == TipoIncidente.FALLA_TECNICA)
         .findFirst();
 

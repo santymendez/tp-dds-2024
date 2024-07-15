@@ -57,13 +57,16 @@ public class BuscadorHeladerasFrecuentes {
     for (Colaboracion colaboracion : colaboraciones) {
       switch (colaboracion.getTipoColaboracion()) {
         case DISTRIBUIR_VIANDAS -> {
-          if (colaboracion.getHeladeraDestino().consultarEspacioSobrante() != 0) {
+          if (colaboracion
+              .getHeladeraDestino()
+              .getModAlmacenamiento()
+              .consultarEspacioSobrante() != 0) {
             heladeras.add(colaboracion.getHeladeraDestino());
           }
         }
         case DONAR_VIANDA -> {
           for (Vianda vianda : colaboracion.getViandas()) {
-            if (vianda.getHeladera().consultarEspacioSobrante() != 0) {
+            if (vianda.getHeladera().getModAlmacenamiento().consultarEspacioSobrante() != 0) {
               heladeras.add(vianda.getHeladera());
             } else {
               break;

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.TipoEstado;
+import models.entities.heladera.estados.TipoEstado;
 import models.entities.personas.colaborador.Colaborador;
 
 /**

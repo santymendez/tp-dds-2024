@@ -42,7 +42,7 @@ public class TarjetaVulnerable {
    */
 
   public boolean puedeUtilizarse(Heladera heladera) {
-    if (!heladera.tieneViandas()) {
+    if (!heladera.getModAlmacenamiento().tieneViandas()) {
       throw new RuntimeException("La heladera no tiene viandas");
     }
     if (registroUsos.size() == cantidadDeUsosMaxima) {

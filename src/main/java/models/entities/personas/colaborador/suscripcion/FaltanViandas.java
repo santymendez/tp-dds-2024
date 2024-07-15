@@ -40,7 +40,10 @@ public class FaltanViandas implements InterfazSuscripcion {
    */
 
   public void intentarNotificar() {
-    if (this.heladera.consultarEspacioSobrante().equals(this.viandasFaltantes)) {
+    if (this.heladera
+        .getModAlmacenamiento()
+        .consultarEspacioSobrante()
+        .equals(this.viandasFaltantes)) {
       this.notificar();
     }
   }

@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
-import models.entities.heladera.TipoEstado;
+import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 
 /**
@@ -35,6 +35,6 @@ public class VisitaTecnica {
 
   public void incidenteSolucionado() {
     this.incidenteSolucionado = true;
-    this.incidente.getHeladera().modificarEstado(TipoEstado.ACTIVA);
+    this.incidente.getHeladera().getModEstados().modificarEstado(TipoEstado.ACTIVA);
   }
 }

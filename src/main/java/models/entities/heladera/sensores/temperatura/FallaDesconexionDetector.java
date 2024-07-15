@@ -2,13 +2,12 @@ package models.entities.heladera.sensores.temperatura;
 
 import java.util.List;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.TipoEstado;
-import models.repositories.heladera.HeladerasRepository;
+import models.entities.heladera.estados.TipoEstado;
 import models.repositories.heladera.InterfaceHeladerasRepository;
-import utils.sender.SenderLocator;
 
 /**
- * .
+ * Representa al detector de la falla de conexion entre la heladera
+ * y el sensor de temperatura.
  */
 
 public class FallaDesconexionDetector {
@@ -20,7 +19,7 @@ public class FallaDesconexionDetector {
   }
 
   /**
-   * Main para el CronJob.
+   * Main para el CronJob encargado de la revision de la conexion.
    */
 
   public static void main(String[] args) {
@@ -28,7 +27,7 @@ public class FallaDesconexionDetector {
     for (Heladera heladera : heladeras) {
       SensorTemperatura sensor = heladera.getModelo().getSensorTemperatura();
       if (sensor.fallaConexion()) {
-        heladera.reportarIncidente(TipoEstado.INACTIVA_FALLA_CONEXION);
+        heladera.getModIncidentes().reportarIncidente(TipoEstado.INACTIVA_FALLA_CONEXION, heladera);
       }
     }
   }

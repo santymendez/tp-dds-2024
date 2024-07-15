@@ -33,7 +33,7 @@ public class Tecnico {
    */
 
   public Boolean puedeVisitar(Heladera heladera) {
-    return !heladera.getEstadoActual().getEstado().equals(TipoEstado.ACTIVA);
+    return !heladera.getModEstados().getEstadoActual().getEstado().equals(TipoEstado.ACTIVA);
   }
 
 }

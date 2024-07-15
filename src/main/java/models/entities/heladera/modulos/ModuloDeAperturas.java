@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
@@ -15,6 +16,7 @@ import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
  */
 
 @Setter
+@Getter
 public class ModuloDeAperturas {
   private List<TarjetaColaborador> tarjetasHabilitadas;
   private Float limiteDeTiempo;

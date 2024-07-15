@@ -87,7 +87,7 @@ public class Colaborador {
   public void crearSolicitudAperturaDeHeladera(Heladera heladera) {
     UsoTarjetaColaborador nuevoUso = new UsoTarjetaColaborador(heladera);
     this.tarjeta.getUsos().add(nuevoUso);
-    heladera.getTarjetasHabilitadas().add(this.tarjeta);
+    heladera.getModAperturas().getTarjetasHabilitadas().add(this.tarjeta);
   }
 
   /**

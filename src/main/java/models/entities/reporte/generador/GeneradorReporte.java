@@ -51,11 +51,11 @@ public class GeneradorReporte {
 
       for (Heladera heladera : heladeras) {
         String nombreHeladera = heladera.getNombre();
-        int cantFallas = heladera.getReporteHeladera().getFallas();
-        int cantViandasColocadas = heladera.getReporteHeladera().getViandasColocadas();
-        int cantViandasRetiradas = heladera.getReporteHeladera().getViandasRetiradas();
+        int cantFallas = heladera.getModReportes().getReporteHeladera().getFallas();
+        int cantViandasColocadas = heladera.getModReportes().getReporteHeladera().getViandasColocadas();
+        int cantViandasRetiradas = heladera.getModReportes().getReporteHeladera().getViandasRetiradas();
         List<ViandasPorColaborador> viandasPorColaboradores =
-            heladera.getReporteHeladera().getViandasPorColaboradores();
+            heladera.getModReportes().getReporteHeladera().getViandasPorColaboradores();
 
         generarReporte(document, "Reporte Heladera: " + nombreHeladera,
             cantFallas, cantViandasColocadas, cantViandasRetiradas, viandasPorColaboradores, path);

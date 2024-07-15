@@ -1,6 +1,7 @@
 package models.entities.heladera;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,8 @@ import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.modulos.ModuloDeAlmacenamiento;
-import models.entities.heladera.modulos.ModuloDeAperturas;
+import models.entities.heladera.modulos.aperturas.Limitador;
+import models.entities.heladera.modulos.aperturas.ModuloDeAperturas;
 import models.entities.heladera.modulos.ModuloDeEstados;
 import models.entities.heladera.modulos.ModuloDeIncidentes;
 import models.entities.heladera.modulos.ModuloDeReportes;
@@ -72,7 +74,7 @@ public class Heladera {
     this.modTecnicos = new ModuloDeTecnicos();
     this.modIncidentes =
         new ModuloDeIncidentes(modReportes, modSuscripciones, modEstados, modTecnicos);
-    this.modAperturas = new ModuloDeAperturas(this);
+    this.modAperturas = new ModuloDeAperturas(this, new Limitador(ChronoUnit.HOURS, 3.0f));
   }
 
   //==================================== Calcular meses ========================================

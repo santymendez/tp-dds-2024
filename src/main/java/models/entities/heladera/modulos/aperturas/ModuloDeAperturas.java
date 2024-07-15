@@ -1,4 +1,4 @@
-package models.entities.heladera.modulos;
+package models.entities.heladera.modulos.aperturas;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 @Getter
 public class ModuloDeAperturas {
   private List<TarjetaColaborador> tarjetasHabilitadas;
-  private Float limiteDeTiempo;
+  private Limitador limitador;
   private Heladera heladera;
   //TODO en los otros modulos busque evitar lo de tener
   // la heladera, pero en este no se si conviene
@@ -30,9 +30,9 @@ public class ModuloDeAperturas {
    * @param heladera Heladera la cual va a tener este módulo.
    */
 
-  public ModuloDeAperturas(Heladera heladera) {
+  public ModuloDeAperturas(Heladera heladera, Limitador limitador) {
     this.tarjetasHabilitadas = new ArrayList<>();
-    this.limiteDeTiempo = 3.0f; //Su valor original es 3
+    this.limitador = limitador;
     this.heladera = heladera;
   }
 
@@ -82,7 +82,6 @@ public class ModuloDeAperturas {
 
   public Boolean estaVigente(LocalDateTime ultimaSolicitud) {
     Duration duration = Duration.between(ultimaSolicitud, LocalDateTime.now());
-    float horas = duration.toHours();
-    return horas < limiteDeTiempo;
+    return this.limitador.menorAlLimite(duration);
   }
 }

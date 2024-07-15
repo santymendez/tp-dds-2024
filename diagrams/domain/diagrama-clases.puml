@@ -109,7 +109,7 @@ class Colaborador{
     +boolean puedeCanjear(Oferta oferta)
     +void aumentarReconocimiento(Colaboracion colaboracion)
 
-    +void crearSolicitudAperturaDeHeladera(Heladera heladera)
+    +void agregarSolicitudApertura(Heladera heladera)
     +void reportarIncidente(Heladera heladera, String descrpicion, Image imagen)
 
     +void agregarSuscripcion(InterfazSuscripcion suscripcion)
@@ -396,10 +396,17 @@ class Apertura {
 
 class ModuloDeAperturas {
     -List<TarjetaColaborador> tarjetasHabilitadas
-    -limiteDeTiempo: Float
+    -limitador: Limitador
     -heladera: Heladera
 
     +intentarAbrirCon(TarjetaColaborador tarjeta)
+}
+
+class Limitador {
+    -unidad: ChronoUnit
+    -tiempoLimite: Float
+
+    +Boolean menorAlLimite(Duration duracion)
 }
 
 class Incidente {
@@ -485,6 +492,15 @@ class Desperfecto {
     +notificar()
 }
 
+class GeneradorReporte {
+    -startX: Integer
+    -startY: Integer
+    -leading: Integer
+    -maxLines: Integer
+    -currentLines: Integer
+    -heladerasRepository: InterfaceHeladerasRepository
+}
+
 class ModuloDeReportes {
     -reporteHeladera: ReporteHeladera
 
@@ -524,7 +540,7 @@ class ModuloDeTecnicos {
 }
 
 class BuscadorTecnicosCercanos {
-    -tecnicosRepository: TecnicosRepository
+    -tecnicosRepository: InterfaceTecnicosRepository
     -List<Tecnico> buscarTecnicosCercanosA(Heladera heladera)
 }
 
@@ -546,6 +562,18 @@ class TecnicosRepository {
 
     +guardar(Tecnico tecnico)
     +List<Tecnico> buscar(String ciudad)
+}
+
+interface InterfaceHeladerasRepository {
+    +guardar(Heladera heladera)
+    +List<Heladera> obtenerHeladeras()
+}
+
+class HeladerasRepository {
+    -List<Heladera> heladeras
+
+    +guardar(Heladera heladera)
+    +List<Heladera> obtenerHeladeras()
 }
 
 '================================================== Relaciones ================================================'
@@ -584,6 +612,7 @@ ModuloDeTecnicos --> BuscadorTecnicosCercanos
 
 'MODULO DE APERTURAS'
 ModuloDeAperturas -->"*" TarjetaColaborador
+ModuloDeAperturas *-- Limitador
 
 'MODULO DE REPORTES'
 ModuloDeReportes --> ReporteHeladera
@@ -759,8 +788,8 @@ SenderInterface ..> Destinatario
 Destinatario --> TipoContacto
 
 'BUSCADOR TECNICOS'
-BuscadorTecnicosCercanos --> TecnicosRepository
-Buscador ..> Heladera
+BuscadorTecnicosCercanos --> InterfaceTecnicosRepository
+BuscadorTecnicosCercanos ..> Heladera
 
 'TECNICOS REPOSITORY'
 TecnicosRepository *--"*" Tecnico
@@ -768,5 +797,12 @@ TecnicosRepository --|> InterfaceTecnicosRepository
 
 'BUSCADOR HELADERAS'
 BuscadorHeladerasFrecuentes ..> Colaborador
+
+'HELADERAS REPOSITORY'
+HeladerasRepository --|> InterfaceHeladerasRepository
+HeladerasRepository *--"*" Heladera
+
+'GENERADOR REPORTES'
+GeneradorReporte o-- InterfaceHeladerasRepository
 
 @enduml

@@ -28,8 +28,8 @@ public class TestSolicitudes {
 
     this.heladera1.getModAperturas().getTarjetasHabilitadas().add(this.colaborador.getTarjeta());
 
-    this.colaborador.crearSolicitudAperturaDeHeladera(this.heladera1);
-    this.colaborador.crearSolicitudAperturaDeHeladera(this.heladera2);
+    this.colaborador.agregarSolicitudApertura(this.heladera1);
+    this.colaborador.agregarSolicitudApertura(this.heladera2);
   }
 
   @Test

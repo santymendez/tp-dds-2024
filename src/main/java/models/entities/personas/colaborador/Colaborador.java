@@ -17,7 +17,6 @@ import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
-import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 import modules.recomendator.adapter.AdapterServicioRecomendacion;
 import utils.security.Usuario;
 
@@ -51,7 +50,7 @@ public class Colaborador {
 
   private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
-  private TarjetaColaborador tarjeta;
+  private List<TarjetaColaborador> tarjetas;
   private List<InterfazSuscripcion> suscripciones;
 
   /**
@@ -84,10 +83,12 @@ public class Colaborador {
    * @param heladera Heladera que se busca abrir.
    */
 
-  public void crearSolicitudAperturaDeHeladera(Heladera heladera) {
-    UsoTarjetaColaborador nuevoUso = new UsoTarjetaColaborador(heladera);
-    this.tarjeta.getUsos().add(nuevoUso);
-    heladera.getModAperturas().getTarjetasHabilitadas().add(this.tarjeta);
+  public void agregarSolicitudApertura(Heladera heladera) {
+    heladera.getModAperturas().getTarjetasHabilitadas().add(this.ultimaTarjeta());
+  }
+
+  public TarjetaColaborador ultimaTarjeta() {
+    return this.tarjetas.get(this.tarjetas.size() - 1);
   }
 
   /**

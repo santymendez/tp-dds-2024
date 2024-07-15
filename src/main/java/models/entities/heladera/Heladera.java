@@ -1,7 +1,6 @@
 package models.entities.heladera;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,13 +10,13 @@ import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.modulos.ModuloDeAlmacenamiento;
-import models.entities.heladera.modulos.aperturas.Limitador;
-import models.entities.heladera.modulos.aperturas.ModuloDeAperturas;
 import models.entities.heladera.modulos.ModuloDeEstados;
 import models.entities.heladera.modulos.ModuloDeIncidentes;
 import models.entities.heladera.modulos.ModuloDeReportes;
 import models.entities.heladera.modulos.ModuloDeSuscripciones;
 import models.entities.heladera.modulos.ModuloDeTecnicos;
+import models.entities.heladera.modulos.aperturas.Limitador;
+import models.entities.heladera.modulos.aperturas.ModuloDeAperturas;
 import models.entities.heladera.modulos.aperturas.UnidadTiempo;
 import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 

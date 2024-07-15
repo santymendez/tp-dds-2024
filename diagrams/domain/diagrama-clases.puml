@@ -4,32 +4,31 @@
 class Heladera {
     -direccion: Direccion
     -nombre: String
-    -capacidadMaximaViandas: Integer
-    -List<Vianda> viandas
     -fechaDeCreacion: LocalDate
 
     -modelo: Modelo
     -sensorMovimiento: SensorMovimiento
 
-    -estadoActual: Estado
-    -List<Estado> estadosHeladera
-
-    -List<TarjetaColaborador> tarjetasHabilitadas
-    -limiteDeTiempo: Float
     -estaAbierta: Boolean
 
-    -reporteHeladera: ReporteHeladera
+    -modAlmacenamiento: ModuloDeAlmacenamiento
+    -modSuscripciones: ModuloDeSuscripciones
+    -modEstados: ModuloDeEstados
+    -modTecnicos: ModuloDeTecnicos
+    -modAperturas: ModuloDeAperturas
+    -modReportes: ModuloDeReportes
+    -modIncidentes: ModuloDeIncidentes
 
-    -List<InterfazSuscripcion> suscripciones;
+    +Integer calcularMesesActiva()
+}
+
+class ModuloDeAlmacenamiento {
+    -capacidadMaximaViandas: Integer
+    -List<Vianda> viandas
+    -modReportes: ModuloDeReportes
+    -modSuscripciones: ModuloDeSuscripciones
 
     +agregarVianda(Vianda vianda)
-    +Integer calcularMesesActiva()
-    +imprimirAlerta()
-    +intentarAbrirCon(TarjetaColaborador tarjeta)
-    +reportarIncidente(TipoEstado tipoAlerta)
-    +void reportarFallaTecnica()
-    +void notificarTecnicos()
-    +intentarNotificarSuscriptores()
 }
 
 class Direccion {
@@ -354,6 +353,13 @@ class AdapterServicioRecomendacion{
     +ListadoDepuntos listadoDePuntos(int lat, int lon, int rad)
 }
 
+class ModuloDeEstados {
+    -estadoActual: Estado
+    -List<Estado> estadosHeladera
+
+    +void modificaEstado(TipoEstado estado)
+}
+
 class Estado{
     -estado: TipoEstado
     -fechaInicial: LocalDate
@@ -379,7 +385,6 @@ class TarjetaColaborador {
 }
 
 class UsoTarjetaColaborador {
-    -fechaSolicitud: LocalDateTime
     -apertura: Apertura
     -heladera: Heladera
 }
@@ -387,6 +392,14 @@ class UsoTarjetaColaborador {
 class Apertura {
     -fechaSolicitud: LocalDateTime
     -fechaApertura: LocalDateTime
+}
+
+class ModuloDeAperturas {
+    -List<TarjetaColaborador> tarjetasHabilitadas
+    -limiteDeTiempo: Float
+    -heladera: Heladera
+
+    +intentarAbrirCon(TarjetaColaborador tarjeta)
 }
 
 class Incidente {
@@ -408,12 +421,26 @@ enum TipoIncidente {
     FALLA_TECNICA
 }
 
+class ModuloDeIncidentes {
+    -List<Incidente> incidentes
+
+    +imprimirAlerta()
+    +reportarIncidente(TipoEstado tipoAlerta, Heladera heladera)
+    +void reportarFallaTecnica(Incidente incidente, Heladera heladera)
+}
+
 class VisitaTecnica {
     -Incidente: incidente
     -fechaVisita: LocalDate
     -trabajoRealizado: String
     -fotoVisita: Image
     -incidenteSolucionado: Boolean
+}
+
+class ModuloDeSuscripciones {
+    -List<InterfazSuscripcion> suscripciones;
+
+    +intentarNotificarSuscriptores()
 }
 
 interface InterfazSuscripcion {
@@ -458,6 +485,12 @@ class Desperfecto {
     +notificar()
 }
 
+class ModuloDeReportes {
+    -reporteHeladera: ReporteHeladera
+
+    +void reportarFalla()
+}
+
 class ReporteHeladera {
     -heladera: Heladera
     -fallas: Integer
@@ -482,6 +515,12 @@ class Mensaje {
 
 class Destinatario {
     -HashMap<TipoContacto, String> mediosDeContacto
+}
+
+class ModuloDeTecnicos {
+    -buscadorTecnicosCercanos: BuscadorTecnicosCercanos
+
+    +void notificarTecnicos()
 }
 
 class BuscadorTecnicosCercanos {
@@ -518,18 +557,48 @@ Ciudad o-- Barrio
 
 'HELADERA'
 Heladera o-- Direccion
-Heladera <-->"*" Vianda
+Heladera *-- ModuloDeAlmacenamiento
 Heladera *-- Modelo
 Heladera *-- SensorMovimiento
-Heladera -->"*" Estado
-Heladera -->"*" TarjetaColaborador
-Heladera --> ReporteHeladera
-Heladera -->"*" InterfazSuscripcion
-Heladera --> BuscadorTecnicosCercanos
+Heladera *-- ModuloDeSuscripciones
+Heladera *-- ModuloDeEstados
+Heladera *-- ModuloDeTecnicos
+Heladera *-- ModuloDeAperturas
+Heladera *-- ModuloDeReportes
+Heladera *-- ModuloDeIncidentes
+
+'MODULO DE ALMACENAMIENTO'
+ModuloDeAlmacenamiento -->"*" Vianda
+ModuloDeAlmacenamiento --> ModuloDeSuscripciones
+ModuloDeAlmacenamiento --> ModuloDeReportes
+
+'MODULO DE SUSCRIPCIONES'
+ModuloDeSuscripciones -->"*" InterfazSuscripcion
+
+'MODULO DE ESTADOS'
+ModuloDeEstados -->"*" Estado
+ModuloDeEstados ..> TipoEstado
+
+'MODULO DE TECNICOS'
+ModuloDeTecnicos --> BuscadorTecnicosCercanos
+
+'MODULO DE APERTURAS'
+ModuloDeAperturas -->"*" TarjetaColaborador
+
+'MODULO DE REPORTES'
+ModuloDeReportes --> ReporteHeladera
+
+'MODULO DE INCIDENTES'
+ModuloDeIncidentes -->"*" Incidente
+ModuloDeIncidentes --> ModuloDeReportes
+ModuloDeIncidentes --> ModuloDeSuscripciones
+ModuloDeIncidentes --> ModuloDeEstados
+ModuloDeIncidentes --> ModuloDeTecnicos
 
 'VIANDA'
 Vianda *-- Comida
 Vianda --> Colaborador
+Vianda --> Heladera
 
 'MODELO'
 Modelo *-- SensorTemperatura
@@ -537,6 +606,7 @@ Modelo *-- SensorTemperatura
 'SENSORES'
 SensorMovimiento *-- Heladera
 SensorTemperatura *-- Heladera
+SensorTemperatura -->"*"MedicionSensorTemp
 
 'COLABORADOR'
 Colaborador ---> Documento
@@ -694,6 +764,7 @@ Buscador ..> Heladera
 
 'TECNICOS REPOSITORY'
 TecnicosRepository *--"*" Tecnico
+TecnicosRepository --|> InterfaceTecnicosRepository
 
 'BUSCADOR HELADERAS'
 BuscadorHeladerasFrecuentes ..> Colaborador

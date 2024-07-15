@@ -1,15 +1,20 @@
 package models.entities.heladera.sensores.movimiento;
 
+import lombok.Setter;
+import models.repositories.heladera.InterfaceSensoresMovimientoRepository;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 /**
- * Clase que representa al sensor encargado de enviar las mediciones.
+ * Clase que representa al broker encargado de enviar las mediciones.
  */
 
+@Setter
 public class BrokerSensorMovimiento {
+
+  private static InterfaceSensoresMovimientoRepository movimientoRepository;
 
   /**
    * Main.
@@ -34,7 +39,7 @@ public class BrokerSensorMovimiento {
       System.out.println("Connected");
 
       System.out.println("Build our receptor");
-      SensorMovimiento receptor = new SensorMovimiento();
+      MovimientoListener receptor = new MovimientoListener(movimientoRepository);
 
       System.out.println("Now we subscribe to the topic");
       sampleClient.subscribe(topic, receptor);

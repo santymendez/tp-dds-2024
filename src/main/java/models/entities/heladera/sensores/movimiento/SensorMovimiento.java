@@ -16,7 +16,6 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class SensorMovimiento implements IMqttMessageListener {
   private Integer id;
   private Heladera heladera;
-  private String topic = "sensor-movimiento";
 
   @Override
   public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {

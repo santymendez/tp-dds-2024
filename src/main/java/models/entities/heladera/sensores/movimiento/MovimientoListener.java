@@ -13,7 +13,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 @Setter
 public class MovimientoListener implements IMqttMessageListener {
-  private String topic = "sensor-movimiento";
+  private String topic = "dds2024/sensores-movimiento";
   private InterfaceSensoresMovimientoRepository movimientoRepository;
 
   public MovimientoListener(InterfaceSensoresMovimientoRepository movimientoRepository) {

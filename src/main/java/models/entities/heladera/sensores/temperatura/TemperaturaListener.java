@@ -12,7 +12,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  */
 @Setter
 public class TemperaturaListener implements IMqttMessageListener {
-  private String topic = "dds2024/heladeras/almagro/medrano";
+  private String topic = "dds2024/heladeras/sensores-temperatura";
   private InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
 
   public TemperaturaListener(InterfaceSensoresTemperaturaRepository repository) {

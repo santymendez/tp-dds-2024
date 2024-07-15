@@ -17,7 +17,7 @@ public class BrokerSensorMovimiento {
 
   public static void main(String[] args) {
 
-    String topic        = "sensor-movimiento";
+    String topic        = "dds2024/sensores-movimiento";
     String content      = "Message from MqttPublishSample";
     int qos             = 2;
     String broker       = "tcp://broker.hivemq.com:1883";

@@ -22,7 +22,7 @@ public class BrokerSensorTemperatura {
 
   public static void main(String[] args) {
 
-    String topic        = "dds2024/heladeras/almagro/medrano";
+    String topic        = "dds2024/heladeras/sensores-temperatura";
     String content      = "Message from MqttPublishSample";
     int qos             = 2;
     String broker       = "tcp://broker.hivemq.com:1883";

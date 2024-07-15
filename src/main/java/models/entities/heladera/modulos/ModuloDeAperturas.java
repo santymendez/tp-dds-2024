@@ -24,6 +24,12 @@ public class ModuloDeAperturas {
   //TODO en los otros modulos busque evitar lo de tener
   // la heladera, pero en este no se si conviene
 
+  /**
+   * Constructor del módulo de aperturas.
+   *
+   * @param heladera Heladera la cual va a tener este módulo.
+   */
+
   public ModuloDeAperturas(Heladera heladera) {
     this.tarjetasHabilitadas = new ArrayList<>();
     this.limiteDeTiempo = 3.0f; //Su valor original es 3
@@ -61,6 +67,10 @@ public class ModuloDeAperturas {
   public UsoTarjetaColaborador ultimoUsoDe(TarjetaColaborador tarjeta) {
     List<UsoTarjetaColaborador> usosFiltradosPorHeladera =
         tarjeta.getUsos().stream().filter(uso -> uso.getHeladera() == this.heladera).toList();
+
+    if (usosFiltradosPorHeladera.isEmpty()) {
+      throw new RuntimeException("No hay tarjetas en la lista, o no está inicializada");
+    }
     return usosFiltradosPorHeladera.get(usosFiltradosPorHeladera.size() - 1);
   }
 

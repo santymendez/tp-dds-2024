@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.reporte.ViandasPorColaborador;
-import models.repositories.heladera.HeladerasRepository;
 import models.repositories.heladera.InterfaceHeladerasRepository;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -52,8 +51,10 @@ public class GeneradorReporte {
       for (Heladera heladera : heladeras) {
         String nombreHeladera = heladera.getNombre();
         int cantFallas = heladera.getModReportes().getReporteHeladera().getFallas();
-        int cantViandasColocadas = heladera.getModReportes().getReporteHeladera().getViandasColocadas();
-        int cantViandasRetiradas = heladera.getModReportes().getReporteHeladera().getViandasRetiradas();
+        int cantViandasColocadas = heladera.getModReportes().getReporteHeladera()
+            .getViandasColocadas();
+        int cantViandasRetiradas = heladera.getModReportes().getReporteHeladera()
+            .getViandasRetiradas();
         List<ViandasPorColaborador> viandasPorColaboradores =
             heladera.getModReportes().getReporteHeladera().getViandasPorColaboradores();
 

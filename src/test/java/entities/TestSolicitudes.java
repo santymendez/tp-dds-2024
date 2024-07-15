@@ -24,8 +24,9 @@ public class TestSolicitudes {
     this.colaborador.setTarjeta(new TarjetaColaborador());
 
     this.heladera1 = new Heladera(new Direccion(), "Heladera 1", 3, LocalDate.now(), new Modelo(), new SensorMovimiento());
-    this.heladera1.getModAperturas().setLimiteDeTiempo(3f);
     this.heladera2 = new Heladera(new Direccion(), "Heladera 2", 4, LocalDate.now(), new Modelo(), new SensorMovimiento());
+
+    this.heladera1.getModAperturas().getTarjetasHabilitadas().add(this.colaborador.getTarjeta());
 
     this.colaborador.crearSolicitudAperturaDeHeladera(this.heladera1);
     this.colaborador.crearSolicitudAperturaDeHeladera(this.heladera2);
@@ -34,12 +35,13 @@ public class TestSolicitudes {
   @Test
   @DisplayName("Un colaborador puede abrir una heladera")
   public void test01() {
+
     Assertions.assertTrue(this.heladera1.getModAperturas().intentarAbrirCon(colaborador.getTarjeta()));
   }
 
   @Test
   @DisplayName("Un colaborador no puede abrir una heladera porque la solicitud ha expirado")
-  public void test02() throws InterruptedException {
+  public void test02() {
     LocalDateTime fechaConHora = LocalDateTime.of(2024, 6, 5, 12, 30, 0);
     this.colaborador.getTarjeta().getUsos().get(0).getApertura().setFechaSolicitud(fechaConHora);
     Assertions.assertThrows(RuntimeException.class, () -> heladera1.getModAperturas().intentarAbrirCon(colaborador.getTarjeta()));

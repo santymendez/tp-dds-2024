@@ -72,7 +72,7 @@ public class Heladera {
     this.modTecnicos = new ModuloDeTecnicos();
     this.modIncidentes =
         new ModuloDeIncidentes(modReportes, modSuscripciones, modEstados, modTecnicos);
-    this.modAperturas = new ModuloDeAperturas();
+    this.modAperturas = new ModuloDeAperturas(this);
   }
 
   //==================================== Calcular meses ========================================

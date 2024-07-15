@@ -24,9 +24,10 @@ public class ModuloDeAperturas {
   //TODO en los otros modulos busque evitar lo de tener
   // la heladera, pero en este no se si conviene
 
-  public ModuloDeAperturas() {
+  public ModuloDeAperturas(Heladera heladera) {
     this.tarjetasHabilitadas = new ArrayList<>();
     this.limiteDeTiempo = 3.0f; //Su valor original es 3
+    this.heladera = heladera;
   }
 
   /**

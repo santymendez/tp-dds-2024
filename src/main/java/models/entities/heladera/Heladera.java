@@ -18,6 +18,7 @@ import models.entities.heladera.modulos.ModuloDeIncidentes;
 import models.entities.heladera.modulos.ModuloDeReportes;
 import models.entities.heladera.modulos.ModuloDeSuscripciones;
 import models.entities.heladera.modulos.ModuloDeTecnicos;
+import models.entities.heladera.modulos.aperturas.UnidadTiempo;
 import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 
 /**
@@ -74,7 +75,7 @@ public class Heladera {
     this.modTecnicos = new ModuloDeTecnicos();
     this.modIncidentes =
         new ModuloDeIncidentes(modReportes, modSuscripciones, modEstados, modTecnicos);
-    this.modAperturas = new ModuloDeAperturas(this, new Limitador(ChronoUnit.HOURS, 3.0f));
+    this.modAperturas = new ModuloDeAperturas(this, new Limitador(UnidadTiempo.HORAS, 3));
   }
 
   //==================================== Calcular meses ========================================

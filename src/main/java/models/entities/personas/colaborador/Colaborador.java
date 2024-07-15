@@ -61,6 +61,7 @@ public class Colaborador {
     this.reconocimiento = new Reconocimiento();
     this.colaboraciones = new ArrayList<>();
     this.suscripciones = new ArrayList<>();
+    this.tarjetas = new ArrayList<>();
   }
 
   /**
@@ -89,6 +90,10 @@ public class Colaborador {
 
   public TarjetaColaborador ultimaTarjeta() {
     return this.tarjetas.get(this.tarjetas.size() - 1);
+  }
+
+  public void agregarTarjeta(TarjetaColaborador tarjeta) {
+    this.tarjetas.add(tarjeta);
   }
 
   /**

@@ -6,6 +6,7 @@ import models.entities.heladera.Modelo;
 import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
+import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,12 +22,13 @@ public class TestSolicitudes {
   @BeforeEach
   public void inicializar(){
     this.colaborador = new Colaborador();
-    this.colaborador.setTarjeta(new TarjetaColaborador());
+    this.colaborador.agregarTarjeta(new TarjetaColaborador());
 
     this.heladera1 = new Heladera(new Direccion(), "Heladera 1", 3, LocalDate.now(), new Modelo(), new SensorMovimiento());
     this.heladera2 = new Heladera(new Direccion(), "Heladera 2", 4, LocalDate.now(), new Modelo(), new SensorMovimiento());
 
-    this.heladera1.getModAperturas().getTarjetasHabilitadas().add(this.colaborador.getTarjeta());
+    this.colaborador.ultimaTarjeta().getUsos().add(new UsoTarjetaColaborador(this.heladera1));
+    this.colaborador.agregarSolicitudApertura(this.heladera1);
 
     this.colaborador.agregarSolicitudApertura(this.heladera1);
     this.colaborador.agregarSolicitudApertura(this.heladera2);
@@ -35,15 +37,14 @@ public class TestSolicitudes {
   @Test
   @DisplayName("Un colaborador puede abrir una heladera")
   public void test01() {
-
-    Assertions.assertTrue(this.heladera1.getModAperturas().intentarAbrirCon(colaborador.getTarjeta()));
+    Assertions.assertTrue(this.heladera1.getModAperturas().intentarAbrirCon(this.colaborador.ultimaTarjeta()));
   }
 
   @Test
   @DisplayName("Un colaborador no puede abrir una heladera porque la solicitud ha expirado")
   public void test02() {
     LocalDateTime fechaConHora = LocalDateTime.of(2024, 6, 5, 12, 30, 0);
-    this.colaborador.getTarjeta().getUsos().get(0).getApertura().setFechaSolicitud(fechaConHora);
-    Assertions.assertThrows(RuntimeException.class, () -> heladera1.getModAperturas().intentarAbrirCon(colaborador.getTarjeta()));
+    this.colaborador.ultimaTarjeta().getUsos().get(0).getApertura().setFechaSolicitud(fechaConHora);
+    Assertions.assertThrows(RuntimeException.class, () -> heladera1.getModAperturas().intentarAbrirCon(colaborador.ultimaTarjeta()));
   }
 }

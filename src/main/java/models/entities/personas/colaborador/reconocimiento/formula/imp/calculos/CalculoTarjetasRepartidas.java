@@ -14,6 +14,6 @@ public class CalculoTarjetasRepartidas implements InterfazFormula {
 
   @Override
   public Float calcularPuntosDe(Colaboracion colaboracion) {
-    return colaboracion.getCantTarjetasEntregadas() * coeficiente;
+    return colaboracion.getDistribucionTarjetas().getCantTarjetasEntregadas() * coeficiente;
   }
 }

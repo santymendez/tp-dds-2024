@@ -14,6 +14,6 @@ public class CalculoPesosDonados implements InterfazFormula {
 
   @Override
   public Float calcularPuntosDe(Colaboracion colaboracion) {
-    return colaboracion.getMonto() * coeficiente;
+    return colaboracion.getDonacionDinero().getMonto() * coeficiente;
   }
 }

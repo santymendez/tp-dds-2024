@@ -14,6 +14,6 @@ public class CalculoViandasDistribuidas implements InterfazFormula {
 
   @Override
   public Float calcularPuntosDe(Colaboracion colaboracion) {
-    return colaboracion.getCantViandasDistribuidas() * coeficiente;
+    return colaboracion.getDistribucionViandas().getCantViandasDistribuidas() * coeficiente;
   }
 }

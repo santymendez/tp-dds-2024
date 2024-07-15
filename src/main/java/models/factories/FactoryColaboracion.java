@@ -4,6 +4,10 @@ import dtos.ColaboracionInputDto;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import models.entities.colaboracion.Colaboracion;
+import models.entities.colaboracion.DistribucionTarjetas;
+import models.entities.colaboracion.DistribucionViandas;
+import models.entities.colaboracion.DonacionDinero;
+import models.entities.colaboracion.DonacionViandas;
 import models.entities.colaboracion.TipoColaboracion;
 
 /**
@@ -32,10 +36,22 @@ public class FactoryColaboracion {
     Integer cantidad = colaboracionInputDto.getCantidad();
 
     switch (unaColaboracion.getTipoColaboracion()) {
-      case DONAR_DINERO -> unaColaboracion.setMonto(cantidad);
-      case DONAR_VIANDA -> unaColaboracion.setCantViandas(cantidad);
-      case DISTRIBUIR_VIANDAS -> unaColaboracion.setCantViandasDistribuidas(cantidad);
-      case ENTREGAR_TARJETA -> unaColaboracion.setCantTarjetasEntregadas(cantidad);
+      case DONAR_DINERO -> {
+        unaColaboracion.setDonacionDinero(new DonacionDinero());
+        unaColaboracion.getDonacionDinero().setMonto(cantidad);
+      }
+      case DONAR_VIANDA -> {
+        unaColaboracion.setDonacionViandas(new DonacionViandas());
+        unaColaboracion.getDonacionViandas().setCantViandas(cantidad);
+      }
+      case DISTRIBUIR_VIANDAS -> {
+        unaColaboracion.setDistribucionViandas(new DistribucionViandas());
+        unaColaboracion.getDistribucionViandas().setCantViandasDistribuidas(cantidad);
+      }
+      case ENTREGAR_TARJETA -> {
+        unaColaboracion.setDistribucionTarjetas(new DistribucionTarjetas());
+        unaColaboracion.getDistribucionTarjetas().setCantTarjetasEntregadas(cantidad);
+      }
       default -> throw new RuntimeException("No existe esa forma de colaborar");
     }
 

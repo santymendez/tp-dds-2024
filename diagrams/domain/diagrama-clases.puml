@@ -161,29 +161,17 @@ class Colaboracion {
     -tipoColaboracion: TipoColaboracion
     -fechaColaboracion: LocalDate
 
-    'DONAR_DINERO'
-    -monto: Integer
-    -frecuencia: String
+    -donacionDinero: DonacionDinero
 
-    'DONAR_VIANDA'
-    -List<Vianda> viandas
-    -cantViandas: Integer
+    -donacionViandas: DonacionViandas
 
-    'DISTRIBUIR_VIANDA'
-    -heladeraOrigen: Heladera
-    -heladeraDestino: Heladera
-    -cantViandasDistribuidas: Integer
-    -motivoDistribucion: String
+    -distribucionViandas: DistribucionViandas
 
-    'COLOCAR_HELADERA'
-    -nuevaHeladera: Heladera
+    -distribucionTarjetas: DistribucionTarjetas
 
-    'DISTRIBUIR_TARJETAS'
-    -List<TarjetaVulnerable> tarjetasEntregadas
-    -cantTarjetasEntregadas: Integer
+    -colocacionHeladera ColocacionHeladera
 
-    'REALIZAR_OFERTAS'
-    -List<Oferta> ofertas
+    -realizacionOfertas: RealizacionOfertas
 }
 
 enum TipoColaboracion {
@@ -193,6 +181,36 @@ enum TipoColaboracion {
     COLOCAR_HELADERA,
     ENTREGAR_TARJETA,
     REALIZAR_OFERTAS
+}
+
+class DonacionDinero {
+    -monto: Integer
+    -frecuencia: String
+}
+
+class DonacionViandas {
+    -viandas: List<Vianda>
+    -cantViandas: Integer
+}
+
+class DistribucionViandas {
+    -heladeraOrigen: Heladera
+    -heladeraDestino: Heladera
+    -cantViandasDistribuidas: Integer
+    -motivoDistribucion: String
+}
+
+class DistribucionTarjetas {
+    -tarjetasEntregadas: List<TarjetaVulnerable>
+    -cantTarjetasEntregadas: Integer
+}
+
+class ColocacionHeladera {
+    -heladera: Heladera
+}
+
+class RealizacionOfertas {
+    -List<Oferta> ofertas
 }
 
 '========================================== Clases de la entrega 2 ============================================='
@@ -650,7 +668,7 @@ Colaborador ..> Heladera
 Colaborador --> Suscripcion
 Colaborador ..> TipoSuscripcion
 Colaborador -->"*" InterfazSuscripcion
-Colaborador -->"*" Colaboraciones
+Colaborador -->"*" Colaboracion
 
 'DOCUMENTO'
 Documento o-- TipoDocumento
@@ -693,10 +711,18 @@ Respuesta -->"*" Opcion
 
 'COLABORACION'
 Colaboracion *-- TipoColaboracion
-Colaboracion -->"*" Vianda
-Colaboracion --> Heladera
-Colaboracion -->"*" TarjetaVulnerable
-Colaboracion -->"*" Oferta
+Colaboracion --> DonacionViandas
+Colaboracion --> DistribucionViandas
+Colaboracion --> DistribucionTarjetas
+Colaboracion --> RealizacionOfertas
+Colaboracion --> ColocacionHeladera
+Colaboracion --> DonacionDinero
+
+DonacionViandas -->"*" Vianda
+DistribucionViandas --> Heladera
+DistribucionTarjetas -->"*" TarjetaVulnerable
+RealizacionOfertas -->"*" Oferta
+ColocacionHeladera --> Heladera
 
 'TARJETA'
 TarjetaVulnerable o---"*" RegistroUso

@@ -1,13 +1,12 @@
-/* CSS.css */
+
 
 :root {
     --fuenteHeading: 'PT Sans', sans-serif;
     --fuenteParrafos: 'Open Sans', sans-serif;
-
-    --primario: #784d3c;
-    --blanco: #ffffff;
-    --negro: #000000;
-    --gris: #e1e1e1;
+    --blanco: #d9d9d9;
+    --negro: #181818;
+    --verdeOscuro: #0c3720;
+    --verdeClaro: #186D3D;
 }
 
 html {
@@ -25,7 +24,7 @@ body {
     line-height: 2;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #d9d9d9;
     justify-content: center;
     align-content: center;
     display: flex;
@@ -54,7 +53,7 @@ h1 {
 
 h2 {
     font-size: 4rem;
-    color: black;
+    color: #181818;
     text-align: center;
 }
 
@@ -91,7 +90,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--blanco);
+    color: #181818;
     position: relative;
 }
 
@@ -100,11 +99,11 @@ img {
 }
 
 .header__titulo {
-    color: var(--blanco);
+    color: #d9d9d9;
 }
 
 nav.nav-container {
-    background-color: #002E85;
+    background-color: #0c3720;
     padding: 10px 0;
     width: 100%;
     display: flex;
@@ -141,7 +140,7 @@ nav ul li:nth-child(3) {
 }
 
 nav ul li a {
-    color: white;
+    color: #d9d9d9;
     text-decoration: none;
     font-weight: bold;
     font-size: 20px;
@@ -150,11 +149,11 @@ nav ul li a {
 }
 
 nav ul li:hover {
-    background-color: #108901;
+    background-color: #0c3720;
 }
 
 nav ul li:hover a {
-    color: white;
+    color: #d9d9d9;
 }
 
 .main-content {
@@ -175,76 +174,23 @@ p {
 }
 
 footer {
-    background-color: #00256A;
-    color: white;
+    background-color: #0c3720;
+    color: #d9d9d9;
     text-align: center;
     padding: 2px;
     width: 100%;
     margin-top: auto;
 }
 
-#login-form, #registro-form {
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-}
-
-#login-form form, #registro-form form {
-    display: grid;
-    gap: 10px;
-}
-
-.form-group {
-    display: grid;
-    gap: 5px;
-}
-
-.form-group label {
-    text-align: left;
-    font-weight: bold;
-}
-
-.form-group input[type="text"],
-.form-group input[type="password"] {
-    width: calc(100% - 20px);
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.radio-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.radio-group label {
-    font-weight: normal;
-}
-
 .button {
-    width: 100%;
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #002E85;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+    background-color: #0c3720;
+    color: #181818;
 }
 
 .button:hover {
-    background-color: #001d5c;
+    background-color: #186D3D;
 }
 
-#login-form p, #registro-form p {
-    text-align: center;
-    margin-top: 10px;
-}
 #map {
     width: 100%; /* Ajusta el ancho del mapa al 100% del contenedor */
     height: 67vh; /* Altura del mapa del 60% del alto de la ventana */

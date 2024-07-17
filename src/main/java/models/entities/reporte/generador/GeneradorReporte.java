@@ -39,8 +39,7 @@ public class GeneradorReporte {
    * Genera un reporte semanal.
    */
 
-  public static void main(String[] args) {
-
+  public void generarReporteSemanal() throws IOException {
     LocalDate semanaActual = LocalDate.now();
 
     String path = "reportes/reporte-semana-" + semanaActual + ".pdf";
@@ -49,70 +48,61 @@ public class GeneradorReporte {
       List<Heladera> heladeras = heladerasRepository.obtenerHeladeras();
 
       for (Heladera heladera : heladeras) {
-        String nombreHeladera = heladera.getNombre();
+
+        PDPage page = new PDPage(PDRectangle.A4);
+        document.addPage(page);
+        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+        PDFont pdfFont = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
+        contentStream.setFont(pdfFont, 14);
+
+        int y = startY;
+        currentLines = maxLines;
+
+        String nombreHeladera = "Reporte Heladera: " + heladera.getNombre();
+        y = agregarLineaTexto(contentStream, y, nombreHeladera);
+
         int cantFallas = heladera.getModReportes().getReporteHeladera().getFallas();
+        y = agregarLineaTexto(
+            contentStream, y, "Cantidad de Fallas: " + cantFallas);
+
         int cantViandasColocadas = heladera.getModReportes().getReporteHeladera()
             .getViandasColocadas();
+        y = agregarLineaTexto(
+            contentStream, y, "Cantidad de Viandas Colocadas: " + cantViandasColocadas);
+
         int cantViandasRetiradas = heladera.getModReportes().getReporteHeladera()
             .getViandasRetiradas();
+        y = agregarLineaTexto(
+            contentStream, y, "Cantidad de Viandas Retiradas: " + cantViandasRetiradas);
+
         List<ViandasPorColaborador> viandasPorColaboradores =
             heladera.getModReportes().getReporteHeladera().getViandasPorColaboradores();
 
-        generarReporte(document, "Reporte Heladera: " + nombreHeladera,
-            cantFallas, cantViandasColocadas, cantViandasRetiradas, viandasPorColaboradores, path);
+        for (ViandasPorColaborador viandasPorColaborador : viandasPorColaboradores) {
+          //Si me paso de líneas, creo una nueva página para la misma heladera.
+          if (currentLines == 0) {
+            contentStream.close();
+            document.save(path);
+            PDPage newPage = new PDPage(PDRectangle.A4);
+            document.addPage(newPage);
+            contentStream = new PDPageContentStream(document, newPage);
+            contentStream.setFont(pdfFont, 14);
+            y = startY;
+            currentLines = 34;
+          }
+          String nombreColaborador = viandasPorColaborador.getColaborador().getNombre();
+          int cantViandas = viandasPorColaborador.getViandas();
+          y = agregarLineaTexto(
+              contentStream, y, "Colaborador: " + nombreColaborador + " - Viandas: " + cantViandas);
+        }
+        contentStream.close();
         document.save(path);
       }
-
       System.out.println("Se generó el PDF correctamente en: " + path);
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  private static void generarReporte(
-      PDDocument document, String nombreHeladera,
-      int cantFallas, int cantViandasColocadas,
-      int cantViandasRetiradas,
-      List<ViandasPorColaborador> viandasPorColaboradores,
-      String path
-  ) throws IOException {
-
-    PDPage page = new PDPage(PDRectangle.A4);
-    document.addPage(page);
-    PDPageContentStream contentStream = new PDPageContentStream(document, page);
-
-    PDFont pdfFont = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
-    contentStream.setFont(pdfFont, 14);
-
-    int y = startY;
-    currentLines = maxLines;
-    y = agregarLineaTexto(contentStream, y, nombreHeladera);
-    y = agregarLineaTexto(
-        contentStream, y, "Cantidad de Fallas: " + cantFallas);
-    y = agregarLineaTexto(
-        contentStream, y, "Cantidad de Viandas Colocadas: " + cantViandasColocadas);
-    y = agregarLineaTexto(
-        contentStream, y, "Cantidad de Viandas Retiradas: " + cantViandasRetiradas);
-
-
-    for (ViandasPorColaborador viandasPorColaborador : viandasPorColaboradores) {
-      //Si me paso de líneas, creo una nueva página para la misma heladera.
-      if (currentLines == 0) {
-        contentStream.close();
-        document.save(path);
-        PDPage newPage = new PDPage(PDRectangle.A4);
-        document.addPage(newPage);
-        contentStream = new PDPageContentStream(document, newPage);
-        contentStream.setFont(pdfFont, 14);
-        y = startY;
-        currentLines = 34;
-      }
-      String nombreColaborador = viandasPorColaborador.getColaborador().getNombre();
-      int cantViandas = viandasPorColaborador.getViandas();
-      y = agregarLineaTexto(
-          contentStream, y, "Colaborador: " + nombreColaborador + " - Viandas: " + cantViandas);
-    }
-    contentStream.close();
   }
 
   private static int agregarLineaTexto(

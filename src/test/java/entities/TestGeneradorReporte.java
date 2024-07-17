@@ -9,13 +9,18 @@ import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ViandasPorColaborador;
 import models.entities.reporte.generador.GeneradorReporte;
 import models.repositories.heladera.HeladerasRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TestGeneradorReporte {
+
+  GeneradorReporte generadorReporte;
 
   @BeforeEach
   public void setUp() {
@@ -61,13 +66,16 @@ public class TestGeneradorReporte {
     iniaki.getModReportes().getReporteHeladera().getViandasPorColaboradores().add(new ViandasPorColaborador(mati, 20));
     heladerasRepository.guardar(iniaki);
 
-    GeneradorReporte generadorReporte = new GeneradorReporte(heladerasRepository);
+    this.generadorReporte = new GeneradorReporte(heladerasRepository);
   }
 
   @Test
   @DisplayName("Se genera un reporte en formato PDF, con 3 paginas, cada pagina con la informacion de una heladera distinta")
-  public void testMain() {
-    GeneradorReporte.main(null);
+  public void testMain() throws IOException {
+    generadorReporte.generarReporteSemanal();
+    LocalDate semanaActual = LocalDate.now();
+    File file = new File("reportes/reporte-semana-" + semanaActual + ".pdf");
+    Assertions.assertTrue(file.exists());
   }
 
 }

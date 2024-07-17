@@ -6,7 +6,7 @@ import lombok.Data;
 import models.entities.heladera.incidente.Incidente;
 
 /**
- * Representa la clase DTO de las visitas técnicas.
+ * Representa el Input de una Visita Tecnica.
  */
 
 @Data

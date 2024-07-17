@@ -3,7 +3,7 @@ package dtos;
 import lombok.Data;
 
 /**
- * Clase de ColaboracionInput para setear atributos y el controller instancia.
+ * Representa el Input de una Colaboracion.
  */
 
 @Data

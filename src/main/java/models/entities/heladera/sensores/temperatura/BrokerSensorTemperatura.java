@@ -17,12 +17,12 @@ public class BrokerSensorTemperatura {
   private static InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
 
   /**
-   * Main.
+   * Suscribe al Broker.
+   *
+   * @param topic Topico al que suscribe.
    */
 
-  public static void main(String[] args) {
-
-    String topic        = "dds2024/heladeras/sensores-temperatura";
+  public void suscribirBroker(String topic) {
     String content      = "Message from MqttPublishSample";
     int qos             = 2;
     String broker       = "tcp://broker.hivemq.com:1883";

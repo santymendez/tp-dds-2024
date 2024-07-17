@@ -10,19 +10,19 @@ import models.repositories.heladera.InterfaceHeladerasRepository;
  * y el sensor de temperatura.
  */
 
-public class FallaDesconexionDetector {
+public class DetectorFallaDesconexion {
 
   private static InterfaceHeladerasRepository heladerasRepository;
 
-  public FallaDesconexionDetector(InterfaceHeladerasRepository heladerasRepository) {
-    FallaDesconexionDetector.heladerasRepository = heladerasRepository;
+  public DetectorFallaDesconexion(InterfaceHeladerasRepository heladerasRepository) {
+    DetectorFallaDesconexion.heladerasRepository = heladerasRepository;
   }
 
   /**
    * Main para el CronJob encargado de la revision de la conexion.
    */
 
-  public static void main(String[] args) {
+  public void verificarFallaDesconexion() {
     List<Heladera> heladeras = heladerasRepository.obtenerHeladeras();
     for (Heladera heladera : heladeras) {
       SensorTemperatura sensor = heladera.getModelo().getSensorTemperatura();

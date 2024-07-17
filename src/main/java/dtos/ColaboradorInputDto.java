@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Misma idea que el ColaboracionInputDto.
+ * Representa el Input de un Colaborador.
  */
 
 @Data

@@ -1,0 +1,146 @@
+:root {
+    --fuenteParrafos: 'Montserrat', sans-serif;
+    --fuenteBotones: 'Montserrat', sans-serif;
+    --fuenteTitulo: 'Poppins', sans-serif;
+    --fuenteSubtitulos: 'Lexend', sans-serif;
+    --blanco: #d9d9d9;
+    --negro: #181818;
+    --verdePrincipal: #0c3720;
+    --verdeSecundario: #186D3D;
+    --verdeBotonesCuadrados: #135731;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: var(--fuenteParrafos), sans-serif;
+    font-size: 1.6rem;
+    line-height: 2;
+    margin: 0;
+    padding: 0;
+    background-color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h2 {
+    color: var(--negro);
+    text-decoration: none;
+    font-family: var(--fuenteSubtitulos), sans-serif;
+    float: left;
+    margin-left: 10px;
+}
+
+.header {
+    width: 100%;
+}
+
+.header__top {
+    background-color: var(--verdePrincipal);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 8px;
+}
+
+.header__logo {
+    max-width: 50px;
+    margin-right: 20px;
+}
+
+.header__titulo {
+    font-family: var(--fuenteTitulo), serif;
+    font-size: 2.5rem;
+    color: var(--blanco);
+    font-weight: 700;
+    text-align: center;
+}
+
+.header__nav {
+    background-color: var(--verdeSecundario);
+    padding: 0;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin-right: 5px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    color: var(--blanco);
+    text-decoration: none;
+    font-family: var(--fuenteBotones), sans-serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    padding: 8px 15px;
+    display: block;
+    background-color: var(--verdeBotonesCuadrados);
+}
+
+nav ul li a:hover {
+    background-color: var(--verdeSecundario);
+    color: var(--blanco);
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    text-align: left;
+    margin-top: 10rem;
+}
+
+.list-group {
+    display: flex;
+    width: 30%;
+    margin-inline: auto;
+}
+
+.list-group-item {
+    color: var(--negro);
+    text-decoration: none;
+    font-family: var(--fuenteParrafos);
+    font-weight: 400;
+    font-size: 1.4rem;
+}
+
+.list-group p {
+    margin-left: 10px;
+    font-size: 1.3rem;
+    float: left;
+    font-family: var(--fuenteParrafos);
+    font-weight: 250;
+}
+
+.footer {
+    background-color: var(--verdePrincipal);
+    color: var(--blanco);
+    text-align: left;
+    padding: 5px;
+    width: 100%;
+    font-family: var(--fuenteParrafos), serif;
+    font-size: 15px;
+}

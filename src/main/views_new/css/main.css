@@ -1,0 +1,142 @@
+:root {
+    --fuenteParrafos: 'Montserrat', 'sans-serif';
+    --fuenteBotones: 'Montserrat', sans-serif;
+    --fuenteTitulo: 'Poppins', sans-serif;
+    --blanco: #d9d9d9;
+    --negro: #181818;
+    --verdePrincipal: #0c3720;
+    --verdeSecundario: #186D3D;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: var(--fuenteParrafos), sans-serif;
+    font-size: 1.6rem;
+    line-height: 2;
+    margin: 0;
+    padding: 0;
+    background-color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    width: 100%;
+}
+
+.header__top {
+    background-color: var(--verdePrincipal);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 2px;
+}
+
+.header__logo {
+    max-width: 50px;
+    margin-right: 20px;
+}
+
+.header__titulo {
+    font-family: var(--fuenteTitulo), serif;
+    font-size: 2.4rem;
+    color: var(--blanco);
+    font-weight: 700;
+}
+
+.header__buttons-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header__buttons {
+    display: flex;
+    align-items: center;
+}
+
+.header__button {
+    text-decoration: none;
+    color: var(--blanco);
+    background-color: var(--verdeSecundario);
+    padding: 7px 14px;
+    border-radius: 15px;
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.header__button-underline {
+    text-decoration: underline;
+    color: var(--blanco);
+    margin-right: 10px;
+    font-size: 1.4rem;
+}
+
+
+.header__nav {
+    background-color: var(--verdeSecundario);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin-right: 10px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    color: var(--blanco);
+    text-decoration: none;
+    font-family: var(--fuenteBotones), serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    padding: 3px 5px;
+    display: block;
+}
+
+nav ul li a:hover {
+    background-color: var(--verdePrincipal);
+    color: var(--blanco);
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer {
+    background-color: var(--verdePrincipal);
+    color: var(--blanco);
+    text-align: left;
+    padding: 5px;
+    width: 100%;
+    font-family: var(--fuenteParrafos), serif;
+    font-size: 15px;
+}

@@ -1,11 +1,13 @@
 :root {
-    --fuenteParrafos: 'Montserrat', 'sans-serif';
+    --fuenteParrafos: 'Montserrat', sans-serif;
     --fuenteBotones: 'Montserrat', sans-serif;
     --fuenteTitulo: 'Poppins', sans-serif;
+    --fuenteSubtitulos: 'Lexend', sans-serif;
     --blanco: #d9d9d9;
     --negro: #181818;
     --verdePrincipal: #0c3720;
     --verdeSecundario: #186D3D;
+    --verdeBotonesCuadrados: #135731;
 }
 
 html {
@@ -38,7 +40,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: left;
-    padding: 2px;
+    padding: 8px;
 }
 
 .header__logo {
@@ -48,45 +50,15 @@ body {
 
 .header__titulo {
     font-family: var(--fuenteTitulo), serif;
-    font-size: 2.4rem;
+    font-size: 2.5rem;
     color: var(--blanco);
     font-weight: 700;
+    text-align: center;
 }
-
-.header__buttons-container {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.header__buttons {
-    display: flex;
-    align-items: center;
-}
-
-.header__button {
-    text-decoration: none;
-    color: var(--blanco);
-    background-color: var(--verdeSecundario);
-    padding: 7px 14px;
-    border-radius: 15px;
-    margin-right: 10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-}
-
-.header__button-underline {
-    text-decoration: underline;
-    color: var(--blanco);
-    margin-right: 10px;
-    font-size: 1.4rem;
-}
-
 
 .header__nav {
     background-color: var(--verdeSecundario);
+    padding: 0;
 }
 
 .nav-container {
@@ -103,7 +75,7 @@ nav ul {
 }
 
 nav ul li {
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 nav ul li:last-child {
@@ -116,12 +88,13 @@ nav ul li a {
     font-family: var(--fuenteBotones), serif;
     font-weight: 500;
     font-size: 1.4rem;
-    padding: 3px 5px;
+    padding: 8px 15px;
     display: block;
+    background-color: var(--verdeBotonesCuadrados);
 }
 
 nav ul li a:hover {
-    background-color: var(--verdePrincipal);
+    background-color: var(--verdeSecundario);
     color: var(--blanco);
 }
 

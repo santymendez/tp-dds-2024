@@ -135,16 +135,11 @@ h2 {
     font-size: 1.6rem;
 }
 
-.check-container {
-
-}
-
 .col-form-label {
     color: var(--negro);
     text-decoration: none;
     font-family: var(--fuenteParrafos), sans-serif;
     font-size: 1.4rem;
-    margin-right: 58%;
     margin-bottom: 0.5rem;
 }
 
@@ -152,9 +147,17 @@ h2 {
     margin-top: 1rem;
 }
 
+.check-container{
+    margin-left: 5%;
+    text-align: left;
+}
+
 .form-check {
-    margin-left: 5% ;
     box-shadow: none;
+}
+
+.form-check-input {
+    margin-right: 0.2rem;
 }
 
 .form-check-input:checked {

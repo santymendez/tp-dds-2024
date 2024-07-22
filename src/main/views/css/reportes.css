@@ -22,6 +22,17 @@ h2 {
     font-family: var(--fuenteParrafos);
     font-weight: 400;
     font-size: 1.4rem;
+    border-color: transparent;
+}
+
+.list-group-item.top-item{
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.list-group-item.bottom-item{
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 .list-group p {
@@ -30,4 +41,50 @@ h2 {
     float: left;
     font-family: var(--fuenteParrafos);
     font-weight: 250;
+}
+
+.selector{
+    width: 30%;
+    margin-inline: auto;
+}
+
+.form-label{
+    color: var(--negro);
+    text-decoration: none;
+    font-family: var(--fuenteSubtitulos);
+    font-size: 1.4rem;
+    margin-top: 5rem;
+}
+
+.form-select{
+    padding: 0.8rem;
+    font-size: 1.3rem;
+    border-radius: 1rem;
+}
+
+.btn-primary {
+    color: var(--blanco);
+    text-decoration: none;
+    font-style: var(--fuenteBotones);
+    font-size: 1.4rem;
+
+    background-color: var(--verdeSecundario);
+    border-color: var(--verdeSecundario);
+    border-radius: 1rem;
+
+    margin-top: 1.3rem;
+    width: 20%;
+    padding: 0.5rem;
+
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
+}
+
+.btn-primary:hover {
+    background-color: var(--verdeBotonesCuadrados);
+    border-color: var(--verdeBotonesCuadrados);
+    color: var(--blanco);
 }

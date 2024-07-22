@@ -32,9 +32,12 @@ body {
 }
 
 h2 {
+    font-family: var(--fuenteSubtitulos), sans-serif;
     color: var(--negro);
     text-decoration: none;
-    font-family: var(--fuenteSubtitulos);
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
 }
 
 .header {

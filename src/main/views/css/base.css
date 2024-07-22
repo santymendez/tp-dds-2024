@@ -1,8 +1,8 @@
 :root {
-    --fuenteParrafos: 'Montserrat', sans-serif;
-    --fuenteBotones: 'Montserrat', sans-serif;
-    --fuenteTitulo: 'Poppins', sans-serif;
-    --fuenteSubtitulos: 'Lexend', sans-serif;
+    --fuenteParrafos: 'Montserrat';
+    --fuenteBotones: 'Montserrat';
+    --fuenteTitulo: 'Poppins';
+    --fuenteSubtitulos: 'Lexend';
     --blanco: #d9d9d9;
     --negro: #181818;
     --verdePrincipal: #0c3720;
@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    font-family: var(--fuenteParrafos), sans-serif;
+    font-family: var(--fuenteParrafos);
     font-size: 1.6rem;
     line-height: 2;
     margin: 0;
@@ -34,7 +34,7 @@ body {
 h2 {
     color: var(--negro);
     text-decoration: none;
-    font-family: var(--fuenteSubtitulos), sans-serif;
+    font-family: var(--fuenteSubtitulos);
 }
 
 .header {
@@ -46,16 +46,16 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: left;
-    padding: 8px;
+    padding: 0.8rem;
 }
 
 .header__logo {
-    max-width: 50px;
-    margin-right: 20px;
+    max-width: 5rem;
+    margin-right: 2rem;
 }
 
 .header__titulo {
-    font-family: var(--fuenteTitulo), serif;
+    font-family: var(--fuenteTitulo);
     font-size: 2.5rem;
     color: var(--blanco);
     font-weight: 700;
@@ -81,7 +81,7 @@ nav ul {
 }
 
 nav ul li {
-    margin-right: 5px;
+    margin-right: 0.5rem;
 }
 
 nav ul li:last-child {
@@ -91,10 +91,10 @@ nav ul li:last-child {
 nav ul li a {
     color: var(--blanco);
     text-decoration: none;
-    font-family: var(--fuenteBotones), serif;
+    font-family: var(--fuenteBotones);
     font-weight: 500;
     font-size: 1.4rem;
-    padding: 8px 15px;
+    padding: 0.8rem 1.5rem;
     display: block;
     background-color: var(--verdeBotonesCuadrados);
 }
@@ -106,16 +106,16 @@ nav ul li a:hover {
 
 .main-content {
     flex: 1;
-    padding: 20px;
+    padding: 2rem;
     text-align: center;
 }
 
 .footer {
     background-color: var(--verdePrincipal);
     color: var(--blanco);
-    text-align: left;
-    padding: 5px;
+    text-align: center;
+    padding: 0.5rem;
     width: 100%;
-    font-family: var(--fuenteParrafos), serif;
-    font-size: 15px;
+    font-family: var(--fuenteParrafos);
+    font-size: 1.5rem;
 }

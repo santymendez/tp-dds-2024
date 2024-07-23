@@ -49,6 +49,10 @@
     width: 35%;
 }
 
-.image{
+.top-image{
+    width: 50%;
+}
+
+.bottom-image{
     width: 50%;
 }

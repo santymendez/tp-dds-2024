@@ -1,0 +1,218 @@
+:root {
+    --fuenteParrafos: 'Montserrat';
+    --fuenteBotones: 'Montserrat';
+    --fuenteTitulo: 'Poppins';
+    --fuenteSubtitulos: 'Lexend';
+    --blanco: #d9d9d9;
+    --negro: #181818;
+    --verdePrincipal: #0c3720;
+    --verdeSecundario: #186D3D;
+    --verdeBotonesCuadrados: #135731;
+    --grisToggle: #ffffff;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: var(--fuenteParrafos);
+    font-size: 1.6rem;
+    line-height: 2;
+    margin: 0;
+    padding: 0;
+    background-color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h2 {
+    font-family: var(--fuenteSubtitulos), sans-serif;
+    color: var(--negro);
+    text-decoration: none;
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+.header {
+    width: 100%;
+}
+
+.header__top {
+    background-color: var(--verdePrincipal);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 0.8rem;
+}
+
+.header__top .header__titulo a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header__logo {
+    max-width: 5rem;
+    margin-right: 2rem;
+}
+
+.header__titulo {
+    font-family: var(--fuenteTitulo);
+    font-size: 2.5rem;
+    color: var(--blanco);
+    font-weight: 700;
+    text-align: center;
+}
+
+.header__nav {
+    background-color: var(--verdeSecundario);
+    padding: 0;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin-right: 0.5rem;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    color: var(--blanco);
+    text-decoration: none;
+    font-family: var(--fuenteBotones);
+    font-weight: 500;
+    font-size: 1.4rem;
+    padding: 0.8rem 1.5rem;
+    display: block;
+    background-color: var(--verdeBotonesCuadrados);
+}
+
+nav ul li a:hover {
+    background-color: var(--verdeSecundario);
+    color: var(--blanco);
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    text-align: center;
+}
+
+.footer {
+    background-color: var(--verdePrincipal);
+    color: var(--blanco);
+    text-align: center;
+    padding: 0.5rem;
+    width: 100%;
+    font-family: var(--fuenteParrafos);
+    font-size: 1.5rem;
+}
+
+/* Ajustes específicos */
+.form-check {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 1em;
+}
+
+.form-check-label {
+    font-family: var(--fuenteBotones);
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--negro);
+    margin-left: 0.5rem; /* Espacio entre el toggle y el texto */
+}
+
+.form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    appearance: none;
+    background-color: var(--grisToggle); /* Color de fondo cuando está desactivado */
+    border-radius: 9999px; /* Bordes redondeados */
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.form-check-input::before {
+    content: '';
+    position: absolute;
+    top: 0.1rem;
+    left: 0.1rem;
+    width: calc(50% - 0.2rem);
+    height: calc(100% - 0.2rem);
+    border-radius: 9999px;
+    background-color: var(--blanco);
+    transition: transform 0.3s;
+}
+
+.form-check-input:checked {
+    background-color: var(--verdeSecundario); /* Color de fondo cuando está activado */
+}
+
+.form-check-input:checked::before {
+    transform: translateX(1.5rem); /* Mueve el círculo del toggle switch */
+}
+
+.btn-primary {
+    background-color: var(--verdeSecundario);
+    border-color: var(--verdeSecundario);
+    font-family: var(--fuenteBotones);
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem; /* Ajusta el tamaño del botón */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    display: inline-block;
+    width: auto; /* Ajusta el botón al contenido */
+    margin: 0.5rem auto; /* Centra el botón horizontalmente */
+}
+
+.btn-primary:hover {
+    background-color: var(--verdeBotonesCuadrados);
+    border-color: var(--verdeBotonesCuadrados);
+}
+
+/* Mantén el tamaño de los inputs */
+.form-control, .form-select {
+    font-family: var(--fuenteParrafos);
+    font-size: 1.2em;
+    padding: 10px;
+    color: var(--negro);
+    border: 1px solid var(--negro);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control::placeholder, .form-select::placeholder {
+    color: #a9a9a9;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--verdeBotonesCuadrados);
+    box-shadow: none;
+}

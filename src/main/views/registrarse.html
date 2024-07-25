@@ -198,8 +198,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-g2Q2bAmzqopHLmj10EIXSL94up6E4Z0+8+2M+JTXtyizfG34z2qa60mu8GxVd+hg" crossorigin="anonymous"></script>
 <script>
     document.getElementById('personaToggle').addEventListener('change', function() {
-        const juridicaForm = document.getElementById('form-juridica');
-        const fisicaForm = document.getElementById('form-fisica');
+        var juridicaForm = document.getElementById('form-juridica');
+        var fisicaForm = document.getElementById('form-fisica');
         if (this.checked) {
             juridicaForm.classList.remove('d-none');
             fisicaForm.classList.add('d-none');

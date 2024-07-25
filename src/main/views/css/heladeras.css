@@ -1,0 +1,43 @@
+.columnas {
+    column-count: 2;
+    width: 100%;
+}
+
+.columna-izq {
+    width: 50%;
+    break-inside: avoid;
+    float: right;
+    margin-left: 40%;
+}
+
+.columna-der {
+    width: 50%;
+    break-inside: avoid;
+    float: left;
+}
+
+.btn-primary {
+    background-color: var(--verdeSecundario);
+    font-size: 1.4rem;
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+    width: 50%;
+    padding: 1rem;
+}
+
+.btn-extra {
+    width: 15%;
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
+}
+
+.btn-primary:hover {
+    background-color: var(--verdeBotonesCuadrados);
+    border-color: var(--verdeBotonesCuadrados);
+    color: var(--blanco);
+}

@@ -156,30 +156,31 @@
         </div>
 
         <!-- Formulario para Confirmar Dirección -->
-        <div id="confirmar_direccion" class="action-form d-none">
-            <h3>Dirección del envío</h3>
-            <form class="formulario confirmar-direccion-form">
+        <div id="confirmar_direccion" class="action-form confirmar-direccion-form d-none">
+            <h3>Confirmar Dirección</h3>
+            <form class="formulario">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="provincia" class="form-label">Provincia</label>
-                        <input type="text" class="form-control form-control-lg" id="provincia" placeholder="Ej. CABA">
+                        <label for="provincia" class="form-label extra-class">Provincia</label>
+                        <input type="text" class="form-control form-control-lg" id="provincia" placeholder="Ej. CABA" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="barrio" class="form-label">Barrio</label>
-                        <input type="text" class="form-control form-control-lg" id="barrio" placeholder="Ej. Villa Crespo">
+                        <label for="barrio" class="form-label extra-class">Barrio</label>
+                        <input type="text" class="form-control form-control-lg" id="barrio" placeholder="Ej. Villa Crespo" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="ciudad" class="form-label">Ciudad</label>
-                        <input type="text" class="form-control form-control-lg" id="ciudad" placeholder="Ej. Buenos Aires">
+                        <label for="ciudad" class="form-label extra-class">Ciudad</label>
+                        <input type="text" class="form-control form-control-lg" id="ciudad" placeholder="Ej. Buenos Aires" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="direccion" class="form-label">Dirección (Calle y Número)</label>
+                        <label for="direccion" class="form-label extra-class">Dirección (Calle y Número)</label>
                         <input type="text" class="form-control form-control-lg" id="direccion" placeholder="Ej. Malabia 500" required>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success btn-lg">Confirmar</button>
             </form>
         </div>
+
 
         <div id="distribuir_viandas" class="action-form d-none distribuir-viandas-form">
             <h3>Distribución de Viandas</h3>

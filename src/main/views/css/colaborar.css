@@ -53,6 +53,7 @@ h3 {
 }
 
 .donar-viandas-form .formulario,
+.confirmar-direccion-form .formulario,
 .distribuir-viandas-form .formulario {
     display: flex;
     flex-direction: column;
@@ -62,6 +63,7 @@ h3 {
 }
 
 .donar-viandas-form .form-row,
+.confirmar-direccion-form .form-row,
 .distribuir-viandas-form .form-row {
     display: flex;
     flex-wrap: wrap;
@@ -69,12 +71,15 @@ h3 {
 }
 
 .donar-viandas-form .col-md-6,
+.confirmar-direccion-form .col-md-6,
 .distribuir-viandas-form .col-md-6 {
     flex: 1 1 45%;
 }
 
 .donar-viandas-form .form-control,
 .donar-viandas-form .form-select,
+.confirmar-direccion-form .form-select,
+.confirmar-direccion-form .form-control,
 .distribuir-viandas-form .form-control,
 .distribuir-viandas-form .form-select {
     width: 100%;
@@ -82,6 +87,7 @@ h3 {
 }
 
 .donar-viandas-form .btn-lg,
+.confirmar-direccion-form .btn-lg
 .distribuir-viandas-form .btn-lg {
     padding: 1rem 2rem;
     font-size: 1.6rem;
@@ -90,6 +96,7 @@ h3 {
 }
 
 .donar-viandas-form .form-label,
+.confirmar-direccion-form .form-label,
 .distribuir-viandas-form .form-label {
     font-size: 1.5rem;
     text-align: left;
@@ -172,36 +179,4 @@ h3 {
     margin-bottom: 0.5rem;
 }
 
-.confirmar-direccion-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    max-width: 100%;
-    margin: 0 auto;
-}
 
-.confirmar-direccion-form .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-}
-
-.confirmar-direccion-form .col-md-6 {
-    flex: 1 1 48%;
-}
-
-.confirmar-direccion-form .form-control {
-    width: 100%;
-}
-
-.confirmar-direccion-form .form-label {
-    font-size: 1.5rem;
-    text-align: left;
-}
-
-.confirmar-direccion-form .btn-lg {
-    padding: 1rem 2rem;
-    font-size: 1.6rem;
-    max-width: 100%;
-    align-self: center;
-}

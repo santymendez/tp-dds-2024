@@ -7,7 +7,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
 
     <title>Registrar Vulnerable</title>
     <link rel="icon" href="imgs/logo.png">
@@ -18,7 +18,6 @@
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" href="css/registrar-vulnerable.css">
 </head>
-
 <body>
 <header class="header">
     <div class="header__top">
@@ -27,7 +26,6 @@
         </a>
         <h1 class="header__titulo"><a href="home-page.html">Heladeras Solidarias ONG</a></h1>
     </div>
-
     <div class="header__nav">
         <nav class="nav-container">
             <ul>
@@ -40,12 +38,83 @@
         </nav>
     </div>
 </header>
-
-<main class="main-content"></main>
+<main class="main-content">
+    <div class="container mt-5">
+        <h2>Registrar Persona Vulnerable</h2>
+        <form id="form-vulnerable">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nombreVulnerable" class="form-label">Nombre *</label>
+                    <input type="text" class="form-control" id="nombreVulnerable" placeholder="Ingresar nombre" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="apellidoVulnerable" class="form-label">Apellido *</label>
+                    <input type="text" class="form-control" id="apellidoVulnerable" placeholder="Ingresar apellido" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="tipoDocumentoVulnerable" class="form-label">Tipo de Documento *</label>
+                    <select class="form-select" id="tipoDocumentoVulnerable">
+                        <option selected>DNI</option>
+                        <option value="1">Otro</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="numeroDocumentoVulnerable" class="form-label">Nro de Documento *</label>
+                    <input type="text" class="form-control" id="numeroDocumentoVulnerable" placeholder="Ingrese sin puntos ni espacios" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="provinciaVulnerable" class="form-label">Provincia</label>
+                    <select class="form-select" id="provinciaVulnerable">
+                        <option selected>Buenos Aires</option>
+                        <option value="1">Otra</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ciudadVulnerable" class="form-label">Ciudad</label>
+                    <input type="text" class="form-control" id="ciudadVulnerable" placeholder="Ingresar ciudad" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="barrioVulnerable" class="form-label">Barrio</label>
+                    <input type="text" class="form-control" id="barrioVulnerable" placeholder="Ingresar barrio" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="direccionVulnerable" class="form-label">Dirección (Calle y Número)</label>
+                    <input type="text" class="form-control" id="direccionVulnerable" placeholder="ej: Malabia 500" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="cantidadMenoresVulnerable" class="form-label">Cantidad de Menores a Cargo</label>
+                    <select class="form-select" id="cantidadMenoresVulnerable">
+                        <option selected>Cantidad</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary btn-lg">Registrar</button>
+            </div>
+        </form>
+    </div>
+</main>
 
 <footer class="footer">
     <p>® 2024 Heladeras Solidarias ONG</p>
 </footer>
-
 </body>
 </html>

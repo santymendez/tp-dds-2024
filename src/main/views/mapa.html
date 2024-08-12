@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <title>Mapa de Heladeras</title>
     <link rel="icon" href="imgs/logo.png">
@@ -19,36 +20,6 @@
     <link rel="stylesheet" href="css/map.css">
 
 </head>
-
-<script>
-    function includeHTML() {
-        var z, i, elmnt, file, xhttp;
-        /*loop through a collection of all HTML elements:*/
-        z = document.getElementsByTagName("*");
-        for (i = 0; i < z.length; i++) {
-            elmnt = z[i];
-            /*search for elements with a certain attribute:*/
-            file = elmnt.getAttribute("w3-include-html");
-            if (file) {
-                /*make an HTTP request using the attribute value as the file name:*/
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4) {
-                        if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-                        if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-                        /*remove the attribute, and call this function once more:*/
-                        elmnt.removeAttribute("w3-include-html");
-                        includeHTML();
-                    }
-                }
-                xhttp.open("GET", file, true);
-                xhttp.send();
-                /*exit the function:*/
-                return;
-            }
-        }
-    };
-</script>
 
 <body>
 <header class="header">
@@ -74,16 +45,44 @@
 
 <main class="main-content">
     <h2>Mapa de Heladeras</h2>
-    <div w3-include-html="map/index.html"></div>
+    <div id="map"></div>
 </main>
 
 <footer class="footer">
     <p>® 2024 Heladeras Solidarias ONG</p>
 </footer>
 
-<script>
-    includeHTML();
-</script>
 
 </body>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Cargar el archivo JSON
+    fetch('map/data.json')
+        .then(response => response.json())
+        .then(data => {
+            var lat = data.lat;
+            var lng = data.lng;
+            var lugar = data.lugar;
+
+            // Crear un marcador en el mapa
+            var marker = L.marker([lat, lng]).addTo(map)
+                .bindPopup('<b>' + lugar + '</b><br>' + 'Latitud: ' + lat + '<br>' + 'Longitud: ' + lng);
+
+            // Centrar el mapa en el marcador
+            map.setView([lat, lng], 13);
+
+            // Asegurarse de que el mapa esté listo antes de ajustar la vista
+            marker.on('add', function() {
+                map.fitBounds(marker.getBounds());
+            });
+        })
+        .catch(error => console.error('Error cargando el JSON:', error));
+</script>
 </html>

@@ -35,7 +35,7 @@ public class ReporteHeladera {
   }
 
   /**
-   * Método que reinicia los datos cada semana.
+   * Metodo que reinicia los datos cada semana.
    */
 
   public void nuevoReporteSemanal() {

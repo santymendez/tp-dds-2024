@@ -23,7 +23,7 @@ public class SensorMovimiento implements IMqttMessageListener {
   }
 
   /**
-   * Método que recibe la heladera y te activa el sensor si la temperatura no está en el rango.
+   * Metodo que recibe la heladera y te activa el sensor si la temperatura no está en el rango.
    */
   
   public void activarSensor() {

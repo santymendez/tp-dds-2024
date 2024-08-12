@@ -16,7 +16,7 @@ public class VisitasController {
   }
 
   /**
-   * Método que crea y guarda una visita técnica a partir del DTO.
+   * Metodo que crea y guarda una visita técnica a partir del DTO.
    *
    * @param visitaInputDto DTO para crear y guardar la visita.
    */

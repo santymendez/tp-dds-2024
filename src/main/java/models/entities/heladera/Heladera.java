@@ -80,7 +80,7 @@ public class Heladera {
   //==================================== Calcular meses ========================================
 
   /**
-   * Método para calcular los meses que una heladera estuvo activa hasta el momento
+   * Metodo para calcular los meses que una heladera estuvo activa hasta el momento
    * en que se pide calcular.
    */
 

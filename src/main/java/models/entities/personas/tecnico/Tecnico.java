@@ -27,7 +27,7 @@ public class Tecnico {
   private Ciudad areaDeCobertura;
 
   /**
-   * Método que permite al técnico registrar una visita a una heladera.
+   * Metodo que permite al técnico registrar una visita a una heladera.
    *
    * @param heladera Heladera visitada para arreglar.
    */

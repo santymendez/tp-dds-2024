@@ -24,7 +24,7 @@ public class TelegramBotSender implements  SenderInterface {
   }
 
   /**
-   * Método para instanciar el TelegramBotSender.
+   * Metodo para instanciar el TelegramBotSender.
    *
    * @return la instancia del TelegramBotSender.
    */
@@ -42,7 +42,7 @@ public class TelegramBotSender implements  SenderInterface {
   }
 
   /**
-   * Método para enviar el mensaje.
+   * Metodo para enviar el mensaje.
    *
    * @param mensaje Mensaje a enviar.
    * @param destinatario Destinatario.

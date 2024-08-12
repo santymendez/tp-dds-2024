@@ -18,7 +18,7 @@ import utils.sender.SenderInterface;
 /**
  * Esta clase encapsula la funcionalidad de envío de correos electrónicos.
  * Se realiza a través de un servidor SMTP configurado con Gmail.
- * Se recomienda utilizar el método enviar() para enviar un mensaje de correo
+ * Se recomienda utilizar el metodo enviar() para enviar un mensaje de correo
  * electrónico especificando el destinatario y el mensaje a enviar.
  */
 public class EmailSender implements SenderInterface {

@@ -3,7 +3,6 @@ package entities;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
-import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
@@ -24,8 +23,8 @@ public class TestSolicitudes {
     this.colaborador = new Colaborador();
     this.colaborador.agregarTarjeta(new TarjetaColaborador());
 
-    this.heladera1 = new Heladera(new Direccion(), "Heladera 1", 3, LocalDate.now(), new Modelo(), new SensorMovimiento());
-    this.heladera2 = new Heladera(new Direccion(), "Heladera 2", 4, LocalDate.now(), new Modelo(), new SensorMovimiento());
+    this.heladera1 = new Heladera(new Direccion(), "Heladera 1", 3, LocalDate.now(), new Modelo());
+    this.heladera2 = new Heladera(new Direccion(), "Heladera 2", 4, LocalDate.now(), new Modelo());
 
     this.colaborador.ultimaTarjeta().getUsos().add(new UsoTarjetaColaborador(this.heladera1));
     this.colaborador.agregarSolicitudApertura(this.heladera1);

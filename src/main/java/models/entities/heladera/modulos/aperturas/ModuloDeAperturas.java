@@ -21,8 +21,6 @@ public class ModuloDeAperturas {
   private List<TarjetaColaborador> tarjetasHabilitadas;
   private Limitador limitador;
   private Heladera heladera;
-  //TODO en los otros modulos busque evitar lo de tener
-  // la heladera, pero en este no se si conviene
 
   /**
    * Constructor del módulo de aperturas.
@@ -30,9 +28,9 @@ public class ModuloDeAperturas {
    * @param heladera Heladera la cual va a tener este módulo.
    */
 
-  public ModuloDeAperturas(Heladera heladera, Limitador limitador) {
+  public ModuloDeAperturas(Heladera heladera) {
     this.tarjetasHabilitadas = new ArrayList<>();
-    this.limitador = limitador;
+    this.limitador = new Limitador(UnidadTiempo.HORAS, 3);
     this.heladera = heladera;
   }
 

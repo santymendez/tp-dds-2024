@@ -15,10 +15,7 @@ import models.entities.heladera.modulos.ModuloDeIncidentes;
 import models.entities.heladera.modulos.ModuloDeReportes;
 import models.entities.heladera.modulos.ModuloDeSuscripciones;
 import models.entities.heladera.modulos.ModuloDeTecnicos;
-import models.entities.heladera.modulos.aperturas.Limitador;
 import models.entities.heladera.modulos.aperturas.ModuloDeAperturas;
-import models.entities.heladera.modulos.aperturas.UnidadTiempo;
-import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 
 /**
  * Representa una heladera con una dirección, nombre, capacidad máxima de viandas, lista
@@ -33,7 +30,6 @@ public class Heladera {
   private LocalDate fechaDeCreacion;
 
   private Modelo modelo;
-  private SensorMovimiento sensorMovimiento;
 
   private Boolean estaAbierta;
 
@@ -51,30 +47,26 @@ public class Heladera {
    * @param direccion              es la direccion actual de la heladera.
    * @param nombre                 es el nombre de la heladera.
    * @param capacidadMaximaViandas es la capacidad maxima de viandas.
-   * @param sensorMovimiento       es el sensor de movimiento propio de la heladera.
    * @param modelo                 es el modelo de la heladera.
    * @param fechaDeCreacion        fecha en la que se colocó la heladera.
    */
 
   public Heladera(Direccion direccion, String nombre,
                   Integer capacidadMaximaViandas, LocalDate fechaDeCreacion,
-                  Modelo modelo, SensorMovimiento sensorMovimiento) {
+                  Modelo modelo) {
     this.direccion = direccion;
     this.nombre = nombre;
     this.fechaDeCreacion = fechaDeCreacion;
     this.modelo = modelo;
-    this.sensorMovimiento = sensorMovimiento;
     this.estaAbierta = false;
 
     this.modReportes = new ModuloDeReportes(this);
     this.modSuscripciones = new ModuloDeSuscripciones();
-    this.modAlmacenamiento =
-        new ModuloDeAlmacenamiento(capacidadMaximaViandas, modReportes, modSuscripciones);
+    this.modAlmacenamiento = new ModuloDeAlmacenamiento(capacidadMaximaViandas);
     this.modEstados = new ModuloDeEstados();
     this.modTecnicos = new ModuloDeTecnicos();
-    this.modIncidentes =
-        new ModuloDeIncidentes(modReportes, modSuscripciones, modEstados, modTecnicos);
-    this.modAperturas = new ModuloDeAperturas(this, new Limitador(UnidadTiempo.HORAS, 3));
+    this.modIncidentes = new ModuloDeIncidentes();
+    this.modAperturas = new ModuloDeAperturas(this);
   }
 
   //==================================== Calcular meses ========================================

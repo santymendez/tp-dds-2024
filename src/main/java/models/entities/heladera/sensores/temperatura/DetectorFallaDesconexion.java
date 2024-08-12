@@ -3,7 +3,11 @@ package models.entities.heladera.sensores.temperatura;
 import java.util.List;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
+import models.entities.heladera.incidente.Incidente;
+import models.entities.heladera.incidente.TipoIncidente;
+import models.repositories.InterfaceIncidentesRepository;
 import models.repositories.heladera.InterfaceHeladerasRepository;
+import models.repositories.heladera.InterfaceSensoresTemperaturaRepository;
 
 /**
  * Representa al detector de la falla de conexion entre la heladera
@@ -12,10 +16,12 @@ import models.repositories.heladera.InterfaceHeladerasRepository;
 
 public class DetectorFallaDesconexion {
 
-  private static InterfaceHeladerasRepository heladerasRepository;
+  private static InterfaceIncidentesRepository incidentesRepository;
+  private static InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
 
-  public DetectorFallaDesconexion(InterfaceHeladerasRepository heladerasRepository) {
-    DetectorFallaDesconexion.heladerasRepository = heladerasRepository;
+  public DetectorFallaDesconexion(
+      InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository) {
+    DetectorFallaDesconexion.sensoresTemperaturaRepository = sensoresTemperaturaRepository;
   }
 
   /**
@@ -23,11 +29,13 @@ public class DetectorFallaDesconexion {
    */
 
   public void verificarFallaDesconexion() {
-    List<Heladera> heladeras = heladerasRepository.obtenerHeladeras();
-    for (Heladera heladera : heladeras) {
-      SensorTemperatura sensor = heladera.getModelo().getSensorTemperatura();
-      if (sensor.fallaConexion()) {
-        heladera.getModIncidentes().reportarIncidente(TipoEstado.INACTIVA_FALLA_CONEXION, heladera);
+    List<SensorTemperatura> sensores = sensoresTemperaturaRepository.obtenerSensores();
+    for (SensorTemperatura sensor : sensores) {
+      if (!sensor.estaConectado()) {
+        Incidente incidente = new Incidente(TipoIncidente.ALERTA, sensor.getHeladera());
+        incidente.setTipoAlerta(TipoEstado.INACTIVA_FALLA_CONEXION);
+        sensor.getHeladera().getModIncidentes().reportarIncidente(incidente);
+        incidentesRepository.guardar(incidente);
       }
     }
   }

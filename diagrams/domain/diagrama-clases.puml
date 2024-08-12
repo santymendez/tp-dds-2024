@@ -7,7 +7,6 @@ class Heladera {
     -fechaDeCreacion: LocalDate
 
     -modelo: Modelo
-    -sensorMovimiento: SensorMovimiento
 
     -estaAbierta: Boolean
 
@@ -25,8 +24,6 @@ class Heladera {
 class ModuloDeAlmacenamiento {
     -capacidadMaximaViandas: Integer
     -List<Vianda> viandas
-    -modReportes: ModuloDeReportes
-    -modSuscripciones: ModuloDeSuscripciones
 
     +agregarVianda(Vianda vianda)
 }
@@ -110,7 +107,6 @@ class Colaborador{
     +void aumentarReconocimiento(Colaboracion colaboracion)
 
     +void agregarSolicitudApertura(Heladera heladera)
-    +void reportarIncidente(Heladera heladera, String descrpicion, Image imagen)
 
     +void agregarSuscripcion(InterfazSuscripcion suscripcion)
 }
@@ -216,35 +212,36 @@ class RealizacionOfertas {
 '========================================== Clases de la entrega 2 ============================================='
 
 class Modelo{
-    -modelo: String
-    -sensorTemperatura: SensorTemperatura
+    -nombre: String
+    -temperaturaMinima: Float
+    -temperaturaMaxima: Float
 }
 
 class SensorTemperatura{
     -id: Integer
-    -temperaturaMinima: Float
-    -temperaturaMaxima: Float
-    -List<MedicionSensorTemp> mediciones
+    -List<MedicionSensor> mediciones
     -heladera: Heladera
 
-    +void recibirMedicion(Float temperatura)
-    +void activarSensor(Float temperatura)
-    +void desactivarHeladera()
+    +Boolean comprobarTemperatura(Float temperatura)
+    +void recibirMedicion(MedicionSensor medicion)
+    +void desactivarHeladera(Incidente incidente)
     +void activarHeladera()
-    +Boolean fallaConexion()
 }
 
-class MedicionSensorTemp{
-    -temperatura: Float
+class MedicionSensor{
+    -valorNumerico: Float
     -fecha: LocalDateTime
+    -heladera: Heladera
 }
 
 class SensorMovimiento {
     -id: Integer
+    -List<MedicionSensor> mediciones
     -heladera: Heladera
 
-    +void activarSensor()
-    +void desactivarHeladera()
+    +Boolean debeActivarSensor()
+    +void recibirMedicion(MedicionSensor medicion)
+    +void desactivarHeladera(Incidente incidente)
     +void activarHeladera()
 }
 
@@ -417,7 +414,7 @@ class ModuloDeAperturas {
     -limitador: Limitador
     -heladera: Heladera
 
-    +intentarAbrirCon(TarjetaColaborador tarjeta)
+    +Boolean intentarAbrirCon(TarjetaColaborador tarjeta)
 }
 
 class Limitador {
@@ -449,9 +446,8 @@ enum TipoIncidente {
 class ModuloDeIncidentes {
     -List<Incidente> incidentes
 
-    +imprimirAlerta()
-    +reportarIncidente(TipoEstado tipoAlerta, Heladera heladera)
-    +void reportarFallaTecnica(Incidente incidente, Heladera heladera)
+    +reportarIncidente(Incidente incidente)
+    +reportarFallaTecnica(Incidente incidente)
 }
 
 class VisitaTecnica {
@@ -605,7 +601,6 @@ Ciudad o-- Barrio
 Heladera o-- Direccion
 Heladera *-- ModuloDeAlmacenamiento
 Heladera *-- Modelo
-Heladera *-- SensorMovimiento
 Heladera *-- ModuloDeSuscripciones
 Heladera *-- ModuloDeEstados
 Heladera *-- ModuloDeTecnicos
@@ -615,8 +610,6 @@ Heladera *-- ModuloDeIncidentes
 
 'MODULO DE ALMACENAMIENTO'
 ModuloDeAlmacenamiento -->"*" Vianda
-ModuloDeAlmacenamiento --> ModuloDeSuscripciones
-ModuloDeAlmacenamiento --> ModuloDeReportes
 
 'MODULO DE SUSCRIPCIONES'
 ModuloDeSuscripciones -->"*" InterfazSuscripcion
@@ -631,29 +624,27 @@ ModuloDeTecnicos --> BuscadorTecnicosCercanos
 'MODULO DE APERTURAS'
 ModuloDeAperturas -->"*" TarjetaColaborador
 ModuloDeAperturas *-- Limitador
+ModuloDeAperturas  --> Heladera
 
 'MODULO DE REPORTES'
 ModuloDeReportes --> ReporteHeladera
 
 'MODULO DE INCIDENTES'
 ModuloDeIncidentes -->"*" Incidente
-ModuloDeIncidentes --> ModuloDeReportes
-ModuloDeIncidentes --> ModuloDeSuscripciones
-ModuloDeIncidentes --> ModuloDeEstados
-ModuloDeIncidentes --> ModuloDeTecnicos
 
 'VIANDA'
 Vianda *-- Comida
 Vianda --> Colaborador
 Vianda --> Heladera
 
-'MODELO'
-Modelo *-- SensorTemperatura
-
 'SENSORES'
 SensorMovimiento *-- Heladera
 SensorTemperatura *-- Heladera
-SensorTemperatura -->"*"MedicionSensorTemp
+SensorTemperatura -->"*"MedicionSensor
+SensorMovimiento -->"*"MedicionSensor
+SensorMovimiento ..> Incidente
+SensorTemperatura ..> Incidente
+MedicionSensor --> Heladera
 
 'COLABORADOR'
 Colaborador ---> Documento

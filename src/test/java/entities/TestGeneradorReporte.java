@@ -3,7 +3,6 @@ package entities;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
-import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ViandasPorColaborador;
@@ -31,7 +30,7 @@ public class TestGeneradorReporte {
     HeladerasRepository heladerasRepository = new HeladerasRepository();
 
     Heladera liam = new Heladera(
-        new Direccion(), "Liam", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
+        new Direccion(), "Liam", 5, LocalDate.now(), new Modelo()
     );
     liam.getModReportes().setReporteHeladera(new ReporteHeladera(liam));
     liam.getModReportes().getReporteHeladera().setFallas(50);
@@ -43,7 +42,7 @@ public class TestGeneradorReporte {
     heladerasRepository.guardar(liam);
 
     Heladera augusto = new Heladera(
-        new Direccion(), "Augusto", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
+        new Direccion(), "Augusto", 5, LocalDate.now(), new Modelo()
     );
     augusto.getModReportes().setReporteHeladera(new ReporteHeladera(liam));
     augusto.getModReportes().getReporteHeladera().setFallas(100);
@@ -55,7 +54,7 @@ public class TestGeneradorReporte {
     heladerasRepository.guardar(augusto);
 
     Heladera iniaki = new Heladera(
-        new Direccion(), "Iñaki", 5, LocalDate.now(), new Modelo(), new SensorMovimiento()
+        new Direccion(), "Iñaki", 5, LocalDate.now(), new Modelo()
     );
     iniaki.getModReportes().setReporteHeladera(new ReporteHeladera(liam));
     iniaki.getModReportes().getReporteHeladera().setFallas(150);

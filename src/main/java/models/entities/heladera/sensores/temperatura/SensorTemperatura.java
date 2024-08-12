@@ -7,47 +7,45 @@ import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
+import models.entities.heladera.incidente.Incidente;
+import models.entities.heladera.sensores.MedicionSensor;
 
 /**
- * Representa un sensor de temperatura con la última temperatura, las temperaturas máximas
- * y minimas.
+ * Representa un sensor de temperatura con la última temperatura.
  */
 
 @Getter
 @Setter
 public class SensorTemperatura {
   private Integer id;
-  private Float temperaturaMinima;
-  private Float temperaturaMaxima;
-  private List<MedicionSensorTemp> mediciones;
+  private List<MedicionSensor> mediciones;
   private Heladera heladera;
 
-  public void recibirMedicion(Float temp) {
-    this.mediciones.add(new MedicionSensorTemp(temp));
-    this.activarSensor(temp);
+  public void recibirMedicion(MedicionSensor medicion) {
+    this.mediciones.add(medicion);
   }
 
   /**
-   * Desactiva el sensor si la temperatura no está en el rango.
+   * Comprueba si la temperatura esta fuera del rango.
    */
 
-  public void activarSensor(Float temperatura) {
-    if (temperatura > temperaturaMaxima
-        || temperatura < temperaturaMinima) {
-      this.desactivarHeladera();
-    }
+  public Boolean comprobarTemperatura(Float temperatura) {
+    float tempMin = this.heladera.getModelo().getTemperaturaMinima();
+    float tempMax = this.heladera.getModelo().getTemperaturaMaxima();
+
+    return temperatura > tempMax || temperatura < tempMin;
   }
 
-  public void desactivarHeladera() {
+  public void desactivarHeladera(Incidente incidente) {
     this.heladera.getModEstados().modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
-    this.heladera.getModIncidentes().reportarIncidente(TipoEstado.INACTIVA_TEMPERATURA, heladera);
+    this.heladera.getModIncidentes().reportarIncidente(incidente);
   }
 
   public void activarHeladera() {
     this.heladera.getModEstados().modificarEstado(TipoEstado.ACTIVA);
   }
 
-  public Boolean fallaConexion() {
+  public Boolean estaConectado() {
     LocalDateTime fecha = mediciones.get(0).getFecha();
     return this.periodoEnMinutos(fecha) > 5;
   }

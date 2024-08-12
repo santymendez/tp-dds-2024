@@ -1,5 +1,6 @@
 package models.repositories.heladera;
 
+import java.util.List;
 import java.util.Optional;
 import models.entities.heladera.sensores.temperatura.SensorTemperatura;
 
@@ -11,4 +12,6 @@ public interface InterfaceSensoresTemperaturaRepository {
   Optional<SensorTemperatura> buscar(int id);
 
   void guardar(SensorTemperatura sensor);
+
+  List<SensorTemperatura> obtenerSensores();
 }

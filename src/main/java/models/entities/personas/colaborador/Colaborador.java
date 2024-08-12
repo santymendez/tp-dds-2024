@@ -96,23 +96,6 @@ public class Colaborador {
     this.tarjetas.add(tarjeta);
   }
 
-  /**
-   * Permite al colaborador reportar un incidente.
-   *
-   * @param heladera representa el colaborador que reporta la falla.
-   * @param descripcion representa la descripcion opcional proporcionada por el colaborador.
-   * @param imagen representa la posible imagen.
-   */
-
-  public void reportarIncidente(Heladera heladera, String descripcion, Image imagen) {
-    Incidente incidente = new Incidente(TipoIncidente.FALLA_TECNICA, heladera);
-    incidente.setColaborador(this);
-    incidente.setDescripcion(descripcion);
-    incidente.setImagen(imagen);
-
-    heladera.getModIncidentes().reportarFallaTecnica(incidente, heladera);
-  }
-
   //Permite registrar las suscripciones a heladeras
   public void agregarSuscripcion(InterfazSuscripcion suscripcion) {
     this.suscripciones.add(suscripcion);

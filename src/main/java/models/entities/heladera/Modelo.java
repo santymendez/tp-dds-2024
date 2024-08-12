@@ -2,7 +2,6 @@ package models.entities.heladera;
 
 import lombok.Getter;
 import lombok.Setter;
-import models.entities.heladera.sensores.temperatura.SensorTemperatura;
 
 /**
  * Representa un modelo de Heladera. Tiene como atributos su modelo y un sensor de temperatura.
@@ -11,6 +10,7 @@ import models.entities.heladera.sensores.temperatura.SensorTemperatura;
 @Getter
 @Setter
 public class Modelo {
-  private String modelo;
-  private SensorTemperatura sensorTemperatura;
+  private String nombre;
+  private Float temperaturaMinima;
+  private Float temperaturaMaxima;
 }

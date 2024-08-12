@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import models.entities.heladera.Heladera;
 import models.entities.heladera.vianda.Vianda;
 
 /**
@@ -16,23 +17,16 @@ import models.entities.heladera.vianda.Vianda;
 public class ModuloDeAlmacenamiento {
   private Integer capacidadMaximaViandas;
   private List<Vianda> viandas;
-  private ModuloDeSuscripciones modSuscripciones;
-  private ModuloDeReportes modReportes;
 
   /**
    * Metodo constructor del modulo de almacenamiento.
    *
    * @param capacidad capacidad maxima de almacenamiento.
-   * @param modReportes modulo de reportes de la heladera.
-   * @param modSuscripciones modulo de suscripciones de la heladera.
    */
 
-  public ModuloDeAlmacenamiento(Integer capacidad, ModuloDeReportes modReportes,
-                                ModuloDeSuscripciones modSuscripciones) {
+  public ModuloDeAlmacenamiento(Integer capacidad) {
     this.capacidadMaximaViandas = capacidad;
     this.viandas = new ArrayList<>();
-    this.modReportes = modReportes;
-    this.modSuscripciones = modSuscripciones;
   }
 
   /**
@@ -48,9 +42,10 @@ public class ModuloDeAlmacenamiento {
 
     this.viandas.add(vianda);
     vianda.setEntregada(true);
-    this.modReportes.getReporteHeladera().viandaColocada();
 
-    modSuscripciones.intentarNotificarSuscriptores();
+    Heladera heladera = vianda.getHeladera();
+    heladera.getModReportes().getReporteHeladera().viandaColocada();
+    heladera.getModSuscripciones().intentarNotificarSuscriptores();
   }
 
   /**
@@ -62,13 +57,13 @@ public class ModuloDeAlmacenamiento {
       throw new RuntimeException("No hay viandas para retirar");
     }
 
+    Heladera heladera = this.viandas.get(0).getHeladera();
+
     //Se retira la vianda
     viandas.remove(0);
-    this.modReportes.getReporteHeladera().viandaRetirada();
 
-    if (!modSuscripciones.getSuscripciones().isEmpty()) {
-      modSuscripciones.intentarNotificarSuscriptores();
-    }
+    heladera.getModReportes().getReporteHeladera().viandaRetirada();
+    heladera.getModSuscripciones().intentarNotificarSuscriptores();
   }
 
   /**

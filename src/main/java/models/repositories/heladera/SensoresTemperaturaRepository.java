@@ -34,4 +34,9 @@ public class SensoresTemperaturaRepository implements InterfaceSensoresTemperatu
   public void guardar(SensorTemperatura sensor) {
     this.sensores.add(sensor);
   }
+
+  @Override
+  public List<SensorTemperatura> obtenerSensores() {
+    return this.sensores;
+  }
 }

@@ -2,6 +2,11 @@ package models.entities.heladera.sensores.movimiento;
 
 import java.util.Optional;
 import lombok.Setter;
+import models.entities.heladera.estados.TipoEstado;
+import models.entities.heladera.incidente.Incidente;
+import models.entities.heladera.incidente.TipoIncidente;
+import models.entities.heladera.sensores.MedicionSensor;
+import models.repositories.InterfaceIncidentesRepository;
 import models.repositories.heladera.InterfaceSensoresMovimientoRepository;
 import models.repositories.heladera.SensoresMovimientoRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
@@ -15,6 +20,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class MovimientoListener implements IMqttMessageListener {
   private String topic = "dds2024/sensores-movimiento";
   private InterfaceSensoresMovimientoRepository movimientoRepository;
+  private InterfaceIncidentesRepository incidentesRepository;
 
   public MovimientoListener(InterfaceSensoresMovimientoRepository movimientoRepository) {
     this.movimientoRepository = movimientoRepository;
@@ -31,6 +37,18 @@ public class MovimientoListener implements IMqttMessageListener {
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }
-    sensor.get().activarSensor();
+
+    SensorMovimiento sensorMovimiento = sensor.get();
+
+    if (sensorMovimiento.debeActivarSensor()) {
+      MedicionSensor medicion = new MedicionSensor(null, sensorMovimiento.getHeladera());
+      sensorMovimiento.recibirMedicion(medicion);
+
+      Incidente incidente = new Incidente(TipoIncidente.ALERTA, sensorMovimiento.getHeladera());
+      incidente.setTipoAlerta(TipoEstado.INACTIVA_FRAUDE);
+      sensorMovimiento.desactivarHeladera(incidente);
+
+      this.incidentesRepository.guardar(incidente);
+    }
   }
 }

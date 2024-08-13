@@ -44,5 +44,4 @@ public class SensorMovimiento implements IMqttMessageListener {
   public void activarHeladera() {
     this.heladera.getModEstados().modificarEstado(TipoEstado.ACTIVA);
   }
-
 }

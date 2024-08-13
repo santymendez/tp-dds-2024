@@ -16,18 +16,14 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
  */
 @Setter
 public class TemperaturaListener implements IMqttMessageListener {
-  private String topic = "dds2024/heladeras/sensores-temperatura";
+  private String topic = "sensores/temperatura";
   private InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
   private InterfaceIncidentesRepository incidentesRepository;
 
-  public TemperaturaListener(InterfaceSensoresTemperaturaRepository repository) {
-    this.sensoresTemperaturaRepository = repository;
-  }
-
   @Override
   public void messageArrived(String topic, MqttMessage message) throws Exception {
-    int sensorId = Integer.parseInt(message.toString().split("\n")[0]);
-    Float temp = Float.parseFloat(message.toString().split("\n")[1]);
+    int sensorId = Integer.parseInt(message.toString().split(";")[0]);
+    Float temp = Float.parseFloat(message.toString().split(";")[1]);
     this.enviarMedicion(sensorId, temp);
   }
 

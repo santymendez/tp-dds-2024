@@ -19,16 +19,11 @@ public class DetectorFallaDesconexion {
   private static InterfaceIncidentesRepository incidentesRepository;
   private static InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
 
-  public DetectorFallaDesconexion(
-      InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository) {
-    DetectorFallaDesconexion.sensoresTemperaturaRepository = sensoresTemperaturaRepository;
-  }
-
   /**
    * Main para el CronJob encargado de la revision de la conexion.
    */
 
-  public void verificarFallaDesconexion() {
+  public static void main(String[] args) {
     List<SensorTemperatura> sensores = sensoresTemperaturaRepository.obtenerSensores();
     for (SensorTemperatura sensor : sensores) {
       if (!sensor.estaConectado()) {

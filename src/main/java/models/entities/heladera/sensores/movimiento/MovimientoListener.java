@@ -18,17 +18,13 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 @Setter
 public class MovimientoListener implements IMqttMessageListener {
-  private String topic = "dds2024/sensores-movimiento";
+  private String topic = "sensores/movimiento";
   private InterfaceSensoresMovimientoRepository movimientoRepository;
   private InterfaceIncidentesRepository incidentesRepository;
 
-  public MovimientoListener(InterfaceSensoresMovimientoRepository movimientoRepository) {
-    this.movimientoRepository = movimientoRepository;
-  }
-
   @Override
-  public void messageArrived(String topic, MqttMessage message) throws Exception {
-    int sensorId = Integer.parseInt(message.toString().split("\n")[0]);
+  public void messageArrived(String topic, MqttMessage message) {
+    int sensorId = Integer.parseInt(message.toString());
     this.activarSensor(sensorId);
   }
 

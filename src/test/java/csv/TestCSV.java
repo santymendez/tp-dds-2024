@@ -14,7 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import services.ColaboradoresService;
 import utils.sender.Mensaje;
-import utils.sender.SenderLocator;
 import utils.sender.channels.EmailSender;
 
 public class TestCSV {

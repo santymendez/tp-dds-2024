@@ -39,7 +39,7 @@ public class GeneradorReporte {
    * Genera un reporte semanal.
    */
 
-  public static void main(String[] args) throws IOException {
+  public void generarReporte() {
     LocalDate semanaActual = LocalDate.now();
 
     String path = "reportes/reporte-semana-" + semanaActual + ".pdf";

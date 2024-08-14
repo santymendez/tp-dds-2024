@@ -4,9 +4,9 @@ import java.util.List;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
+import models.repositories.RepositoryLocator;
 import models.repositories.interfaces.InterfaceIncidentesRepository;
 import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
-import models.repositories.RepositoryLocator;
 
 /**
  * Representa al detector de la falla de conexion entre la heladera

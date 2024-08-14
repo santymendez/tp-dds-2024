@@ -2,8 +2,8 @@ package models.entities.reporte.generador;
 
 import java.util.List;
 import models.entities.heladera.Heladera;
-import models.repositories.interfaces.InterfaceHeladerasRepository;
 import models.repositories.RepositoryLocator;
+import models.repositories.interfaces.InterfaceHeladerasRepository;
 
 /**
  * CronJob para la generacion de reportes semanal.

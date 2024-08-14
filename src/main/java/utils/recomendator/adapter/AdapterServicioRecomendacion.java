@@ -1,12 +1,12 @@
 package utils.recomendator.adapter;
 
 import java.io.IOException;
-import utils.recomendator.RecommendationService;
-import utils.recomendator.entities.ListadoPuntos;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import utils.recomendator.RecommendationService;
+import utils.recomendator.entities.ListadoPuntos;
 
 /**
  * Representa a un recomendador de puntos de colocacion para las empresas.

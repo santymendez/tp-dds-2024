@@ -6,11 +6,11 @@ import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
+import models.repositories.RepositoryLocator;
 import models.repositories.interfaces.InterfaceIncidentesRepository;
 import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import models.repositories.RepositoryLocator;
 
 /**
  * Clase que representa al listener del sensor de temperatura para el broker.

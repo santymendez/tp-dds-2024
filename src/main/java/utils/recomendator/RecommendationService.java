@@ -1,6 +1,6 @@
-package modules.recomendator;
+package utils.recomendator;
 
-import modules.recomendator.entities.ListadoDepuntos;
+import utils.recomendator.entities.ListadoPuntos;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -10,8 +10,8 @@ import retrofit2.http.Query;
  */
 public interface RecommendationService {
   @GET("puntos")
-  Call<ListadoDepuntos> puntos(
-      @Query("lat") int lat,
-      @Query("lon") int lon,
-      @Query("rad") int rad);
+  Call<ListadoPuntos> puntos(
+      @Query("lat") String lat,
+      @Query("lon") String lon,
+      @Query("rad") String rad);
 }

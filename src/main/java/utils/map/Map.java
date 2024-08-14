@@ -1,4 +1,4 @@
-package modules.map;
+package utils.map;
 
 import java.io.IOException;
 

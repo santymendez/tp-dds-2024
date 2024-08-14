@@ -6,11 +6,11 @@ import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
-import models.repositories.InterfaceIncidentesRepository;
-import models.repositories.heladera.InterfaceSensoresMovimientoRepository;
-import models.repositories.heladera.SensoresMovimientoRepository;
+import models.repositories.interfaces.InterfaceIncidentesRepository;
+import models.repositories.interfaces.InterfaceSensoresMovimientoRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import models.repositories.RepositoryLocator;
 
 /**
  * Clase que representa al listener del sensor de movimiento para el broker.
@@ -19,8 +19,6 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 @Setter
 public class MovimientoListener implements IMqttMessageListener {
   private String topic = "sensores/movimiento";
-  private InterfaceSensoresMovimientoRepository movimientoRepository;
-  private InterfaceIncidentesRepository incidentesRepository;
 
   @Override
   public void messageArrived(String topic, MqttMessage message) {
@@ -29,7 +27,15 @@ public class MovimientoListener implements IMqttMessageListener {
   }
 
   private void activarSensor(int sensorId) {
-    Optional<SensorMovimiento> sensor = movimientoRepository.buscar(sensorId);
+    InterfaceSensoresMovimientoRepository sensoresMovimientoRepository =
+        (InterfaceSensoresMovimientoRepository) RepositoryLocator
+            .get("sensoresMovimientoRepository");
+
+    InterfaceIncidentesRepository incidentesRepository =
+        (InterfaceIncidentesRepository) RepositoryLocator
+            .get("incidentesRepository");
+
+    Optional<SensorMovimiento> sensor = sensoresMovimientoRepository.buscar(sensorId);
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }
@@ -44,7 +50,7 @@ public class MovimientoListener implements IMqttMessageListener {
       incidente.setTipoAlerta(TipoEstado.INACTIVA_FRAUDE);
       sensorMovimiento.desactivarHeladera(incidente);
 
-      this.incidentesRepository.guardar(incidente);
+      incidentesRepository.guardar(incidente);
     }
   }
 }

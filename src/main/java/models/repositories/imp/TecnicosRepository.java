@@ -1,9 +1,10 @@
-package models.repositories.personas;
+package models.repositories.imp;
 
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import models.entities.personas.tecnico.Tecnico;
+import models.repositories.interfaces.InterfaceTecnicosRepository;
 
 /**
  * Repositorio para los Tecnicos.
@@ -28,7 +29,7 @@ public class TecnicosRepository implements InterfaceTecnicosRepository {
    * @return Una lista de Técnicos si llegasen a existir, en otro caso una lista vacía.
    */
 
-  public List<Tecnico> buscar(String ciudad) {
+  public List<Tecnico> buscarTodosPor(String ciudad) {
     return tecnicos
         .stream()
         .filter(tecnico ->

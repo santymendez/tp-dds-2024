@@ -1,4 +1,4 @@
-package models.repositories.heladera;
+package models.repositories.interfaces;
 
 import java.util.Optional;
 import models.entities.heladera.sensores.movimiento.SensorMovimiento;

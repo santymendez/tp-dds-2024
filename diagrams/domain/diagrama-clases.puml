@@ -357,7 +357,7 @@ enum TipoContacto {
 }
 
 interface InterfaceAdapterServicioRecomendacion {
-    +ListadoDepuntos listadoDePuntos(int lat, int lon, int rad)
+    +ListadoPuntos puntos(String lat, String lon, String rad)
 }
 
 class AdapterServicioRecomendacion{
@@ -365,7 +365,20 @@ class AdapterServicioRecomendacion{
     -urlAPI: String
     -retrofit: Retrofit 'retrofit es una clase, pero lo tomamos como tipo de dato ya que es una dependencia'
 
-    +ListadoDepuntos listadoDePuntos(int lat, int lon, int rad)
+    +ListadoPuntos puntos(String lat, String lon, String rad)
+}
+
+class ListadoPuntos {
+    +puntos: List<Punto>
+    +cantidad: Integer
+    +inicio: Integer
+    +total: Integer
+}
+
+class Punto {
+    +lon: String
+    +lat: String
+    +referencia: String
 }
 
 class ModuloDeEstados {
@@ -512,7 +525,6 @@ class GeneradorReporte {
     -leading: Integer
     -maxLines: Integer
     -currentLines: Integer
-    -heladerasRepository: InterfaceHeladerasRepository
 }
 
 class ModuloDeReportes {
@@ -554,7 +566,6 @@ class ModuloDeTecnicos {
 }
 
 class BuscadorTecnicosCercanos {
-    -tecnicosRepository: InterfaceTecnicosRepository
     -List<Tecnico> buscarTecnicosCercanosA(Heladera heladera)
 }
 
@@ -562,32 +573,6 @@ class BuscadorHeladerasFrecuentes {
     -cantidadRequerida: Integer
 
     +List<Heladera> heladerasFrecuentes(Colaborador colaborador)
-}
-
-'========================================== Repositorios ============================================='
-
-interface InterfaceTecnicosRepository {
-    +guardar(Tecnico tecnico)
-    +List<Tecnico> buscar(String ciudad)
-}
-
-class TecnicosRepository {
-    -List<Tecnico> tecnicos
-
-    +guardar(Tecnico tecnico)
-    +List<Tecnico> buscar(String ciudad)
-}
-
-interface InterfaceHeladerasRepository {
-    +guardar(Heladera heladera)
-    +List<Heladera> obtenerHeladeras()
-}
-
-class HeladerasRepository {
-    -List<Heladera> heladeras
-
-    +guardar(Heladera heladera)
-    +List<Heladera> obtenerHeladeras()
 }
 
 '================================================== Relaciones ================================================'
@@ -656,7 +641,6 @@ Colaborador o--- Reconocimiento
 Colaborador ---> AdapterServicioRecomendacion
 Colaborador --> TarjetaColaborador
 Colaborador ..> Heladera
-Colaborador --> Suscripcion
 Colaborador ..> TipoSuscripcion
 Colaborador -->"*" InterfazSuscripcion
 Colaborador -->"*" Colaboracion
@@ -670,6 +654,8 @@ Contacto o-- TipoContacto
 'SERVICIO RECOMENDACION'
 AdapterServicioRecomendacion --> AdapterServicioRecomendacion
 AdapterServicioRecomendacion ..|> InterfaceAdapterServicioRecomendacion
+InterfaceAdapterServicioRecomendacion ..> ListadoPuntos
+ListadoPuntos -->"*" Punto
 
 'RECONOCIMIENTO'
 Reconocimiento *-- Formula
@@ -805,21 +791,13 @@ SenderInterface ..> Destinatario
 Destinatario --> TipoContacto
 
 'BUSCADOR TECNICOS'
-BuscadorTecnicosCercanos --> InterfaceTecnicosRepository
 BuscadorTecnicosCercanos ..> Heladera
-
-'TECNICOS REPOSITORY'
-TecnicosRepository *--"*" Tecnico
-TecnicosRepository --|> InterfaceTecnicosRepository
+BuscadorTecnicosCercanos ..> Tecnico
 
 'BUSCADOR HELADERAS'
 BuscadorHeladerasFrecuentes ..> Colaborador
 
-'HELADERAS REPOSITORY'
-HeladerasRepository --|> InterfaceHeladerasRepository
-HeladerasRepository *--"*" Heladera
-
 'GENERADOR REPORTES'
-GeneradorReporte o-- InterfaceHeladerasRepository
+GeneradorReporte ..> Heladera
 
 @enduml

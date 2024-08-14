@@ -1,9 +1,10 @@
-package models.repositories.heladera;
+package models.repositories.imp;
 
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import models.entities.heladera.Heladera;
+import models.repositories.interfaces.InterfaceHeladerasRepository;
 
 /**
  * Repositorio para las Heladeras.
@@ -22,7 +23,7 @@ public class HeladerasRepository implements InterfaceHeladerasRepository {
   }
 
   @Override
-  public List<Heladera> obtenerHeladeras() {
+  public List<Heladera> buscarTodas() {
     return this.getHeladeras();
   }
 

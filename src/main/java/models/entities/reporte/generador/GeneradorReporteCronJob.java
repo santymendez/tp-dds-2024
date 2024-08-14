@@ -1,7 +1,9 @@
 package models.entities.reporte.generador;
 
-import models.repositories.heladera.InterfaceHeladerasRepository;
-import utils.RepositoryLocator;
+import java.util.List;
+import models.entities.heladera.Heladera;
+import models.repositories.interfaces.InterfaceHeladerasRepository;
+import models.repositories.RepositoryLocator;
 
 /**
  * CronJob para la generacion de reportes semanal.
@@ -14,9 +16,13 @@ public class GeneradorReporteCronJob {
    */
 
   public static void main(String[] args) {
-    InterfaceHeladerasRepository repo =
-        (InterfaceHeladerasRepository) RepositoryLocator.get("heladerasRepository");
-    GeneradorReporte generador = new GeneradorReporte(repo);
-    generador.generarReporte();
+    InterfaceHeladerasRepository heladerasRepository =
+        (InterfaceHeladerasRepository) RepositoryLocator
+            .get("heladerasRepository");
+
+    List<Heladera> heladeras = heladerasRepository.buscarTodas();
+
+    GeneradorReporte generador = new GeneradorReporte();
+    generador.generarReporte(heladeras);
   }
 }

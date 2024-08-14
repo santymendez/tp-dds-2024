@@ -1,9 +1,10 @@
-package models.repositories;
+package models.repositories.imp;
 
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import models.entities.colaboracion.Colaboracion;
+import models.repositories.interfaces.InterfaceColaboracionesRepository;
 
 /**
  * Repositorio para las Colaboraciones.

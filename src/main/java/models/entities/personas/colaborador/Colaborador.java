@@ -1,6 +1,5 @@
 package models.entities.personas.colaborador;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -9,15 +8,13 @@ import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
 import models.entities.formulario.RespuestaFormulario;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.incidente.Incidente;
-import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
 import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
-import modules.recomendator.adapter.AdapterServicioRecomendacion;
+import utils.recomendator.adapter.AdapterServicioRecomendacion;
 import utils.security.Usuario;
 
 /**

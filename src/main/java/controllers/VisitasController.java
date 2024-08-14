@@ -2,18 +2,15 @@ package controllers;
 
 import dtos.VisitaInputDto;
 import models.entities.personas.tecnico.VisitaTecnica;
-import models.repositories.VisitasRepository;
+import models.repositories.RepositoryLocator;
+import models.repositories.imp.VisitasRepository;
+import models.repositories.interfaces.InterfaceVisitasRepository;
 
 /**
  * Representa al controlador del repositorio de visitas.
  */
 
 public class VisitasController {
-  private final VisitasRepository visitasRepository;
-
-  public VisitasController(VisitasRepository visitasRepository) {
-    this.visitasRepository = visitasRepository;
-  }
 
   /**
    * Metodo que crea y guarda una visita técnica a partir del DTO.
@@ -30,6 +27,9 @@ public class VisitasController {
     if (visitaInputDto.getFotoVisita() != null) {
       visitaTecnica.setFotoVisita(visitaInputDto.getFotoVisita());
     }
+
+    InterfaceVisitasRepository visitasRepository =
+        (InterfaceVisitasRepository) RepositoryLocator.get("visitasRepository");
 
     visitasRepository.guardar(visitaTecnica);
 

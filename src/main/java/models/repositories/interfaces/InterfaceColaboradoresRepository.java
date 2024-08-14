@@ -1,4 +1,4 @@
-package models.repositories.personas;
+package models.repositories.interfaces;
 
 import java.util.Optional;
 import models.entities.personas.colaborador.Colaborador;

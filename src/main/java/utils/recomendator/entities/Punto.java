@@ -1,4 +1,4 @@
-package modules.recomendator.entities;
+package utils.recomendator.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Punto {
-  int lon;
-  int lat;
+  String lon;
+  String lat;
   String referencia;
 }

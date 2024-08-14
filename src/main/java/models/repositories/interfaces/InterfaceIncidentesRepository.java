@@ -1,4 +1,4 @@
-package models.repositories;
+package models.repositories.interfaces;
 
 import models.entities.heladera.incidente.Incidente;
 

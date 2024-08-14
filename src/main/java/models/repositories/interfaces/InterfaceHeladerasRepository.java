@@ -1,4 +1,4 @@
-package models.repositories.heladera;
+package models.repositories.interfaces;
 
 import java.util.List;
 import models.entities.heladera.Heladera;
@@ -10,5 +10,5 @@ import models.entities.heladera.Heladera;
 public interface InterfaceHeladerasRepository {
   void guardar(Heladera heladera);
 
-  List<Heladera> obtenerHeladeras();
+  List<Heladera> buscarTodas();
 }

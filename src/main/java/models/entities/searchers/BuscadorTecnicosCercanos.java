@@ -3,8 +3,8 @@ package models.entities.searchers;
 import java.util.List;
 import models.entities.heladera.Heladera;
 import models.entities.personas.tecnico.Tecnico;
-import models.repositories.personas.InterfaceTecnicosRepository;
-import models.repositories.personas.TecnicosRepository;
+import models.repositories.interfaces.InterfaceTecnicosRepository;
+import models.repositories.RepositoryLocator;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 import utils.sender.SenderLocator;
@@ -14,11 +14,6 @@ import utils.sender.SenderLocator;
  */
 
 public class BuscadorTecnicosCercanos {
-  private final InterfaceTecnicosRepository tecnicosRepository;
-
-  public BuscadorTecnicosCercanos(InterfaceTecnicosRepository tecnicosRepository) {
-    this.tecnicosRepository = tecnicosRepository;
-  }
 
   /**
    * Busca tecnicos cercanos a una heladera.
@@ -28,7 +23,12 @@ public class BuscadorTecnicosCercanos {
 
   public void buscarTecnicosCercanosA(Heladera heladera) {
     String nombreCiudad = heladera.getDireccion().getProvincia().getCiudad().getNombreCiudad();
-    notificarTecnicos(tecnicosRepository.buscar(nombreCiudad), heladera);
+
+    InterfaceTecnicosRepository tecnicosRepository =
+        (InterfaceTecnicosRepository) RepositoryLocator
+            .get("tecnicosRepository");
+
+    notificarTecnicos(tecnicosRepository.buscarTodosPor(nombreCiudad), heladera);
   }
 
   /**

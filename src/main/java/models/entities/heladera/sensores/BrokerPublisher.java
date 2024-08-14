@@ -11,7 +11,6 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  * Broker publisher.
  */
 
-//TODO
 @AllArgsConstructor
 public class BrokerPublisher {
   private String topic;
@@ -55,6 +54,6 @@ public class BrokerPublisher {
 
   public static void main(String[] args) {
     BrokerPublisher brokerPublisher = new BrokerPublisher("", "tcp://localhost:1883", "santi");
-    brokerPublisher.publicar("1555;29.8");
+    brokerPublisher.publicar("");
   }
 }

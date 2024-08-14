@@ -1,10 +1,11 @@
-package models.repositories.heladera;
+package models.repositories.imp;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
 import models.entities.heladera.sensores.temperatura.SensorTemperatura;
+import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
 
 /**
  * Repositorio para los Sensores de Temperatura.

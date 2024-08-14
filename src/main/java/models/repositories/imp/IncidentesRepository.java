@@ -1,8 +1,9 @@
-package models.repositories;
+package models.repositories.imp;
 
 import java.util.ArrayList;
 import java.util.List;
 import models.entities.heladera.incidente.Incidente;
+import models.repositories.interfaces.InterfaceIncidentesRepository;
 
 /**
  * Repositorio para los Incidentes.

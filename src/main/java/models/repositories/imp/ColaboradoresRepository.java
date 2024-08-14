@@ -1,10 +1,11 @@
-package models.repositories.personas;
+package models.repositories.imp;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
 import models.entities.personas.colaborador.Colaborador;
+import models.repositories.interfaces.InterfaceColaboradoresRepository;
 
 /**
  * Repositorio para los Colaboradores.

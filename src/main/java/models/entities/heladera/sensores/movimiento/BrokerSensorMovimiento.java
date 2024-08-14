@@ -1,7 +1,6 @@
 package models.entities.heladera.sensores.movimiento;
 
 import lombok.Setter;
-import models.repositories.heladera.InterfaceSensoresMovimientoRepository;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;

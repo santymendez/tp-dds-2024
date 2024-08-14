@@ -1,4 +1,4 @@
-package modules.map;
+package utils.map;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

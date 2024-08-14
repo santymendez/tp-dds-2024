@@ -1,8 +1,8 @@
 package recomendator;
 
-import modules.recomendator.adapter.AdapterServicioRecomendacion;
-import modules.recomendator.entities.ListadoDepuntos;
-import modules.recomendator.entities.Punto;
+import utils.recomendator.adapter.AdapterServicioRecomendacion;
+import utils.recomendator.entities.ListadoPuntos;
+import utils.recomendator.entities.Punto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,24 +22,24 @@ public class TestRecomendator {
   @Test
   @DisplayName("El recomendador de puntos devuelve puntos y no tira una excepción ")
   public void test01() {
-    Assertions.assertDoesNotThrow(() -> servicioRecomendacion.listadoDePuntos(14, 55, 2));
+    Assertions.assertDoesNotThrow(() -> servicioRecomendacion.puntos("14", "55", "2"));
   }
 
   @Test
   @DisplayName("El recomendador de puntos obtiene los puntos que deberia mandar")
   public void test02() {
 
-    ListadoDepuntos lst = new ListadoDepuntos();
+    ListadoPuntos lst = new ListadoPuntos();
     lst.puntos = new ArrayList<>();
-    Punto pto1 = new Punto(26, 96, "heladera_3");
-    Punto pto2 = new Punto(22, 92, "heladera_27");
-    Punto pto3 = new Punto(24, 96, "heladera_49");
+    Punto pto1 = new Punto("26", "96", "heladera_3");
+    Punto pto2 = new Punto("22", "92", "heladera_27");
+    Punto pto3 = new Punto("24", "96", "heladera_49");
     lst.puntos.add(pto1);
     lst.puntos.add(pto2);
     lst.puntos.add(pto3);
 
     try {
-      ListadoDepuntos puntosRequest = servicioRecomendacion.listadoDePuntos(14, 55, 2);
+      ListadoPuntos puntosRequest = servicioRecomendacion.puntos("14", "55", "2");
 
       Assertions.assertEquals(lst.puntos.get(0).getLat(), puntosRequest.puntos.get(0).getLat());
       Assertions.assertEquals(lst.puntos.get(1).getLat(), puntosRequest.puntos.get(1).getLat());

@@ -1,4 +1,4 @@
-package modules.recomendator.entities;
+package utils.recomendator.entities;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import java.util.List;
  * Clase molde para recibir el listado de puntos de la API Rest.
  */
 
-public class ListadoDepuntos {
+public class ListadoPuntos {
   public List<Punto> puntos;
   public int cantidad;
   public int inicio;

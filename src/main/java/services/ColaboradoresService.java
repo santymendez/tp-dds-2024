@@ -8,7 +8,7 @@ import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
-import models.repositories.personas.InterfaceColaboradoresRepository;
+import models.repositories.interfaces.InterfaceColaboradoresRepository;
 import utils.security.Usuario;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
@@ -62,10 +62,6 @@ public class ColaboradoresService {
             + colaboradorInputDto.getApellido()
             + "\nPuede cambiarlas si así lo desea.\n\nSaludos!");
 
-    // TODO revisar si esta bien tratar polimorficamente
-    // TODO el sender ya que como consecuencia tenemos que
-    //  mostrar mas logica del modulo (Quizas con un factory se puede arreglar, no se si vale
-    //  la pena).
     String destinatario = colaboradorInputDto.getEmail();
 
     emailsender.enviar(message, destinatario);

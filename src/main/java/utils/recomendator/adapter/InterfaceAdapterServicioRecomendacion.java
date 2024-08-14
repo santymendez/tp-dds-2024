@@ -1,7 +1,7 @@
-package modules.recomendator.adapter;
+package utils.recomendator.adapter;
 
 import java.io.IOException;
-import modules.recomendator.entities.ListadoDepuntos;
+import utils.recomendator.entities.ListadoPuntos;
 
 /**
  * Interfaz Adapter para el Servicio de Recomendacion de Puntos.
@@ -12,7 +12,7 @@ interface InterfaceAdapterServicioRecomendacion {
     return null;
   }
 
-  default ListadoDepuntos listadoDePuntos(int lat, int lon, int rad) throws IOException {
+  default ListadoPuntos puntos(String lat, String lon, String rad) throws IOException {
     return null;
   }
 }

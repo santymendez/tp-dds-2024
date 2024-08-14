@@ -5,9 +5,9 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
 import controllers.CsvController;
-import models.repositories.personas.InterfaceColaboradoresRepository;
-import models.repositories.ColaboracionesRepository;
-import models.repositories.personas.ColaboradoresRepository;
+import models.repositories.RepositoryLocator;
+import models.repositories.interfaces.InterfaceColaboracionesRepository;
+import models.repositories.interfaces.InterfaceColaboradoresRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,16 +20,18 @@ public class TestCSV {
   CsvController csvController;
   ColaboradoresService colaboradoresService;
   InterfaceColaboradoresRepository colaboradoresRepository;
-  ColaboracionesRepository colaboracionesRepository;
+  InterfaceColaboracionesRepository colaboracionesRepository;
 
   @BeforeEach
   void inicializar() {
-    colaboradoresRepository = new ColaboradoresRepository();
-    colaboracionesRepository = new ColaboracionesRepository();
+    colaboradoresRepository =
+        (InterfaceColaboradoresRepository) RepositoryLocator.get("colaboradoresRepository");
+    colaboracionesRepository =
+        (InterfaceColaboracionesRepository) RepositoryLocator.get("colaboracionesRepository");
     EmailSender emailSender = mock(EmailSender.class);
     doNothing().when(emailSender).enviar(any(Mensaje.class), any(String.class));
     colaboradoresService = new ColaboradoresService(colaboradoresRepository, emailSender);
-    csvController = new CsvController(colaboradoresRepository, colaboracionesRepository, colaboradoresService);
+    csvController = new CsvController(colaboradoresService);
   }
 
   @Test

@@ -1,8 +1,8 @@
-package modules.recomendator.adapter;
+package utils.recomendator.adapter;
 
 import java.io.IOException;
-import modules.recomendator.RecommendationService;
-import modules.recomendator.entities.ListadoDepuntos;
+import utils.recomendator.RecommendationService;
+import utils.recomendator.entities.ListadoPuntos;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -49,10 +49,10 @@ public class AdapterServicioRecomendacion implements InterfaceAdapterServicioRec
    * @throws IOException si ocurre un error lanza una excepción.
    */
 
-  public ListadoDepuntos listadoDePuntos(int lat, int lon, int rad) throws IOException {
+  public ListadoPuntos puntos(String lat, String lon, String rad) throws IOException {
     RecommendationService recomendationService = this.retrofit.create(RecommendationService.class);
-    Call<ListadoDepuntos> requestPuntos = recomendationService.puntos(lat, lon, rad);
-    Response<ListadoDepuntos> responsePuntos = requestPuntos.execute();
+    Call<ListadoPuntos> requestPuntos = recomendationService.puntos(lat, lon, rad);
+    Response<ListadoPuntos> responsePuntos = requestPuntos.execute();
 
     return responsePuntos.body();
   }

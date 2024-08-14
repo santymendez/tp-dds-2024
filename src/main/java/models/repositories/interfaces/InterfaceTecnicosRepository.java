@@ -1,4 +1,4 @@
-package models.repositories.personas;
+package models.repositories.interfaces;
 
 import java.util.List;
 import models.entities.personas.tecnico.Tecnico;
@@ -10,5 +10,5 @@ import models.entities.personas.tecnico.Tecnico;
 public interface InterfaceTecnicosRepository {
   void guardar(Tecnico tecnico);
 
-  List<Tecnico> buscar(String ciudad);
+  List<Tecnico> buscarTodosPor(String ciudad);
 }

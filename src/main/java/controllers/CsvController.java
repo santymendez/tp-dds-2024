@@ -11,8 +11,9 @@ import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.factories.FactoryColaboracion;
-import models.repositories.InterfaceColaboracionesRepository;
-import models.repositories.personas.InterfaceColaboradoresRepository;
+import models.repositories.RepositoryLocator;
+import models.repositories.interfaces.InterfaceColaboracionesRepository;
+import models.repositories.interfaces.InterfaceColaboradoresRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.ColaboradoresService;
@@ -26,24 +27,15 @@ public class CsvController {
 
   private static final Logger logger = LogManager.getLogger(EmailSender.class);
   private static final String ruta_archivo = "src/main/resources/lista_colaboradores.csv";
-  private final InterfaceColaboradoresRepository colaboradoresRepository;
-  private final InterfaceColaboracionesRepository colaboracionesRepository;
   private final ColaboradoresService colaboradoresService;
 
   /**
    * Constructor para el CSV Controller.
    *
-   * @param colaboradoresRepository Es el repositorio de colaboradores.
    * @param colaboradoresService Es el Service de los Colaboradores.
    */
 
-  public CsvController(
-      InterfaceColaboradoresRepository colaboradoresRepository,
-      InterfaceColaboracionesRepository colaboracionesRepository,
-      ColaboradoresService colaboradoresService
-  ) {
-    this.colaboradoresRepository = colaboradoresRepository;
-    this.colaboracionesRepository = colaboracionesRepository;
+  public CsvController(ColaboradoresService colaboradoresService) {
     this.colaboradoresService = colaboradoresService;
   }
 
@@ -96,7 +88,12 @@ public class CsvController {
   ) {
     Colaborador unColaborador = this.crear(colaboradorInputDto);
     Colaboracion unaColaboracion = FactoryColaboracion.crearCon(colaboracionInputDto);
-    this.colaboracionesRepository.guardar(unaColaboracion);
+
+    InterfaceColaboracionesRepository colaboracionesRepository =
+        (InterfaceColaboracionesRepository) RepositoryLocator
+            .get("colaboracionesRepository");
+
+    colaboracionesRepository.guardar(unaColaboracion);
 
     unColaborador.aumentarReconocimiento(unaColaboracion);
   }
@@ -109,6 +106,10 @@ public class CsvController {
    */
 
   public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
+    InterfaceColaboradoresRepository colaboradoresRepository =
+        (InterfaceColaboradoresRepository) RepositoryLocator
+            .get("colaboradoresRepository");
+
     Optional<Colaborador> unColaborador =
         colaboradoresRepository.buscar(colaboradorInputDto.getNumeroDocumento());
 

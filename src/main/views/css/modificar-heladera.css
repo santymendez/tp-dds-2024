@@ -1,32 +1,19 @@
-.header__buttons-container {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
+.columnas {
+    column-count: 2;
+    column-gap: 2%;
+    padding-left: 3.5%;
+    padding-right: 3.5%;
 }
 
-.header__buttons {
-    display: flex;
-    align-items: center;
+.col {
+    width: 100%;
+    break-inside: avoid;
 }
 
-.header__button {
-    text-decoration: none;
-    color: var(--blanco);
-    background-color: var(--verdeSecundario);
-    padding: 5px 15px;
-    border-radius: 15px;
-    margin-right: 10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-}
-
-.header__button-underline {
-    text-decoration: underline;
-    color: var(--blanco);
-    margin-right: 10px;
-    font-size: 1.4rem;
+.fila {
+    width: 60%;
+    margin-right: 20%;
+    margin-left: 20%;
 }
 
 .form-check {
@@ -34,15 +21,14 @@
     align-items: center;
     justify-content: flex-end;
     margin-bottom: 1rem;
-    margin-right: 10%;
+    margin-top: 1rem;
 }
 
 .form-check-label {
-    font-family: var(--fuenteBotones);
+    font-family: var(--fuenteBotones), sans-serif;
     font-weight: 600;
     font-size: 1.6rem;
     color: var(--negro);
-    margin-left: 0.5rem; /* Espacio entre el toggle y el texto */
 }
 
 .form-check-input {
@@ -84,22 +70,23 @@
     color: var(--blanco);
     margin-top: 2rem;
     width: 20%;
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
 }
 
 .btn-primary:hover {
     background-color: var(--verdeBotonesCuadrados);
     border-color: var(--verdeBotonesCuadrados);
-}
-
-.row {
-    margin-left: 20%;
-    margin-right: 20%;
+    color: var(--blanco);
 }
 
 /* Mantén el tamaño de los inputs */
 .form-control, .form-select {
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
     font-size: 1.4rem;
     color: var(--negro);
     border-radius: 4px;

@@ -38,7 +38,7 @@
 }
 
 .form-check-label {
-    font-family: var(--fuenteBotones);
+    font-family: var(--fuenteParrafos), serif;
     font-weight: 600;
     font-size: 1.6rem;
     color: var(--negro);
@@ -84,12 +84,17 @@
     color: var(--blanco);
     margin-top: 2rem;
     width: 20%;
-    font-family: var(--fuenteParrafos);
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
 }
 
 .btn-primary:hover {
     background-color: var(--verdeBotonesCuadrados);
     border-color: var(--verdeBotonesCuadrados);
+    color: var(--blanco);
 }
 
 .row {
@@ -99,7 +104,7 @@
 
 /* Mantén el tamaño de los inputs */
 .form-control, .form-select {
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
     font-size: 1.4rem;
     color: var(--negro);
     border-radius: 4px;

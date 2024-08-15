@@ -1,34 +1,3 @@
-.header__buttons-container {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.header__buttons {
-    display: flex;
-    align-items: center;
-}
-
-.header__button {
-    text-decoration: none;
-    color: var(--blanco);
-    background-color: var(--verdeSecundario);
-    padding: 5px 15px;
-    border-radius: 15px;
-    margin-right: 10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-}
-
-.header__button-underline {
-    text-decoration: underline;
-    color: var(--blanco);
-    margin-right: 10px;
-    font-size: 1.4rem;
-}
-
 .form-check {
     display: flex;
     align-items: center;
@@ -38,7 +7,7 @@
 }
 
 .form-check-label {
-    font-family: var(--fuenteBotones);
+    font-family: var(--fuenteParrafos), serif;
     font-weight: 600;
     font-size: 1.6rem;
     color: var(--negro);
@@ -84,12 +53,16 @@
     color: var(--blanco);
     margin-top: 2rem;
     width: 20%;
-    font-family: var(--fuenteParrafos);
 }
 
 .btn-primary:hover {
-    background-color: var(--verdeBotonesCuadrados);
-    border-color: var(--verdeBotonesCuadrados);
+    background-color: #E01522;
+    border-color: #E01522;
+}
+
+.btn-primary:active:focus{
+    background-color: #CD131F;
+    border-color: #CD131F;
 }
 
 .row {
@@ -99,7 +72,7 @@
 
 /* Mantén el tamaño de los inputs */
 .form-control, .form-select {
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
     font-size: 1.4rem;
     color: var(--negro);
     border-radius: 4px;

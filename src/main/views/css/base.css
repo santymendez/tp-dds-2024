@@ -21,7 +21,7 @@ html {
 }
 
 body {
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
     font-size: 1.6rem;
     line-height: 2;
     margin: 0;
@@ -64,7 +64,7 @@ h2 {
 }
 
 .header__titulo {
-    font-family: var(--fuenteTitulo);
+    font-family: var(--fuenteTitulo), sans-serif;
     font-size: 2.5rem;
     color: var(--blanco);
     font-weight: 700;
@@ -100,7 +100,7 @@ nav ul li:last-child {
 nav ul li a {
     color: var(--blanco);
     text-decoration: none;
-    font-family: var(--fuenteBotones);
+    font-family: var(--fuenteBotones), sans-serif;
     font-weight: 500;
     font-size: 1.4rem;
     padding: 0.8rem 1.5rem;
@@ -125,6 +125,27 @@ nav ul li a:hover {
     text-align: center;
     padding: 0.5rem;
     width: 100%;
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
     font-size: 1.5rem;
+}
+
+.btn {
+    font-family: var(--fuenteBotones), sans-serif;
+}
+
+.btn-primary {
+    background-color: var(--verdeSecundario);
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
+}
+
+.btn-primary:hover {
+    background-color: var(--verdeBotonesCuadrados);
+    border-color: var(--verdeBotonesCuadrados);
+    color: var(--blanco);
 }

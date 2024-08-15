@@ -6,7 +6,7 @@
 }
 
 .form-control, .form-select {
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
     font-size: 1.4rem;
     color: var(--negro);
     border-radius: 4px;
@@ -37,7 +37,7 @@
     background-color: var(--blanco);
     text-align: center;
     padding: 1rem;
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
     font-size: 1.4rem;
     color: var(--negro);
     box-sizing: border-box;
@@ -56,10 +56,15 @@
     color: var(--blanco);
     margin-top: 2rem;
     width: 20%;
-    font-family: var(--fuenteParrafos);
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
 }
 
 .btn-primary:hover {
     background-color: var(--verdeBotonesCuadrados);
     border-color: var(--verdeBotonesCuadrados);
+    color: var(--blanco);
 }

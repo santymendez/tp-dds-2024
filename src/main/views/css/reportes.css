@@ -19,7 +19,7 @@ h2 {
 .list-group-item {
     color: var(--negro);
     text-decoration: none;
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
     font-weight: 400;
     font-size: 1.4rem;
     border-color: transparent;
@@ -39,7 +39,7 @@ h2 {
     margin-left: 1rem;
     font-size: 1.3rem;
     float: left;
-    font-family: var(--fuenteParrafos);
+    font-family: var(--fuenteParrafos), serif;
     font-weight: 250;
 }
 
@@ -51,7 +51,7 @@ h2 {
 .form-label{
     color: var(--negro);
     text-decoration: none;
-    font-family: var(--fuenteSubtitulos);
+    font-family: var(--fuenteSubtitulos), serif;
     font-size: 1.4rem;
     margin-top: 5rem;
 }
@@ -73,7 +73,7 @@ h2 {
     border-radius: 1rem;
 
     margin-top: 1.3rem;
-    width: 20%;
+    width: 30%;
     padding: 0.5rem;
 
 }

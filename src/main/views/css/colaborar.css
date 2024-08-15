@@ -41,6 +41,23 @@ h3 {
     padding-bottom: 1rem;
 }
 
+.btn-success {
+    background-color: var(--verdeSecundario);
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+}
+
+.btn-success:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
+}
+
+.btn-success:hover {
+    background-color: var(--verdeBotonesCuadrados);
+    border-color: var(--verdeBotonesCuadrados);
+    color: var(--blanco);
+}
+
 .btn-lg {
     padding: 1rem 2rem;
     font-size: 1.6rem;

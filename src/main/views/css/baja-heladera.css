@@ -1,0 +1,120 @@
+.header__buttons-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header__buttons {
+    display: flex;
+    align-items: center;
+}
+
+.header__button {
+    text-decoration: none;
+    color: var(--blanco);
+    background-color: var(--verdeSecundario);
+    padding: 5px 15px;
+    border-radius: 15px;
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.header__button-underline {
+    text-decoration: underline;
+    color: var(--blanco);
+    margin-right: 10px;
+    font-size: 1.4rem;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    margin-right: 10%;
+}
+
+.form-check-label {
+    font-family: var(--fuenteBotones);
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--negro);
+    margin-left: 0.5rem; /* Espacio entre el toggle y el texto */
+}
+
+.form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    appearance: none;
+    background-color: var(--grisToggle); /* Color de fondo cuando está desactivado */
+    border-radius: 9999px; /* Bordes redondeados */
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.form-check-input::before {
+    content: '';
+    position: absolute;
+    top: 0.1rem;
+    left: 0.1rem;
+    width: calc(50% - 0.2rem);
+    height: calc(100% - 0.2rem);
+    border-radius: 9999px;
+    background-color: var(--blanco);
+    transition: transform 0.3s;
+}
+
+.form-check-input:checked {
+    background-color: var(--verdeSecundario); /* Color de fondo cuando está activado */
+}
+
+.form-check-input:checked::before {
+    transform: translateX(1.5rem); /* Mueve el círculo del toggle switch */
+}
+
+.btn-primary {
+    background-color: var(--verdeSecundario);
+    font-size: 1.4rem;
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+    margin-top: 2rem;
+    width: 20%;
+    font-family: var(--fuenteParrafos);
+}
+
+.btn-primary:hover {
+    background-color: var(--verdeBotonesCuadrados);
+    border-color: var(--verdeBotonesCuadrados);
+}
+
+.row {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+/* Mantén el tamaño de los inputs */
+.form-control, .form-select {
+    font-family: var(--fuenteParrafos);
+    font-size: 1.4rem;
+    color: var(--negro);
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 80%;
+    margin-inline: auto;
+}
+
+.form-control::placeholder, .form-select::placeholder {
+    color: #a9a9a9;
+    font-size: 1.4rem;
+}
+
+.form-control:focus, .form-select:focus {
+/*    border-color: var(--verdeBotonesCuadrados);*/
+/*    box-shadow: none;*/
+    font-size: 1.4rem;
+}

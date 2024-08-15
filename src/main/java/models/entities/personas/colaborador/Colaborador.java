@@ -61,12 +61,6 @@ public class Colaborador {
     this.tarjetas = new ArrayList<>();
   }
 
-  /**
-   * El colaborador usa puntos para comprar una oferta si tiene suficientes.
-   *
-   * @param oferta La oferta es lo que el colabrador desea comprar con puntos.
-   */
-
   public Boolean puedeCanjear(Oferta oferta) {
     return reconocimiento.getPuntosPorColaborar() >= oferta.getPuntosNecesarios();
   }
@@ -93,7 +87,6 @@ public class Colaborador {
     this.tarjetas.add(tarjeta);
   }
 
-  //Permite registrar las suscripciones a heladeras
   public void agregarSuscripcion(InterfazSuscripcion suscripcion) {
     this.suscripciones.add(suscripcion);
   }

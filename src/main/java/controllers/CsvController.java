@@ -28,6 +28,8 @@ public class CsvController {
   private static final Logger logger = LogManager.getLogger(EmailSender.class);
   private static final String ruta_archivo = "src/main/resources/lista_colaboradores.csv";
   private final ColaboradoresService colaboradoresService;
+  private final InterfaceColaboradoresRepository colaboradoresRepository;
+  private final InterfaceColaboracionesRepository colaboracionesRepository;
 
   /**
    * Constructor para el CSV Controller.
@@ -37,6 +39,12 @@ public class CsvController {
 
   public CsvController(ColaboradoresService colaboradoresService) {
     this.colaboradoresService = colaboradoresService;
+    this.colaboradoresRepository =
+        (InterfaceColaboradoresRepository) RepositoryLocator
+            .get("colaboradoresRepository");
+    this.colaboracionesRepository =
+        (InterfaceColaboracionesRepository) RepositoryLocator
+            .get("colaboracionesRepository");
   }
 
   /**
@@ -89,13 +97,10 @@ public class CsvController {
     Colaborador unColaborador = this.crear(colaboradorInputDto);
     Colaboracion unaColaboracion = FactoryColaboracion.crearCon(colaboracionInputDto);
 
-    InterfaceColaboracionesRepository colaboracionesRepository =
-        (InterfaceColaboracionesRepository) RepositoryLocator
-            .get("colaboracionesRepository");
-
-    colaboracionesRepository.guardar(unaColaboracion);
-
+    unColaborador.getColaboraciones().add(unaColaboracion);
     unColaborador.aumentarReconocimiento(unaColaboracion);
+
+    this.colaboracionesRepository.guardar(unaColaboracion);
   }
 
   /**
@@ -106,13 +111,10 @@ public class CsvController {
    */
 
   public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
-    InterfaceColaboradoresRepository colaboradoresRepository =
-        (InterfaceColaboradoresRepository) RepositoryLocator
-            .get("colaboradoresRepository");
 
     Optional<Colaborador> unColaborador =
-        colaboradoresRepository.buscar(colaboradorInputDto.getNumeroDocumento());
+        this.colaboradoresRepository.buscar(colaboradorInputDto.getNumeroDocumento());
 
-    return unColaborador.orElseGet(() -> colaboradoresService.crear(colaboradorInputDto));
+    return unColaborador.orElseGet(() -> this.colaboradoresService.crear(colaboradorInputDto));
   }
 }

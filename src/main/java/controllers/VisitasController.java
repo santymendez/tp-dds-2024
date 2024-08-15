@@ -12,6 +12,13 @@ import models.repositories.interfaces.InterfaceVisitasRepository;
 
 public class VisitasController {
 
+  private final InterfaceVisitasRepository visitasRepository;
+
+  public VisitasController() {
+    this.visitasRepository =
+        (InterfaceVisitasRepository) RepositoryLocator.get("visitasRepository");
+  }
+
   /**
    * Metodo que crea y guarda una visita técnica a partir del DTO.
    *
@@ -28,10 +35,7 @@ public class VisitasController {
       visitaTecnica.setFotoVisita(visitaInputDto.getFotoVisita());
     }
 
-    InterfaceVisitasRepository visitasRepository =
-        (InterfaceVisitasRepository) RepositoryLocator.get("visitasRepository");
-
-    visitasRepository.guardar(visitaTecnica);
+    this.visitasRepository.guardar(visitaTecnica);
 
     return visitaTecnica;
   }

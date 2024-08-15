@@ -19,6 +19,21 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 @Setter
 public class MovimientoListener implements IMqttMessageListener {
   private String topic = "sensores/movimiento";
+  private InterfaceSensoresMovimientoRepository sensoresMovimientoRepository;
+  private InterfaceIncidentesRepository incidentesRepository;
+
+  /**
+   * Constructor del Listener para los Sensores de Movimento.
+   */
+
+  public MovimientoListener() {
+    this.sensoresMovimientoRepository =
+        (InterfaceSensoresMovimientoRepository) RepositoryLocator
+            .get("sensoresMovimientoRepository");
+    this.incidentesRepository =
+        (InterfaceIncidentesRepository) RepositoryLocator
+            .get("incidentesRepository");
+  }
 
   @Override
   public void messageArrived(String topic, MqttMessage message) {
@@ -27,15 +42,7 @@ public class MovimientoListener implements IMqttMessageListener {
   }
 
   private void activarSensor(int sensorId) {
-    InterfaceSensoresMovimientoRepository sensoresMovimientoRepository =
-        (InterfaceSensoresMovimientoRepository) RepositoryLocator
-            .get("sensoresMovimientoRepository");
-
-    InterfaceIncidentesRepository incidentesRepository =
-        (InterfaceIncidentesRepository) RepositoryLocator
-            .get("incidentesRepository");
-
-    Optional<SensorMovimiento> sensor = sensoresMovimientoRepository.buscar(sensorId);
+    Optional<SensorMovimiento> sensor = this.sensoresMovimientoRepository.buscar(sensorId);
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }
@@ -50,7 +57,7 @@ public class MovimientoListener implements IMqttMessageListener {
       incidente.setTipoAlerta(TipoEstado.INACTIVA_FRAUDE);
       sensorMovimiento.desactivarHeladera(incidente);
 
-      incidentesRepository.guardar(incidente);
+      this.incidentesRepository.guardar(incidente);
     }
   }
 }

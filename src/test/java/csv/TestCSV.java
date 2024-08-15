@@ -20,17 +20,17 @@ public class TestCSV {
   CsvController csvController;
   ColaboradoresService colaboradoresService;
   InterfaceColaboradoresRepository colaboradoresRepository;
-  InterfaceColaboracionesRepository colaboracionesRepository;
 
   @BeforeEach
   void inicializar() {
-    colaboradoresRepository =
-        (InterfaceColaboradoresRepository) RepositoryLocator.get("colaboradoresRepository");
-    colaboracionesRepository =
-        (InterfaceColaboracionesRepository) RepositoryLocator.get("colaboracionesRepository");
     EmailSender emailSender = mock(EmailSender.class);
     doNothing().when(emailSender).enviar(any(Mensaje.class), any(String.class));
+
+    this.colaboradoresRepository =
+        (InterfaceColaboradoresRepository) RepositoryLocator.get("colaboradoresRepository");
+
     colaboradoresService = new ColaboradoresService(colaboradoresRepository, emailSender);
+
     csvController = new CsvController(colaboradoresService);
   }
 

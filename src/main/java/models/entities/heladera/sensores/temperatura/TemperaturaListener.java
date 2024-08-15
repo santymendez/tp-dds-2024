@@ -18,6 +18,21 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 @Setter
 public class TemperaturaListener implements IMqttMessageListener {
   private String topic = "sensores/temperatura";
+  private InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
+  private InterfaceIncidentesRepository incidentesRepository;
+
+  /**
+   * Constructor para el Listener de los Sensores de Temperatura.
+   */
+
+  public TemperaturaListener() {
+    this.sensoresTemperaturaRepository =
+        (InterfaceSensoresTemperaturaRepository) RepositoryLocator
+            .get("sensoresTemperaturaRepository");
+    this.incidentesRepository =
+        (InterfaceIncidentesRepository) RepositoryLocator
+            .get("incidentesRepository");
+  }
 
   @Override
   public void messageArrived(String topic, MqttMessage message) throws Exception {
@@ -34,16 +49,7 @@ public class TemperaturaListener implements IMqttMessageListener {
    */
 
   public void enviarMedicion(int sensorId, Float temp) {
-    InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository =
-        (InterfaceSensoresTemperaturaRepository) RepositoryLocator
-            .get("sensoresTemperaturaRepository");
-
-    InterfaceIncidentesRepository incidentesRepository =
-        (InterfaceIncidentesRepository) RepositoryLocator
-            .get("incidentesRepository");
-
-    Optional<SensorTemperatura> sensor =
-        sensoresTemperaturaRepository.buscar(sensorId);
+    Optional<SensorTemperatura> sensor = this.sensoresTemperaturaRepository.buscar(sensorId);
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }
@@ -58,7 +64,7 @@ public class TemperaturaListener implements IMqttMessageListener {
       incidente.setTipoAlerta(TipoEstado.INACTIVA_TEMPERATURA);
       sensorTemperatura.desactivarHeladera(incidente);
 
-      incidentesRepository.guardar(incidente);
+      this.incidentesRepository.guardar(incidente);
     }
   }
 }

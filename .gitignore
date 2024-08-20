@@ -33,3 +33,6 @@ src/main/resources/config.properties
 src/main/java/utils/sender/ExampleSender.java
 
 cronjobs/*
+
+src/main/resources/META-INF/persistence.xml
+src/test/resources/META-INF/persistence.xml

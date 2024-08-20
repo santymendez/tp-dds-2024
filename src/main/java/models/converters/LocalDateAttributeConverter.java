@@ -5,8 +5,12 @@ import java.time.LocalDate;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
+/**
+ * Clase converter de fecha.
+ */
+
 @Converter(autoApply = true)
-public class LocalDateAtributeConverter implements AttributeConverter<LocalDate, Date> {
+public class LocalDateAttributeConverter implements AttributeConverter<LocalDate, Date> {
 
   @Override
   public Date convertToDatabaseColumn(LocalDate attribute) {

@@ -2,6 +2,7 @@ package models.entities.personas.colaborador;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.colaboracion.Colaboracion;

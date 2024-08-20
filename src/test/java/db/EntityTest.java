@@ -1,13 +1,10 @@
 package db;
 
-import java.time.LocalDate;
-import models.db.EntityManagerHelper;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
 import models.entities.heladera.vianda.Comida;
 import models.entities.heladera.vianda.Vianda;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

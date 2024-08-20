@@ -32,16 +32,6 @@ class Direccion {
     -ubicacion: String
     -longitud: Float
     -latitud: Float
-    -provincia: Provincia
-}
-
-class Provincia {
-    -nombreProvincia: String
-    -ciudad: Ciudad
-}
-
-class Ciudad {
-    -nombreCiudad: String
     -barrio: Barrio
 }
 
@@ -49,6 +39,16 @@ class Barrio {
     -nombreBarrio: String
     -calle: String
     -numero: Integer
+    -ciudad: Ciudad
+}
+
+class Ciudad {
+    -nombreCiudad: String
+    -provincia: Provincia
+}
+
+class Provincia {
+    -nombreProvincia: String
 }
 
 class Vianda {
@@ -578,9 +578,9 @@ class BuscadorHeladerasFrecuentes {
 '================================================== Relaciones ================================================'
 
 'DIRECCIONES'
-Direccion o-- Provincia
-Provincia o-- Ciudad
-Ciudad o-- Barrio
+Barrio --o Direccion
+Provincia --o Ciudad
+Ciudad --o Barrio
 
 'HELADERA'
 Heladera o-- Direccion

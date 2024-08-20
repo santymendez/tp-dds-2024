@@ -22,7 +22,7 @@ public class BuscadorTecnicosCercanos {
    */
 
   public void buscarTecnicosCercanosA(Heladera heladera) {
-    String nombreCiudad = heladera.getDireccion().getProvincia().getCiudad().getNombreCiudad();
+    String nombreCiudad = heladera.getDireccion().getBarrio().getCiudad().getNombreCiudad();
 
     InterfaceTecnicosRepository tecnicosRepository =
         (InterfaceTecnicosRepository) RepositoryLocator

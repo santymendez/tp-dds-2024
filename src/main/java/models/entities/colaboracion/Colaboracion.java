@@ -1,8 +1,17 @@
 package models.entities.colaboracion;
 
 import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
+import models.db.EntidadPersistente;
 
 /**
  * Representa una colaboracion dentro del sistema.
@@ -10,22 +19,36 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Colaboracion {
+@Entity
+@Table(name = "colaboraciones")
+public class Colaboracion extends EntidadPersistente {
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo")
   private TipoColaboracion tipoColaboracion;
+
+  @Convert(converter = LocalDateAttributeConverter.class)
   private LocalDate fechaColaboracion;
 
+  //TODO ver video escobar no le gustan los plurales y despues vemos de embeberlos
+
+  @Embedded
   private DonacionDinero donacionDinero;
 
+  @Embedded
   private DonacionViandas donacionViandas;
 
+  @Embedded
   private DistribucionViandas distribucionViandas;
 
+  @Embedded
   private DistribucionTarjetas distribucionTarjetas;
 
+  @Embedded
   private ColocacionHeladera colocacionHeladera;
 
+  @Embedded
   private RealizacionOfertas realizarOfertas;
-
 
   public Colaboracion() {}
   //Se crea sin datos y se agregan los necesarios con setters

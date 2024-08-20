@@ -3,7 +3,9 @@ package models.entities.heladera;
 import java.time.LocalDate;
 import java.util.Optional;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.db.EntidadPersistente;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.estados.Estado;
 import models.entities.heladera.estados.TipoEstado;
@@ -17,6 +19,8 @@ import models.entities.heladera.modulos.ModuloDeSuscripciones;
 import models.entities.heladera.modulos.ModuloDeTecnicos;
 import models.entities.heladera.modulos.aperturas.ModuloDeAperturas;
 
+import javax.persistence.*;
+
 /**
  * Representa una heladera con una dirección, nombre, capacidad máxima de viandas, lista
  * de viandas y fecha de creación.
@@ -24,21 +28,46 @@ import models.entities.heladera.modulos.aperturas.ModuloDeAperturas;
 
 @Getter
 @Setter
-public class Heladera {
+@Entity
+@Table(name = "Heladeras")
+@NoArgsConstructor
+public class Heladera extends EntidadPersistente {
+
+  @OneToOne
+  @JoinColumn(name = "direccion_id", referencedColumnName = "id")
   private Direccion direccion;
+
+  @Transient
   private String nombre;
+
+  @Column(columnDefinition = "DATE")
   private LocalDate fechaDeCreacion;
 
+  @Transient
   private Modelo modelo;
 
+  @Transient
   private Boolean estaAbierta;
 
+  @Transient //Probalemente embebidos
   private ModuloDeAlmacenamiento modAlmacenamiento;
+
+  @Transient
   private ModuloDeSuscripciones modSuscripciones;
+
+  @Transient
   private ModuloDeReportes modReportes;
+
+  @Transient
   private ModuloDeIncidentes modIncidentes;
+
+  @Transient
   private ModuloDeEstados modEstados;
+
+  @Transient
   private ModuloDeTecnicos modTecnicos;
+
+  @Transient
   private ModuloDeAperturas modAperturas;
 
   /**

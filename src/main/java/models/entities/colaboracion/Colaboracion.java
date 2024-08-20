@@ -30,7 +30,7 @@ public class Colaboracion extends EntidadPersistente {
   @Convert(converter = LocalDateAttributeConverter.class)
   private LocalDate fechaColaboracion;
 
-  //TODO ver video escobar no le gustan los plurales y despues vemos de embeberlos
+  //TODO ver de embeber las clases
 
   @Embedded
   private DonacionDinero donacionDinero;

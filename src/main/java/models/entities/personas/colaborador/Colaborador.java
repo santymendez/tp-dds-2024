@@ -2,9 +2,11 @@ package models.entities.personas.colaborador;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
+import models.db.EntidadPersistente;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
 import models.entities.formulario.RespuestaFormulario;
@@ -24,31 +26,64 @@ import utils.security.Usuario;
 
 @Getter
 @Setter
-public class Colaborador {
+@Entity
+@Table(name = "colaboradores")
+public class Colaborador extends EntidadPersistente {
+
+  //TODO todos los trasient son OneToOne
+  @Transient
   private Usuario usuario;
 
   //Persona fisica
+  @Column(name = "nombre")
   private String nombre;
+
+  @Column(name = "apellido")
   private String apellido;
+
+  @Transient
   private Documento documento;
 
   //Persona Juridica
+  @Column(name = "razonSocial")
   private String razonSocial;
+
+  @Column(name = "tipo")
   private String tipo;
+
+  @Column(name = "rubro")
   private String rubro;
+
+  @Transient
   private Direccion direccion;
 
   //Ambos
+  @Transient
   private Contacto contacto;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipoColaborador")
   private TipoColaborador tipoColaborador;
+
+  @Transient
   private RespuestaFormulario respuestaFormulario;
+  //TODO el colaborador solo tiene 1 respuesta ?????
+
+  @Transient // embeded
   private Reconocimiento reconocimiento;
 
+  @OneToMany // necesito al colaborador del otro lado para implementarla
+  @JoinColumn(name = "colaboracion_id")
   private List<Colaboracion> colaboraciones;
 
+  @Transient
   private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
+  @OneToMany
+  @JoinColumn(name = "tarjeta_id")
   private List<TarjetaColaborador> tarjetas;
+
+  @Transient // o one to many ??
   private List<InterfazSuscripcion> suscripciones;
 
   /**

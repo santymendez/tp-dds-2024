@@ -1,11 +1,14 @@
 package models.entities.formulario;
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import models.db.EntidadPersistente;
-
-import javax.persistence.*;
 
 /**
  * Representa un formulario. Tiene un listado de preguntas.
@@ -15,7 +18,11 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "formularios")
-public class Formulario extends EntidadPersistente {
+public class Formulario {
+  @Id
+  @GeneratedValue
+  private Long id;
+
   @OneToMany
   @JoinColumn(name = "pregunta_id")
   private List<Pregunta> preguntas;

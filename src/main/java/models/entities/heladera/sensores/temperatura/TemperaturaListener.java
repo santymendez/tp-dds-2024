@@ -8,6 +8,7 @@ import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
 import models.repositories.RepositoryLocator;
 import models.repositories.interfaces.InterfaceIncidentesRepository;
+import models.repositories.interfaces.InterfaceMedicionesRepository;
 import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -20,6 +21,7 @@ public class TemperaturaListener implements IMqttMessageListener {
   private String topic = "sensores/temperatura";
   private InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
   private InterfaceIncidentesRepository incidentesRepository;
+  private InterfaceMedicionesRepository medicionesRepository;
 
   /**
    * Constructor para el Listener de los Sensores de Temperatura.
@@ -32,6 +34,9 @@ public class TemperaturaListener implements IMqttMessageListener {
     this.incidentesRepository =
         (InterfaceIncidentesRepository) RepositoryLocator
             .get("incidentesRepository");
+    this.medicionesRepository =
+        (InterfaceMedicionesRepository) RepositoryLocator
+          .get("medicionesRepository");
   }
 
   @Override
@@ -58,6 +63,7 @@ public class TemperaturaListener implements IMqttMessageListener {
 
     MedicionSensor medicion = new MedicionSensor(temp, sensorTemperatura.getHeladera());
     sensorTemperatura.recibirMedicion(medicion);
+    this.medicionesRepository.guardar(medicion);
 
     if (!sensorTemperatura.comprobarTemperatura(temp)) {
       Incidente incidente = new Incidente(TipoIncidente.ALERTA, sensorTemperatura.getHeladera());

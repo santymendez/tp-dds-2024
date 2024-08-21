@@ -1,9 +1,20 @@
 package models.entities.heladera.incidente;
 
-import java.awt.Image;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.converters.LocalDateTimeAttributeConverter;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.personas.colaborador.Colaborador;
@@ -14,18 +25,40 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "incidentes")
+@NoArgsConstructor
 public class Incidente {
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipoIncidente")
   private TipoIncidente tipo;
+
+  @Convert(converter = LocalDateTimeAttributeConverter.class)
+  @Column(name = "momento")
   private LocalDateTime momentoIncidente;
+
+  @JoinColumn(name = "heladera_id")
+  @ManyToOne
   private Heladera heladera;
 
-  //ALERTA
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipoAlerta")
   private TipoEstado tipoAlerta;
 
-  //FALLA TECNICA
+  @ManyToOne
+  @JoinColumn(name = "colaborador_id")
   private Colaborador colaborador;
+
+  @Column(name = "descripcion", columnDefinition = "TEXT")
   private String descripcion;
-  private Image imagen;
+
+  @Column(name = "imagen")
+  private String imagen;
 
   /**
    * Instancia la clase Incidente.

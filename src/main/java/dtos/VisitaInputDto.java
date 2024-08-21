@@ -14,6 +14,6 @@ public class VisitaInputDto {
   private Incidente incidente;
   private LocalDate fechaVisita;
   private String trabajoRealizado;
-  private Image fotoVisita;
+  private String fotoVisita;
   private Boolean incidenteSolucionado;
 }

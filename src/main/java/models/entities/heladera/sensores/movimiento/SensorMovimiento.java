@@ -1,14 +1,19 @@
 package models.entities.heladera.sensores.movimiento;
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.sensores.MedicionSensor;
-import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 /**
  * Representa un sensor de movimiento.
@@ -16,21 +21,24 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 @Getter
 @Setter
-public class SensorMovimiento implements IMqttMessageListener {
-  private Integer id;
-  private List<MedicionSensor> mediciones; //Para guardar todas las activaciones del sensor
-  private Heladera heladera;
+@Entity
+@Table(name = "sensores_movimiento")
+public class SensorMovimiento {
+  @Id
+  @GeneratedValue
+  private Long id;
 
-  @Override
-  public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {}
+  @OneToMany
+  @JoinColumn
+  private List<MedicionSensor> mediciones;
+
+  @OneToOne
+  @JoinColumn(name = "heladera_id")
+  private Heladera heladera;
 
   public void recibirMedicion(MedicionSensor medicion) {
     this.mediciones.add(medicion);
   }
-
-  /**
-   * Metodo que recibe la heladera y te activa el sensor si la temperatura no está en el rango.
-   */
   
   public Boolean debeActivarSensor() {
     return !this.heladera.getEstaAbierta();

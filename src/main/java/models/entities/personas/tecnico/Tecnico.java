@@ -1,7 +1,18 @@
 package models.entities.personas.tecnico;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.direccion.Ciudad;
 import models.entities.heladera.Heladera;
@@ -18,12 +29,31 @@ import models.entities.personas.documento.Documento;
 @Getter
 @Setter // Modificación de técnicos.
 @AllArgsConstructor // Dar de alta técnicos.
+@NoArgsConstructor
+@Entity
+@Table(name = "tecnicos")
 public class Tecnico {
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @Column(name = "nombre")
   private String nombre;
+
+  @Column(name = "apellido")
   private String apellido;
+
+  @Transient // Es embeded
   private Documento documento;
+
+  @Column(name = "cuil")
   private Integer cuil;
+
+  @Transient // es embeded
   private Contacto contacto;
+
+  @ManyToOne
+  @JoinColumn(name = "ciudad_id")
   private Ciudad areaDeCobertura;
 
   /**

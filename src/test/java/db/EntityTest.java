@@ -1,8 +1,9 @@
 package db;
 
+import java.time.LocalDate;
+import models.db.EntityManagerHelper;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.Modelo;
 import models.entities.heladera.vianda.Comida;
 import models.entities.heladera.vianda.Vianda;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public class EntityTest {
   Heladera heladeraMedrano;
   Direccion direccionMedrano;
-  Modelo modeloMedrano;
+  //Modelo modeloMedrano;
   Vianda vianda1;
   Vianda vianda2;
   Vianda vianda3;
@@ -21,23 +22,23 @@ public class EntityTest {
 
   @BeforeEach
   public void inicializar() {
-    /*
+
     this.heladeraMedrano = new Heladera();
     this.direccionMedrano = new Direccion();
-    this.modeloMedrano = new Modelo();
+    //this.modeloMedrano = new Modelo();
 
     this.direccionMedrano.setUbicacion("Av. Medrano 951");
     this.direccionMedrano.setLatitud(-34.5983f);
     this.direccionMedrano.setLongitud(-58.4202f);
-
-    this.modeloMedrano.setNombre("M26-06-11B");
-    this.modeloMedrano.setTemperaturaMaxima(35.0f);
-    this.modeloMedrano.setTemperaturaMinima(-4.0f);
+    this.direccionMedrano.setBarrio(null);
+    //this.modeloMedrano.setNombre("M26-06-11B");
+    //this.modeloMedrano.setTemperaturaMaxima(35.0f);
+    //this.modeloMedrano.setTemperaturaMinima(-4.0f);
 
     this.heladeraMedrano.setNombre("Heladera Medrano");
     this.heladeraMedrano.setDireccion(this.direccionMedrano);
-    this.heladeraMedrano.setModelo(this.modeloMedrano);
-    this.heladeraMedrano.getModAlmacenamiento().setCapacidadMaximaViandas(100);
+    //this.heladeraMedrano.setModelo(this.modeloMedrano);
+    //this.heladeraMedrano.getModAlmacenamiento().setCapacidadMaximaViandas(100);
     this.heladeraMedrano.setFechaDeCreacion(LocalDate.of(2011, 6, 26));
 
     this.comida1 = new Comida("Salchichas", LocalDate.of(2025,3,2));
@@ -49,42 +50,37 @@ public class EntityTest {
         null,
         this.heladeraMedrano,
         1000,
-        200.0f,
-        false);
+        200.0f
+        );
 
     this.vianda2 = new Vianda(this.comida2,
         LocalDate.of(2024,11,25),
         null,
         this.heladeraMedrano,
         500,
-        1000.0f,
-        false);
+        1000.0f);
 
     this.vianda3 = new Vianda(this.comida3,
         LocalDate.of(2024,7,22),
         null,
         this.heladeraMedrano,
         300,
-        50.0f,
-        false);
+        50.0f);
 
-    this.heladeraMedrano.getModAlmacenamiento().agregarVianda(vianda1);
-    this.heladeraMedrano.getModAlmacenamiento().agregarVianda(vianda2);
-    this.heladeraMedrano.getModAlmacenamiento().agregarVianda(vianda3);
+    //this.heladeraMedrano.getModAlmacenamiento().agregarVianda(vianda1);
+    //this.heladeraMedrano.getModAlmacenamiento().agregarVianda(vianda2);
+    //this.heladeraMedrano.getModAlmacenamiento().agregarVianda(vianda3);
 
-    */
   }
 
   @Test
   public void persistirHeladera() {
 
-    /*
     EntityManagerHelper.beginTransaction();
 
-    EntityManagerHelper.getEntityManager().persist(this.heladeraMedrano);
+    EntityManagerHelper.persist(heladeraMedrano);
 
     EntityManagerHelper.commit();
-    */
   }
 
   @Test

@@ -1,6 +1,5 @@
 package models.entities.personas.tecnico;
 
-import java.awt.Image;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,13 +11,12 @@ import models.entities.heladera.incidente.Incidente;
  */
 
 @Getter
-@Setter //Segun vaya realizando la visita, con los setters el tecnico puede
-//agregar imagen y marcar
+@Setter
 public class VisitaTecnica {
   private Incidente incidente;
   private LocalDate fechaVisita;
   private String trabajoRealizado;
-  private Image fotoVisita = null;
+  private String fotoVisita = null;
   private Boolean incidenteSolucionado = false;
 
   /**

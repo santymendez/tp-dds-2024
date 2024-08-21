@@ -7,11 +7,16 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import models.converters.LocalDateAttributeConverter;
-import models.db.EntidadPersistente;
+import models.entities.personas.colaborador.Colaborador;
+
 
 /**
  * Representa una colaboracion dentro del sistema.
@@ -21,7 +26,10 @@ import models.db.EntidadPersistente;
 @Setter
 @Entity
 @Table(name = "colaboraciones")
-public class Colaboracion extends EntidadPersistente {
+public class Colaboracion {
+  @Id
+  @GeneratedValue
+  private Long id;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo")
@@ -29,6 +37,10 @@ public class Colaboracion extends EntidadPersistente {
 
   @Convert(converter = LocalDateAttributeConverter.class)
   private LocalDate fechaColaboracion;
+
+  @ManyToOne
+  @JoinColumn(name = "colaborador_id")
+  private Colaborador colaborador;
 
   //TODO ver de embeber las clases
 

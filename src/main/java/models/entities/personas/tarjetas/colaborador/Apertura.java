@@ -1,12 +1,13 @@
 package models.entities.personas.tarjetas.colaborador;
 
 import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Embeddable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import models.converters.LocalDateTimeAttributeConverter;
 
 /**
  * Clase que representa la apertura real de una heladera y lo que conlleva en el sistema.
@@ -18,9 +19,12 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 public class Apertura {
 
-  @Column(columnDefinition = "DATE") // TODO creo que el conversor no sirve para eso, necesitamos otro
+  @Convert(converter = LocalDateTimeAttributeConverter.class)
+  @Column(name = "fechaApertura")
   private LocalDateTime fechaApertura;
-  @Column(columnDefinition = "DATE")
+
+  @Convert(converter = LocalDateTimeAttributeConverter.class)
+  @Column(name = "fechaSolicitud")
   private LocalDateTime fechaSolicitud;
 
   public Apertura(LocalDateTime solicitud) {

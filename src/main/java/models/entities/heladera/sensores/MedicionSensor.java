@@ -1,7 +1,17 @@
 package models.entities.heladera.sensores;
 
 import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import models.converters.LocalDateTimeAttributeConverter;
 import models.entities.heladera.Heladera;
 
 /**
@@ -9,10 +19,24 @@ import models.entities.heladera.Heladera;
  */
 
 @Getter
+@Entity
+@Table(name = "medicionesSensor")
+@NoArgsConstructor
 public class MedicionSensor {
-  private final Float valor;
-  private final LocalDateTime fecha;
-  private final Heladera heladera;
+  @Id
+  @GeneratedValue
+  private Long id;
+  
+  @Column(name = "valor")
+  private Float valor;
+
+  @Convert(converter = LocalDateTimeAttributeConverter.class)
+  @Column(name = "fecha")
+  private LocalDateTime fecha;
+
+  @ManyToOne
+  @JoinColumn(name = "heladera_id")
+  private Heladera heladera;
 
   /**
    * Metodo constructor de las mediciones de los sensores.

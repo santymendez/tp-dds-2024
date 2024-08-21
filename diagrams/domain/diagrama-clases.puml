@@ -156,6 +156,7 @@ enum TipoPregunta {
 class Colaboracion {
     -tipoColaboracion: TipoColaboracion
     -fechaColaboracion: LocalDate
+    -colaborador: Colaborador
 
     -donacionDinero: DonacionDinero
 
@@ -332,7 +333,8 @@ enum TipoDocumento {
 class Oferta {
     -nombre: String
     -puntosNecesarios: Float
-    -imagenIlustrativa: Image
+    -imagenIlustrativa: String
+    -ofertante: Colaborador
 }
 
 class Canje {
@@ -448,7 +450,7 @@ class Incidente {
     'Falla Tecnica'
     -colaborador: Colaborador
     -descripcionIncidente: String
-    -fotoIncidente: Image
+    -fotoIncidente: String
 }
 
 enum TipoIncidente {
@@ -467,7 +469,7 @@ class VisitaTecnica {
     -Incidente: incidente
     -fechaVisita: LocalDate
     -trabajoRealizado: String
-    -fotoVisita: Image
+    -fotoVisita: String
     -incidenteSolucionado: Boolean
 }
 
@@ -694,11 +696,13 @@ Colaboracion --> DistribucionTarjetas
 Colaboracion --> RealizacionOfertas
 Colaboracion --> ColocacionHeladera
 Colaboracion --> DonacionDinero
+Colaboracion --> Colaborador
 
 DonacionViandas -->"*" Vianda
 DistribucionViandas --> Heladera
 DistribucionTarjetas -->"*" TarjetaVulnerable
 RealizacionOfertas -->"*" Oferta
+Oferta --> Colaborador
 ColocacionHeladera --> Heladera
 
 'TARJETA'

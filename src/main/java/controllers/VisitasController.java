@@ -3,7 +3,6 @@ package controllers;
 import dtos.VisitaInputDto;
 import models.entities.personas.tecnico.VisitaTecnica;
 import models.repositories.RepositoryLocator;
-import models.repositories.imp.VisitasRepository;
 import models.repositories.interfaces.InterfaceVisitasRepository;
 
 /**

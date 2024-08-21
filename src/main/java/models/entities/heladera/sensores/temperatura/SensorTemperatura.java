@@ -3,6 +3,13 @@ package models.entities.heladera.sensores.temperatura;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
@@ -16,9 +23,18 @@ import models.entities.heladera.sensores.MedicionSensor;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "sensores_temperatura")
 public class SensorTemperatura {
-  private Integer id;
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @OneToMany
+  @JoinColumn(name = "medicionesSensor_id")
   private List<MedicionSensor> mediciones;
+
+  @OneToOne
   private Heladera heladera;
 
   public void recibirMedicion(MedicionSensor medicion) {
@@ -46,11 +62,11 @@ public class SensorTemperatura {
   }
 
   public Boolean estaConectado() {
-    LocalDateTime fecha = mediciones.get(0).getFecha();
+    LocalDateTime fecha = this.mediciones.get(0).getFecha();
     return this.periodoEnMinutos(fecha) > 5;
   }
 
-  //================================== Metodos auxiliares =========================================
+  //================================== Métodos auxiliares =========================================
 
   private Long periodoEnMinutos(LocalDateTime fecha) {
     LocalDateTime instanteActual = LocalDateTime.now();

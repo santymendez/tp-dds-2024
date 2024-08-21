@@ -2,10 +2,19 @@ package models.entities.heladera;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import models.db.EntidadPersistente;
+import models.converters.LocalDateAttributeConverter;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.estados.Estado;
 import models.entities.heladera.estados.TipoEstado;
@@ -19,8 +28,6 @@ import models.entities.heladera.modulos.ModuloDeSuscripciones;
 import models.entities.heladera.modulos.ModuloDeTecnicos;
 import models.entities.heladera.modulos.aperturas.ModuloDeAperturas;
 
-import javax.persistence.*;
-
 /**
  * Representa una heladera con una dirección, nombre, capacidad máxima de viandas, lista
  * de viandas y fecha de creación.
@@ -28,26 +35,30 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "Heladeras")
 @NoArgsConstructor
-public class Heladera extends EntidadPersistente {
+@Entity
+@Table(name = "heladeras")
+public class Heladera {
+  @Id
+  @GeneratedValue
+  private Long id;
 
   @OneToOne
   @JoinColumn(name = "direccion_id", referencedColumnName = "id")
   private Direccion direccion;
 
-  @Transient
+  @Column(name = "nombre")
   private String nombre;
 
-  @Column(columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaCreacion")
   private LocalDate fechaDeCreacion;
+
+  @Column(name = "estaAbierta")
+  private Boolean estaAbierta;
 
   @Transient
   private Modelo modelo;
-
-  @Transient
-  private Boolean estaAbierta;
 
   @Transient //Probalemente embebidos
   private ModuloDeAlmacenamiento modAlmacenamiento;

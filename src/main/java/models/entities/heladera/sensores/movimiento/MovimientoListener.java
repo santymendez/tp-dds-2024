@@ -8,6 +8,7 @@ import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
 import models.repositories.RepositoryLocator;
 import models.repositories.interfaces.InterfaceIncidentesRepository;
+import models.repositories.interfaces.InterfaceMedicionesRepository;
 import models.repositories.interfaces.InterfaceSensoresMovimientoRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -21,6 +22,7 @@ public class MovimientoListener implements IMqttMessageListener {
   private String topic = "sensores/movimiento";
   private InterfaceSensoresMovimientoRepository sensoresMovimientoRepository;
   private InterfaceIncidentesRepository incidentesRepository;
+  private InterfaceMedicionesRepository medicionesRepository;
 
   /**
    * Constructor del Listener para los Sensores de Movimento.
@@ -33,6 +35,9 @@ public class MovimientoListener implements IMqttMessageListener {
     this.incidentesRepository =
         (InterfaceIncidentesRepository) RepositoryLocator
             .get("incidentesRepository");
+    this.medicionesRepository =
+        (InterfaceMedicionesRepository) RepositoryLocator
+            .get("medicionesRepository");
   }
 
   @Override
@@ -52,6 +57,7 @@ public class MovimientoListener implements IMqttMessageListener {
     if (sensorMovimiento.debeActivarSensor()) {
       MedicionSensor medicion = new MedicionSensor(null, sensorMovimiento.getHeladera());
       sensorMovimiento.recibirMedicion(medicion);
+      this.medicionesRepository.guardar(medicion);
 
       Incidente incidente = new Incidente(TipoIncidente.ALERTA, sensorMovimiento.getHeladera());
       incidente.setTipoAlerta(TipoEstado.INACTIVA_FRAUDE);

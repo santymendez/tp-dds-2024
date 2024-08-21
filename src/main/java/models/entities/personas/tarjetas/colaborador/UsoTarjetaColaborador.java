@@ -1,13 +1,17 @@
 package models.entities.personas.tarjetas.colaborador;
 
 import java.time.LocalDateTime;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import models.db.EntidadPersistente;
 import models.entities.heladera.Heladera;
-
-import javax.persistence.*;
 
 /**
  * Clase que representa un uso de la tarjeta de un colaborador.
@@ -18,7 +22,10 @@ import javax.persistence.*;
 @Entity
 @Table
 @NoArgsConstructor
-public class UsoTarjetaColaborador extends EntidadPersistente {
+public class UsoTarjetaColaborador {
+  @Id
+  @GeneratedValue
+  private long id;
 
   @Embedded
   private Apertura apertura;

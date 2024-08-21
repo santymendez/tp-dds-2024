@@ -2,11 +2,18 @@ package models.entities.personas.colaborador;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
-import models.db.EntidadPersistente;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
 import models.entities.formulario.RespuestaFormulario;
@@ -28,7 +35,10 @@ import utils.security.Usuario;
 @Setter
 @Entity
 @Table(name = "colaboradores")
-public class Colaborador extends EntidadPersistente {
+public class Colaborador {
+  @Id
+  @GeneratedValue
+  private long id;
 
   //TODO todos los trasient son OneToOne
   @Transient

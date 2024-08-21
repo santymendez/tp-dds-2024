@@ -2,9 +2,18 @@ package models.entities.reporte;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Stream;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
@@ -15,11 +24,28 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "reportesHeladeras")
+@NoArgsConstructor
 public class ReporteHeladera {
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @ManyToOne
+  @JoinColumn(name = "heladera_id")
   private Heladera heladera;
+
+  @Column(name = "fallas")
   private Integer fallas;
+
+  @Column(name = "viandasColocadas")
   private Integer viandasColocadas;
+
+  @Column(name = "viandasRetiradas")
   private Integer viandasRetiradas;
+
+  @OneToMany
   private List<ViandasPorColaborador> viandasPorColaboradores;
 
   /**
@@ -59,29 +85,67 @@ public class ReporteHeladera {
     this.fallas++;
   }
 
+  //TODO esto iria en un controller
+
+  //  /**
+  //   * Busca el colaborador en la lista de ViandasXColaborador, si lo encuentra le agrega
+  //   * las viandas que dono, si no crea un nuevo ViandasXColaborador y lo agrega a la lista.
+  //   *
+  //   * @param colaborador Colaborador que realiza la donación.
+  //   * @param viandas Cantidad de viandas donadas.
+  //   */
+
+  //  public void colaboracionRealizada(Colaborador colaborador, Integer viandas) {
+  //    Optional<ViandasPorColaborador> viandasPorColaborador =
+  //        this.buscarPorColaborador(colaborador).findFirst();
+  //
+  //    if (viandasPorColaborador.isPresent()) {
+  //      viandasPorColaborador.get().agregarViandas(viandas);
+  //    } else {
+  //      ViandasPorColaborador nuevo = new ViandasPorColaborador(colaborador, viandas);
+  //      this.viandasPorColaboradores.add(nuevo);
+  //    }
+  //  }
+
   /**
-   * Busca el colaborador en la lista de ViandasXColaborador, si lo encuentra le agrega
-   * las viandas que dono, si no crea un nuevo ViandasXColaborador y lo agrega a la lista.
+   * Metodo que permite registrar una nueva donacion en el reporte.
    *
-   * @param colaborador Colaborador que realiza la donación.
-   * @param viandas Cantidad de viandas donadas.
+   * @param viandasPorColaborador nueva donacion a registrar.
    */
 
-  public void colaboracionRealizada(Colaborador colaborador, Integer viandas) {
-    Optional<ViandasPorColaborador> viandasPorColaborador =
-        this.buscarPorColaborador(colaborador).findFirst();
+  public void agregarNuevaColaboracion(ViandasPorColaborador viandasPorColaborador) {
+    this.viandasPorColaboradores.add(viandasPorColaborador);
+  }
+
+  /**
+   * Metodo que permite agregar mas viandas a las ya donadas por un colaborador
+   * en el reporte.
+   *
+   * @param colaborador colaborador que dono las viandas.
+   * @param viandas cantidad de viandas donadas.
+   */
+
+  public void agregarMasDonaciones(Colaborador colaborador, Integer viandas) {
+    ViandasPorColaborador viandasPorColaborador = this.buscarColaborador(colaborador);
+    viandasPorColaborador.agregarViandas(viandas);
+  }
+
+  /**
+   * Metodo para buscar a un colaborador que ya haya donado viandas, y
+   * sus viandas donadas.
+   *
+   * @param colaborador colaborador a validar si colaboro.
+   * @return la relacion entre el colaborador y sus donaciones.
+   */
+
+  public ViandasPorColaborador buscarColaborador(Colaborador colaborador) {
+    Optional<ViandasPorColaborador> viandasPorColaborador = this.viandasPorColaboradores.stream()
+        .filter(elem -> elem.getColaborador().equals(colaborador)).findFirst();
 
     if (viandasPorColaborador.isPresent()) {
-      viandasPorColaborador.get().agregarViandas(viandas);
+      return viandasPorColaborador.get();
     } else {
-      ViandasPorColaborador nuevo = new ViandasPorColaborador(colaborador, viandas);
-      this.viandasPorColaboradores.add(nuevo);
+      throw new NoSuchElementException("No se encontro el colaborador");
     }
   }
-
-  public Stream<ViandasPorColaborador> buscarPorColaborador(Colaborador colaborador) {
-    return this.viandasPorColaboradores.stream()
-        .filter(elem -> elem.getColaborador().equals(colaborador));
-  }
-
 }

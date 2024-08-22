@@ -78,6 +78,8 @@ public class EntityTest {
 
     EntityManagerHelper.beginTransaction();
 
+    EntityManagerHelper.persist(direccionMedrano);
+
     EntityManagerHelper.persist(heladeraMedrano);
 
     EntityManagerHelper.commit();

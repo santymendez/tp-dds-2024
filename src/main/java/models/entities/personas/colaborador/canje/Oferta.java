@@ -33,6 +33,5 @@ public class Oferta {
   private String imagenIlustrativa;
 
   @ManyToOne
-  @Column(name = "colaborador_id")
   private Colaborador ofertante;
 }

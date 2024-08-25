@@ -25,7 +25,7 @@ import models.entities.personas.colaborador.Colaborador;
 @Getter
 @Setter
 @Entity
-@Table(name = "reportesHeladeras")
+@Table(name = "reportes_heladeras")
 @NoArgsConstructor
 public class ReporteHeladera {
   @Id

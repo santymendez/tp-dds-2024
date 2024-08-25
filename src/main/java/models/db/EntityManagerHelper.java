@@ -1,23 +1,29 @@
 package models.db;
 
-import java.util.function.*;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.util.function.Supplier;
 
 public class EntityManagerHelper {
 
   private static EntityManagerFactory emf;
-
   private static ThreadLocal<EntityManager> threadLocal;
 
   static {
+    threadLocal = new ThreadLocal<>();
+    // La unidad de persistencia por defecto
+    configure("simple-persistence-unit");
+  }
+
+  public static void configure(String persistenceUnitName) {
+    if (emf != null && emf.isOpen()) {
+      emf.close();
+    }
     try {
-      emf = Persistence.createEntityManagerFactory("simple-persistence-unit");
-      threadLocal = new ThreadLocal<>();
+      emf = Persistence.createEntityManagerFactory(persistenceUnitName);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -39,14 +45,16 @@ public class EntityManagerHelper {
   public static void closeEntityManager() {
     EntityManager em = threadLocal.get();
     threadLocal.set(null);
-    em.close();
+    if (em != null && em.isOpen()) {
+      em.close();
+    }
   }
 
   public static void beginTransaction() {
     EntityManager em = EntityManagerHelper.getEntityManager();
     EntityTransaction tx = em.getTransaction();
 
-    if(!tx.isActive()){
+    if (!tx.isActive()) {
       tx.begin();
     }
   }
@@ -54,16 +62,15 @@ public class EntityManagerHelper {
   public static void commit() {
     EntityManager em = EntityManagerHelper.getEntityManager();
     EntityTransaction tx = em.getTransaction();
-    if(tx.isActive()){
+    if (tx.isActive()) {
       tx.commit();
     }
-
   }
 
-  public static void rollback(){
+  public static void rollback() {
     EntityManager em = EntityManagerHelper.getEntityManager();
     EntityTransaction tx = em.getTransaction();
-    if(tx.isActive()){
+    if (tx.isActive()) {
       tx.rollback();
     }
   }
@@ -72,7 +79,7 @@ public class EntityManagerHelper {
     return getEntityManager().createQuery(query);
   }
 
-  public static void persist(Object o){
+  public static void persist(Object o) {
     entityManager().persist(o);
   }
 
@@ -82,13 +89,14 @@ public class EntityManagerHelper {
       return null;
     });
   }
+
   public static <A> A withTransaction(Supplier<A> action) {
     beginTransaction();
     try {
       A result = action.get();
       commit();
       return result;
-    } catch(Throwable e) {
+    } catch (Throwable e) {
       rollback();
       throw e;
     }

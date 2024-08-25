@@ -20,6 +20,7 @@ public class TarjetaVulnerable {
   private Integer cantidadDeUsosMaxima;
   private List<RegistroUso> registroUsos;
   private InformacionRegistro informacionRegistro;
+  private Vulnerable vulnerable;
 
   /**
    * Constructor de la clase Tarjeta.

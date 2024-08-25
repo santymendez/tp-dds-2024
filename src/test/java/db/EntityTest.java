@@ -23,6 +23,8 @@ public class EntityTest {
   @BeforeEach
   public void inicializar() {
 
+    EntityManagerHelper.configure("test-persistence-unit");
+
     this.heladeraMedrano = new Heladera();
     this.direccionMedrano = new Direccion();
     //this.modeloMedrano = new Modelo();

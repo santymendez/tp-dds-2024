@@ -3,11 +3,15 @@ package models.entities.personas.vulnerable;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
+
+import javax.persistence.*;
 
 /**
  * Representa una persona vulnerable con nombre, fecha de nacimiento, fecha de registro,
@@ -15,14 +19,37 @@ import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
  */
 
 @Getter
+@Entity
+@NoArgsConstructor
+@Table(name = "vulnerables")
 public class Vulnerable {
-  private final String nombre;
-  private final LocalDate fechaNacimiento;
-  private final LocalDate fechaRegistro;
-  private final Direccion domicilio;
-  private final Documento documento;
-  private final List<Vulnerable> menoresAcargo;
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @Column(name = "nombre")
+  private String nombre;
+
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaNacimiento")
+  private LocalDate fechaNacimiento;
+
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaRegistro")
+  private LocalDate fechaRegistro;
+
+  @Transient
+  private Direccion domicilio;
+
+  @Transient
+  private Documento documento;
+
+  @OneToMany
+  @Column(name = "menoresAcargo")
+  private List<Vulnerable> menoresAcargo;
+
   @Setter
+  @Transient
   private TarjetaVulnerable tarjeta;
 
   /**

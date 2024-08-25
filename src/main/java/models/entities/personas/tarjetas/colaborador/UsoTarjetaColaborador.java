@@ -20,7 +20,7 @@ import models.entities.heladera.Heladera;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "usos_tarjetas_colaboradores")
 @NoArgsConstructor
 public class UsoTarjetaColaborador {
   @Id

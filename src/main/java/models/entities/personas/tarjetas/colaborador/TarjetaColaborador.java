@@ -16,7 +16,7 @@ import lombok.Getter;
 
 @Getter
 @Entity
-@Table (name = "tarjetas")
+@Table (name = "tarjetas_colaboradores")
 public class TarjetaColaborador {
   @Id
   private final String codigo;

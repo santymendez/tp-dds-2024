@@ -73,9 +73,6 @@ class Vulnerable {
     -domicilio: Direccion
     -documento: Documento
     -List<Vulnerable> menoresAcargo
-    -tarjeta: TarjetaVulnerable
-
-    +boolean puedeUsarTarjeta(Heladera heladera)
 }
 
 class Colaborador{
@@ -299,6 +296,7 @@ class TarjetaVulnerable {
     -cantidadDeUsosMaxima: Integer
     -List<RegistroUso> registroUsos
     -informacionRegistro: InformacionRegistro
+    -vulnerable: Vulnerable
 
     +Boolean puedeUtilizarse(Heladera heladera)
 }

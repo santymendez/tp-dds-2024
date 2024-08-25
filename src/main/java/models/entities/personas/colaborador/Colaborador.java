@@ -40,7 +40,7 @@ public class Colaborador {
   @GeneratedValue
   private long id;
 
-  //TODO todos los trasient son OneToOne
+  //TODO todos los transient son OneToOne
   @Transient
   private Usuario usuario;
 

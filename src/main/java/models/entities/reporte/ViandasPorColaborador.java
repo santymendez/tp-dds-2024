@@ -20,7 +20,7 @@ import models.entities.personas.colaborador.Colaborador;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "viandasPorColaborador")
+@Table(name = "viandas_por_colaboradores")
 public class ViandasPorColaborador {
   @Id
   @GeneratedValue

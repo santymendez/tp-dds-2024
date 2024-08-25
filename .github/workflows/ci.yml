@@ -28,10 +28,6 @@ jobs:
         run: mvn -B package --file pom.xml -DskipTests
 
       - name: Test with Maven (HSQLDB)
-        env:
-          DB_URL: jdbc:hsqldb:mem:app-db
-          DB_USER: sa
-          DB_PASSWORD: ""
         run: mvn test -Dtest.persistence.unit=test-persistence-unit
 
       - name: Run Checkstyle

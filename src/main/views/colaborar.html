@@ -53,6 +53,7 @@
                 <option value="realizar_ofertas">Realizar una Oferta</option>
                 <option value="distribuir_tarjetas">Distribuir Tarjetas</option>
                 <option value="distribuir_viandas">Distribuir Viandas</option>
+                <option value="alta-heladera.html">Colocar una Heladera</option>
             </select>
         </div>
 
@@ -207,6 +208,15 @@
                 form.classList.add('d-none');
             }
         });
+    });
+</script>
+
+<script>
+    document.getElementById('actionSelector').addEventListener('change', function() {
+        var selectedValue = this.value;
+        if (selectedValue == "alta-heladera.html") {
+            window.location.href = selectedValue;
+        }
     });
 </script>
 

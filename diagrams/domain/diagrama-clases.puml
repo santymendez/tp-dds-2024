@@ -294,14 +294,14 @@ class CalculoHeladerasActivas {
 class TarjetaVulnerable {
     -codigo: String
     -cantidadDeUsosMaxima: Integer
-    -List<RegistroUso> registroUsos
+    -List<UsoTarjetaVulnerable> registroUsos
     -informacionRegistro: InformacionRegistro
     -vulnerable: Vulnerable
 
     +Boolean puedeUtilizarse(Heladera heladera)
 }
 
-class RegistroUso {
+class UsoTarjetaVulnerable {
     -fechaUtilizacion: LocalDate
     -heladera: Heladera
 }
@@ -704,12 +704,13 @@ Oferta --> Colaborador
 ColocacionHeladera --> Heladera
 
 'TARJETA'
-TarjetaVulnerable o---"*" RegistroUso
+TarjetaVulnerable o---"*" UsoTarjetaVulnerable
 TarjetaVulnerable ---> InformacionRegistro
 TarjetaVulnerable ...> Heladera
+TarjetaVulnerable --> Vulnerable
 
 'REGISTRO USO'
-RegistroUso *--- Heladera
+UsoTarjetaVulnerable *--- Heladera
 
 'INFORMACION REGISTRO'
 InformacionRegistro *--- Colaborador
@@ -719,7 +720,6 @@ InformacionRegistro *--- Vulnerable
 Vulnerable ---> Direccion
 Vulnerable ---> Documento
 Vulnerable --->"*" Vulnerable
-Vulnerable ---> TarjetaVulnerable
 Vulnerable ..> Heladera
 
 'TECNICO'

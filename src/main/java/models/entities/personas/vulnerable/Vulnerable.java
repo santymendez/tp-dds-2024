@@ -2,16 +2,20 @@ package models.entities.personas.vulnerable;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import models.converters.LocalDateAttributeConverter;
 import models.entities.direccion.Direccion;
-import models.entities.heladera.Heladera;
 import models.entities.personas.documento.Documento;
-import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
-
-import javax.persistence.*;
 
 /**
  * Representa una persona vulnerable con nombre, fecha de nacimiento, fecha de registro,
@@ -45,12 +49,8 @@ public class Vulnerable {
   private Documento documento;
 
   @OneToMany
-  @Column(name = "menoresAcargo")
+  @JoinColumn(name = "menor_id")
   private List<Vulnerable> menoresAcargo;
-
-  @Setter
-  @Transient
-  private TarjetaVulnerable tarjeta;
 
   /**
    * Constructor de vulnerable, sirve para dar de alta.
@@ -64,16 +64,6 @@ public class Vulnerable {
     this.domicilio = domicilio;
     this.documento = documento;
     this.menoresAcargo = menoresAcargo;
-  }
-
-  /**
-   * Metodo que permite al vulnerable utilizar su tarjeta.
-   *
-   * @param heladera Es la heladera donde se quiere utilizar la tarjeta.
-   */
-
-  public boolean puedeUsarTarjeta(Heladera heladera) {
-    return this.tarjeta.puedeUtilizarse(heladera);
   }
 
 }

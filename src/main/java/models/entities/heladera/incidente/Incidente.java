@@ -29,7 +29,6 @@ import models.entities.personas.colaborador.Colaborador;
 @Table(name = "incidentes")
 @NoArgsConstructor
 public class Incidente {
-
   @Id
   @GeneratedValue
   private Long id;

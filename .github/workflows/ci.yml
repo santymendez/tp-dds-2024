@@ -17,8 +17,6 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: heladeras_solidarias_db
-          MYSQL_USER: root
-          MYSQL_PASSWORD: CONTRASENIA
         ports:
           - 3306:3306
         options: --health-cmd "mysqladmin ping --silent" --health-timeout 60s
@@ -33,6 +31,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
+      - name: List project directory
+        run: ls -R
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml -DskipTests
@@ -49,7 +50,7 @@ jobs:
         env:
           DB_URL: jdbc:mysql://localhost:3306/heladeras_solidarias_db
           DB_USER: root
-          DB_PASSWORD: CONTRASENIA
+          DB_PASSWORD: root
         run: mvn test -Dtest.persistence.unit=simple-persistence-unit
 
       - name: Run Checkstyle

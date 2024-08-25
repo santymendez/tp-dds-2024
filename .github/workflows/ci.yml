@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     services:
@@ -38,6 +37,13 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml -DskipTests
 
+      - name: Wait for MySQL to be ready
+        run: |
+          until mysqladmin ping -hlocalhost --silent; do
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
+
       - name: Test with Maven (HSQLDB)
         env:
           DB_URL: jdbc:hsqldb:mem:app-db
@@ -46,7 +52,7 @@ jobs:
         run: mvn test -Dtest.persistence.unit=test-persistence-unit
 
       - name: Test with Maven (MySQL)
-        if: always() # Va a ejecutar si los anteriores no fallaron
+        if: always() # Ejecuta si los anteriores no fallaron
         env:
           DB_URL: jdbc:mysql://localhost:3306/heladeras_solidarias_db
           DB_USER: root

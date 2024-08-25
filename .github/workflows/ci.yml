@@ -1,0 +1,56 @@
+name: Pipeline DDS
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: heladeras_solidarias_db
+          MYSQL_USER: root
+          MYSQL_PASSWORD: CONTRASENIA
+        ports:
+          - 3306:3306
+        options: --health-cmd "mysqladmin ping --silent" --health-timeout 60s
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml -DskipTests
+
+      - name: Test with Maven (HSQLDB)
+        env:
+          DB_URL: jdbc:hsqldb:mem:app-db
+          DB_USER: sa
+          DB_PASSWORD: ""
+        run: mvn test -Dtest.persistence.unit=test-persistence-unit
+
+      - name: Test with Maven (MySQL)
+        if: always() # Va a ejecutar si los anteriores no fallaron
+        env:
+          DB_URL: jdbc:mysql://localhost:3306/heladeras_solidarias_db
+          DB_USER: root
+          DB_PASSWORD: CONTRASENIA
+        run: mvn test -Dtest.persistence.unit=simple-persistence-unit
+
+      - name: Run Checkstyle
+        run: mvn checkstyle:check

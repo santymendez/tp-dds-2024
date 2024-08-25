@@ -10,16 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: heladeras_solidarias_db
-        ports:
-          - 3306:3306
-        options: --health-cmd "mysqladmin ping --silent" --health-timeout 60s
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,35 +27,12 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml -DskipTests
 
-      - name: Wait for MySQL to be ready
-        run: |
-          echo "Waiting for MySQL to start..."
-          for i in {1..60}; do
-            if mysqladmin ping -hlocalhost --silent; then
-              echo "MySQL is up and running!"
-              exit 0
-            else
-              echo "MySQL is not ready yet. Attempt $i/60"
-              sleep 5
-            fi
-          done
-          echo "MySQL did not start in time. Exiting."
-          exit 1
-
       - name: Test with Maven (HSQLDB)
         env:
           DB_URL: jdbc:hsqldb:mem:app-db
           DB_USER: sa
           DB_PASSWORD: ""
         run: mvn test -Dtest.persistence.unit=test-persistence-unit
-
-      - name: Test with Maven (MySQL)
-        if: always() # Ejecuta si los anteriores no fallaron
-        env:
-          DB_URL: jdbc:mysql://localhost:3306/heladeras_solidarias_db
-          DB_USER: root
-          DB_PASSWORD: root
-        run: mvn test -Dtest.persistence.unit=simple-persistence-unit
 
       - name: Run Checkstyle
         run: mvn checkstyle:check

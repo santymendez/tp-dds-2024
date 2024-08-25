@@ -39,10 +39,18 @@ jobs:
 
       - name: Wait for MySQL to be ready
         run: |
-          until mysqladmin ping -hlocalhost --silent; do
-            echo "Waiting for MySQL..."
-            sleep 5
+          echo "Waiting for MySQL to start..."
+          for i in {1..60}; do
+            if mysqladmin ping -hlocalhost --silent; then
+              echo "MySQL is up and running!"
+              exit 0
+            else
+              echo "MySQL is not ready yet. Attempt $i/60"
+              sleep 5
+            fi
           done
+          echo "MySQL did not start in time. Exiting."
+          exit 1
 
       - name: Test with Maven (HSQLDB)
         env:

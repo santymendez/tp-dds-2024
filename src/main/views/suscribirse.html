@@ -42,50 +42,54 @@
 </header>
 
 <main class="suscribirse-content">
-    <h2>Suscribirse a una heladera</h2>
+    <h2>Suscribirse a una Heladera</h2>
     <form>
-        <div class="columnas">
-            <div class="columna">
-                <label for="nombre" class="form-label">Nombre de la heladera</label>
+        <div class="mb-3 primero">
+            <div class = "mediano">
+                <label for="nombre" class="form-label">Nombre de la Heladera</label>
                 <input class="form-control form-control-lg" list="datalistOptions" id="nombre" placeholder="Escriba para buscar...">
-                <datalist id="datalistOptions">
-                    <option value="Heladera Medrano">
-                    <option value="Heladera Lugano 1">
-                    <option value="Heladera Lugano 2">
-                    <option value="Heladera Douglas">
-                    <option value="Heladera promocione operativos">
-                    <option value="Heladera promocione fisica2 tmb">
-                </datalist>
             </div>
-            <div class="columna">
-                <label class="form-label">Notificarme si...</label>
-                <div class="mb-3 form-check">
-                    <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                            <div class="input-group">
-                                <input type="checkbox" class="form-check-input" id="faltan">
-                                <label for="faltan" class="col-form-label">Faltan X viandas</label>
-                                <input type="text" aria-label="cant_faltan" class="form-control" placeholder="Cantidad">
-                            </div>
-                            <div class="input-group">
-                                <input type="checkbox" class="form-check-input" id="quedan">
-                                <label for="quedan" class="col-form-label">Quedan X viandas</label>
-                                <input type="text" aria-label="cant_quedan" class="form-control" placeholder="Cantidad">
-                            </div>
-                            <div>
-                                <input type="checkbox" class="form-check-input" id="falla">
-                                <label for="falla" class="col-form-label">Ocurrió una falla en la heladera</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <datalist id="datalistOptions">
+                <option value="Heladera Medrano">
+                <option value="Heladera Lugano 1">
+                <option value="Heladera Lugano 2">
+                <option value="Heladera Douglas">
+                <option value="Heladera promocione operativos">
+                <option value="Heladera promocione fisica2 tmb">
+            </datalist>
+        </div>
+
+        <label class="form-label">Notificarme si...</label>
+
+        <div class="mb-3 form-check flex-container">
+            <input type="checkbox" class="form-check-input" id="faltan">
+            <div class="flex-item">
+                <label for="faltan" class="col-form-label">Faltan X Viandas</label>
             </div>
+            <input type="text" aria-label="cant_faltan" class="form-control flex-input" placeholder="Ingrese la Cantidad de Viandas">
+        </div>
+
+        <div class="mb-3 form-check flex-container">
+            <input type="checkbox" class="form-check-input" id="quedan">
+            <div class="flex-item">
+                <label for="quedan" class="col-form-label">Quedan X Viandas</label>
+            </div>
+            <input type="text" aria-label="cant_quedan" class="form-control flex-input" placeholder="Ingrese la Cantidad de Viandas">
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="falla">
+            <label for="falla" class="col-form-label">Ocurrió una Falla en la Heladera</label>
+        </div>
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="submit" class="btn btn-primary">Suscribirse</button>
         </div>
     </form>
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <button type="submit" class="btn btn-primary">Suscribirse</button>
-    </div>
+
+
 </main>
+
 
 <footer class="footer">
     <p>® 2024 Heladeras Solidarias ONG</p>

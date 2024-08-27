@@ -1,19 +1,21 @@
 h2 {
-    float: left;
+    float: none;
     margin-left: 1rem;
+    text-align: center;
+    margin-bottom: 4rem;
 }
 
 .main-content {
     flex: 1;
     padding: 2rem;
-    text-align: left;
-    margin-top: 10rem;
+    margin-top: 1rem;
 }
 
 .list-group {
     display: flex;
     width: 30%;
     margin-inline: auto;
+    text-align: left;
 }
 
 .list-group-item {
@@ -48,18 +50,24 @@ h2 {
     margin-inline: auto;
 }
 
+.left{
+    text-align: left;
+}
+
 .form-label{
     color: var(--negro);
     text-decoration: none;
     font-family: var(--fuenteSubtitulos), serif;
     font-size: 1.4rem;
     margin-top: 5rem;
+    text-align: left;
 }
 
 .form-select{
     padding: 0.8rem;
     font-size: 1.3rem;
     border-radius: 1rem;
+    text-align: left;
 }
 
 .btn-primary {
@@ -67,6 +75,7 @@ h2 {
     text-decoration: none;
     font-style: var(--fuenteBotones);
     font-size: 1.4rem;
+    text-align: center;
 
     background-color: var(--verdeSecundario);
     border-color: var(--verdeSecundario);

@@ -74,11 +74,20 @@ h2 {
 .header__nav {
     background-color: var(--verdeSecundario);
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .nav-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-top: 0;
 }
 
 nav ul {
@@ -87,14 +96,20 @@ nav ul {
     margin: 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 nav ul li {
-    margin-right: 0.5rem;
+    margin-right: 0;
 }
 
-nav ul li:last-child {
-    margin-right: 0;
+li {
+    max-width: 100%;
+}
+
+ul {
+    gap: 20rem;
 }
 
 nav ul li a {
@@ -102,14 +117,15 @@ nav ul li a {
     text-decoration: none;
     font-family: var(--fuenteBotones), sans-serif;
     font-weight: 500;
-    font-size: 1.4rem;
+    font-size: 1.6rem; /* Tamaño del texto ajustado */
     padding: 0.8rem 1.5rem;
     display: block;
-    background-color: var(--verdeBotonesCuadrados);
+    text-align: center;
+    width: 100%; /* Para que el hover ocupe todo el espacio */
 }
 
 nav ul li a:hover {
-    background-color: var(--verdeSecundario);
+    background-color: var(--verdePrincipal); /* Cambia el color de fondo al hacer hover */
     color: var(--blanco);
 }
 

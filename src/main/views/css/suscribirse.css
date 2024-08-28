@@ -1,24 +1,39 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .suscribirse-content {
     flex: 1;
     padding: 2rem;
-}
-
-.columnas {
-    column-count: 2;
-    column-gap: 5%;
+    max-width: 60rem;
+    justify-content: center;
     width: 100%;
+    align-items: center;
 }
 
-.columna {
-    width: 50%;
-    break-inside: avoid;
+.mediano{
+    max-width: 47rem;
+    align-items: center;
+    justify-content: center;
+    padding-left: 8rem;
+}
+
+h2{
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.mb-3 {
+    padding-bottom: 1rem;
 }
 
 .form-label{
     color: var(--negro);
     text-decoration: none;
     font-family: var(--fuenteParrafos), sans-serif;
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     margin-bottom: 0.3rem;
 }
 
@@ -46,9 +61,6 @@
     border-color: transparent;
 }
 
-.form-control {
-    margin-bottom: 1rem;
-}
 
 .form-control:focus {
     box-shadow: none;
@@ -68,13 +80,53 @@
     border-color: transparent;
 }
 
-.btn-primary:hover {
-    background-color: var(--verdeBotonesCuadrados);
-    border-color: var(--verdeBotonesCuadrados);
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.form-check-input {
+    margin-right: 1rem;
+}
+
+.flex-item {
+    flex: 1;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.flex-input {
+    margin-left: 1rem;
+    width: 25rem;
+    height: 3rem;
+    max-width: 100%;
+}
+
+.primero{
+    margin-bottom: 4rem;
+}
+
+.btn {
+    background-color: var(--verdeSecundario);
+    border-color: var(--verdeSecundario);
     color: var(--blanco);
+    justify-content: center;
+}
+
+.btn-primary {
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    max-width: 100%;
+    justify-content: center;
 }
 
 .mx-auto{
     width: 10%;
     margin-top: 2rem;
+    justify-content: center;
 }

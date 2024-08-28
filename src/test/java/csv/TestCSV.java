@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 
 import controllers.CsvController;
 import models.repositories.RepositoryLocator;
+import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.interfaces.InterfaceColaboradoresRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ public class TestCSV {
     doNothing().when(emailSender).enviar(any(Mensaje.class), any(String.class));
 
     this.colaboradoresRepository =
-        (InterfaceColaboradoresRepository) RepositoryLocator.get("colaboradoresRepository");
+        RepositoryLocator.get("colaboradoresRepository", ColaboradoresRepository.class);
 
     colaboradoresService = new ColaboradoresService(colaboradoresRepository, emailSender);
 
@@ -37,7 +38,7 @@ public class TestCSV {
   @DisplayName("Se realiza la carga, se guardan los usuarios y se les envia un mail")
   public void losUsuariosRecibenMail(){
     csvController.leerArchivoCsv();
-    Assertions.assertTrue(colaboradoresRepository.buscar(12345678).isPresent());
+    Assertions.assertTrue(colaboradoresRepository.buscarPorId(12345678L).isPresent());
   }
 
 }

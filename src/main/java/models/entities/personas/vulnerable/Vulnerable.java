@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -14,6 +12,7 @@ import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import models.converters.LocalDateAttributeConverter;
+import models.db.Persistente;
 import models.entities.direccion.Direccion;
 import models.entities.personas.documento.Documento;
 
@@ -26,10 +25,7 @@ import models.entities.personas.documento.Documento;
 @Entity
 @NoArgsConstructor
 @Table(name = "vulnerables")
-public class Vulnerable {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class Vulnerable extends Persistente {
 
   @Column(name = "nombre")
   private String nombre;

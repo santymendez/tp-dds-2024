@@ -5,8 +5,6 @@ import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.converters.LocalDateAttributeConverter;
+import models.db.Persistente;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.estados.Estado;
 import models.entities.heladera.estados.TipoEstado;
@@ -38,10 +37,7 @@ import models.entities.heladera.modulos.aperturas.ModuloDeAperturas;
 @NoArgsConstructor
 @Entity
 @Table(name = "heladeras")
-public class Heladera {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class Heladera extends Persistente {
 
   @OneToOne
   @JoinColumn(name = "direccion_id", referencedColumnName = "id")
@@ -57,10 +53,10 @@ public class Heladera {
   @Column(name = "estaAbierta")
   private Boolean estaAbierta;
 
-  @Transient
+  @Transient // TODO todos son embeddable
   private Modelo modelo;
 
-  @Transient //Probalemente embebidos
+  @Transient
   private ModuloDeAlmacenamiento modAlmacenamiento;
 
   @Transient

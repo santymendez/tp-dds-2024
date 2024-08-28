@@ -15,8 +15,6 @@ import models.entities.heladera.Heladera;
 @Getter
 @Embeddable
 public class DistribucionViandas {
-  // TODO medio rariii, por que aca tengo 2 y en el otro 1 heladera mas
-  // no se como deberia referenciar a las heladeras
   @ManyToOne
   private Heladera heladeraOrigen;
 

@@ -5,13 +5,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import models.db.Persistente;
 
 /**
  * Representa una pregunta de un formulario.
@@ -22,10 +21,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "preguntas")
-public class Pregunta {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class Pregunta extends Persistente {
 
   @Column(name = "pregunta")
   private String pregunta;

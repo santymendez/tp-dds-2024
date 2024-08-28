@@ -4,14 +4,13 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import models.db.Persistente;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
@@ -25,10 +24,7 @@ import models.entities.heladera.sensores.MedicionSensor;
 @Setter
 @Entity
 @Table(name = "sensores_temperatura")
-public class SensorTemperatura {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class SensorTemperatura extends Persistente {
 
   @OneToMany
   @JoinColumn(name = "medicionesSensor_id")

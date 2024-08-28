@@ -1,5 +1,6 @@
 package models.repositories.interfaces;
 
+import java.util.List;
 import java.util.Optional;
 import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 
@@ -8,7 +9,17 @@ import models.entities.heladera.sensores.movimiento.SensorMovimiento;
  */
 
 public interface InterfaceSensoresMovimientoRepository {
-  Optional<SensorMovimiento> buscar(int id);
+  public void guardar(SensorMovimiento ... sensores);
 
-  void guardar(SensorMovimiento sensor);
+  public void guardar(SensorMovimiento sensor);
+
+  public void modificar(SensorMovimiento sensor);
+
+  public void eliminarFisico(SensorMovimiento sensor);
+
+  public void eliminar(SensorMovimiento sensor);
+
+  public Optional<SensorMovimiento> buscarPorId(Long id);
+
+  public List<SensorMovimiento> buscarTodos();
 }

@@ -5,6 +5,8 @@ import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.repositories.RepositoryLocator;
+import models.repositories.imp.IncidentesRepository;
+import models.repositories.imp.SensoresTemperaturaRepository;
 import models.repositories.interfaces.InterfaceIncidentesRepository;
 import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
 
@@ -20,15 +22,14 @@ public class DetectorFallaDesconexion {
    */
 
   public static void main(String[] args) {
-    InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository =
-        (InterfaceSensoresTemperaturaRepository) RepositoryLocator
-            .get("sensoresTemperaturaRepository");
+    InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository = RepositoryLocator
+            .get("sensoresTemperaturaRepository", SensoresTemperaturaRepository.class);
 
     InterfaceIncidentesRepository incidentesRepository =
-        (InterfaceIncidentesRepository) RepositoryLocator
-            .get("incidentesRepository");
+        RepositoryLocator
+            .get("incidentesRepository", IncidentesRepository.class);
 
-    List<SensorTemperatura> sensores = sensoresTemperaturaRepository.obtenerSensores();
+    List<SensorTemperatura> sensores = sensoresTemperaturaRepository.buscarTodos();
     for (SensorTemperatura sensor : sensores) {
       if (!sensor.estaConectado()) {
         Incidente incidente = new Incidente(TipoIncidente.ALERTA, sensor.getHeladera());

@@ -1,11 +1,10 @@
 package models.entities.personas.colaborador.canje;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import models.db.Persistente;
 import models.entities.personas.colaborador.Colaborador;
 
 /**
@@ -14,10 +13,7 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Entity
 @Table(name = "canjes")
-public class Canje {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class Canje extends Persistente {
 
   @ManyToOne
   @JoinColumn(name = "colaborador_id")

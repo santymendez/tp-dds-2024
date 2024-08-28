@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.converters.LocalDateTimeAttributeConverter;
+import models.db.Persistente;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.personas.colaborador.Colaborador;
@@ -28,10 +29,7 @@ import models.entities.personas.colaborador.Colaborador;
 @Entity
 @Table(name = "incidentes")
 @NoArgsConstructor
-public class Incidente {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class Incidente extends Persistente {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "tipoIncidente")

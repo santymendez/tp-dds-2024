@@ -1,9 +1,11 @@
 package models.entities.searchers;
 
 import java.util.List;
+import models.entities.direccion.Ciudad;
 import models.entities.heladera.Heladera;
 import models.entities.personas.tecnico.Tecnico;
 import models.repositories.RepositoryLocator;
+import models.repositories.imp.TecnicosRepository;
 import models.repositories.interfaces.InterfaceTecnicosRepository;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
@@ -22,13 +24,12 @@ public class BuscadorTecnicosCercanos {
    */
 
   public void buscarTecnicosCercanosA(Heladera heladera) {
-    String nombreCiudad = heladera.getDireccion().getBarrio().getCiudad().getNombreCiudad();
+    Ciudad nombreCiudad = heladera.getDireccion().getBarrio().getCiudad();
 
-    InterfaceTecnicosRepository tecnicosRepository =
-        (InterfaceTecnicosRepository) RepositoryLocator
-            .get("tecnicosRepository");
+    InterfaceTecnicosRepository tecnicosRepository = RepositoryLocator
+            .get("tecnicosRepository", TecnicosRepository.class);
 
-    notificarTecnicos(tecnicosRepository.buscarTodosPor(nombreCiudad), heladera);
+    notificarTecnicos(tecnicosRepository.buscarPorCiudad(nombreCiudad), heladera);
   }
 
   /**

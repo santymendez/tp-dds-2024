@@ -20,6 +20,8 @@ import lombok.Getter;
 public class TarjetaColaborador {
   @Id
   private final String codigo;
+  //TODO este no hereda por que ya tiene un id
+  // habria que tambien ponerle para la baja logica y la fecha ???
 
   @OneToMany
   @JoinColumn(name = "uso_id")

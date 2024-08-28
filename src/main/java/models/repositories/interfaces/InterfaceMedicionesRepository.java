@@ -1,11 +1,26 @@
 package models.repositories.interfaces;
 
+import java.util.List;
+import java.util.Optional;
 import models.entities.heladera.sensores.MedicionSensor;
+import models.entities.personas.tecnico.VisitaTecnica;
 
 /**
  * Interfaz que representa el repositorio de Mediciones.
  */
 
 public interface InterfaceMedicionesRepository {
-  void guardar(MedicionSensor medicion);
+  void guardar(MedicionSensor... mediciones);
+
+  void guardar(MedicionSensor medicionSensor);
+
+  void modificar(MedicionSensor medicionSensor);
+
+  void eliminarFisico(MedicionSensor medicionSensor);
+
+  void eliminar(MedicionSensor medicionSensor);
+
+  Optional<MedicionSensor> buscarPorId(Long id);
+
+  List<MedicionSensor> buscarTodos();
 }

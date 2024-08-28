@@ -2,7 +2,11 @@ package models.entities.heladera.modulos;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.vianda.Vianda;
@@ -14,8 +18,14 @@ import models.entities.heladera.vianda.Vianda;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@Embeddable
 public class ModuloDeAlmacenamiento {
+
+  @Column(name = "capacidadMaximaViandas")
   private Integer capacidadMaximaViandas;
+
+  @Transient // TODO
   private List<Vianda> viandas;
 
   /**

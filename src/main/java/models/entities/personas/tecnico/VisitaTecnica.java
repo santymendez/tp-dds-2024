@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -13,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.converters.LocalDateAttributeConverter;
+import models.db.Persistente;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 
@@ -25,10 +24,7 @@ import models.entities.heladera.incidente.Incidente;
 @NoArgsConstructor
 @Entity
 @Table(name = "visitas_tecnicas")
-public class VisitaTecnica {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class VisitaTecnica extends Persistente {
 
   @ManyToOne
   @JoinColumn(name = "incidente_id")

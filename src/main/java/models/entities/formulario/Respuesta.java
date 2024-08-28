@@ -5,14 +5,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
+import models.db.Persistente;
 
 
 /**
@@ -23,10 +22,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "respuestas")
-public class Respuesta {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class Respuesta extends Persistente {
 
   @Transient //Es One to One
   private Pregunta pregunta;

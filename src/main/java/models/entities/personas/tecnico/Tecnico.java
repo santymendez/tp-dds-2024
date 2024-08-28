@@ -1,5 +1,6 @@
 package models.entities.personas.tecnico;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.db.Persistente;
 import models.entities.direccion.Ciudad;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
@@ -32,10 +34,7 @@ import models.entities.personas.documento.Documento;
 @NoArgsConstructor
 @Entity
 @Table(name = "tecnicos")
-public class Tecnico {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class Tecnico extends Persistente {
 
   @Column(name = "nombre")
   private String nombre;
@@ -49,10 +48,10 @@ public class Tecnico {
   @Column(name = "cuil")
   private Integer cuil;
 
-  @Transient // es embeded
+  @Embedded
   private Contacto contacto;
 
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "ciudad_id")
   private Ciudad areaDeCobertura;
 

@@ -4,14 +4,13 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import models.converters.LocalDateTimeAttributeConverter;
+import models.db.Persistente;
 import models.entities.heladera.Heladera;
 
 /**
@@ -22,10 +21,7 @@ import models.entities.heladera.Heladera;
 @Entity
 @Table(name = "medicionesSensor")
 @NoArgsConstructor
-public class MedicionSensor {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class MedicionSensor extends Persistente {
   
   @Column(name = "valor")
   private Float valor;

@@ -3,6 +3,7 @@ package models.entities.personas.colaborador;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
+import models.db.Persistente;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
 import models.entities.formulario.RespuestaFormulario;
@@ -35,10 +37,7 @@ import utils.security.Usuario;
 @Setter
 @Entity
 @Table(name = "colaboradores")
-public class Colaborador {
-  @Id
-  @GeneratedValue
-  private long id;
+public class Colaborador extends Persistente {
 
   //TODO todos los transient son OneToOne
   @Transient
@@ -51,7 +50,7 @@ public class Colaborador {
   @Column(name = "apellido")
   private String apellido;
 
-  @Transient
+  @Embedded // TODO revisar si no es one to one
   private Documento documento;
 
   //Persona Juridica

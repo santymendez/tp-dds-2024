@@ -7,6 +7,9 @@ import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
 import models.repositories.RepositoryLocator;
+import models.repositories.imp.IncidentesRepository;
+import models.repositories.imp.MedicionesRepository;
+import models.repositories.imp.SensoresMovimientoRepository;
 import models.repositories.interfaces.InterfaceIncidentesRepository;
 import models.repositories.interfaces.InterfaceMedicionesRepository;
 import models.repositories.interfaces.InterfaceSensoresMovimientoRepository;
@@ -30,14 +33,14 @@ public class MovimientoListener implements IMqttMessageListener {
 
   public MovimientoListener() {
     this.sensoresMovimientoRepository =
-        (InterfaceSensoresMovimientoRepository) RepositoryLocator
-            .get("sensoresMovimientoRepository");
+        RepositoryLocator
+            .get("sensoresMovimientoRepository", SensoresMovimientoRepository.class);
     this.incidentesRepository =
-        (InterfaceIncidentesRepository) RepositoryLocator
-            .get("incidentesRepository");
+        RepositoryLocator
+            .get("incidentesRepository", IncidentesRepository.class);
     this.medicionesRepository =
-        (InterfaceMedicionesRepository) RepositoryLocator
-            .get("medicionesRepository");
+        RepositoryLocator
+            .get("medicionesRepository", MedicionesRepository.class);
   }
 
   @Override
@@ -46,8 +49,8 @@ public class MovimientoListener implements IMqttMessageListener {
     this.activarSensor(sensorId);
   }
 
-  private void activarSensor(int sensorId) {
-    Optional<SensorMovimiento> sensor = this.sensoresMovimientoRepository.buscar(sensorId);
+  private void activarSensor(long sensorId) {
+    Optional<SensorMovimiento> sensor = this.sensoresMovimientoRepository.buscarPorId(sensorId);
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }

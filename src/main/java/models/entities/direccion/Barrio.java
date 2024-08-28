@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import models.db.Persistente;
 
 
 /**
@@ -18,10 +19,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "barrios")
-public class Barrio {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class Barrio extends Persistente {
 
   @Column(name = "nombre")
   private String nombreBarrio;

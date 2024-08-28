@@ -6,8 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -15,6 +13,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.db.Persistente;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 
@@ -27,10 +26,7 @@ import models.entities.personas.colaborador.Colaborador;
 @Entity
 @Table(name = "reportes_heladeras")
 @NoArgsConstructor
-public class ReporteHeladera {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class ReporteHeladera extends Persistente {
 
   @ManyToOne
   @JoinColumn(name = "heladera_id")

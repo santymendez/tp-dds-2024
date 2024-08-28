@@ -33,17 +33,21 @@ public class RepositoryLocator {
   }
 
   /**
-   * Obtiene el objeto repositorio a partir de una clave.
+   * Obtiene el objeto repositorio a partir de una clave. HAY QUE CASTEAR CLASE A RETORNAR EN SU USO
    *
    * @param key Es la clave del objeto.
    * @return El repositorio correspondiente a la clave.
    * @throws IllegalArgumentException Si no se encuentra el repositorio para la clave dada.
    */
-  public static Object get(String key) {
-    if (services.containsKey(key)) {
-      return services.get(key);
-    } else {
+  @SuppressWarnings("unchecked")
+  public static <T> T get(String key, Class<T> tipoClase) {
+    Object service = services.get(key);
+    if (service == null) {
       throw new IllegalArgumentException("No se pudo obtener el servicio " + key);
     }
+    if (!tipoClase.isInstance(service)) {
+      throw new IllegalArgumentException("El servicio " + key + " no es del tipo " + tipoClase.getName());
+    }
+    return (T) service;
   }
 }

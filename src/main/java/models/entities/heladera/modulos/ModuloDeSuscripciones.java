@@ -2,7 +2,10 @@ package models.entities.heladera.modulos;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
 
 /**
@@ -11,7 +14,10 @@ import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
  */
 
 @Getter
+@Embeddable
 public class ModuloDeSuscripciones {
+
+  @Transient // TODO
   private final List<InterfazSuscripcion> suscripciones;
 
   public ModuloDeSuscripciones() {

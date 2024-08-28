@@ -1,5 +1,7 @@
 package models.entities.heladera;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +11,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Embeddable
 public class Modelo {
+
+  @Column(name = "nombre")
   private String nombre;
+
+  @Column(name = "temperaturaMinima")
   private Float temperaturaMinima;
+
+  @Column(name = "temperaturaMaxima")
   private Float temperaturaMaxima;
 }

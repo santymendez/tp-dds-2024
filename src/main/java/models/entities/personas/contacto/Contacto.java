@@ -1,7 +1,12 @@
 package models.entities.personas.contacto;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Representa un contacto, puede ser un mail, un telefono fijo o un numero de celular.
@@ -9,7 +14,14 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Embeddable
 public class Contacto {
-  private final String info;
-  private final TipoContacto tipoContacto;
+
+  @Column(name = "info")
+  private String info;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_contacto")
+  private TipoContacto tipoContacto;
 }

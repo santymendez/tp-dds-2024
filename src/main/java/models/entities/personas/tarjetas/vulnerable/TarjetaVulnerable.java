@@ -31,6 +31,9 @@ public class TarjetaVulnerable {
   @Id
   private String codigo;
 
+  //TODO este no hereda por que ya tiene un id
+  // habria que tambien ponerle para la baja logica y la fecha ???
+
   @Column(name = "cantUsosMaxima")
   private Integer cantidadDeUsosMaxima;
 

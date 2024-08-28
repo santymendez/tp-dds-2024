@@ -3,12 +3,11 @@ package models.entities.formulario;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
+import models.db.Persistente;
 
 /**
  * Representa las respuestas de los contribuidores a la totalidad de un formulario.
@@ -19,10 +18,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "respuesta_formulario")
-public class RespuestaFormulario {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class RespuestaFormulario extends Persistente {
 
   @Column(name = "nombre")
   private String nombre;

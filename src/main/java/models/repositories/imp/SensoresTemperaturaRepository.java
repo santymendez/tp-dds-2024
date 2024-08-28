@@ -1,6 +1,6 @@
 package models.repositories.imp;
 
-import java.util.ArrayList;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
@@ -12,32 +12,44 @@ import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
  */
 
 @Getter
-public class SensoresTemperaturaRepository implements InterfaceSensoresTemperaturaRepository {
-  private final List<SensorTemperatura> sensores;
-
-  public SensoresTemperaturaRepository() {
-    this.sensores = new ArrayList<>();
+public class SensoresTemperaturaRepository implements InterfaceSensoresTemperaturaRepository, WithSimplePersistenceUnit {
+  public void guardar(SensorTemperatura... sensores) {
+    withTransaction(() -> {
+      for (SensorTemperatura sensorTemperatura : sensores) {
+        entityManager().persist(sensorTemperatura);
+      }
+    });
   }
 
-  /**
-   * Busca un sensor por ID.
-   *
-   * @param id Parametro de busqueda.
-   * @return El sensor si existe.
-   */
-
-  public Optional<SensorTemperatura> buscar(int id) {
-    return sensores.stream()
-        .filter(s -> s.getId().equals(id))
-        .findFirst();
+  public void guardar(SensorTemperatura sensorTemperatura) {
+    withTransaction(() -> {
+      entityManager().persist(sensorTemperatura);
+    });
   }
 
-  public void guardar(SensorTemperatura sensor) {
-    this.sensores.add(sensor);
+  public void modificar(SensorTemperatura sensorTemperatura) {
+    withTransaction(() -> {
+      entityManager().merge(sensorTemperatura);
+    });
   }
 
-  @Override
-  public List<SensorTemperatura> obtenerSensores() {
-    return this.sensores;
+  public void eliminarFisico(SensorTemperatura sensorTemperatura) {
+    entityManager().remove(sensorTemperatura);
+  }
+
+  public void eliminar(SensorTemperatura sensorTemperatura) {
+    sensorTemperatura.setActivo(false);
+    entityManager().merge(sensorTemperatura);
+  }
+
+  public Optional<SensorTemperatura> buscarPorId(Long id) {
+    return Optional.ofNullable(entityManager().find(SensorTemperatura.class, id));
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<SensorTemperatura> buscarTodos() {
+    return entityManager()
+        .createQuery("from " + SensorTemperatura.class.getName())
+        .getResultList();
   }
 }

@@ -15,7 +15,7 @@ public class VisitasController {
 
   public VisitasController() {
     this.visitasRepository =
-        (InterfaceVisitasRepository) RepositoryLocator.get("visitasRepository");
+        RepositoryLocator.get("visitasRepository", InterfaceVisitasRepository.class);
   }
 
   /**

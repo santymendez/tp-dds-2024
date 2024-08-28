@@ -9,9 +9,17 @@ import models.entities.heladera.sensores.temperatura.SensorTemperatura;
  */
 
 public interface InterfaceSensoresTemperaturaRepository {
-  Optional<SensorTemperatura> buscar(int id);
+  void guardar(SensorTemperatura... sensores);
 
-  void guardar(SensorTemperatura sensor);
+  void guardar(SensorTemperatura sensorTemperatura);
 
-  List<SensorTemperatura> obtenerSensores();
+  void modificar(SensorTemperatura sensorTemperatura);
+
+  void eliminarFisico(SensorTemperatura sensorTemperatura);
+
+  void eliminar(SensorTemperatura sensorTemperatura);
+
+  Optional<SensorTemperatura> buscarPorId(Long id);
+
+  List<SensorTemperatura> buscarTodos();
 }

@@ -1,6 +1,8 @@
 package models.repositories.interfaces;
 
 import java.util.List;
+import java.util.Optional;
+import models.entities.direccion.Ciudad;
 import models.entities.personas.tecnico.Tecnico;
 
 /**
@@ -8,7 +10,19 @@ import models.entities.personas.tecnico.Tecnico;
  */
 
 public interface InterfaceTecnicosRepository {
-  void guardar(Tecnico tecnico);
+  public void guardar(Tecnico... tecnicos);
 
-  List<Tecnico> buscarTodosPor(String ciudad);
+  public void guardar(Tecnico tecnico);
+
+  public void modificar(Tecnico tecnico);
+
+  public void eliminarFisico(Tecnico tecnico);
+
+  public void eliminar(Tecnico tecnico);
+
+  public Optional<Tecnico> buscarPorId(Long id);
+
+  public List<Tecnico> buscarTodos();
+
+  public List<Tecnico> buscarPorCiudad(Ciudad ciudad);
 }

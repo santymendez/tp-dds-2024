@@ -2,13 +2,12 @@ package models.entities.reporte;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import models.db.Persistente;
 import models.entities.personas.colaborador.Colaborador;
 
 /**
@@ -21,10 +20,7 @@ import models.entities.personas.colaborador.Colaborador;
 @NoArgsConstructor
 @Entity
 @Table(name = "viandas_por_colaboradores")
-public class ViandasPorColaborador {
-  @Id
-  @GeneratedValue
-  private Long id;
+public class ViandasPorColaborador extends Persistente {
 
   @OneToOne
   private Colaborador colaborador;
@@ -36,8 +32,4 @@ public class ViandasPorColaborador {
     this.viandas += cantViandas;
   }
 
-  public ViandasPorColaborador(Colaborador colaborador, Integer viandas) {
-    this.colaborador = colaborador;
-    this.viandas = viandas;
-  }
 }

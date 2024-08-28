@@ -7,6 +7,9 @@ import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
 import models.repositories.RepositoryLocator;
+import models.repositories.imp.IncidentesRepository;
+import models.repositories.imp.MedicionesRepository;
+import models.repositories.imp.SensoresTemperaturaRepository;
 import models.repositories.interfaces.InterfaceIncidentesRepository;
 import models.repositories.interfaces.InterfaceMedicionesRepository;
 import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
@@ -29,19 +32,19 @@ public class TemperaturaListener implements IMqttMessageListener {
 
   public TemperaturaListener() {
     this.sensoresTemperaturaRepository =
-        (InterfaceSensoresTemperaturaRepository) RepositoryLocator
-            .get("sensoresTemperaturaRepository");
+        RepositoryLocator
+            .get("sensoresTemperaturaRepository", SensoresTemperaturaRepository.class);
     this.incidentesRepository =
-        (InterfaceIncidentesRepository) RepositoryLocator
-            .get("incidentesRepository");
+        RepositoryLocator
+            .get("incidentesRepository", IncidentesRepository.class);
     this.medicionesRepository =
-        (InterfaceMedicionesRepository) RepositoryLocator
-          .get("medicionesRepository");
+        RepositoryLocator
+          .get("medicionesRepository", MedicionesRepository.class);
   }
 
   @Override
   public void messageArrived(String topic, MqttMessage message) throws Exception {
-    int sensorId = Integer.parseInt(message.toString().split(";")[0]);
+    Long sensorId = Long.parseLong(message.toString().split(";")[0]);
     Float temp = Float.parseFloat(message.toString().split(";")[1]);
     this.enviarMedicion(sensorId, temp);
   }
@@ -53,8 +56,8 @@ public class TemperaturaListener implements IMqttMessageListener {
    * @param temp medicion a ser enviada.
    */
 
-  public void enviarMedicion(int sensorId, Float temp) {
-    Optional<SensorTemperatura> sensor = this.sensoresTemperaturaRepository.buscar(sensorId);
+  public void enviarMedicion(Long sensorId, Float temp) {
+    Optional<SensorTemperatura> sensor = this.sensoresTemperaturaRepository.buscarPorId(sensorId);
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }

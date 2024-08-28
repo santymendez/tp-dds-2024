@@ -1,8 +1,14 @@
 package models.entities.personas.documento;
 
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Representa un documento, con el número y el tipo.
@@ -10,7 +16,13 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Embeddable
 public class Documento {
-  private final Integer nroDocumento;
-  private final TipoDocumento tipoDocumento;
+  @Column(name = "nro_documento")
+  private Integer nroDocumento;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_documento")
+  private TipoDocumento tipoDocumento;
 }

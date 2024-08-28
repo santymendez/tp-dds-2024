@@ -3,17 +3,14 @@ package models.entities.heladera.estados;
 import java.time.LocalDate;
 import java.time.Period;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import models.converters.LocalDateAttributeConverter;
+import models.db.Persistente;
 
 /**
  * Clase que representa el estado de una heladera, con el tipo de estado y la fecha registrada.
@@ -24,20 +21,16 @@ import models.converters.LocalDateAttributeConverter;
 @Entity
 @Table(name = "estados")
 @NoArgsConstructor
-public class Estado {
-
-  @Id
-  @GeneratedValue
-  private Long id;
+public class Estado extends Persistente {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo")
   private TipoEstado estado;
 
-  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaInicial", columnDefinition = "DATE")
   private LocalDate fechaInicial;
 
-  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaFinal", columnDefinition = "DATE")
   private LocalDate fechaFinal;
 
   public Estado(TipoEstado estadoHeladera) {

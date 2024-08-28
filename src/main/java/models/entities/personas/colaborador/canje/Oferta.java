@@ -2,12 +2,11 @@ package models.entities.personas.colaborador.canje;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import models.db.Persistente;
 import models.entities.personas.colaborador.Colaborador;
 
 /**
@@ -18,11 +17,7 @@ import models.entities.personas.colaborador.Colaborador;
 @Setter
 @Entity
 @Table(name = "ofertas")
-public class Oferta {
-  @Id
-  @GeneratedValue
-  private Long id;
-
+public class Oferta extends Persistente {
   @Column(name = "nombre")
   private String nombre;
 

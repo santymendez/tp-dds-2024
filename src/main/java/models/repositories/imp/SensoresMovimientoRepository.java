@@ -1,6 +1,6 @@
 package models.repositories.imp;
 
-import java.util.ArrayList;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
 import models.entities.heladera.sensores.movimiento.SensorMovimiento;
@@ -11,29 +11,48 @@ import models.repositories.interfaces.InterfaceSensoresMovimientoRepository;
  * Repositorio para los Sensores de Movimiento.
  */
 
-public class SensoresMovimientoRepository implements InterfaceSensoresMovimientoRepository {
-  private final List<SensorMovimiento> sensores;
+public class SensoresMovimientoRepository implements InterfaceSensoresMovimientoRepository, WithSimplePersistenceUnit {
 
-  public SensoresMovimientoRepository() {
-    this.sensores = new ArrayList<>();
+  public void guardar(SensorMovimiento... sensores) {
+    withTransaction(() -> {
+      for (SensorMovimiento sensorMovimiento : sensores) {
+        entityManager().persist(sensorMovimiento);
+      }
+    });
   }
 
-  /**
-   * Busca un sensor por ID.
-   *
-   * @param id Parametro de busqueda.
-   * @return El sensor si existe.
-   */
-
-  public Optional<SensorMovimiento> buscar(int id) {
-    return sensores.stream()
-        .filter(s -> s.getId().equals(id))
-        .findFirst();
+  public void guardar(SensorMovimiento sensorMovimiento) {
+    withTransaction(() -> {
+      entityManager().persist(sensorMovimiento);
+    });
   }
 
-  public void guardar(SensorMovimiento sensor) {
-    this.sensores.add(sensor);
+  public void modificar(SensorMovimiento sensor) {
+    withTransaction(() -> {
+      entityManager().merge(sensor);
+    });
   }
+
+  public void eliminarFisico(SensorMovimiento sensor) {
+    entityManager().remove(sensor);
+  }
+
+  public void eliminar(SensorMovimiento sensor) {
+    sensor.setActivo(false);
+    entityManager().merge(sensor);
+  }
+
+  public Optional<SensorMovimiento> buscarPorId(Long id) {
+    return Optional.ofNullable(entityManager().find(SensorMovimiento.class, id));
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<SensorMovimiento> buscarTodos() {
+    return entityManager()
+        .createQuery("from " + SensorMovimiento.class.getName())
+        .getResultList();
+  }
+
 }
 
 

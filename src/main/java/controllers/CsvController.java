@@ -12,6 +12,8 @@ import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.factories.FactoryColaboracion;
 import models.repositories.RepositoryLocator;
+import models.repositories.imp.ColaboracionesRepository;
+import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.interfaces.InterfaceColaboracionesRepository;
 import models.repositories.interfaces.InterfaceColaboradoresRepository;
 import org.apache.logging.log4j.LogManager;
@@ -40,11 +42,11 @@ public class CsvController {
   public CsvController(ColaboradoresService colaboradoresService) {
     this.colaboradoresService = colaboradoresService;
     this.colaboradoresRepository =
-        (InterfaceColaboradoresRepository) RepositoryLocator
-            .get("colaboradoresRepository");
+        RepositoryLocator
+            .get("colaboradoresRepository", ColaboradoresRepository.class);
     this.colaboracionesRepository =
-        (InterfaceColaboracionesRepository) RepositoryLocator
-            .get("colaboracionesRepository");
+        RepositoryLocator
+            .get("colaboracionesRepository", ColaboracionesRepository.class);
   }
 
   /**
@@ -113,7 +115,7 @@ public class CsvController {
   public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
 
     Optional<Colaborador> unColaborador =
-        this.colaboradoresRepository.buscar(colaboradorInputDto.getNumeroDocumento());
+        this.colaboradoresRepository.buscarPorDocumento(colaboradorInputDto.getNumeroDocumento());
 
     return unColaborador.orElseGet(() -> this.colaboradoresService.crear(colaboradorInputDto));
   }

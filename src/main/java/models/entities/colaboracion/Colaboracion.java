@@ -16,7 +16,6 @@ import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.personas.colaborador.Colaborador;
 
-
 /**
  * Representa una colaboracion dentro del sistema.
  */

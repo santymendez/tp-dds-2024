@@ -15,6 +15,12 @@ import models.repositories.interfaces.InterfaceTecnicosRepository;
 @Getter
 public class TecnicosRepository implements InterfaceTecnicosRepository, WithSimplePersistenceUnit {
 
+  /**
+   * guarda tecnicos en la base de datos.
+   *
+   * @param tecnicos unos tecnicos.
+   */
+
   public void guardar(Tecnico... tecnicos) {
     withTransaction(() -> {
       for (Tecnico tecnico : tecnicos) {
@@ -23,11 +29,21 @@ public class TecnicosRepository implements InterfaceTecnicosRepository, WithSimp
     });
   }
 
+  /**
+   *  guarda un tecnico en la base de datos.
+   *
+   * @param tecnico un tecnico.
+   */
+
   public void guardar(Tecnico tecnico) {
-    withTransaction(() -> {
-      entityManager().persist(tecnico);
-    });
+    withTransaction(() -> entityManager().persist(tecnico));
   }
+
+  /**
+   * modifica un tecnico en la base de datos.
+   *
+   * @param tecnico un tecnico.
+   */
 
   public void modificar(Tecnico tecnico) {
     withTransaction(() -> {
@@ -48,6 +64,11 @@ public class TecnicosRepository implements InterfaceTecnicosRepository, WithSimp
     return Optional.ofNullable(entityManager().find(Tecnico.class, id));
   }
 
+
+  /** Busca todos los tecnicos.
+   *
+   * @return una lista con todos los tecnicos.
+   */
   @SuppressWarnings("unchecked")
   public List<Tecnico> buscarTodos() {
     return entityManager()
@@ -62,7 +83,6 @@ public class TecnicosRepository implements InterfaceTecnicosRepository, WithSimp
    * @return Una lista de Técnicos si llegasen a existir, en otro caso una lista vacía.
    */
 
-  @SuppressWarnings("unchecked")
   public List<Tecnico> buscarPorCiudad(Ciudad ciudad) {
     return entityManager()
         .createQuery("FROM Tecnico tecnico WHERE tecnico.areaDeCobertura = :ciudad", Tecnico.class)

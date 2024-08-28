@@ -12,7 +12,13 @@ import models.repositories.interfaces.InterfaceVisitasRepository;
  */
 
 @Getter
-public class VisitasRepository implements InterfaceVisitasRepository, WithSimplePersistenceUnit {
+public class VisitasRepository
+        implements InterfaceVisitasRepository, WithSimplePersistenceUnit {
+
+  /** Guarda una o varias visitas técnicas.
+   *
+   * @param visitas una o varias visitas técnicas.
+   */
   public void guardar(VisitaTecnica... visitas) {
     withTransaction(() -> {
       for (VisitaTecnica visitaTecnica : visitas) {
@@ -21,11 +27,19 @@ public class VisitasRepository implements InterfaceVisitasRepository, WithSimple
     });
   }
 
+  /** Guarda una visita técnica en la base de datos.
+   *
+   * @param visitaTecnica una visita técnica.
+   */
+
   public void guardar(VisitaTecnica visitaTecnica) {
-    withTransaction(() -> {
-      entityManager().persist(visitaTecnica);
-    });
+    withTransaction(() -> entityManager().persist(visitaTecnica));
   }
+
+  /** Modifica una visita técnica en la base de datos.
+   *
+   * @param visitaTecnica una visita técnica.
+   */
 
   public void modificar(VisitaTecnica visitaTecnica) {
     withTransaction(() -> {
@@ -45,6 +59,11 @@ public class VisitasRepository implements InterfaceVisitasRepository, WithSimple
   public Optional<VisitaTecnica> buscarPorId(Long id) {
     return Optional.ofNullable(entityManager().find(VisitaTecnica.class, id));
   }
+
+  /** Busca todas las visitas técnicas.
+   *
+   * @return una lista con todas las visitas técnicas.
+   */
 
   @SuppressWarnings("unchecked")
   public List<VisitaTecnica> buscarTodos() {

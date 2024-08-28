@@ -12,7 +12,15 @@ import models.repositories.interfaces.InterfaceHeladerasRepository;
  */
 
 @Getter
-public class HeladerasRepository implements InterfaceHeladerasRepository, WithSimplePersistenceUnit {
+public class HeladerasRepository implements InterfaceHeladerasRepository,
+        WithSimplePersistenceUnit {
+
+  /**
+   * Guarda las heladeras.
+   *
+   * @param heladeras heladeras a guardar.
+   *
+   */
 
   public void guardar(Heladera... heladeras) {
     withTransaction(() -> {
@@ -23,10 +31,14 @@ public class HeladerasRepository implements InterfaceHeladerasRepository, WithSi
   }
 
   public void guardar(Heladera heladera) {
-    withTransaction(() -> {
-      entityManager().persist(heladera);
-    });
+    withTransaction(() -> entityManager().persist(heladera));
   }
+
+  /**
+   * Modifica una heladera.
+   *
+   * @param heladera heladera a modificar.
+   */
 
   public void modificar(Heladera heladera) {
     withTransaction(() -> {
@@ -46,6 +58,12 @@ public class HeladerasRepository implements InterfaceHeladerasRepository, WithSi
   public Optional<Heladera> buscarPorId(Long id) {
     return Optional.ofNullable(entityManager().find(Heladera.class, id));
   }
+
+  /**
+   * Busca todas las heladeras.
+   *
+   * @return lista de heladeras.
+   */
 
   @SuppressWarnings("unchecked")
   public List<Heladera> buscarTodos() {

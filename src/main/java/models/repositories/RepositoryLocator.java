@@ -46,7 +46,8 @@ public class RepositoryLocator {
       throw new IllegalArgumentException("No se pudo obtener el servicio " + key);
     }
     if (!tipoClase.isInstance(service)) {
-      throw new IllegalArgumentException("El servicio " + key + " no es del tipo " + tipoClase.getName());
+      throw new IllegalArgumentException("El servicio " + key + " no es del tipo "
+              + tipoClase.getName());
     }
     return (T) service;
   }

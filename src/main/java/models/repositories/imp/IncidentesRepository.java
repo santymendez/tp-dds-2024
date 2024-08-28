@@ -10,7 +10,14 @@ import models.repositories.interfaces.InterfaceIncidentesRepository;
  * Repositorio para los Incidentes.
  */
 
-public class IncidentesRepository implements InterfaceIncidentesRepository, WithSimplePersistenceUnit {
+public class IncidentesRepository implements InterfaceIncidentesRepository,
+        WithSimplePersistenceUnit {
+
+  /**
+   * Guarda los incidentes.
+   *
+   * @param incidentes incidentes a guardar.
+   */
 
   public void guardar(Incidente... incidentes) {
     withTransaction(() -> {
@@ -20,11 +27,20 @@ public class IncidentesRepository implements InterfaceIncidentesRepository, With
     });
   }
 
+  /**
+   * Guarda un incidente.
+   *
+   * @param incidente  incidente a guardar.
+   */
+
   public void guardar(Incidente incidente) {
-    withTransaction(() -> {
-      entityManager().persist(incidente);
-    });
+    withTransaction(() -> entityManager().persist(incidente));
   }
+
+  /** Modifica un incidente.
+   *
+   * @param incidente incidente a modificar.
+   */
 
   public void modificar(Incidente incidente) {
     withTransaction(() -> {
@@ -44,6 +60,12 @@ public class IncidentesRepository implements InterfaceIncidentesRepository, With
   public Optional<Incidente> buscarPorId(Long id) {
     return Optional.ofNullable(entityManager().find(Incidente.class, id));
   }
+
+  /**
+   * Busca todos los incidentes.
+   *
+   * @return lista de incidentes.
+   */
 
   @SuppressWarnings("unchecked")
   public List<Incidente> buscarTodos() {

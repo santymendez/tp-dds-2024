@@ -12,7 +12,13 @@ import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
  */
 
 @Getter
-public class SensoresTemperaturaRepository implements InterfaceSensoresTemperaturaRepository, WithSimplePersistenceUnit {
+public class SensoresTemperaturaRepository
+        implements InterfaceSensoresTemperaturaRepository, WithSimplePersistenceUnit {
+  /**
+   * Guarda una lista de sensores de temperatura en la base de datos.
+   *
+   * @param sensores lista de instancias de SensorTemperatura que serán persistidas.
+   */
   public void guardar(SensorTemperatura... sensores) {
     withTransaction(() -> {
       for (SensorTemperatura sensorTemperatura : sensores) {
@@ -21,35 +27,64 @@ public class SensoresTemperaturaRepository implements InterfaceSensoresTemperatu
     });
   }
 
+  /**
+   * Guarda un sensor de temperatura en la base de datos.
+   *
+   * @param sensorTemperatura la instancia de SensorTemperatura que será persistida.
+   */
   public void guardar(SensorTemperatura sensorTemperatura) {
-    withTransaction(() -> {
-      entityManager().persist(sensorTemperatura);
-    });
+    withTransaction(() -> entityManager().persist(sensorTemperatura));
   }
 
+  /**
+   * Modifica un sensor de temperatura existente en la base de datos.
+   *
+   * @param sensorTemperatura la instancia de SensorTemperatura que será modificada.
+   */
   public void modificar(SensorTemperatura sensorTemperatura) {
     withTransaction(() -> {
       entityManager().merge(sensorTemperatura);
     });
   }
 
+  /**
+   * Elimina físicamente un sensor de temperatura de la base de datos.
+   *
+   * @param sensorTemperatura la instancia de  SensorTemperatura que será eliminada.
+   */
   public void eliminarFisico(SensorTemperatura sensorTemperatura) {
     entityManager().remove(sensorTemperatura);
   }
 
+  /**
+   * Elimina lógicamente un sensor de temperatura, desactivándolo en la base de datos.
+   *
+   * @param sensorTemperatura la instancia de SensorTemperatura que será desactivada.
+   */
   public void eliminar(SensorTemperatura sensorTemperatura) {
     sensorTemperatura.setActivo(false);
     entityManager().merge(sensorTemperatura);
   }
 
+  /**
+   * Busca un sensor de temperatura por su ID.
+   *
+   * @param id el ID del SensorTemperatura a buscar.
+   * @return un Optional que contendrá la instancia de SensorTemperatura si existe.
+   */
   public Optional<SensorTemperatura> buscarPorId(Long id) {
     return Optional.ofNullable(entityManager().find(SensorTemperatura.class, id));
   }
 
+  /**
+   * Busca y devuelve todos los sensores de temperatura almacenados en la base de datos.
+   *
+   * @return una lista de instancias de SensorTemperatura.
+   */
   @SuppressWarnings("unchecked")
   public List<SensorTemperatura> buscarTodos() {
     return entityManager()
-        .createQuery("from " + SensorTemperatura.class.getName())
-        .getResultList();
+            .createQuery("from " + SensorTemperatura.class.getName())
+            .getResultList();
   }
 }

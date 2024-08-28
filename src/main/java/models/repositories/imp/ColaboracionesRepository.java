@@ -14,7 +14,14 @@ import models.repositories.interfaces.InterfaceColaboracionesRepository;
 
 //TODO tiene sentido una interfaz en nuestro contexto?
 @Getter
-public class ColaboracionesRepository implements InterfaceColaboracionesRepository, WithSimplePersistenceUnit {
+public class ColaboracionesRepository implements InterfaceColaboracionesRepository,
+        WithSimplePersistenceUnit {
+
+  /**
+   * Guarda una o más colaboraciones en la base de datos.
+   *
+   * @param colaboraciones una colaboracion.
+   */
 
   public void guardar(Colaboracion... colaboraciones) {
     withTransaction(() -> {
@@ -24,11 +31,21 @@ public class ColaboracionesRepository implements InterfaceColaboracionesReposito
     });
   }
 
+  /**
+   * Guarda una colaboracion en una base de datos.
+   *
+   * @param colaboracion una colaboracion.
+   */
+
   public void guardar(Colaboracion colaboracion) {
-    withTransaction(() -> {
-      entityManager().persist(colaboracion);
-    });
+    withTransaction(() -> entityManager().persist(colaboracion));
   }
+
+  /**
+   * modifica una colaboracion en una base de datos.
+   *
+   * @param colaboracion una colaboracion.
+   */
 
   public void modificar(Colaboracion colaboracion) {
     withTransaction(() -> {
@@ -49,13 +66,26 @@ public class ColaboracionesRepository implements InterfaceColaboracionesReposito
     return Optional.ofNullable(entityManager().find(Colaboracion.class, id));
   }
 
+  /**
+   * busca todas las colaboraciones de ese tipo existentes en la base de datos.
+   *
+   * @param tipoColaboracion el tipo para comparar.
+   * @return una lista con todas las colaboraciones que cumplen.
+   */
+
   public List<Colaboracion> buscarPorTipo(TipoColaboracion tipoColaboracion) {
     return entityManager()
-        .createQuery("FROM Colaboracion colab WHERE colab.tipoColaboracion = :tipo", Colaboracion.class)
+        .createQuery("FROM Colaboracion colab WHERE colab.tipoColaboracion = :tipo",
+                Colaboracion.class)
         .setParameter("tipo", tipoColaboracion)
         .getResultList();
   }
 
+  /**
+   * busca todas las colaboraciones existentes en la base de datos.
+   *
+   * @return una lista con todas las colaboraciones.
+   */
   @SuppressWarnings("unchecked")
   public List<Colaboracion> buscarTodos() {
     return entityManager()

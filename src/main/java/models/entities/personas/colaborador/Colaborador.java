@@ -2,8 +2,16 @@ package models.entities.personas.colaborador;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import models.db.Persistente;
@@ -19,6 +27,7 @@ import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import utils.recomendator.adapter.AdapterServicioRecomendacion;
 import utils.security.Usuario;
+
 
 /**
  * Representa a un colaborador en el sistema.

@@ -9,6 +9,10 @@ import javax.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Clase abstracta que representa a las entidades persistentes.
+ */
+
 @MappedSuperclass
 @Getter
 @Setter

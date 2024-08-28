@@ -24,4 +24,4 @@ jobs:
       - name: Test with Maven
         run: mvn test
       - name: Run Checkstyle
-        run: mvn checkstyle:check 
+        run: mvn checkstyle:check

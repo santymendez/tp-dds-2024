@@ -24,14 +24,14 @@ import models.entities.personas.colaborador.Colaborador;
 @Table(name = "colaboraciones")
 public class Colaboracion extends Persistente {
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipo", nullable = false)
+  @Column(name = "tipo")
   private TipoColaboracion tipoColaboracion;
 
-  @Column(name = "fechaColaboracion", columnDefinition = "DATE", nullable = false)
+  @Column(name = "fechaColaboracion", columnDefinition = "DATE")
   private LocalDate fechaColaboracion;
 
   @ManyToOne
-  @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
 
   @Embedded

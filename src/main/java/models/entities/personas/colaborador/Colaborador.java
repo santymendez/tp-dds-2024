@@ -71,7 +71,7 @@ public class Colaborador extends Persistente {
   private Contacto contacto;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipoColaborador", nullable = false)
+  @Column(name = "tipoColaborador")
   private TipoColaborador tipoColaborador;
 
   @Transient
@@ -89,7 +89,7 @@ public class Colaborador extends Persistente {
   private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
   @OneToMany
-  @JoinColumn(name = "tarjeta_id", nullable = false)
+  @JoinColumn(name = "tarjeta_id")
   private List<TarjetaColaborador> tarjetas;
 
   @Transient // o one to many ??

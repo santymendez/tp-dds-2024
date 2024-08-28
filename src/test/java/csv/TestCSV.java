@@ -38,7 +38,7 @@ public class TestCSV {
   @DisplayName("Se realiza la carga, se guardan los usuarios y se les envia un mail")
   public void losUsuariosRecibenMail(){
     csvController.leerArchivoCsv();
-    Assertions.assertTrue(colaboradoresRepository.buscarPorId(12345678L).isPresent());
+    Assertions.assertTrue(colaboradoresRepository.buscarPorDocumento(12345678).isPresent());
   }
 
 }

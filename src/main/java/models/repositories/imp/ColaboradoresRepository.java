@@ -48,11 +48,15 @@ public class ColaboradoresRepository implements InterfaceColaboradoresRepository
     return Optional.ofNullable(entityManager().find(Colaborador.class, id));
   }
 
-  public Optional<Colaborador> buscarPorDocumento(Integer nroDocumento) {
-    return Optional.ofNullable(entityManager()
-        .createQuery("FROM Colaborador colab WHERE colab.documento = :nroDocumento", Colaborador.class)
-        .setParameter("nroDocumento", nroDocumento)
-        .getSingleResult());
+  public Optional<Colaborador> buscarPorDocumento(Integer numeroDocumento) {
+    List<Colaborador> results = entityManager().createQuery("SELECT c FROM Colaborador c WHERE c.documento.nroDocumento = :numeroDocumento", Colaborador.class)
+            .setParameter("numeroDocumento", numeroDocumento)
+            .getResultList();
+    if (results.isEmpty()) {
+      return Optional.empty();
+    } else {
+      return Optional.of(results.get(0));
+    }
   }
 
   @SuppressWarnings("unchecked")

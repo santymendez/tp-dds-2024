@@ -12,7 +12,7 @@ import models.repositories.interfaces.InterfaceColaboracionesRepository;
  * Repositorio para las Colaboraciones.
  */
 
-//TODO tiene sentido una interfaz en nuestro contexto
+//TODO tiene sentido una interfaz en nuestro contexto?
 @Getter
 public class ColaboracionesRepository implements InterfaceColaboracionesRepository, WithSimplePersistenceUnit {
 

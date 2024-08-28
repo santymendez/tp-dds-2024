@@ -2,17 +2,8 @@ package models.entities.personas.colaborador;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import models.db.Persistente;
@@ -81,7 +72,7 @@ public class Colaborador extends Persistente {
   @Transient // embeded
   private Reconocimiento reconocimiento;
 
-  @OneToMany // necesito al colaborador del otro lado para implementarla
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "colaboracion_id")
   private List<Colaboracion> colaboraciones;
 

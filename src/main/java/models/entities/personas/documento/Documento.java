@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Embeddable
 public class Documento {
-  @Column(name = "nro_documento")
+  @Column(name = "nroDocumento")
   private Integer nroDocumento;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipo_documento")
+  @Column(name = "tipoDocumento")
   private TipoDocumento tipoDocumento;
 }

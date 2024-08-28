@@ -19,7 +19,7 @@ import models.db.Persistente;
 @Table(name = "barrios")
 public class Barrio extends Persistente {
 
-  @Column(name = "nombre", nullable = false)
+  @Column(name = "nombre")
   private String nombreBarrio;
 
   @Column(name = "calle")
@@ -28,7 +28,7 @@ public class Barrio extends Persistente {
   @Column(name = "numero")
   private Integer numero;
 
-  @JoinColumn(name = "ciudad_id", nullable = false, referencedColumnName = "id")
+  @JoinColumn(name = "ciudad_id", referencedColumnName = "id")
   @ManyToOne
   private Ciudad ciudad;
 }

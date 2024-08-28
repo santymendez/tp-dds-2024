@@ -42,7 +42,7 @@ public class Tecnico extends Persistente {
   @Column(name = "apellido", nullable = false)
   private String apellido;
 
-  @Transient // Es embeded
+  @Embedded
   private Documento documento;
 
   @Column(name = "cuil", nullable = false)

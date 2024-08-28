@@ -23,10 +23,10 @@ import models.db.Persistente;
 @Table(name = "ciudades")
 public class Ciudad extends Persistente {
 
-  @Column(name = "nombre", nullable = false)
+  @Column(name = "nombre")
   private String nombreCiudad;
 
-  @JoinColumn(name = "provincia_id", nullable = false, referencedColumnName = "id")
   @ManyToOne
+  @JoinColumn(name = "provincia_id", referencedColumnName = "id")
   private Provincia provincia;
 }

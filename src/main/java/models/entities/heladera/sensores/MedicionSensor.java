@@ -31,7 +31,7 @@ public class MedicionSensor extends Persistente {
   private LocalDateTime fecha;
 
   @ManyToOne
-  @JoinColumn(name = "heladera_id")
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
   /**

@@ -27,11 +27,11 @@ import models.entities.heladera.sensores.MedicionSensor;
 public class SensorMovimiento extends Persistente {
 
   @OneToMany
-  @JoinColumn
+  @JoinColumn(name = "medicionesSensor_id", referencedColumnName = "id")
   private List<MedicionSensor> mediciones;
 
   @OneToOne
-  @JoinColumn(name = "heladera_id")
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
   public void recibirMedicion(MedicionSensor medicion) {
@@ -43,11 +43,10 @@ public class SensorMovimiento extends Persistente {
   }
 
   public void desactivarHeladera(Incidente incidente) {
-    this.heladera.getModEstados().modificarEstado(TipoEstado.INACTIVA_FRAUDE);
-    this.heladera.getModIncidentes().reportarIncidente(incidente);
+    this.heladera.modificarEstado(TipoEstado.INACTIVA_FRAUDE);
   }
 
   public void activarHeladera() {
-    this.heladera.getModEstados().modificarEstado(TipoEstado.ACTIVA);
+    this.heladera.modificarEstado(TipoEstado.ACTIVA);
   }
 }

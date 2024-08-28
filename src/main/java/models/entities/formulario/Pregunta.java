@@ -30,7 +30,7 @@ public class Pregunta extends Persistente {
   private Boolean esOpcional;
 
   @OneToMany
-  @JoinColumn(name = "opcion_id")
+  @JoinColumn(name = "opcion_id", referencedColumnName = "id")
   private List<Opcion> opciones;
 
   @Enumerated(EnumType.STRING)

@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
@@ -24,7 +25,8 @@ import models.db.Persistente;
 @Table(name = "respuestas")
 public class Respuesta extends Persistente {
 
-  @Transient //Es One to One
+  @OneToOne //Es One to One
+  @JoinColumn(name = "pregunta_id", referencedColumnName = "id")
   private Pregunta pregunta;
 
   @Enumerated(EnumType.STRING)
@@ -32,13 +34,14 @@ public class Respuesta extends Persistente {
   private TipoPregunta tipoRespuesta;
 
   //Las respuestas segun el tipo
-  @Transient
+  @Column(name = "respuestaTextoLibre", columnDefinition = "TEXT")
   private String respuestaTextoLibre;
 
   @OneToMany
   @JoinColumn(name = "opcion_id")
   private List<Opcion> opciones;
 
-  @Transient // ManyToOne?
+  @OneToOne //?????
+  @JoinColumn //?¿¿¿¿???
   private Opcion respuestaSingleChoice;
 }

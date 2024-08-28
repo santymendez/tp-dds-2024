@@ -14,7 +14,7 @@ import lombok.Setter;
 @Embeddable
 public class Modelo {
 
-  @Column(name = "nombre")
+  @Column(name = "modelo")
   private String nombre;
 
   @Column(name = "temperaturaMinima")

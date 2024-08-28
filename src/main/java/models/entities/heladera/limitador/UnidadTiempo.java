@@ -1,4 +1,4 @@
-package models.entities.heladera.modulos.aperturas;
+package models.entities.heladera.limitador;
 
 /**
  * Enumerado con las Unidades de Tiempo mas relevantes.

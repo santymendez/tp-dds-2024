@@ -2,7 +2,6 @@ package models.entities.colaboracion;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.personas.colaborador.Colaborador;
 
@@ -25,19 +23,16 @@ import models.entities.personas.colaborador.Colaborador;
 @Entity
 @Table(name = "colaboraciones")
 public class Colaboracion extends Persistente {
-
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipo")
+  @Column(name = "tipo", nullable = false)
   private TipoColaboracion tipoColaboracion;
 
-  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaColaboracion", columnDefinition = "DATE", nullable = false)
   private LocalDate fechaColaboracion;
 
   @ManyToOne
-  @JoinColumn(name = "colaborador_id")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   private Colaborador colaborador;
-
-  //TODO ver de embeber las clases
 
   @Embedded
   private DonacionDinero donacionDinero;
@@ -58,7 +53,6 @@ public class Colaboracion extends Persistente {
   private RealizacionOfertas realizarOfertas;
 
   public Colaboracion() {}
-  //Se crea sin datos y se agregan los necesarios con setters
 
   //============================== Metodos Auxiliares ========================================
 

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import models.entities.heladera.Heladera;
+import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ViandasPorColaborador;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -33,13 +33,13 @@ public class GeneradorReporte {
    * Genera un reporte semanal.
    */
 
-  public void generarReporte(List<Heladera> heladeras) {
+  public void generarReporte(List<ReporteHeladera> reportes) {
     LocalDate semanaActual = LocalDate.now();
 
     String path = "reportes/reporte-semana-" + semanaActual + ".pdf";
 
     try (PDDocument document = new PDDocument()) {
-      for (Heladera heladera : heladeras) {
+      for (ReporteHeladera reporte : reportes) {
 
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
@@ -51,25 +51,23 @@ public class GeneradorReporte {
         int y = startY;
         currentLines = maxLines;
 
-        String nombreHeladera = "Reporte Heladera: " + heladera.getNombre();
+        String nombreHeladera = "Reporte Heladera: " + reporte.getHeladera().getNombre();
         y = agregarLineaTexto(contentStream, y, nombreHeladera);
 
-        int cantFallas = heladera.getModReportes().getReporteHeladera().getFallas();
+        int cantFallas = reporte.getFallas();
         y = agregarLineaTexto(
             contentStream, y, "Cantidad de Fallas: " + cantFallas);
 
-        int cantViandasColocadas = heladera.getModReportes().getReporteHeladera()
-            .getViandasColocadas();
+        int cantViandasColocadas = reporte.getViandasColocadas();
         y = agregarLineaTexto(
             contentStream, y, "Cantidad de Viandas Colocadas: " + cantViandasColocadas);
 
-        int cantViandasRetiradas = heladera.getModReportes().getReporteHeladera()
-            .getViandasRetiradas();
+        int cantViandasRetiradas = reporte.getViandasRetiradas();
         y = agregarLineaTexto(
             contentStream, y, "Cantidad de Viandas Retiradas: " + cantViandasRetiradas);
 
         List<ViandasPorColaborador> viandasPorColaboradores =
-            heladera.getModReportes().getReporteHeladera().getViandasPorColaboradores();
+            reporte.getViandasPorColaboradores();
 
         for (ViandasPorColaborador viandasPorColaborador : viandasPorColaboradores) {
           //Si me paso de líneas, creo una nueva página para la misma heladera.

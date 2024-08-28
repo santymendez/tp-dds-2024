@@ -36,7 +36,7 @@ public class TestSolicitudes {
   @Test
   @DisplayName("Un colaborador puede abrir una heladera")
   public void test01() {
-    Assertions.assertTrue(this.heladera1.getModAperturas().intentarAbrirCon(this.colaborador.ultimaTarjeta()));
+    Assertions.assertTrue(this.heladera1.intentarAbrirCon(this.colaborador.ultimaTarjeta()));
   }
 
   @Test
@@ -44,6 +44,6 @@ public class TestSolicitudes {
   public void test02() {
     LocalDateTime fechaConHora = LocalDateTime.of(2024, 6, 5, 12, 30, 0);
     this.colaborador.ultimaTarjeta().getUsos().get(0).getApertura().setFechaSolicitud(fechaConHora);
-    Assertions.assertThrows(RuntimeException.class, () -> heladera1.getModAperturas().intentarAbrirCon(colaborador.ultimaTarjeta()));
+    Assertions.assertThrows(RuntimeException.class, () -> heladera1.intentarAbrirCon(colaborador.ultimaTarjeta()));
   }
 }

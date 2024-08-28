@@ -18,8 +18,7 @@ import models.db.Persistente;
 @Entity
 @Table(name = "direcciones")
 public class Direccion extends Persistente {
-
-  @Column(name = "ubicacion")
+  @Column(name = "ubicacion", nullable = false)
   private String ubicacion;
 
   @Column(name = "longitud")
@@ -28,7 +27,7 @@ public class Direccion extends Persistente {
   @Column(name = "latitud")
   private Float latitud;
 
-  @JoinColumn(name = "barrio_id")
+  @JoinColumn(name = "barrio_id", referencedColumnName = "id")
   @ManyToOne
   private Barrio barrio;
 }

@@ -2,7 +2,6 @@ package models.entities.heladera.vianda;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -11,7 +10,6 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
@@ -30,26 +28,25 @@ public class Vianda extends Persistente {
   @Embedded
   private Comida comida;
 
-  @Column(name = "fechaDonacion")
-  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaDonacion", nullable = false)
   private LocalDate fechaDonacion;
 
   @ManyToOne
-  @JoinColumn(name = "colaborador_id")
+  @JoinColumn(name = "colaborador_id", nullable = false)
   private Colaborador colaborador;
 
   @ManyToOne
-  @JoinColumn(name = "heladera_id")
+  @JoinColumn(name = "heladera_id", nullable = false)
   private Heladera heladera;
 
-  @Column(name = "calorias")
+  @Column(name = "calorias", nullable = false)
   private Integer calorias;
 
-  @Column(name = "peso")
+  @Column(name = "peso", nullable = false)
   private Float peso;
 
   @Setter
-  @Column(name = "estaEntregada", columnDefinition = "SMALLINT")
+  @Column(name = "estaEntregada")
   private Boolean entregada;
 
   /**

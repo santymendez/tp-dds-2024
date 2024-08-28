@@ -2,16 +2,20 @@ package models.entities.heladera.sensores.temperatura;
 
 import java.util.Optional;
 import lombok.Setter;
+import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
+import models.entities.reporte.ReporteHeladera;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.IncidentesRepository;
 import models.repositories.imp.MedicionesRepository;
+import models.repositories.imp.ReportesRepository;
 import models.repositories.imp.SensoresTemperaturaRepository;
 import models.repositories.interfaces.InterfaceIncidentesRepository;
 import models.repositories.interfaces.InterfaceMedicionesRepository;
+import models.repositories.interfaces.InterfaceReportesRepository;
 import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -25,6 +29,7 @@ public class TemperaturaListener implements IMqttMessageListener {
   private InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
   private InterfaceIncidentesRepository incidentesRepository;
   private InterfaceMedicionesRepository medicionesRepository;
+  private InterfaceReportesRepository reportesRepository;
 
   /**
    * Constructor para el Listener de los Sensores de Temperatura.
@@ -40,6 +45,9 @@ public class TemperaturaListener implements IMqttMessageListener {
     this.medicionesRepository =
         RepositoryLocator
           .get("medicionesRepository", MedicionesRepository.class);
+    this.reportesRepository =
+        RepositoryLocator
+            .get("reportesRepository", ReportesRepository.class);
   }
 
   @Override
@@ -63,17 +71,22 @@ public class TemperaturaListener implements IMqttMessageListener {
     }
 
     SensorTemperatura sensorTemperatura = sensor.get();
+    Heladera heladera = sensorTemperatura.getHeladera();
 
-    MedicionSensor medicion = new MedicionSensor(temp, sensorTemperatura.getHeladera());
+    MedicionSensor medicion = new MedicionSensor(temp, heladera);
     sensorTemperatura.recibirMedicion(medicion);
     this.medicionesRepository.guardar(medicion);
 
     if (!sensorTemperatura.comprobarTemperatura(temp)) {
-      Incidente incidente = new Incidente(TipoIncidente.ALERTA, sensorTemperatura.getHeladera());
+      Incidente incidente = new Incidente(TipoIncidente.ALERTA, heladera);
       incidente.setTipoAlerta(TipoEstado.INACTIVA_TEMPERATURA);
-      sensorTemperatura.desactivarHeladera(incidente);
-
       this.incidentesRepository.guardar(incidente);
+
+      //Se desactiva la heladera, se reporta la falla y se notifican suscriptores
+      sensorTemperatura.desactivarHeladera(incidente);
+      ReporteHeladera reporte = this.reportesRepository.buscarSemanalPorHeladera(heladera.getId());
+      reporte.ocurrioUnaFalla();
+      heladera.intentarNotificarSuscriptores();
     }
   }
 }

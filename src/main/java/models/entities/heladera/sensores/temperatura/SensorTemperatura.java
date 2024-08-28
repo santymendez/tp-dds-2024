@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -27,10 +28,11 @@ import models.entities.heladera.sensores.MedicionSensor;
 public class SensorTemperatura extends Persistente {
 
   @OneToMany
-  @JoinColumn(name = "medicionesSensor_id")
+  @JoinColumn(name = "medicionesSensor_id", referencedColumnName = "id")
   private List<MedicionSensor> mediciones;
 
   @OneToOne
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
   public void recibirMedicion(MedicionSensor medicion) {
@@ -49,12 +51,11 @@ public class SensorTemperatura extends Persistente {
   }
 
   public void desactivarHeladera(Incidente incidente) {
-    this.heladera.getModEstados().modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
-    this.heladera.getModIncidentes().reportarIncidente(incidente);
+    this.heladera.modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
   }
 
   public void activarHeladera() {
-    this.heladera.getModEstados().modificarEstado(TipoEstado.ACTIVA);
+    this.heladera.modificarEstado(TipoEstado.ACTIVA);
   }
 
   public Boolean estaConectado() {

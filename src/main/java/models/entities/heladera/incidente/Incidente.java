@@ -6,8 +6,6 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -39,8 +37,8 @@ public class Incidente extends Persistente {
   @Column(name = "momento")
   private LocalDateTime momentoIncidente;
 
-  @JoinColumn(name = "heladera_id")
   @ManyToOne
+  @JoinColumn(name = "heladera_id")
   private Heladera heladera;
 
   @Enumerated(EnumType.STRING)
@@ -69,4 +67,19 @@ public class Incidente extends Persistente {
     this.heladera = heladera;
     this.momentoIncidente = LocalDateTime.now();
   }
+
+  //Logica de manejo de incidentes
+//
+//  public void reportarIncidente(Incidente incidente) {
+//    //reportarFalla
+//    this.heladera.intentarNotificarSuscriptores();
+//  }
+
+//  //TODO CONTROLLER
+//  public void reportarFallaTecnica(Incidente incidente) {
+//    this.heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
+//    //reportarFalla
+//    this.heladera.intentarNotificarSuscriptores();
+//    //buscarTecnicos
+//  }
 }

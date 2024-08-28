@@ -1,5 +1,6 @@
 package models.entities.colaboracion;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
@@ -14,7 +15,6 @@ import models.entities.heladera.Heladera;
 @Setter
 @Embeddable
 public class ColocacionHeladera {
-
   @ManyToOne
   private Heladera heladera;
 }

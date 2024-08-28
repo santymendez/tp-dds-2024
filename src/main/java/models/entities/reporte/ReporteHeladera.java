@@ -1,5 +1,6 @@
 package models.entities.reporte;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,9 +28,8 @@ import models.entities.personas.colaborador.Colaborador;
 @Table(name = "reportes_heladeras")
 @NoArgsConstructor
 public class ReporteHeladera extends Persistente {
-
   @ManyToOne
-  @JoinColumn(name = "heladera_id")
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
   @Column(name = "fallas")
@@ -42,7 +42,11 @@ public class ReporteHeladera extends Persistente {
   private Integer viandasRetiradas;
 
   @OneToMany
+  @JoinColumn(name = "viandasPorColaborador_id", referencedColumnName = "id")
   private List<ViandasPorColaborador> viandasPorColaboradores;
+
+  @Column(name = "fecha", columnDefinition = "DATE")
+  private LocalDate fecha;
 
   /**
    * Instancia un nuevo reporte para una heladera.
@@ -52,19 +56,11 @@ public class ReporteHeladera extends Persistente {
 
   public ReporteHeladera(Heladera heladera) {
     this.heladera = heladera;
+    this.fallas = 0;
+    this.viandasColocadas = 0;
+    this.viandasRetiradas = 0;
     this.viandasPorColaboradores = new ArrayList<>();
-    this.nuevoReporteSemanal();
-  }
-
-  /**
-   * Metodo que reinicia los datos cada semana.
-   */
-
-  public void nuevoReporteSemanal() {
-    this.setFallas(0);
-    this.setViandasColocadas(0);
-    this.setViandasRetiradas(0);
-    this.viandasPorColaboradores.clear();
+    this.fecha = LocalDate.now();
   }
 
   //=================================== Metodos contadores =========================================

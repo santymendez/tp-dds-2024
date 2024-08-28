@@ -1,9 +1,6 @@
-package models.entities.heladera.modulos.aperturas;
+package models.entities.heladera.limitador;
 
 import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalUnit;
 
 /**
  * Clase que comprueba si una Duration es menor al Tiempo Limite.

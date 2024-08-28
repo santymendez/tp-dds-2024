@@ -7,6 +7,7 @@ import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.HeladerasRepository;
 import models.repositories.imp.IncidentesRepository;
 import models.repositories.imp.MedicionesRepository;
+import models.repositories.imp.ReportesRepository;
 import models.repositories.imp.SensoresMovimientoRepository;
 import models.repositories.imp.SensoresTemperaturaRepository;
 import models.repositories.imp.TecnicosRepository;
@@ -30,6 +31,7 @@ public class RepositoryLocator {
     services.put("tecnicosRepository", new TecnicosRepository());
     services.put("visitasRepository", new VisitasRepository());
     services.put("medicionesRepository", new MedicionesRepository());
+    services.put("reportesRepository", new ReportesRepository());
   }
 
   /**

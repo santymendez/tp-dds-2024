@@ -36,16 +36,16 @@ import models.entities.personas.documento.Documento;
 @Table(name = "tecnicos")
 public class Tecnico extends Persistente {
 
-  @Column(name = "nombre")
+  @Column(name = "nombre", nullable = false)
   private String nombre;
 
-  @Column(name = "apellido")
+  @Column(name = "apellido", nullable = false)
   private String apellido;
 
   @Transient // Es embeded
   private Documento documento;
 
-  @Column(name = "cuil")
+  @Column(name = "cuil", nullable = false)
   private Integer cuil;
 
   @Embedded
@@ -62,7 +62,7 @@ public class Tecnico extends Persistente {
    */
 
   public Boolean puedeVisitar(Heladera heladera) {
-    return !heladera.getModEstados().getEstadoActual().getEstado().equals(TipoEstado.ACTIVA);
+    return !heladera.getEstadoActual().getEstado().equals(TipoEstado.ACTIVA);
   }
 
 }

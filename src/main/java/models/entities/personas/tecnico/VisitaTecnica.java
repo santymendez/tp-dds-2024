@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
@@ -30,8 +29,7 @@ public class VisitaTecnica extends Persistente {
   @JoinColumn(name = "incidente_id")
   private Incidente incidente;
 
-  @Convert(converter = LocalDateAttributeConverter.class)
-  @Column(name = "fechaVisita")
+  @Column(name = "fechaVisita", columnDefinition = "DATE", nullable = false)
   private LocalDate fechaVisita;
 
   @Column(name = "trabajoRealizado", columnDefinition = "TEXT")
@@ -58,6 +56,6 @@ public class VisitaTecnica extends Persistente {
 
   public void incidenteSolucionado() {
     this.incidenteSolucionado = true;
-    this.incidente.getHeladera().getModEstados().modificarEstado(TipoEstado.ACTIVA);
+    this.incidente.getHeladera().modificarEstado(TipoEstado.ACTIVA);
   }
 }

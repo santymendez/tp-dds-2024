@@ -17,6 +17,6 @@ import models.db.Persistente;
 @Table(name = "provincias")
 public class Provincia extends Persistente {
 
-  @Column(name = "nombre")
+  @Column(name = "nombre", nullable = false)
   private String nombreProvincia;
 }

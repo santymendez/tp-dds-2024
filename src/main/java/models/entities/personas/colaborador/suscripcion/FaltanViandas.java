@@ -37,11 +37,11 @@ public class FaltanViandas implements InterfazSuscripcion {
 
   /**
    * Intenta notificar si es necesario.
+   * Para pasar la notificacion al controller, deberia ser boolean.
    */
 
   public void intentarNotificar() {
     if (this.heladera
-        .getModAlmacenamiento()
         .consultarEspacioSobrante()
         .equals(this.viandasFaltantes)) {
       this.notificar();
@@ -50,6 +50,7 @@ public class FaltanViandas implements InterfazSuscripcion {
 
   /**
    * Envia una notificacion al colaborador.
+   * Esta logica deberia ir en un controller.
    */
 
   public void notificar() {

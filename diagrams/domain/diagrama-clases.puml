@@ -6,26 +6,24 @@ class Heladera {
     -nombre: String
     -fechaDeCreacion: LocalDate
 
+    -estaAbierta: Boolean
     -modelo: Modelo
 
-    -estaAbierta: Boolean
-
-    -modAlmacenamiento: ModuloDeAlmacenamiento
-    -modSuscripciones: ModuloDeSuscripciones
-    -modEstados: ModuloDeEstados
-    -modTecnicos: ModuloDeTecnicos
-    -modAperturas: ModuloDeAperturas
-    -modReportes: ModuloDeReportes
-    -modIncidentes: ModuloDeIncidentes
-
-    +Integer calcularMesesActiva()
-}
-
-class ModuloDeAlmacenamiento {
-    -capacidadMaximaViandas: Integer
     -List<Vianda> viandas
+    -capacidadMaximaViandas: Integer
 
+    -List<InterfazSuscripcion> suscripciones
+
+    -estadoActual: Estado
+    -List<Estado> estadosHeladera
+
+    -List<TarjetaColaborador> tarjetasHabilitadas
+    -limitador: Limitador
+
+    +Boolean intentarAbrirCon(TarjetaColaborador tarjeta)
+    +Integer calcularMesesActiva()
     +agregarVianda(Vianda vianda)
+    +modificaEstado(TipoEstado estado)
 }
 
 class Direccion {
@@ -381,13 +379,6 @@ class Punto {
     +referencia: String
 }
 
-class ModuloDeEstados {
-    -estadoActual: Estado
-    -List<Estado> estadosHeladera
-
-    +void modificaEstado(TipoEstado estado)
-}
-
 class Estado{
     -estado: TipoEstado
     -fechaInicial: LocalDate
@@ -422,14 +413,6 @@ class Apertura {
     -fechaApertura: LocalDateTime
 }
 
-class ModuloDeAperturas {
-    -List<TarjetaColaborador> tarjetasHabilitadas
-    -limitador: Limitador
-    -heladera: Heladera
-
-    +Boolean intentarAbrirCon(TarjetaColaborador tarjeta)
-}
-
 class Limitador {
     -unidad: ChronoUnit
     -tiempoLimite: Float
@@ -456,25 +439,12 @@ enum TipoIncidente {
     FALLA_TECNICA
 }
 
-class ModuloDeIncidentes {
-    -List<Incidente> incidentes
-
-    +reportarIncidente(Incidente incidente)
-    +reportarFallaTecnica(Incidente incidente)
-}
-
 class VisitaTecnica {
     -Incidente: incidente
     -fechaVisita: LocalDate
     -trabajoRealizado: String
     -fotoVisita: String
     -incidenteSolucionado: Boolean
-}
-
-class ModuloDeSuscripciones {
-    -List<InterfazSuscripcion> suscripciones;
-
-    +intentarNotificarSuscriptores()
 }
 
 interface InterfazSuscripcion {
@@ -527,12 +497,6 @@ class GeneradorReporte {
     -currentLines: Integer
 }
 
-class ModuloDeReportes {
-    -reporteHeladera: ReporteHeladera
-
-    +void reportarFalla()
-}
-
 class ReporteHeladera {
     -heladera: Heladera
     -fallas: Integer
@@ -559,12 +523,6 @@ class Destinatario {
     -HashMap<TipoContacto, String> mediosDeContacto
 }
 
-class ModuloDeTecnicos {
-    -buscadorTecnicosCercanos: BuscadorTecnicosCercanos
-
-    +void notificarTecnicos()
-}
-
 class BuscadorTecnicosCercanos {
     -List<Tecnico> buscarTecnicosCercanosA(Heladera heladera)
 }
@@ -584,38 +542,13 @@ Ciudad --o Barrio
 
 'HELADERA'
 Heladera o-- Direccion
-Heladera *-- ModuloDeAlmacenamiento
+Heladera -->"*" Vianda
 Heladera *-- Modelo
-Heladera *-- ModuloDeSuscripciones
-Heladera *-- ModuloDeEstados
-Heladera *-- ModuloDeTecnicos
-Heladera *-- ModuloDeAperturas
-Heladera *-- ModuloDeReportes
-Heladera *-- ModuloDeIncidentes
-
-'MODULO DE ALMACENAMIENTO'
-ModuloDeAlmacenamiento -->"*" Vianda
-
-'MODULO DE SUSCRIPCIONES'
-ModuloDeSuscripciones -->"*" InterfazSuscripcion
-
-'MODULO DE ESTADOS'
-ModuloDeEstados -->"*" Estado
-ModuloDeEstados ..> TipoEstado
-
-'MODULO DE TECNICOS'
-ModuloDeTecnicos --> BuscadorTecnicosCercanos
-
-'MODULO DE APERTURAS'
-ModuloDeAperturas -->"*" TarjetaColaborador
-ModuloDeAperturas *-- Limitador
-ModuloDeAperturas  --> Heladera
-
-'MODULO DE REPORTES'
-ModuloDeReportes --> ReporteHeladera
-
-'MODULO DE INCIDENTES'
-ModuloDeIncidentes -->"*" Incidente
+Heladera -->"*" InterfazSuscripcion
+Heladera -->"*" Estado
+Heladera ..> TipoEstado
+Heladera *-- Limitador
+Heladera -->"*" TarjetaColaborador
 
 'VIANDA'
 Vianda *-- Comida

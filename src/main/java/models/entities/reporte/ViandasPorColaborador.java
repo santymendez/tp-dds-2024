@@ -2,6 +2,7 @@ package models.entities.reporte;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ import models.entities.personas.colaborador.Colaborador;
 public class ViandasPorColaborador extends Persistente {
 
   @OneToOne
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
 
   @Column(name = "cantidadViandas")

@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.direccion.Direccion;
 import models.entities.personas.documento.Documento;
@@ -26,16 +25,13 @@ import models.entities.personas.documento.Documento;
 @NoArgsConstructor
 @Table(name = "vulnerables")
 public class Vulnerable extends Persistente {
-
   @Column(name = "nombre")
   private String nombre;
 
-  @Convert(converter = LocalDateAttributeConverter.class)
-  @Column(name = "fechaNacimiento")
+  @Column(name = "fechaNacimiento", columnDefinition = "DATE", nullable = false)
   private LocalDate fechaNacimiento;
 
-  @Convert(converter = LocalDateAttributeConverter.class)
-  @Column(name = "fechaRegistro")
+  @Column(name = "fechaRegistro", columnDefinition = "DATE", nullable = false)
   private LocalDate fechaRegistro;
 
   @Transient

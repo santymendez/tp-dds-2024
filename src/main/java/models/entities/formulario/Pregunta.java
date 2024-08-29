@@ -1,10 +1,12 @@
 package models.entities.formulario;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,10 +28,10 @@ public class Pregunta extends Persistente {
   @Column(name = "pregunta")
   private String pregunta;
 
-  @Column(name = "opcional")
+  @Column(name = "opcional", columnDefinition = "SMALLINT")
   private Boolean esOpcional;
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.PERSIST}, fetch =  FetchType.EAGER)
   @JoinColumn(name = "opcion_id", referencedColumnName = "id")
   private List<Opcion> opciones;
 

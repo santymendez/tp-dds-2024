@@ -21,7 +21,7 @@ import models.entities.heladera.Heladera;
 @Table(name = "usos_tarjetas_vulnerables")
 public class UsoTarjetaVulnerable extends Persistente {
 
-  @Column
+  @Column(name = "fechaUtilizacion", columnDefinition = "DATE")
   private LocalDate fechaUtilizacion;
 
   @ManyToOne

@@ -27,7 +27,7 @@ public class UsoTarjetaColaborador extends Persistente {
   private Apertura apertura;
 
   @ManyToOne
-  @JoinColumn(name = "heladera_id")
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
   /**

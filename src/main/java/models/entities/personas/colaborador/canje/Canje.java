@@ -16,10 +16,10 @@ import models.entities.personas.colaborador.Colaborador;
 public class Canje extends Persistente {
 
   @ManyToOne
-  @JoinColumn(name = "colaborador_id")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
 
   @ManyToOne
-  @JoinColumn(name = "oferta_id")
+  @JoinColumn(name = "oferta_id", referencedColumnName = "id")
   private Oferta oferta;
 }

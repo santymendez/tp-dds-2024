@@ -87,7 +87,6 @@ class Colaborador{
 
     -contacto: Contacto
     -tipoColaborador: TipoColaborador
-    -respuestaFormulario: RespuestaFormulario
     -reconocimiento: Reconocimiento
 
     -List<Colaboracion> colaboraciones;
@@ -121,6 +120,7 @@ class RespuestaFormulario {
     -descripcion: String
     -List<Respuesta> respuestas
     -formulario: Formulario
+    -colaborador: Colaborador
 }
 
 class Pregunta {
@@ -291,10 +291,10 @@ class CalculoHeladerasActivas {
 
 class TarjetaVulnerable {
     -codigo: String
+    -fechaAlta: LocalDate
     -cantidadDeUsosMaxima: Integer
     -List<UsoTarjetaVulnerable> registroUsos
-    -informacionRegistro: InformacionRegistro
-    -vulnerable: Vulnerable
+    -registroVulnerable: RegistroVulnerable
 
     +Boolean puedeUtilizarse(Heladera heladera)
 }
@@ -304,9 +304,10 @@ class UsoTarjetaVulnerable {
     -heladera: Heladera
 }
 
-class InformacionRegistro {
+class RegistroVulnerable {
     -colaborador: Colaborador
     -vulnerable: Vulnerable
+    -fechaRegistro: LocalDate
 }
 
 class Tecnico {
@@ -569,7 +570,6 @@ Colaborador ---> Documento
 Colaborador ---> Direccion
 Colaborador ---> Contacto
 Colaborador o--- TipoColaborador
-Colaborador o--- RespuestaFormulario
 Colaborador o--- Reconocimiento
 Colaborador ---> AdapterServicioRecomendacion
 Colaborador --> TarjetaColaborador
@@ -606,6 +606,7 @@ Formula ..> CalculoViandasDistribuidas
 'RESPUESTA FORMULARIO'
 RespuestaFormulario o--"*" Respuesta
 RespuestaFormulario *-- Formulario
+RespuestaFormulario *-- Colaborador
 
 'FORMULARIO'
 Formulario o--"*" Pregunta
@@ -640,14 +641,13 @@ ColocacionHeladera --> Heladera
 TarjetaVulnerable o---"*" UsoTarjetaVulnerable
 TarjetaVulnerable ---> InformacionRegistro
 TarjetaVulnerable ...> Heladera
-TarjetaVulnerable --> Vulnerable
 
 'REGISTRO USO'
 UsoTarjetaVulnerable *--- Heladera
 
 'INFORMACION REGISTRO'
-InformacionRegistro *--- Colaborador
-InformacionRegistro *--- Vulnerable
+RegistroVulnerable *--- Colaborador
+RegistroVulnerable *--- Vulnerable
 
 'VULNERABLE'
 Vulnerable ---> Direccion

@@ -2,13 +2,14 @@ package models.entities.personas.vulnerable;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Convert;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import models.db.Persistente;
@@ -34,14 +35,15 @@ public class Vulnerable extends Persistente {
   @Column(name = "fechaRegistro", columnDefinition = "DATE", nullable = false)
   private LocalDate fechaRegistro;
 
-  @Transient
+  @ManyToOne
+  @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
   private Direccion domicilio;
 
-  @Transient
+  @Embedded
   private Documento documento;
 
-  @OneToMany
-  @JoinColumn(name = "menor_id")
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinColumn(name = "menor_id", referencedColumnName = "id")
   private List<Vulnerable> menoresAcargo;
 
   /**

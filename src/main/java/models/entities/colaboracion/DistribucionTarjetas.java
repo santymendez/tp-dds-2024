@@ -2,6 +2,7 @@ package models.entities.colaboracion;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -18,7 +19,7 @@ import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 @Getter
 @Embeddable
 public class DistribucionTarjetas {
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.PERSIST})
   @JoinColumn(name = "tarjeta_id", referencedColumnName = "id")
   private List<TarjetaVulnerable> tarjetasEntregadas;
 

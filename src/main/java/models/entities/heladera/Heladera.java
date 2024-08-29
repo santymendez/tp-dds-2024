@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -59,10 +61,11 @@ public class Heladera extends Persistente {
   @Column(name = "capacidadMaximaViandas")
   private Integer capacidadMaximaViandas;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "vianda_id", referencedColumnName = "id")
   private List<Vianda> viandas;
 
+  //TODO
   @Transient
   private List<InterfazSuscripcion> suscripciones;
 
@@ -70,7 +73,7 @@ public class Heladera extends Persistente {
   @JoinColumn(name = "estado_id", referencedColumnName = "id", nullable = false)
   private Estado estadoActual;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "estadosPrevios_id", referencedColumnName = "id")
   private List<Estado> estadosHeladera;
 
@@ -78,7 +81,6 @@ public class Heladera extends Persistente {
   @JoinTable(name = "tarjetas_habilitadas")
   private List<TarjetaColaborador> tarjetasHabilitadas;
 
-  //No hace falta persistir
   @Transient
   private Limitador limitador;
 

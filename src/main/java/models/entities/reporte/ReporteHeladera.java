@@ -8,8 +8,9 @@ import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,8 +42,8 @@ public class ReporteHeladera extends Persistente {
   @Column(name = "viandasRetiradas")
   private Integer viandasRetiradas;
 
-  @OneToMany
-  @JoinColumn(name = "viandasPorColaborador_id", referencedColumnName = "id")
+  @ManyToMany
+  @JoinTable(name = "viandas_por_colaborador_reportes")
   private List<ViandasPorColaborador> viandasPorColaboradores;
 
   @Column(name = "fecha", columnDefinition = "DATE")

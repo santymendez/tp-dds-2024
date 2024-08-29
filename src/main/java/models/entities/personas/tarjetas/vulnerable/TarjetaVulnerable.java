@@ -2,20 +2,19 @@ package models.entities.personas.tarjetas.vulnerable;
 
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
-import models.entities.personas.colaborador.Colaborador;
-import models.entities.personas.vulnerable.Vulnerable;
 
 /**
  * Representa una tarjeta con un código, cantidad de usos, registros de
@@ -31,34 +30,27 @@ public class TarjetaVulnerable {
   @Id
   private String codigo;
 
-  //TODO este no hereda por que ya tiene un id
-  // habria que tambien ponerle para la baja logica y la fecha ???
+  @Column(name = "activo")
+  private Boolean activo;
 
   @Column(name = "cantUsosMaxima")
   private Integer cantidadDeUsosMaxima;
 
-  @OneToMany
-  @JoinColumn(name = "registroUsos_id")
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+  @JoinColumn(name = "uso_id", referencedColumnName = "id")
   private List<UsoTarjetaVulnerable> usoTarjetaVulnerables;
 
-  @Transient
-  private InformacionRegistro informacionRegistro;
-
-  @ManyToOne
-  @JoinColumn(name = "vulnerable_id", referencedColumnName = "id")
-  private Vulnerable vulnerable;
+  @OneToOne
+  @JoinColumn(name = "registroVulnerable")
+  private RegistroVulnerable registroVulnerable;
 
   /**
    * Constructor de la clase Tarjeta.
-   *
-   * @param colaborador Es el colaborador que distribuye la tarjeta y registra al vulnerable.
-   * @param vulnerable Es el vulnerable que recibe la tarjeta y es registrado.
-   */
+  */
 
-  public TarjetaVulnerable(Colaborador colaborador, Vulnerable vulnerable) {
-    this.vulnerable = vulnerable;
+  public TarjetaVulnerable(RegistroVulnerable registro) {
+    this.registroVulnerable = registro;
     this.cantidadDeUsosMaxima = this.calcularUsos();
-    this.informacionRegistro = new InformacionRegistro(colaborador, vulnerable);
     this.codigo = this.generarCodigoAlfanumerico();
   }
 
@@ -82,7 +74,7 @@ public class TarjetaVulnerable {
   // =========================== Metodos Auxiliares ===========================
 
   private Integer calcularUsos() {
-    return 4 + 2 * this.vulnerable.getMenoresAcargo().size();
+    return 4 + 2 * this.registroVulnerable.getVulnerable().getMenoresAcargo().size();
   }
 
   private String generarCodigoAlfanumerico() {

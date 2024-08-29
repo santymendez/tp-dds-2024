@@ -29,8 +29,8 @@ import models.entities.personas.documento.Documento;
  */
 
 @Getter
-@Setter // Modificación de técnicos.
-@AllArgsConstructor // Dar de alta técnicos.
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "tecnicos")
@@ -52,7 +52,7 @@ public class Tecnico extends Persistente {
   private Contacto contacto;
 
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "ciudad_id")
+  @JoinColumn(name = "ciudad_id", referencedColumnName = "id")
   private Ciudad areaDeCobertura;
 
   /**

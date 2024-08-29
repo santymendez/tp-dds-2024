@@ -3,6 +3,7 @@ package models.entities.heladera.sensores.temperatura;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -27,7 +28,7 @@ import models.entities.heladera.sensores.MedicionSensor;
 @Table(name = "sensores_temperatura")
 public class SensorTemperatura extends Persistente {
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.PERSIST})
   @JoinColumn(name = "medicionesSensor_id", referencedColumnName = "id")
   private List<MedicionSensor> mediciones;
 

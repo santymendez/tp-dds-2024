@@ -26,7 +26,7 @@ import models.entities.heladera.incidente.Incidente;
 public class VisitaTecnica extends Persistente {
 
   @ManyToOne
-  @JoinColumn(name = "incidente_id")
+  @JoinColumn(name = "incidente_id", referencedColumnName = "id")
   private Incidente incidente;
 
   @Column(name = "fechaVisita", columnDefinition = "DATE", nullable = false)

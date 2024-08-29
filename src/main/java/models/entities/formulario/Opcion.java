@@ -14,9 +14,8 @@ import models.db.Persistente;
 @Getter
 @Setter
 @Entity
-@Table(name = "opciones") // TODO es muy rariiii
+@Table(name = "opciones")
 public class Opcion extends Persistente {
-
   @Column(name = "opcion", nullable = false)
   private String opcion;
 }

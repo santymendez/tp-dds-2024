@@ -1,7 +1,9 @@
 package models.entities.colaboracion;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -17,7 +19,7 @@ import models.entities.personas.colaborador.canje.Oferta;
 @Setter
 @Embeddable
 public class RealizacionOfertas {
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
   @JoinColumn(name = "oferta_id", referencedColumnName = "id")
   private List<Oferta> ofertas;
 }

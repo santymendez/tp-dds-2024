@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
@@ -39,7 +40,6 @@ import utils.security.Usuario;
 @Table(name = "colaboradores")
 public class Colaborador extends Persistente {
 
-  //TODO todos los transient son OneToOne
   @Transient
   private Usuario usuario;
 
@@ -50,7 +50,7 @@ public class Colaborador extends Persistente {
   @Column(name = "apellido")
   private String apellido;
 
-  @Embedded // TODO revisar si no es one to one
+  @Embedded
   private Documento documento;
 
   //Persona Juridica
@@ -63,36 +63,33 @@ public class Colaborador extends Persistente {
   @Column(name = "rubro")
   private String rubro;
 
-  @Transient
+  @OneToOne
+  @JoinColumn(name = "direccion_id", referencedColumnName = "id")
   private Direccion direccion;
 
   //Ambos
-  @Transient
+  @Embedded
   private Contacto contacto;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "tipoColaborador")
   private TipoColaborador tipoColaborador;
 
-  @Transient
-  private RespuestaFormulario respuestaFormulario;
-  //TODO el colaborador solo tiene 1 respuesta ?????
-
-  @Transient // embeded
+  @Embedded
   private Reconocimiento reconocimiento;
 
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "colaboracion_id")
+  @JoinColumn(name = "colaboracion_id", referencedColumnName = "id")
   private List<Colaboracion> colaboraciones;
 
   @Transient
   private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "tarjeta_id")
   private List<TarjetaColaborador> tarjetas;
 
-  @Transient // o one to many ??
+  @Transient //TODO cuando veamos persistencia de interfaces
   private List<InterfazSuscripcion> suscripciones;
 
   /**

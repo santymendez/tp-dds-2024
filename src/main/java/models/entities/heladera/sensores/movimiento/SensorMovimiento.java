@@ -1,6 +1,7 @@
 package models.entities.heladera.sensores.movimiento;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ import models.entities.heladera.sensores.MedicionSensor;
 @Table(name = "sensores_movimiento")
 public class SensorMovimiento extends Persistente {
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.PERSIST})
   @JoinColumn(name = "medicionesSensor_id", referencedColumnName = "id")
   private List<MedicionSensor> mediciones;
 

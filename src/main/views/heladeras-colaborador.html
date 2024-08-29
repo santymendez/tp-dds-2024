@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,20 +42,133 @@
 
 </header>
 
-<main class="main-content">
-    <h2>Heladeras</h2>
-    <div class="columnas">
-        <div class="columna-izq">
-            <a href="suscribirse.html" type="button" class="btn btn-primary btn-lg">Suscribirse</a>
-            <a href="mapa.html" type="button" class="btn btn-primary btn-lg">Ver Mapa Heladeras</a>
-        </div>
-        <div class="columna-der">
-            <a href="reportar-falla-tecnica.html" type="button" class="btn btn-primary btn-lg">Reportar Falla Técnica</a>
-            <a href="mapa.html" type="button" class="btn btn-primary btn-lg">Solicitar Recomendacion</a>
-        </div>
+
+<h2 class="arribita">Heladeras</h2>
+<div class="container chico">
+    <div class="mb-3 containerPrincipal chico">
+        <label for="actionSelector" class="form-label chico">Elige una acción</label>
+        <select class="form-select form-select-lg chico" id="actionSelector">
+            <option value="" selected>Elija una opción</option>
+            <option value="suscribirse">Suscribirse</option>
+            <option value="mapa.html">Ver Mapa Heladeras</option>
+            <option value="reportar_falla">Reportar Falla Técnica</option>
+            <option value="mapa.html">Solicitar Recomendación</option>
+        </select>
     </div>
-    
+</div>
+
+<main class="main-content">
+    <div id="suscribirse" class = "suscribirse-content action-form d-none">
+    <form class="probar">
+        <div class="mb-3 primero">
+            <div class = "mediano_s">
+                <label for="nombre" class="form-label_s">Nombre de la Heladera</label>
+                <input class="form-control form-control-lg" list="datalistOptions" id="nombre2" placeholder="Escriba para buscar...">
+            </div>
+            <datalist id="datalistOptions">
+                <option value="Heladera Medrano">
+                <option value="Heladera Lugano 1">
+                <option value="Heladera Lugano 2">
+                <option value="Heladera Douglas">
+                <option value="Heladera promocione operativos">
+                <option value="Heladera promocione fisica2 tmb">
+            </datalist>
+        </div>
+
+        <label class="form-label">Notificarme si...</label>
+
+        <div class="mb-3 form-check flex-container">
+            <input type="checkbox" class="form-check-input" id="faltan">
+            <div class="flex-item">
+                <label for="faltan" class="col-form-label">Faltan X Viandas</label>
+            </div>
+            <input type="text" aria-label="cant_faltan" class="form-control flex-input" placeholder="Ingrese la Cantidad de Viandas">
+        </div>
+
+        <div class="mb-3 form-check flex-container">
+            <input type="checkbox" class="form-check-input" id="quedan">
+            <div class="flex-item">
+                <label for="quedan" class="col-form-label">Quedan X Viandas</label>
+            </div>
+            <input type="text" aria-label="cant_quedan" class="form-control flex-input" placeholder="Ingrese la Cantidad de Viandas">
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="falla">
+            <label for="falla" class="col-form-label">Ocurrió una Falla en la Heladera</label>
+        </div>
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="submit" class="btn btn-primary">Suscribirse</button>
+        </div>
+    </form>
+    </div>
+
+    <div class="reportar_falla"></div>
+        <div id="reportar_falla" class = "suscribirse-content action-form d-none">
+            <form class="probar">
+                <div class="mb-3 primero">
+                    <div class = "mediano_s">
+                        <label for="nombre" class="form-label_s">Nombre de la Heladera</label>
+                        <input class="form-control form-control-lg" list="datalistOptions" id="nombre" placeholder="Escriba para buscar...">
+                    </div>
+                    <datalist id="datalistOptions2">
+                        <option value="Heladera Medrano">
+                        <option value="Heladera Lugano 1">
+                        <option value="Heladera Lugano 2">
+                        <option value="Heladera Douglas">
+                        <option value="Heladera promocione operativos">
+                        <option value="Heladera promocione fisica2 tmb">
+                    </datalist>
+                </div>
+
+                <div class="algo">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" class="form-control"></textarea>
+                </div>
+
+                <div class="image-upload mb-3">
+                    <label for="imagen_reporte" class="form-label">Imagen</label>
+                    <input type="file" class="form-control form-control-lg" id="imagen_reporte">
+                </div>
+
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button type="submit" class="btn btn-primary">Reportar</button>
+                </div>
+
+            </form>
+    </div>
+
+
+
+
 </main>
+
+
+<script>
+    document.getElementById('actionSelector').addEventListener('change', function() {
+        var selectedValue = this.value;
+        if (selectedValue == "mapa.html") {
+            window.location.href = selectedValue;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('actionSelector').addEventListener('change', function() {
+        var selectedValue = this.value;
+        var actionForms = document.querySelectorAll('.action-form');
+
+        actionForms.forEach(function(form) {
+            if (form.id === selectedValue) {
+                form.classList.remove('d-none');
+            } else {
+                form.classList.add('d-none');
+            }
+        });
+    });
+</script>
+
 
 <footer class="footer">
     <p>® 2024 Heladeras Solidarias ONG</p>

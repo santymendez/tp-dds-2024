@@ -10,8 +10,9 @@ import javax.persistence.Persistence;
 
 
 public class PersistenceUnitSwitcher {
-  private static EntityManagerFactory entityManagerFactory;
-  private static EntityManager entityManager;
+  private static EntityManagerFactory entityManagerFactory = Persistence
+      .createEntityManagerFactory("simple-persistence-unit");
+  private static EntityManager entityManager = entityManagerFactory.createEntityManager();
 
   /**
    * Se encarga de cambiar la unidad de persistencia.

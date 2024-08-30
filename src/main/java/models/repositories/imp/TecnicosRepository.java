@@ -3,9 +3,11 @@ package models.repositories.imp;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
 import lombok.Getter;
 import models.entities.direccion.Ciudad;
 import models.entities.personas.tecnico.Tecnico;
+import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceTecnicosRepository;
 
 /**
@@ -88,5 +90,10 @@ public class TecnicosRepository implements InterfaceTecnicosRepository, WithSimp
         .createQuery("FROM Tecnico tecnico WHERE tecnico.areaDeCobertura = :ciudad", Tecnico.class)
         .setParameter("ciudad", ciudad)
         .getResultList();
+  }
+
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
   }
 }

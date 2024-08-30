@@ -3,8 +3,10 @@ package models.repositories.imp;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
 import lombok.Getter;
 import models.entities.heladera.Heladera;
+import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceHeladerasRepository;
 
 /**
@@ -70,6 +72,11 @@ public class HeladerasRepository implements InterfaceHeladerasRepository,
     return entityManager()
         .createQuery("from " + Heladera.class.getName())
         .getResultList();
+  }
+
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
   }
 
 }

@@ -1,9 +1,12 @@
 package models.repositories.imp;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
 import models.entities.reporte.ReporteHeladera;
+import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceReportesRepository;
 
 /**
@@ -12,48 +15,71 @@ import models.repositories.interfaces.InterfaceReportesRepository;
 
 //TODO todos los metodos
 public class ReportesRepository implements InterfaceReportesRepository, WithSimplePersistenceUnit {
-  @Override
+
   public void guardar(ReporteHeladera... reportes) {
-
+    withTransaction(() -> {
+      for (ReporteHeladera reporte : reportes) {
+        entityManager().persist(reporte);
+      }
+    });
   }
 
-  @Override
   public void guardar(ReporteHeladera reporte) {
-
+    withTransaction(() -> {
+      entityManager().persist(reporte);
+    });
   }
 
-  @Override
   public void modificar(ReporteHeladera reporte) {
-
+    entityManager().merge(reporte);
   }
 
-  @Override
   public void eliminarFisico(ReporteHeladera reporte) {
-
+    entityManager().remove(reporte);
   }
 
-  @Override
   public void eliminar(ReporteHeladera reporte) {
-
+    reporte.setActivo(false);
+    entityManager().merge(reporte);
   }
 
-  @Override
   public Optional<ReporteHeladera> buscarPorId(Long id) {
-    return Optional.empty();
+    return Optional.ofNullable(entityManager().find(ReporteHeladera.class, id));
   }
 
-  @Override
+  @SuppressWarnings("unchecked")
   public List<ReporteHeladera> buscarTodos() {
-    return List.of();
+    return entityManager()
+        .createQuery("from " + ReporteHeladera.class.getName())
+        .getResultList();
   }
 
-  @Override
   public ReporteHeladera buscarSemanalPorHeladera(Long id) {
-    return null;
+    LocalDate haceUnaSemana = LocalDate.now().minusWeeks(1);
+
+    return entityManager()
+        .createQuery(
+            "SELECT r FROM ReporteHeladera r WHERE r.heladera.id = :id AND r.fecha >= :haceUnaSemana",
+            ReporteHeladera.class
+        )
+        .setParameter("id", id)
+        .setParameter("haceUnaSemana", haceUnaSemana)
+        .getSingleResult();
   }
 
-  @Override
   public List<ReporteHeladera> buscarTodosUltimaSemana() {
-    return List.of();
+    LocalDate haceUnaSemana = LocalDate.now().minusWeeks(1);
+
+    return entityManager()
+        .createQuery(
+            "SELECT r FROM ReporteHeladera r WHERE r.fecha >= :haceUnaSemana",
+            ReporteHeladera.class
+        )
+        .setParameter("haceUnaSemana", haceUnaSemana)
+        .getResultList();
+  }
+
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
   }
 }

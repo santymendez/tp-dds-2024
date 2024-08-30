@@ -3,7 +3,9 @@ package models.repositories.imp;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
 import models.entities.heladera.incidente.Incidente;
+import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceIncidentesRepository;
 
 /**
@@ -72,5 +74,10 @@ public class IncidentesRepository implements InterfaceIncidentesRepository,
     return entityManager()
         .createQuery("from " + Incidente.class.getName())
         .getResultList();
+  }
+
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
   }
 }

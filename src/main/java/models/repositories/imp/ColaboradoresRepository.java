@@ -3,9 +3,11 @@ package models.repositories.imp;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
 import lombok.Getter;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
+import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceColaboradoresRepository;
 
 /**
@@ -94,5 +96,10 @@ public class ColaboradoresRepository implements InterfaceColaboradoresRepository
     return entityManager()
         .createQuery("from " + Colaborador.class.getName())
         .getResultList();
+  }
+
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
   }
 }

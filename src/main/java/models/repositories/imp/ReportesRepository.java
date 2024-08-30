@@ -13,8 +13,13 @@ import models.repositories.interfaces.InterfaceReportesRepository;
  * Clase que representa a los repositorios de reportes de heladeras.
  */
 
-//TODO todos los metodos
 public class ReportesRepository implements InterfaceReportesRepository, WithSimplePersistenceUnit {
+
+  /**
+   * Guarda un reporte de heladera en la base de datos.
+   *
+   * @param reportes Reportes de heladera a guardar.
+   */
 
   public void guardar(ReporteHeladera... reportes) {
     withTransaction(() -> {
@@ -24,11 +29,23 @@ public class ReportesRepository implements InterfaceReportesRepository, WithSimp
     });
   }
 
+  /**
+   * Guarda un reporte de heladera en la base de datos.
+   *
+   * @param reporte Reportes de heladera a guardar.
+   */
+
   public void guardar(ReporteHeladera reporte) {
     withTransaction(() -> {
       entityManager().persist(reporte);
     });
   }
+
+  /**
+   * Modifica un reporte de heladera en la base de datos.
+   *
+   * @param reporte Reportes de heladera a modificar.
+   */
 
   public void modificar(ReporteHeladera reporte) {
     entityManager().merge(reporte);
@@ -47,6 +64,12 @@ public class ReportesRepository implements InterfaceReportesRepository, WithSimp
     return Optional.ofNullable(entityManager().find(ReporteHeladera.class, id));
   }
 
+  /**
+   * Busca todos los reportes de heladera en la base de datos.
+   *
+   * @return Lista de reportes de heladera.
+   */
+
   @SuppressWarnings("unchecked")
   public List<ReporteHeladera> buscarTodos() {
     return entityManager()
@@ -54,18 +77,31 @@ public class ReportesRepository implements InterfaceReportesRepository, WithSimp
         .getResultList();
   }
 
+  /**
+   * Busca todos los reportes de heladera en la base de datos.
+   *
+   * @return Lista de reportes de heladera.
+   */
+
   public ReporteHeladera buscarSemanalPorHeladera(Long id) {
     LocalDate haceUnaSemana = LocalDate.now().minusWeeks(1);
 
     return entityManager()
         .createQuery(
-            "SELECT r FROM ReporteHeladera r WHERE r.heladera.id = :id AND r.fecha >= :haceUnaSemana",
+            "SELECT r FROM ReporteHeladera r WHERE r.heladera.id = :id AND "
+                + "r.fecha >= :haceUnaSemana",
             ReporteHeladera.class
         )
         .setParameter("id", id)
         .setParameter("haceUnaSemana", haceUnaSemana)
         .getSingleResult();
   }
+
+  /**
+   * Busca todos los reportes de heladera en la base de datos.
+   *
+   * @return Lista de reportes de heladera.
+   */
 
   public List<ReporteHeladera> buscarTodosUltimaSemana() {
     LocalDate haceUnaSemana = LocalDate.now().minusWeeks(1);

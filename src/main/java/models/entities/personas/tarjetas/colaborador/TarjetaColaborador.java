@@ -28,6 +28,7 @@ import models.entities.personas.colaborador.Colaborador;
 @Table (name = "tarjetas_colaboradores")
 public class TarjetaColaborador {
   @Id
+  @Column(name = "id")
   private final String codigo;
 
   @Column(name = "activo")
@@ -36,8 +37,8 @@ public class TarjetaColaborador {
   @Column(name = "fechaAlta", columnDefinition = "DATE")
   private LocalDate fechaAlta;
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
-  @JoinColumn(name = "uso_id", referencedColumnName = "id")
+  @OneToMany(mappedBy = "tarjetaColaborador", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+      fetch = FetchType.EAGER)
   private final List<UsoTarjetaColaborador> usos;
 
   @ManyToOne

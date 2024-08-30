@@ -16,6 +16,6 @@ import models.entities.heladera.Heladera;
 @Embeddable
 public class ColocacionHeladera {
   @ManyToOne
-  @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 }

@@ -28,6 +28,7 @@ import models.entities.heladera.Heladera;
 @Table(name = "tarjetas_vulnerables")
 public class TarjetaVulnerable {
   @Id
+  @Column(name = "id")
   private String codigo;
 
   @Column(name = "activo")
@@ -36,9 +37,9 @@ public class TarjetaVulnerable {
   @Column(name = "cantUsosMaxima")
   private Integer cantidadDeUsosMaxima;
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
-  @JoinColumn(name = "uso_id", referencedColumnName = "id")
-  private List<UsoTarjetaVulnerable> usoTarjetaVulnerables;
+  @OneToMany(mappedBy = "tarjetaVulnerable", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+      fetch = FetchType.EAGER)
+  private List<UsoTarjetaVulnerable> usosTarjetaVulnerables;
 
   @OneToOne
   @JoinColumn(name = "registroVulnerable_id", referencedColumnName = "id")
@@ -65,7 +66,7 @@ public class TarjetaVulnerable {
     if (!heladera.tieneViandas()) {
       throw new RuntimeException("La heladera no tiene viandas");
     }
-    if (usoTarjetaVulnerables.size() == cantidadDeUsosMaxima) {
+    if (usosTarjetaVulnerables.size() == cantidadDeUsosMaxima) {
       throw new RuntimeException("Llegaste al limite de usos diarios");
     }
     return true;

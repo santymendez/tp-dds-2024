@@ -20,7 +20,7 @@ import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 @Embeddable
 public class DistribucionTarjetas {
   @OneToMany(cascade = {CascadeType.PERSIST})
-  @JoinColumn(name = "tarjeta_id", referencedColumnName = "id")
+  @JoinColumn(name = "tarjetaVulnerable_codigo", referencedColumnName = "id")
   private List<TarjetaVulnerable> tarjetasEntregadas;
 
   @Column(name = "cantidadTarjetasEntregadas")

@@ -17,33 +17,36 @@ public class TestSolicitudes {
   Colaborador colaborador;
   Heladera heladera1;
   Heladera heladera2;
+  TarjetaColaborador tarjeta;
 
   @BeforeEach
   public void inicializar(){
     this.colaborador = new Colaborador();
-    this.colaborador.agregarTarjeta(new TarjetaColaborador());
+    this.tarjeta = new TarjetaColaborador();
+    this.tarjeta.setColaborador(this.colaborador);
 
     this.heladera1 = new Heladera(new Direccion(), "Heladera 1", 3, LocalDate.now(), new Modelo());
     this.heladera2 = new Heladera(new Direccion(), "Heladera 2", 4, LocalDate.now(), new Modelo());
 
-    this.colaborador.ultimaTarjeta().getUsos().add(new UsoTarjetaColaborador(this.heladera1));
-    this.colaborador.agregarSolicitudApertura(this.heladera1);
+    tarjeta.getUsos().add(new UsoTarjetaColaborador(this.heladera1, this.tarjeta));
+    this.colaborador.agregarSolicitudApertura(this.heladera1, this.tarjeta);
 
-    this.colaborador.agregarSolicitudApertura(this.heladera1);
-    this.colaborador.agregarSolicitudApertura(this.heladera2);
+    this.colaborador.agregarSolicitudApertura(this.heladera1, this.tarjeta);
+    this.colaborador.agregarSolicitudApertura(this.heladera2, this.tarjeta);
   }
 
   @Test
   @DisplayName("Un colaborador puede abrir una heladera")
   public void test01() {
-    Assertions.assertTrue(this.heladera1.intentarAbrirCon(this.colaborador.ultimaTarjeta()));
+
+    Assertions.assertTrue(this.heladera1.intentarAbrirCon(this.tarjeta));
   }
 
   @Test
   @DisplayName("Un colaborador no puede abrir una heladera porque la solicitud ha expirado")
   public void test02() {
     LocalDateTime fechaConHora = LocalDateTime.of(2024, 6, 5, 12, 30, 0);
-    this.colaborador.ultimaTarjeta().getUsos().get(0).getApertura().setFechaSolicitud(fechaConHora);
-    Assertions.assertThrows(RuntimeException.class, () -> heladera1.intentarAbrirCon(colaborador.ultimaTarjeta()));
+    this.tarjeta.getUsos().get(0).getApertura().setFechaSolicitud(fechaConHora);
+    Assertions.assertThrows(RuntimeException.class, () -> heladera1.intentarAbrirCon(this.tarjeta));
   }
 }

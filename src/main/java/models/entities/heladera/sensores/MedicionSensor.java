@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import models.converters.LocalDateTimeAttributeConverter;
 import models.db.Persistente;
 import models.entities.heladera.Heladera;
@@ -18,8 +19,9 @@ import models.entities.heladera.Heladera;
  */
 
 @Getter
+@Setter
 @Entity
-@Table(name = "medicionesSensor")
+@Table(name = "mediciones_sensores")
 @NoArgsConstructor
 public class MedicionSensor extends Persistente {
   

@@ -27,4 +27,8 @@ public class UsoTarjetaVulnerable extends Persistente {
   @ManyToOne
   @JoinColumn(name = "heladera_id")
   private Heladera heladera;
+
+  @ManyToOne
+  @JoinColumn(name = "tarjetaVulnerable_id", referencedColumnName = "id")
+  private TarjetaVulnerable tarjetaVulnerable;
 }

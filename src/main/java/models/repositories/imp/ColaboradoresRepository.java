@@ -73,7 +73,7 @@ public class ColaboradoresRepository implements InterfaceColaboradoresRepository
    * @return Un Optional con el colaborador encontrado, o vacío si no se encontró.
    */
   public Optional<Colaborador> buscarPorDocumento(Integer numeroDocumento) {
-    String query = "SELECT c FROM Colaborador c WHERE c.documento.nroDocumento = :numeroDocumento";
+    String query = "SELECT c FROM Colaborador c WHERE c.documento.nroDocumento =: numeroDocumento";
     List<Colaborador> results = entityManager().createQuery(query, Colaborador.class)
             .setParameter("numeroDocumento", numeroDocumento)
             .getResultList();

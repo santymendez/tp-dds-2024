@@ -30,14 +30,19 @@ public class UsoTarjetaColaborador extends Persistente {
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
+  @ManyToOne
+  @JoinColumn(name = "tarjetaColaborador_id", referencedColumnName = "id")
+  private TarjetaColaborador tarjetaColaborador;
+
   /**
    * Instancia la clase de Uso.
    *
    * @param heladera Heladera solicitada para abrir.
    */
 
-  public UsoTarjetaColaborador(Heladera heladera) {
+  public UsoTarjetaColaborador(Heladera heladera, TarjetaColaborador tarjetaColaborador) {
     this.apertura = new Apertura(LocalDateTime.now());
     this.heladera = heladera;
+    this.tarjetaColaborador = tarjetaColaborador;
   }
 }

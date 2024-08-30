@@ -85,10 +85,6 @@ public class Colaborador extends Persistente {
   @Transient
   private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "tarjeta_id")
-  private List<TarjetaColaborador> tarjetas;
-
   @Transient //TODO cuando veamos persistencia de interfaces
   private List<InterfazSuscripcion> suscripciones;
 
@@ -100,7 +96,6 @@ public class Colaborador extends Persistente {
     this.reconocimiento = new Reconocimiento();
     this.colaboraciones = new ArrayList<>();
     this.suscripciones = new ArrayList<>();
-    this.tarjetas = new ArrayList<>();
   }
 
   public Boolean puedeCanjear(Oferta oferta) {
@@ -117,16 +112,8 @@ public class Colaborador extends Persistente {
    * @param heladera Heladera que se busca abrir.
    */
 
-  public void agregarSolicitudApertura(Heladera heladera) {
-    heladera.getTarjetasHabilitadas().add(this.ultimaTarjeta());
-  }
-
-  public TarjetaColaborador ultimaTarjeta() {
-    return this.tarjetas.get(this.tarjetas.size() - 1);
-  }
-
-  public void agregarTarjeta(TarjetaColaborador tarjeta) {
-    this.tarjetas.add(tarjeta);
+  public void agregarSolicitudApertura(Heladera heladera, TarjetaColaborador tarjeta) {
+    heladera.getTarjetasHabilitadas().add(tarjeta);
   }
 
   public void agregarSuscripcion(InterfazSuscripcion suscripcion) {

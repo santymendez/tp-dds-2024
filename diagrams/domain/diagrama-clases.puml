@@ -93,8 +93,6 @@ class Colaborador{
 
     -adapterServicioRecomendacion: AdapterServicioRecomendacion
 
-    -tarjeta: TarjetaColaborador
-
     -List<InterfazSuscripcion> suscripciones;
 
     +boolean puedeCanjear(Oferta oferta)
@@ -302,6 +300,7 @@ class TarjetaVulnerable {
 class UsoTarjetaVulnerable {
     -fechaUtilizacion: LocalDate
     -heladera: Heladera
+    -tarjetaVulnerable: TarjetaVulnerable
 }
 
 class RegistroVulnerable {
@@ -400,13 +399,15 @@ enum TipoEstado{
 '========================================== Clases de la entrega 3 ============================================='
 
 class TarjetaColaborador {
-    -String codigo
+    -codigo: String
     -List<UsoTarjetaColaborador> usos
+    -colaborador: Colaborador
 }
 
 class UsoTarjetaColaborador {
     -apertura: Apertura
     -heladera: Heladera
+    -tarjetaColaborador: TarjetaColaborador
 }
 
 class Apertura {
@@ -572,7 +573,6 @@ Colaborador ---> Contacto
 Colaborador o--- TipoColaborador
 Colaborador o--- Reconocimiento
 Colaborador ---> AdapterServicioRecomendacion
-Colaborador --> TarjetaColaborador
 Colaborador ..> Heladera
 Colaborador ..> TipoSuscripcion
 Colaborador -->"*" InterfazSuscripcion
@@ -642,8 +642,9 @@ TarjetaVulnerable o---"*" UsoTarjetaVulnerable
 TarjetaVulnerable ---> InformacionRegistro
 TarjetaVulnerable ...> Heladera
 
-'REGISTRO USO'
+'USO TARJETA VULNERABLE'
 UsoTarjetaVulnerable *--- Heladera
+UsoTarjetaVulnerable --> TarjetaVulnerable
 
 'INFORMACION REGISTRO'
 RegistroVulnerable *--- Colaborador
@@ -678,10 +679,12 @@ Estado *-- TipoEstado
 
 'TARJETA DEL COLABORADOR'
 TarjetaColaborador -->"*" UsoTarjetaColaborador
+TarjetaColaborador *-- Colaborador
 
 'USO TARJETA DEL COLABORADOR'
 UsoTarjetaColaborador --> Apertura
 UsoTarjetaColaborador o-- Heladera
+UsoTarjetaColaborador --> TarjetaColaborador
 
 'INCIDENTE'
 Incidente o-- Heladera

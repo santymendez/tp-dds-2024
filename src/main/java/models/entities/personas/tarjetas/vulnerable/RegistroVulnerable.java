@@ -3,6 +3,7 @@ package models.entities.personas.tarjetas.vulnerable;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -21,14 +22,14 @@ import models.entities.personas.vulnerable.Vulnerable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "registrosVulnerables")
+@Table(name = "registros_vulnerables")
 public class RegistroVulnerable extends Persistente {
   @ManyToOne
-  @Column(name = "colaborador")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
 
   @OneToOne
-  @Column(name = "vulnerableRegistrado")
+  @JoinColumn(name = "vulnerableRegistrado_id", referencedColumnName = "id")
   private Vulnerable vulnerable;
 
   @Column(name = "fechaRegistro", columnDefinition = "DATE")

@@ -41,7 +41,7 @@ public class TarjetaVulnerable {
   private List<UsoTarjetaVulnerable> usoTarjetaVulnerables;
 
   @OneToOne
-  @JoinColumn(name = "registroVulnerable")
+  @JoinColumn(name = "registroVulnerable_id", referencedColumnName = "id")
   private RegistroVulnerable registroVulnerable;
 
   /**

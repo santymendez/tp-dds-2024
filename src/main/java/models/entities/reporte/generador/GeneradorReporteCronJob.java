@@ -25,9 +25,14 @@ public class GeneradorReporteCronJob {
             .get("reportesRepository", ReportesRepository.class);
     List<ReporteHeladera> reportesDeLaSemana = reportesRepository.buscarTodosUltimaSemana();
 
-    //Se generan los pdfs de los reportes de esta semana
+    //Se genera el pdf de los reportes de esta semana
     GeneradorReporte generador = new GeneradorReporte();
-    generador.generarReporte(reportesDeLaSemana);
+    String path = generador.generarReporte(reportesDeLaSemana);
+
+    for (ReporteHeladera reporte : reportesDeLaSemana) {
+      reporte.setPath(path);
+      reportesRepository.modificar(reporte);
+    }
 
     InterfaceHeladerasRepository heladerasRepository =
         RepositoryLocator

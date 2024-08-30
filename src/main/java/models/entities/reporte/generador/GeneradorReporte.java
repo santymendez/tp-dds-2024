@@ -30,10 +30,10 @@ public class GeneradorReporte {
   private static Integer currentLines;
 
   /**
-   * Genera un reporte semanal.
+   * Genera un reporte semanal y devuelve el path.
    */
 
-  public void generarReporte(List<ReporteHeladera> reportes) {
+  public String generarReporte(List<ReporteHeladera> reportes) {
     LocalDate semanaActual = LocalDate.now();
 
     String path = "reportes/reporte-semana-" + semanaActual + ".pdf";
@@ -93,6 +93,7 @@ public class GeneradorReporte {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return path;
   }
 
   private static int agregarLineaTexto(

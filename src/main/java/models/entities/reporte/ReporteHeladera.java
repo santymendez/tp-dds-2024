@@ -49,6 +49,9 @@ public class ReporteHeladera extends Persistente {
   @Column(name = "fecha", columnDefinition = "DATE")
   private LocalDate fecha;
 
+  @Column(name = "reportePath", columnDefinition = "TEXT")
+  private String path;
+
   /**
    * Instancia un nuevo reporte para una heladera.
    *

@@ -41,6 +41,7 @@ public class RepositoryLocator {
    * @return El repositorio correspondiente a la clave.
    * @throws IllegalArgumentException Si no se encuentra el repositorio para la clave dada.
    */
+
   @SuppressWarnings("unchecked")
   public static <T> T get(String key, Class<T> tipoClase) {
     Object service = services.get(key);

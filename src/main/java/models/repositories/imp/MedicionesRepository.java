@@ -44,9 +44,7 @@ public class MedicionesRepository
    */
 
   public void modificar(MedicionSensor medicionSensor) {
-    withTransaction(() -> {
-      entityManager().merge(medicionSensor);
-    });
+    entityManager().merge(medicionSensor);
   }
 
   public void eliminarFisico(MedicionSensor medicionSensor) {

@@ -14,8 +14,8 @@ import lombok.Setter;
 @Embeddable
 public class DonacionDinero {
   @Column(name = "dineroDonado")
-  private Integer monto;
+  private Integer montoDonado;
 
   @Column(name = "frecuenciaDonacionDinero")
-  private String frecuencia;
+  private String frecuenciaDonacion;
 }

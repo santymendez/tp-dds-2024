@@ -45,9 +45,7 @@ public class IncidentesRepository implements InterfaceIncidentesRepository,
    */
 
   public void modificar(Incidente incidente) {
-    withTransaction(() -> {
-      entityManager().merge(incidente);
-    });
+    entityManager().merge(incidente);
   }
 
   public void eliminarFisico(Incidente incidente) {

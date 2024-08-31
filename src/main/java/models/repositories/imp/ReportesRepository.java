@@ -36,9 +36,7 @@ public class ReportesRepository implements InterfaceReportesRepository, WithSimp
    */
 
   public void guardar(ReporteHeladera reporte) {
-    withTransaction(() -> {
-      entityManager().persist(reporte);
-    });
+    withTransaction(() -> entityManager().persist(reporte));
   }
 
   /**
@@ -115,6 +113,7 @@ public class ReportesRepository implements InterfaceReportesRepository, WithSimp
         .getResultList();
   }
 
+  @Override
   public EntityManager entityManager() {
     return PersistenceUnitSwitcher.getEntityManager();
   }

@@ -20,14 +20,14 @@ import models.entities.heladera.vianda.Vianda;
 @Embeddable
 public class DonacionViandas {
   @OneToMany(cascade = {CascadeType.PERSIST})
-  @JoinColumn(name = "vianda_id", referencedColumnName = "id")
-  private List<Vianda> viandas;
+  @JoinColumn(name = "viandaDonada_id", referencedColumnName = "id")
+  private List<Vianda> viandasDonadas;
 
   @Column(name = "cantidadViandasDonadas")
   private Integer cantViandas;
 
   public DonacionViandas() {
-    this.viandas = new ArrayList<>();
+    this.viandasDonadas = new ArrayList<>();
   }
 
 }

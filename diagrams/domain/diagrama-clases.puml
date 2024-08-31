@@ -174,12 +174,12 @@ enum TipoColaboracion {
 }
 
 class DonacionDinero {
-    -monto: Integer
-    -frecuencia: String
+    -montoDonado: Integer
+    -frecuenciaDonacion: String
 }
 
 class DonacionViandas {
-    -viandas: List<Vianda>
+    -viandasDonadas: List<Vianda>
     -cantViandas: Integer
 }
 
@@ -196,11 +196,11 @@ class DistribucionTarjetas {
 }
 
 class ColocacionHeladera {
-    -heladera: Heladera
+    -heladeraColocada: Heladera
 }
 
 class RealizacionOfertas {
-    -List<Oferta> ofertas
+    -List<Oferta> ofertasRealizadas
 }
 
 '========================================== Clases de la entrega 2 ============================================='
@@ -505,6 +505,7 @@ class ReporteHeladera {
     -viandasColocadas: Integer
     -viandasRetiradas: Integer
     -List<ViandasPorColaborador> viandasPorColaborador
+    -path: String
 }
 
 class ViandasPorColaborador {

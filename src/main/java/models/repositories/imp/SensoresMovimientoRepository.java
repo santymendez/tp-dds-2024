@@ -47,9 +47,7 @@ public class SensoresMovimientoRepository
    */
 
   public void modificar(SensorMovimiento sensor) {
-    withTransaction(() -> {
-      entityManager().merge(sensor);
-    });
+    entityManager().merge(sensor);
   }
 
   public void eliminarFisico(SensorMovimiento sensor) {

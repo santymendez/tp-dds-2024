@@ -6,7 +6,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.personas.colaborador.canje.Oferta;
@@ -20,6 +19,6 @@ import models.entities.personas.colaborador.canje.Oferta;
 @Embeddable
 public class RealizacionOfertas {
   @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
-  @JoinColumn(name = "oferta_id", referencedColumnName = "id")
-  private List<Oferta> ofertas;
+  @JoinColumn(name = "ofertaRealizada_id", referencedColumnName = "id")
+  private List<Oferta> ofertasRealizadas;
 }

@@ -5,9 +5,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * Esta clase se encarga de cambiar la unidad de persistencia de la aplicación.
+ * Esta clase se encarga de cambiar la unidad de persistencia de la aplicación. Por defecto
+ * utiliza la unidade "simple-persistence-unit" que usa memoria.
+ * Ejemplo de uso:
+ *     PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
  */
-
 
 public class PersistenceUnitSwitcher {
   private static EntityManagerFactory entityManagerFactory = Persistence

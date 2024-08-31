@@ -44,9 +44,7 @@ public class SensoresTemperaturaRepository
    * @param sensorTemperatura la instancia de SensorTemperatura que será modificada.
    */
   public void modificar(SensorTemperatura sensorTemperatura) {
-    withTransaction(() -> {
-      entityManager().merge(sensorTemperatura);
-    });
+    entityManager().merge(sensorTemperatura);
   }
 
   /**

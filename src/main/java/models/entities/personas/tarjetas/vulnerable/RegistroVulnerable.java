@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import models.db.Persistente;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.vulnerable.Vulnerable;
@@ -19,6 +20,7 @@ import models.entities.personas.vulnerable.Vulnerable;
  */
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

@@ -38,7 +38,7 @@ public class FactoryColaboracion {
     switch (unaColaboracion.getTipoColaboracion()) {
       case DONAR_DINERO -> {
         unaColaboracion.setDonacionDinero(new DonacionDinero());
-        unaColaboracion.getDonacionDinero().setMonto(cantidad);
+        unaColaboracion.getDonacionDinero().setMontoDonado(cantidad);
       }
       case DONAR_VIANDA -> {
         unaColaboracion.setDonacionViandas(new DonacionViandas());

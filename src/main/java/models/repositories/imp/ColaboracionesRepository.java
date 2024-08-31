@@ -14,7 +14,6 @@ import models.repositories.interfaces.InterfaceColaboracionesRepository;
  * Repositorio para las Colaboraciones.
  */
 
-//TODO tiene sentido una interfaz en nuestro contexto?
 @Getter
 public class ColaboracionesRepository implements InterfaceColaboracionesRepository,
         WithSimplePersistenceUnit {
@@ -50,9 +49,7 @@ public class ColaboracionesRepository implements InterfaceColaboracionesReposito
    */
 
   public void modificar(Colaboracion colaboracion) {
-    withTransaction(() -> {
-      entityManager().merge(colaboracion);
-    });
+    entityManager().merge(colaboracion);
   }
 
   public void eliminarFisico(Colaboracion colaboracion) {
@@ -93,10 +90,5 @@ public class ColaboracionesRepository implements InterfaceColaboracionesReposito
     return entityManager()
         .createQuery("from " + Colaboracion.class.getName())
         .getResultList();
-  }
-
-  @Override
-  public EntityManager entityManager() {
-    return PersistenceUnitSwitcher.getEntityManager();
   }
 }

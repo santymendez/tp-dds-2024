@@ -57,7 +57,7 @@ public class Colaboracion extends Persistente {
   //============================== Metodos Auxiliares ========================================
 
   public Integer tiempoActivaHeladera() {
-    return this.colocacionHeladera.getHeladera().calcularMesesActiva();
+    return this.colocacionHeladera.getHeladeraColocada().calcularMesesActiva();
   }
 
 }

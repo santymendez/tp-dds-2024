@@ -48,9 +48,7 @@ public class TecnicosRepository implements InterfaceTecnicosRepository, WithSimp
    */
 
   public void modificar(Tecnico tecnico) {
-    withTransaction(() -> {
-      entityManager().merge(tecnico);
-    });
+    entityManager().merge(tecnico);
   }
 
   public void eliminarFisico(Tecnico tecnico) {

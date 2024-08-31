@@ -65,7 +65,7 @@ public class BuscadorHeladerasFrecuentes {
           }
         }
         case DONAR_VIANDA -> {
-          for (Vianda vianda : colaboracion.getDonacionViandas().getViandas()) {
+          for (Vianda vianda : colaboracion.getDonacionViandas().getViandasDonadas()) {
             if (vianda.getHeladera().consultarEspacioSobrante() != 0) {
               heladeras.add(vianda.getHeladera());
             } else {

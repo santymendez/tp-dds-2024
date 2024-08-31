@@ -49,9 +49,7 @@ public class ColaboradoresRepository implements InterfaceColaboradoresRepository
    */
 
   public void modificar(Colaborador colaborador) {
-    withTransaction(() -> {
-      entityManager().merge(colaborador);
-    });
+    entityManager().merge(colaborador);
   }
 
   public void eliminarFisico(Colaborador colaborador) {

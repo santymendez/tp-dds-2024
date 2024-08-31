@@ -3,7 +3,6 @@ package db;
 import java.util.List;
 import models.entities.direccion.Ciudad;
 import models.entities.personas.tecnico.Tecnico;
-import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.TecnicosRepository;
 import org.junit.jupiter.api.Assertions;

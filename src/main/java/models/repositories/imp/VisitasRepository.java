@@ -44,9 +44,7 @@ public class VisitasRepository
    */
 
   public void modificar(VisitaTecnica visitaTecnica) {
-    withTransaction(() -> {
-      entityManager().merge(visitaTecnica);
-    });
+    entityManager().merge(visitaTecnica);
   }
 
   public void eliminarFisico(VisitaTecnica visitaTecnica) {

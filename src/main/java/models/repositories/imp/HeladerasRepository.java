@@ -43,9 +43,7 @@ public class HeladerasRepository implements InterfaceHeladerasRepository,
    */
 
   public void modificar(Heladera heladera) {
-    withTransaction(() -> {
-      entityManager().merge(heladera);
-    });
+    entityManager().merge(heladera);
   }
 
   public void eliminarFisico(Heladera heladera) {
@@ -72,11 +70,6 @@ public class HeladerasRepository implements InterfaceHeladerasRepository,
     return entityManager()
         .createQuery("from " + Heladera.class.getName())
         .getResultList();
-  }
-
-  @Override
-  public EntityManager entityManager() {
-    return PersistenceUnitSwitcher.getEntityManager();
   }
 
 }

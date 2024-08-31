@@ -1,15 +1,18 @@
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.direccion.Barrio;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.estados.Estado;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
 import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
+import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.BarriosRepository;
 import models.repositories.imp.ColaboracionesRepository;
@@ -25,6 +28,7 @@ import models.repositories.interfaces.InterfaceHeladerasRepository;
 import models.repositories.interfaces.InterfaceRegistrosVulnerablesRepository;
 import models.repositories.interfaces.InterfaceTarjetasVulnerablesRepository;
 import models.repositories.interfaces.InterfaceUsosTarjetasVulnerablesRepository;
+import models.repositories.interfaces.InterfaceVulnerablesRepository;
 
 /**
  * Main de prueba.
@@ -40,7 +44,7 @@ public class MainExample {
   public static void main(String[] args) {
     MainExample instance = new MainExample();
     instance.guardarColaboracion();
-    //instance.guardarHeladeras();
+    instance.guardarHeladeras();
   }
 
   private void guardarColaboracion() {
@@ -59,8 +63,8 @@ public class MainExample {
   }
 
   private void guardarHeladeras() {
-
     Heladera heladera1 = new Heladera();
+    heladera1.setNombre("inaki");
 
     Barrio barrio1 = new Barrio();
     barrio1.setNombreBarrio("Caballito");
@@ -71,11 +75,13 @@ public class MainExample {
     heladera1.setDireccion(direccion1);
       
     Heladera heladera2 = new Heladera();
+    heladera2.setNombre("liam");
     Direccion direccion2 = new Direccion();
     direccion2.setBarrio(barrio1);
     heladera2.setDireccion(direccion2);
     
     Heladera heladera3 = new Heladera();
+    heladera3.setNombre("santi");
     Direccion direccion3 = new Direccion();
     direccion3.setBarrio(barrio1);
     heladera3.setDireccion(direccion3);
@@ -103,11 +109,13 @@ public class MainExample {
     barrio2.setNombreBarrio("Almagro");
 
     Heladera heladera4 = new Heladera();
+    heladera4.setNombre("mati");
     Direccion direccion4 = new Direccion();
     direccion4.setBarrio(barrio2);
     heladera4.setDireccion(direccion4);
 
     Heladera heladera5 = new Heladera();
+    heladera5.setNombre("augusto");
     Direccion direccion5 = new Direccion();
     direccion5.setBarrio(barrio2);
     heladera5.setDireccion(direccion5);
@@ -120,9 +128,17 @@ public class MainExample {
     heladerasRepository.guardar(heladera4);
     heladerasRepository.guardar(heladera5);
 
-    RegistroVulnerable regVuln1 = new RegistroVulnerable();
+    InterfaceVulnerablesRepository vulnerablesRepository =
+        RepositoryLocator.get("vulnerablesRepository", InterfaceVulnerablesRepository.class);
 
-    TarjetaVulnerable tarjeta1 = new TarjetaVulnerable();
+    Vulnerable vul1 = new Vulnerable();
+    vul1.setMenoresAcargo(new ArrayList<>());
+    vulnerablesRepository.guardar(vul1);
+
+    RegistroVulnerable regVuln1 = new RegistroVulnerable();
+    regVuln1.setVulnerable(vul1);
+
+    TarjetaVulnerable tarjeta1 = new TarjetaVulnerable(regVuln1);
     tarjeta1.setRegistroVulnerable(regVuln1);
 
     UsoTarjetaVulnerable uso1 = new UsoTarjetaVulnerable();
@@ -146,10 +162,15 @@ public class MainExample {
             UsosTarjetasVulnerablesRepository.class);
 
     usosRepository.guardar(uso1);
+
+    Vulnerable vul2 = new Vulnerable();
+    vul2.setMenoresAcargo(new ArrayList<>());
+    vulnerablesRepository.guardar(vul2);
     
     RegistroVulnerable regVuln2 = new RegistroVulnerable();
+    regVuln2.setVulnerable(vul2);
 
-    TarjetaVulnerable tarjeta2 = new TarjetaVulnerable();
+    TarjetaVulnerable tarjeta2 = new TarjetaVulnerable(regVuln2);
     tarjeta2.setRegistroVulnerable(regVuln2);
 
     UsoTarjetaVulnerable uso2 = new UsoTarjetaVulnerable();
@@ -160,9 +181,14 @@ public class MainExample {
     tarjetasRepository.guardar(tarjeta2);
     usosRepository.guardar(uso2);
 
-    RegistroVulnerable regVuln3 = new RegistroVulnerable();
+    Vulnerable vul3 = new Vulnerable();
+    vul3.setMenoresAcargo(new ArrayList<>());
+    vulnerablesRepository.guardar(vul3);
 
-    TarjetaVulnerable tarjeta3 = new TarjetaVulnerable();
+    RegistroVulnerable regVuln3 = new RegistroVulnerable();
+    regVuln3.setVulnerable(vul3);
+
+    TarjetaVulnerable tarjeta3 = new TarjetaVulnerable(regVuln3);
     tarjeta3.setRegistroVulnerable(regVuln3);
 
     UsoTarjetaVulnerable uso3 = new UsoTarjetaVulnerable();

@@ -57,4 +57,9 @@ public class DireccionesRepository implements InterfaceDireccionesRepository,
         .getResultList();
   }
 
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
+  }
+
 }

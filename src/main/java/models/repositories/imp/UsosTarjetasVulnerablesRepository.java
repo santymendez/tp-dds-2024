@@ -59,4 +59,9 @@ public class UsosTarjetasVulnerablesRepository implements
         .getResultList();
   }
 
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
+  }
+
 }

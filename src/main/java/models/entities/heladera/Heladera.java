@@ -46,10 +46,12 @@ public class Heladera extends Persistente {
   @JoinColumn(name = "direccion_id", referencedColumnName = "id")
   private Direccion direccion;
 
-  @Column(name = "nombre", nullable = false)
+  //TODO NOT NULL
+  @Column(name = "nombre")
   private String nombre;
 
-  @Column(name = "fechaCreacion", columnDefinition = "DATE", nullable = false)
+  //TODO NOT NULL
+  @Column(name = "fechaCreacion", columnDefinition = "DATE")
   private LocalDate fechaDeCreacion;
 
   @Column(name = "estaAbierta")
@@ -69,8 +71,9 @@ public class Heladera extends Persistente {
   @Transient
   private List<InterfazSuscripcion> suscripciones;
 
+  //TODO PONER NOT NULL
   @OneToOne
-  @JoinColumn(name = "estado_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "estado_id", referencedColumnName = "id")
   private Estado estadoActual;
 
   @OneToMany(cascade = CascadeType.PERSIST)

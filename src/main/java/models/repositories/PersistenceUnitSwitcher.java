@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
 
 public class PersistenceUnitSwitcher {
   private static EntityManagerFactory entityManagerFactory = Persistence
-      .createEntityManagerFactory("simple-persistence-unit");
+      .createEntityManagerFactory("database-persistence-unit");
   private static EntityManager entityManager = entityManagerFactory.createEntityManager();
 
   /**

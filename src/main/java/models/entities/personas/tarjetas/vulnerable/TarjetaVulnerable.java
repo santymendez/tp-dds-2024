@@ -75,7 +75,11 @@ public class TarjetaVulnerable {
   // =========================== Metodos Auxiliares ===========================
 
   private Integer calcularUsos() {
-    return 4 + 2 * this.registroVulnerable.getVulnerable().getMenoresAcargo().size();
+    if (!this.registroVulnerable.getVulnerable().getMenoresAcargo().isEmpty()) {
+      return 4 + 2 * this.registroVulnerable.getVulnerable().getMenoresAcargo().size();
+    } else {
+      return 4;
+    }
   }
 
   private String generarCodigoAlfanumerico() {

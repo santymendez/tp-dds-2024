@@ -65,4 +65,9 @@ public class VulnerablesRepository implements InterfaceVulnerablesRepository,
         .getResultList();
   }
 
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
+  }
+
 }

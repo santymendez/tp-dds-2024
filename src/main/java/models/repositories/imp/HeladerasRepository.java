@@ -72,4 +72,9 @@ public class HeladerasRepository implements InterfaceHeladerasRepository,
         .getResultList();
   }
 
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
+  }
+
 }

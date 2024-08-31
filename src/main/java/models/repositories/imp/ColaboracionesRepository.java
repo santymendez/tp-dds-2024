@@ -91,4 +91,9 @@ public class ColaboracionesRepository implements InterfaceColaboracionesReposito
         .createQuery("from " + Colaboracion.class.getName())
         .getResultList();
   }
+
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
+  }
 }

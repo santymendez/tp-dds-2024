@@ -58,4 +58,9 @@ public class RegistrosVulnerablesRepository implements InterfaceRegistrosVulnera
         .getResultList();
   }
 
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
+  }
+
 }

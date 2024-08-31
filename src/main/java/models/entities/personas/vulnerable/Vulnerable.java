@@ -1,6 +1,7 @@
 package models.entities.personas.vulnerable;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import models.db.Persistente;
 import models.entities.direccion.Direccion;
 import models.entities.personas.documento.Documento;
@@ -21,6 +23,7 @@ import models.entities.personas.documento.Documento;
  * domicilio, tipo de documento, número de documento, menores a cargo y tarjeta.
  */
 
+@Setter
 @Getter
 @Entity
 @NoArgsConstructor
@@ -29,10 +32,12 @@ public class Vulnerable extends Persistente {
   @Column(name = "nombre")
   private String nombre;
 
-  @Column(name = "fechaNacimiento", columnDefinition = "DATE", nullable = false)
+  //TODO NOT NULL
+  @Column(name = "fechaNacimiento", columnDefinition = "DATE")
   private LocalDate fechaNacimiento;
 
-  @Column(name = "fechaRegistro", columnDefinition = "DATE", nullable = false)
+  //TODO NOT NULL
+  @Column(name = "fechaRegistro", columnDefinition = "DATE")
   private LocalDate fechaRegistro;
 
   @ManyToOne
@@ -57,7 +62,10 @@ public class Vulnerable extends Persistente {
     this.fechaRegistro = LocalDate.now();
     this.domicilio = domicilio;
     this.documento = documento;
-    this.menoresAcargo = menoresAcargo;
+    this.menoresAcargo = new ArrayList<>();
+    if (menoresAcargo != null) {
+      this.menoresAcargo.addAll(menoresAcargo);
+    }
   }
 
 }

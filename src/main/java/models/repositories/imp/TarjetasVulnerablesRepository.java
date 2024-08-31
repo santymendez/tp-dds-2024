@@ -59,4 +59,9 @@ public class TarjetasVulnerablesRepository implements InterfaceTarjetasVulnerabl
         .getResultList();
   }
 
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
+  }
+
 }

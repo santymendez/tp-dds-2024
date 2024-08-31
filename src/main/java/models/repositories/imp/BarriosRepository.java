@@ -58,4 +58,9 @@ public class BarriosRepository implements InterfaceBarriosRepository,
         .getResultList();
   }
 
+  @Override
+  public EntityManager entityManager() {
+    return PersistenceUnitSwitcher.getEntityManager();
+  }
+
 }

@@ -9,7 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -46,12 +45,10 @@ public class Heladera extends Persistente {
   @JoinColumn(name = "direccion_id", referencedColumnName = "id")
   private Direccion direccion;
 
-  //TODO NOT NULL
-  @Column(name = "nombre")
+  @Column(name = "nombre", nullable = false)
   private String nombre;
 
-  //TODO NOT NULL
-  @Column(name = "fechaCreacion", columnDefinition = "DATE")
+  @Column(name = "fechaCreacion", columnDefinition = "DATE", nullable = false)
   private LocalDate fechaDeCreacion;
 
   @Column(name = "estaAbierta")
@@ -63,7 +60,7 @@ public class Heladera extends Persistente {
   @Column(name = "capacidadMaximaViandas")
   private Integer capacidadMaximaViandas;
 
-  @OneToMany(cascade = CascadeType.PERSIST)
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   @JoinColumn(name = "vianda_id", referencedColumnName = "id")
   private List<Vianda> viandas;
 
@@ -71,12 +68,11 @@ public class Heladera extends Persistente {
   @Transient
   private List<InterfazSuscripcion> suscripciones;
 
-  //TODO PONER NOT NULL
-  @OneToOne
-  @JoinColumn(name = "estado_id", referencedColumnName = "id")
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+  @JoinColumn(name = "estado_id", referencedColumnName = "id", nullable = false)
   private Estado estadoActual;
 
-  @OneToMany(cascade = CascadeType.PERSIST)
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   @JoinColumn(name = "estadosPrevios_id", referencedColumnName = "id")
   private List<Estado> estadosHeladera;
 

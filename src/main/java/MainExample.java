@@ -7,6 +7,8 @@ import models.entities.colaboracion.TipoColaboracion;
 import models.entities.direccion.Barrio;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.estados.Estado;
+import models.entities.heladera.estados.TipoEstado;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
@@ -29,6 +31,7 @@ import models.repositories.interfaces.InterfaceRegistrosVulnerablesRepository;
 import models.repositories.interfaces.InterfaceTarjetasVulnerablesRepository;
 import models.repositories.interfaces.InterfaceUsosTarjetasVulnerablesRepository;
 import models.repositories.interfaces.InterfaceVulnerablesRepository;
+import rest.controllers.AtencionMedicaController;
 
 /**
  * Main de prueba.
@@ -38,8 +41,6 @@ public class MainExample {
 
   /**
    * Metodo main.
-   *
-   * @param args argumentos.
    */
 
   public static void main(String[] args) {
@@ -49,8 +50,14 @@ public class MainExample {
 
     instance.guardarColaboracion();
     instance.guardarHeladeras();
+    instance.printearVulnerables();
 
     PersistenceUnitSwitcher.switchPersistenceUnit("simple-persistence-unit");
+  }
+
+  private void printearVulnerables() {
+    AtencionMedicaController a = new AtencionMedicaController();
+    a.obtenerVulnerablesPorBarrio();
   }
 
   private void guardarColaboracion() {
@@ -69,8 +76,35 @@ public class MainExample {
   }
 
   private void guardarHeladeras() {
+    Estado estado1 = new Estado();
+    estado1.setFechaInicial(LocalDate.of(2024, 1, 11));
+    estado1.setEstado(TipoEstado.ACTIVA);
+    estado1.setFechaFinal(LocalDate.of(2024, 2, 11));
+
+    Estado estado2 = new Estado();
+    estado2.setFechaInicial(LocalDate.of(2024, 3, 11));
+    estado2.setEstado(TipoEstado.INACTIVA_FRAUDE);
+    estado2.setFechaFinal(LocalDate.of(2024, 4, 11));
+
+    Estado estado3 = new Estado();
+    estado3.setFechaInicial(LocalDate.of(2024, 5, 11));
+    estado3.setEstado(TipoEstado.INACTIVA_TEMPERATURA);
+    estado3.setFechaFinal(LocalDate.of(2024, 6, 11));
+
+    Estado estado4 = new Estado();
+    estado4.setFechaInicial(LocalDate.of(2024, 7, 11));
+    estado4.setEstado(TipoEstado.INACTIVA_FUNCIONAL);
+    estado4.setFechaFinal(LocalDate.of(2024, 8, 11));
+
+    Estado estado5 = new Estado();
+    estado5.setFechaInicial(LocalDate.of(2024, 9, 11));
+    estado5.setEstado(TipoEstado.INACTIVA_FALLA_CONEXION);
+    estado5.setFechaFinal(LocalDate.of(2024, 10, 11));
+
     Heladera heladera1 = new Heladera();
     heladera1.setNombre("inaki");
+    heladera1.setEstadoActual(estado1);
+    heladera1.setFechaDeCreacion(LocalDate.now());
 
     Barrio barrio1 = new Barrio();
     barrio1.setNombreBarrio("Caballito");
@@ -82,12 +116,18 @@ public class MainExample {
       
     Heladera heladera2 = new Heladera();
     heladera2.setNombre("liam");
+    heladera2.setEstadoActual(estado2);
+    heladera2.setFechaDeCreacion(LocalDate.now());
+
     Direccion direccion2 = new Direccion();
     direccion2.setBarrio(barrio1);
     heladera2.setDireccion(direccion2);
     
     Heladera heladera3 = new Heladera();
     heladera3.setNombre("santi");
+    heladera3.setEstadoActual(estado3);
+    heladera3.setFechaDeCreacion(LocalDate.now());
+
     Direccion direccion3 = new Direccion();
     direccion3.setBarrio(barrio1);
     heladera3.setDireccion(direccion3);
@@ -116,12 +156,18 @@ public class MainExample {
 
     Heladera heladera4 = new Heladera();
     heladera4.setNombre("mati");
+    heladera4.setEstadoActual(estado4);
+    heladera4.setFechaDeCreacion(LocalDate.now());
+
     Direccion direccion4 = new Direccion();
     direccion4.setBarrio(barrio2);
     heladera4.setDireccion(direccion4);
 
     Heladera heladera5 = new Heladera();
     heladera5.setNombre("augusto");
+    heladera5.setEstadoActual(estado5);
+    heladera5.setFechaDeCreacion(LocalDate.now());
+
     Direccion direccion5 = new Direccion();
     direccion5.setBarrio(barrio2);
     heladera5.setDireccion(direccion5);

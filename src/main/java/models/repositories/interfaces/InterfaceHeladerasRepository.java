@@ -2,9 +2,7 @@ package models.repositories.interfaces;
 
 import java.util.List;
 import java.util.Optional;
-import models.entities.colaboracion.Colaboracion;
 import models.entities.heladera.Heladera;
-import models.entities.personas.colaborador.Colaborador;
 
 /**
  * Interfaz Repositorio para las Heladeras.

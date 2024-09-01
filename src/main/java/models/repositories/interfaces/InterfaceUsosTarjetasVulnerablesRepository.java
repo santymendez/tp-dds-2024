@@ -8,7 +8,8 @@ import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
  * Interfaz repositorio para los usos de las tarjetas de los vulnerables.
  */
 
-public interface InterfaceUsosTarjetasVulnerablesRepository {
+public interface InterfaceUsosTarjetasVulnerablesRepository extends PersistenciaSimple {
+
   void guardar(UsoTarjetaVulnerable... usosTarjetasVulnerables);
 
   void guardar(UsoTarjetaVulnerable usoTarjetaVulnerable);

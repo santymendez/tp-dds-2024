@@ -8,7 +8,8 @@ import models.entities.personas.vulnerable.Vulnerable;
  * Interfaz repositorio para los vulnerables.
  */
 
-public interface InterfaceVulnerablesRepository {
+public interface InterfaceVulnerablesRepository extends PersistenciaSimple {
+
   void guardar(Vulnerable ... vulnerables);
 
   void guardar(Vulnerable vulnerable);

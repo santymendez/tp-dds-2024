@@ -8,7 +8,8 @@ import models.entities.heladera.sensores.temperatura.SensorTemperatura;
  * Interfaz Repositorio para los Sensores de Temperatura.
  */
 
-public interface InterfaceSensoresTemperaturaRepository {
+public interface InterfaceSensoresTemperaturaRepository extends PersistenciaSimple {
+
   void guardar(SensorTemperatura... sensores);
 
   void guardar(SensorTemperatura sensorTemperatura);

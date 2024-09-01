@@ -9,7 +9,8 @@ import models.entities.personas.tecnico.VisitaTecnica;
  * Interfaz que representa el repositorio de Mediciones.
  */
 
-public interface InterfaceMedicionesRepository {
+public interface InterfaceMedicionesRepository extends PersistenciaSimple {
+
   void guardar(MedicionSensor... mediciones);
 
   void guardar(MedicionSensor medicionSensor);

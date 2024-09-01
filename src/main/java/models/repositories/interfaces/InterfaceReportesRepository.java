@@ -8,7 +8,8 @@ import models.entities.reporte.ReporteHeladera;
  * Interfaz para el repositorio de los reportes.
  */
 
-public interface InterfaceReportesRepository {
+public interface InterfaceReportesRepository extends PersistenciaSimple {
+
   void guardar(ReporteHeladera... reportes);
 
   void guardar(ReporteHeladera reporte);

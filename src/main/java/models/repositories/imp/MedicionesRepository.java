@@ -1,19 +1,15 @@
 package models.repositories.imp;
 
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
 import models.entities.heladera.sensores.MedicionSensor;
-import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceMedicionesRepository;
 
 /**
  * Repositorio para las Mediciones.
  */
 
-public class MedicionesRepository
-        implements InterfaceMedicionesRepository, WithSimplePersistenceUnit {
+public class MedicionesRepository implements InterfaceMedicionesRepository {
 
   /**
    * Guarda una o varias mediciones.
@@ -71,10 +67,5 @@ public class MedicionesRepository
     return entityManager()
         .createQuery("from " + MedicionSensor.class.getName())
         .getResultList();
-  }
-
-  @Override
-  public EntityManager entityManager() {
-    return PersistenceUnitSwitcher.getEntityManager();
   }
 }

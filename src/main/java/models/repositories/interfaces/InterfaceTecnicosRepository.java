@@ -9,20 +9,21 @@ import models.entities.personas.tecnico.Tecnico;
  * Interfaz Repositorio para los Técnicos.
  */
 
-public interface InterfaceTecnicosRepository {
-  public void guardar(Tecnico... tecnicos);
+public interface InterfaceTecnicosRepository extends PersistenciaSimple {
 
-  public void guardar(Tecnico tecnico);
+  void guardar(Tecnico... tecnicos);
 
-  public void modificar(Tecnico tecnico);
+  void guardar(Tecnico tecnico);
 
-  public void eliminarFisico(Tecnico tecnico);
+  void modificar(Tecnico tecnico);
 
-  public void eliminar(Tecnico tecnico);
+  void eliminarFisico(Tecnico tecnico);
 
-  public Optional<Tecnico> buscarPorId(Long id);
+  void eliminar(Tecnico tecnico);
 
-  public List<Tecnico> buscarTodos();
+  Optional<Tecnico> buscarPorId(Long id);
 
-  public List<Tecnico> buscarPorCiudad(Ciudad ciudad);
+  List<Tecnico> buscarTodos();
+
+  List<Tecnico> buscarPorCiudad(Ciudad ciudad);
 }

@@ -1,22 +1,16 @@
 package models.repositories.imp;
 
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import lombok.Getter;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
-import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceColaboradoresRepository;
 
 /**
  * Repositorio para los Colaboradores.
  */
 
-@Getter
-public class ColaboradoresRepository implements InterfaceColaboradoresRepository,
-        WithSimplePersistenceUnit {
+public class ColaboradoresRepository implements InterfaceColaboradoresRepository {
 
   /**
    * Guarda uno o más colaboradores en la base de datos.
@@ -94,10 +88,5 @@ public class ColaboradoresRepository implements InterfaceColaboradoresRepository
     return entityManager()
         .createQuery("from " + Colaborador.class.getName())
         .getResultList();
-  }
-
-  @Override
-  public EntityManager entityManager() {
-    return PersistenceUnitSwitcher.getEntityManager();
   }
 }

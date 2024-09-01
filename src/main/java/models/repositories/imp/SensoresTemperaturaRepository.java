@@ -1,21 +1,15 @@
 package models.repositories.imp;
 
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import lombok.Getter;
 import models.entities.heladera.sensores.temperatura.SensorTemperatura;
-import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
 
 /**
  * Repositorio para los Sensores de Temperatura.
  */
 
-@Getter
-public class SensoresTemperaturaRepository
-        implements InterfaceSensoresTemperaturaRepository, WithSimplePersistenceUnit {
+public class SensoresTemperaturaRepository implements InterfaceSensoresTemperaturaRepository {
   /**
    * Guarda una lista de sensores de temperatura en la base de datos.
    *
@@ -86,10 +80,5 @@ public class SensoresTemperaturaRepository
     return entityManager()
             .createQuery("from " + SensorTemperatura.class.getName())
             .getResultList();
-  }
-
-  @Override
-  public EntityManager entityManager() {
-    return PersistenceUnitSwitcher.getEntityManager();
   }
 }

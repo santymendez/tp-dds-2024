@@ -49,7 +49,7 @@ public class RepositoryLocator {
   }
 
   /**
-   * Obtiene el objeto repositorio a partir de una clave. HAY QUE CASTEAR CLASE A RETORNAR EN SU USO
+   * Obtiene el objeto repositorio a partir de una clave.
    *
    * @param key Es la clave del objeto.
    * @return El repositorio correspondiente a la clave.

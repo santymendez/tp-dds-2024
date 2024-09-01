@@ -9,7 +9,8 @@ import models.entities.colaboracion.TipoColaboracion;
  * Interfaz Repositorio para las Colaboraciones.
  */
 
-public interface InterfaceColaboracionesRepository {
+public interface InterfaceColaboracionesRepository extends PersistenciaSimple {
+
   void guardar(Colaboracion colaboracion);
 
   void modificar(Colaboracion colaboracion);

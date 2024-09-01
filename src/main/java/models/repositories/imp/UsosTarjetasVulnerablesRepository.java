@@ -1,22 +1,22 @@
 package models.repositories.imp;
 
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
 import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
-import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceUsosTarjetasVulnerablesRepository;
 
 /**
  * Repositorio para los usos de las tarjetas de los vulnerables.
  */
 
-public class UsosTarjetasVulnerablesRepository implements
-    InterfaceUsosTarjetasVulnerablesRepository, WithSimplePersistenceUnit {
+public class UsosTarjetasVulnerablesRepository
+    implements InterfaceUsosTarjetasVulnerablesRepository {
 
+  /** Guarda uno o varios usos de tarjetas de vulnerables.
+   *
+   * @param usosTarjetasVulnerables uno o varios usos de tarjetas de vulnerables.
+   */
 
-  @Override
   public void guardar(UsoTarjetaVulnerable... usosTarjetasVulnerables) {
     withTransaction(() -> {
       for (UsoTarjetaVulnerable usoTarjetaVulnerable : usosTarjetasVulnerables) {
@@ -25,43 +25,37 @@ public class UsosTarjetasVulnerablesRepository implements
     });
   }
 
-  @Override
   public void guardar(UsoTarjetaVulnerable usoTarjetaVulnerable) {
     withTransaction(() -> entityManager().persist(usoTarjetaVulnerable));
   }
 
-  @Override
   public void modificar(UsoTarjetaVulnerable usoTarjetaVulnerable) {
     withTransaction(() -> entityManager().persist(usoTarjetaVulnerable));
   }
 
-  @Override
   public void eliminarFisico(UsoTarjetaVulnerable usoTarjetaVulnerable) {
     entityManager().remove(usoTarjetaVulnerable);
   }
 
-  @Override
   public void eliminar(UsoTarjetaVulnerable usoTarjetaVulnerable) {
     usoTarjetaVulnerable.setActivo(false);
     entityManager().merge(usoTarjetaVulnerable);
   }
 
-  @Override
   public Optional<UsoTarjetaVulnerable> buscarPorId(Long id) {
     return Optional.ofNullable(entityManager().find(UsoTarjetaVulnerable.class, id));
   }
 
-  @Override
+  /**
+   * Busca todos los usos de tarjetas de vulnerables.
+   *
+   * @return una lista con todos los usos de tarjetas de vulnerables.
+   */
+
   @SuppressWarnings("unchecked")
   public List<UsoTarjetaVulnerable> buscarTodos() {
     return entityManager()
         .createQuery("from " + UsoTarjetaVulnerable.class.getName())
         .getResultList();
   }
-
-  @Override
-  public EntityManager entityManager() {
-    return PersistenceUnitSwitcher.getEntityManager();
-  }
-
 }

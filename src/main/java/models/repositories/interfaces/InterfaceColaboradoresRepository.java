@@ -9,7 +9,7 @@ import models.entities.personas.colaborador.Colaborador;
  * Interfaz Repositorio para los Colaboradores.
  */
 
-public interface InterfaceColaboradoresRepository {
+public interface InterfaceColaboradoresRepository extends PersistenciaSimple {
 
   void guardar(Colaborador... colaboradores);
 

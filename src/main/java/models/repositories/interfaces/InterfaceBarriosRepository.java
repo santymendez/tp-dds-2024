@@ -8,7 +8,8 @@ import models.entities.direccion.Barrio;
  * Interfaz repositorio barrios.
  */
 
-public interface InterfaceBarriosRepository {
+public interface InterfaceBarriosRepository extends PersistenciaSimple {
+
   void guardar(Barrio... barrios);
 
   void guardar(Barrio barrio);

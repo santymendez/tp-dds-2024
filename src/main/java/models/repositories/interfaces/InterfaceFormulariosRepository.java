@@ -8,7 +8,8 @@ import models.entities.formulario.Formulario;
  * Interfaz repositorio para los formularios.
  */
 
-public interface InterfaceFormulariosRepository {
+public interface InterfaceFormulariosRepository extends PersistenciaSimple {
+
   void guardar(Formulario... formularios);
 
   void guardar(Formulario formulario);

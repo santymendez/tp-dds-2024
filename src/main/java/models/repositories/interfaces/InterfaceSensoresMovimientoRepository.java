@@ -8,18 +8,19 @@ import models.entities.heladera.sensores.movimiento.SensorMovimiento;
  * Interfaz Repositorio para los Sensores de Movimiento.
  */
 
-public interface InterfaceSensoresMovimientoRepository {
-  public void guardar(SensorMovimiento ... sensores);
+public interface InterfaceSensoresMovimientoRepository extends PersistenciaSimple {
 
-  public void guardar(SensorMovimiento sensor);
+  void guardar(SensorMovimiento ... sensores);
 
-  public void modificar(SensorMovimiento sensor);
+  void guardar(SensorMovimiento sensor);
 
-  public void eliminarFisico(SensorMovimiento sensor);
+  void modificar(SensorMovimiento sensor);
 
-  public void eliminar(SensorMovimiento sensor);
+  void eliminarFisico(SensorMovimiento sensor);
 
-  public Optional<SensorMovimiento> buscarPorId(Long id);
+  void eliminar(SensorMovimiento sensor);
 
-  public List<SensorMovimiento> buscarTodos();
+  Optional<SensorMovimiento> buscarPorId(Long id);
+
+  List<SensorMovimiento> buscarTodos();
 }

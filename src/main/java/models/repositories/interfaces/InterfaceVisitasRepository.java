@@ -8,7 +8,8 @@ import models.entities.personas.tecnico.VisitaTecnica;
  * Interfaz Repositorio para las Visitas Técnicas.
  */
 
-public interface InterfaceVisitasRepository {
+public interface InterfaceVisitasRepository extends PersistenciaSimple {
+
   void guardar(VisitaTecnica... visitas);
 
   void guardar(VisitaTecnica visitaTecnica);

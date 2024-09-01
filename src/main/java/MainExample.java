@@ -1,12 +1,12 @@
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.direccion.Barrio;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.estados.Estado;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
@@ -36,15 +36,21 @@ import models.repositories.interfaces.InterfaceVulnerablesRepository;
 
 public class MainExample {
 
-  /** aaa.
+  /**
+   * Metodo main.
    *
-   * @param args aa.
+   * @param args argumentos.
    */
 
   public static void main(String[] args) {
     MainExample instance = new MainExample();
+
+    PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
+
     instance.guardarColaboracion();
     instance.guardarHeladeras();
+
+    PersistenceUnitSwitcher.switchPersistenceUnit("simple-persistence-unit");
   }
 
   private void guardarColaboracion() {

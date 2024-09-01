@@ -8,7 +8,8 @@ import models.entities.heladera.incidente.Incidente;
  * Interfaz Repositorio para los Incidentes.
  */
 
-public interface InterfaceIncidentesRepository {
+public interface InterfaceIncidentesRepository extends PersistenciaSimple {
+
   void guardar(Incidente... incidentes);
 
   void guardar(Incidente incidente);

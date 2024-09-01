@@ -1,19 +1,16 @@
 package models.repositories.imp;
 
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
 import models.entities.reporte.ReporteHeladera;
-import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceReportesRepository;
 
 /**
  * Clase que representa a los repositorios de reportes de heladeras.
  */
 
-public class ReportesRepository implements InterfaceReportesRepository, WithSimplePersistenceUnit {
+public class ReportesRepository implements InterfaceReportesRepository {
 
   /**
    * Guarda un reporte de heladera en la base de datos.
@@ -111,10 +108,5 @@ public class ReportesRepository implements InterfaceReportesRepository, WithSimp
         )
         .setParameter("haceUnaSemana", haceUnaSemana)
         .getResultList();
-  }
-
-  @Override
-  public EntityManager entityManager() {
-    return PersistenceUnitSwitcher.getEntityManager();
   }
 }

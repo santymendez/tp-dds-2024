@@ -8,7 +8,8 @@ import models.entities.direccion.Direccion;
  * Interfaz repositorio direcciones.
  */
 
-public interface InterfaceDireccionesRepository {
+public interface InterfaceDireccionesRepository extends PersistenciaSimple {
+
   void guardar(Direccion... direcciones);
 
   void guardar(Direccion direccion);

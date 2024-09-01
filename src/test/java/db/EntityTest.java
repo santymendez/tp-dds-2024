@@ -1,6 +1,7 @@
 package db;
 
 import java.util.List;
+import models.db.PersistenceUnitSwitcher;
 import models.entities.direccion.Ciudad;
 import models.entities.personas.tecnico.Tecnico;
 import models.repositories.RepositoryLocator;

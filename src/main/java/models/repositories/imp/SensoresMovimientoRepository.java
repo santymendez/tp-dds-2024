@@ -1,11 +1,8 @@
 package models.repositories.imp;
 
-import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
 import models.entities.heladera.sensores.movimiento.SensorMovimiento;
-import models.repositories.PersistenceUnitSwitcher;
 import models.repositories.interfaces.InterfaceSensoresMovimientoRepository;
 
 
@@ -13,8 +10,7 @@ import models.repositories.interfaces.InterfaceSensoresMovimientoRepository;
  * Repositorio para los Sensores de Movimiento.
  */
 
-public class SensoresMovimientoRepository
-        implements InterfaceSensoresMovimientoRepository, WithSimplePersistenceUnit {
+public class SensoresMovimientoRepository implements InterfaceSensoresMovimientoRepository {
 
   /**
    * Guarda una lista de sensores de movimiento en la base de datos.
@@ -75,12 +71,6 @@ public class SensoresMovimientoRepository
         .createQuery("from " + SensorMovimiento.class.getName())
         .getResultList();
   }
-
-  @Override
-  public EntityManager entityManager() {
-    return PersistenceUnitSwitcher.getEntityManager();
-  }
-
 }
 
 

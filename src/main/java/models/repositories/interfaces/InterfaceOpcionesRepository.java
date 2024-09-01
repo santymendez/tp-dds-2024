@@ -9,7 +9,8 @@ import models.entities.formulario.Opcion;
  * Interfaz del repositorio de opciones.
  */
 
-public interface InterfaceOpcionesRepository {
+public interface InterfaceOpcionesRepository extends PersistenciaSimple {
+
   void guardar(Opcion... opciones);
 
   void guardar(Opcion opcion);

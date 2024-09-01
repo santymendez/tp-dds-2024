@@ -8,7 +8,8 @@ import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
  * Interfaz repositorio de los registros de los vulnerables.
  */
 
-public interface InterfaceRegistrosVulnerablesRepository {
+public interface InterfaceRegistrosVulnerablesRepository extends PersistenciaSimple {
+
   void guardar(RegistroVulnerable ... registrosVulnerables);
 
   void guardar(RegistroVulnerable registroVulnerable);

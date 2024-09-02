@@ -43,9 +43,7 @@ public class AtencionMedicaController {
             this.crearMapaVulnerablesPorBarrio();
 
     ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(vulnerablesPorBarrio);
-    System.out.println(json);
-    return json;
+    return mapper.writeValueAsString(vulnerablesPorBarrio);
   }
 
   /**

@@ -24,4 +24,6 @@ public interface InterfaceUsosTarjetasVulnerablesRepository extends Persistencia
   Optional<UsoTarjetaVulnerable> buscarPorId(Long id);
 
   List<UsoTarjetaVulnerable> buscarTodos();
+
+  List<UsoTarjetaVulnerable> buscarPorBarrio(String nombreBarrio);
 }

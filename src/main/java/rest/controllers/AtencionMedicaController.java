@@ -2,6 +2,8 @@ package rest.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import dtos.InformacionBarrio;
 import java.util.HashMap;
 import java.util.List;
@@ -39,8 +41,10 @@ public class AtencionMedicaController {
 
   @GetMapping("/localidadesVulnerables")
   public String obtenerVulnerablesPorBarrio() throws JsonProcessingException {
+    List<UsoTarjetaVulnerable> usos = usosTarjetasVulnerablesRepository.buscarTodos();
+
     Map<String, InformacionBarrio> vulnerablesPorBarrio =
-            this.crearMapaVulnerablesPorBarrio();
+            this.crearMapaVulnerablesPorBarrio(usos);
 
     ObjectMapper mapper = new ObjectMapper();
     return mapper.writeValueAsString(vulnerablesPorBarrio);
@@ -53,8 +57,18 @@ public class AtencionMedicaController {
    */
 
   @GetMapping("/localidadesVulnerables/{nombreBarrio}")
-  public void obtenerVulernablesPorBarrio(@PathVariable String nombreBarrio){
-    // TODO
+  public String obtenerVulernablesPorBarrio(@PathVariable("nombreBarrio") String nombreBarrio)
+      throws JsonProcessingException {
+
+    List<UsoTarjetaVulnerable> usos =
+        usosTarjetasVulnerablesRepository.buscarPorBarrio(nombreBarrio);
+
+    //TODO probablemente no haga falta un Map ya que hay una sola entrada
+    Map<String, InformacionBarrio> vulnerablesPorBarrio =
+        this.crearMapaVulnerablesPorBarrio(usos);
+
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.writeValueAsString(vulnerablesPorBarrio);
   }
 
   /**
@@ -63,17 +77,18 @@ public class AtencionMedicaController {
    * @return el Map de vulnerables por barrio.
    */
 
-  public Map<String, InformacionBarrio> crearMapaVulnerablesPorBarrio() {
-    Map<String, InformacionBarrio> map = new HashMap<>();
+  public Map<String, InformacionBarrio> crearMapaVulnerablesPorBarrio(
+      List<UsoTarjetaVulnerable> usos) {
 
-    List<UsoTarjetaVulnerable> usos = usosTarjetasVulnerablesRepository.buscarTodos();
+    Map<String, InformacionBarrio> map = new HashMap<>();
 
     for (UsoTarjetaVulnerable uso : usos) {
       String barrio = uso.getHeladera().getDireccion().getBarrio().getNombreBarrio();
       String vulnerable =
           uso.getTarjetaVulnerable().getRegistroVulnerable().getVulnerable().getNombre();
       this.agregarVulnerable(map, barrio, vulnerable);
-    }    
+    }
+
     return map;
   }
 

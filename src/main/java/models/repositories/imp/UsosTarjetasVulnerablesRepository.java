@@ -2,6 +2,7 @@ package models.repositories.imp;
 
 import java.util.List;
 import java.util.Optional;
+import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
 import models.repositories.interfaces.InterfaceUsosTarjetasVulnerablesRepository;
 
@@ -56,6 +57,21 @@ public class UsosTarjetasVulnerablesRepository
   public List<UsoTarjetaVulnerable> buscarTodos() {
     return entityManager()
         .createQuery("from " + UsoTarjetaVulnerable.class.getName())
+        .getResultList();
+  }
+
+  /**
+   * Busca todos los Usos de Tarjetas de Vulnerables filtrando por Barrio.
+   *
+   * @param nombreBarrio El nombre del Barrio por el que se quiere filtrar.
+   * @return una lista con los usos para ese barrio.
+   */
+
+  public List<UsoTarjetaVulnerable> buscarPorBarrio(String nombreBarrio) {
+    String query = "SELECT u FROM UsoTarjetaVulnerable u "
+        + "WHERE u.heladera.direccion.barrio.nombreBarrio =: nombreBarrio";
+    return entityManager().createQuery(query, UsoTarjetaVulnerable.class)
+        .setParameter("nombreBarrio", nombreBarrio)
         .getResultList();
   }
 }

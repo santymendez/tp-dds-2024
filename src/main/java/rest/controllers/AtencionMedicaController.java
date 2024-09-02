@@ -6,6 +6,7 @@ import dtos.InformacionBarrio;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import models.db.PersistenceUnitSwitcher;
 import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
@@ -42,7 +43,9 @@ public class AtencionMedicaController {
             this.crearMapaVulnerablesPorBarrio();
 
     ObjectMapper mapper = new ObjectMapper();
-    return mapper.writeValueAsString(vulnerablesPorBarrio);
+    String json = mapper.writeValueAsString(vulnerablesPorBarrio);
+    System.out.println(json);
+    return json;
   }
 
   /**
@@ -93,6 +96,5 @@ public class AtencionMedicaController {
     info.agregarVulnerable(vulnerable);
     map.put(barrio, info);
   }
-
 }
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
+import models.repositories.PersistenciaSimple;
 
 /**
  * Interfaz Repositorio para los Colaboradores.

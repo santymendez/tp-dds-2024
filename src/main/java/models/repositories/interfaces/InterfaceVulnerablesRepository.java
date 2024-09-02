@@ -3,6 +3,7 @@ package models.repositories.interfaces;
 import java.util.List;
 import java.util.Optional;
 import models.entities.personas.vulnerable.Vulnerable;
+import models.repositories.PersistenciaSimple;
 
 /**
  * Interfaz repositorio para los vulnerables.

@@ -1,4 +1,4 @@
-package models.repositories.interfaces;
+package models.repositories;
 
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import javax.persistence.EntityManager;

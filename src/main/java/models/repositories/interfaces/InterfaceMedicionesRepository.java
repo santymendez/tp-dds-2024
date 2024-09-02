@@ -3,6 +3,7 @@ package models.repositories.interfaces;
 import java.util.List;
 import java.util.Optional;
 import models.entities.heladera.sensores.MedicionSensor;
+import models.repositories.PersistenciaSimple;
 
 /**
  * Interfaz que representa el repositorio de Mediciones.

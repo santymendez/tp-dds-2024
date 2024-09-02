@@ -1,18 +1,19 @@
 package rest.controllers;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dtos.InformacionBarrio;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import models.entities.direccion.Barrio;
 import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
-import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
 import models.repositories.interfaces.InterfaceUsosTarjetasVulnerablesRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 
 /**
  * Clase que representa al controller del servicio
@@ -25,20 +26,34 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@RequestMapping("/api/atencion-medica")
 public class AtencionMedicaController {
   InterfaceUsosTarjetasVulnerablesRepository usosTarjetasVulnerablesRepository =
           RepositoryLocator.get("usosTarjetasVulnerablesRepository",
                   UsosTarjetasVulnerablesRepository.class);
 
   /**
-   * Devuelve el json con la info del mapa.
+   * Obtiene los vulnerables por cada barrio.
    */
 
-  public void obtenerVulnerablesPorBarrio() {
-    Map<Barrio, List<Vulnerable>> vulnerablesPorBarrio =
+  @GetMapping("/localidadesVulnerables")
+  public String obtenerVulnerablesPorBarrio() throws JsonProcessingException {
+    Map<String, InformacionBarrio> vulnerablesPorBarrio =
             this.crearMapaVulnerablesPorBarrio();
-    String mapAsString = vulnerablesPorBarrio.toString();
-    System.out.println(mapAsString);
+
+    ObjectMapper mapper = new ObjectMapper();
+    return mapper.writeValueAsString(vulnerablesPorBarrio);
+  }
+
+  /**
+   * Obtiene los vulnerables del barrio indicado.
+   *
+   * @param nombreBarrio barrio del que se desean obtener los datos.
+   */
+
+  @GetMapping("/localidadesVulnerables/{nombreBarrio}")
+  public void obtenerVulernablesPorBarrio(@PathVariable String nombreBarrio){
+    // TODO
   }
 
   /**
@@ -47,28 +62,36 @@ public class AtencionMedicaController {
    * @return el Map de vulnerables por barrio.
    */
 
-  private Map<Barrio, List<Vulnerable>> crearMapaVulnerablesPorBarrio() {
-    Map<Barrio, List<Vulnerable>> vulnerablesPorBarrio = new HashMap<>();
+  public Map<String, InformacionBarrio> crearMapaVulnerablesPorBarrio() {
+    Map<String, InformacionBarrio> map = new HashMap<>();
 
     List<UsoTarjetaVulnerable> usos = usosTarjetasVulnerablesRepository.buscarTodos();
 
     for (UsoTarjetaVulnerable uso : usos) {
-      Barrio barrio = uso.getHeladera().getDireccion().getBarrio();
-      Vulnerable vul = uso.getTarjetaVulnerable().getRegistroVulnerable().getVulnerable();
-      this.agregarVulnerable(vulnerablesPorBarrio, barrio, vul);
-    }
-
-    return vulnerablesPorBarrio;
+      String barrio = uso.getHeladera().getDireccion().getBarrio().getNombreBarrio();
+      String vulnerable =
+          uso.getTarjetaVulnerable().getRegistroVulnerable().getVulnerable().getNombre();
+      this.agregarVulnerable(map, barrio, vulnerable);
+    }    
+    return map;
   }
 
-  private void agregarVulnerable(Map<Barrio, List<Vulnerable>> vulnerablesPorBarrio,
-                                 Barrio barrio, Vulnerable vulnerable) {
+  /**
+   * Metodo que agrega informacion al map.
+   *
+   * @param map Map barrios y su informacion asiociada.
+   * @param barrio Barrio para agregar/actualizar.
+   * @param vulnerable Vulnerable a agregar.
+   */
 
-    List<Vulnerable> lst = vulnerablesPorBarrio.containsKey(barrio)
-            ? vulnerablesPorBarrio.get(barrio) : new ArrayList<>();
+  private void agregarVulnerable(Map<String, InformacionBarrio> map,
+                                 String barrio, String vulnerable) {
 
-    lst.add(vulnerable);
-    vulnerablesPorBarrio.put(barrio, lst);
+    InformacionBarrio info = map.containsKey(barrio)
+        ? map.get(barrio) : new InformacionBarrio();
+
+    info.agregarVulnerable(vulnerable);
+    map.put(barrio, info);
   }
 
 }

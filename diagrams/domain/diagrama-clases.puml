@@ -67,7 +67,6 @@ class Comida {
 class Vulnerable {
     -nombre: String
     -fechaNacimiento: LocalDate
-    -fechaRegistro: LocalDate
     -domicilio: Direccion
     -documento: Documento
     -List<Vulnerable> menoresAcargo

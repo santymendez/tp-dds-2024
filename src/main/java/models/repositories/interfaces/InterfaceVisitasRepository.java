@@ -3,6 +3,7 @@ package models.repositories.interfaces;
 import java.util.List;
 import java.util.Optional;
 import models.entities.personas.tecnico.VisitaTecnica;
+import models.repositories.PersistenciaSimple;
 
 /**
  * Interfaz Repositorio para las Visitas Técnicas.

@@ -1,4 +1,4 @@
-
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import models.db.PersistenceUnitSwitcher;
@@ -43,7 +43,7 @@ public class MainExample {
    * Metodo main.
    */
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws JsonProcessingException {
     MainExample instance = new MainExample();
 
     PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
@@ -55,7 +55,7 @@ public class MainExample {
     PersistenceUnitSwitcher.switchPersistenceUnit("simple-persistence-unit");
   }
 
-  private void printearVulnerables() {
+  private void printearVulnerables() throws JsonProcessingException {
     AtencionMedicaController a = new AtencionMedicaController();
     a.obtenerVulnerablesPorBarrio();
   }
@@ -185,6 +185,7 @@ public class MainExample {
 
     Vulnerable vul1 = new Vulnerable();
     vul1.setMenoresAcargo(new ArrayList<>());
+    vul1.setNombre("liam");
     vulnerablesRepository.guardar(vul1);
 
     RegistroVulnerable regVuln1 = new RegistroVulnerable();
@@ -216,6 +217,7 @@ public class MainExample {
     usosRepository.guardar(uso1);
 
     Vulnerable vul2 = new Vulnerable();
+    vul2.setNombre("Facundo");
     vul2.setMenoresAcargo(new ArrayList<>());
     vulnerablesRepository.guardar(vul2);
     
@@ -235,6 +237,7 @@ public class MainExample {
 
     Vulnerable vul3 = new Vulnerable();
     vul3.setMenoresAcargo(new ArrayList<>());
+    vul3.setNombre("matiiiiiiii");
     vulnerablesRepository.guardar(vul3);
 
     RegistroVulnerable regVuln3 = new RegistroVulnerable();
@@ -244,7 +247,7 @@ public class MainExample {
     tarjeta3.setRegistroVulnerable(regVuln3);
 
     UsoTarjetaVulnerable uso3 = new UsoTarjetaVulnerable();
-    uso3.setHeladera(heladera3);
+    uso3.setHeladera(heladera4);
     uso3.setTarjetaVulnerable(tarjeta3);
 
     registrosRepository.guardar(regVuln3);

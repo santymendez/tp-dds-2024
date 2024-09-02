@@ -3,6 +3,7 @@ package models.repositories.interfaces;
 import java.util.List;
 import java.util.Optional;
 import models.entities.reporte.ReporteHeladera;
+import models.repositories.PersistenciaSimple;
 
 /**
  * Interfaz para el repositorio de los reportes.

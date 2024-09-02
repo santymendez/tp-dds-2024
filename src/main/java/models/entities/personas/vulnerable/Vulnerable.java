@@ -36,10 +36,6 @@ public class Vulnerable extends Persistente {
   @Column(name = "fechaNacimiento", columnDefinition = "DATE")
   private LocalDate fechaNacimiento;
 
-  //TODO NOT NULL
-  @Column(name = "fechaRegistro", columnDefinition = "DATE")
-  private LocalDate fechaRegistro;
-
   @ManyToOne
   @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
   private Direccion domicilio;
@@ -59,7 +55,6 @@ public class Vulnerable extends Persistente {
                     Documento documento, List<Vulnerable> menoresAcargo) {
     this.nombre = nombre;
     this.fechaNacimiento = fechaNacimiento;
-    this.fechaRegistro = LocalDate.now();
     this.domicilio = domicilio;
     this.documento = documento;
     this.menoresAcargo = new ArrayList<>();

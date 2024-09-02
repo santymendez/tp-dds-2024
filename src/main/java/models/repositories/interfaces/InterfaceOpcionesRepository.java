@@ -3,6 +3,7 @@ package models.repositories.interfaces;
 import java.util.List;
 import java.util.Optional;
 import models.entities.formulario.Opcion;
+import models.repositories.PersistenciaSimple;
 
 /**
  * Interfaz del repositorio de opciones.

@@ -3,6 +3,7 @@ package models.repositories.interfaces;
 import java.util.List;
 import java.util.Optional;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
+import models.repositories.PersistenciaSimple;
 
 /**
  * Interfaz repositorio de los registros de los vulnerables.

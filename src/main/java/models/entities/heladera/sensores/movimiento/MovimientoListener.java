@@ -9,14 +9,8 @@ import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.RepositoryLocator;
-import models.repositories.imp.IncidentesRepository;
-import models.repositories.imp.MedicionesRepository;
+import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesRepository;
-import models.repositories.imp.SensoresMovimientoRepository;
-import models.repositories.interfaces.InterfaceIncidentesRepository;
-import models.repositories.interfaces.InterfaceMedicionesRepository;
-import models.repositories.interfaces.InterfaceReportesRepository;
-import models.repositories.interfaces.InterfaceSensoresMovimientoRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -27,28 +21,16 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 @Setter
 public class MovimientoListener implements IMqttMessageListener {
   private String topic = "sensores/movimiento";
-  private InterfaceSensoresMovimientoRepository sensoresMovimientoRepository;
-  private InterfaceIncidentesRepository incidentesRepository;
-  private InterfaceMedicionesRepository medicionesRepository;
-  private InterfaceReportesRepository reportesRepository;
+  private GenericRepository repoGenerico;
+  private ReportesRepository reportesRepository;
 
   /**
    * Constructor del Listener para los Sensores de Movimento.
    */
 
   public MovimientoListener() {
-    this.sensoresMovimientoRepository =
-        RepositoryLocator
-            .get("sensoresMovimientoRepository", SensoresMovimientoRepository.class);
-    this.incidentesRepository =
-        RepositoryLocator
-            .get("incidentesRepository", IncidentesRepository.class);
-    this.medicionesRepository =
-        RepositoryLocator
-            .get("medicionesRepository", MedicionesRepository.class);
-    this.reportesRepository =
-        RepositoryLocator
-            .get("reportesRepository", ReportesRepository.class);
+    this.repoGenerico = RepositoryLocator.get("genericRepository", GenericRepository.class);
+    this.reportesRepository = RepositoryLocator.get("reportesRepository", ReportesRepository.class);
   }
 
   @Override
@@ -58,7 +40,8 @@ public class MovimientoListener implements IMqttMessageListener {
   }
 
   private void activarSensor(long sensorId) {
-    Optional<SensorMovimiento> sensor = this.sensoresMovimientoRepository.buscarPorId(sensorId);
+    Optional<SensorMovimiento> sensor = this.repoGenerico
+        .buscarPorId(sensorId, SensorMovimiento.class);
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }
@@ -69,7 +52,7 @@ public class MovimientoListener implements IMqttMessageListener {
     if (sensorMovimiento.debeActivarSensor()) {
       MedicionSensor medicion = new MedicionSensor(null, sensorMovimiento.getHeladera());
       sensorMovimiento.recibirMedicion(medicion);
-      this.medicionesRepository.guardar(medicion);
+      this.repoGenerico.guardar(medicion);
 
       Incidente incidente = new Incidente(TipoIncidente.ALERTA, sensorMovimiento.getHeladera());
       incidente.setTipoAlerta(TipoEstado.INACTIVA_FRAUDE);
@@ -80,7 +63,7 @@ public class MovimientoListener implements IMqttMessageListener {
 
       heladera.intentarNotificarSuscriptores();
 
-      this.incidentesRepository.guardar(incidente);
+      this.repoGenerico.guardar(incidente);
     }
   }
 }

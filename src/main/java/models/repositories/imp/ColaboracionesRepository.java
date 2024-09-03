@@ -4,59 +4,39 @@ import java.util.List;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
-import models.repositories.interfaces.InterfaceColaboracionesRepository;
 
 /**
  * Repositorio para las Colaboraciones.
  */
 
-public class ColaboracionesRepository implements InterfaceColaboracionesRepository {
+public class ColaboracionesRepository extends GenericRepository {
 
-  /**
-   * Guarda una o más colaboraciones en la base de datos.
-   *
-   * @param colaboraciones una colaboracion.
-   */
-
-  public void guardar(Colaboracion... colaboraciones) {
-    withTransaction(() -> {
-      for (Colaboracion colaboracion : colaboraciones) {
-        entityManager().persist(colaboracion);
-      }
-    });
+  public void guardar(Colaboracion ... colaboraciones) {
+    super.guardar((Object) colaboraciones);
   }
-
-  /**
-   * Guarda una colaboracion en una base de datos.
-   *
-   * @param colaboracion una colaboracion.
-   */
 
   public void guardar(Colaboracion colaboracion) {
-    withTransaction(() -> entityManager().persist(colaboracion));
+    super.guardar(colaboracion);
   }
 
-  /**
-   * modifica una colaboracion en una base de datos.
-   *
-   * @param colaboracion una colaboracion.
-   */
-
   public void modificar(Colaboracion colaboracion) {
-    entityManager().merge(colaboracion);
+    super.modificar(colaboracion);
   }
 
   public void eliminarFisico(Colaboracion colaboracion) {
-    entityManager().remove(colaboracion);
+    super.eliminarFisico(colaboracion);
   }
 
   public void eliminar(Colaboracion colaboracion) {
-    colaboracion.setActivo(false);
-    entityManager().merge(colaboracion);
+    super.eliminar(colaboracion);
   }
 
   public Optional<Colaboracion> buscarPorId(Long id) {
-    return Optional.ofNullable(entityManager().find(Colaboracion.class, id));
+    return super.buscarPorId(id, Colaboracion.class);
+  }
+
+  public List<Colaboracion> buscarTodos() {
+    return super.buscarTodos(Colaboracion.class);
   }
 
   /**
@@ -71,18 +51,6 @@ public class ColaboracionesRepository implements InterfaceColaboracionesReposito
         .createQuery("FROM Colaboracion colab WHERE colab.tipoColaboracion = :tipo",
                 Colaboracion.class)
         .setParameter("tipo", tipoColaboracion)
-        .getResultList();
-  }
-
-  /**
-   * busca todas las colaboraciones existentes en la base de datos.
-   *
-   * @return una lista con todas las colaboraciones.
-   */
-  @SuppressWarnings("unchecked")
-  public List<Colaboracion> buscarTodos() {
-    return entityManager()
-        .createQuery("from " + Colaboracion.class.getName())
         .getResultList();
   }
 }

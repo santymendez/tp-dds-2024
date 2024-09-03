@@ -6,7 +6,6 @@ import models.entities.heladera.Heladera;
 import models.entities.personas.tecnico.Tecnico;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.TecnicosRepository;
-import models.repositories.interfaces.InterfaceTecnicosRepository;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 import utils.sender.SenderLocator;
@@ -26,7 +25,7 @@ public class BuscadorTecnicosCercanos {
   public void buscarTecnicosCercanosA(Heladera heladera) {
     Ciudad nombreCiudad = heladera.getDireccion().getBarrio().getCiudad();
 
-    InterfaceTecnicosRepository tecnicosRepository = RepositoryLocator
+    TecnicosRepository tecnicosRepository = RepositoryLocator
             .get("tecnicosRepository", TecnicosRepository.class);
 
     notificarTecnicos(tecnicosRepository.buscarPorCiudad(nombreCiudad), heladera);

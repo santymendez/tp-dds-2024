@@ -7,7 +7,6 @@ import static org.mockito.Mockito.mock;
 import controllers.CsvController;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.ColaboradoresRepository;
-import models.repositories.interfaces.InterfaceColaboradoresRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +18,7 @@ import utils.sender.channels.EmailSender;
 public class TestCSV {
   CsvController csvController;
   ColaboradoresService colaboradoresService;
-  InterfaceColaboradoresRepository colaboradoresRepository;
+  ColaboradoresRepository colaboradoresRepository;
 
   @BeforeEach
   void inicializar() {

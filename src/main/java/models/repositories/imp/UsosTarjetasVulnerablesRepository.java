@@ -2,62 +2,40 @@ package models.repositories.imp;
 
 import java.util.List;
 import java.util.Optional;
-import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
-import models.repositories.interfaces.InterfaceUsosTarjetasVulnerablesRepository;
 
 /**
  * Repositorio para los usos de las tarjetas de los vulnerables.
  */
 
-public class UsosTarjetasVulnerablesRepository
-    implements InterfaceUsosTarjetasVulnerablesRepository {
-
-  /** Guarda uno o varios usos de tarjetas de vulnerables.
-   *
-   * @param usosTarjetasVulnerables uno o varios usos de tarjetas de vulnerables.
-   */
+public class UsosTarjetasVulnerablesRepository extends GenericRepository {
 
   public void guardar(UsoTarjetaVulnerable... usosTarjetasVulnerables) {
-    withTransaction(() -> {
-      for (UsoTarjetaVulnerable usoTarjetaVulnerable : usosTarjetasVulnerables) {
-        entityManager().persist(usoTarjetaVulnerable);
-      }
-    });
+    super.guardar((Object) usosTarjetasVulnerables);
   }
 
   public void guardar(UsoTarjetaVulnerable usoTarjetaVulnerable) {
-    withTransaction(() -> entityManager().persist(usoTarjetaVulnerable));
+    super.guardar(usoTarjetaVulnerable);
   }
 
   public void modificar(UsoTarjetaVulnerable usoTarjetaVulnerable) {
-    withTransaction(() -> entityManager().persist(usoTarjetaVulnerable));
+    super.modificar(usoTarjetaVulnerable);
   }
 
   public void eliminarFisico(UsoTarjetaVulnerable usoTarjetaVulnerable) {
-    entityManager().remove(usoTarjetaVulnerable);
+    super.eliminarFisico(usoTarjetaVulnerable);
   }
 
   public void eliminar(UsoTarjetaVulnerable usoTarjetaVulnerable) {
-    usoTarjetaVulnerable.setActivo(false);
-    entityManager().merge(usoTarjetaVulnerable);
+    super.eliminar(usoTarjetaVulnerable);
   }
 
   public Optional<UsoTarjetaVulnerable> buscarPorId(Long id) {
-    return Optional.ofNullable(entityManager().find(UsoTarjetaVulnerable.class, id));
+    return super.buscarPorId(id, UsoTarjetaVulnerable.class);
   }
 
-  /**
-   * Busca todos los usos de tarjetas de vulnerables.
-   *
-   * @return una lista con todos los usos de tarjetas de vulnerables.
-   */
-
-  @SuppressWarnings("unchecked")
   public List<UsoTarjetaVulnerable> buscarTodos() {
-    return entityManager()
-        .createQuery("from " + UsoTarjetaVulnerable.class.getName())
-        .getResultList();
+    return super.buscarTodos(UsoTarjetaVulnerable.class);
   }
 
   /**

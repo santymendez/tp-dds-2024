@@ -4,72 +4,39 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import models.entities.reporte.ReporteHeladera;
-import models.repositories.interfaces.InterfaceReportesRepository;
 
 /**
  * Clase que representa a los repositorios de reportes de heladeras.
  */
 
-public class ReportesRepository implements InterfaceReportesRepository {
-
-  /**
-   * Guarda un reporte de heladera en la base de datos.
-   *
-   * @param reportes Reportes de heladera a guardar.
-   */
+public class ReportesRepository extends GenericRepository {
 
   public void guardar(ReporteHeladera... reportes) {
-    withTransaction(() -> {
-      for (ReporteHeladera reporte : reportes) {
-        entityManager().persist(reporte);
-      }
-    });
+    super.guardar((Object) reportes);
   }
-
-  /**
-   * Guarda un reporte de heladera en la base de datos.
-   *
-   * @param reporte Reportes de heladera a guardar.
-   */
 
   public void guardar(ReporteHeladera reporte) {
-    withTransaction(() -> entityManager().persist(reporte));
+    super.guardar(reporte);
   }
 
-  /**
-   * Modifica un reporte de heladera en la base de datos.
-   *
-   * @param reporte Reportes de heladera a modificar.
-   */
-
   public void modificar(ReporteHeladera reporte) {
-    entityManager().merge(reporte);
+    super.modificar(reporte);
   }
 
   public void eliminarFisico(ReporteHeladera reporte) {
-    entityManager().remove(reporte);
+    super.eliminarFisico(reporte);
   }
 
   public void eliminar(ReporteHeladera reporte) {
-    reporte.setActivo(false);
-    entityManager().merge(reporte);
+    super.eliminar(reporte);
   }
 
   public Optional<ReporteHeladera> buscarPorId(Long id) {
-    return Optional.ofNullable(entityManager().find(ReporteHeladera.class, id));
+    return super.buscarPorId(id, ReporteHeladera.class);
   }
 
-  /**
-   * Busca todos los reportes de heladera en la base de datos.
-   *
-   * @return Lista de reportes de heladera.
-   */
-
-  @SuppressWarnings("unchecked")
   public List<ReporteHeladera> buscarTodos() {
-    return entityManager()
-        .createQuery("from " + ReporteHeladera.class.getName())
-        .getResultList();
+    return super.buscarTodos(ReporteHeladera.class);
   }
 
   /**

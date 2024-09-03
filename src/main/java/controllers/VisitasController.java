@@ -3,7 +3,7 @@ package controllers;
 import dtos.VisitaInputDto;
 import models.entities.personas.tecnico.VisitaTecnica;
 import models.repositories.RepositoryLocator;
-import models.repositories.interfaces.InterfaceVisitasRepository;
+import models.repositories.imp.GenericRepository;
 
 /**
  * Representa al controlador del repositorio de visitas.
@@ -11,11 +11,11 @@ import models.repositories.interfaces.InterfaceVisitasRepository;
 
 public class VisitasController {
 
-  private final InterfaceVisitasRepository visitasRepository;
+  private final GenericRepository visitasRepository;
 
   public VisitasController() {
     this.visitasRepository =
-        RepositoryLocator.get("visitasRepository", InterfaceVisitasRepository.class);
+        RepositoryLocator.get("genericRepository", GenericRepository.class);
   }
 
   /**

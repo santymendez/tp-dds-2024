@@ -2,17 +2,13 @@ package rest.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import dtos.InformacionBarrio;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import models.db.PersistenceUnitSwitcher;
 import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
-import models.repositories.interfaces.InterfaceUsosTarjetasVulnerablesRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/atencion-medica")
 public class AtencionMedicaController {
-  InterfaceUsosTarjetasVulnerablesRepository usosTarjetasVulnerablesRepository =
+  UsosTarjetasVulnerablesRepository usosTarjetasVulnerablesRepository =
           RepositoryLocator.get("usosTarjetasVulnerablesRepository",
                   UsosTarjetasVulnerablesRepository.class);
 

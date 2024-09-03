@@ -14,8 +14,6 @@ import models.factories.FactoryColaboracion;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
-import models.repositories.interfaces.InterfaceColaboracionesRepository;
-import models.repositories.interfaces.InterfaceColaboradoresRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.ColaboradoresService;
@@ -30,8 +28,8 @@ public class CsvController {
   private static final Logger logger = LogManager.getLogger(EmailSender.class);
   private static final String ruta_archivo = "src/main/resources/lista_colaboradores.csv";
   private final ColaboradoresService colaboradoresService;
-  private final InterfaceColaboradoresRepository colaboradoresRepository;
-  private final InterfaceColaboracionesRepository colaboracionesRepository;
+  private final ColaboradoresRepository colaboradoresRepository;
+  private final ColaboracionesRepository colaboracionesRepository;
 
   /**
    * Constructor para el CSV Controller.

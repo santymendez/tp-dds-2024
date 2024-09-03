@@ -16,21 +16,10 @@ import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.RepositoryLocator;
-import models.repositories.imp.BarriosRepository;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
-import models.repositories.imp.DireccionesRepository;
-import models.repositories.imp.HeladerasRepository;
-import models.repositories.imp.RegistrosVulnerablesRepository;
-import models.repositories.imp.TarjetasVulnerablesRepository;
+import models.repositories.imp.GenericRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
-import models.repositories.interfaces.InterfaceBarriosRepository;
-import models.repositories.interfaces.InterfaceDireccionesRepository;
-import models.repositories.interfaces.InterfaceHeladerasRepository;
-import models.repositories.interfaces.InterfaceRegistrosVulnerablesRepository;
-import models.repositories.interfaces.InterfaceTarjetasVulnerablesRepository;
-import models.repositories.interfaces.InterfaceUsosTarjetasVulnerablesRepository;
-import models.repositories.interfaces.InterfaceVulnerablesRepository;
 import rest.controllers.AtencionMedicaController;
 
 /**
@@ -132,24 +121,18 @@ public class MainExample {
     direccion3.setBarrio(barrio1);
     heladera3.setDireccion(direccion3);
 
-    InterfaceBarriosRepository barriosRepository =
-        RepositoryLocator.get("barriosRepository", BarriosRepository.class);
+    GenericRepository repoGenerico =
+        RepositoryLocator.get("genericRepository", GenericRepository.class);
 
-    barriosRepository.guardar(barrio1);
+    repoGenerico.guardar(barrio1);
 
-    InterfaceDireccionesRepository direccionesRepository =
-        RepositoryLocator.get("direccionesRepository", DireccionesRepository.class);
+    repoGenerico.guardar(direccion1);
+    repoGenerico.guardar(direccion2);
+    repoGenerico.guardar(direccion3);
 
-    direccionesRepository.guardar(direccion1);
-    direccionesRepository.guardar(direccion2);
-    direccionesRepository.guardar(direccion3);
-
-    InterfaceHeladerasRepository heladerasRepository =
-        RepositoryLocator.get("heladerasRepository", HeladerasRepository.class);
-
-    heladerasRepository.guardar(heladera1);
-    heladerasRepository.guardar(heladera2);
-    heladerasRepository.guardar(heladera3);
+    repoGenerico.guardar(heladera1);
+    repoGenerico.guardar(heladera2);
+    repoGenerico.guardar(heladera3);
 
     Barrio barrio2 = new Barrio();
     barrio2.setNombreBarrio("Almagro");
@@ -172,21 +155,18 @@ public class MainExample {
     direccion5.setBarrio(barrio2);
     heladera5.setDireccion(direccion5);
 
-    barriosRepository.guardar(barrio2);
+    repoGenerico.guardar(barrio2);
 
-    direccionesRepository.guardar(direccion4);
-    direccionesRepository.guardar(direccion5);
+    repoGenerico.guardar(direccion4);
+    repoGenerico.guardar(direccion5);
 
-    heladerasRepository.guardar(heladera4);
-    heladerasRepository.guardar(heladera5);
-
-    InterfaceVulnerablesRepository vulnerablesRepository =
-        RepositoryLocator.get("vulnerablesRepository", InterfaceVulnerablesRepository.class);
+    repoGenerico.guardar(heladera4);
+    repoGenerico.guardar(heladera5);
 
     Vulnerable vul1 = new Vulnerable();
     vul1.setMenoresAcargo(new ArrayList<>());
     vul1.setNombre("liam");
-    vulnerablesRepository.guardar(vul1);
+    repoGenerico.guardar(vul1);
 
     RegistroVulnerable regVuln1 = new RegistroVulnerable();
     regVuln1.setVulnerable(vul1);
@@ -198,19 +178,11 @@ public class MainExample {
     uso1.setHeladera(heladera1);
     uso1.setTarjetaVulnerable(tarjeta1);
 
-    InterfaceRegistrosVulnerablesRepository registrosRepository =
-        RepositoryLocator.get("registrosVulnerablesRepository",
-            RegistrosVulnerablesRepository.class);
+    repoGenerico.guardar(regVuln1);
 
-    registrosRepository.guardar(regVuln1);
+    repoGenerico.guardar(tarjeta1);
 
-    InterfaceTarjetasVulnerablesRepository tarjetasRepository =
-        RepositoryLocator.get("tarjetasVulnerablesRepository",
-            TarjetasVulnerablesRepository.class);
-
-    tarjetasRepository.guardar(tarjeta1);
-
-    InterfaceUsosTarjetasVulnerablesRepository usosRepository =
+    UsosTarjetasVulnerablesRepository usosRepository =
         RepositoryLocator.get("usosTarjetasVulnerablesRepository",
             UsosTarjetasVulnerablesRepository.class);
 
@@ -219,7 +191,7 @@ public class MainExample {
     Vulnerable vul2 = new Vulnerable();
     vul2.setNombre("Facundo");
     vul2.setMenoresAcargo(new ArrayList<>());
-    vulnerablesRepository.guardar(vul2);
+    repoGenerico.guardar(vul2);
     
     RegistroVulnerable regVuln2 = new RegistroVulnerable();
     regVuln2.setVulnerable(vul2);
@@ -231,14 +203,14 @@ public class MainExample {
     uso2.setHeladera(heladera2);
     uso2.setTarjetaVulnerable(tarjeta2);
 
-    registrosRepository.guardar(regVuln2);
-    tarjetasRepository.guardar(tarjeta2);
+    repoGenerico.guardar(regVuln2);
+    repoGenerico.guardar(tarjeta2);
     usosRepository.guardar(uso2);
 
     Vulnerable vul3 = new Vulnerable();
     vul3.setMenoresAcargo(new ArrayList<>());
     vul3.setNombre("matiiiiiiii");
-    vulnerablesRepository.guardar(vul3);
+    repoGenerico.guardar(vul3);
 
     RegistroVulnerable regVuln3 = new RegistroVulnerable();
     regVuln3.setVulnerable(vul3);
@@ -250,8 +222,8 @@ public class MainExample {
     uso3.setHeladera(heladera4);
     uso3.setTarjetaVulnerable(tarjeta3);
 
-    registrosRepository.guardar(regVuln3);
-    tarjetasRepository.guardar(tarjeta3);
+    repoGenerico.guardar(regVuln3);
+    repoGenerico.guardar(tarjeta3);
     usosRepository.guardar(uso3);
   }
 }

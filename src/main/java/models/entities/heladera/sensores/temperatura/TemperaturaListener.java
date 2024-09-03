@@ -9,14 +9,8 @@ import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.RepositoryLocator;
-import models.repositories.imp.IncidentesRepository;
-import models.repositories.imp.MedicionesRepository;
+import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesRepository;
-import models.repositories.imp.SensoresTemperaturaRepository;
-import models.repositories.interfaces.InterfaceIncidentesRepository;
-import models.repositories.interfaces.InterfaceMedicionesRepository;
-import models.repositories.interfaces.InterfaceReportesRepository;
-import models.repositories.interfaces.InterfaceSensoresTemperaturaRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -26,25 +20,17 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 @Setter
 public class TemperaturaListener implements IMqttMessageListener {
   private String topic = "sensores/temperatura";
-  private InterfaceSensoresTemperaturaRepository sensoresTemperaturaRepository;
-  private InterfaceIncidentesRepository incidentesRepository;
-  private InterfaceMedicionesRepository medicionesRepository;
-  private InterfaceReportesRepository reportesRepository;
+  private GenericRepository repoGenerico;
+  private ReportesRepository reportesRepository;
 
   /**
    * Constructor para el Listener de los Sensores de Temperatura.
    */
 
   public TemperaturaListener() {
-    this.sensoresTemperaturaRepository =
+    this.repoGenerico =
         RepositoryLocator
-            .get("sensoresTemperaturaRepository", SensoresTemperaturaRepository.class);
-    this.incidentesRepository =
-        RepositoryLocator
-            .get("incidentesRepository", IncidentesRepository.class);
-    this.medicionesRepository =
-        RepositoryLocator
-          .get("medicionesRepository", MedicionesRepository.class);
+            .get("genericRepository", GenericRepository.class);
     this.reportesRepository =
         RepositoryLocator
             .get("reportesRepository", ReportesRepository.class);
@@ -65,7 +51,8 @@ public class TemperaturaListener implements IMqttMessageListener {
    */
 
   public void enviarMedicion(Long sensorId, Float temp) {
-    Optional<SensorTemperatura> sensor = this.sensoresTemperaturaRepository.buscarPorId(sensorId);
+    Optional<SensorTemperatura> sensor = this.repoGenerico
+        .buscarPorId(sensorId, SensorTemperatura.class);
     if (sensor.isEmpty()) {
       throw new RuntimeException("No existe el sensor");
     }
@@ -75,12 +62,12 @@ public class TemperaturaListener implements IMqttMessageListener {
 
     MedicionSensor medicion = new MedicionSensor(temp, heladera);
     sensorTemperatura.recibirMedicion(medicion);
-    this.medicionesRepository.guardar(medicion);
+    this.repoGenerico.guardar(medicion);
 
     if (!sensorTemperatura.comprobarTemperatura(temp)) {
       Incidente incidente = new Incidente(TipoIncidente.ALERTA, heladera);
       incidente.setTipoAlerta(TipoEstado.INACTIVA_TEMPERATURA);
-      this.incidentesRepository.guardar(incidente);
+      this.repoGenerico.guardar(incidente);
 
       //Se desactiva la heladera, se reporta la falla y se notifican suscriptores
       sensorTemperatura.desactivarHeladera(incidente);

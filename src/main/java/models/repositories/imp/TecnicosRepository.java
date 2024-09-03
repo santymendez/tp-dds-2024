@@ -4,71 +4,39 @@ import java.util.List;
 import java.util.Optional;
 import models.entities.direccion.Ciudad;
 import models.entities.personas.tecnico.Tecnico;
-import models.repositories.interfaces.InterfaceTecnicosRepository;
 
 /**
  * Repositorio para los Tecnicos.
  */
 
-public class TecnicosRepository implements InterfaceTecnicosRepository {
-
-  /**
-   * guarda tecnicos en la base de datos.
-   *
-   * @param tecnicos unos tecnicos.
-   */
+public class TecnicosRepository extends GenericRepository {
 
   public void guardar(Tecnico... tecnicos) {
-    withTransaction(() -> {
-      for (Tecnico tecnico : tecnicos) {
-        entityManager().persist(tecnico);
-      }
-    });
+    super.guardar((Object) tecnicos);
   }
-
-  /**
-   *  guarda un tecnico en la base de datos.
-   *
-   * @param tecnico un tecnico.
-   */
 
   public void guardar(Tecnico tecnico) {
-    withTransaction(() -> entityManager().persist(tecnico));
+    super.guardar(tecnico);
   }
 
-  /**
-   * modifica un tecnico en la base de datos.
-   *
-   * @param tecnico un tecnico.
-   */
-
   public void modificar(Tecnico tecnico) {
-    entityManager().merge(tecnico);
+    super.modificar(tecnico);
   }
 
   public void eliminarFisico(Tecnico tecnico) {
-    entityManager().remove(tecnico);
+    super.eliminarFisico(tecnico);
   }
 
   public void eliminar(Tecnico tecnico) {
-    tecnico.setActivo(false);
-    entityManager().merge(tecnico);
+    super.eliminar(tecnico);
   }
 
   public Optional<Tecnico> buscarPorId(Long id) {
-    return Optional.ofNullable(entityManager().find(Tecnico.class, id));
+    return super.buscarPorId(id, Tecnico.class);
   }
 
-
-  /** Busca todos los tecnicos.
-   *
-   * @return una lista con todos los tecnicos.
-   */
-  @SuppressWarnings("unchecked")
   public List<Tecnico> buscarTodos() {
-    return entityManager()
-        .createQuery("from " + Tecnico.class.getName())
-        .getResultList();
+    return super.buscarTodos(Tecnico.class);
   }
 
   /**

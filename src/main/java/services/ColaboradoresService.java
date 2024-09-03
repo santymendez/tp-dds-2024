@@ -8,7 +8,7 @@ import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
-import models.repositories.interfaces.InterfaceColaboradoresRepository;
+import models.repositories.imp.ColaboradoresRepository;
 import utils.security.Usuario;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
@@ -19,12 +19,12 @@ import utils.sender.channels.EmailSender;
 
 public class ColaboradoresService {
 
-  private final InterfaceColaboradoresRepository colaboradoresRepository;
+  private final ColaboradoresRepository colaboradoresRepository;
   @Setter
   private EmailSender emailsender;
 
   public ColaboradoresService(
-      InterfaceColaboradoresRepository colaboradorRepository,
+      ColaboradoresRepository colaboradorRepository,
       EmailSender sender
   ) {
     this.colaboradoresRepository = colaboradorRepository;

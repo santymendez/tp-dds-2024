@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-public class LoadDatabase {
-  private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+public class DatabaseLoader {
+  private static final Logger log = LoggerFactory.getLogger(DatabaseLoader.class);
 
   @Bean
   CommandLineRunner init() {

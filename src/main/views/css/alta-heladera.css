@@ -1,3 +1,5 @@
+
+
 .form-check {
     display: flex;
     align-items: center;
@@ -91,4 +93,58 @@
 /*    border-color: var(--verdeBotonesCuadrados);*/
 /*    box-shadow: none;*/
     font-size: 1.4rem;
+}
+
+.main-content .container {
+    max-width: 100%;
+    justify-content: center;
+    margin-top: 0;
+}
+
+.chico {
+    max-width: 30rem;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.mb-3 {
+    padding-bottom: 1rem;
+    align-items: center;
+}
+
+.form-select {
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--verdeSecundario);
+    font-size: 1.4rem;
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+    margin-top: 1rem;
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
+}
+
+.btn {
+    background-color: var(--verdeSecundario);
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+    justify-content: center;
+}
+
+.btn-primary {
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    max-width: 100%;
+    justify-content: center;
 }

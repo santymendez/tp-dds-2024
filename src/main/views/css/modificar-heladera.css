@@ -14,6 +14,7 @@
     width: 60%;
     margin-right: 20%;
     margin-left: 20%;
+    align-items: center;
 }
 
 .form-check {
@@ -64,13 +65,12 @@
 }
 
 .btn-primary {
-    background-color: var(--verdeSecundario);
-    font-size: 1.4rem;
-    border-color: var(--verdeSecundario);
-    color: var(--blanco);
-    margin-top: 2rem;
-    width: 20%;
-    font-family: var(--fuenteParrafos), serif;
+    max-width: 100%;
+    width: auto; /* Adjust the button width */
+    margin: 1rem auto; /* Center the button */
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    display: block; /* Ensure the button is centered as a block element */
 }
 
 .btn-primary:active:focus {
@@ -104,4 +104,28 @@
 /*    border-color: var(--verdeBotonesCuadrados);*/
 /*    box-shadow: none;*/
     font-size: 1.4rem;
+}
+
+.mt-5 .container {
+    margin-top: 10rem;
+    padding-top: 40rem;
+}
+
+.ancho-reducido {
+    width: 30%; /* Ajusta este valor según el ancho deseado */
+    margin-inline: auto; /* Centra el elemento */
+}
+
+.ancho-reducido-rmx {
+    width: 50%; /* Ajusta este valor según el ancho deseado */
+    margin-inline: auto; /* Centra el elemento */
+}
+
+.este {
+    padding-top: 1rem;
+}
+
+.nopadding {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
 }

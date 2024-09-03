@@ -60,10 +60,6 @@
 }
 
 
-
-
-
-
 .suscribirse-content {
     flex: 1;
     padding: 2rem;
@@ -221,6 +217,7 @@ h2{
 
 h2 {
     margin-bottom: 3rem;
+    margin-top: 3rem;
     text-align: center;
 }
 
@@ -233,3 +230,4 @@ h2 {
 .form-control{
     height: 100%;
 }
+

@@ -1,5 +1,6 @@
 package models.entities.direccion;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -26,7 +27,7 @@ public class Ciudad extends Persistente {
   @Column(name = "nombre")
   private String nombreCiudad;
 
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "provincia_id", referencedColumnName = "id")
   private Provincia provincia;
 }

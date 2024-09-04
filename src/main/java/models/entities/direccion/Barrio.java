@@ -1,5 +1,6 @@
 package models.entities.direccion;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -29,6 +30,6 @@ public class Barrio extends Persistente {
   private Integer numero;
 
   @JoinColumn(name = "ciudad_id", referencedColumnName = "id")
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private Ciudad ciudad;
 }

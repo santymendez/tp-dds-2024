@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,6 +29,7 @@ public class SensorTemperatura extends Persistente {
 
   @OneToMany(cascade = {CascadeType.PERSIST})
   @JoinColumn(name = "medicionesSensor_id", referencedColumnName = "id")
+  // TODO OrderBy que criterio?
   private List<MedicionSensor> mediciones;
 
   @OneToOne

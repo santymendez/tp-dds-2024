@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.db.Persistente;
 import models.entities.personas.colaborador.Colaborador;
@@ -20,6 +21,7 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "colaboraciones")
 public class Colaboracion extends Persistente {
@@ -51,8 +53,6 @@ public class Colaboracion extends Persistente {
 
   @Embedded
   private RealizacionOfertas realizarOfertas;
-
-  public Colaboracion() {}
 
   //============================== Metodos Auxiliares ========================================
 

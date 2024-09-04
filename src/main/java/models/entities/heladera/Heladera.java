@@ -62,6 +62,7 @@ public class Heladera extends Persistente {
 
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   @JoinColumn(name = "vianda_id", referencedColumnName = "id")
+  //TODO orderBy de vianda segun que criterio?
   private List<Vianda> viandas;
 
   //TODO

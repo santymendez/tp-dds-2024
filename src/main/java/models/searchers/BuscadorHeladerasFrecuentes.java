@@ -1,4 +1,4 @@
-package models.entities.searchers;
+package models.searchers;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package models.entities.searchers;
+package models.searchers;
 
 import java.util.List;
 import models.entities.direccion.Ciudad;

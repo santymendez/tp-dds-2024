@@ -26,7 +26,6 @@ import models.entities.personas.documento.Documento;
 @Setter
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "vulnerables")
 public class Vulnerable extends Persistente {
   @Column(name = "nombre")
@@ -61,6 +60,10 @@ public class Vulnerable extends Persistente {
     if (menoresAcargo != null) {
       this.menoresAcargo.addAll(menoresAcargo);
     }
+  }
+
+  public Vulnerable() {
+    this.menoresAcargo = new ArrayList<>();
   }
 
 }

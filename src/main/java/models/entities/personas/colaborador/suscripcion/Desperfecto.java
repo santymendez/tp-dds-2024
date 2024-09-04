@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
-import models.entities.searchers.BuscadorHeladerasFrecuentes;
+import models.searchers.BuscadorHeladerasFrecuentes;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 import utils.sender.SenderLocator;

@@ -1,5 +1,6 @@
 package models.entities.direccion;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -28,6 +29,6 @@ public class Direccion extends Persistente {
   private Float latitud;
 
   @JoinColumn(name = "barrio_id", referencedColumnName = "id")
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private Barrio barrio;
 }

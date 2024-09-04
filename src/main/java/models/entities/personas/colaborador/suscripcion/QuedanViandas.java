@@ -1,10 +1,12 @@
 package models.entities.personas.colaborador.suscripcion;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
-import utils.sender.Mensaje;
-import utils.sender.SenderInterface;
 import utils.sender.SenderLocator;
 
 /**
@@ -13,11 +15,12 @@ import utils.sender.SenderLocator;
  */
 
 @Setter
-public class QuedanViandas implements InterfazSuscripcion {
-  private Colaborador colaborador;
-  private Heladera heladera;
+@NoArgsConstructor
+@Entity
+public class QuedanViandas extends Suscripcion {
+
+  @Column(name = "viandasDisponibles")
   private Integer viandasDisponibles;
-  private SenderInterface senderInterface;
 
   /**
    * Instancia una suscripcion.
@@ -33,27 +36,21 @@ public class QuedanViandas implements InterfazSuscripcion {
     this.viandasDisponibles = viandas;
     this.senderInterface =
         SenderLocator.getService(colaborador.getContacto().getTipoContacto());
+    this.setTipo(TipoSuscripcion.QUEDAN_N_VIANDAS);
   }
 
-  /**
-   * Intenta notificar si es necesario.
-   */
-
-  public void intentarNotificar() {
-    if (this.heladera.consultarStock().equals(this.viandasDisponibles)) {
-      this.notificar();
-    }
+  @Override
+  public Boolean seCumpleCondicion() {
+    return this.heladera.consultarStock().equals(this.viandasDisponibles);
   }
 
-  /**
-   * Enviar notificacion al colaborador.
-   */
+  @Override
+  public String getAsunto() {
+    return "Quedan sólo " + viandasDisponibles + " en una heladera.";
+  }
 
-  public void notificar() {
-    String destinatario = colaborador.getContacto().getInfo();
-    String asunto = "Quedan sólo " + viandasDisponibles + " en una heladera.";
-    String cuerpo = "Acercate a la heladera: " + heladera.getNombre() + " para rellenarla";
-    Mensaje mensaje = new Mensaje(asunto, cuerpo);
-    this.senderInterface.enviar(mensaje, destinatario);
+  @Override
+  public String getCuerpo() {
+    return "Acercate a la heladera: " + heladera.getNombre() + " para rellenarla";
   }
 }

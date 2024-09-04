@@ -26,7 +26,7 @@ import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.limitador.Limitador;
 import models.entities.heladera.limitador.UnidadTiempo;
 import models.entities.heladera.vianda.Vianda;
-import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
+import models.entities.personas.colaborador.suscripcion.Suscripcion;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 
@@ -67,7 +67,7 @@ public class Heladera extends Persistente {
 
   //TODO
   @Transient
-  private List<InterfazSuscripcion> suscripciones;
+  private List<Suscripcion> suscripciones;
 
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   @JoinColumn(name = "estado_id", referencedColumnName = "id", nullable = false)
@@ -246,16 +246,18 @@ public class Heladera extends Persistente {
 
   public void intentarNotificarSuscriptores() {
     if (!this.suscripciones.isEmpty()) {
-      this.suscripciones.parallelStream().forEach(InterfazSuscripcion::intentarNotificar);
+      this.suscripciones.parallelStream().forEach(Suscripcion::intentarNotificar);
     }
   }
 
-  public void agregarSuscripcion(InterfazSuscripcion suscripcion) {
+  public void agregarSuscripcion(Suscripcion suscripcion) {
     this.suscripciones.add(suscripcion);
+    suscripcion.setHeladera(this);
   }
 
-  public void eliminarSuscripcion(InterfazSuscripcion suscripcion) {
+  public void eliminarSuscripcion(Suscripcion suscripcion) {
     this.suscripciones.remove(suscripcion);
+    suscripcion.setHeladera(null);
   }
 
   //==================================== Métodos auxiliares ========================================

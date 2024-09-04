@@ -11,6 +11,10 @@ import models.entities.heladera.estados.Estado;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.TipoColaborador;
+import models.entities.personas.colaborador.suscripcion.Desperfecto;
+import models.entities.personas.colaborador.suscripcion.FaltanViandas;
+import models.entities.personas.colaborador.suscripcion.QuedanViandas;
+import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
 import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
@@ -38,10 +42,30 @@ public class MainExample {
     PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
 
     instance.guardarColaboracion();
-    instance.guardarHeladeras();
-    instance.printearVulnerables();
+    //instance.guardarHeladeras();
+    //instance.printearVulnerables();
+    instance.guardarSuscripciones();
 
     PersistenceUnitSwitcher.switchPersistenceUnit("simple-persistence-unit");
+  }
+
+  private void guardarSuscripciones() {
+    GenericRepository gen = new GenericRepository();
+
+    Desperfecto desp = new Desperfecto();
+    desp.setTipo(TipoSuscripcion.OCURRIO_DESPERFECTO);
+
+    gen.guardar(desp);
+
+    FaltanViandas falt = new FaltanViandas();
+    falt.setViandasFaltantes(5);
+    falt.setTipo(TipoSuscripcion.FALTAN_N_VIANDAS);
+    gen.guardar(falt);
+
+    QuedanViandas qued = new QuedanViandas();
+    qued.setViandasDisponibles(2);
+    qued.setTipo(TipoSuscripcion.QUEDAN_N_VIANDAS);
+    gen.guardar(qued);
   }
 
   private void printearVulnerables() throws JsonProcessingException {

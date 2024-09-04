@@ -1,12 +1,14 @@
 package models.entities.personas.colaborador.suscripcion;
 
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 import models.searchers.BuscadorHeladerasFrecuentes;
-import utils.sender.Mensaje;
-import utils.sender.SenderInterface;
 import utils.sender.SenderLocator;
 
 /**
@@ -15,12 +17,12 @@ import utils.sender.SenderLocator;
  */
 
 @Setter
-public class Desperfecto implements InterfazSuscripcion {
-  private Colaborador colaborador;
-  private Heladera heladera;
-  private SenderInterface senderInterface;
+@NoArgsConstructor
+@Entity
+public class Desperfecto extends Suscripcion {
+
+  @Transient
   private BuscadorHeladerasFrecuentes buscadorHeladerasFrecuentes;
-  private List<Heladera> heladerasSugeridas;
   
   /**
    * Constructor de la suscripcion en caso de que ocurran fallas.
@@ -35,32 +37,24 @@ public class Desperfecto implements InterfazSuscripcion {
     this.buscadorHeladerasFrecuentes = new BuscadorHeladerasFrecuentes();
     this.senderInterface =
         SenderLocator.getService(colaborador.getContacto().getTipoContacto());
+    this.setTipo(TipoSuscripcion.OCURRIO_DESPERFECTO);
   }
 
-  /**
-   * Enviar notificacion al colaborador.
-   */
-
-  public void intentarNotificar() {
-    if (!this.heladerasSugeridas.isEmpty()) {
-      this.notificar();
-    }
+  @Override
+  public Boolean seCumpleCondicion() {
+    return true;
   }
 
-  /**
-   * Envia una notificacion al colaborador.
-   */
-
-  public void notificar() {
-    String destinatario = colaborador.getContacto().getInfo();
-
-    String asunto = "La heladera " + this.heladera.getNombre() + " ha sufrido un desperfecto"
+  @Override
+  public String getAsunto() {
+    return "La heladera " + this.heladera.getNombre() + " ha sufrido un desperfecto"
         + " y las viandas deben ser redistribuidas.";
-    String cuerpo = "Estas son algunas de las heladeras a las que puedes llevar las viandas:\n"
-        + this.nombresDeHeladerasString();
+  }
 
-    Mensaje mensaje = new Mensaje(asunto, cuerpo);
-    this.senderInterface.enviar(mensaje, destinatario);
+  @Override
+  public String getCuerpo() {
+    return "Estas son algunas de las heladeras a las que puedes llevar las viandas:\n"
+        + this.nombresDeHeladerasString();
   }
 
   /**

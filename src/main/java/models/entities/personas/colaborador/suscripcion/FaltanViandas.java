@@ -1,10 +1,11 @@
 package models.entities.personas.colaborador.suscripcion;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
-import utils.sender.Mensaje;
-import utils.sender.SenderInterface;
 import utils.sender.SenderLocator;
 
 /**
@@ -13,11 +14,12 @@ import utils.sender.SenderLocator;
  */
 
 @Setter
-public class FaltanViandas implements InterfazSuscripcion {
-  private Colaborador colaborador;
-  private Heladera heladera;
+@NoArgsConstructor
+@Entity
+public class FaltanViandas extends Suscripcion {
+
+  @Column(name = "viandasFaltantes")
   private Integer viandasFaltantes;
-  private SenderInterface senderInterface;
 
   /**
    * Instancia una suscripcion.
@@ -33,31 +35,23 @@ public class FaltanViandas implements InterfazSuscripcion {
     this.viandasFaltantes = viandas;
     this.senderInterface =
         SenderLocator.getService(colaborador.getContacto().getTipoContacto());
+    this.setTipo(TipoSuscripcion.FALTAN_N_VIANDAS);
   }
 
-  /**
-   * Intenta notificar si es necesario.
-   * Para pasar la notificacion al controller, deberia ser boolean.
-   */
-
-  public void intentarNotificar() {
-    if (this.heladera
+  @Override
+  public Boolean seCumpleCondicion() {
+    return this.heladera
         .consultarEspacioSobrante()
-        .equals(this.viandasFaltantes)) {
-      this.notificar();
-    }
+        .equals(this.viandasFaltantes);
   }
 
-  /**
-   * Envia una notificacion al colaborador.
-   * Esta logica deberia ir en un controller.
-   */
+  @Override
+  public String getAsunto() {
+    return "Faltan " + this.viandasFaltantes + " para que una heladera se encuentre llena.";
+  }
 
-  public void notificar() {
-    String destinatario = colaborador.getContacto().getInfo();
-    String asunto = "Faltan " + viandasFaltantes + " para que una heladera se encuentre llena.";
-    String cuerpo = "No deposites más viandas en la heladera: " + heladera.getNombre();
-    Mensaje mensaje = new Mensaje(asunto, cuerpo);
-    this.senderInterface.enviar(mensaje, destinatario);
+  @Override
+  public String getCuerpo() {
+    return "No deposites más viandas en la heladera: " + this.heladera.getNombre();
   }
 }

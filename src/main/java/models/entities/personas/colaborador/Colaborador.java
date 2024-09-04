@@ -18,11 +18,9 @@ import lombok.Setter;
 import models.db.Persistente;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
-import models.entities.formulario.RespuestaFormulario;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
-import models.entities.personas.colaborador.suscripcion.InterfazSuscripcion;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
@@ -85,9 +83,6 @@ public class Colaborador extends Persistente {
   @Transient
   private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
-  @Transient //TODO cuando veamos persistencia de interfaces
-  private List<InterfazSuscripcion> suscripciones;
-
   /**
    * Instancia un Colaborador.
    */
@@ -95,7 +90,6 @@ public class Colaborador extends Persistente {
   public Colaborador() {
     this.reconocimiento = new Reconocimiento();
     this.colaboraciones = new ArrayList<>();
-    this.suscripciones = new ArrayList<>();
   }
 
   public Boolean puedeCanjear(Oferta oferta) {
@@ -114,10 +108,6 @@ public class Colaborador extends Persistente {
 
   public void agregarSolicitudApertura(Heladera heladera, TarjetaColaborador tarjeta) {
     heladera.getTarjetasHabilitadas().add(tarjeta);
-  }
-
-  public void agregarSuscripcion(InterfazSuscripcion suscripcion) {
-    this.suscripciones.add(suscripcion);
   }
 
 }

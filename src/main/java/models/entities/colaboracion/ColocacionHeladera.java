@@ -2,7 +2,7 @@ package models.entities.colaboracion;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
@@ -15,7 +15,7 @@ import models.entities.heladera.Heladera;
 @Setter
 @Embeddable
 public class ColocacionHeladera {
-  @ManyToOne
+  @OneToOne
   @JoinColumn(name = "heladeraColocada_id", referencedColumnName = "id")
   private Heladera heladeraColocada;
 }

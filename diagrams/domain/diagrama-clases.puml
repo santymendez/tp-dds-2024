@@ -12,7 +12,7 @@ class Heladera {
     -List<Vianda> viandas
     -capacidadMaximaViandas: Integer
 
-    -List<InterfazSuscripcion> suscripciones
+    -List<Suscripcion> suscripciones
 
     -estadoActual: Estado
     -List<Estado> estadosHeladera
@@ -92,14 +92,12 @@ class Colaborador{
 
     -adapterServicioRecomendacion: AdapterServicioRecomendacion
 
-    -List<InterfazSuscripcion> suscripciones;
-
     +boolean puedeCanjear(Oferta oferta)
     +void aumentarReconocimiento(Colaboracion colaboracion)
 
     +void agregarSolicitudApertura(Heladera heladera)
 
-    +void agregarSuscripcion(InterfazSuscripcion suscripcion)
+    +void agregarSuscripcion(Suscripcion suscripcion)
 }
 
 enum TipoColaborador {
@@ -448,9 +446,15 @@ class VisitaTecnica {
     -incidenteSolucionado: Boolean
 }
 
-interface InterfazSuscripcion {
+abstract class Suscripcion {
+    #colaborador: Colaborador
+    #heladera: Heladera
+    #senderInterface: SenderInterface
+    #tipo: TipoSuscripcion
+
     +intentarNotificar()
     +notificar()
+    +seCumpleCondicion()
 }
 
 enum TipoSuscripcion {
@@ -460,34 +464,27 @@ enum TipoSuscripcion {
 }
 
 class QuedanViandas {
-    -colaborador: Colaborador
-    -heladera: Heladera
     -viandasDisponibles: Integer
-    -senderInterface: SenderInterface
 
     +intentarNotificar()
     +notificar()
+    +seCumpleCondicion()
 }
 
 class FaltanViandas {
-    -colaborador: Colaborador
-    -heladera: Heladera
     -viandasFaltantes: Integer
-    -senderInterface: SenderInterface
 
     +intentarNotificar()
     +notificar()
+    +seCumpleCondicion()
 }
 
 class Desperfecto {
-    -colaborador: Colaborador
-    -heladera: Heladera
-    -senderInterface: SenderInterface
     -buscadorHeladerasFrecuentes: BuscadorHeladerasFrecuentes
-    -List<Heladera> heladerasSugeridas
 
     +intentarNotificar()
     +notificar()
+    +seCumpleCondicion()
 }
 
 class GeneradorReporte {
@@ -546,7 +543,7 @@ Ciudad --o Barrio
 Heladera o-- Direccion
 Heladera -->"*" Vianda
 Heladera *-- Modelo
-Heladera -->"*" InterfazSuscripcion
+Heladera -->"*" Suscripcion
 Heladera -->"*" Estado
 Heladera ..> TipoEstado
 Heladera *-- Limitador
@@ -574,8 +571,6 @@ Colaborador o--- TipoColaborador
 Colaborador o--- Reconocimiento
 Colaborador ---> AdapterServicioRecomendacion
 Colaborador ..> Heladera
-Colaborador ..> TipoSuscripcion
-Colaborador -->"*" InterfazSuscripcion
 Colaborador -->"*" Colaboracion
 
 'DOCUMENTO'
@@ -700,26 +695,18 @@ ReporteHeladera o-- Heladera
 ReporteHeladera -->"*" ViandasPorColaborador
 ViandasPorColaborador o-- Colaborador
 
-'INTERFAZ SUSCRIPCION'
-Desperfecto ..|> InterfazSuscripcion
-QuedanViandas ..|> InterfazSuscripcion
-FaltanViandas ..|> InterfazSuscripcion
+'SUSCRIPCION'
+Desperfecto --|> Suscripcion
+QuedanViandas --|> Suscripcion
+FaltanViandas --|> Suscripcion
+Suscripcion --> TipoSuscripcion
+Suscripcion --> SenderInterface
+Suscripcion --> Colaborador
+Suscripcion --> Heladera
 
 'DESPERFECTO'
-Desperfecto --> SenderInterface
-Desperfecto --> Colaborador
-Desperfecto -->"*" Heladera
+
 Desperfecto *-- BuscadorHeladerasFrecuentes
-
-'QUEDAN_VIANDAS'
-QuedanViandas --o Colaborador
-QuedanViandas --o Heladera
-QuedanViandas --> SenderInterface
-
-'FALTAN_VIANDAS'
-FaltanViandas --o Colaborador
-FaltanViandas --o Heladera
-FaltanViandas --> SenderInterface
 
 'SENDER'
 SenderInterface ..> Mensaje

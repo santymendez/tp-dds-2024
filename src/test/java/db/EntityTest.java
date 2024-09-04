@@ -1,0 +1,996 @@
+package db;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import java.util.Optional;
+import models.entities.colaboracion.Colaboracion;
+import models.entities.colaboracion.ColocacionHeladera;
+import models.entities.colaboracion.DistribucionTarjetas;
+import models.entities.colaboracion.DistribucionViandas;
+import models.entities.colaboracion.DonacionDinero;
+import models.entities.colaboracion.RealizacionOfertas;
+import models.entities.colaboracion.TipoColaboracion;
+import models.entities.direccion.Barrio;
+import models.entities.direccion.Ciudad;
+import models.entities.direccion.Direccion;
+import models.entities.direccion.Provincia;
+import models.entities.formulario.Formulario;
+import models.entities.formulario.Opcion;
+import models.entities.formulario.Pregunta;
+import models.entities.formulario.Respuesta;
+import models.entities.formulario.RespuestaFormulario;
+import models.entities.heladera.Heladera;
+import models.entities.heladera.Modelo;
+import models.entities.heladera.estados.Estado;
+import models.entities.heladera.estados.TipoEstado;
+import models.entities.heladera.sensores.movimiento.SensorMovimiento;
+import models.entities.heladera.sensores.temperatura.SensorTemperatura;
+import models.entities.heladera.vianda.Comida;
+import models.entities.heladera.vianda.Vianda;
+import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.TipoColaborador;
+import models.entities.personas.colaborador.canje.Oferta;
+import models.entities.personas.documento.Documento;
+import models.entities.personas.documento.TipoDocumento;
+import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
+import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
+import models.entities.personas.tecnico.Tecnico;
+import models.entities.personas.vulnerable.Vulnerable;
+import models.repositories.RepositoryLocator;
+import models.repositories.imp.ColaboracionesRepository;
+import models.repositories.imp.ColaboradoresRepository;
+import models.repositories.imp.GenericRepository;
+import models.repositories.imp.TecnicosRepository;
+import models.repositories.imp.UsosTarjetasVulnerablesRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+public class EntityTest {
+
+  ColaboradoresRepository colaboradoresRepository;
+
+  ColaboracionesRepository colaboracionesRepository;
+
+  UsosTarjetasVulnerablesRepository usosTarjetasVulnerablesRepository;
+
+  TecnicosRepository tecnicosRepository;
+
+  GenericRepository repoGenerico;
+
+  ColocacionHeladera colocacionHeladera;
+  Colaboracion colocarHeladera;
+
+  DistribucionTarjetas distribucionTarjetas;
+  TarjetaVulnerable tarjeta1;
+  TarjetaVulnerable tarjeta2;
+  TarjetaVulnerable tarjeta3;
+  List<TarjetaVulnerable> lstTarjetas;
+  Colaboracion distribuirTarjetas;
+
+  DistribucionViandas distribucionViandas;
+  Colaboracion distribuirViandas;
+
+  DonacionDinero donacionDinero;
+  Colaboracion donarDinero;
+
+  RealizacionOfertas realizarOfertas;
+  List<Oferta> lstOfertas;
+  Oferta oferta1;
+  Oferta oferta2;
+  Oferta oferta3;
+  Colaboracion realizarOferta;
+
+  Direccion direccion1;
+  Direccion direccion2;
+  Direccion direccion3;
+
+  Barrio barrio1;
+  Barrio barrio2;
+  Barrio barrio3;
+
+  Ciudad ciudad1;
+  Ciudad ciudad2;
+  Ciudad ciudad3;
+
+  Provincia provincia1;
+  Provincia provincia2;
+  Provincia provincia3;
+
+  Formulario formulario1;
+
+  List<Pregunta> lstPreguntas1;
+
+  Pregunta pregunta1;
+  Pregunta pregunta2;
+  Pregunta pregunta3;
+
+  List<Opcion> lstOpciones1;
+  List<Opcion> lstOpciones2;
+  List<Opcion> lstOpciones3;
+
+  Opcion opcion1;
+  Opcion opcion2;
+  Opcion opcion3;
+  Opcion opcion4;
+  Opcion opcion5;
+  Opcion opcion6;
+  Opcion opcion7;
+  Opcion opcion8;
+  Opcion opcion9;
+
+  Respuesta respuesta1;
+  Respuesta respuesta2;
+  Respuesta respuesta3;
+
+  RespuestaFormulario respuestaFormulario1;
+  RespuestaFormulario respuestaFormulario2;
+  RespuestaFormulario respuestaFormulario3;
+
+  Heladera heladera1;
+  Heladera heladera2;
+  Heladera heladera3;
+
+  Estado estadoActual1;
+  Estado estadoActual2;
+  Estado estadoActual3;
+
+  List<Estado> lstEstados1;
+  List<Estado> lstEstados2;
+  List<Estado> lstEstados3;
+
+  Estado estado1;
+  Estado estado2;
+  Estado estado3;
+  Estado estado4;
+  Estado estado5;
+
+  SensorMovimiento sensorMovimiento1;
+  SensorMovimiento sensorMovimiento2;
+  SensorMovimiento sensorMovimiento3;
+
+  SensorTemperatura sensorTemperatura1;
+  SensorTemperatura sensorTemperatura2;
+  SensorTemperatura sensorTemperatura3;
+
+  List<Vianda> lstViandas1;
+  List<Vianda> lstViandas2;
+  List<Vianda> lstViandas3;
+
+  Vianda vianda1;
+  Vianda vianda2;
+  Vianda vianda3;
+  Vianda vianda4;
+  Vianda vianda5;
+  Vianda vianda6;
+  Vianda vianda7;
+  Vianda vianda8;
+  Vianda vianda9;
+
+  Comida comida1;
+  Comida comida2;
+  Comida comida3;
+  Comida comida4;
+  Comida comida5;
+  Comida comida6;
+  Comida comida7;
+  Comida comida8;
+  Comida comida9;
+
+  Modelo modelo1;
+  Modelo modelo2;
+  Modelo modelo3;
+
+  Documento documentoAugusto;
+
+  Colaborador augusto;
+  Colaborador iniaqui;
+  Colaborador mati;
+  Colaborador elCityGroup;
+
+  Tecnico liam;
+  Tecnico santi;
+
+  Vulnerable eze;
+  Vulnerable facu;
+
+  // Vulnerables a cargo de eze
+  List<Vulnerable> lstMenoresACargoEze;
+  Vulnerable perez;
+  Vulnerable tello;
+  Vulnerable enrique;
+
+  // Vulnerables a cargo de facu
+  List<Vulnerable> lstMenoresACargoFacu;
+  Vulnerable villalva;
+
+  RegistroVulnerable registroVulnerable1;
+  RegistroVulnerable registroVulnerable2;
+  RegistroVulnerable registroVulnerable3;
+
+  @BeforeEach
+  void inicializarObjetos() {
+    this.iniciarColaboradores();
+    this.iniciarVulnerables();
+    this.iniciarColaboraciones();
+    this.iniciarTecnicos();
+    this.iniciarFormularios();
+  }
+
+  void iniciarColaboradores() {
+
+    documentoAugusto = new Documento(45345678, TipoDocumento.DNI);
+
+    augusto = new Colaborador();
+    augusto.setNombre("Augusto");
+    augusto.setApellido("Mazzini");
+    augusto.setDocumento(documentoAugusto);
+    augusto.setTipoColaborador(TipoColaborador.FISICO);
+
+    iniaqui = new Colaborador();
+    iniaqui.setNombre("Iñaki");
+    iniaqui.setApellido("Lorences");
+    iniaqui.setTipoColaborador(TipoColaborador.FISICO);
+
+    mati = new Colaborador();
+    mati.setNombre("Matias");
+    mati.setApellido("Jastrebow");
+    mati.setTipoColaborador(TipoColaborador.FISICO);
+
+    elCityGroup = new Colaborador();
+    elCityGroup.setNombre("CityGroup");
+    elCityGroup.setRazonSocial("El City Group PAPA.SA");
+    elCityGroup.setTipoColaborador(TipoColaborador.EMPRESA_ASOCIADA);
+  }
+
+  void iniciarVulnerables() {
+
+    lstMenoresACargoEze = new ArrayList<>();
+    lstMenoresACargoFacu = new ArrayList<>();
+
+    perez = new Vulnerable();
+    perez.setNombre("Falcon Perez");
+    perez.setFechaNacimiento(LocalDate.of(1972, 4, 22));
+
+    tello = new Vulnerable();
+    tello.setNombre("Facundo Tello");
+    tello.setFechaNacimiento(LocalDate.of(1982, 5, 3));
+
+    villalva = new Vulnerable();
+    villalva.setNombre("El keko Villalva");
+    villalva.setFechaNacimiento(LocalDate.of(1975, 6, 4));
+
+    enrique = new Vulnerable();
+    enrique.setNombre("Enrique Pinti");
+    enrique.setFechaNacimiento(LocalDate.of(1999, 7, 5));
+
+    lstMenoresACargoEze.add(perez);
+    lstMenoresACargoEze.add(tello);
+    lstMenoresACargoEze.add(enrique);
+
+    lstMenoresACargoFacu.add(villalva);
+
+    eze = new Vulnerable();
+    eze.setNombre("Ezequiel");
+    eze.setFechaNacimiento(LocalDate.of(1994, 8, 31));
+    eze.setMenoresAcargo(lstMenoresACargoEze);
+
+    facu = new Vulnerable();
+    facu.setNombre("Facundo");
+    facu.setFechaNacimiento(LocalDate.of(2001, 7, 30));
+    facu.setMenoresAcargo(lstMenoresACargoFacu);
+  }
+
+  void iniciarColaboraciones() {
+
+    // Colaboracion - Colocar Heladera
+
+    colocacionHeladera = new ColocacionHeladera();
+    colocacionHeladera.setHeladeraColocada(heladera1);
+
+    colocarHeladera = new Colaboracion();
+    colocarHeladera.setFechaColaboracion(LocalDate.of(2021, 10, 10));
+    colocarHeladera.setTipoColaboracion(TipoColaboracion.COLOCAR_HELADERA);
+    colocarHeladera.setColaborador(augusto);
+    colocarHeladera.setColocacionHeladera(colocacionHeladera);
+
+    this.iniciarTarjetas();
+
+    // Colaboracion - Distribuir Tarjetas
+
+    distribucionTarjetas = new DistribucionTarjetas();
+    distribucionTarjetas.setCantTarjetasEntregadas(3);
+    distribucionTarjetas.setTarjetasEntregadas(lstTarjetas);
+
+    distribuirTarjetas = new Colaboracion();
+    distribuirTarjetas.setColaborador(iniaqui);
+    distribuirTarjetas.setTipoColaboracion(TipoColaboracion.ENTREGAR_TARJETA);
+    distribuirTarjetas.setDistribucionTarjetas(distribucionTarjetas);
+    distribuirTarjetas.setFechaColaboracion(LocalDate.of(2023, 10, 28));
+
+    this.iniciarHeladeras();
+    this.iniciarViandas();
+
+    // Colaboracion - Distribuir Viandas
+
+    distribucionViandas = new DistribucionViandas();
+    distribucionViandas.setMotivoDistribucion("Habia hambre");
+    distribucionViandas.setCantViandasDistribuidas(3);
+    distribucionViandas.setHeladeraOrigen(heladera1);
+    distribucionViandas.setHeladeraDestino(heladera3);
+
+    distribuirViandas = new Colaboracion();
+    distribuirViandas.setColaborador(mati);
+    distribuirViandas.setTipoColaboracion(TipoColaboracion.DISTRIBUIR_VIANDAS);
+    distribuirViandas.setDistribucionViandas(distribucionViandas);
+    distribuirViandas.setFechaColaboracion(LocalDate.of(2022, 1, 10));
+
+    // Colaboracion - Donar Dinero
+
+    donacionDinero = new DonacionDinero();
+    donacionDinero.setMontoDonado(150000);
+    donacionDinero.setFrecuenciaDonacion("Casi nunca, tampoco es millonario");
+
+    donarDinero = new Colaboracion();
+    donarDinero.setFechaColaboracion(LocalDate.of(2011, 6, 26));
+    donarDinero.setTipoColaboracion(TipoColaboracion.DONAR_DINERO);
+    donarDinero.setColaborador(iniaqui);
+
+    // Colaboracion - Realizar Ofertas
+
+    this.iniciarOfertas();
+
+    realizarOfertas = new RealizacionOfertas();
+    realizarOfertas.setOfertasRealizadas(lstOfertas);
+
+    realizarOferta = new Colaboracion();
+    realizarOferta.setColaborador(elCityGroup);
+    realizarOferta.setTipoColaboracion(TipoColaboracion.REALIZAR_OFERTAS);
+    realizarOferta.setFechaColaboracion(LocalDate.of(2012, 7, 27));
+    realizarOferta.setRealizarOfertas(realizarOfertas);
+  }
+
+  void iniciarTarjetas() {
+
+    lstTarjetas = new ArrayList<>();
+    this.iniciarRegistrosVulnerables();
+
+    tarjeta1 = new TarjetaVulnerable(registroVulnerable1);
+
+    tarjeta2 = new TarjetaVulnerable(registroVulnerable2);
+
+    tarjeta3 = new TarjetaVulnerable(registroVulnerable3);
+
+    lstTarjetas.add(tarjeta1);
+    lstTarjetas.add(tarjeta2);
+    lstTarjetas.add(tarjeta3);
+  }
+
+  void iniciarRegistrosVulnerables() {
+
+    registroVulnerable1 = new RegistroVulnerable();
+    registroVulnerable1.setFechaRegistro(LocalDate.of(2009, 1, 22));
+    registroVulnerable1.setColaborador(iniaqui);
+    registroVulnerable1.setFechaAlta(LocalDate.of(2009, 7, 15));
+    registroVulnerable1.setVulnerable(facu);
+
+    registroVulnerable2 = new RegistroVulnerable();
+    registroVulnerable2.setFechaRegistro(LocalDate.of(2010, 2, 23));
+    registroVulnerable2.setColaborador(iniaqui);
+    registroVulnerable2.setFechaAlta(LocalDate.of(2010, 8, 16));
+    registroVulnerable2.setVulnerable(eze);
+
+    registroVulnerable3 = new RegistroVulnerable();
+    registroVulnerable3.setFechaRegistro(LocalDate.of(2011, 3, 24));
+    registroVulnerable3.setColaborador(iniaqui);
+    registroVulnerable3.setFechaAlta(LocalDate.of(2011, 9, 17));
+    registroVulnerable3.setVulnerable(enrique);
+  }
+
+  void iniciarHeladeras() {
+
+    this.iniciarDirecciones();
+    this.iniciarEstados();
+    this.iniciarModelos();
+    this.iniciarSensores();
+
+    heladera1 = new Heladera();
+    heladera1.setFechaDeCreacion(LocalDate.now());
+    heladera1.setEstadoActual(estadoActual1);
+    heladera1.setDireccion(direccion1);
+    heladera1.setNombre("Heladera Porteña");
+    heladera1.setEstadosHeladera(lstEstados1);
+    heladera1.setViandas(lstViandas1);
+    heladera1.setModelo(modelo1);
+    heladera1.setCapacidadMaximaViandas(18);
+
+    heladera2 = new Heladera();
+    heladera2.setFechaDeCreacion(LocalDate.now());
+    heladera2.setEstadoActual(estadoActual2);
+    heladera2.setDireccion(direccion2);
+    heladera2.setNombre("Heladera Cordobesa");
+    heladera2.setEstadosHeladera(lstEstados2);
+    heladera2.setViandas(lstViandas2);
+    heladera2.setModelo(modelo2);
+    heladera2.setCapacidadMaximaViandas(25);
+
+    heladera3 = new Heladera();
+    heladera3.setFechaDeCreacion(LocalDate.now());
+    heladera3.setEstadoActual(estadoActual3);
+    heladera3.setDireccion(direccion3);
+    heladera3.setNombre("Heladera Santiagueña");
+    heladera3.setEstadosHeladera(lstEstados3);
+    heladera3.setViandas(lstViandas3);
+    heladera3.setModelo(modelo3);
+    heladera3.setCapacidadMaximaViandas(4);
+  }
+
+  void iniciarViandas() {
+    lstViandas1 = new ArrayList<>();
+    lstViandas2 = new ArrayList<>();
+    lstViandas3 = new ArrayList<>();
+
+    comida1 = new Comida("Hamburguesa", LocalDate.of(2024, 9, 3));
+    comida2 = new Comida("Ensalada", LocalDate.of(2024, 10, 3));
+    comida3 = new Comida("Milanesa", LocalDate.of(2024, 11, 3));
+    comida4 = new Comida("Pizza", LocalDate.of(2024, 12, 3));
+    comida5 = new Comida("Sushi", LocalDate.of(2024, 1, 3));
+    comida6 = new Comida("Tacos", LocalDate.of(2024, 2, 3));
+    comida7 = new Comida("Lasagna", LocalDate.of(2024, 3, 3));
+    comida8 = new Comida("Empanadas", LocalDate.of(2024, 4, 3));
+    comida9 = new Comida("Paella", LocalDate.of(2024, 5, 3));
+
+    vianda1 = new Vianda(comida1,
+        LocalDate.of(2024, 9, 10),
+        mati,
+        heladera1,
+        480,
+        270.5F
+    );
+
+    vianda2 = new Vianda(comida2,
+        LocalDate.of(2024, 9, 18),
+        mati,
+        heladera1,
+        350,
+        220.0F
+    );
+
+    vianda3 = new Vianda(comida3,
+        LocalDate.of(2024, 9, 25),
+        mati,
+        heladera2,
+        500,
+        280.3F
+    );
+
+    vianda4 = new Vianda(comida4,
+        LocalDate.of(2024, 10, 2),
+        mati,
+        heladera2,
+        520,
+        290.7F
+    );
+
+    vianda5 = new Vianda(comida5,
+        LocalDate.of(2024, 10, 10),
+        mati,
+        heladera2,
+        320,
+        230.5F
+    );
+
+    vianda6 = new Vianda(comida6,
+        LocalDate.of(2024, 10, 18),
+        mati,
+        heladera2,
+        450,
+        255.8F
+    );
+
+    vianda7 = new Vianda(comida7,
+        LocalDate.of(2024, 10, 25),
+        mati,
+        heladera3,
+        540,
+        300.0F
+    );
+
+    vianda8 = new Vianda(comida8,
+        LocalDate.of(2024, 11, 3),
+        mati,
+        heladera3,
+        420,
+        245.6F
+    );
+
+    vianda9 = new Vianda(comida9,
+        LocalDate.of(2024, 11, 10),
+        mati,
+        heladera3,
+        600,
+        310.2F
+    );
+
+
+    lstViandas1.add(vianda1);
+    lstViandas1.add(vianda2);
+
+    lstViandas2.add(vianda3);
+    lstViandas2.add(vianda4);
+    lstViandas2.add(vianda5);
+    lstViandas2.add(vianda6);
+
+    lstViandas3.add(vianda7);
+    lstViandas3.add(vianda8);
+    lstViandas3.add(vianda9);
+  }
+
+  void iniciarDirecciones() {
+    this.iniciarBarrios();
+
+    direccion1 = new Direccion();
+    direccion1.setBarrio(barrio1);
+    direccion1.setUbicacion("Segurola 4310, Villa Devoto, CABA");
+    direccion1.setLongitud(-58.517341F);
+    direccion1.setLatitud(-34.605857F);
+
+    direccion2 = new Direccion();
+    direccion2.setBarrio(barrio2);
+    direccion2.setUbicacion("Ruy Díaz de Guzmán 675, Villa Alem, Rio Cuarto");
+    direccion2.setLongitud(-64.353041F);
+    direccion2.setLatitud(-33.136980F);
+
+    direccion3 = new Direccion();
+    direccion3.setBarrio(barrio3);
+    direccion3.setUbicacion("Lavalle 800, Villa Griselda, La Banda");
+    direccion3.setLongitud(-64.239235F);
+    direccion3.setLatitud(-27.732836F);
+  }
+
+  void iniciarBarrios() {
+    this.iniciarCiudades();
+
+    barrio1 = new Barrio();
+    barrio1.setCiudad(ciudad1);
+    barrio1.setNombreBarrio("Villa Devoto");
+    barrio1.setCalle("Segurola");
+    barrio1.setNumero(4310);
+
+    barrio2 = new Barrio();
+    barrio2.setCiudad(ciudad2);
+    barrio2.setNombreBarrio("Villa Alem");
+    barrio2.setNumero(675);
+    barrio2.setCalle("Ruy Díaz de Guzmán");
+
+    barrio3 = new Barrio();
+    barrio3.setCiudad(ciudad3);
+    barrio3.setNombreBarrio("Villa Griselda");
+    barrio3.setNumero(800);
+    barrio3.setCalle("Lavalle");
+  }
+
+  void iniciarCiudades() {
+    this.iniciarProvincias();
+
+    ciudad1 = new Ciudad();
+    ciudad1.setProvincia(provincia1);
+    ciudad1.setNombreCiudad("CABA");
+
+    ciudad2 = new Ciudad();
+    ciudad2.setProvincia(provincia2);
+    ciudad2.setNombreCiudad("Rio cuarto");
+
+    ciudad3 = new Ciudad();
+    ciudad3.setProvincia(provincia3);
+    ciudad3.setNombreCiudad ("La Banda");
+  }
+
+  void iniciarProvincias() {
+    provincia1 = new Provincia();
+    provincia1.setNombreProvincia("Buenos Aires");
+
+    provincia2 = new Provincia();
+    provincia2.setNombreProvincia("Cordoba");
+
+    provincia3 = new Provincia();
+    provincia3.setNombreProvincia("Santiago del Estero");
+  }
+
+  void iniciarEstados() {
+
+    this.estadoActual1 = new Estado();
+    estadoActual1.setEstado(TipoEstado.ACTIVA);
+    estadoActual1.setFechaInicial(LocalDate.of(2021, 10, 10));
+    estadoActual1.setFechaFinal(LocalDate.of(2021, 10, 11));
+
+    this.estadoActual2 = new Estado();
+    estadoActual2.setEstado(TipoEstado.ACTIVA);
+    estadoActual2.setFechaInicial(LocalDate.of(2021, 11, 12));
+    estadoActual2.setFechaFinal(LocalDate.of(2021, 11, 13));
+
+    this.estadoActual3 = new Estado();
+    estadoActual3.setEstado(TipoEstado.ACTIVA);
+    estadoActual3.setFechaInicial(LocalDate.of(2021, 12, 14));
+    estadoActual3.setFechaFinal(LocalDate.of(2021, 12, 15));
+
+    lstEstados1 = new ArrayList<>();
+    lstEstados2 = new ArrayList<>();
+    lstEstados3 = new ArrayList<>();
+
+    estado1 = new Estado();
+    estado1.setEstado(TipoEstado.ACTIVA);
+    estado1.setFechaInicial(LocalDate.of(2021, 10, 10));
+    estado1.setFechaFinal(LocalDate.of(2021, 10, 11));
+    lstEstados1.add(estado1);
+
+    estado2 = new Estado();
+    estado2.setEstado(TipoEstado.INACTIVA_FUNCIONAL);
+    estado2.setFechaInicial(LocalDate.of(2021, 11, 12));
+    estado2.setFechaFinal(LocalDate.of(2021, 11, 13));
+    lstEstados2.add(estado2);
+
+    estado3 = new Estado();
+    estado3.setEstado(TipoEstado.INACTIVA_TEMPERATURA);
+    estado3.setFechaInicial(LocalDate.of(2021, 12, 14));
+    estado3.setFechaFinal(LocalDate.of(2021, 12, 15));
+    lstEstados3.add(estado3);
+
+    estado4 = new Estado();
+    estado4.setEstado(TipoEstado.ACTIVA);
+    estado4.setFechaInicial(LocalDate.of(2022, 1, 16));
+    estado4.setFechaFinal(LocalDate.of(2022, 1, 17));
+    lstEstados1.add(estado4);
+
+    estado5 = new Estado();
+    estado5.setEstado(TipoEstado.INACTIVA_FRAUDE);
+    estado5.setFechaInicial(LocalDate.of(2022, 2, 18));
+    estado5.setFechaFinal(LocalDate.of(2022, 2, 19));
+    lstEstados2.add(estado5);
+  }
+
+  void iniciarModelos() {
+    modelo1 = new Modelo();
+    modelo1.setNombre("MK-2606");
+    modelo1.setTemperaturaMaxima(18F);
+    modelo1.setTemperaturaMinima(-15F);
+
+    modelo2 = new Modelo();
+    modelo2.setNombre("MK-2647");
+    modelo2.setTemperaturaMaxima(20F);
+    modelo2.setTemperaturaMinima(-10F);
+
+    modelo3 = new Modelo();
+    modelo3.setNombre("MK-2688");
+    modelo3.setTemperaturaMaxima(22F);
+    modelo3.setTemperaturaMinima(-5F);
+  }
+
+  void iniciarOfertas(){
+    lstOfertas = new ArrayList<>();
+
+    oferta1 = new Oferta();
+    oferta1.setNombre("Oferton");
+    oferta1.setPuntosNecesarios(1000F);
+    oferta1.setOfertante(elCityGroup);
+
+    oferta2 = new Oferta();
+    oferta2.setNombre("Estafa ponzi");
+    oferta2.setPuntosNecesarios(2877.045F);
+    oferta2.setOfertante(elCityGroup);
+
+    oferta3 = new Oferta();
+    oferta3.setNombre("Esta no le gusta al chavo fucks");
+    oferta3.setPuntosNecesarios(45000.500F);
+    oferta3.setOfertante(elCityGroup);
+
+    lstOfertas.add(oferta1);
+    lstOfertas.add(oferta2);
+    lstOfertas.add(oferta3);
+  }
+
+  void iniciarSensores() {
+    sensorMovimiento1 = new SensorMovimiento();
+    sensorMovimiento1.setHeladera(heladera1);
+
+    sensorMovimiento2 = new SensorMovimiento();
+    sensorMovimiento2.setHeladera(heladera2);
+
+    sensorMovimiento3 = new SensorMovimiento();
+    sensorMovimiento3.setHeladera(heladera3);
+
+    sensorTemperatura1 = new SensorTemperatura();
+    sensorTemperatura1.setHeladera(heladera1);
+
+    sensorTemperatura2 = new SensorTemperatura();
+    sensorTemperatura2.setHeladera(heladera2);
+
+    sensorTemperatura3 = new SensorTemperatura();
+    sensorTemperatura3.setHeladera(heladera3);
+  }
+
+  void iniciarFormularios() {
+
+    lstPreguntas1 = new ArrayList<>();
+
+    opcion1 = new Opcion();
+    opcion1.setOpcion("2");
+
+    opcion2 = new Opcion();
+    opcion2.setOpcion("3");
+
+    opcion3 = new Opcion();
+    opcion3.setOpcion("5");
+
+    respuesta1 = new Respuesta();
+    respuesta1.setPregunta(pregunta1);
+    respuesta1.setRespuestaSingleChoice(opcion1);
+
+    respuestaFormulario1 = new RespuestaFormulario();
+    respuestaFormulario1.setFormulario(formulario1);
+    respuestaFormulario1.setColaborador(mati);
+    respuestaFormulario1.setDescripcion("tiene 2");
+    respuestaFormulario1.setRespuestas(List.of(respuesta1));
+
+    lstOpciones1 = new ArrayList<>();
+
+    lstOpciones1.add(opcion1);
+    lstOpciones1.add(opcion2);
+    lstOpciones1.add(opcion3);
+
+    pregunta1 = new Pregunta();
+    pregunta1.setPregunta("Cuantos mundiales tiene uruguay?");
+    pregunta1.setOpciones(lstOpciones1);
+
+    respuesta2 = new Respuesta();
+    respuesta2.setPregunta(pregunta2);
+    respuesta2.setRespuestaSingleChoice(opcion6);
+
+    respuestaFormulario2 = new RespuestaFormulario();
+    respuestaFormulario2.setFormulario(formulario1);
+    respuestaFormulario2.setColaborador(augusto);
+    respuestaFormulario2.setDescripcion("tiene 700");
+    respuestaFormulario2.setRespuestas(List.of(respuesta2));
+
+    opcion4 = new Opcion();
+    opcion4.setOpcion("500");
+
+    opcion5 = new Opcion();
+    opcion5.setOpcion("600");
+
+    opcion6 = new Opcion();
+    opcion6.setOpcion("700");
+
+    lstOpciones2 = new ArrayList<>();
+
+    lstOpciones2.add(opcion4);
+    lstOpciones2.add(opcion5);
+    lstOpciones2.add(opcion6);
+
+    pregunta2 = new Pregunta();
+    pregunta2.setPregunta("Cuantas lineas tiene este test?");
+    pregunta2.setOpciones(lstOpciones2);
+
+    respuesta3 = new Respuesta();
+    respuesta3.setPregunta(pregunta3);
+    respuesta3.setRespuestaSingleChoice(opcion7);
+
+    respuestaFormulario3 = new RespuestaFormulario();
+    respuestaFormulario3.setFormulario(formulario1);
+    respuestaFormulario3.setColaborador(iniaqui);
+
+    opcion7 = new Opcion();
+    opcion7.setOpcion("1");
+
+    opcion8 = new Opcion();
+    opcion8.setOpcion("2");
+
+    opcion9 = new Opcion();
+    opcion9.setOpcion("3");
+
+    lstOpciones3 = new ArrayList<>();
+
+    pregunta3 = new Pregunta();
+    pregunta3.setPregunta("Cuantas intercontinentales gano Velez?");
+    pregunta3.setOpciones(lstOpciones3);
+
+    lstPreguntas1.add(pregunta1);
+    lstPreguntas1.add(pregunta2);
+    lstPreguntas1.add(pregunta3);
+
+    formulario1 = new Formulario();
+    formulario1.setPreguntas(lstPreguntas1);
+  }
+
+  void iniciarTecnicos(){
+    liam = new Tecnico();
+    liam.setNombre("Liam");
+    liam.setApellido("Ni idea");
+    liam.setAreaDeCobertura(ciudad3);
+    liam.setCuil(4598);
+
+    santi = new Tecnico();
+    santi.setNombre("Santiago");
+    santi.setApellido("Ni idea");
+    santi.setAreaDeCobertura(ciudad1);
+    santi.setCuil(7899);
+  }
+
+  void iniciarRepos() {
+
+    this.colaboradoresRepository =
+        RepositoryLocator.get("colaboradoresRepository", ColaboradoresRepository.class);
+
+    this.colaboracionesRepository =
+        RepositoryLocator.get("colaboracionesRepository", ColaboracionesRepository.class);
+
+    this.usosTarjetasVulnerablesRepository =
+        RepositoryLocator.get("usosTarjetasVulnerablesRepository", UsosTarjetasVulnerablesRepository.class);
+
+    this.tecnicosRepository =
+        RepositoryLocator.get("tecnicosRepository", TecnicosRepository.class);
+
+    this.repoGenerico =
+        RepositoryLocator.get("genericRepository", GenericRepository.class);
+  }
+
+  // metodo donde se persisten todas las entidades para luego probar
+  void peristirEntidades(){
+    this.iniciarRepos();
+
+    this.repoGenerico.guardar(direccion1);
+    this.repoGenerico.guardar(direccion2);
+    this.repoGenerico.guardar(direccion3);
+
+    this.repoGenerico.guardar(heladera1);
+    this.repoGenerico.guardar(heladera2);
+    this.repoGenerico.guardar(heladera3);
+
+    this.repoGenerico.guardar(eze);
+    this.repoGenerico.guardar(facu);
+    this.repoGenerico.guardar(enrique);
+    this.repoGenerico.guardar(perez);
+    this.repoGenerico.guardar(tello);
+
+    this.colaboradoresRepository.guardar(augusto);
+    this.colaboradoresRepository.guardar(iniaqui);
+    this.colaboradoresRepository.guardar(mati);
+    this.colaboradoresRepository.guardar(elCityGroup);
+
+    this.repoGenerico.guardar(registroVulnerable1);
+    this.repoGenerico.guardar(registroVulnerable2);
+    this.repoGenerico.guardar(registroVulnerable3);
+
+    this.colaboracionesRepository.guardar(colocarHeladera);
+    this.colaboracionesRepository.guardar(distribuirTarjetas);
+    this.colaboracionesRepository.guardar(distribuirViandas);
+    this.colaboracionesRepository.guardar(donarDinero);
+    this.colaboracionesRepository.guardar(realizarOferta);
+
+    this.tecnicosRepository.guardar(liam);
+    this.tecnicosRepository.guardar(santi);
+
+    this.repoGenerico.guardar(formulario1);
+  }
+
+  @Test
+  @DisplayName("Se persisten todas las entidades correctamente sin lanzar excepciones")
+  void persistirTodo() {
+    this.peristirEntidades();
+  }
+
+  @Test
+  @DisplayName("Recupero al tecnico sin ningun problema")
+  void recuperarTecnico(){
+
+    this.peristirEntidades();
+
+    Optional<Tecnico> tecnico = tecnicosRepository.buscarPorId(liam.getId());
+
+    Assertions.assertTrue(tecnico.isPresent());
+  }
+
+  @Test
+  @DisplayName("Recupero al colaborador sin ningun problema")
+  void recuperarColaborador(){
+
+    this.peristirEntidades();
+
+    Optional<Colaborador> colaborador = colaboradoresRepository
+        .buscarPorDocumento(augusto.getDocumento().getNroDocumento());
+
+    Assertions.assertEquals(colaborador.get().getNombre(), "Augusto");
+
+    Assertions.assertEquals(colaborador.get().getDocumento().getTipoDocumento(),
+        TipoDocumento.DNI);
+  }
+
+  @Test
+  @DisplayName("Recupero al vulnerable sin ningun problema")
+  void recuperarVulnerable(){
+
+    this.peristirEntidades();
+
+    Optional<Vulnerable> vulnerable = repoGenerico.buscarPorId(eze.getId(), Vulnerable.class);
+
+    Assertions.assertTrue(vulnerable.isPresent());
+  }
+
+  @Test
+  @DisplayName("Recupero la heladera sin ningun problema")
+  void recuperarHeladera(){
+
+    this.peristirEntidades();
+
+    Optional<Heladera> heladera = repoGenerico.buscarPorId(heladera1.getId(), Heladera.class);
+
+    Assertions.assertTrue(heladera.isPresent());
+  }
+
+  @Test
+  @DisplayName("Recupero la direccion sin ningun problema")
+  void recuperarDireccion(){
+
+    this.peristirEntidades();
+
+    Optional<Direccion> direccion = repoGenerico.buscarPorId(direccion1.getId(), Direccion.class);
+
+    Assertions.assertTrue(direccion.isPresent());
+  }
+
+  @Test
+  @DisplayName("Recupero la ciudad sin ningun problema")
+  void recuperarCiudad(){
+
+    this.peristirEntidades();
+
+    Optional<Ciudad> ciudad = repoGenerico.buscarPorId(ciudad1.getId(), Ciudad.class);
+
+    Assertions.assertTrue(ciudad.isPresent());
+  }
+
+  @Test
+  @DisplayName("Recupero la provincia sin ningun problema")
+  void recuperarProvincia(){
+
+    this.peristirEntidades();
+
+    Optional<Provincia> provincia = repoGenerico.buscarPorId(provincia1.getId(), Provincia.class);
+
+    Assertions.assertTrue(provincia.isPresent());
+  }
+
+  @Test
+  @DisplayName("Recupero el barrio sin ningun problema")
+  void recuperarBarrio(){
+
+    this.peristirEntidades();
+
+    Optional<Barrio> barrio = repoGenerico.buscarPorId(barrio1.getId(), Barrio.class);
+
+    Assertions.assertTrue(barrio.isPresent());
+  }
+
+  @Test
+  @DisplayName("Recupero una colaboracion sin ningun problema")
+  void recuperarColaboracion(){
+
+    this.peristirEntidades();
+
+    List<Colaboracion> colaboraciones =
+        colaboracionesRepository.buscarPorTipo(TipoColaboracion.COLOCAR_HELADERA);
+
+    Colaboracion colaboracion = colaboraciones.get(0);
+
+    Assertions.assertEquals(colaboracion.getTipoColaboracion(),
+        TipoColaboracion.COLOCAR_HELADERA);
+
+    Assertions.assertEquals(colaboracion.getColaborador().getNombre(), "Augusto");
+
+    Assertions.assertEquals(colaboracion.getFechaColaboracion(),
+        colocarHeladera.getFechaColaboracion());
+  }
+}

@@ -250,7 +250,6 @@ public class EntityTest {
   void inicializarObjetos() {
     //DESCOMENTAR PARA TESTEAR EN NUESTRA MAQUINA
     //PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
-    PersistenceUnitSwitcher.getEntityManager().clear();
 
     this.iniciarContactos();
     this.iniciarColaboradores();

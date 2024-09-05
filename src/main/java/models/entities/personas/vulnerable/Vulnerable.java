@@ -43,7 +43,7 @@ public class Vulnerable extends Persistente {
   private Documento documento;
 
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "menor_id")
+  @JoinColumn(name = "mayorACargo_id")
   private List<Vulnerable> menoresAcargo;
 
   /**

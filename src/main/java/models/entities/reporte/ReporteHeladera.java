@@ -25,9 +25,9 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "reportes_heladeras")
-@NoArgsConstructor
 public class ReporteHeladera extends Persistente {
   @ManyToOne
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
@@ -43,7 +43,7 @@ public class ReporteHeladera extends Persistente {
   private Integer viandasRetiradas;
 
   @ManyToMany
-  @JoinTable(name = "viandas_por_colaborador_reportes")
+  @JoinTable(name = "viandasPorColaborador_reportes")
   private List<ViandasPorColaborador> viandasPorColaboradores;
 
   @Column(name = "fecha", columnDefinition = "DATE")

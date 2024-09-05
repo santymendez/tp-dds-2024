@@ -4,6 +4,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 
@@ -13,6 +14,7 @@ import models.entities.heladera.Heladera;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Embeddable
 public class ColocacionHeladera {
   @OneToOne

@@ -32,6 +32,14 @@ import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.colaborador.canje.Oferta;
+import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
+import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
+import models.entities.personas.colaborador.suscripcion.Desperfecto;
+import models.entities.personas.colaborador.suscripcion.FaltanViandas;
+import models.entities.personas.colaborador.suscripcion.QuedanViandas;
+import models.entities.personas.colaborador.suscripcion.Suscripcion;
+import models.entities.personas.contacto.Contacto;
+import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
@@ -186,10 +194,24 @@ public class EntityTest {
 
   Documento documentoAugusto;
 
+  Formula formula;
+
+  Reconocimiento reconocimientoAugusto;
+  Reconocimiento reconocimientoIniaqui;
+  Reconocimiento reconocimientoMati;
+
+  Contacto contactoAugusto;
+  Contacto contactoIniaqui;
+  Contacto contactoMati;
+
   Colaborador augusto;
   Colaborador iniaqui;
   Colaborador mati;
   Colaborador elCityGroup;
+
+  Suscripcion suscripcion1;
+  Suscripcion suscripcion2;
+  Suscripcion suscripcion3;
 
   Tecnico liam;
   Tecnico santi;
@@ -213,14 +235,45 @@ public class EntityTest {
 
   @BeforeEach
   void inicializarObjetos() {
+    this.iniciarContactos();
     this.iniciarColaboradores();
     this.iniciarVulnerables();
+    this.iniciarProvincias();
+    this.iniciarCiudades();
+    this.iniciarBarrios();
+    this.iniciarDirecciones();
+    this.iniciarEstados();
+    this.iniciarModelos();
+    this.iniciarSensores();
+    this.iniciarHeladeras();
+    this.iniciarViandas();
+    this.iniciarRegistrosVulnerables();
+    this.iniciarTarjetas();
+    this.iniciarOfertas();
     this.iniciarColaboraciones();
     this.iniciarTecnicos();
     this.iniciarFormularios();
+    this.iniciarSuscripciones();
+  }
+
+  void iniciarContactos() {
+    contactoAugusto = new Contacto("+54 9 11 1234-5678", TipoContacto.WHATSAPP);
+    contactoIniaqui = new Contacto("54645213212", TipoContacto.TELEGRAM);
+    contactoMati = new Contacto("contactofalso@gmail.com", TipoContacto.MAIL);
   }
 
   void iniciarColaboradores() {
+
+    formula = new Formula();
+
+    reconocimientoAugusto = new Reconocimiento();
+    reconocimientoAugusto.setFormulaCalculoDePuntos(formula);
+
+    reconocimientoIniaqui = new Reconocimiento();
+    reconocimientoIniaqui.setFormulaCalculoDePuntos(formula);
+
+    reconocimientoMati = new Reconocimiento();
+    reconocimientoMati.setFormulaCalculoDePuntos(formula);
 
     documentoAugusto = new Documento(45345678, TipoDocumento.DNI);
 
@@ -228,17 +281,23 @@ public class EntityTest {
     augusto.setNombre("Augusto");
     augusto.setApellido("Mazzini");
     augusto.setDocumento(documentoAugusto);
+    augusto.setContacto(contactoAugusto);
     augusto.setTipoColaborador(TipoColaborador.FISICO);
+    augusto.setReconocimiento(reconocimientoAugusto);
 
     iniaqui = new Colaborador();
     iniaqui.setNombre("Iñaki");
     iniaqui.setApellido("Lorences");
+    iniaqui.setContacto(contactoIniaqui);
     iniaqui.setTipoColaborador(TipoColaborador.FISICO);
+    iniaqui.setReconocimiento(reconocimientoIniaqui);
 
     mati = new Colaborador();
     mati.setNombre("Matias");
     mati.setApellido("Jastrebow");
+    mati.setContacto(contactoMati);
     mati.setTipoColaborador(TipoColaborador.FISICO);
+    mati.setReconocimiento(reconocimientoMati);
 
     elCityGroup = new Colaborador();
     elCityGroup.setNombre("CityGroup");
@@ -289,15 +348,13 @@ public class EntityTest {
     // Colaboracion - Colocar Heladera
 
     colocacionHeladera = new ColocacionHeladera();
-    colocacionHeladera.setHeladeraColocada(heladera1);
+    colocacionHeladera.setHeladeraColocada(heladera2);
 
     colocarHeladera = new Colaboracion();
     colocarHeladera.setFechaColaboracion(LocalDate.of(2021, 10, 10));
+    colocarHeladera.setColocacionHeladera(colocacionHeladera);
     colocarHeladera.setTipoColaboracion(TipoColaboracion.COLOCAR_HELADERA);
     colocarHeladera.setColaborador(augusto);
-    colocarHeladera.setColocacionHeladera(colocacionHeladera);
-
-    this.iniciarTarjetas();
 
     // Colaboracion - Distribuir Tarjetas
 
@@ -310,9 +367,6 @@ public class EntityTest {
     distribuirTarjetas.setTipoColaboracion(TipoColaboracion.ENTREGAR_TARJETA);
     distribuirTarjetas.setDistribucionTarjetas(distribucionTarjetas);
     distribuirTarjetas.setFechaColaboracion(LocalDate.of(2023, 10, 28));
-
-    this.iniciarHeladeras();
-    this.iniciarViandas();
 
     // Colaboracion - Distribuir Viandas
 
@@ -338,10 +392,18 @@ public class EntityTest {
     donarDinero.setFechaColaboracion(LocalDate.of(2011, 6, 26));
     donarDinero.setTipoColaboracion(TipoColaboracion.DONAR_DINERO);
     donarDinero.setColaborador(iniaqui);
+    donarDinero.setDonacionDinero(donacionDinero);
+
+
+    // Les asigno doy los puntos por las colaboraciones
+
+    augusto.getReconocimiento().sumarPuntos(colocarHeladera);
+    iniaqui.getReconocimiento().sumarPuntos(distribuirTarjetas);
+    mati.getReconocimiento().sumarPuntos(distribuirViandas);
+    iniaqui.getReconocimiento().sumarPuntos(donarDinero);
+
 
     // Colaboracion - Realizar Ofertas
-
-    this.iniciarOfertas();
 
     realizarOfertas = new RealizacionOfertas();
     realizarOfertas.setOfertasRealizadas(lstOfertas);
@@ -356,7 +418,6 @@ public class EntityTest {
   void iniciarTarjetas() {
 
     lstTarjetas = new ArrayList<>();
-    this.iniciarRegistrosVulnerables();
 
     tarjeta1 = new TarjetaVulnerable(registroVulnerable1);
 
@@ -392,18 +453,12 @@ public class EntityTest {
 
   void iniciarHeladeras() {
 
-    this.iniciarDirecciones();
-    this.iniciarEstados();
-    this.iniciarModelos();
-    this.iniciarSensores();
-
     heladera1 = new Heladera();
     heladera1.setFechaDeCreacion(LocalDate.now());
     heladera1.setEstadoActual(estadoActual1);
     heladera1.setDireccion(direccion1);
     heladera1.setNombre("Heladera Porteña");
     heladera1.setEstadosHeladera(lstEstados1);
-    heladera1.setViandas(lstViandas1);
     heladera1.setModelo(modelo1);
     heladera1.setCapacidadMaximaViandas(18);
 
@@ -413,7 +468,6 @@ public class EntityTest {
     heladera2.setDireccion(direccion2);
     heladera2.setNombre("Heladera Cordobesa");
     heladera2.setEstadosHeladera(lstEstados2);
-    heladera2.setViandas(lstViandas2);
     heladera2.setModelo(modelo2);
     heladera2.setCapacidadMaximaViandas(25);
 
@@ -423,7 +477,6 @@ public class EntityTest {
     heladera3.setDireccion(direccion3);
     heladera3.setNombre("Heladera Santiagueña");
     heladera3.setEstadosHeladera(lstEstados3);
-    heladera3.setViandas(lstViandas3);
     heladera3.setModelo(modelo3);
     heladera3.setCapacidadMaximaViandas(4);
   }
@@ -527,10 +580,13 @@ public class EntityTest {
     lstViandas3.add(vianda7);
     lstViandas3.add(vianda8);
     lstViandas3.add(vianda9);
+
+    heladera1.setViandas(lstViandas1);
+    heladera2.setViandas(lstViandas2);
+    heladera3.setViandas(lstViandas3);
   }
 
   void iniciarDirecciones() {
-    this.iniciarBarrios();
 
     direccion1 = new Direccion();
     direccion1.setBarrio(barrio1);
@@ -552,7 +608,6 @@ public class EntityTest {
   }
 
   void iniciarBarrios() {
-    this.iniciarCiudades();
 
     barrio1 = new Barrio();
     barrio1.setCiudad(ciudad1);
@@ -574,7 +629,6 @@ public class EntityTest {
   }
 
   void iniciarCiudades() {
-    this.iniciarProvincias();
 
     ciudad1 = new Ciudad();
     ciudad1.setProvincia(provincia1);
@@ -819,6 +873,14 @@ public class EntityTest {
     santi.setCuil(7899);
   }
 
+  void iniciarSuscripciones() {
+    suscripcion1 = new Desperfecto(iniaqui, heladera1);
+
+    suscripcion2 = new FaltanViandas(mati, heladera2, 5);
+
+    suscripcion3 = new QuedanViandas(augusto, heladera3, 2);
+  }
+
   void iniciarRepos() {
 
     this.colaboradoresRepository =
@@ -837,13 +899,17 @@ public class EntityTest {
         RepositoryLocator.get("genericRepository", GenericRepository.class);
   }
 
-  // metodo donde se persisten todas las entidades para luego probar
   void peristirEntidades(){
     this.iniciarRepos();
 
     this.repoGenerico.guardar(direccion1);
     this.repoGenerico.guardar(direccion2);
     this.repoGenerico.guardar(direccion3);
+
+    this.colaboradoresRepository.guardar(augusto);
+    this.colaboradoresRepository.guardar(iniaqui);
+    this.colaboradoresRepository.guardar(mati);
+    this.colaboradoresRepository.guardar(elCityGroup);
 
     this.repoGenerico.guardar(heladera1);
     this.repoGenerico.guardar(heladera2);
@@ -855,10 +921,9 @@ public class EntityTest {
     this.repoGenerico.guardar(perez);
     this.repoGenerico.guardar(tello);
 
-    this.colaboradoresRepository.guardar(augusto);
-    this.colaboradoresRepository.guardar(iniaqui);
-    this.colaboradoresRepository.guardar(mati);
-    this.colaboradoresRepository.guardar(elCityGroup);
+    this.repoGenerico.guardar(suscripcion1);
+    this.repoGenerico.guardar(suscripcion2);
+    this.repoGenerico.guardar(suscripcion3);
 
     this.repoGenerico.guardar(registroVulnerable1);
     this.repoGenerico.guardar(registroVulnerable2);
@@ -877,27 +942,17 @@ public class EntityTest {
   }
 
   @Test
-  @DisplayName("Se persisten todas las entidades correctamente sin lanzar excepciones")
+  @DisplayName("Se pueden guardar y recuperar las entidades en la base de datos")
   void persistirTodo() {
     this.peristirEntidades();
-  }
 
-  @Test
-  @DisplayName("Recupero al tecnico sin ningun problema")
-  void recuperarTecnico(){
-
-    this.peristirEntidades();
+    // Recupero al tecnico sin ningun problema
 
     Optional<Tecnico> tecnico = tecnicosRepository.buscarPorId(liam.getId());
 
     Assertions.assertTrue(tecnico.isPresent());
-  }
 
-  @Test
-  @DisplayName("Recupero al colaborador sin ningun problema")
-  void recuperarColaborador(){
-
-    this.peristirEntidades();
+    // Recupero al colaborador sin ningun problema
 
     Optional<Colaborador> colaborador = colaboradoresRepository
         .buscarPorDocumento(augusto.getDocumento().getNroDocumento());
@@ -906,79 +961,42 @@ public class EntityTest {
 
     Assertions.assertEquals(colaborador.get().getDocumento().getTipoDocumento(),
         TipoDocumento.DNI);
-  }
 
-  @Test
-  @DisplayName("Recupero al vulnerable sin ningun problema")
-  void recuperarVulnerable(){
-
-    this.peristirEntidades();
+    // Recupero al vulnerable sin ningun problema
 
     Optional<Vulnerable> vulnerable = repoGenerico.buscarPorId(eze.getId(), Vulnerable.class);
 
     Assertions.assertTrue(vulnerable.isPresent());
-  }
 
-  @Test
-  @DisplayName("Recupero la heladera sin ningun problema")
-  void recuperarHeladera(){
-
-    this.peristirEntidades();
+    // Recupero la heladera sin ningun problema
 
     Optional<Heladera> heladera = repoGenerico.buscarPorId(heladera1.getId(), Heladera.class);
 
     Assertions.assertTrue(heladera.isPresent());
-  }
 
-  @Test
-  @DisplayName("Recupero la direccion sin ningun problema")
-  void recuperarDireccion(){
-
-    this.peristirEntidades();
+    // Recupero la direccion sin ningun problema
 
     Optional<Direccion> direccion = repoGenerico.buscarPorId(direccion1.getId(), Direccion.class);
 
     Assertions.assertTrue(direccion.isPresent());
-  }
 
-  @Test
-  @DisplayName("Recupero la ciudad sin ningun problema")
-  void recuperarCiudad(){
-
-    this.peristirEntidades();
+    // Recupero la ciudad sin ningun problema
 
     Optional<Ciudad> ciudad = repoGenerico.buscarPorId(ciudad1.getId(), Ciudad.class);
 
     Assertions.assertTrue(ciudad.isPresent());
-  }
 
-  @Test
-  @DisplayName("Recupero la provincia sin ningun problema")
-  void recuperarProvincia(){
-
-    this.peristirEntidades();
+    // Recupero la provincia sin ningun problema
 
     Optional<Provincia> provincia = repoGenerico.buscarPorId(provincia1.getId(), Provincia.class);
 
-    Assertions.assertTrue(provincia.isPresent());
-  }
-
-  @Test
-  @DisplayName("Recupero el barrio sin ningun problema")
-  void recuperarBarrio(){
-
-    this.peristirEntidades();
+    // Recupero el barrio sin ningun problema
 
     Optional<Barrio> barrio = repoGenerico.buscarPorId(barrio1.getId(), Barrio.class);
 
     Assertions.assertTrue(barrio.isPresent());
-  }
 
-  @Test
-  @DisplayName("Recupero una colaboracion sin ningun problema")
-  void recuperarColaboracion(){
-
-    this.peristirEntidades();
+    // Recupero una colaboracion sin ningun problema
 
     List<Colaboracion> colaboraciones =
         colaboracionesRepository.buscarPorTipo(TipoColaboracion.COLOCAR_HELADERA);
@@ -992,5 +1010,6 @@ public class EntityTest {
 
     Assertions.assertEquals(colaboracion.getFechaColaboracion(),
         colocarHeladera.getFechaColaboracion());
+
   }
 }

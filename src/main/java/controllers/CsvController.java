@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.TipoColaborador;
 import models.factories.FactoryColaboracion;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.ColaboracionesRepository;
@@ -96,6 +97,7 @@ public class CsvController {
   ) {
     Colaborador unColaborador = this.crear(colaboradorInputDto);
     Colaboracion unaColaboracion = FactoryColaboracion.crearCon(colaboracionInputDto);
+    unaColaboracion.setColaborador(unColaborador);
 
     unColaborador.getColaboraciones().add(unaColaboracion);
     unColaborador.aumentarReconocimiento(unaColaboracion);

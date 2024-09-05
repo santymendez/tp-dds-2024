@@ -248,7 +248,8 @@ public class EntityTest {
 
   @BeforeEach
   void inicializarObjetos() {
-    PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
+    //DESCOMENTAR PARA TESTEAR EN NUESTRA MAQUINA
+    //PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
 
     this.iniciarContactos();
     this.iniciarColaboradores();

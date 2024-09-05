@@ -3,6 +3,7 @@ package services;
 import dtos.ColaboradorInputDto;
 import lombok.Setter;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
@@ -42,6 +43,7 @@ public class ColaboradoresService {
     Colaborador colaborador = new Colaborador();
     colaborador.setNombre(colaboradorInputDto.getNombre());
     colaborador.setApellido(colaboradorInputDto.getApellido());
+    colaborador.setTipoColaborador(TipoColaborador.FISICO);
 
     Documento documento = new Documento(colaboradorInputDto.getNumeroDocumento(),
         TipoDocumento.valueOf(colaboradorInputDto.getTipoDocumento()));

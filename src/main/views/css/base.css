@@ -121,7 +121,7 @@ nav ul li a {
     padding: 0.8rem 1.5rem;
     display: block;
     text-align: center;
-    width: 100%; /* Para que el hover ocupe todo el espacio */
+    width: 100%; /* Para que el hover ocupe all the space */
 }
 
 nav ul li a:hover {

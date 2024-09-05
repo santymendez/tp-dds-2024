@@ -1,9 +1,9 @@
 package dtos;
 
-import java.awt.Image;
 import java.time.LocalDate;
 import lombok.Data;
 import models.entities.heladera.incidente.Incidente;
+import models.entities.personas.tecnico.Tecnico;
 
 /**
  * Representa el Input de una Visita Tecnica.
@@ -16,4 +16,5 @@ public class VisitaInputDto {
   private String trabajoRealizado;
   private String fotoVisita;
   private Boolean incidenteSolucionado;
+  private Tecnico tecnico;
 }

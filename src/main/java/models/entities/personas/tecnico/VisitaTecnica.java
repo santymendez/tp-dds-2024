@@ -26,7 +26,7 @@ import models.entities.heladera.incidente.Incidente;
 public class VisitaTecnica extends Persistente {
 
   @ManyToOne
-  @JoinColumn(name = "incidente_id", referencedColumnName = "id")
+  @JoinColumn(name = "incidente_id", referencedColumnName = "id", nullable = false)
   private Incidente incidente;
 
   @Column(name = "fechaVisita", columnDefinition = "DATE", nullable = false)
@@ -41,17 +41,22 @@ public class VisitaTecnica extends Persistente {
   @Column(name = "incidenteSolucionado", nullable = false)
   private Boolean incidenteSolucionado;
 
+  @ManyToOne
+  @JoinColumn(name = "tecnico_id", referencedColumnName = "id")
+  private Tecnico tecnico;
+
   /**
    * Metodo constructor de la visita tecnica.
    *
    * @param incidente incidente a revisar durante la visita tecnica.
    */
 
-  public VisitaTecnica(Incidente incidente, String trabajoRealizado) {
+  public VisitaTecnica(Incidente incidente, String trabajoRealizado, Tecnico tecnico) {
     this.incidente = incidente;
     this.fechaVisita = LocalDate.now();
     this.trabajoRealizado = trabajoRealizado;
     this.incidenteSolucionado = false;
+    this.tecnico = tecnico;
   }
 
   public void incidenteSolucionado() {

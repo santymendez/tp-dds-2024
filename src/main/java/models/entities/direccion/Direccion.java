@@ -1,10 +1,8 @@
 package models.entities.direccion;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +17,8 @@ import models.db.Persistente;
 @Entity
 @Table(name = "direcciones")
 public class Direccion extends Persistente {
-  @Column(name = "ubicacion")
-  private String ubicacion;
+  @Column(name = "nombreUbicacion", nullable = false)
+  private String nombreUbicacion;
 
   @Column(name = "longitud")
   private Float longitud;
@@ -28,7 +26,6 @@ public class Direccion extends Persistente {
   @Column(name = "latitud")
   private Float latitud;
 
-  @JoinColumn(name = "barrio_id", referencedColumnName = "id")
-  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @Embedded
   private Barrio barrio;
 }

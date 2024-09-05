@@ -30,7 +30,7 @@ import models.entities.personas.colaborador.Colaborador;
 @Table(name = "reportes_heladeras")
 public class ReporteHeladera extends Persistente {
   @ManyToOne
-  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
   private Heladera heladera;
 
   @Column(name = "fallas")
@@ -43,10 +43,13 @@ public class ReporteHeladera extends Persistente {
   private Integer viandasRetiradas;
 
   @ManyToMany
-  @JoinTable(name = "viandasPorColaborador_reportes")
+  @JoinTable(name = "reportes_por_viandasPorColaborador",
+      joinColumns = @JoinColumn(name = "reporte_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "viandasPorColaboradores_id",
+          referencedColumnName = "id"))
   private List<ViandasPorColaborador> viandasPorColaboradores;
 
-  @Column(name = "fecha", columnDefinition = "DATE")
+  @Column(name = "fecha", columnDefinition = "DATE", nullable = false)
   private LocalDate fecha;
 
   @Column(name = "reportePath", columnDefinition = "TEXT")

@@ -19,16 +19,16 @@ import models.entities.personas.colaborador.Colaborador;
 @Entity
 @Table(name = "ofertas")
 public class Oferta extends Persistente {
-  @Column(name = "nombre")
+  @Column(name = "nombre", nullable = false)
   private String nombre;
 
-  @Column(name = "puntosNecesarios")
+  @Column(name = "puntosNecesarios", nullable = false)
   private Float puntosNecesarios;
 
   @Column(name = "imagen")
   private String imagenIlustrativa;
 
   @ManyToOne
-  @JoinColumn(name = "ofertante_id", referencedColumnName = "id")
+  @JoinColumn(name = "ofertante_id", referencedColumnName = "id", nullable = false)
   private Colaborador ofertante;
 }

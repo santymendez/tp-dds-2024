@@ -27,10 +27,10 @@ public class UsoTarjetaVulnerable extends Persistente {
   private LocalDate fechaUtilizacion;
 
   @ManyToOne
-  @JoinColumn(name = "heladera_id")
+  @JoinColumn(name = "heladera_id", nullable = false)
   private Heladera heladera;
 
   @ManyToOne
-  @JoinColumn(name = "tarjetaVulnerable_codigo", referencedColumnName = "id")
+  @JoinColumn(name = "tarjetaVulnerable_codigo", referencedColumnName = "id", nullable = false)
   private TarjetaVulnerable tarjetaVulnerable;
 }

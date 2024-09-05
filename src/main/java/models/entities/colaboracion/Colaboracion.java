@@ -8,6 +8,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,14 +27,14 @@ import models.entities.personas.colaborador.Colaborador;
 @Table(name = "colaboraciones")
 public class Colaboracion extends Persistente {
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipo")
+  @Column(name = "tipo", nullable = false)
   private TipoColaboracion tipoColaboracion;
 
   @Column(name = "fechaColaboracion", columnDefinition = "DATE")
   private LocalDate fechaColaboracion;
 
   @ManyToOne
-  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   private Colaborador colaborador;
 
   @Embedded
@@ -58,6 +59,13 @@ public class Colaboracion extends Persistente {
 
   public Integer tiempoActivaHeladera() {
     return this.colocacionHeladera.getHeladeraColocada().calcularMesesActiva();
+  }
+
+  @PrePersist
+  protected void onInsert() {
+    if (this.fechaColaboracion == null) {
+      this.fechaColaboracion = LocalDate.now();
+    }
   }
 
 }

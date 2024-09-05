@@ -107,11 +107,11 @@ enum TipoColaborador {
 }
 
 class Formulario {
+    -nombre: String
     -List<Pregunta> preguntas
 }
 
 class RespuestaFormulario {
-    -nombre: String
     -descripcion: String
     -List<Respuesta> respuestas
     -formulario: Formulario
@@ -444,6 +444,7 @@ class VisitaTecnica {
     -trabajoRealizado: String
     -fotoVisita: String
     -incidenteSolucionado: Boolean
+    -tecnico: Tecnico
 }
 
 abstract class Suscripcion {
@@ -689,6 +690,7 @@ Incidente --> Colaborador
 
 'VISITA TECNICA'
 VisitaTecnica o-- Incidente
+VisitaTecnica --> Tecnico
 
 'REPORTES'
 ReporteHeladera o-- Heladera

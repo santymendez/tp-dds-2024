@@ -8,6 +8,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +32,7 @@ import models.entities.personas.colaborador.Colaborador;
 public class Incidente extends Persistente {
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipoIncidente")
+  @Column(name = "tipoIncidente", nullable = false)
   private TipoIncidente tipo;
 
   @Convert(converter = LocalDateTimeAttributeConverter.class)
@@ -38,7 +40,7 @@ public class Incidente extends Persistente {
   private LocalDateTime momentoIncidente;
 
   @ManyToOne
-  @JoinColumn(name = "heladera_id")
+  @JoinColumn(name = "heladera_id", nullable = false)
   private Heladera heladera;
 
   @Enumerated(EnumType.STRING)
@@ -66,6 +68,13 @@ public class Incidente extends Persistente {
     this.tipo = tipo;
     this.heladera = heladera;
     this.momentoIncidente = LocalDateTime.now();
+  }
+
+  @PrePersist
+  protected void onInsert() {
+    if (this.momentoIncidente == null) {
+      this.momentoIncidente = LocalDateTime.now();
+    }
   }
 
   //Logica de manejo de incidentes

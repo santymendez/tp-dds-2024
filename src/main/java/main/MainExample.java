@@ -1,3 +1,5 @@
+package main;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,11 +44,9 @@ public class MainExample {
     PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
 
     instance.guardarColaboracion();
-    //instance.guardarHeladeras();
-    //instance.printearVulnerables();
+    instance.guardarHeladeras();
+    instance.printearVulnerables();
     instance.guardarSuscripciones();
-
-    PersistenceUnitSwitcher.switchPersistenceUnit("simple-persistence-unit");
   }
 
   private void guardarSuscripciones() {
@@ -148,8 +148,6 @@ public class MainExample {
     GenericRepository repoGenerico =
         RepositoryLocator.get("genericRepository", GenericRepository.class);
 
-    repoGenerico.guardar(barrio1);
-
     repoGenerico.guardar(direccion1);
     repoGenerico.guardar(direccion2);
     repoGenerico.guardar(direccion3);
@@ -178,8 +176,6 @@ public class MainExample {
     Direccion direccion5 = new Direccion();
     direccion5.setBarrio(barrio2);
     heladera5.setDireccion(direccion5);
-
-    repoGenerico.guardar(barrio2);
 
     repoGenerico.guardar(direccion4);
     repoGenerico.guardar(direccion5);

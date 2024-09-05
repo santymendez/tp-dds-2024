@@ -28,11 +28,10 @@ import models.entities.personas.documento.Documento;
 @Entity
 @Table(name = "vulnerables")
 public class Vulnerable extends Persistente {
-  @Column(name = "nombre")
+  @Column(name = "nombre", nullable = false)
   private String nombre;
 
-  //TODO NOT NULL
-  @Column(name = "fechaNacimiento", columnDefinition = "DATE")
+  @Column(name = "fechaNacimiento", columnDefinition = "DATE", nullable = false)
   private LocalDate fechaNacimiento;
 
   @ManyToOne

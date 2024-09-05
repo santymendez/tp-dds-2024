@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Optional;
+import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.ColocacionHeladera;
 import models.entities.colaboracion.DistribucionTarjetas;
@@ -21,6 +22,7 @@ import models.entities.formulario.Opcion;
 import models.entities.formulario.Pregunta;
 import models.entities.formulario.Respuesta;
 import models.entities.formulario.RespuestaFormulario;
+import models.entities.formulario.TipoPregunta;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
 import models.entities.heladera.estados.Estado;
@@ -37,7 +39,7 @@ import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 import models.entities.personas.colaborador.suscripcion.Desperfecto;
 import models.entities.personas.colaborador.suscripcion.FaltanViandas;
 import models.entities.personas.colaborador.suscripcion.QuedanViandas;
-import models.entities.personas.colaborador.suscripcion.Suscripcion;
+import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
@@ -211,9 +213,12 @@ public class EntityTest {
   Contacto contactoAugusto;
   Contacto contactoIniaqui;
   Contacto contactoMati;
+  Contacto contactoCitiGroup;
+  Contacto contactoLiam;
+  Contacto contactoSanti;
 
   Colaborador augusto;
-  Colaborador iniaqui;
+  Colaborador iniaki;
   Colaborador mati;
   Colaborador elCityGroup;
 
@@ -243,6 +248,8 @@ public class EntityTest {
 
   @BeforeEach
   void inicializarObjetos() {
+    PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
+
     this.iniciarContactos();
     this.iniciarColaboradores();
     this.iniciarVulnerables();
@@ -270,6 +277,9 @@ public class EntityTest {
     contactoAugusto = new Contacto("+54 9 11 1234-5678", TipoContacto.WHATSAPP);
     contactoIniaqui = new Contacto("54645213212", TipoContacto.TELEGRAM);
     contactoMati = new Contacto("contactofalso@gmail.com", TipoContacto.MAIL);
+    contactoCitiGroup = new Contacto("citigroup@hdp.com", TipoContacto.MAIL);
+    contactoLiam = new Contacto("liam@gmail.com", TipoContacto.MAIL);
+    contactoSanti = new Contacto("santi@ghost.com", TipoContacto.MAIL);
   }
 
   void iniciarColaboradores() {
@@ -295,12 +305,12 @@ public class EntityTest {
     augusto.setTipoColaborador(TipoColaborador.FISICO);
     augusto.setReconocimiento(reconocimientoAugusto);
 
-    iniaqui = new Colaborador();
-    iniaqui.setNombre("Iñaki");
-    iniaqui.setApellido("Lorences");
-    iniaqui.setContacto(contactoIniaqui);
-    iniaqui.setTipoColaborador(TipoColaborador.FISICO);
-    iniaqui.setReconocimiento(reconocimientoIniaqui);
+    iniaki = new Colaborador();
+    iniaki.setNombre("Iñaki");
+    iniaki.setApellido("Lorences");
+    iniaki.setContacto(contactoIniaqui);
+    iniaki.setTipoColaborador(TipoColaborador.FISICO);
+    iniaki.setReconocimiento(reconocimientoIniaqui);
 
     mati = new Colaborador();
     mati.setNombre("Matias");
@@ -313,6 +323,7 @@ public class EntityTest {
     elCityGroup.setNombre("CityGroup");
     elCityGroup.setRazonSocial("El City Group PAPA.SA");
     elCityGroup.setTipoColaborador(TipoColaborador.EMPRESA_ASOCIADA);
+    elCityGroup.setContacto(contactoCitiGroup);
   }
 
   void iniciarVulnerables() {
@@ -373,7 +384,7 @@ public class EntityTest {
     distribucionTarjetas.setTarjetasEntregadas(lstTarjetas);
 
     distribuirTarjetas = new Colaboracion();
-    distribuirTarjetas.setColaborador(iniaqui);
+    distribuirTarjetas.setColaborador(iniaki);
     distribuirTarjetas.setTipoColaboracion(TipoColaboracion.ENTREGAR_TARJETA);
     distribuirTarjetas.setDistribucionTarjetas(distribucionTarjetas);
     distribuirTarjetas.setFechaColaboracion(LocalDate.of(2023, 10, 28));
@@ -401,16 +412,16 @@ public class EntityTest {
     donarDinero = new Colaboracion();
     donarDinero.setFechaColaboracion(LocalDate.of(2011, 6, 26));
     donarDinero.setTipoColaboracion(TipoColaboracion.DONAR_DINERO);
-    donarDinero.setColaborador(iniaqui);
+    donarDinero.setColaborador(iniaki);
     donarDinero.setDonacionDinero(donacionDinero);
 
 
     // Les asigno doy los puntos por las colaboraciones
 
     augusto.getReconocimiento().sumarPuntos(colocarHeladera);
-    iniaqui.getReconocimiento().sumarPuntos(distribuirTarjetas);
+    iniaki.getReconocimiento().sumarPuntos(distribuirTarjetas);
     mati.getReconocimiento().sumarPuntos(distribuirViandas);
-    iniaqui.getReconocimiento().sumarPuntos(donarDinero);
+    iniaki.getReconocimiento().sumarPuntos(donarDinero);
 
 
     // Colaboracion - Realizar Ofertas
@@ -444,19 +455,19 @@ public class EntityTest {
 
     registroVulnerable1 = new RegistroVulnerable();
     registroVulnerable1.setFechaRegistro(LocalDate.of(2009, 1, 22));
-    registroVulnerable1.setColaborador(iniaqui);
+    registroVulnerable1.setColaborador(iniaki);
     registroVulnerable1.setFechaAlta(LocalDate.of(2009, 7, 15));
     registroVulnerable1.setVulnerable(facu);
 
     registroVulnerable2 = new RegistroVulnerable();
     registroVulnerable2.setFechaRegistro(LocalDate.of(2010, 2, 23));
-    registroVulnerable2.setColaborador(iniaqui);
+    registroVulnerable2.setColaborador(iniaki);
     registroVulnerable2.setFechaAlta(LocalDate.of(2010, 8, 16));
     registroVulnerable2.setVulnerable(eze);
 
     registroVulnerable3 = new RegistroVulnerable();
     registroVulnerable3.setFechaRegistro(LocalDate.of(2011, 3, 24));
-    registroVulnerable3.setColaborador(iniaqui);
+    registroVulnerable3.setColaborador(iniaki);
     registroVulnerable3.setFechaAlta(LocalDate.of(2011, 9, 17));
     registroVulnerable3.setVulnerable(enrique);
   }
@@ -511,7 +522,8 @@ public class EntityTest {
         mati,
         heladera1,
         480,
-        270.5F
+        270.5F,
+        false
     );
 
     vianda2 = new Vianda(comida2,
@@ -519,7 +531,8 @@ public class EntityTest {
         mati,
         heladera1,
         350,
-        220.0F
+        220.0F,
+        false
     );
 
     vianda3 = new Vianda(comida3,
@@ -527,7 +540,8 @@ public class EntityTest {
         mati,
         heladera2,
         500,
-        280.3F
+        280.3F,
+        false
     );
 
     vianda4 = new Vianda(comida4,
@@ -535,7 +549,8 @@ public class EntityTest {
         mati,
         heladera2,
         520,
-        290.7F
+        290.7F,
+        false
     );
 
     vianda5 = new Vianda(comida5,
@@ -543,7 +558,8 @@ public class EntityTest {
         mati,
         heladera2,
         320,
-        230.5F
+        230.5F,
+        false
     );
 
     vianda6 = new Vianda(comida6,
@@ -551,7 +567,8 @@ public class EntityTest {
         mati,
         heladera2,
         450,
-        255.8F
+        255.8F,
+        false
     );
 
     vianda7 = new Vianda(comida7,
@@ -559,7 +576,8 @@ public class EntityTest {
         mati,
         heladera3,
         540,
-        300.0F
+        300.0F,
+        false
     );
 
     vianda8 = new Vianda(comida8,
@@ -567,7 +585,8 @@ public class EntityTest {
         mati,
         heladera3,
         420,
-        245.6F
+        245.6F,
+        false
     );
 
     vianda9 = new Vianda(comida9,
@@ -575,7 +594,8 @@ public class EntityTest {
         mati,
         heladera3,
         600,
-        310.2F
+        310.2F,
+        false
     );
 
 
@@ -600,19 +620,19 @@ public class EntityTest {
 
     direccion1 = new Direccion();
     direccion1.setBarrio(barrio1);
-    direccion1.setUbicacion("Segurola 4310, Villa Devoto, CABA");
+    direccion1.setNombreUbicacion("Segurola 4310, Villa Devoto, CABA");
     direccion1.setLongitud(-58.517341F);
     direccion1.setLatitud(-34.605857F);
 
     direccion2 = new Direccion();
     direccion2.setBarrio(barrio2);
-    direccion2.setUbicacion("Ruy Díaz de Guzmán 675, Villa Alem, Rio Cuarto");
+    direccion2.setNombreUbicacion("Ruy Díaz de Guzmán 675, Villa Alem, Rio Cuarto");
     direccion2.setLongitud(-64.353041F);
     direccion2.setLatitud(-33.136980F);
 
     direccion3 = new Direccion();
     direccion3.setBarrio(barrio3);
-    direccion3.setUbicacion("Lavalle 800, Villa Griselda, La Banda");
+    direccion3.setNombreUbicacion("Lavalle 800, Villa Griselda, La Banda");
     direccion3.setLongitud(-64.239235F);
     direccion3.setLatitud(-27.732836F);
   }
@@ -808,6 +828,8 @@ public class EntityTest {
     pregunta1 = new Pregunta();
     pregunta1.setPregunta("Cuantos mundiales tiene uruguay?");
     pregunta1.setOpciones(lstOpciones1);
+    pregunta1.setEsOpcional(true);
+    pregunta1.setTipoDeSuRespuesta(TipoPregunta.MULTIPLE_CHOICE);
 
     respuesta2 = new Respuesta();
     respuesta2.setPregunta(pregunta2);
@@ -837,6 +859,8 @@ public class EntityTest {
     pregunta2 = new Pregunta();
     pregunta2.setPregunta("Cuantas lineas tiene este test?");
     pregunta2.setOpciones(lstOpciones2);
+    pregunta2.setEsOpcional(false);
+    pregunta2.setTipoDeSuRespuesta(TipoPregunta.MULTIPLE_CHOICE);
 
     respuesta3 = new Respuesta();
     respuesta3.setPregunta(pregunta3);
@@ -844,7 +868,7 @@ public class EntityTest {
 
     respuestaFormulario3 = new RespuestaFormulario();
     respuestaFormulario3.setFormulario(formulario1);
-    respuestaFormulario3.setColaborador(iniaqui);
+    respuestaFormulario3.setColaborador(iniaki);
 
     opcion7 = new Opcion();
     opcion7.setOpcion("1");
@@ -860,46 +884,54 @@ public class EntityTest {
     pregunta3 = new Pregunta();
     pregunta3.setPregunta("Cuantas intercontinentales gano Velez?");
     pregunta3.setOpciones(lstOpciones3);
+    pregunta3.setEsOpcional(true);
+    pregunta3.setTipoDeSuRespuesta(TipoPregunta.SINGLE_CHOICE);
 
     lstPreguntas1.add(pregunta1);
     lstPreguntas1.add(pregunta2);
     lstPreguntas1.add(pregunta3);
 
     formulario1 = new Formulario();
+    formulario1.setNombre("form");
     formulario1.setPreguntas(lstPreguntas1);
   }
 
   void iniciarTecnicos(){
     liam = new Tecnico();
     liam.setNombre("Liam");
-    liam.setApellido("Ni idea");
+    liam.setApellido("Wilk");
     liam.setAreaDeCobertura(ciudad3);
-    liam.setCuil(4598);
+    liam.setCuil("1459890002");
+    liam.setContacto(contactoLiam);
 
     santi = new Tecnico();
     santi.setNombre("Santiago");
-    santi.setApellido("Ni idea");
+    santi.setApellido("Mendez");
     santi.setAreaDeCobertura(ciudad1);
-    santi.setCuil(7899);
+    santi.setCuil("1178991234");
+    santi.setContacto(contactoSanti);
   }
 
   void iniciarSuscripciones() {
     desperfecto = new Desperfecto();
     desperfecto.setHeladera(heladera1);
-    desperfecto.setColaborador(iniaqui);
+    desperfecto.setColaborador(iniaki);
     desperfecto.setSenderInterface(emailSender);
+    desperfecto.setTipo(TipoSuscripcion.OCURRIO_DESPERFECTO);
 
     faltanViandas = new FaltanViandas();
     faltanViandas.setHeladera(heladera2);
     faltanViandas.setColaborador(mati);
     faltanViandas.setViandasFaltantes(5);
     faltanViandas.setSenderInterface(emailSender);
+    faltanViandas.setTipo(TipoSuscripcion.FALTAN_N_VIANDAS);
 
     quedanViandas = new QuedanViandas();
     quedanViandas.setHeladera(heladera3);
     quedanViandas.setColaborador(augusto);
     quedanViandas.setViandasDisponibles(2);
     quedanViandas.setSenderInterface(emailSender);
+    quedanViandas.setTipo(TipoSuscripcion.QUEDAN_N_VIANDAS);
 
   }
 
@@ -929,7 +961,7 @@ public class EntityTest {
     this.repoGenerico.guardar(direccion3);
 
     this.colaboradoresRepository.guardar(augusto);
-    this.colaboradoresRepository.guardar(iniaqui);
+    this.colaboradoresRepository.guardar(iniaki);
     this.colaboradoresRepository.guardar(mati);
     this.colaboradoresRepository.guardar(elCityGroup);
 
@@ -1002,21 +1034,9 @@ public class EntityTest {
 
     Assertions.assertTrue(direccion.isPresent());
 
-    // Recupero la ciudad sin ningun problema
-
-    Optional<Ciudad> ciudad = repoGenerico.buscarPorId(ciudad1.getId(), Ciudad.class);
-
-    Assertions.assertTrue(ciudad.isPresent());
-
     // Recupero la provincia sin ningun problema
 
     Optional<Provincia> provincia = repoGenerico.buscarPorId(provincia1.getId(), Provincia.class);
-
-    // Recupero el barrio sin ningun problema
-
-    Optional<Barrio> barrio = repoGenerico.buscarPorId(barrio1.getId(), Barrio.class);
-
-    Assertions.assertTrue(barrio.isPresent());
 
     // Recupero una colaboracion sin ningun problema
 

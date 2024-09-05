@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Contacto {
 
-  @Column(name = "info")
+  @Column(name = "info", nullable = false)
   private String info;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipo_contacto")
+  @Column(name = "tipo_contacto", nullable = false)
   private TipoContacto tipoContacto;
 }

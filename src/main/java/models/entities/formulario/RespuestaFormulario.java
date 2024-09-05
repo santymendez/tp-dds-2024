@@ -1,15 +1,16 @@
 package models.entities.formulario;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import models.db.Persistente;
@@ -26,27 +27,23 @@ import models.entities.personas.colaborador.Colaborador;
 @Table(name = "respuestas_formularios")
 public class RespuestaFormulario extends Persistente {
 
-  @Column(name = "nombre")
-  private String nombre;
-
-  @Column(name = "descripcion")
+  @Column(name = "descripcion", columnDefinition = "TEXT")
   private String descripcion;
 
+  @ManyToOne
+  @JoinColumn(name = "formulario_id", referencedColumnName = "id", nullable = false)
+  private Formulario formulario;
+
   @OneToOne
-  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   private Colaborador colaborador;
 
   @ManyToMany
-  @JoinTable(name = "respuestas_a_preguntas")
+  @JoinTable(name = "respuestas_por_respuestasFormularios",
+      joinColumns = @JoinColumn(name = "respuesta_id",
+          referencedColumnName = "id", nullable = false),
+      inverseJoinColumns = @JoinColumn(name = "respuestaFormulario_id",
+          referencedColumnName = "id", nullable = false))
   private List<Respuesta> respuestas;
 
-  @ManyToOne
-  @JoinColumn(name = "formulario_id", referencedColumnName = "id")
-  private Formulario formulario;
-
-  /*public String respuestaNombre(){
-    return respuestas.stream().findFirst(r -> r.getPregunta().getPregunta() == "Nombre")
-    .getRespuestaTextoLibre();
-  }
-  */
 }

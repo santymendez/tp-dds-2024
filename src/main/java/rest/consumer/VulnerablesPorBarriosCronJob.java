@@ -19,7 +19,9 @@ public class VulnerablesPorBarriosCronJob {
 
   public static void main(String[] args) {
     RestTemplate restTemplate = new RestTemplate();
-    String quote = restTemplate.getForObject("http://localhost:8080/api/atencion-medica/localidadesVulnerables", String.class);
-    log.info(quote);
+    String jsonResponse = restTemplate.getForObject("http://localhost:8080/api/atencion-medica/localidadesVulnerables", String.class);
+    //agregar logica correspondiente, la api devuelve un json
+    log.info(jsonResponse);
+
   }
 }

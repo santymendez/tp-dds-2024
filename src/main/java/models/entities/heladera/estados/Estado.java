@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,10 +26,10 @@ import models.db.Persistente;
 public class Estado extends Persistente {
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipo")
+  @Column(name = "tipo", nullable = false)
   private TipoEstado estado;
 
-  @Column(name = "fechaInicial", columnDefinition = "DATE")
+  @Column(name = "fechaInicial", columnDefinition = "DATE", nullable = false)
   private LocalDate fechaInicial;
 
   @Column(name = "fechaFinal", columnDefinition = "DATE")
@@ -47,5 +49,19 @@ public class Estado extends Persistente {
     }
     Period period = Period.between(this.fechaInicial, this.fechaFinal);
     return period.getYears() * 12 + period.getMonths();
+  }
+
+  @PrePersist
+  protected void onInsert() {
+    if (this.fechaInicial == null) {
+      this.fechaInicial = LocalDate.now();
+    }
+  }
+
+  @PreUpdate
+  protected void onUpdate() {
+    if (this.fechaFinal == null) {
+      this.fechaFinal = LocalDate.now();
+    }
   }
 }

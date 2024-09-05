@@ -1,16 +1,9 @@
 package models.entities.personas.tecnico;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,14 +38,13 @@ public class Tecnico extends Persistente {
   @Embedded
   private Documento documento;
 
-  @Column(name = "cuil", nullable = false)
-  private Integer cuil;
+  @Column(name = "cuil", nullable = false, unique = true)
+  private String cuil;
 
   @Embedded
   private Contacto contacto;
 
-  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "ciudad_id", referencedColumnName = "id")
+  @Embedded
   private Ciudad areaDeCobertura;
 
   /**

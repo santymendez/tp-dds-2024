@@ -18,7 +18,7 @@ import models.entities.personas.colaborador.canje.Oferta;
 @Setter
 @Embeddable
 public class RealizacionOfertas {
-  @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
-  @JoinColumn(name = "ofertaRealizada_id", referencedColumnName = "id")
+  @OneToMany(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "colaboracion_id", referencedColumnName = "id")
   private List<Oferta> ofertasRealizadas;
 }

@@ -6,6 +6,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,7 @@ public class MedicionSensor extends Persistente {
   private LocalDateTime fecha;
 
   @ManyToOne
-  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
   private Heladera heladera;
 
   /**
@@ -47,5 +48,12 @@ public class MedicionSensor extends Persistente {
     this.valor = valor;
     this.fecha = LocalDateTime.now();
     this.heladera = heladera;
+  }
+
+  @PrePersist
+  protected void onInsert() {
+    if (this.fecha == null) {
+      this.fecha = LocalDateTime.now();
+    }
   }
 }

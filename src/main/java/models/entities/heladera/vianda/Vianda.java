@@ -6,7 +6,9 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +23,7 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "viandas")
 public class Vianda extends Persistente {
@@ -28,7 +31,7 @@ public class Vianda extends Persistente {
   @Embedded
   private Comida comida;
 
-  @Column(name = "fechaDonacion", nullable = false)
+  @Column(name = "fechaDonacion")
   private LocalDate fechaDonacion;
 
   @ManyToOne
@@ -49,21 +52,11 @@ public class Vianda extends Persistente {
   @Column(name = "estaEntregada")
   private Boolean entregada;
 
-  /**
-   * Constructor para la Vianda.
-   */
-
-  //TODO santi, cuando veas esto. no me acuerdo si este constructor era solo para el test o no
-  // si era asi ponele el allArgs y borra esto
-  public Vianda(Comida comida, LocalDate fechaDonacion, Colaborador colaborador,
-                 Heladera heladera, Integer calorias, Float peso) {
-    this.comida = comida;
-    this.fechaDonacion = fechaDonacion;
-    this.colaborador = colaborador;
-    this.heladera = heladera;
-    this.calorias = calorias;
-    this.peso = peso;
-    this.entregada = false;
+  @PrePersist
+  protected void onInsert() {
+    if (this.fechaDonacion == null) {
+      this.fechaDonacion = LocalDate.now();
+    }
   }
 
 }

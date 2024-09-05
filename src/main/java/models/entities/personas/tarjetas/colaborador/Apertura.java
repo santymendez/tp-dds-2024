@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
+import javax.persistence.PrePersist;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,5 +30,12 @@ public class Apertura {
 
   public Apertura(LocalDateTime solicitud) {
     this.fechaSolicitud = solicitud;
+  }
+
+  @PrePersist
+  protected void onInsert() {
+    if (this.fechaSolicitud == null) {
+      this.fechaSolicitud = LocalDateTime.now();
+    }
   }
 }

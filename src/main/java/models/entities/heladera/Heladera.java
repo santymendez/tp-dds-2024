@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
@@ -42,13 +44,13 @@ import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 @Table(name = "heladeras")
 public class Heladera extends Persistente {
   @OneToOne
-  @JoinColumn(name = "direccion_id", referencedColumnName = "id")
+  @JoinColumn(name = "direccion_id", referencedColumnName = "id", nullable = false)
   private Direccion direccion;
 
   @Column(name = "nombre", nullable = false)
   private String nombre;
 
-  @Column(name = "fechaCreacion", columnDefinition = "DATE", nullable = false)
+  @Column(name = "fechaCreacion", columnDefinition = "DATE")
   private LocalDate fechaDeCreacion;
 
   @Column(name = "estaAbierta")
@@ -57,16 +59,14 @@ public class Heladera extends Persistente {
   @Embedded
   private Modelo modelo;
 
-  @Column(name = "capacidadMaximaViandas")
+  @Column(name = "capacidadMaximaViandas", nullable = false)
   private Integer capacidadMaximaViandas;
 
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-  @JoinColumn(name = "vianda_id", referencedColumnName = "id")
-  //TODO orderBy de vianda segun que criterio?
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private List<Vianda> viandas;
 
-  //TODO
-  @Transient
+  @OneToMany(mappedBy = "heladera", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   private List<Suscripcion> suscripciones;
 
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
@@ -74,7 +74,7 @@ public class Heladera extends Persistente {
   private Estado estadoActual;
 
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-  @JoinColumn(name = "estadosPrevios_id", referencedColumnName = "id")
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private List<Estado> estadosHeladera;
 
   @ManyToMany
@@ -155,18 +155,15 @@ public class Heladera extends Persistente {
    * Se elimina una vianda de la heladera (sirve para la distribución).
    */
 
-  public void removerVianda() {
+  public void removerVianda(Vianda vianda) {
     if (this.viandas.isEmpty()) {
       throw new RuntimeException("No hay viandas para retirar");
     }
 
-    Heladera heladera = this.viandas.get(0).getHeladera();
-
-    //Se retira la vianda
-    viandas.remove(0);
+    this.viandas.remove(vianda);
 
     //heladera.getModReportes().getReporteHeladera().viandaRetirada(); en el controller
-    heladera.intentarNotificarSuscriptores(); //Deberia ir a controller
+    this.intentarNotificarSuscriptores(); //Deberia ir a controller
   }
 
   //==================================== Estados ========================================
@@ -301,5 +298,12 @@ public class Heladera extends Persistente {
   //  public void reportarFalla() {
   //    this.reporte.ocurrioUnaFalla();
   //  }
+
+  @PrePersist
+  protected void onInsert() {
+    if (this.fechaDeCreacion == null) {
+      this.fechaDeCreacion = LocalDate.now();
+    }
+  }
 
 }

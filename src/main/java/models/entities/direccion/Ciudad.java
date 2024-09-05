@@ -2,6 +2,7 @@ package models.entities.direccion;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,14 +21,13 @@ import models.db.Persistente;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "ciudades")
-public class Ciudad extends Persistente {
+@Embeddable
+public class Ciudad {
 
-  @Column(name = "nombre")
+  @Column(name = "nombreCiudad", nullable = false)
   private String nombreCiudad;
 
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "provincia_id", referencedColumnName = "id")
+  @JoinColumn(name = "provincia_id", referencedColumnName = "id", nullable = false)
   private Provincia provincia;
 }

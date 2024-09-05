@@ -8,10 +8,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import models.db.Persistente;
@@ -27,23 +29,25 @@ import models.db.Persistente;
 @Table(name = "respuestas")
 public class Respuesta extends Persistente {
 
-  @OneToOne
-  @JoinColumn(name = "pregunta_id", referencedColumnName = "id")
+  @ManyToOne
+  @JoinColumn(name = "pregunta_id", referencedColumnName = "id", nullable = false)
   private Pregunta pregunta;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipo")
+  @Column(name = "tipo", nullable = false)
   private TipoPregunta tipoRespuesta;
 
   //Las respuestas segun el tipo
   @Column(name = "respuestaTextoLibre", columnDefinition = "TEXT")
   private String respuestaTextoLibre;
 
-  @OneToMany(cascade = {CascadeType.PERSIST}, fetch =  FetchType.EAGER)
-  @JoinColumn(name = "opcion_id")
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  @JoinTable(name = "respuestas_por_opciones",
+      joinColumns = @JoinColumn(name = "respuesta_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "opcion_id", referencedColumnName = "id"))
   private List<Opcion> opciones;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "opcion_id", referencedColumnName = "id")
   private Opcion respuestaSingleChoice;
 }

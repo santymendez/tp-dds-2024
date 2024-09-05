@@ -27,7 +27,8 @@ public class VisitasController {
   public VisitaTecnica crearCon(VisitaInputDto visitaInputDto) {
     VisitaTecnica visitaTecnica = new VisitaTecnica(
         visitaInputDto.getIncidente(),
-        visitaInputDto.getTrabajoRealizado()
+        visitaInputDto.getTrabajoRealizado(),
+        visitaInputDto.getTecnico()
     );
     visitaTecnica.setIncidenteSolucionado(visitaInputDto.getIncidenteSolucionado());
     if (visitaInputDto.getFotoVisita() != null) {

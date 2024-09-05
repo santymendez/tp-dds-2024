@@ -24,7 +24,7 @@ import models.entities.personas.colaborador.Colaborador;
 public class ViandasPorColaborador extends Persistente {
 
   @OneToOne
-  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   private Colaborador colaborador;
 
   @Column(name = "cantidadViandas")

@@ -45,7 +45,7 @@ public class BuscadorTecnicosCercanos {
 
       String asunto = "La heladera " + heladera.getNombre() + " ha sufrido una falla tecnica";
       String cuerpo = "Podes acercarte a revisarla, se encuentra en: "
-          + heladera.getDireccion().getUbicacion();
+          + heladera.getDireccion().getNombreUbicacion();
 
       Mensaje mensaje = new Mensaje(asunto, cuerpo);
 

@@ -37,7 +37,7 @@ public class Desperfecto extends Suscripcion {
     this.buscadorHeladerasFrecuentes = new BuscadorHeladerasFrecuentes();
     this.senderInterface =
         SenderLocator.getService(colaborador.getContacto().getTipoContacto());
-    this.setTipo(TipoSuscripcion.OCURRIO_DESPERFECTO);
+    this.tipo = TipoSuscripcion.OCURRIO_DESPERFECTO;
   }
 
   @Override

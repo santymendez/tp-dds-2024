@@ -70,18 +70,14 @@ public class Colaborador extends Persistente {
   private Contacto contacto;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipoColaborador")
+  @Column(name = "tipoColaborador", nullable = false)
   private TipoColaborador tipoColaborador;
 
   @Embedded
   private Reconocimiento reconocimiento;
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "colaboracion_id", referencedColumnName = "id")
+  @OneToMany(mappedBy = "colaborador", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private List<Colaboracion> colaboraciones;
-
-  @Transient
-  private AdapterServicioRecomendacion adapterServicioRecomendacion;
 
   /**
    * Instancia un Colaborador.

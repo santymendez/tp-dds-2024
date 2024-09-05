@@ -28,13 +28,13 @@ import models.entities.heladera.Heladera;
 @Table(name = "tarjetas_vulnerables")
 public class TarjetaVulnerable {
   @Id
-  @Column(name = "id")
+  @Column(name = "id", nullable = false, unique = true)
   private String codigo;
 
   @Column(name = "activo")
   private Boolean activo;
 
-  @Column(name = "cantUsosMaxima")
+  @Column(name = "cantUsosMaxima", nullable = false)
   private Integer cantidadDeUsosMaxima;
 
   @OneToMany(mappedBy = "tarjetaVulnerable", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
@@ -42,7 +42,7 @@ public class TarjetaVulnerable {
   private List<UsoTarjetaVulnerable> usosTarjetaVulnerables;
 
   @OneToOne
-  @JoinColumn(name = "registroVulnerable_id", referencedColumnName = "id")
+  @JoinColumn(name = "registroVulnerable_id", referencedColumnName = "id", nullable = false)
   private RegistroVulnerable registroVulnerable;
 
   /**

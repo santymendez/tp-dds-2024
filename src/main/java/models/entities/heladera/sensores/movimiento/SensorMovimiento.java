@@ -28,11 +28,11 @@ import models.entities.heladera.sensores.MedicionSensor;
 public class SensorMovimiento extends Persistente {
 
   @OneToMany(cascade = {CascadeType.PERSIST})
-  @JoinColumn(name = "medicionesSensor_id", referencedColumnName = "id")
+  @JoinColumn(name = "sensorMovimiento_id", referencedColumnName = "id")
   private List<MedicionSensor> mediciones;
 
   @OneToOne
-  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
   private Heladera heladera;
 
   public void recibirMedicion(MedicionSensor medicion) {

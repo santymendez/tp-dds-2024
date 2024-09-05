@@ -74,14 +74,18 @@ public class AtencionMedicaController {
    */
 
   public Map<String, InformacionBarrio> crearMapaVulnerablesPorBarrio(
-      List<UsoTarjetaVulnerable> usos) {
-
+      List<UsoTarjetaVulnerable> usos
+  ) {
     Map<String, InformacionBarrio> map = new HashMap<>();
 
     for (UsoTarjetaVulnerable uso : usos) {
       String barrio = uso.getHeladera().getDireccion().getBarrio().getNombreBarrio();
       String vulnerable =
           uso.getTarjetaVulnerable().getRegistroVulnerable().getVulnerable().getNombre();
+
+      if (map.containsKey(barrio) && map.get(barrio).getVulnerables().contains(vulnerable)) {
+        continue;
+      }
       this.agregarVulnerable(map, barrio, vulnerable);
     }
 
@@ -96,8 +100,9 @@ public class AtencionMedicaController {
    * @param vulnerable Vulnerable a agregar.
    */
 
-  private void agregarVulnerable(Map<String, InformacionBarrio> map,
-                                 String barrio, String vulnerable) {
+  private void agregarVulnerable(
+      Map<String, InformacionBarrio> map, String barrio, String vulnerable
+  ) {
 
     InformacionBarrio info = map.containsKey(barrio)
         ? map.get(barrio) : new InformacionBarrio();

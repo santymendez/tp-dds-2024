@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +29,7 @@ import models.entities.personas.colaborador.Colaborador;
 @Table (name = "tarjetas_colaboradores")
 public class TarjetaColaborador {
   @Id
-  @Column(name = "id")
+  @Column(name = "id", nullable = false, unique = true)
   private final String codigo;
 
   @Column(name = "activo")
@@ -42,7 +43,7 @@ public class TarjetaColaborador {
   private final List<UsoTarjetaColaborador> usos;
 
   @ManyToOne
-  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   private Colaborador colaborador;
 
   /**
@@ -58,5 +59,12 @@ public class TarjetaColaborador {
 
   private String generarCodigoAlfanumerico() {
     return UUID.randomUUID().toString().replace("-", "").substring(0, 11);
+  }
+
+  @PrePersist
+  protected void onInsert() {
+    if(this.fechaAlta == null) {
+      this.fechaAlta = LocalDate.now();
+    }
   }
 }

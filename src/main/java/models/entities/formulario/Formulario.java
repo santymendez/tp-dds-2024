@@ -2,6 +2,7 @@ package models.entities.formulario;
 
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -20,7 +21,10 @@ import models.db.Persistente;
 @Entity
 @Table(name = "formularios")
 public class Formulario extends Persistente {
-  @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
-  @JoinColumn(name = "pregunta_id", referencedColumnName = "id")
+  @OneToMany(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "formulario_id", referencedColumnName = "id")
   private List<Pregunta> preguntas;
+
+  @Column(name = "nombre", nullable = false)
+  private String nombre;
 }

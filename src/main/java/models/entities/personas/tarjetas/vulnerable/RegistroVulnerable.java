@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,13 +28,20 @@ import models.entities.personas.vulnerable.Vulnerable;
 @Table(name = "registros_vulnerables")
 public class RegistroVulnerable extends Persistente {
   @ManyToOne
-  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   private Colaborador colaborador;
 
   @OneToOne
-  @JoinColumn(name = "vulnerableRegistrado_id", referencedColumnName = "id")
+  @JoinColumn(name = "vulnerableRegistrado_id", referencedColumnName = "id", nullable = false)
   private Vulnerable vulnerable;
 
   @Column(name = "fechaRegistro", columnDefinition = "DATE")
   private LocalDate fechaRegistro;
+
+  @PrePersist
+  protected void onInsert() {
+    if (this.fechaRegistro == null) {
+      this.fechaRegistro = LocalDate.now();
+    }
+  }
 }

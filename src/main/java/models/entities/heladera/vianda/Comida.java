@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Comida {
 
-  @Column(name = "nombre")
+  @Column(name = "nombreComida", nullable = false)
   private String nombre;
 
-  @Column(name = "vencimiento", columnDefinition = "DATE")
+  @Column(name = "vencimiento", columnDefinition = "DATE", nullable = false)
   private LocalDate vencimiento;
 }

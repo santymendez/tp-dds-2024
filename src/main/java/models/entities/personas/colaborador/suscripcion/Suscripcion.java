@@ -30,18 +30,18 @@ import utils.sender.SenderInterface;
 public abstract class Suscripcion extends Persistente {
 
   @ManyToOne
-  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   protected Colaborador colaborador;
 
   @ManyToOne
-  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
   protected Heladera heladera;
 
   @Transient
   protected SenderInterface senderInterface;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "tipoSuscripcion")
+  @Column(name = "tipoSuscripcion", nullable = false)
   protected TipoSuscripcion tipo;
 
   public abstract Boolean seCumpleCondicion();

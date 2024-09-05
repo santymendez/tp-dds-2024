@@ -2,6 +2,8 @@ package models.entities.direccion;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,11 +18,9 @@ import models.db.Persistente;
  */
 @Getter
 @Setter
-@Entity
-@Table(name = "barrios")
-public class Barrio extends Persistente {
-
-  @Column(name = "nombre")
+@Embeddable
+public class Barrio {
+  @Column(name = "nombreBarrio", nullable = false)
   private String nombreBarrio;
 
   @Column(name = "calle")
@@ -29,7 +29,6 @@ public class Barrio extends Persistente {
   @Column(name = "numero")
   private Integer numero;
 
-  @JoinColumn(name = "ciudad_id", referencedColumnName = "id")
-  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @Embedded
   private Ciudad ciudad;
 }

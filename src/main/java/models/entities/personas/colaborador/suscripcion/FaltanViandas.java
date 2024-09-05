@@ -19,6 +19,7 @@ import utils.sender.SenderLocator;
 public class FaltanViandas extends Suscripcion {
 
   @Column(name = "viandasFaltantes")
+  @Setter
   private Integer viandasFaltantes;
 
   /**

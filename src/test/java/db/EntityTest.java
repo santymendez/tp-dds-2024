@@ -56,6 +56,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import utils.sender.Mensaje;
+import utils.sender.channels.EmailSender;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 
 public class EntityTest {
 
@@ -68,6 +74,8 @@ public class EntityTest {
   TecnicosRepository tecnicosRepository;
 
   GenericRepository repoGenerico;
+
+  EmailSender emailSender = mock(EmailSender.class);
 
   ColocacionHeladera colocacionHeladera;
   Colaboracion colocarHeladera;
@@ -209,9 +217,9 @@ public class EntityTest {
   Colaborador mati;
   Colaborador elCityGroup;
 
-  Suscripcion suscripcion1;
-  Suscripcion suscripcion2;
-  Suscripcion suscripcion3;
+  Desperfecto desperfecto;
+  FaltanViandas faltanViandas;
+  QuedanViandas quedanViandas;
 
   Tecnico liam;
   Tecnico santi;
@@ -254,6 +262,8 @@ public class EntityTest {
     this.iniciarTecnicos();
     this.iniciarFormularios();
     this.iniciarSuscripciones();
+
+    doNothing().when(emailSender).enviar(any(Mensaje.class), any(String.class));
   }
 
   void iniciarContactos() {
@@ -874,11 +884,23 @@ public class EntityTest {
   }
 
   void iniciarSuscripciones() {
-    suscripcion1 = new Desperfecto(iniaqui, heladera1);
+    desperfecto = new Desperfecto();
+    desperfecto.setHeladera(heladera1);
+    desperfecto.setColaborador(iniaqui);
+    desperfecto.setSenderInterface(emailSender);
 
-    suscripcion2 = new FaltanViandas(mati, heladera2, 5);
+    faltanViandas = new FaltanViandas();
+    faltanViandas.setHeladera(heladera2);
+    faltanViandas.setColaborador(mati);
+    faltanViandas.setViandasFaltantes(5);
+    faltanViandas.setSenderInterface(emailSender);
 
-    suscripcion3 = new QuedanViandas(augusto, heladera3, 2);
+    quedanViandas = new QuedanViandas();
+    quedanViandas.setHeladera(heladera3);
+    quedanViandas.setColaborador(augusto);
+    quedanViandas.setViandasDisponibles(2);
+    quedanViandas.setSenderInterface(emailSender);
+
   }
 
   void iniciarRepos() {
@@ -921,9 +943,9 @@ public class EntityTest {
     this.repoGenerico.guardar(perez);
     this.repoGenerico.guardar(tello);
 
-    this.repoGenerico.guardar(suscripcion1);
-    this.repoGenerico.guardar(suscripcion2);
-    this.repoGenerico.guardar(suscripcion3);
+    this.repoGenerico.guardar(desperfecto);
+    this.repoGenerico.guardar(faltanViandas);
+    this.repoGenerico.guardar(quedanViandas);
 
     this.repoGenerico.guardar(registroVulnerable1);
     this.repoGenerico.guardar(registroVulnerable2);

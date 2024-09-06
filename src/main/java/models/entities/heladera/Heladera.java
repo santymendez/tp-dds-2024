@@ -66,7 +66,8 @@ public class Heladera extends Persistente {
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private List<Vianda> viandas;
 
-  @OneToMany(mappedBy = "heladera", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+  @OneToMany(mappedBy = "heladera",
+          cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   private List<Suscripcion> suscripciones;
 
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})

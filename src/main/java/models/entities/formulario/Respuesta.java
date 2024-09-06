@@ -41,7 +41,7 @@ public class Respuesta extends Persistente {
   @Column(name = "respuestaTextoLibre", columnDefinition = "TEXT")
   private String respuestaTextoLibre;
 
-  @ManyToMany(cascade = CascadeType.PERSIST)
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "respuestas_por_opciones",
       joinColumns = @JoinColumn(name = "respuesta_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "opcion_id", referencedColumnName = "id"))

@@ -27,7 +27,7 @@ import models.entities.heladera.sensores.MedicionSensor;
 @Table(name = "sensores_temperatura")
 public class SensorTemperatura extends Persistente {
 
-  @OneToMany(cascade = {CascadeType.PERSIST})
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "sensorTemperatura_id", referencedColumnName = "id")
   private List<MedicionSensor> mediciones;
 

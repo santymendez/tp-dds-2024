@@ -37,8 +37,9 @@ public class TarjetaVulnerable {
   @Column(name = "cantUsosMaxima", nullable = false)
   private Integer cantidadDeUsosMaxima;
 
-  @OneToMany(mappedBy = "tarjetaVulnerable", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-      fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "tarjetaVulnerable",
+          cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE},
+          fetch = FetchType.EAGER)
   private List<UsoTarjetaVulnerable> usosTarjetaVulnerables;
 
   @OneToOne

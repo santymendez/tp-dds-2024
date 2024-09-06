@@ -38,8 +38,9 @@ public class TarjetaColaborador {
   @Column(name = "fechaAlta", columnDefinition = "DATE")
   private LocalDate fechaAlta;
 
-  @OneToMany(mappedBy = "tarjetaColaborador", cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-      fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "tarjetaColaborador",
+          cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE},
+          fetch = FetchType.EAGER)
   private final List<UsoTarjetaColaborador> usos;
 
   @ManyToOne

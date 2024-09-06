@@ -31,7 +31,7 @@ public class Pregunta extends Persistente {
   @Column(name = "opcional", columnDefinition = "SMALLINT", nullable = false)
   private Boolean esOpcional;
 
-  @OneToMany(cascade = {CascadeType.PERSIST}, fetch =  FetchType.EAGER)
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch =  FetchType.EAGER)
   @JoinColumn(name = "pregunta_id", referencedColumnName = "id")
   private List<Opcion> opciones;
 

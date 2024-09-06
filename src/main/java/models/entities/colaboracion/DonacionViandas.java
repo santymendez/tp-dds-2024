@@ -19,7 +19,7 @@ import models.entities.heladera.vianda.Vianda;
 @Setter
 @Embeddable
 public class DonacionViandas {
-  @OneToMany(cascade = {CascadeType.PERSIST})
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "colaboracion_id", referencedColumnName = "id")
   private List<Vianda> viandasDonadas;
 

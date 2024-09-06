@@ -21,7 +21,7 @@ import models.db.Persistente;
 @Entity
 @Table(name = "formularios")
 public class Formulario extends Persistente {
-  @OneToMany(cascade = CascadeType.PERSIST)
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "formulario_id", referencedColumnName = "id")
   private List<Pregunta> preguntas;
 

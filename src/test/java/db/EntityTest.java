@@ -246,7 +246,7 @@ public class EntityTest {
   @BeforeEach
   void inicializarObjetos() {
     //DESCOMENTAR PARA TESTEAR EN NUESTRA MAQUINA
-    //PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
+//    PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
 
     this.iniciarContactos();
     this.iniciarColaboradores();
@@ -1065,17 +1065,17 @@ public class EntityTest {
   public void limpiar() {
     this.iniciarRepos();
 
-    this.repoGenerico.eliminar(formulario1);
+    this.repoGenerico.eliminarFisico(formulario1);
 
-    this.repoGenerico.eliminar(desperfecto);
-    this.repoGenerico.eliminar(faltanViandas);
-    this.repoGenerico.eliminar(quedanViandas);
+    this.repoGenerico.eliminarFisico(desperfecto);
+    this.repoGenerico.eliminarFisico(faltanViandas);
+    this.repoGenerico.eliminarFisico(quedanViandas);
 
-    this.colaboracionesRepository.eliminar(colocarHeladera);
-    this.colaboracionesRepository.eliminar(distribuirTarjetas);
-    this.colaboracionesRepository.eliminar(distribuirViandas);
-    this.colaboracionesRepository.eliminar(donarDinero);
-    this.colaboracionesRepository.eliminar(realizarOferta);
+    this.colaboracionesRepository.eliminarFisico(colocarHeladera);
+    this.colaboracionesRepository.eliminarFisico(distribuirTarjetas);
+    this.colaboracionesRepository.eliminarFisico(distribuirViandas);
+    this.colaboracionesRepository.eliminarFisico(donarDinero);
+    this.colaboracionesRepository.eliminarFisico(realizarOferta);
 
     this.repoGenerico.eliminarFisico(heladera1);
     this.repoGenerico.eliminarFisico(heladera2);
@@ -1100,9 +1100,8 @@ public class EntityTest {
     this.repoGenerico.eliminarFisico(perez);
     this.repoGenerico.eliminarFisico(tello);
 
-
-    this.tecnicosRepository.eliminar(liam);
-    this.tecnicosRepository.eliminar(santi);
+    this.tecnicosRepository.eliminarFisico(liam);
+    this.tecnicosRepository.eliminarFisico(santi);
 
     this.repoGenerico.eliminarFisico(direccion1);
     this.repoGenerico.eliminarFisico(direccion2);

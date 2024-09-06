@@ -958,10 +958,11 @@ public class EntityTest {
     this.repoGenerico.guardar(direccion2);
     this.repoGenerico.guardar(direccion3);
 
-    this.colaboradoresRepository.guardar(augusto);
-    this.colaboradoresRepository.guardar(iniaki);
-    this.colaboradoresRepository.guardar(mati);
-    this.colaboradoresRepository.guardar(elCityGroup);
+    for (Colaborador colaborador : List.of(augusto, iniaki, mati, elCityGroup)) {
+      if (colaborador.getId() == null || this.colaboradoresRepository.buscarPorId(colaborador.getId()).isEmpty()) {
+        this.colaboradoresRepository.guardar(colaborador);
+      }
+    }
 
     this.repoGenerico.guardar(heladera1);
     this.repoGenerico.guardar(heladera2);

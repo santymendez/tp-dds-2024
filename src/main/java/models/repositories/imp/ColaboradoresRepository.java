@@ -31,6 +31,9 @@ public class ColaboradoresRepository extends GenericRepository {
   }
 
   public Optional<Colaborador> buscarPorId(Long id) {
+    if (id == null) {
+      throw new IllegalArgumentException("id to load is required for loading");
+    }
     return super.buscarPorId(id, Colaborador.class);
   }
 

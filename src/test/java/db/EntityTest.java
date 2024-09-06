@@ -954,63 +954,47 @@ public class EntityTest {
   void persistirEntidades() {
     this.iniciarRepos();
 
-    for (Provincia provincia : List.of(provincia1, provincia2, provincia3)) {
-      if (provincia.getId() == null || this.repoGenerico.buscarPorId(provincia.getId(), Provincia.class).isEmpty()) {
-        this.repoGenerico.guardar(provincia);
-      }
-    }
+    this.repoGenerico.guardar(provincia1);
+    this.repoGenerico.guardar(provincia2);
+    this.repoGenerico.guardar(provincia3);
 
-    for (Direccion direccion : List.of(direccion1, direccion2, direccion3)) {
-      if (direccion.getId() == null || this.repoGenerico.buscarPorId(direccion.getId(), Direccion.class).isEmpty()) {
-        this.repoGenerico.guardar(direccion);
-      }
-    }
+    this.repoGenerico.guardar(direccion1);
+    this.repoGenerico.guardar(direccion2);
+    this.repoGenerico.guardar(direccion3);
 
-    for (Colaborador colaborador : List.of(augusto, iniaki, mati, elCityGroup)) {
-      if (colaborador.getId() == null || this.colaboradoresRepository.buscarPorId(colaborador.getId()).isEmpty()) {
-        this.colaboradoresRepository.guardar(colaborador);
-      }
-    }
+    this.colaboradoresRepository.guardar(augusto);
+    this.colaboradoresRepository.guardar(iniaki);
+    this.colaboradoresRepository.guardar(mati);
+    this.colaboradoresRepository.guardar(elCityGroup);
 
-    for (Heladera heladera : List.of(heladera1, heladera2, heladera3)) {
-      if (heladera.getId() == null || this.repoGenerico.buscarPorId(heladera.getId(), Heladera.class).isEmpty()) {
-        this.repoGenerico.guardar(heladera);
-      }
-    }
+    this.repoGenerico.guardar(heladera1);
+    this.repoGenerico.guardar(heladera2);
+    this.repoGenerico.guardar(heladera3);
 
-    for (Vulnerable vulnerable : List.of(eze, facu, perez, tello, enrique)) {
-      if (vulnerable.getId() == null || this.repoGenerico.buscarPorId(vulnerable.getId(), Vulnerable.class).isEmpty()) {
-        this.repoGenerico.guardar(vulnerable);
-      }
-    }
+    this.repoGenerico.guardar(eze);
+    this.repoGenerico.guardar(facu);
+    this.repoGenerico.guardar(perez);
+    this.repoGenerico.guardar(tello);
+    this.repoGenerico.guardar(enrique);
 
-    for (RegistroVulnerable registroVulnerable : List.of(registroVulnerable1, registroVulnerable2, registroVulnerable3)) {
-      if (registroVulnerable.getId() == null || this.repoGenerico.buscarPorId(registroVulnerable.getId(), RegistroVulnerable.class).isEmpty()) {
-        this.repoGenerico.guardar(registroVulnerable);
-      }
-    }
+    this.repoGenerico.guardar(registroVulnerable1);
+    this.repoGenerico.guardar(registroVulnerable2);
+    this.repoGenerico.guardar(registroVulnerable3);
 
     this.repoGenerico.guardar(tarjeta1);
     this.repoGenerico.guardar(tarjeta2);
     this.repoGenerico.guardar(tarjeta3);
 
-    for (Colaboracion colaboracion : List.of(colocarHeladera, distribuirTarjetas, distribuirViandas, donarDinero, realizarOferta)) {
-      if (colaboracion.getId() == null || this.colaboracionesRepository.buscarPorId(colaboracion.getId()).isEmpty()) {
-        this.colaboracionesRepository.guardar(colaboracion);
-      }
-    }
+    this.colaboracionesRepository.guardar(colocarHeladera);
+    this.colaboracionesRepository.guardar(distribuirTarjetas);
+    this.colaboracionesRepository.guardar(distribuirViandas);
+    this.colaboracionesRepository.guardar(donarDinero);
+    this.colaboracionesRepository.guardar(realizarOferta);
 
-    for (Tecnico tecnico : List.of(liam, santi)) {
-      if (tecnico.getId() == null || this.tecnicosRepository.buscarPorId(tecnico.getId()).isEmpty()) {
-        this.tecnicosRepository.guardar(tecnico);
-      }
-    }
+    this.tecnicosRepository.guardar(liam);
+    this.tecnicosRepository.guardar(santi);
 
-    for (Formulario formulario : List.of(formulario1)) {
-      if (formulario.getId() == null || this.repoGenerico.buscarPorId(formulario.getId(), Formulario.class).isEmpty()) {
-        this.repoGenerico.guardar(formulario);
-      }
-    }
+    this.repoGenerico.guardar(formulario1);
 
     this.repoGenerico.guardar(desperfecto);
     this.repoGenerico.guardar(faltanViandas);
@@ -1081,21 +1065,11 @@ public class EntityTest {
   public void limpiar() {
     this.iniciarRepos();
 
-    this.repoGenerico.eliminar(registroVulnerable1);
-    this.repoGenerico.eliminar(registroVulnerable2);
-    this.repoGenerico.eliminar(registroVulnerable3);
+    this.repoGenerico.eliminar(formulario1);
 
     this.repoGenerico.eliminar(desperfecto);
     this.repoGenerico.eliminar(faltanViandas);
     this.repoGenerico.eliminar(quedanViandas);
-
-    this.repoGenerico.eliminar(direccion1);
-    this.repoGenerico.eliminar(direccion2);
-    this.repoGenerico.eliminar(direccion3);
-
-    this.repoGenerico.eliminar(heladera1);
-    this.repoGenerico.eliminar(heladera2);
-    this.repoGenerico.eliminar(heladera3);
 
     this.colaboracionesRepository.eliminar(colocarHeladera);
     this.colaboracionesRepository.eliminar(distribuirTarjetas);
@@ -1103,20 +1077,39 @@ public class EntityTest {
     this.colaboracionesRepository.eliminar(donarDinero);
     this.colaboracionesRepository.eliminar(realizarOferta);
 
+    this.repoGenerico.eliminarFisico(heladera1);
+    this.repoGenerico.eliminarFisico(heladera2);
+    this.repoGenerico.eliminarFisico(heladera3);
+
+    this.repoGenerico.eliminarFisico(tarjeta1);
+    this.repoGenerico.eliminarFisico(tarjeta2);
+    this.repoGenerico.eliminarFisico(tarjeta3);
+
+    this.repoGenerico.eliminarFisico(registroVulnerable1);
+    this.repoGenerico.eliminarFisico(registroVulnerable2);
+    this.repoGenerico.eliminarFisico(registroVulnerable3);
+
+    this.colaboradoresRepository.eliminarFisico(augusto);
+    this.colaboradoresRepository.eliminarFisico(iniaki);
+    this.colaboradoresRepository.eliminarFisico(mati);
+    this.colaboradoresRepository.eliminarFisico(elCityGroup);
+
+    this.repoGenerico.eliminarFisico(eze);
+    this.repoGenerico.eliminarFisico(facu);
+    this.repoGenerico.eliminarFisico(enrique);
+    this.repoGenerico.eliminarFisico(perez);
+    this.repoGenerico.eliminarFisico(tello);
+
+
     this.tecnicosRepository.eliminar(liam);
     this.tecnicosRepository.eliminar(santi);
 
-    this.colaboradoresRepository.eliminar(augusto);
-    this.colaboradoresRepository.eliminar(iniaki);
-    this.colaboradoresRepository.eliminar(mati);
-    this.colaboradoresRepository.eliminar(elCityGroup);
+    this.repoGenerico.eliminarFisico(direccion1);
+    this.repoGenerico.eliminarFisico(direccion2);
+    this.repoGenerico.eliminarFisico(direccion3);
 
-    this.repoGenerico.eliminar(eze);
-    this.repoGenerico.eliminar(facu);
-    this.repoGenerico.eliminar(enrique);
-    this.repoGenerico.eliminar(perez);
-    this.repoGenerico.eliminar(tello);
-
-    this.repoGenerico.eliminar(formulario1);
+    this.repoGenerico.eliminarFisico(provincia1);
+    this.repoGenerico.eliminarFisico(provincia2);
+    this.repoGenerico.eliminarFisico(provincia3);
   }
 }

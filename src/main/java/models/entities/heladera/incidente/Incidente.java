@@ -77,18 +77,19 @@ public class Incidente extends Persistente {
     }
   }
 
-  //Logica de manejo de incidentes
-//
-//  public void reportarIncidente(Incidente incidente) {
-//    //reportarFalla
-//    this.heladera.intentarNotificarSuscriptores();
-//  }
+  /*Logica de manejo de incidentes
 
-//  //TODO CONTROLLER
-//  public void reportarFallaTecnica(Incidente incidente) {
-//    this.heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
-//    //reportarFalla
-//    this.heladera.intentarNotificarSuscriptores();
-//    //buscarTecnicos
-//  }
+  public void reportarIncidente(Incidente incidente) {
+    //reportarFalla
+    this.heladera.intentarNotificarSuscriptores();
+  }*/
+
+
+  /*TODO CONTROLLER
+  public void reportarFallaTecnica(Incidente incidente) {
+    this.heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
+    //reportarFalla
+    this.heladera.intentarNotificarSuscriptores();
+    //buscarTecnicos
+  }*/
 }

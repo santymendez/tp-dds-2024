@@ -64,7 +64,7 @@ public class TarjetaColaborador {
 
   @PrePersist
   protected void onInsert() {
-    if(this.fechaAlta == null) {
+    if (this.fechaAlta == null) {
       this.fechaAlta = LocalDate.now();
     }
   }

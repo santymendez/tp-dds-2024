@@ -30,6 +30,14 @@ public class ColaboradoresRepository extends GenericRepository {
     super.eliminar(colaborador);
   }
 
+  /**
+   * Busca un colaborador por su id.
+   *
+   * @param id Id del colaborador a buscar.
+   *
+   * @return Un Optional con el colaborador encontrado, o vacío si no se encontró.
+   */
+
   public Optional<Colaborador> buscarPorId(Long id) {
     if (id == null) {
       throw new IllegalArgumentException("id to load is required for loading");

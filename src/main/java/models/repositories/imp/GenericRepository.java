@@ -12,7 +12,7 @@ import models.repositories.PersistenciaSimple;
 public class GenericRepository implements PersistenciaSimple {
 
   /**
-   * Guarda un objeto en la base de datos.
+   * Guarda un objeto en la base de datos. (CUIDADO!!! por motivos desconocidos da errores inesperados)
    *
    * @param objetos Objetos a guardar.
    */
@@ -20,21 +20,34 @@ public class GenericRepository implements PersistenciaSimple {
   public void guardar(Object ... objetos) {
     withTransaction(() -> {
       for (Object objeto : objetos) {
-        entityManager().persist(objeto);
+        this.guardarOModificar(objeto);
       }
     });
   }
 
   public void guardar(Object objeto) {
-    withTransaction(() -> entityManager().persist(objeto));
+    withTransaction(() -> this.guardarOModificar(objeto));
   }
 
   public void modificar(Object objeto) {
-    entityManager().merge(objeto);
+    withTransaction(() -> entityManager().merge(objeto));
+  }
+
+  public void guardarOModificar(Object objeto) {
+
+    if (entityManager().contains(objeto)) {
+
+      entityManager().merge(objeto);
+
+    } else {
+
+      entityManager().persist(objeto);
+
+    }
   }
 
   public void eliminarFisico(Object objeto) {
-    entityManager().remove(objeto);
+    withTransaction(() -> entityManager().remove(objeto));
   }
 
   /**
@@ -47,7 +60,7 @@ public class GenericRepository implements PersistenciaSimple {
 
     if (objeto instanceof Persistente persistente) {
       persistente.setActivo(false);
-      entityManager().merge(persistente);
+      this.modificar(persistente);
     } else {
       throw new IllegalArgumentException("El objeto no es una instancia de Persistente");
     }

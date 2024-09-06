@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Optional;
-
+import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.ColocacionHeladera;
 import models.entities.colaboracion.DistribucionTarjetas;
@@ -48,13 +48,19 @@ import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
 import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.tecnico.Tecnico;
 import models.entities.personas.vulnerable.Vulnerable;
+import models.entities.reporte.ReporteHeladera;
+import models.entities.reporte.ViandasPorColaborador;
 import models.repositories.RepositoryLocator;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.ReportesRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
 
@@ -73,6 +79,8 @@ public class EntityTest {
   TecnicosRepository tecnicosRepository;
 
   GenericRepository repoGenerico;
+
+  ReportesRepository reportesRepository;
 
   EmailSender emailSender = mock(EmailSender.class);
 
@@ -243,10 +251,18 @@ public class EntityTest {
   RegistroVulnerable registroVulnerable2;
   RegistroVulnerable registroVulnerable3;
 
+  ReporteHeladera reporteHeladera1;
+  ReporteHeladera reporteHeladera2;
+  ReporteHeladera reporteHeladera3;
+
+  ViandasPorColaborador viandasPorColaborador1;
+  ViandasPorColaborador viandasPorColaborador2;
+  ViandasPorColaborador viandasPorColaborador3;
+
   @BeforeEach
   void inicializarObjetos() {
-    //DESCOMENTAR PARA TESTEAR EN NUESTRA MAQUINA
-//    PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
+    //Para testear en db poner database en  vez de simple
+    PersistenceUnitSwitcher.switchPersistenceUnit("simple-persistence-unit");
 
     this.iniciarContactos();
     this.iniciarColaboradores();
@@ -267,6 +283,8 @@ public class EntityTest {
     this.iniciarTecnicos();
     this.iniciarFormularios();
     this.iniciarSuscripciones();
+    this.iniciarViandasPorColaborador();
+    this.iniciarReportes();
 
     doNothing().when(emailSender).enviar(any(Mensaje.class), any(String.class));
   }
@@ -933,6 +951,37 @@ public class EntityTest {
 
   }
 
+  void iniciarViandasPorColaborador() {
+    viandasPorColaborador1 = new ViandasPorColaborador(augusto, 11);
+
+    viandasPorColaborador2 = new ViandasPorColaborador(iniaki, 22);
+
+    viandasPorColaborador3 = new ViandasPorColaborador(mati, 33);
+  }
+
+  void iniciarReportes() {
+    reporteHeladera1 = new ReporteHeladera(heladera1);
+    reporteHeladera1.setPath("/home/usuario/reporte1.pdf");
+    reporteHeladera1.setFallas(0);
+    reporteHeladera1.setViandasRetiradas(5);
+    reporteHeladera1.setViandasColocadas(11);
+    reporteHeladera1.agregarNuevaColaboracion(viandasPorColaborador1);
+
+    reporteHeladera2 = new ReporteHeladera(heladera2);
+    reporteHeladera2.setPath("/home/usuario/reporte2.pdf");
+    reporteHeladera2.setFallas(1);
+    reporteHeladera2.setViandasRetiradas(5);
+    reporteHeladera2.setViandasColocadas(22);
+    reporteHeladera2.agregarNuevaColaboracion(viandasPorColaborador2);
+
+    reporteHeladera3 = new ReporteHeladera(heladera3);
+    reporteHeladera3.setPath("/home/usuario/reporte3.pdf");
+    reporteHeladera3.setFallas(2);
+    reporteHeladera3.setViandasRetiradas(7);
+    reporteHeladera3.setViandasColocadas(33);
+    reporteHeladera3.agregarNuevaColaboracion(viandasPorColaborador3);
+  }
+
   void iniciarRepos() {
 
     this.colaboradoresRepository =
@@ -949,14 +998,13 @@ public class EntityTest {
 
     this.repoGenerico =
         RepositoryLocator.get("genericRepository", GenericRepository.class);
+
+    this.reportesRepository =
+        RepositoryLocator.get("reportesRepository", ReportesRepository.class);
   }
 
-  void persistirEntidades() {
+  void peristirEntidades(){
     this.iniciarRepos();
-
-    this.repoGenerico.guardar(provincia1);
-    this.repoGenerico.guardar(provincia2);
-    this.repoGenerico.guardar(provincia3);
 
     this.repoGenerico.guardar(direccion1);
     this.repoGenerico.guardar(direccion2);
@@ -973,17 +1021,17 @@ public class EntityTest {
 
     this.repoGenerico.guardar(eze);
     this.repoGenerico.guardar(facu);
+    this.repoGenerico.guardar(enrique);
     this.repoGenerico.guardar(perez);
     this.repoGenerico.guardar(tello);
-    this.repoGenerico.guardar(enrique);
+
+    this.repoGenerico.guardar(desperfecto);
+    this.repoGenerico.guardar(faltanViandas);
+    this.repoGenerico.guardar(quedanViandas);
 
     this.repoGenerico.guardar(registroVulnerable1);
     this.repoGenerico.guardar(registroVulnerable2);
     this.repoGenerico.guardar(registroVulnerable3);
-
-    this.repoGenerico.guardar(tarjeta1);
-    this.repoGenerico.guardar(tarjeta2);
-    this.repoGenerico.guardar(tarjeta3);
 
     this.colaboracionesRepository.guardar(colocarHeladera);
     this.colaboracionesRepository.guardar(distribuirTarjetas);
@@ -996,15 +1044,20 @@ public class EntityTest {
 
     this.repoGenerico.guardar(formulario1);
 
-    this.repoGenerico.guardar(desperfecto);
-    this.repoGenerico.guardar(faltanViandas);
-    this.repoGenerico.guardar(quedanViandas);
+    this.repoGenerico.guardar(viandasPorColaborador1);
+    this.repoGenerico.guardar(viandasPorColaborador2);
+    this.repoGenerico.guardar(viandasPorColaborador3);
+
+    this.reportesRepository.guardar(reporteHeladera1);
+    this.reportesRepository.guardar(reporteHeladera2);
+    this.reportesRepository.guardar(reporteHeladera3);
+
   }
 
   @Test
   @DisplayName("Se pueden guardar y recuperar las entidades en la base de datos")
   void persistirTodo() {
-    this.persistirEntidades();
+    this.peristirEntidades();
 
     // Recupero al tecnico sin ningun problema
 
@@ -1059,56 +1112,5 @@ public class EntityTest {
     Assertions.assertEquals(colaboracion.getFechaColaboracion(),
         colocarHeladera.getFechaColaboracion());
 
-  }
-
-  @AfterEach
-  public void limpiar() {
-    this.iniciarRepos();
-
-    this.repoGenerico.eliminarFisico(formulario1);
-
-    this.repoGenerico.eliminarFisico(desperfecto);
-    this.repoGenerico.eliminarFisico(faltanViandas);
-    this.repoGenerico.eliminarFisico(quedanViandas);
-
-    this.colaboracionesRepository.eliminarFisico(colocarHeladera);
-    this.colaboracionesRepository.eliminarFisico(distribuirTarjetas);
-    this.colaboracionesRepository.eliminarFisico(distribuirViandas);
-    this.colaboracionesRepository.eliminarFisico(donarDinero);
-    this.colaboracionesRepository.eliminarFisico(realizarOferta);
-
-    this.repoGenerico.eliminarFisico(heladera1);
-    this.repoGenerico.eliminarFisico(heladera2);
-    this.repoGenerico.eliminarFisico(heladera3);
-
-    this.repoGenerico.eliminarFisico(tarjeta1);
-    this.repoGenerico.eliminarFisico(tarjeta2);
-    this.repoGenerico.eliminarFisico(tarjeta3);
-
-    this.repoGenerico.eliminarFisico(registroVulnerable1);
-    this.repoGenerico.eliminarFisico(registroVulnerable2);
-    this.repoGenerico.eliminarFisico(registroVulnerable3);
-
-    this.colaboradoresRepository.eliminarFisico(augusto);
-    this.colaboradoresRepository.eliminarFisico(iniaki);
-    this.colaboradoresRepository.eliminarFisico(mati);
-    this.colaboradoresRepository.eliminarFisico(elCityGroup);
-
-    this.repoGenerico.eliminarFisico(eze);
-    this.repoGenerico.eliminarFisico(facu);
-    this.repoGenerico.eliminarFisico(enrique);
-    this.repoGenerico.eliminarFisico(perez);
-    this.repoGenerico.eliminarFisico(tello);
-
-    this.tecnicosRepository.eliminarFisico(liam);
-    this.tecnicosRepository.eliminarFisico(santi);
-
-    this.repoGenerico.eliminarFisico(direccion1);
-    this.repoGenerico.eliminarFisico(direccion2);
-    this.repoGenerico.eliminarFisico(direccion3);
-
-    this.repoGenerico.eliminarFisico(provincia1);
-    this.repoGenerico.eliminarFisico(provincia2);
-    this.repoGenerico.eliminarFisico(provincia3);
   }
 }

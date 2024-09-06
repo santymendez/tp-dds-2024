@@ -951,12 +951,20 @@ public class EntityTest {
         RepositoryLocator.get("genericRepository", GenericRepository.class);
   }
 
-  void persistirEntidades(){
+  void persistirEntidades() {
     this.iniciarRepos();
 
-    this.repoGenerico.guardar(direccion1);
-    this.repoGenerico.guardar(direccion2);
-    this.repoGenerico.guardar(direccion3);
+    for (Provincia provincia : List.of(provincia1, provincia2, provincia3)) {
+      if (provincia.getId() == null || this.repoGenerico.buscarPorId(provincia.getId(), Provincia.class).isEmpty()) {
+        this.repoGenerico.guardar(provincia);
+      }
+    }
+
+    for (Direccion direccion : List.of(direccion1, direccion2, direccion3)) {
+      if (direccion.getId() == null || this.repoGenerico.buscarPorId(direccion.getId(), Direccion.class).isEmpty()) {
+        this.repoGenerico.guardar(direccion);
+      }
+    }
 
     for (Colaborador colaborador : List.of(augusto, iniaki, mati, elCityGroup)) {
       if (colaborador.getId() == null || this.colaboradoresRepository.buscarPorId(colaborador.getId()).isEmpty()) {
@@ -964,34 +972,49 @@ public class EntityTest {
       }
     }
 
-    this.repoGenerico.guardar(heladera1);
-    this.repoGenerico.guardar(heladera2);
-    this.repoGenerico.guardar(heladera3);
+    for (Heladera heladera : List.of(heladera1, heladera2, heladera3)) {
+      if (heladera.getId() == null || this.repoGenerico.buscarPorId(heladera.getId(), Heladera.class).isEmpty()) {
+        this.repoGenerico.guardar(heladera);
+      }
+    }
 
-    this.repoGenerico.guardar(eze);
-    this.repoGenerico.guardar(facu);
-    this.repoGenerico.guardar(enrique);
-    this.repoGenerico.guardar(perez);
-    this.repoGenerico.guardar(tello);
+    for (Vulnerable vulnerable : List.of(eze, facu, perez, tello, enrique)) {
+      if (vulnerable.getId() == null || this.repoGenerico.buscarPorId(vulnerable.getId(), Vulnerable.class).isEmpty()) {
+        this.repoGenerico.guardar(vulnerable);
+      }
+    }
+
+    for (RegistroVulnerable registroVulnerable : List.of(registroVulnerable1, registroVulnerable2, registroVulnerable3)) {
+      if (registroVulnerable.getId() == null || this.repoGenerico.buscarPorId(registroVulnerable.getId(), RegistroVulnerable.class).isEmpty()) {
+        this.repoGenerico.guardar(registroVulnerable);
+      }
+    }
+
+    this.repoGenerico.guardar(tarjeta1);
+    this.repoGenerico.guardar(tarjeta2);
+    this.repoGenerico.guardar(tarjeta3);
+
+    for (Colaboracion colaboracion : List.of(colocarHeladera, distribuirTarjetas, distribuirViandas, donarDinero, realizarOferta)) {
+      if (colaboracion.getId() == null || this.colaboracionesRepository.buscarPorId(colaboracion.getId()).isEmpty()) {
+        this.colaboracionesRepository.guardar(colaboracion);
+      }
+    }
+
+    for (Tecnico tecnico : List.of(liam, santi)) {
+      if (tecnico.getId() == null || this.tecnicosRepository.buscarPorId(tecnico.getId()).isEmpty()) {
+        this.tecnicosRepository.guardar(tecnico);
+      }
+    }
+
+    for (Formulario formulario : List.of(formulario1)) {
+      if (formulario.getId() == null || this.repoGenerico.buscarPorId(formulario.getId(), Formulario.class).isEmpty()) {
+        this.repoGenerico.guardar(formulario);
+      }
+    }
 
     this.repoGenerico.guardar(desperfecto);
     this.repoGenerico.guardar(faltanViandas);
     this.repoGenerico.guardar(quedanViandas);
-
-    this.repoGenerico.guardar(registroVulnerable1);
-    this.repoGenerico.guardar(registroVulnerable2);
-    this.repoGenerico.guardar(registroVulnerable3);
-
-    this.colaboracionesRepository.guardar(colocarHeladera);
-    this.colaboracionesRepository.guardar(distribuirTarjetas);
-    this.colaboracionesRepository.guardar(distribuirViandas);
-    this.colaboracionesRepository.guardar(donarDinero);
-    this.colaboracionesRepository.guardar(realizarOferta);
-
-    this.tecnicosRepository.guardar(liam);
-    this.tecnicosRepository.guardar(santi);
-
-    this.repoGenerico.guardar(formulario1);
   }
 
   @Test

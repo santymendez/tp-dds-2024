@@ -72,6 +72,6 @@ public class ReporteHeladeraTest {
 
     repoGenerico.guardar(heladera1);
 
-    //reportesRepository.guardar(reporteHeladera);
+    reportesRepository.guardar(reporteHeladera);
   }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Optional;
-import models.db.PersistenceUnitSwitcher;
+
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.ColocacionHeladera;
 import models.entities.colaboracion.DistribucionTarjetas;
@@ -54,10 +54,7 @@ import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
 
@@ -954,7 +951,7 @@ public class EntityTest {
         RepositoryLocator.get("genericRepository", GenericRepository.class);
   }
 
-  void peristirEntidades(){
+  void persistirEntidades(){
     this.iniciarRepos();
 
     this.repoGenerico.guardar(direccion1);
@@ -999,7 +996,7 @@ public class EntityTest {
   @Test
   @DisplayName("Se pueden guardar y recuperar las entidades en la base de datos")
   void persistirTodo() {
-    this.peristirEntidades();
+    this.persistirEntidades();
 
     // Recupero al tecnico sin ningun problema
 
@@ -1054,5 +1051,48 @@ public class EntityTest {
     Assertions.assertEquals(colaboracion.getFechaColaboracion(),
         colocarHeladera.getFechaColaboracion());
 
+  }
+
+  @AfterEach
+  public void limpiar() {
+    this.iniciarRepos();
+
+    this.repoGenerico.eliminar(registroVulnerable1);
+    this.repoGenerico.eliminar(registroVulnerable2);
+    this.repoGenerico.eliminar(registroVulnerable3);
+
+    this.repoGenerico.eliminar(desperfecto);
+    this.repoGenerico.eliminar(faltanViandas);
+    this.repoGenerico.eliminar(quedanViandas);
+
+    this.repoGenerico.eliminar(direccion1);
+    this.repoGenerico.eliminar(direccion2);
+    this.repoGenerico.eliminar(direccion3);
+
+    this.repoGenerico.eliminar(heladera1);
+    this.repoGenerico.eliminar(heladera2);
+    this.repoGenerico.eliminar(heladera3);
+
+    this.colaboracionesRepository.eliminar(colocarHeladera);
+    this.colaboracionesRepository.eliminar(distribuirTarjetas);
+    this.colaboracionesRepository.eliminar(distribuirViandas);
+    this.colaboracionesRepository.eliminar(donarDinero);
+    this.colaboracionesRepository.eliminar(realizarOferta);
+
+    this.tecnicosRepository.eliminar(liam);
+    this.tecnicosRepository.eliminar(santi);
+
+    this.colaboradoresRepository.eliminar(augusto);
+    this.colaboradoresRepository.eliminar(iniaki);
+    this.colaboradoresRepository.eliminar(mati);
+    this.colaboradoresRepository.eliminar(elCityGroup);
+
+    this.repoGenerico.eliminar(eze);
+    this.repoGenerico.eliminar(facu);
+    this.repoGenerico.eliminar(enrique);
+    this.repoGenerico.eliminar(perez);
+    this.repoGenerico.eliminar(tello);
+
+    this.repoGenerico.eliminar(formulario1);
   }
 }

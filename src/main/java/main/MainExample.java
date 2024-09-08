@@ -26,7 +26,6 @@ import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
-import rest.controllers.AtencionMedicaController;
 
 /**
  * Main de prueba.
@@ -38,6 +37,7 @@ public class MainExample {
    * Metodo main.
    */
 
+  /*
   public static void main(String[] args) throws JsonProcessingException {
     MainExample instance = new MainExample();
 
@@ -246,4 +246,6 @@ public class MainExample {
     repoGenerico.guardar(tarjeta3);
     usosRepository.guardar(uso3);
   }
+
+   */
 }

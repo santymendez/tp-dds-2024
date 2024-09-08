@@ -1019,11 +1019,12 @@ public class EntityTest {
     this.repoGenerico.guardar(heladera2);
     this.repoGenerico.guardar(heladera3);
 
-    this.repoGenerico.guardar(eze);
-    this.repoGenerico.guardar(facu);
+    this.repoGenerico.guardar(villalva);
     this.repoGenerico.guardar(enrique);
     this.repoGenerico.guardar(perez);
     this.repoGenerico.guardar(tello);
+    this.repoGenerico.guardar(eze);
+    this.repoGenerico.guardar(facu);
 
     this.repoGenerico.guardar(desperfecto);
     this.repoGenerico.guardar(faltanViandas);

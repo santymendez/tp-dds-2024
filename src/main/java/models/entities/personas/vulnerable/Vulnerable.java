@@ -10,12 +10,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import models.db.Persistente;
 import models.entities.direccion.Direccion;
 import models.entities.personas.documento.Documento;
+import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 
 /**
  * Representa una persona vulnerable con nombre, fecha de nacimiento, fecha de registro,
@@ -64,6 +67,11 @@ public class Vulnerable extends Persistente {
 
   public Vulnerable() {
     this.menoresAcargo = new ArrayList<>();
+  }
+
+  public void agregarMenorCargo(Vulnerable menor) {
+    this.menoresAcargo.add(menor);
+    //En el controller se tienen que recalcular los usos
   }
 
 }

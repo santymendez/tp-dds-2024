@@ -106,4 +106,9 @@ public class Colaborador extends Persistente {
     heladera.getTarjetasHabilitadas().add(tarjeta);
   }
 
+  public void agregarColaboracion(Colaboracion colaboracion) {
+    this.colaboraciones.add(colaboracion);
+    colaboracion.setColaborador(this);
+  }
+
 }

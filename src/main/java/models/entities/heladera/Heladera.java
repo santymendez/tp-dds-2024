@@ -62,8 +62,8 @@ public class Heladera extends Persistente {
   @Column(name = "capacidadMaximaViandas", nullable = false)
   private Integer capacidadMaximaViandas;
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
+  @OneToMany(mappedBy = "heladera",
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   private List<Vianda> viandas;
 
   @OneToMany(mappedBy = "heladera",
@@ -146,6 +146,7 @@ public class Heladera extends Persistente {
 
     this.viandas.add(vianda);
     vianda.setEntregada(true);
+    vianda.setHeladera(this);
 
     Heladera heladera = vianda.getHeladera();
     //heladera.getModReportes().getReporteHeladera().viandaColocada(); Se hace en el controller
@@ -255,7 +256,6 @@ public class Heladera extends Persistente {
 
   public void eliminarSuscripcion(Suscripcion suscripcion) {
     this.suscripciones.remove(suscripcion);
-    suscripcion.setHeladera(null);
   }
 
   //==================================== Métodos auxiliares ========================================

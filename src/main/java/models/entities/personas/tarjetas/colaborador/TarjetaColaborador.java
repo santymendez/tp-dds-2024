@@ -62,6 +62,11 @@ public class TarjetaColaborador {
     return UUID.randomUUID().toString().replace("-", "").substring(0, 11);
   }
 
+  public void agregarUso(UsoTarjetaColaborador u) {
+    this.usos.add(u);
+    u.setTarjetaColaborador(this);
+  }
+
   @PrePersist
   protected void onInsert() {
     if (this.fechaAlta == null) {

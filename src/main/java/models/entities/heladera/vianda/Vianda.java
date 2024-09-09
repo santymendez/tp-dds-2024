@@ -35,11 +35,12 @@ public class Vianda extends Persistente {
   private LocalDate fechaDonacion;
 
   @ManyToOne
-  @JoinColumn(name = "colaborador_id", nullable = false)
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   private Colaborador colaborador;
 
+  @Setter
   @ManyToOne
-  @JoinColumn(name = "heladera_id", nullable = false)
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
   @Column(name = "calorias", nullable = false)

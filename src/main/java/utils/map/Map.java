@@ -1,7 +1,7 @@
 package utils.map;
 
-import utils.recomendator.entities.Punto;
 import java.io.IOException;
+import utils.recomendator.entities.Punto;
 
 /**
  * Representa un mapa con la capacidad de crear marcadores.

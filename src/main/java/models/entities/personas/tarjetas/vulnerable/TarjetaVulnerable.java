@@ -75,6 +75,12 @@ public class TarjetaVulnerable {
 
   // =========================== Metodos Auxiliares ===========================
 
+  /**
+   * Calcula la cantidad de usos que puede tener la tarjeta.
+   *
+   * @return la cantidad de usos.
+   */
+
   public Integer calcularUsos() {
     if (!this.registroVulnerable.getVulnerable().getMenoresAcargo().isEmpty()) {
       return 4 + 2 * this.registroVulnerable.getVulnerable().getMenoresAcargo().size();

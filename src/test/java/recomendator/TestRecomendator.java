@@ -1,5 +1,8 @@
 package recomendator;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import utils.recomendator.adapter.AdapterServicioRecomendacion;
 import utils.recomendator.entities.ListadoPuntos;
 import utils.recomendator.entities.Punto;
@@ -14,8 +17,17 @@ public class TestRecomendator {
   AdapterServicioRecomendacion servicioRecomendacion;
 
   @BeforeEach
-  public void inicializar(){
-   servicioRecomendacion = AdapterServicioRecomendacion.getInstancia();
+  public void inicializar() throws IOException {
+    servicioRecomendacion = mock(AdapterServicioRecomendacion.class);
+    ListadoPuntos lst = new ListadoPuntos();
+    lst.puntos = new ArrayList<>();
+    Punto pto1 = new Punto("heladera_3", "26", "96");
+    Punto pto2 = new Punto("heladera_27", "22", "94");
+    Punto pto3 = new Punto("heladera_49", "24", "96");
+    lst.puntos.add(pto1);
+    lst.puntos.add(pto2);
+    lst.puntos.add(pto3);
+    when(servicioRecomendacion.puntos("14", "55", "2")).thenReturn(lst);
   }
 
 
@@ -31,9 +43,9 @@ public class TestRecomendator {
 
     ListadoPuntos lst = new ListadoPuntos();
     lst.puntos = new ArrayList<>();
-    Punto pto1 = new Punto("26", "96", "heladera_3");
-    Punto pto2 = new Punto("22", "92", "heladera_27");
-    Punto pto3 = new Punto("24", "96", "heladera_49");
+    Punto pto1 = new Punto("heladera_3", "26", "96");
+    Punto pto2 = new Punto("heladera_27", "22", "94");
+    Punto pto3 = new Punto("heladera_49", "24", "96");
     lst.puntos.add(pto1);
     lst.puntos.add(pto2);
     lst.puntos.add(pto3);

@@ -8,6 +8,7 @@ import utils.recomendator.entities.ListadoPuntos;
 /**
  * La API que provee la consultora para la selección de puntos.
  */
+
 public interface RecommendationService {
   @GET("puntos")
   Call<ListadoPuntos> puntos(

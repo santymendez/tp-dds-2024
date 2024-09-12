@@ -1,5 +1,6 @@
 package utils.map;
 
+import utils.recomendator.entities.Punto;
 import java.io.IOException;
 
 /**
@@ -8,13 +9,8 @@ import java.io.IOException;
 
 public class Map {
 
-  public void crearMarcador(String lugar, Double lat, Double lng) throws IOException {
-    Mark mark = new Mark();
-    mark.agregar(lugar, lat, lng);
-  }
-
   public static void main(String[] args) throws IOException {
-    Map map = new Map();
-    map.crearMarcador("bs as", -34.597551, -58.445626);
+    Mark mark = new Mark();
+    mark.agregar(new Punto("UTN FRBA Campus", "-34.659545675336126", "-58.46791554106547"));
   }
 }

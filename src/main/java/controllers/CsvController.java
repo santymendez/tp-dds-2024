@@ -10,9 +10,7 @@ import java.io.IOException;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
-import models.entities.personas.colaborador.TipoColaborador;
 import models.factories.FactoryColaboracion;
-import models.repositories.RepositoryLocator;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import org.apache.logging.log4j.LogManager;
@@ -38,14 +36,14 @@ public class CsvController {
    * @param colaboradoresService Es el Service de los Colaboradores.
    */
 
-  public CsvController(ColaboradoresService colaboradoresService) {
+  public CsvController(
+      ColaboradoresService colaboradoresService,
+      ColaboradoresRepository colaboradoresRepository,
+      ColaboracionesRepository colaboracionesRepository
+  ) {
     this.colaboradoresService = colaboradoresService;
-    this.colaboradoresRepository =
-        RepositoryLocator
-            .get("colaboradoresRepository", ColaboradoresRepository.class);
-    this.colaboracionesRepository =
-        RepositoryLocator
-            .get("colaboracionesRepository", ColaboracionesRepository.class);
+    this.colaboradoresRepository = colaboradoresRepository;
+    this.colaboracionesRepository = colaboracionesRepository;
   }
 
   /**

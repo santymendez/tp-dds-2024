@@ -1,15 +1,14 @@
 package models.entities.personas.colaborador.suscripcion;
 
 import java.util.List;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+import config.SenderLocator;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 import models.searchers.BuscadorHeladerasFrecuentes;
-import utils.sender.SenderLocator;
 
 /**
  * Clase que representa la notificacion referida
@@ -36,7 +35,7 @@ public class Desperfecto extends Suscripcion {
     this.heladera = heladera;
     this.buscadorHeladerasFrecuentes = new BuscadorHeladerasFrecuentes();
     this.senderInterface =
-        SenderLocator.getService(colaborador.getContacto().getTipoContacto());
+        SenderLocator.instanceOf(colaborador.getContacto().getTipoContacto());
     this.tipo = TipoSuscripcion.OCURRIO_DESPERFECTO;
   }
 

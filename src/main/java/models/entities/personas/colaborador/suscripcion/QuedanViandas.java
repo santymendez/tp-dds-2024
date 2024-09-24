@@ -1,13 +1,12 @@
 package models.entities.personas.colaborador.suscripcion;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import config.SenderLocator;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
-import utils.sender.SenderLocator;
 
 /**
  * Clase que representa la notificacion referida
@@ -35,7 +34,7 @@ public class QuedanViandas extends Suscripcion {
     this.heladera = heladera;
     this.viandasDisponibles = viandas;
     this.senderInterface =
-        SenderLocator.getService(colaborador.getContacto().getTipoContacto());
+        SenderLocator.instanceOf(colaborador.getContacto().getTipoContacto());
     this.tipo = TipoSuscripcion.QUEDAN_N_VIANDAS;
   }
 

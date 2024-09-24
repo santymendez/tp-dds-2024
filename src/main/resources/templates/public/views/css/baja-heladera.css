@@ -1,0 +1,36 @@
+.suscribirse-content .action-form {
+    max-width: 30rem;
+    margin: 0 auto; /* Center the form horizontally */
+}
+
+.probar {
+    max-width: 60rem;
+    margin: 0 auto; /* Center the form horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.primero {
+    max-width: 30rem;
+    width: 100%; /* Ensure the input takes up full width within its container */
+}
+
+.algo {
+    max-width: 60rem;
+    width: 100%;
+    height: 20rem;/* Ensure the textarea takes up full width within its container */
+}
+
+.btn-primary {
+    max-width: 100%;
+    width: auto; /* Adjust the button width */
+    margin: 1rem auto; /* Center the button */
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    display: block; /* Ensure the button is centered as a block element */
+}
+
+.algo textarea {
+    height: 80%;
+}

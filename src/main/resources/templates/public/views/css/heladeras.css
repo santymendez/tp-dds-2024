@@ -1,0 +1,237 @@
+
+.form-label {
+    font-size: 1.5rem;
+    text-align: left;
+    display: block;
+}
+
+.accion {
+    text-align: center;
+    max-width: 40rem;
+}
+
+.main-content .container {
+    max-width: 100%;
+    justify-content: center;
+    margin-top: 0;
+}
+
+.chico {
+    max-width: 30rem;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.mediano {
+    max-width: 50rem;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.form-select {
+    text-align: center;
+}
+
+.containerPrincipal {
+    max-width: 35rem;
+    margin: 0 auto;
+}
+
+
+.primero{
+    margin-bottom: 4rem;
+    width: 100%;
+}
+
+.mediano_s{
+    max-width: 47rem;
+    align-items: center;
+    justify-content: center;
+    padding-left: 8rem;
+}
+
+.form-label_s{
+    color: var(--negro);
+    text-decoration: none;
+    font-family: var(--fuenteParrafos), sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+    justify-content: center;
+}
+
+
+.suscribirse-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 60rem;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+.mediano_s{
+    max-width: 47rem;
+    align-items: center;
+    justify-content: center;
+    padding-left: 8rem;
+}
+
+h2{
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.mb-3 {
+    padding-bottom: 1rem;
+    align-items: center;
+}
+
+.form-label{
+    color: var(--negro);
+    text-decoration: none;
+    font-family: var(--fuenteParrafos), sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.col-form-label {
+    color: var(--negro);
+    text-decoration: none;
+    font-family: var(--fuenteParrafos), sans-serif;
+    font-size: 1.4rem;
+    margin-right: 0.5rem;
+}
+
+.form-check-input {
+    margin: 1rem ;
+    box-shadow: none;
+}
+
+.form-check-input:checked {
+    background-color: var(--negro);
+    border-color: var(--negro);
+    box-shadow: none;
+}
+
+.form-check-input:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.btn-primary {
+    background-color: var(--verdeSecundario);
+    font-size: 1.4rem;
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+    margin-top: 1rem;
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.form-check-input {
+    margin-right: 1rem;
+}
+
+.flex-item {
+    flex: 1;
+}
+
+.flex-container {
+    display: flex;
+    text-align: left;
+    width: 100%;
+}
+
+.flex-input {
+    margin-left: 1rem;
+    width: 25rem;
+    height: 3rem;
+    max-width: 100%;
+}
+
+.primero{
+    margin-bottom: 4rem;
+    align-items: center;
+}
+
+.btn {
+    background-color: var(--verdeSecundario);
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+    justify-content: center;
+}
+
+.btn-primary {
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    max-width: 100%;
+    justify-content: center;
+}
+
+.mx-auto{
+    width: 10%;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 0;
+}
+
+
+.suscribirse-content {
+    flex: 1;
+    max-width: 60rem;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    padding-top: 0;
+}
+
+.mediano_s {
+    max-width: 40rem;
+    align-items: center;
+    justify-content: center;
+    padding-left: 16rem;
+    width: 100%;
+}
+
+h2 {
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.algo{
+    max-width: 100%;
+    height: 15rem;
+    margin-bottom: 6rem;
+}
+
+.form-control{
+    height: 100%;
+}
+
+.alto{
+    height: 3rem;
+    width: 33%;
+}

@@ -1,0 +1,150 @@
+
+
+.form-check {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    margin-right: 10%;
+}
+
+.form-check-label {
+    font-family: var(--fuenteParrafos), serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--negro);
+    margin-left: 0.5rem; /* Espacio entre el toggle y el texto */
+}
+
+.form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    appearance: none;
+    background-color: var(--grisToggle); /* Color de fondo cuando está desactivado */
+    border-radius: 9999px; /* Bordes redondeados */
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.form-check-input::before {
+    content: '';
+    position: absolute;
+    top: 0.1rem;
+    left: 0.1rem;
+    width: calc(50% - 0.2rem);
+    height: calc(100% - 0.2rem);
+    border-radius: 9999px;
+    background-color: var(--blanco);
+    transition: transform 0.3s;
+}
+
+.form-check-input:checked {
+    background-color: var(--verdeSecundario); /* Color de fondo cuando está activado */
+}
+
+.form-check-input:checked::before {
+    transform: translateX(1.5rem); /* Mueve el círculo del toggle switch */
+}
+
+.btn-primary {
+    background-color: var(--verdeSecundario);
+    font-size: 1.4rem;
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+    margin-top: 2rem;
+    width: 20%;
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
+}
+
+.btn-primary:hover {
+    background-color: var(--verdeBotonesCuadrados);
+    border-color: var(--verdeBotonesCuadrados);
+    color: var(--blanco);
+}
+
+.row {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+/* Mantén el tamaño de los inputs */
+.form-control, .form-select {
+    font-family: var(--fuenteParrafos), serif;
+    font-size: 1.4rem;
+    color: var(--negro);
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 80%;
+    margin-inline: auto;
+}
+
+.form-control::placeholder, .form-select::placeholder {
+    color: #a9a9a9;
+    font-size: 1.4rem;
+}
+
+.form-control:focus, .form-select:focus {
+/*    border-color: var(--verdeBotonesCuadrados);*/
+/*    box-shadow: none;*/
+    font-size: 1.4rem;
+}
+
+.main-content .container {
+    max-width: 100%;
+    justify-content: center;
+    margin-top: 0;
+}
+
+.chico {
+    max-width: 30rem;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.mb-3 {
+    padding-bottom: 1rem;
+    align-items: center;
+}
+
+.form-select {
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--verdeSecundario);
+    font-size: 1.4rem;
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+    margin-top: 1rem;
+}
+
+.btn-primary:active:focus {
+    background: var(--verdeSecundario);
+    border-color: transparent;
+}
+
+.btn {
+    background-color: var(--verdeSecundario);
+    border-color: var(--verdeSecundario);
+    color: var(--blanco);
+    justify-content: center;
+}
+
+.btn-primary {
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    max-width: 100%;
+    justify-content: center;
+}

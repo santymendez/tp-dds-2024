@@ -1,0 +1,38 @@
+{{#partial "estilos"}}
+    <link rel="stylesheet" href="css/reportar-falla-tecnica.css">
+{{/partial}}
+
+{{#partial "cuerpo"}}
+    <h2>Reportar Falla Técnica</h2>
+
+    <form action="reportar-falla-tecnica.html" method="post" class="form" enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+
+                <label for="heladera" class="form-label">Heladera</label>
+                <select name="heladera" id="heladera" class="form-select">
+                    <option selected>Seleccione una heladera</option>
+                    <option value="heladera1">Heladera 1</option>
+                    <option value="heladera2">Heladera 2</option>
+                    <option value="heladera3">Heladera 3</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea name="descripcion" id="descripcion" class="form-control"></textarea>
+            </div>
+
+            <div class="image-upload mb-3">
+                <label for="imagen_reporte" class="form-label">Imagen</label>
+                <input type="file" class="form-control form-control-lg" id="imagen_reporte">
+            </div>
+
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary btn-lg">Reportar</button>
+        </div>
+    </form>
+{{/partial}}

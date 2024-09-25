@@ -77,7 +77,8 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
   @Override
   public void edit(Context context) {
-    //PRETENDE DEVOLVER UNA VISTA CON UN FORMULARIO QUE PERMITA EDITAR AL RECURSO QUE LLEGA POR PATH PARAM
+    //PRETENDE DEVOLVER UNA VISTA CON UN FORMULARIO QUE
+    // PERMITA EDITAR AL RECURSO QUE LLEGA POR PATH PARAM
     Optional<Heladera> posibleHeladeraBuscada = this
         .repositorioDeHeladeras.buscarPorId(Long.valueOf(context.pathParam("id")), Heladera.class);
 

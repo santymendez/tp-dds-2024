@@ -2,7 +2,6 @@ package controllers;
 
 import dtos.VisitaInputDto;
 import models.entities.personas.tecnico.VisitaTecnica;
-import models.repositories.RepositoryLocator;
 import models.repositories.imp.GenericRepository;
 
 /**
@@ -13,9 +12,8 @@ public class VisitasController {
 
   private final GenericRepository visitasRepository;
 
-  public VisitasController() {
-    this.visitasRepository =
-        RepositoryLocator.get("genericRepository", GenericRepository.class);
+  public VisitasController(GenericRepository visitasRepository) {
+    this.visitasRepository = visitasRepository;
   }
 
   /**

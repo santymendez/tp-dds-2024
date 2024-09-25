@@ -13,7 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.db.Persistente;
 import models.entities.colaboracion.Colaboracion;
@@ -27,15 +30,16 @@ import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import utils.recomendator.adapter.AdapterServicioRecomendacion;
 import utils.security.Usuario;
 
-
 /**
  * Representa a un colaborador en el sistema.
  */
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "colaboradores")
+@AllArgsConstructor
 public class Colaborador extends Persistente {
 
   @Transient
@@ -112,3 +116,4 @@ public class Colaborador extends Persistente {
   }
 
 }
+

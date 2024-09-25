@@ -34,6 +34,7 @@ public class RepositoryLocator {
    * @return Instancia del repositorio adecuado.
    */
 
+  @SuppressWarnings("unchecked")
   public static <T> T instanceOf(Class<T> repositoryClass) {
     String repositoryClassName = repositoryClass.getName();
 

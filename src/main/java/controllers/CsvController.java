@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.TipoColaborador;
+import models.entities.personas.contacto.TipoContacto;
 import models.factories.FactoryColaboracion;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
@@ -59,10 +61,12 @@ public class CsvController {
       while ((nextLine = reader.readNext()) != null) {
         ColaboradorInputDto colaboradorInputDto = new ColaboradorInputDto();
         colaboradorInputDto.setTipoDocumento(nextLine[0]);
-        colaboradorInputDto.setNumeroDocumento(Integer.parseInt(nextLine[1]));
+        colaboradorInputDto.setNumeroDocumento(nextLine[1]);
         colaboradorInputDto.setNombre(nextLine[2]);
         colaboradorInputDto.setApellido(nextLine[3]);
-        colaboradorInputDto.setEmail(nextLine[4]);
+        colaboradorInputDto.setContacto(nextLine[4]);
+        colaboradorInputDto.setTipoContacto(TipoContacto.MAIL.toString());
+        colaboradorInputDto.setTipoColaborador(TipoColaborador.FISICO.toString());
 
         ColaboracionInputDto colaboracionInputDto = new ColaboracionInputDto();
         colaboracionInputDto.setFecha(nextLine[5]);
@@ -113,8 +117,10 @@ public class CsvController {
   public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
 
     Optional<Colaborador> unColaborador =
-        this.colaboradoresRepository.buscarPorDocumento(colaboradorInputDto.getNumeroDocumento());
+        this.colaboradoresRepository
+            .buscarPorDocumento(Integer.valueOf(colaboradorInputDto.getNumeroDocumento()));
 
-    return unColaborador.orElseGet(() -> this.colaboradoresService.crear(colaboradorInputDto));
+    return unColaborador
+        .orElseGet(() -> this.colaboradoresService.crearDesdeCsv(colaboradorInputDto));
   }
 }

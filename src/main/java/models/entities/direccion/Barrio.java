@@ -4,7 +4,9 @@ package models.entities.direccion;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -14,6 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class Barrio {
   @Column(name = "nombreBarrio", nullable = false)
   private String nombreBarrio;

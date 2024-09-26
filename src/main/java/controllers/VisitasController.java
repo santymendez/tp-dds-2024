@@ -13,9 +13,8 @@ public class VisitasController {
 
   private final GenericRepository visitasRepository;
 
-  public VisitasController() {
-    this.visitasRepository =
-        RepositoryLocator.get("genericRepository", GenericRepository.class);
+  public VisitasController(GenericRepository visitasRepository) {
+    this.visitasRepository = visitasRepository;
   }
 
   /**

@@ -4,46 +4,52 @@ import java.util.HashMap;
 import java.util.Map;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
+import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.ReportesRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
 
 /**
- * Service Locator.
+ * Service Locator para obtener los servicios de repositorios.
  */
 public class RepositoryLocator {
 
-  private static final Map<String, Object> services = new HashMap<>();
-
-  static {
-    // Inicializar el mapa con las instancias de los repositorios
-    services.put("genericRepository", new GenericRepository());
-    services.put("colaboracionesRepository", new ColaboracionesRepository());
-    services.put("colaboradoresRepository", new ColaboradoresRepository());
-    services.put("tecnicosRepository", new TecnicosRepository());
-    services.put("reportesRepository", new ReportesRepository());
-    services.put("usosTarjetasVulnerablesRepository", new UsosTarjetasVulnerablesRepository());
-  }
+  private static final Map<String, Object> instances = new HashMap<>();
 
   /**
-   * Obtiene el objeto repositorio a partir de una clave.
+   * Devuelve una instancia del repositorio adecuado.
    *
-   * @param key Es la clave del objeto.
-   * @return El repositorio correspondiente a la clave.
-   * @throws IllegalArgumentException Si no se encuentra el repositorio para la clave dada.
+   * @param repositoryClass Clase del repositorio.
+   * @param <T> Tipo de la clase del repositorio.
+   * @return Instancia del repositorio adecuado.
    */
 
   @SuppressWarnings("unchecked")
-  public static <T> T get(String key, Class<T> tipoClase) {
-    Object service = services.get(key);
-    if (service == null) {
-      throw new IllegalArgumentException("No se pudo obtener el servicio " + key);
+  public static <T> T instanceOf(Class<T> repositoryClass) {
+    String repositoryClassName = repositoryClass.getName();
+
+    if (!instances.containsKey(repositoryClassName)) {
+      if (repositoryClass.equals(GenericRepository.class)) {
+        instances.put(repositoryClassName, new GenericRepository());
+      } else if (repositoryClass.equals(ColaboracionesRepository.class)) {
+        instances.put(repositoryClassName, new ColaboracionesRepository());
+      } else if (repositoryClass.equals(ColaboradoresRepository.class)) {
+        instances.put(repositoryClassName, new ColaboradoresRepository());
+      } else if (repositoryClass.equals(TecnicosRepository.class)) {
+        instances.put(repositoryClassName, new TecnicosRepository());
+      } else if (repositoryClass.equals(ReportesRepository.class)) {
+        instances.put(repositoryClassName, new ReportesRepository());
+      } else if (repositoryClass.equals(UsosTarjetasVulnerablesRepository.class)) {
+        instances.put(repositoryClassName, new UsosTarjetasVulnerablesRepository());
+      } else if (repositoryClass.equals(DireccionesRepository.class)) {
+        instances.put(repositoryClassName, new DireccionesRepository());
+      } else if (repositoryClass.equals(ProvinciasRepository.class)) {
+        instances.put(repositoryClassName, new ProvinciasRepository());
+      }
     }
-    if (!tipoClase.isInstance(service)) {
-      throw new IllegalArgumentException("El servicio " + key + " no es del tipo "
-              + tipoClase.getName());
-    }
-    return (T) service;
+
+    return (T) instances.get(repositoryClassName);
   }
 }

@@ -2,7 +2,6 @@ package models.entities.personas.colaborador.suscripcion;
 
 import config.SenderLocator;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,7 +34,7 @@ public class QuedanViandas extends Suscripcion {
     this.heladera = heladera;
     this.viandasDisponibles = viandas;
     this.senderInterface =
-        SenderLocator.getService(colaborador.getContacto().getTipoContacto());
+        SenderLocator.instanceOf(colaborador.getContacto().getTipoContacto());
     this.tipo = TipoSuscripcion.QUEDAN_N_VIANDAS;
   }
 

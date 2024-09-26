@@ -20,7 +20,7 @@ public class GeneradorReporteCronJob {
   public static void main(String[] args) {
     ReportesRepository reportesRepository =
         RepositoryLocator
-            .get("reportesRepository", ReportesRepository.class);
+            .instanceOf(ReportesRepository.class);
 
     List<ReporteHeladera> reportesDeLaSemana = reportesRepository.buscarTodosUltimaSemana();
 
@@ -35,7 +35,7 @@ public class GeneradorReporteCronJob {
 
     GenericRepository heladerasRepository =
         RepositoryLocator
-            .get("genericRepository", GenericRepository.class);
+            .instanceOf(GenericRepository.class);
 
     List<Heladera> heladeras = heladerasRepository.buscarTodos(Heladera.class);
 

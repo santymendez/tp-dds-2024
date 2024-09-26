@@ -2,7 +2,6 @@ package models.entities.personas.colaborador.suscripcion;
 
 import config.SenderLocator;
 import java.util.List;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import lombok.NoArgsConstructor;
@@ -36,7 +35,7 @@ public class Desperfecto extends Suscripcion {
     this.heladera = heladera;
     this.buscadorHeladerasFrecuentes = new BuscadorHeladerasFrecuentes();
     this.senderInterface =
-        SenderLocator.getService(colaborador.getContacto().getTipoContacto());
+        SenderLocator.instanceOf(colaborador.getContacto().getTipoContacto());
     this.tipo = TipoSuscripcion.OCURRIO_DESPERFECTO;
   }
 

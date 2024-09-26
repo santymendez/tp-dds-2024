@@ -29,8 +29,8 @@ public class MovimientoListener implements IMqttMessageListener {
    */
 
   public MovimientoListener() {
-    this.repoGenerico = RepositoryLocator.get("genericRepository", GenericRepository.class);
-    this.reportesRepository = RepositoryLocator.get("reportesRepository", ReportesRepository.class);
+    this.repoGenerico = RepositoryLocator.instanceOf(GenericRepository.class);
+    this.reportesRepository = RepositoryLocator.instanceOf(ReportesRepository.class);
   }
 
   @Override

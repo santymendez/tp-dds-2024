@@ -9,23 +9,30 @@ import utils.sender.channels.TelegramBotSender;
 import utils.sender.channels.WhatsAppSender;
 
 /**
- * Service Locator para poder obtener una instancia del Sender adecuado.
+ * Service Locator para obtener los servicios de envío de mensajes.
  */
 
 public class SenderLocator {
-  private static final HashMap<TipoContacto, SenderInterface> services = new HashMap<>();
+  private static final HashMap<TipoContacto, SenderInterface> instances = new HashMap<>();
 
-  static {
-    services.put(TipoContacto.MAIL, EmailSender.getInstance());
-    services.put(TipoContacto.WHATSAPP, WhatsAppSender.getInstance());
-    services.put(TipoContacto.TELEGRAM, TelegramBotSender.getInstance());
-  }
+  /**
+   * Devuelve una instancia del Sender adecuado.
+   *
+   * @param tipoContacto Tipo de contacto.
+   * @return Instancia del Sender adecuado.
+   */
 
-  public static SenderInterface getService(TipoContacto tipoContacto) {
-    return services.get(tipoContacto);
-  }
+  public static SenderInterface instanceOf(TipoContacto tipoContacto) {
+    if (!instances.containsKey(tipoContacto)) {
+      if (tipoContacto.equals(TipoContacto.MAIL)) {
+        instances.put(tipoContacto, EmailSender.getInstance());
+      } else if (tipoContacto.equals(TipoContacto.WHATSAPP)) {
+        instances.put(tipoContacto, WhatsAppSender.getInstance());
+      } else if (tipoContacto.equals(TipoContacto.TELEGRAM)) {
+        instances.put(tipoContacto, TelegramBotSender.getInstance());
+      }
+    }
 
-  public static void enviar(Mensaje mensaje, String destinatario, TipoContacto tipoContacto) {
-    getService(tipoContacto).enviar(mensaje, destinatario);
+    return instances.get(tipoContacto);
   }
 }

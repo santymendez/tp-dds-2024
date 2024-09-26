@@ -3,12 +3,8 @@ package services;
 import dtos.ColaboradorInputDto;
 import lombok.Setter;
 import models.entities.personas.colaborador.Colaborador;
-import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
-import models.entities.personas.contacto.Contacto;
-import models.entities.personas.contacto.TipoContacto;
-import models.entities.personas.documento.Documento;
-import models.entities.personas.documento.TipoDocumento;
+import models.factories.FactoryColaborador;
 import models.repositories.imp.ColaboradoresRepository;
 import utils.security.Usuario;
 import utils.sender.Mensaje;
@@ -38,19 +34,9 @@ public class ColaboradoresService {
    * @param colaboradorInputDto Es el input del colaborador.
    */
 
-  public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
+  public Colaborador crearDesdeCsv(ColaboradorInputDto colaboradorInputDto) {
 
-    Colaborador colaborador = new Colaborador();
-    colaborador.setNombre(colaboradorInputDto.getNombre());
-    colaborador.setApellido(colaboradorInputDto.getApellido());
-    colaborador.setTipoColaborador(TipoColaborador.FISICO);
-
-    Documento documento = new Documento(colaboradorInputDto.getNumeroDocumento(),
-        TipoDocumento.valueOf(colaboradorInputDto.getTipoDocumento()));
-    colaborador.setDocumento(documento);
-
-    Contacto contacto = new Contacto(colaboradorInputDto.getEmail(), TipoContacto.MAIL);
-    colaborador.setContacto(contacto);
+    Colaborador colaborador = FactoryColaborador.crearCon(colaboradorInputDto);
 
     //Crear usuario y enviar mail
     Usuario usuario =  new Usuario(colaborador.getNombre(), colaborador.getApellido());
@@ -59,12 +45,12 @@ public class ColaboradoresService {
     Mensaje message = new Mensaje("Creación de Nuevo Usuario",
         "Se le ha creado un nuevo usuario en el sistema para ingresar. \n"
             + "\nSus credenciales son: \nUsuario: "
-            + colaboradorInputDto.getEmail()
+            + colaboradorInputDto.getContacto()
             + "\nContraseña: "
             + colaboradorInputDto.getApellido()
             + "\nPuede cambiarlas si así lo desea.\n\nSaludos!");
 
-    String destinatario = colaboradorInputDto.getEmail();
+    String destinatario = colaboradorInputDto.getContacto();
 
     emailsender.enviar(message, destinatario);
 

@@ -23,10 +23,10 @@ public class DetectorFallaDesconexion {
 
   public static void main(String[] args) {
     GenericRepository repoGenerico = RepositoryLocator
-            .get("genericRepository", GenericRepository.class);
+        .instanceOf(GenericRepository.class);
 
     ReportesRepository reportesRepository =
-        RepositoryLocator.get("reportesRepository", ReportesRepository.class);
+        RepositoryLocator.instanceOf(ReportesRepository.class);
 
     List<SensorTemperatura> sensores = repoGenerico.buscarTodos(SensorTemperatura.class);
 

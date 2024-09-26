@@ -16,6 +16,12 @@ import utils.sender.SenderInterface;
 
 public class BuscadorTecnicosCercanos {
 
+  private final TecnicosRepository tecnicosRepository;
+
+  public BuscadorTecnicosCercanos(TecnicosRepository tecnicosRepository) {
+    this.tecnicosRepository = tecnicosRepository;
+  }
+
   /**
    * Busca tecnicos cercanos a una heladera.
    *
@@ -24,9 +30,6 @@ public class BuscadorTecnicosCercanos {
 
   public void buscarTecnicosCercanosA(Heladera heladera) {
     Ciudad nombreCiudad = heladera.getDireccion().getBarrio().getCiudad();
-
-    TecnicosRepository tecnicosRepository = RepositoryLocator
-            .get("tecnicosRepository", TecnicosRepository.class);
 
     notificarTecnicos(tecnicosRepository.buscarPorCiudad(nombreCiudad), heladera);
   }
@@ -41,7 +44,7 @@ public class BuscadorTecnicosCercanos {
   public void notificarTecnicos(List<Tecnico> tecnicos, Heladera heladera) {
     tecnicos.parallelStream().forEach(tecnico -> {
       SenderInterface sender =
-          SenderLocator.getService(tecnico.getContacto().getTipoContacto());
+          SenderLocator.instanceOf(tecnico.getContacto().getTipoContacto());
 
       String asunto = "La heladera " + heladera.getNombre() + " ha sufrido una falla tecnica";
       String cuerpo = "Podes acercarte a revisarla, se encuentra en: "

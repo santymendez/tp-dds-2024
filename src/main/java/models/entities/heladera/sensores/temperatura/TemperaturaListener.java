@@ -30,10 +30,10 @@ public class TemperaturaListener implements IMqttMessageListener {
   public TemperaturaListener() {
     this.repoGenerico =
         RepositoryLocator
-            .get("genericRepository", GenericRepository.class);
+            .instanceOf(GenericRepository.class);
     this.reportesRepository =
         RepositoryLocator
-            .get("reportesRepository", ReportesRepository.class);
+            .instanceOf(ReportesRepository.class);
   }
 
   @Override

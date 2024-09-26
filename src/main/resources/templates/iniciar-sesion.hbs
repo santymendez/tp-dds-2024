@@ -1,0 +1,28 @@
+{{#partial "estilo"}}
+    <link rel="stylesheet" href="css/iniciar-sesion.css">
+{{/partial}}
+
+{{#partial "cuerpo"}}
+    <h2>Iniciar Sesión</h2>
+    <div class="ini-container">
+        <form>
+            <div class="mb-3">
+                <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
+                <input type="text" class="form-control form-control-lg" id="nombreUsuario" placeholder="Ingrese nombre de usuario">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Ingrese contraseña">
+            </div>
+            <div class="check-container">
+                <input type="checkbox" class="form-check-input" id="mantenerSesion">
+                <label class="col-form-label" for="mantenerSesion">Mantener sesión iniciada</label>
+            </div>
+            <div class="d-grid mx-auto">
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </div>
+        </form>
+    </div>
+{{/partial}}
+
+{{> templates/base }}

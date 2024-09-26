@@ -1,0 +1,53 @@
+{{#partial "estilo"}}
+    <link rel="stylesheet" href="css/alertas.css">
+{{/partial}}
+
+{{#partial "cuerpo"}}
+    <h2>Ver Alertas</h2>
+    <div class="container chico">
+        <div class="mb-3 containerPrincipal">
+            <label for="actionSelector" class="form-label chico">Elige una Heladera</label>
+            <select class="form-select form-select-lg chico" id="actionSelector">
+                <option value="" selected>Seleccione una opcion</option>
+                <option value="heladera_1">Heladera 1</option>
+                <option value="heladera_2">Heladera 2</option>
+                <option value="heladera_3">Heladera 3</option>
+            </select>
+        </div>
+
+        <div id="heladera_1" class="list-group">
+            <a class="list-group-item">
+                <div class="d-flex w-100 justify-content-between temperatura">
+                    <h4>Exceso de Temperatura</h4>
+                    <h4>Valor: 23.5º</h4>
+                    <h4>Momento: 23-10-2024-11:55</h4>
+                </div>
+            </a>
+            <a class="list-group-item">
+                <div class="d-flex w-100 justify-content-between temperatura">
+                    <h4>Fraude</h4>
+                    <h4>Momento: 23-10-2024-11:55</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+{{/partial}}
+
+{{#partial "scripts"}}
+    <script>
+        document.getElementById('actionSelector').addEventListener('change', function() {
+            var selectedValue = this.value;
+            var actionForms = document.querySelectorAll('.action-form');
+
+            actionForms.forEach(function(form) {
+                if (form.id === selectedValue) {
+                    form.classList.remove('d-none');
+                } else {
+                    form.classList.add('d-none');
+                }
+            });
+        });
+    </script>
+{{/partial}}
+
+{{> templates/base }}

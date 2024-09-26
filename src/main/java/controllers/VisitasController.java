@@ -1,5 +1,6 @@
 package controllers;
 
+import config.RepositoryLocator;
 import dtos.VisitaInputDto;
 import models.entities.personas.tecnico.VisitaTecnica;
 import models.repositories.imp.GenericRepository;

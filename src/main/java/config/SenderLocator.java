@@ -2,6 +2,7 @@ package config;
 
 import java.util.HashMap;
 import models.entities.personas.contacto.TipoContacto;
+import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 import utils.sender.channels.EmailSender;
 import utils.sender.channels.TelegramBotSender;

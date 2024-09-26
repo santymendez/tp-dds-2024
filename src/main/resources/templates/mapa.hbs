@@ -1,4 +1,4 @@
-{{#block "estilos"}}
+{{#block "estilo"}}
     <link rel="stylesheet" type="text/css" href="css/base.css">
     <link rel="stylesheet" href="css/mapa.css">
     {{/block}}
@@ -7,7 +7,6 @@
     <h2>Mapa de Heladeras</h2>
     <div id="map"></div>
 {{/block}}
-
 
 {{#block "scripts"}}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -45,3 +44,5 @@
         .catch(error => console.error('Error cargando el JSON:', error));
 </script>
 {{/block}}
+
+{{> templates/base }}

@@ -1,5 +1,6 @@
 package models.entities.personas.colaborador.suscripcion;
 
+import config.SenderLocator;
 import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,7 +10,6 @@ import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 import models.searchers.BuscadorHeladerasFrecuentes;
-import utils.sender.SenderLocator;
 
 /**
  * Clase que representa la notificacion referida

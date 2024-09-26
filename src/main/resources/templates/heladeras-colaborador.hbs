@@ -1,4 +1,4 @@
-{{#partial "estilos"}}
+{{#partial "estilo"}}
     <link rel="stylesheet" href="css/heladeras.css">
 {{/partial}}
 
@@ -10,7 +10,7 @@
             <select class="form-select form-select-lg chico" id="actionSelector">
                 <option value="" selected>Elija una opción</option>
                 <option value="suscribirse">Suscribirse</option>
-                <option value="mapa.html">Ver Mapa Heladeras</option>
+                <option value="/heladerasSolidarias/heladeras">Ver Mapa Heladeras</option>
                 <option value="reportar_falla">Reportar Falla Técnica</option>
                 <option value="recomendaciones.html">Solicitar Recomendación</option>
             </select>
@@ -102,7 +102,7 @@
 <script>
     document.getElementById('actionSelector').addEventListener('change', function() {
         var selectedValue = this.value;
-        if (selectedValue == "recomendaciones.html") {
+        if (selectedValue == "recomendaciones.hbs") {
             window.location.href = selectedValue;
         }
     });
@@ -111,7 +111,7 @@
 <script>
     document.getElementById('actionSelector').addEventListener('change', function() {
         var selectedValue = this.value;
-        if (selectedValue == "mapa.html") {
+        if (selectedValue == "/heladerasSolidarias/heladeras") {
             window.location.href = selectedValue;
         }
     });
@@ -132,3 +132,5 @@
     });
 </script>
 {{/partial}}
+
+{{> templates/base }}

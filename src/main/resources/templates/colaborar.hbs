@@ -1,7 +1,6 @@
-{{#partial "estilos"}}
-<link rel="stylesheet" href="css/colaborar.css">
+{{#partial "estilo"}}
+    <link rel="stylesheet" href="css/colaborar.css">
 {{/partial}}
-
 
 {{#partial "cuerpo"}}
     <h2>Selecciona una Opción para Colaborar</h2>
@@ -176,11 +175,13 @@
 <script>
     document.getElementById('actionSelector').addEventListener('change', function() {
         var selectedValue = this.value;
-        if (selectedValue == "alta-heladera.html") {
+        if (selectedValue == "alta-heladera.hbs") {
             window.location.href = selectedValue;
         }
     });
 </script>
 {{/partial}}
+
+{{> templates/base }}
 
 

@@ -1,6 +1,9 @@
 package server;
 
+import config.ServiceLocator;
+import controllers.HeladerasController;
 import io.javalin.Javalin;
+import java.util.Map;
 
 /**
  * Clase Router.
@@ -15,9 +18,30 @@ public class Router {
    */
 
   public static void init(Javalin app) {
-    //EJEMPLOS
-    app.get("/heladerassolidarias", ctx -> ctx
-        .result("Se viene el fin de semana todo a la cancha vamo a ir!"));
+
+    app.get("/heladerasSolidarias", ctx -> ctx.render("/home-page.hbs",
+        Map.of("titulo", "Heladeras Solidarias")));
+
+    app.get("/heladerasSolidarias/iniciarSesion", ctx -> ctx.render("/iniciar-sesion.hbs",
+        Map.of("titulo", "Iniciar Sesion")));
+
+    app.get("/heladerasSolidarias/registrarse", ctx -> ctx.render("/registrarse.hbs",
+        Map.of("titulo", "Registrarse")));
+
+    app.get("/heladerasSolidarias/colaborar", ctx -> ctx.render("/colaborar.hbs",
+        Map.of("titulo", "Colaborar")));
+
+    app.get("/heladerasSolidarias/heladeras", ctx -> ctx.render("/heladeras-colaborador.hbs",
+        Map.of("titulo", "Heladeras")));
+
+    app.get("/heladerasSolidarias/heladeras/verMapa",
+        ServiceLocator.instanceOf(HeladerasController.class)::index);
+
+    app.get("/heladerasSolidarias/reportes", ctx -> ctx.render("/reportes.hbs"));
+
+    app.get("/heladerasSolidarias/puntos", ctx -> ctx.render("/canjear-puntos.hbs"));
+
+    app.get("/heladerasSolidarias/vulnerables", ctx -> ctx.render("/registrar-vulnerable.hbs"));
 
     //Query Params
     //app.get("/saludo", ctx -> {

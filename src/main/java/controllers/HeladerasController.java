@@ -29,8 +29,11 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     // TODO es lo que dijo eze de hacer
     //List<HeladeraDTO> = ...
 
-    // TODO ver las rutas para devolver el listado
-    //context.render("productos/productos.hbs", model);
+    Map<String, Object> model = new HashMap<>();
+    model.put("titulo", "Heladeras");
+    model.put("heladeras", heladeras);
+
+    context.render("mapa.hbs", model);
   }
 
   //RECIBE POR PATH PARAM EL ID DE UN PRODUCTO Y PRETENDE DEVOLVER UNA
@@ -47,10 +50,10 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     }*/
 
     Map<String, Object> model = new HashMap<>();
+    model.put("titulo", "Heladeras");
     model.put("producto", posibleHeladeraBuscada.get());
 
-    //TODO
-    //context.render("productos/detalle_producto.hbs", model);
+    context.render("heladeras-colaborador.hbs", model);
   }
 
   //PRETENDE DEVOLVER UNA VISTA CON UN FORMULARIO PARA DAR DE ALTA UN NUEVO PRODUCTO.

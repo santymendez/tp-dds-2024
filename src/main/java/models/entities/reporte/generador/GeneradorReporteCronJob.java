@@ -1,9 +1,9 @@
 package models.entities.reporte.generador;
 
+import config.RepositoryLocator;
 import java.util.List;
 import models.entities.heladera.Heladera;
 import models.entities.reporte.ReporteHeladera;
-import models.repositories.RepositoryLocator;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesRepository;
 

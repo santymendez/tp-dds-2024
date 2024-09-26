@@ -1,14 +1,14 @@
 package models.searchers;
 
+import config.RepositoryLocator;
+import config.SenderLocator;
 import java.util.List;
 import models.entities.direccion.Ciudad;
 import models.entities.heladera.Heladera;
 import models.entities.personas.tecnico.Tecnico;
-import models.repositories.RepositoryLocator;
 import models.repositories.imp.TecnicosRepository;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
-import utils.sender.SenderLocator;
 
 /**
  * Busca tecnicos cercanos a una heladera en particular.

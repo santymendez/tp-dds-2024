@@ -1,8 +1,17 @@
-{{#partial "estilos"}}
+{{#partial "estilo"}}
     <link rel="stylesheet" href="css/home-page.css">
 {{/partial}}
 
-{{#partial "cuerpos"}}
+{{#partial "register-loggin"}}
+    <div class="header__buttons-container">
+        <div class="header__buttons">
+            <a href="/heladerasSolidarias/iniciarSesion" class="header__button">Iniciar Sesión</a>
+            <a href="/heladerasSolidarias/registrarse" class="header__button-underline">Registrarse</a>
+        </div>
+    </div>
+{{/partial}}
+
+{{#partial "cuerpo"}}
 <main class="main-content">
     <div class="main-text">
         <h2>¿Quiénes Somos?</h2>
@@ -18,3 +27,5 @@
     </div>
 </main>
 {{/partial}}
+
+{{> templates/base }}

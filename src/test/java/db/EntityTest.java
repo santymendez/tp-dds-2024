@@ -40,7 +40,6 @@ import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 import models.entities.personas.colaborador.suscripcion.Desperfecto;
 import models.entities.personas.colaborador.suscripcion.FaltanViandas;
 import models.entities.personas.colaborador.suscripcion.QuedanViandas;
-import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
@@ -933,21 +932,18 @@ public class EntityTest {
     desperfecto.setHeladera(heladera1);
     desperfecto.setColaborador(iniaki);
     desperfecto.setSenderInterface(emailSender);
-    desperfecto.setTipo(TipoSuscripcion.OCURRIO_DESPERFECTO);
 
     faltanViandas = new FaltanViandas();
     faltanViandas.setHeladera(heladera2);
     faltanViandas.setColaborador(mati);
     faltanViandas.setViandasFaltantes(5);
     faltanViandas.setSenderInterface(emailSender);
-    faltanViandas.setTipo(TipoSuscripcion.FALTAN_N_VIANDAS);
 
     quedanViandas = new QuedanViandas();
     quedanViandas.setHeladera(heladera3);
     quedanViandas.setColaborador(augusto);
     quedanViandas.setViandasDisponibles(2);
     quedanViandas.setSenderInterface(emailSender);
-    quedanViandas.setTipo(TipoSuscripcion.QUEDAN_N_VIANDAS);
 
   }
 
@@ -985,22 +981,22 @@ public class EntityTest {
   void iniciarRepos() {
 
     this.colaboradoresRepository =
-        RepositoryLocator.get("colaboradoresRepository", ColaboradoresRepository.class);
+        RepositoryLocator.instanceOf(ColaboradoresRepository.class);
 
     this.colaboracionesRepository =
-        RepositoryLocator.get("colaboracionesRepository", ColaboracionesRepository.class);
+        RepositoryLocator.instanceOf(ColaboracionesRepository.class);
 
     this.usosTarjetasVulnerablesRepository =
-        RepositoryLocator.get("usosTarjetasVulnerablesRepository", UsosTarjetasVulnerablesRepository.class);
+        RepositoryLocator.instanceOf(UsosTarjetasVulnerablesRepository.class);
 
     this.tecnicosRepository =
-        RepositoryLocator.get("tecnicosRepository", TecnicosRepository.class);
+        RepositoryLocator.instanceOf(TecnicosRepository.class);
 
     this.repoGenerico =
-        RepositoryLocator.get("genericRepository", GenericRepository.class);
+        RepositoryLocator.instanceOf(GenericRepository.class);
 
     this.reportesRepository =
-        RepositoryLocator.get("reportesRepository", ReportesRepository.class);
+        RepositoryLocator.instanceOf(ReportesRepository.class);
   }
 
   void peristirEntidades(){

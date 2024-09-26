@@ -4,6 +4,8 @@ import config.RepositoryLocator;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.Getter;
 import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.ColocacionHeladera;
@@ -64,14 +66,18 @@ import utils.sender.channels.EmailSender;
 
 public class Initializer {
 
+  @Getter
   static ColaboradoresRepository colaboradoresRepository;
 
+  @Getter
   static ColaboracionesRepository colaboracionesRepository;
 
   static UsosTarjetasVulnerablesRepository usosTarjetasVulnerablesRepository;
 
+  @Getter
   static TecnicosRepository tecnicosRepository;
 
+  @Getter
   static GenericRepository repoGenerico;
 
   static ReportesRepository reportesRepository;
@@ -81,6 +87,7 @@ public class Initializer {
   static ProvinciasRepository provinciasRepository;
 
   static ColocacionHeladera colocacionHeladera;
+  @Getter
   static Colaboracion colocarHeladera;
 
   static DistribucionTarjetas distribucionTarjetas;
@@ -103,6 +110,7 @@ public class Initializer {
   static Oferta oferta3;
   static Colaboracion realizarOferta;
 
+  @Getter
   static Direccion direccion1;
   static Direccion direccion2;
   static Direccion direccion3;
@@ -115,6 +123,7 @@ public class Initializer {
   static Ciudad ciudad2;
   static Ciudad ciudad3;
 
+  @Getter
   static Provincia provincia1;
   static Provincia provincia2;
   static Provincia provincia3;
@@ -149,6 +158,7 @@ public class Initializer {
   static RespuestaFormulario respuestaFormulario2;
   static RespuestaFormulario respuestaFormulario3;
 
+  @Getter
   static Heladera heladera1;
   static Heladera heladera2;
   static Heladera heladera3;
@@ -218,6 +228,7 @@ public class Initializer {
   static Contacto contactoLiam;
   static Contacto contactoSanti;
 
+  @Getter
   static Colaborador augusto;
   static Colaborador iniaki;
   static Colaborador mati;
@@ -227,9 +238,11 @@ public class Initializer {
   static FaltanViandas faltanViandas;
   static QuedanViandas quedanViandas;
 
+  @Getter
   static Tecnico liam;
   static Tecnico santi;
 
+  @Getter
   static Vulnerable eze;
   static Vulnerable facu;
 
@@ -259,9 +272,9 @@ public class Initializer {
    * Inicializa la aplicación con datos de prueba.
    */
 
-  public static void init() {
+  public static void init(String unidadPersistencia) {
     //Para testear en db poner database en  vez de simple
-    PersistenceUnitSwitcher.switchPersistenceUnit("simple-persistence-unit");
+    PersistenceUnitSwitcher.switchPersistenceUnit(unidadPersistencia);
 
     iniciarContactos();
     iniciarColaboradores();
@@ -284,6 +297,60 @@ public class Initializer {
     iniciarSuscripciones();
     iniciarViandasPorColaborador();
     iniciarReportes();
+
+    persistirEntidades();
+  }
+
+  private static void persistirEntidades() {
+    iniciarRepos();
+
+    repoGenerico.guardar(direccion1);
+    repoGenerico.guardar(direccion2);
+    repoGenerico.guardar(direccion3);
+
+    colaboradoresRepository.guardar(augusto);
+    colaboradoresRepository.guardar(iniaki);
+    colaboradoresRepository.guardar(mati);
+    colaboradoresRepository.guardar(elCityGroup);
+
+    repoGenerico.guardar(heladera1);
+    repoGenerico.guardar(heladera2);
+    repoGenerico.guardar(heladera3);
+
+    repoGenerico.guardar(villalva);
+    repoGenerico.guardar(enrique);
+    repoGenerico.guardar(perez);
+    repoGenerico.guardar(tello);
+    repoGenerico.guardar(eze);
+    repoGenerico.guardar(facu);
+
+    repoGenerico.guardar(desperfecto);
+    repoGenerico.guardar(faltanViandas);
+    repoGenerico.guardar(quedanViandas);
+
+    repoGenerico.guardar(registroVulnerable1);
+    repoGenerico.guardar(registroVulnerable2);
+    repoGenerico.guardar(registroVulnerable3);
+
+    colaboracionesRepository.guardar(colocarHeladera);
+    colaboracionesRepository.guardar(distribuirTarjetas);
+    colaboracionesRepository.guardar(distribuirViandas);
+    colaboracionesRepository.guardar(donarDinero);
+    colaboracionesRepository.guardar(realizarOferta);
+
+    tecnicosRepository.guardar(liam);
+    tecnicosRepository.guardar(santi);
+
+    repoGenerico.guardar(formulario1);
+
+    repoGenerico.guardar(viandasPorColaborador1);
+    repoGenerico.guardar(viandasPorColaborador2);
+    repoGenerico.guardar(viandasPorColaborador3);
+
+    reportesRepository.guardar(reporteHeladera1);
+    reportesRepository.guardar(reporteHeladera2);
+    reportesRepository.guardar(reporteHeladera3);
+
   }
 
   static void iniciarContactos() {
@@ -997,54 +1064,4 @@ public class Initializer {
         RepositoryLocator.instanceOf(ReportesRepository.class);
   }
 
-  static void peristirEntidades() {
-    iniciarRepos();
-
-    repoGenerico.guardar(direccion1);
-    repoGenerico.guardar(direccion2);
-    repoGenerico.guardar(direccion3);
-
-    colaboradoresRepository.guardar(augusto);
-    colaboradoresRepository.guardar(iniaki);
-    colaboradoresRepository.guardar(mati);
-    colaboradoresRepository.guardar(elCityGroup);
-
-    repoGenerico.guardar(heladera1);
-    repoGenerico.guardar(heladera2);
-    repoGenerico.guardar(heladera3);
-
-    repoGenerico.guardar(villalva);
-    repoGenerico.guardar(enrique);
-    repoGenerico.guardar(perez);
-    repoGenerico.guardar(tello);
-    repoGenerico.guardar(eze);
-    repoGenerico.guardar(facu);
-
-    repoGenerico.guardar(desperfecto);
-    repoGenerico.guardar(faltanViandas);
-    repoGenerico.guardar(quedanViandas);
-
-    repoGenerico.guardar(registroVulnerable1);
-    repoGenerico.guardar(registroVulnerable2);
-    repoGenerico.guardar(registroVulnerable3);
-
-    colaboracionesRepository.guardar(colocarHeladera);
-    colaboracionesRepository.guardar(distribuirTarjetas);
-    colaboracionesRepository.guardar(distribuirViandas);
-    colaboracionesRepository.guardar(donarDinero);
-    colaboracionesRepository.guardar(realizarOferta);
-
-    tecnicosRepository.guardar(liam);
-    tecnicosRepository.guardar(santi);
-
-    repoGenerico.guardar(formulario1);
-
-    repoGenerico.guardar(viandasPorColaborador1);
-    repoGenerico.guardar(viandasPorColaborador2);
-    repoGenerico.guardar(viandasPorColaborador3);
-
-    reportesRepository.guardar(reporteHeladera1);
-    reportesRepository.guardar(reporteHeladera2);
-    reportesRepository.guardar(reporteHeladera3);
-  }
 }

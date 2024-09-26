@@ -49,7 +49,7 @@ public class Server {
       Router.init(app);
 
       if (Boolean.parseBoolean(Config.getDevMode())) {
-        Initializer.init();
+        Initializer.init("simple-persistence-unit");
       }
     }
   }

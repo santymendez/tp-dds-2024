@@ -10,7 +10,7 @@ import models.repositories.imp.GenericRepository;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
- * Controlador de heladeras.
+ * Controlador de heladeras para alta, baja y modificacion.
  */
 
 public class HeladerasController implements InterfaceCrudViewsHandler {
@@ -19,7 +19,6 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
   public HeladerasController(GenericRepository repo) {
     this.repositorioDeHeladeras = repo;
   }
-
 
   //PRETENDE DEVOLVER UNA VISTA QUE CONTENGA A TODOS LOS PRODUCTOS ALMACENADOS EN MI SISTEMA
   @Override
@@ -60,7 +59,9 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
   @Override
   public void create(Context context) {
-    //TODO
+
+
+
     context.render("productos/formulario_producto.hbs");
   }
 

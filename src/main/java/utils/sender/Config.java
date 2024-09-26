@@ -51,4 +51,12 @@ public class Config {
   public static String getTelegramBotToken() {
     return properties.getProperty("telegram.bot.token");
   }
+
+  public static String getServerPort() {
+    return properties.getProperty("server_port");
+  }
+
+  public static String getDevMode() {
+    return properties.getProperty("dev_mode");
+  }
 }

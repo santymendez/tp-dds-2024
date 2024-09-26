@@ -40,10 +40,6 @@ public abstract class Suscripcion extends Persistente {
   @Transient
   protected SenderInterface senderInterface;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "tipoSuscripcion", nullable = false)
-  protected TipoSuscripcion tipo;
-
   public abstract Boolean seCumpleCondicion();
 
   public abstract String getAsunto();

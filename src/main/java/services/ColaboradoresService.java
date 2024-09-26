@@ -17,15 +17,11 @@ import utils.sender.channels.EmailSender;
 public class ColaboradoresService {
 
   private final ColaboradoresRepository colaboradoresRepository;
-  @Setter
-  private EmailSender emailsender;
 
   public ColaboradoresService(
-      ColaboradoresRepository colaboradorRepository,
-      EmailSender sender
+      ColaboradoresRepository colaboradorRepository
   ) {
     this.colaboradoresRepository = colaboradorRepository;
-    this.emailsender = sender;
   }
 
   /**
@@ -52,7 +48,7 @@ public class ColaboradoresService {
 
     String destinatario = colaboradorInputDto.getContacto();
 
-    emailsender.enviar(message, destinatario);
+    EmailSender.getInstance().enviar(message, destinatario);
 
     //Para los test, en realidad la formula ya deberia estar creada
     // y solo deberiamos hacer el set al reconocimiento.

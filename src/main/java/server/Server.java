@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 import utils.javalin.Initializer;
 import utils.javalin.JavalinRenderer;
 import utils.javalin.PrettyProperties;
+import utils.sender.Config;
 
 /**
  * Clase que inicializa el servidor Javalin y configura las rutas de la aplicación.
@@ -42,12 +43,12 @@ public class Server {
     if (app == null) {
 
       Integer port = Integer
-          .parseInt(PrettyProperties.getInstance().propertyFromName("server_port"));
+          .parseInt(Config.getServerPort());
       app = Javalin.create(config()).start(port);
 
       Router.init(app);
 
-      if (Boolean.parseBoolean(PrettyProperties.getInstance().propertyFromName("dev_mode"))) {
+      if (Boolean.parseBoolean(Config.getDevMode())) {
         Initializer.init();
       }
     }

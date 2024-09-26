@@ -35,7 +35,6 @@ public class QuedanViandas extends Suscripcion {
     this.viandasDisponibles = viandas;
     this.senderInterface =
         SenderLocator.instanceOf(colaborador.getContacto().getTipoContacto());
-    this.tipo = TipoSuscripcion.QUEDAN_N_VIANDAS;
   }
 
   @Override

@@ -1,6 +1,7 @@
 package server;
 
-import config.ServiceLocator;
+import config.ControllerLocator;
+import controllers.CanjearPuntosController;
 import controllers.HeladerasController;
 import io.javalin.Javalin;
 import java.util.Map;
@@ -35,11 +36,12 @@ public class Router {
         Map.of("titulo", "Heladeras")));
 
     app.get("/heladerasSolidarias/heladeras/verMapa",
-        ServiceLocator.instanceOf(HeladerasController.class)::index);
+        ControllerLocator.instanceOf(HeladerasController.class)::index);
 
     app.get("/heladerasSolidarias/reportes", ctx -> ctx.render("/reportes.hbs"));
 
-    app.get("/heladerasSolidarias/puntos", ctx -> ctx.render("/canjear-puntos.hbs"));
+    app.get("/heladerasSolidarias/puntos",
+        ControllerLocator.instanceOf(CanjearPuntosController.class)::index);
 
     app.get("/heladerasSolidarias/vulnerables", ctx -> ctx.render("/registrar-vulnerable.hbs"));
 

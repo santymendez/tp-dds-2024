@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Clase singleton que se encarga de leer el archivo de configuración configo.properties
+ * Clase singleton que se encarga de leer el archivo de configuración config.properties
  */
 
 public class PrettyProperties {
@@ -34,7 +34,7 @@ public class PrettyProperties {
 
   private void readProperties() {
     try {
-      InputStream input = new FileInputStream("configo.properties");
+      InputStream input = new FileInputStream("config.properties");
       this.prop.load(input);
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -44,4 +44,5 @@ public class PrettyProperties {
   public String propertyFromName(String name) {
     return this.prop.getProperty(name, null);
   }
+
 }

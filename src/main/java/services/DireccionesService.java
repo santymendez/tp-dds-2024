@@ -4,6 +4,7 @@ import dtos.DireccionInputDto;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.factories.FactoryDireccion;
+import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
 
 /**
@@ -11,11 +12,6 @@ import models.repositories.imp.GenericRepository;
  */
 
 public class DireccionesService {
-  private final GenericRepository genericRepository;
-
-  public DireccionesService(GenericRepository genericRepository) {
-    this.genericRepository = genericRepository;
-  }
 
   public Direccion crear(DireccionInputDto direccionInputDto) {
     return FactoryDireccion.crearCon(direccionInputDto);

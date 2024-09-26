@@ -1,38 +1,40 @@
 package config;
 
-import controllers.HeladerasController;
 import java.util.HashMap;
-import java.util.Map;
-import models.repositories.imp.GenericRepository;
+import models.repositories.imp.ColaboradoresRepository;
+import services.ColaboradoresService;
+import services.DireccionesService;
 
 /**
- * Clase ServiceLocator.
+ * Clase serviceLocator para obtener los services.
  */
 
 public class ServiceLocator {
-  private static Map<String, Object> instances = new HashMap<>();
-
+  private static final HashMap<String, Object> instances = new HashMap<>();
 
   /**
-   * Obtiene la instancia de un componente.
+   * Obtiene la instancia de un Service.
    *
-   * @param componentClass la clase del componente
-   * @return la instancia del componente
+   * @param serviceClass la clase del Service.
+   * @param <T> el tipo de la clase del Service.
+   * @return la instancia del Service.
    */
 
   @SuppressWarnings("unchecked")
-  public static <T> T instanceOf(Class<T> componentClass) {
-    String componentName = componentClass.getName();
+  public static <T> T instanceOf(Class<T> serviceClass) {
+    String serviceName = serviceClass.getName();
 
-    if (!instances.containsKey(componentName)) {
-
-      if (componentName.equals(HeladerasController.class.getName())) {
-        HeladerasController instance = new HeladerasController(RepositoryLocator
-            .get("genericRepository", GenericRepository.class));
-        instances.put(componentName, instance);
+    if (!instances.containsKey(serviceName)) {
+      if (serviceClass.equals(ColaboradoresService.class)) {
+        ColaboradoresService instance =
+            new ColaboradoresService(RepositoryLocator.instanceOf(ColaboradoresRepository.class));
+        instances.put(serviceName, instance);
+      } else if (serviceClass.equals(DireccionesService.class)) {
+        DireccionesService instance = new DireccionesService();
+        instances.put(serviceName, instance);
       }
     }
 
-    return (T) instances.get(componentName);
+    return (T) instances.get(serviceName);
   }
 }

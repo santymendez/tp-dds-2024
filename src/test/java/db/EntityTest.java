@@ -1,5 +1,6 @@
 package db;
 
+import config.RepositoryLocator;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,6 @@ import models.entities.personas.tecnico.Tecnico;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ViandasPorColaborador;
-import models.repositories.RepositoryLocator;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;

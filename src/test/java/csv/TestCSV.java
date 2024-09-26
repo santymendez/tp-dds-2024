@@ -34,7 +34,7 @@ public class TestCSV {
 
     colaboradoresService = new ColaboradoresService(colaboradoresRepository);
 
-    csvController = new CsvController(colaboradoresService, colaboradoresRepository, colaboracionesRepository);
+    csvController = new CsvController(colaboradoresService, colaboradoresRepository, colaboracionesRepository, emailSender);
   }
 
   @Test

@@ -26,17 +26,6 @@ public class FactoryColaborador {
   public static Colaborador crearCon(ColaboradorInputDto colaboradorInputDto) {
     Colaborador nuevoColaborador;
 
-    DireccionInputDto direccionInputDto = DireccionInputDto.builder()
-        .numero(colaboradorInputDto.getNumero())
-        .nombreUbicacion(colaboradorInputDto.getNombreUbicacion())
-        .longitud(colaboradorInputDto.getLongitud())
-        .latitud(colaboradorInputDto.getLatitud())
-        .nombreBarrio(colaboradorInputDto.getNombreBarrio())
-        .calle(colaboradorInputDto.getCalle())
-        .nombreCiudad(colaboradorInputDto.getNombreCiudad())
-        .nombreProvincia(colaboradorInputDto.getNombreProvincia())
-        .build();
-
     if (colaboradorInputDto.getTipoColaborador().equals(TipoColaborador.FISICO.toString())) {
       nuevoColaborador = Colaborador.builder()
           .nombre(colaboradorInputDto.getNombre())
@@ -47,7 +36,6 @@ public class FactoryColaborador {
           .documento(new Documento(Integer.valueOf(colaboradorInputDto.getNumeroDocumento()),
               TipoDocumento.valueOf(colaboradorInputDto.getTipoDocumento()))
           )
-          .direccion(FactoryDireccion.crearCon(direccionInputDto))
           .reconocimiento(new Reconocimiento())
           .colaboraciones(new ArrayList<>())
           .build();
@@ -59,7 +47,6 @@ public class FactoryColaborador {
           .razonSocial(colaboradorInputDto.getRazonSocial())
           .contacto(new Contacto(colaboradorInputDto.getContacto(),
               TipoContacto.valueOf(colaboradorInputDto.getTipoContacto())))
-          .direccion(FactoryDireccion.crearCon(direccionInputDto))
           .reconocimiento(new Reconocimiento())
           .colaboraciones(new ArrayList<>())
           .build();

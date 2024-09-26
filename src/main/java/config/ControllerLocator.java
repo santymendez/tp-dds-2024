@@ -9,6 +9,7 @@ import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import services.ColaboradoresService;
+import utils.sender.channels.EmailSender;
 
 /**
  * Clase ServiceLocator para obtener los Controllers.
@@ -37,7 +38,8 @@ public class ControllerLocator {
         CsvController instance = new CsvController(
             ServiceLocator.instanceOf(ColaboradoresService.class),
             RepositoryLocator.instanceOf(ColaboradoresRepository.class),
-            RepositoryLocator.instanceOf(ColaboracionesRepository.class)
+            RepositoryLocator.instanceOf(ColaboracionesRepository.class),
+            EmailSender.getInstance()
         );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(CanjearPuntosController.class)) {

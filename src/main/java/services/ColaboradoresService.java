@@ -30,7 +30,7 @@ public class ColaboradoresService {
    * @param colaboradorInputDto Es el input del colaborador.
    */
 
-  public Colaborador crearDesdeCsv(ColaboradorInputDto colaboradorInputDto) {
+  public Colaborador crearDesdeCsv(ColaboradorInputDto colaboradorInputDto, EmailSender emailSender) {
 
     Colaborador colaborador = FactoryColaborador.crearCon(colaboradorInputDto);
 
@@ -48,7 +48,7 @@ public class ColaboradoresService {
 
     String destinatario = colaboradorInputDto.getContacto();
 
-    EmailSender.getInstance().enviar(message, destinatario);
+    emailSender.enviar(message, destinatario);
 
     //Para los test, en realidad la formula ya deberia estar creada
     // y solo deberiamos hacer el set al reconocimiento.

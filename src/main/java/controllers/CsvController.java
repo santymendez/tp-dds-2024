@@ -28,6 +28,7 @@ public class CsvController {
 
   private static final Logger logger = LogManager.getLogger(EmailSender.class);
   private static final String ruta_archivo = "src/main/resources/lista_colaboradores.csv";
+  private final EmailSender emailSender;
   private final ColaboradoresService colaboradoresService;
   private final ColaboradoresRepository colaboradoresRepository;
   private final ColaboracionesRepository colaboracionesRepository;
@@ -41,11 +42,13 @@ public class CsvController {
   public CsvController(
       ColaboradoresService colaboradoresService,
       ColaboradoresRepository colaboradoresRepository,
-      ColaboracionesRepository colaboracionesRepository
+      ColaboracionesRepository colaboracionesRepository,
+      EmailSender emailSender
   ) {
     this.colaboradoresService = colaboradoresService;
     this.colaboradoresRepository = colaboradoresRepository;
     this.colaboracionesRepository = colaboracionesRepository;
+    this.emailSender = emailSender;
   }
 
   /**
@@ -121,6 +124,6 @@ public class CsvController {
             .buscarPorDocumento(Integer.valueOf(colaboradorInputDto.getNumeroDocumento()));
 
     return unColaborador
-        .orElseGet(() -> this.colaboradoresService.crearDesdeCsv(colaboradorInputDto));
+        .orElseGet(() -> this.colaboradoresService.crearDesdeCsv(colaboradorInputDto, emailSender));
   }
 }

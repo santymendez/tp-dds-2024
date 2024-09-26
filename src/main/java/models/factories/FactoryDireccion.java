@@ -21,14 +21,23 @@ public class FactoryDireccion {
 
   public static Direccion crearCon(DireccionInputDto direccionInputDto) {
     Direccion nuevaDireccion = new Direccion();
-    nuevaDireccion.setNombreUbicacion(direccionInputDto.getNombreUbicacion());
-    nuevaDireccion.setLongitud(Float.valueOf(direccionInputDto.getLongitud()));
-    nuevaDireccion.setLatitud(Float.valueOf(direccionInputDto.getLatitud()));
-    nuevaDireccion.setBarrio(new Barrio(direccionInputDto.getNombreBarrio(),
-        direccionInputDto.getCalle(),
-        Integer.valueOf(direccionInputDto.getNumero()),
-        new Ciudad(direccionInputDto.getNombreCiudad(),
-            new Provincia(direccionInputDto.getNombreProvincia()))));
+    if (direccionInputDto.getNombreUbicacion() != null) {
+      nuevaDireccion.setNombreUbicacion(direccionInputDto.getNombreUbicacion());
+    }
+    if (direccionInputDto.getLongitud() != null) {
+      nuevaDireccion.setLongitud(Float.valueOf(direccionInputDto.getLongitud()));
+    }
+    if (direccionInputDto.getLongitud() != null) {
+      nuevaDireccion.setLatitud(Float.valueOf(direccionInputDto.getLatitud()));
+    }
+    if (direccionInputDto.getNombreBarrio() != null) {
+      nuevaDireccion.setBarrio(new Barrio(direccionInputDto.getNombreBarrio(),
+          direccionInputDto.getCalle(),
+          Integer.valueOf(direccionInputDto.getNumero()),
+          new Ciudad(direccionInputDto.getNombreCiudad(),
+              new Provincia(direccionInputDto.getNombreProvincia()))));
+    }
+
     return nuevaDireccion;
   }
 }

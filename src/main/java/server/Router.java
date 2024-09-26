@@ -32,6 +32,9 @@ public class Router {
     app.get("/heladerasSolidarias/colaborar", ctx -> ctx.render("/colaborar.hbs",
         Map.of("titulo", "Colaborar")));
 
+    app.get("/heladerasSolidarias/colaborar/colocarHeladera", ctx -> ctx.render("alta-heladera.hbs",
+        Map.of("titulo", "Colocar Heladera")));
+
     app.get("/heladerasSolidarias/heladeras", ctx -> ctx.render("/heladeras-colaborador.hbs",
         Map.of("titulo", "Heladeras")));
 

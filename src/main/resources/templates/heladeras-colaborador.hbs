@@ -1,5 +1,5 @@
 {{#partial "estilo"}}
-    <link rel="stylesheet" href="css/heladeras.css">
+    <link rel="stylesheet" href="/css/heladeras.css">
 {{/partial}}
 
 {{#partial "cuerpo"}}
@@ -16,12 +16,13 @@
             </select>
         </div>
     </div>
-    <div id="suscribirse" class = "suscribirse-content action-form d-none">
+    <div id="suscribirse" class="suscribirse-content action-form d-none">
         <form class="probar">
             <div class="mb-3 primero">
-                <div class = "mediano_s">
+                <div class="mediano_s">
                     <label for="nombre" class="form-label_s">Nombre de la Heladera</label>
-                    <input class="form-control form-control-lg" list="datalistOptions" id="nombre2" placeholder="Escriba para buscar...">
+                    <input class="form-control form-control-lg" list="datalistOptions" id="nombre2"
+                           placeholder="Escriba para buscar...">
                 </div>
                 <datalist id="datalistOptions">
                     <option value="Heladera Medrano">
@@ -40,7 +41,8 @@
                 <div class="flex-item">
                     <label for="faltan" class="col-form-label">Faltan X Viandas</label>
                 </div>
-                <input type="text" aria-label="cant_faltan" class="form-control flex-input alto" placeholder="Ingrese la Cantidad de Viandas">
+                <input type="text" aria-label="cant_faltan" class="form-control flex-input alto"
+                       placeholder="Ingrese la Cantidad de Viandas">
             </div>
 
             <div class="mb-3 form-check flex-container">
@@ -48,7 +50,8 @@
                 <div class="flex-item">
                     <label for="quedan" class="col-form-label">Quedan X Viandas</label>
                 </div>
-                <input type="text" aria-label="cant_quedan" class="form-control flex-input alto" placeholder="Ingrese la Cantidad de Viandas">
+                <input type="text" aria-label="cant_quedan" class="form-control flex-input alto"
+                       placeholder="Ingrese la Cantidad de Viandas">
             </div>
 
             <div class="mb-3 form-check">
@@ -63,12 +66,13 @@
     </div>
 
     <div class="reportar_falla"></div>
-    <div id="reportar_falla" class = "suscribirse-content action-form d-none">
+    <div id="reportar_falla" class="suscribirse-content action-form d-none">
         <form class="probar">
             <div class="mb-3 primero">
-                <div class = "mediano_s">
+                <div class="mediano_s">
                     <label for="nombre" class="form-label_s">Nombre de la Heladera</label>
-                    <input class="form-control form-control-lg" list="datalistOptions" id="nombre" placeholder="Escriba para buscar...">
+                    <input class="form-control form-control-lg" list="datalistOptions" id="nombre"
+                           placeholder="Escriba para buscar...">
                 </div>
                 <datalist id="datalistOptions2">
                     <option value="Heladera Medrano">
@@ -99,38 +103,38 @@
 {{/partial}}
 
 {{#partial "scripts"}}
-<script>
-    document.getElementById('actionSelector').addEventListener('change', function() {
-        var selectedValue = this.value;
-        if (selectedValue == "recomendaciones.hbs") {
-            window.location.href = selectedValue;
-        }
-    });
-</script>
-
-<script>
-    document.getElementById('actionSelector').addEventListener('change', function() {
-        var selectedValue = this.value;
-        if (selectedValue == "/heladerasSolidarias/heladeras") {
-            window.location.href = selectedValue;
-        }
-    });
-</script>
-
-<script>
-    document.getElementById('actionSelector').addEventListener('change', function() {
-        var selectedValue = this.value;
-        var actionForms = document.querySelectorAll('.action-form');
-
-        actionForms.forEach(function(form) {
-            if (form.id === selectedValue) {
-                form.classList.remove('d-none');
-            } else {
-                form.classList.add('d-none');
+    <script>
+        document.getElementById('actionSelector').addEventListener('change', function () {
+            var selectedValue = this.value;
+            if (selectedValue == "recomendaciones.hbs") {
+                window.location.href = selectedValue;
             }
         });
-    });
-</script>
+    </script>
+
+    <script>
+        document.getElementById('actionSelector').addEventListener('change', function () {
+            var selectedValue = this.value;
+            if (selectedValue == "/heladerasSolidarias/heladeras") {
+                window.location.href = selectedValue;
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('actionSelector').addEventListener('change', function () {
+            var selectedValue = this.value;
+            var actionForms = document.querySelectorAll('.action-form');
+
+            actionForms.forEach(function (form) {
+                if (form.id === selectedValue) {
+                    form.classList.remove('d-none');
+                } else {
+                    form.classList.add('d-none');
+                }
+            });
+        });
+    </script>
 {{/partial}}
 
 {{> templates/base }}

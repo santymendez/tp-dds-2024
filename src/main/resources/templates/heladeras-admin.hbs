@@ -7,62 +7,68 @@
 {{/partial}}
 
 {{#partial "cuerpo"}}
-<h2 class="arribita">Gestión de Heladeras</h2>
-<div class="container chico">
-    <div class="mb-3 containerPrincipal chico">
-        <label for="actionSelector" class="form-label chico">Elige una acción</label>
-        <select class="form-select form-select-lg chico" id="actionSelector">
-            <option value="" selected>Elija una opción</option>
-            <option value="darAlta">Dar de Alta</option>
-            <option value="darBaja">Dar de Baja</option>
-            <option value="modificarHeladeras">Modificar Heladera</option>
-            <option value="verAlertas">Ver Alertas</option>
-        </select>
+    <h2 class="arribita">Gestión de Heladeras</h2>
+    <div class="container chico">
+        <div class="mb-3 containerPrincipal chico">
+            <label for="actionSelector" class="form-label chico">Elige una acción</label>
+            <select class="form-select form-select-lg chico" id="actionSelector">
+                <option value="" selected>Elija una opción</option>
+                <option value="darAlta">Dar de Alta</option>
+                <option value="darBaja">Dar de Baja</option>
+                <option value="modificarHeladeras">Modificar Heladera</option>
+                <option value="verAlertas">Ver Alertas</option>
+            </select>
+        </div>
     </div>
-</div>
 
     <div id="darAlta" class="d-none action-form">
-    <div class="row darAlta">
-        <div class="col-md-6 mb-3">
-            <label for="nombreHeladera" class="form-label">Nombre de la Heladera *</label>
-            <input type="text" class="form-control" id="nombreHeladera" placeholder="Ingresar nombre" required>
+        <div class="row darAlta">
+            <div class="col-md-6 mb-3">
+                <label for="nombreHeladera" class="form-label">Nombre de la Heladera *</label>
+                <input type="text" class="form-control" id="nombreHeladera"
+                       placeholder="Ingresar nombre" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="modeloHeladera" class="form-label">Modelo de la Heladera *</label>
+                <input type="text" class="form-control" id="modeloHeladera"
+                       placeholder="Ingresar modelo" required>
+            </div>
         </div>
-        <div class="col-md-6 mb-3">
-            <label for="modeloHeladera" class="form-label">Modelo de la Heladera *</label>
-            <input type="text" class="form-control" id="modeloHeladera" placeholder="Ingresar modelo" required>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="direccionHeladera" class="form-label">Dirección *</label>
+                <input type="text" class="form-control" id="direccionHeladera"
+                       placeholder="Ingresar dirección" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="fechaAltaHeladera" class="form-label">Fecha de Alta *</label>
+                <input type="date" class="form-control" id="fechaAltaHeladera" required>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="direccionHeladera" class="form-label">Dirección *</label>
-            <input type="text" class="form-control" id="direccionHeladera" placeholder="Ingresar dirección" required>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="minTempHeladera" class="form-label">Temperatura Mínima *</label>
+                <input type="number" step="1" class="form-control" id="minTempHeladera"
+                       placeholder="Ingresar temperatura mínima" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="maxTempHeladera" class="form-label">Temperatura Máxima *</label>
+                <input type="number" step="1" class="form-control" id="maxTempHeladera"
+                       placeholder="Ingresar temperatura máxima" required>
+            </div>
         </div>
-        <div class="col-md-6 mb-3">
-            <label for="fechaAltaHeladera" class="form-label">Fecha de Alta *</label>
-            <input type="date" class="form-control" id="fechaAltaHeladera" required>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Registrar Heladera</button>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label for="minTempHeladera" class="form-label">Temperatura Mínima *</label>
-            <input type="number" step="1" class="form-control" id="minTempHeladera" placeholder="Ingresar temperatura mínima" required>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label for="maxTempHeladera" class="form-label">Temperatura Máxima *</label>
-            <input type="number" step="1" class="form-control" id="maxTempHeladera" placeholder="Ingresar temperatura máxima" required>
-        </div>
-    </div>
-    <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary">Registrar Heladera</button>
-    </div>
     </div>
 
-    <div id="darBaja" class = "suscribirse-content action-form d-none">
+    <div id="darBaja" class="suscribirse-content action-form d-none">
         <form class="probar">
             <div class="mb-3 primero">
-                <div class = "mediano_s">
+                <div class="mediano_s">
                     <label for="nombre" class="form-label_s">Nombre de la Heladera</label>
-                    <input class="form-control form-control-lg" id="nombre" placeholder="Escriba para buscar...">
+                    <input class="form-control form-control-lg" id="nombre"
+                           placeholder="Escriba para buscar...">
                 </div>
                 <datalist id="datalistOptions2">
                     <option value="Heladera Medrano">
@@ -88,7 +94,8 @@
     <div id="modificarHeladeras" class="action-form container mt-5 nopadding d-none">
         <form>
             <div class="fila">
-                <label for="selectHeladera" class="form-label">Selecciona la Heladera a Modificar *</label>
+                <label for="selectHeladera" class="form-label">Selecciona la Heladera a Modificar
+                    *</label>
                 <select id="selectHeladera" class="form-select ancho-reducido" required>
                     <option value="" disabled selected>Seleccione una heladera</option>
                     <option value="heladera1">Heladera 1</option>
@@ -101,33 +108,42 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="nombreHeladera" class="form-label este">Nombre</label>
-                        <input type="text" class="form-control" id="nombreHeladera2" placeholder="Ingresar nombre de la heladera">
+                        <input type="text" class="form-control" id="nombreHeladera2"
+                               placeholder="Ingresar nombre de la heladera">
                     </div>
                     <div class="form-group">
-                        <label for="minTempHeladera" class="form-label este">Temperatura Mínima</label>
-                        <input type="number" class="form-control" id="minTempHeladera2" placeholder="Ingresar temperatura mínima">
+                        <label for="minTempHeladera" class="form-label este">Temperatura
+                            Mínima</label>
+                        <input type="number" class="form-control" id="minTempHeladera2"
+                               placeholder="Ingresar temperatura mínima">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="direccionHeladera" class="form-label este">Dirección</label>
-                        <input type="text" class="form-control" id="direccionHeladera2" placeholder="Ingresar dirección de la heladera">
+                        <input type="text" class="form-control" id="direccionHeladera2"
+                               placeholder="Ingresar dirección de la heladera">
                     </div>
                     <div class="form-group">
-                        <label for="maxTempHeladera" class="form-label este">Temperatura Máxima</label>
-                        <input type="number" class="form-control" id="maxTempHeladera2" placeholder="Ingresar temperatura máxima">
+                        <label for="maxTempHeladera" class="form-label este">Temperatura
+                            Máxima</label>
+                        <input type="number" class="form-control" id="maxTempHeladera2"
+                               placeholder="Ingresar temperatura máxima">
                     </div>
                 </div>
             </div>
 
             <div class="fila">
                 <label for="modeloHeladera" class="form-label este">Modelo de la Heladera</label>
-                <input type="text" class="form-control ancho-reducido-rmx" id="modeloHeladera2" placeholder="Ingresar modelo de la heladera">
+                <input type="text" class="form-control ancho-reducido-rmx" id="modeloHeladera2"
+                       placeholder="Ingresar modelo de la heladera">
             </div>
 
             <div class="fila">
-                <label for="razonModificacion" class="form-label este">Razón de la Modificación</label>
-                <textarea id="razonModificacion" class="form-control" rows="4" placeholder="Ingrese la razón de la modificación (opcional)"></textarea>
+                <label for="razonModificacion" class="form-label este">Razón de la
+                    Modificación</label>
+                <textarea id="razonModificacion" class="form-control" rows="4"
+                          placeholder="Ingrese la razón de la modificación (opcional)"></textarea>
             </div>
 
             <div class="fila d-flex justify-content-center">
@@ -166,20 +182,20 @@
 {{/partial}}
 
 {{#partial "scripts"}}
-<script>
-    document.getElementById('actionSelector').addEventListener('change', function() {
-        var selectedValue = this.value;
-        var actionForms = document.querySelectorAll('.action-form');
+    <script>
+        document.getElementById('actionSelector').addEventListener('change', function () {
+            var selectedValue = this.value;
+            var actionForms = document.querySelectorAll('.action-form');
 
-        actionForms.forEach(function(form) {
-            if (form.id === selectedValue) {
-                form.classList.remove('d-none');
-            } else {
-                form.classList.add('d-none');
-            }
+            actionForms.forEach(function (form) {
+                if (form.id === selectedValue) {
+                    form.classList.remove('d-none');
+                } else {
+                    form.classList.add('d-none');
+                }
+            });
         });
-    });
-</script>
+    </script>
 {{/partial}}
 
 {{> templates/baseAdmin }}

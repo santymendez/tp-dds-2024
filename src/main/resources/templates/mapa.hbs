@@ -1,7 +1,7 @@
 {{#block "estilo"}}
     <link rel="stylesheet" type="text/css" href="/css/base.css">
     <link rel="stylesheet" href="/css/mapa.css">
-    {{/block}}
+{{/block}}
 
 {{#block "cuerpo"}}
     <h2>Mapa de Heladeras</h2>
@@ -9,40 +9,40 @@
 {{/block}}
 
 {{#block "scripts"}}
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-    const map = L.map('map').setView([51.505, -0.09], 13);
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([51.505, -0.09], 13);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-    // Cargar el archivo JSON
-    fetch('../resources/map/data.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al cargar el archivo JSON');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Datos cargados:', data); // Verifica si se cargan los datos
+        // Cargar el archivo JSON
+        fetch('../resources/map/data.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al cargar el archivo JSON');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Datos cargados:', data); // Verifica si se cargan los datos
 
-            // Iterar sobre los lugares y agregar marcadores
-            data.forEach(location => {
-                const lugar = location.lugar;
-                const lat = location.lat;
-                const lng = location.lng;
+                    // Iterar sobre los lugares y agregar marcadores
+                    data.forEach(location => {
+                        const lugar = location.lugar;
+                        const lat = location.lat;
+                        const lng = location.lng;
 
-                L.marker([lat, lng]).addTo(map)
-                    .bindPopup('<b>' + lugar + '</b>');
-            });
+                        L.marker([lat, lng]).addTo(map)
+                                .bindPopup('<b>' + lugar + '</b>');
+                    });
 
-            const group = L.featureGroup(data.map(location => L.marker([location.lat, location.lng])));
-            map.fitBounds(group.getBounds());
-        })
-        .catch(error => console.error('Error cargando el JSON:', error));
-</script>
+                    const group = L.featureGroup(data.map(location => L.marker([location.lat, location.lng])));
+                    map.fitBounds(group.getBounds());
+                })
+                .catch(error => console.error('Error cargando el JSON:', error));
+    </script>
 {{/block}}
 
 {{> templates/base }}

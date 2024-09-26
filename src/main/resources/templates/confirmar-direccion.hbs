@@ -1,8 +1,9 @@
 {{#partial "estilo"}}
-<link rel="stylesheet" href="css/confirmar-direccion.css">
+    <link rel="stylesheet" href="/css/confirmar-direccion.css">
 {{/partial}}
 
 {{#partial "cuerpo"}}
+
     <!-- Formulario para Confirmar Dirección -->
     <div id="confirmar_direccion" class="action-form confirmar-direccion-form">
         <h3>Confirmar Dirección</h3>
@@ -10,19 +11,24 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="provincia" class="form-label extra-class">Provincia</label>
-                    <input type="text" class="form-control form-control-lg" id="provincia" placeholder="Ej. CABA" required>
+                    <input type="text" class="form-control form-control-lg" id="provincia"
+                           placeholder="Ej. CABA" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="barrio" class="form-label extra-class">Barrio</label>
-                    <input type="text" class="form-control form-control-lg" id="barrio" placeholder="Ej. Villa Crespo" required>
+                    <input type="text" class="form-control form-control-lg" id="barrio"
+                           placeholder="Ej. Villa Crespo" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="ciudad" class="form-label extra-class">Ciudad</label>
-                    <input type="text" class="form-control form-control-lg" id="ciudad" placeholder="Ej. Buenos Aires" required>
+                    <input type="text" class="form-control form-control-lg" id="ciudad"
+                           placeholder="Ej. Buenos Aires" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="direccion" class="form-label extra-class">Dirección (Calle y Número)</label>
-                    <input type="text" class="form-control form-control-lg" id="direccion" placeholder="Ej. Malabia 500" required>
+                    <label for="direccion" class="form-label extra-class">Dirección (Calle y
+                        Número)</label>
+                    <input type="text" class="form-control form-control-lg" id="direccion"
+                           placeholder="Ej. Malabia 500" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-success btn-lg">Confirmar</button>

@@ -1,5 +1,5 @@
 {{#partial "estilo"}}
-    <link rel="stylesheet" href="css/alertas.css">
+    <link rel="stylesheet" href="/css/alertas.css">
 {{/partial}}
 
 {{#partial "cuerpo"}}
@@ -35,11 +35,11 @@
 
 {{#partial "scripts"}}
     <script>
-        document.getElementById('actionSelector').addEventListener('change', function() {
+        document.getElementById('actionSelector').addEventListener('change', function () {
             var selectedValue = this.value;
             var actionForms = document.querySelectorAll('.action-form');
 
-            actionForms.forEach(function(form) {
+            actionForms.forEach(function (form) {
                 if (form.id === selectedValue) {
                     form.classList.remove('d-none');
                 } else {

@@ -1,14 +1,15 @@
 {{#partial "estilo"}}
-    <link rel="stylesheet" href="css/suscribirse.css">
+    <link rel="stylesheet" href="/css/suscribirse.css">
 {{/partial}}
 
 {{#partial "cuerpo"}}
     <h2>Suscribirse a una Heladera</h2>
     <form>
         <div class="mb-3 primero">
-            <div class = "mediano_s">
+            <div class="mediano_s">
                 <label for="nombre" class="form-label">Nombre de la Heladera</label>
-                <input class="form-control form-control-lg" list="datalistOptions" id="nombre" placeholder="Escriba para buscar...">
+                <input class="form-control form-control-lg" list="datalistOptions" id="nombre"
+                       placeholder="Escriba para buscar...">
             </div>
             <datalist id="datalistOptions">
                 <option value="Heladera Medrano">
@@ -27,7 +28,8 @@
             <div class="flex-item">
                 <label for="faltan" class="col-form-label">Faltan X Viandas</label>
             </div>
-            <input type="text" aria-label="cant_faltan" class="form-control flex-input" placeholder="Ingrese la Cantidad de Viandas">
+            <input type="text" aria-label="cant_faltan" class="form-control flex-input"
+                   placeholder="Ingrese la Cantidad de Viandas">
         </div>
 
         <div class="mb-3 form-check flex-container">
@@ -35,7 +37,8 @@
             <div class="flex-item">
                 <label for="quedan" class="col-form-label">Quedan X Viandas</label>
             </div>
-            <input type="text" aria-label="cant_quedan" class="form-control flex-input" placeholder="Ingrese la Cantidad de Viandas">
+            <input type="text" aria-label="cant_quedan" class="form-control flex-input"
+                   placeholder="Ingrese la Cantidad de Viandas">
         </div>
 
         <div class="mb-3 form-check">

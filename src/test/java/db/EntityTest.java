@@ -1,11 +1,8 @@
 package db;
 
-import config.RepositoryLocator;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Optional;
+import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.direccion.Direccion;
@@ -26,6 +23,8 @@ public class EntityTest {
   @Test
   @DisplayName("Se pueden guardar y recuperar las entidades en la base de datos")
   void persistirTodo() {
+
+    PersistenceUnitSwitcher.switchPersistenceUnit("simple-persistence-unit");
 
     Initializer.init("simple-persistence-unit");
 

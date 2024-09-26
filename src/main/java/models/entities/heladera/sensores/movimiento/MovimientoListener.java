@@ -1,5 +1,6 @@
 package models.entities.heladera.sensores.movimiento;
 
+import config.RepositoryLocator;
 import java.util.Optional;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
@@ -8,7 +9,6 @@ import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
 import models.entities.reporte.ReporteHeladera;
-import models.repositories.RepositoryLocator;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
@@ -29,8 +29,8 @@ public class MovimientoListener implements IMqttMessageListener {
    */
 
   public MovimientoListener() {
-    this.repoGenerico = RepositoryLocator.get("genericRepository", GenericRepository.class);
-    this.reportesRepository = RepositoryLocator.get("reportesRepository", ReportesRepository.class);
+    this.repoGenerico = RepositoryLocator.instanceOf(GenericRepository.class);
+    this.reportesRepository = RepositoryLocator.instanceOf(ReportesRepository.class);
   }
 
   @Override

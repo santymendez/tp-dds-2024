@@ -1,9 +1,9 @@
 package models.entities.personas.colaborador.suscripcion;
 
+import config.SenderLocator;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-import config.SenderLocator;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;

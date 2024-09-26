@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
+import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.ReportesRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
@@ -15,16 +17,6 @@ import models.repositories.imp.UsosTarjetasVulnerablesRepository;
 public class RepositoryLocator {
 
   private static final Map<String, Object> instances = new HashMap<>();
-
-  static {
-    // Inicializar el mapa con las instancias de los repositorios
-    instances.put("genericRepository", new GenericRepository());
-    instances.put("colaboracionesRepository", new ColaboracionesRepository());
-    instances.put("colaboradoresRepository", new ColaboradoresRepository());
-    instances.put("tecnicosRepository", new TecnicosRepository());
-    instances.put("reportesRepository", new ReportesRepository());
-    instances.put("usosTarjetasVulnerablesRepository", new UsosTarjetasVulnerablesRepository());
-  }
 
   /**
    * Devuelve una instancia del repositorio adecuado.
@@ -51,6 +43,10 @@ public class RepositoryLocator {
         instances.put(repositoryClassName, new ReportesRepository());
       } else if (repositoryClass.equals(UsosTarjetasVulnerablesRepository.class)) {
         instances.put(repositoryClassName, new UsosTarjetasVulnerablesRepository());
+      } else if (repositoryClass.equals(DireccionesRepository.class)) {
+        instances.put(repositoryClassName, new DireccionesRepository());
+      } else if (repositoryClass.equals(ProvinciasRepository.class)) {
+        instances.put(repositoryClassName, new ProvinciasRepository());
       }
     }
 

@@ -1,8 +1,8 @@
 package models.entities.personas.colaborador.suscripcion;
 
+import config.SenderLocator;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import config.SenderLocator;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;

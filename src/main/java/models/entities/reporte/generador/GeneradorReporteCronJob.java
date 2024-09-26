@@ -1,9 +1,9 @@
 package models.entities.reporte.generador;
 
+import config.RepositoryLocator;
 import java.util.List;
 import models.entities.heladera.Heladera;
 import models.entities.reporte.ReporteHeladera;
-import models.repositories.RepositoryLocator;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesRepository;
 
@@ -20,7 +20,7 @@ public class GeneradorReporteCronJob {
   public static void main(String[] args) {
     ReportesRepository reportesRepository =
         RepositoryLocator
-            .get("reportesRepository", ReportesRepository.class);
+            .instanceOf(ReportesRepository.class);
 
     List<ReporteHeladera> reportesDeLaSemana = reportesRepository.buscarTodosUltimaSemana();
 
@@ -35,7 +35,7 @@ public class GeneradorReporteCronJob {
 
     GenericRepository heladerasRepository =
         RepositoryLocator
-            .get("genericRepository", GenericRepository.class);
+            .instanceOf(GenericRepository.class);
 
     List<Heladera> heladeras = heladerasRepository.buscarTodos(Heladera.class);
 

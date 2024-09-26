@@ -1,12 +1,12 @@
 package models.entities.heladera.sensores.temperatura;
 
+import config.RepositoryLocator;
 import java.util.List;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.reporte.ReporteHeladera;
-import models.repositories.RepositoryLocator;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesRepository;
 
@@ -23,10 +23,10 @@ public class DetectorFallaDesconexion {
 
   public static void main(String[] args) {
     GenericRepository repoGenerico = RepositoryLocator
-            .get("genericRepository", GenericRepository.class);
+        .instanceOf(GenericRepository.class);
 
     ReportesRepository reportesRepository =
-        RepositoryLocator.get("reportesRepository", ReportesRepository.class);
+        RepositoryLocator.instanceOf(ReportesRepository.class);
 
     List<SensorTemperatura> sensores = repoGenerico.buscarTodos(SensorTemperatura.class);
 

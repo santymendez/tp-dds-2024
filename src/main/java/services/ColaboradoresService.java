@@ -30,7 +30,9 @@ public class ColaboradoresService {
    * @param colaboradorInputDto Es el input del colaborador.
    */
 
-  public Colaborador crearDesdeCsv(ColaboradorInputDto colaboradorInputDto, EmailSender emailSender) {
+  public Colaborador crearDesdeCsv(
+      ColaboradorInputDto colaboradorInputDto,
+      EmailSender emailSender) {
 
     Colaborador colaborador = FactoryColaborador.crearCon(colaboradorInputDto);
 

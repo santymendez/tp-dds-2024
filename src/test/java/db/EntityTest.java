@@ -24,8 +24,6 @@ public class EntityTest {
   @DisplayName("Se pueden guardar y recuperar las entidades en la base de datos")
   void persistirTodo() {
 
-    PersistenceUnitSwitcher.switchPersistenceUnit("simple-persistence-unit");
-
     Initializer.init("simple-persistence-unit");
 
     TecnicosRepository tecnicosRepository = Initializer.getTecnicosRepository();

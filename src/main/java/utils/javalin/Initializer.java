@@ -4,7 +4,6 @@ import config.RepositoryLocator;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
@@ -273,7 +272,10 @@ public class Initializer {
    */
 
   public static void init(String unidadPersistencia) {
-    //Para testear en db poner database en  vez de simple
+
+    //Segun la unidad de persistencia que se le pase:
+    // "simple-persistence-unit" -> Se conecta a la base de datos en memoria
+    // "database-persistence-unit" -> Se conecta a la base de datos definida en esa unidad
     PersistenceUnitSwitcher.switchPersistenceUnit(unidadPersistencia);
 
     iniciarContactos();
@@ -993,22 +995,20 @@ public class Initializer {
   }
 
   static void iniciarSuscripciones() {
+
     desperfecto = new Desperfecto();
     desperfecto.setHeladera(heladera1);
     desperfecto.setColaborador(iniaki);
-    desperfecto.setSenderInterface(EmailSender.getInstance());
 
     faltanViandas = new FaltanViandas();
     faltanViandas.setHeladera(heladera2);
     faltanViandas.setColaborador(mati);
     faltanViandas.setViandasFaltantes(5);
-    faltanViandas.setSenderInterface(EmailSender.getInstance());
 
     quedanViandas = new QuedanViandas();
     quedanViandas.setHeladera(heladera3);
     quedanViandas.setColaborador(augusto);
     quedanViandas.setViandasDisponibles(2);
-    quedanViandas.setSenderInterface(EmailSender.getInstance());
 
   }
 

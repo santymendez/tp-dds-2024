@@ -28,6 +28,9 @@ public class Oferta extends Persistente {
   @Column(name = "imagen")
   private String imagenIlustrativa;
 
+  @Column(name = "descripcion", nullable = false)
+  private String descripcion;
+
   @ManyToOne
   @JoinColumn(name = "ofertante_id", referencedColumnName = "id", nullable = false)
   private Colaborador ofertante;

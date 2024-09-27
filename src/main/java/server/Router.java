@@ -35,18 +35,26 @@ public class Router {
     app.get("/heladerasSolidarias/colaborar/colocarHeladera", ctx -> ctx.render("alta-heladera.hbs",
         Map.of("titulo", "Colocar Heladera")));
 
+    app.get("/heladerasSolidarias/colaborar/realizar_ofertas",
+        ControllerLocator.instanceOf(CanjearPuntosController.class)::create);
+
+    app.post("/heladerasSolidarias/puntos/nuevo",
+        ControllerLocator.instanceOf(CanjearPuntosController.class)::save);
+
     app.get("/heladerasSolidarias/heladeras", ctx -> ctx.render("/heladeras-colaborador.hbs",
         Map.of("titulo", "Heladeras")));
 
     app.get("/heladerasSolidarias/heladeras/verMapa",
         ControllerLocator.instanceOf(HeladerasController.class)::index);
 
-    app.get("/heladerasSolidarias/reportes", ctx -> ctx.render("/reportes.hbs"));
+    app.get("/heladerasSolidarias/reportes", ctx -> ctx.render("/reportes.hbs",
+        Map.of("titulo", "Reportes")));
 
     app.get("/heladerasSolidarias/puntos",
         ControllerLocator.instanceOf(CanjearPuntosController.class)::index);
 
-    app.get("/heladerasSolidarias/vulnerables", ctx -> ctx.render("/registrar-vulnerable.hbs"));
+    app.get("/heladerasSolidarias/vulnerables", ctx -> ctx.render("/registrar-vulnerable.hbs",
+        Map.of("titulo", "Registrar Vulnerable")));
 
     //Query Params
     //app.get("/saludo", ctx -> {

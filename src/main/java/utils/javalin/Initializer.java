@@ -57,7 +57,6 @@ import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.ReportesRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
-import utils.sender.channels.EmailSender;
 
 /**
  * Clase que inicializa la aplicación con datos de prueba.
@@ -842,16 +841,27 @@ public class Initializer {
     oferta1.setNombre("Oferton");
     oferta1.setPuntosNecesarios(1000F);
     oferta1.setOfertante(elCityGroup);
+    oferta1.setDescripcion("En la previa se va a sortear quién toca en los interzonales, "
+        + "con lo cual juegan esas quince fechas el primero y el segundo de cada zona "
+        + "ingresan a los playoffs en cuartos de final, es decir evita la instancia de octavos");
+    oferta1.setImagenIlustrativa("/imgs/chiqui_love.jpg");
 
     oferta2 = new Oferta();
     oferta2.setNombre("Estafa ponzi");
     oferta2.setPuntosNecesarios(2877.045F);
     oferta2.setOfertante(elCityGroup);
+    oferta2.setDescripcion("El sistema depende de la entrada continua de "
+        + "nuevos participantes y colapsa cuando no se puede atraer suficiente dinero nuevo.");
+    oferta2.setImagenIlustrativa("/imgs/ponzi.jpg");
 
     oferta3 = new Oferta();
     oferta3.setNombre("Esta no le gusta al chavo fucks");
     oferta3.setPuntosNecesarios(45000.500F);
     oferta3.setOfertante(elCityGroup);
+    oferta3.setDescripcion("El pase de Julián Álvarez lo compró el City Group. "
+        + "No fue el Manchester City directamente, sino este conglomerado de equipos "
+        + "de fútbol, de clubes, que tiene el control sobre muchas instituciones a nivel mundial.");
+    oferta3.setImagenIlustrativa("/imgs/es_el_city_group.jpg");
 
     lstOfertas.add(oferta1);
     lstOfertas.add(oferta2);

@@ -14,7 +14,9 @@
                 <option value="realizar_ofertas">Realizar una Oferta</option>
                 <option value="distribuir_tarjetas">Distribuir Tarjetas</option>
                 <option value="distribuir_viandas">Distribuir Viandas</option>
-                <option value="/heladerasSolidarias/colaborar/colocarHeladera">Colocar una Heladera</option>
+                <option value="/heladerasSolidarias/colaborar/colocarHeladera">Colocar una
+                    Heladera
+                </option>
             </select>
         </div>
 
@@ -87,16 +89,18 @@
         <!-- Formulario para Realizar Ofertas -->
         <div id="realizar_ofertas" class="action-form d-none mediano">
             <h3>Realizar una Oferta</h3>
-            <form class="formulario realizar-ofertas-form">
+            <form class="formulario realizar-ofertas-form" method="POST"
+                  action="/heladerasSolidarias/puntos/nuevo">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="nombre_oferta" class="form-label">Nombre</label>
-                        <input type="text" class="form-control form-control-lg" id="nombre_oferta"
-                               placeholder="Ej. Oferta 1">
+                        <input name="nombre" type="text" class="form-control form-control-lg"
+                               id="nombre_oferta" placeholder="Ej. Oferta 1">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="puntos_requeridos" class="form-label">Puntos requeridos</label>
-                        <input type="number" class="form-control form-control-lg"
+                        <input name="puntosRequeridos" type="number"
+                               class="form-control form-control-lg"
                                id="puntos_requeridos" placeholder="Ej. 2500">
                     </div>
                 </div>
@@ -107,7 +111,8 @@
                 <div class="description-container mb-3">
                     <label for="descripcion_imagen" class="form-label">Descripción de la
                         Imagen</label>
-                    <textarea class="form-control form-control-lg" id="descripcion_imagen" rows="4"
+                    <textarea name="descripcion" class="form-control form-control-lg"
+                              id="descripcion_imagen" rows="4"
                               placeholder="Descripción de la imagen"></textarea>
                 </div>
                 <button type="submit" class="btn btn-success btn-lg">Ofertar</button>

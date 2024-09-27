@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.function.Consumer;
 import utils.javalin.Initializer;
 import utils.javalin.JavalinRenderer;
-import utils.javalin.PrettyProperties;
 import utils.sender.Config;
 
 /**

@@ -4,6 +4,7 @@ import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.repositories.imp.GenericRepository;
@@ -39,12 +40,27 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
   @Override
   public void create(Context context) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("titulo", "Ofertas");
 
+    context.render("colaborar.hbs", model);
   }
 
   @Override
   public void save(Context context) {
+    Oferta nuevaOferta = new Oferta();
 
+    nuevaOferta.setNombre(context.formParam("nombre"));
+    nuevaOferta.setPuntosNecesarios(Float
+        .valueOf(Objects.requireNonNull(context.formParam("puntosRequeridos"))));
+    nuevaOferta.setDescripcion(context.formParam("descripcion"));
+    nuevaOferta.setImagenIlustrativa("/imgs/logo.png");
+
+    this.canjesRepository.guardar(nuevaOferta);
+    //O BIEN LANZO UNA PANTALLA DE EXITO
+    //O BIEN REDIRECCIONO AL USER A LA PANTALLA DE LISTADO DE PRODUCTOS
+
+    context.redirect("canjear-puntos.hbs");
   }
 
   @Override

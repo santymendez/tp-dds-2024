@@ -46,6 +46,7 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     context.render("colaborar.hbs", model);
   }
 
+  //TODO esto va en la pagina de colaborar
   @Override
   public void save(Context context) {
     Oferta nuevaOferta = new Oferta();
@@ -54,13 +55,15 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     nuevaOferta.setPuntosNecesarios(Float
         .valueOf(Objects.requireNonNull(context.formParam("puntosRequeridos"))));
     nuevaOferta.setDescripcion(context.formParam("descripcion"));
+
     nuevaOferta.setImagenIlustrativa("/imgs/logo.png");
 
     this.canjesRepository.guardar(nuevaOferta);
     //O BIEN LANZO UNA PANTALLA DE EXITO
     //O BIEN REDIRECCIONO AL USER A LA PANTALLA DE LISTADO DE PRODUCTOS
 
-    context.redirect("canjear-puntos.hbs");
+    System.out.println("Redirigiendo a canjear puntos...");
+    context.redirect("/heladerasSolidarias/canjear-puntos");
   }
 
   @Override

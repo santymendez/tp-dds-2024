@@ -31,31 +31,32 @@
         <a href="home-page.html">
             <img src="/imgs/logo.png" alt="Logo" class="header__logo">
         </a>
-        <h1 class="header__titulo"><a href="home-page.html">Heladeras Solidarias ONG</a></h1>
+        <h1 class="header__titulo"><a href="/heladerasSolidarias/heladerasAdmin">Heladeras Solidarias ONG</a></h1>
     </div>
 
     <div class="header__nav">
         <nav class="nav-container">
             <ul>
-                <li><a href="cargar-csv.html">Cargar CSV</a></li>
-                <li><a href="heladeras-admin.html">Heladeras</a></li>
-                <li><a href="reportes.html">Reportes</a></li>
-                <li><a href="mapa.html">Ver Mapa</a></li>
+                <li><a href="/heladerasSolidarias/cargar-csv">Cargar CSV</a></li>
+                <li><a href="/heladerasSolidarias/heladerasAdmin">Heladeras</a></li>
+                <li><a href="/heladerasSolidarias/reportes">Reportes</a></li>
+                <li><a href="/heladerasSolidarias/verMapa">Ver Mapa</a></li>
             </ul>
         </nav>
     </div>
 
 </header>
 
-{{#block "cuerpo"}}
-{{/block}}
+<main class="main-content">
+    {{#block "cuerpo"}}
+    {{/block}}
+</main>
 
 {{#block "scripts"}}
 {{/block}}
 
+</body>
 <footer class="footer">
     <p>® 2024 Heladeras Solidarias ONG</p>
 </footer>
-
-</body>
 </html>

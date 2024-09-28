@@ -67,16 +67,16 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-    Heladera nuevaHeladera = new Heladera();
+    //Heladera nuevaHeladera = new Heladera();
 
-    //TODO (aca deberia setearle los atributos al la heladera)
+    ////TODO (aca deberia setearle los atributos al la heladera)
 
-    this.repositorioDeHeladeras.guardar(nuevaHeladera);
+    //this.repositorioDeHeladeras.guardar(nuevaHeladera);
     //O BIEN LANZO UNA PANTALLA DE EXITO
     //O BIEN REDIRECCIONO AL USER A LA PANTALLA DE LISTADO DE PRODUCTOS
 
-    // TODO (chico graphic design is my passion haz lo tuyo y danos las pantallas)
-    //context.redirect("/productos");
+    // TODO Duplicar la misma pantalla pero con un script abajo con la alerta!
+    context.redirect("/heladerasSolidarias/heladerasAdmin");
   }
 
   @Override

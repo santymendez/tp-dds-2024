@@ -1,4 +1,3 @@
-<!-- TODO HACER BASE 2 PARA ADMINISTRADORES-->
 {{#partial "estilo"}}
     <link rel="stylesheet" href="/css/alta-heladera.css">
     <link rel="stylesheet" href="/css/baja-heladera.css">
@@ -22,48 +21,52 @@
     </div>
 
     <div id="darAlta" class="d-none action-form">
-        <div class="row darAlta">
-            <div class="col-md-6 mb-3">
-                <label for="nombreHeladera" class="form-label">Nombre de la Heladera *</label>
-                <input type="text" class="form-control" id="nombreHeladera"
-                       placeholder="Ingresar nombre" required>
+        <form>
+            <input type="hidden" name="formtype" value="darAlta">
+            <div class="row darAlta">
+                <div class="col-md-6 mb-3">
+                    <label for="nombreHeladera" class="form-label">Nombre de la Heladera *</label>
+                    <input type="text" class="form-control" id="nombreHeladera"
+                           placeholder="Ingresar nombre" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="modeloHeladera" class="form-label">Modelo de la Heladera *</label>
+                    <input type="text" class="form-control" id="modeloHeladera"
+                           placeholder="Ingresar modelo" required>
+                </div>
             </div>
-            <div class="col-md-6 mb-3">
-                <label for="modeloHeladera" class="form-label">Modelo de la Heladera *</label>
-                <input type="text" class="form-control" id="modeloHeladera"
-                       placeholder="Ingresar modelo" required>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="direccionHeladera" class="form-label">Dirección *</label>
+                    <input type="text" class="form-control" id="direccionHeladera"
+                           placeholder="Ingresar dirección" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fechaAltaHeladera" class="form-label">Fecha de Alta *</label>
+                    <input type="date" class="form-control" id="fechaAltaHeladera" required>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="direccionHeladera" class="form-label">Dirección *</label>
-                <input type="text" class="form-control" id="direccionHeladera"
-                       placeholder="Ingresar dirección" required>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="minTempHeladera" class="form-label">Temperatura Mínima *</label>
+                    <input type="number" step="1" class="form-control" id="minTempHeladera"
+                           placeholder="Ingresar temperatura mínima" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="maxTempHeladera" class="form-label">Temperatura Máxima *</label>
+                    <input type="number" step="1" class="form-control" id="maxTempHeladera"
+                           placeholder="Ingresar temperatura máxima" required>
+                </div>
             </div>
-            <div class="col-md-6 mb-3">
-                <label for="fechaAltaHeladera" class="form-label">Fecha de Alta *</label>
-                <input type="date" class="form-control" id="fechaAltaHeladera" required>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Registrar Heladera</button>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="minTempHeladera" class="form-label">Temperatura Mínima *</label>
-                <input type="number" step="1" class="form-control" id="minTempHeladera"
-                       placeholder="Ingresar temperatura mínima" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="maxTempHeladera" class="form-label">Temperatura Máxima *</label>
-                <input type="number" step="1" class="form-control" id="maxTempHeladera"
-                       placeholder="Ingresar temperatura máxima" required>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary">Registrar Heladera</button>
-        </div>
+        </form>
     </div>
 
     <div id="darBaja" class="suscribirse-content action-form d-none">
         <form class="probar">
+            <input type="hidden" name="formtype" value="darBaja">
             <div class="mb-3 primero">
                 <div class="mediano_s">
                     <label for="nombre" class="form-label_s">Nombre de la Heladera</label>
@@ -93,6 +96,7 @@
 
     <div id="modificarHeladeras" class="action-form container mt-5 nopadding d-none">
         <form>
+            <input type="hidden" name="formType" value="modificarHeladeras">
             <div class="fila">
                 <label for="selectHeladera" class="form-label">Selecciona la Heladera a Modificar
                     *</label>
@@ -153,31 +157,35 @@
     </div>
 
     <div id="verAlertas" class="containerEste d-none action-form">
-        <div class="mb-3 containerPrincipal">
-            <label for="actionSelector" class="form-label chico">Elige una Heladera</label>
-            <select class="form-select form-select-lg chico" id="actionSelector2">
-                <option value="" selected>Seleccione una Heladera</option>
-                <option value="heladera_1">Heladera 1</option>
-                <option value="heladera_2">Heladera 2</option>
-                <option value="heladera_3">Heladera 3</option>
-            </select>
-        </div>
+        <form>
+            <input type="hidden" name="formType" value="verAlertas">
+            <div class="mb-3 containerPrincipal">
+                <label for="actionSelector" class="form-label chico">Elige una Heladera</label>
+                <select class="form-select form-select-lg chico" id="actionSelector2">
+                    <option value="" selected>Seleccione una Heladera</option>
+                    <!-- TODO PROBAR QUE FUNCIONE -->
+                    {{#each heladeras}}
+                        <option value="nombreHeladera">{{this.nombreHeladera}}</option>
+                    {{/each}}
+                </select>
+            </div>
 
-        <div id="heladera_1" class="list-group">
-            <a class="list-group-item">
-                <div class="d-flex w-100 justify-content-between temperatura">
-                    <h4>Exceso de Temperatura</h4>
-                    <h4>Valor: 23.5º</h4>
-                    <h4>Momento: 23-10-2024-11:55</h4>
-                </div>
-            </a>
-            <a class="list-group-item">
-                <div class="d-flex w-100 justify-content-between temperatura">
-                    <h4>Fraude</h4>
-                    <h4>Momento: 23-10-2024-11:55</h4>
-                </div>
-            </a>
-        </div>
+            <div id="heladera_1" class="list-group">
+                <a class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between temperatura">
+                        <h4>Exceso de Temperatura</h4>
+                        <h4>Valor: 23.5º</h4>
+                        <h4>Momento: 23-10-2024-11:55</h4>
+                    </div>
+                </a>
+                <a class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between temperatura">
+                        <h4>Fraude</h4>
+                        <h4>Momento: 23-10-2024-11:55</h4>
+                    </div>
+                </a>
+            </div>
+        </form>
     </div>
 {{/partial}}
 

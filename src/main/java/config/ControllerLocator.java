@@ -3,6 +3,8 @@ package config;
 import controllers.CanjearPuntosController;
 import controllers.CsvController;
 import controllers.HeladerasController;
+import controllers.MapaController;
+import controllers.VulnerablesController;
 import java.util.HashMap;
 import java.util.Map;
 import models.repositories.imp.ColaboracionesRepository;
@@ -45,6 +47,13 @@ public class ControllerLocator {
       } else if (controllerClass.equals(CanjearPuntosController.class)) {
         CanjearPuntosController instance = new CanjearPuntosController(RepositoryLocator
             .instanceOf(GenericRepository.class));
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(VulnerablesController.class)) {
+        VulnerablesController instance = new VulnerablesController();
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(MapaController.class)) {
+        MapaController instance =
+            new MapaController(RepositoryLocator.instanceOf(GenericRepository.class));
         instances.put(controllerName, instance);
       }
     }

@@ -23,16 +23,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
   //PRETENDE DEVOLVER UNA VISTA QUE CONTENGA A TODOS LOS PRODUCTOS ALMACENADOS EN MI SISTEMA
   @Override
   public void index(Context context) {
-    List<Heladera> heladeras = this.repositorioDeHeladeras.buscarTodos(Heladera.class);
 
-    // TODO es lo que dijo eze de hacer
-    //List<HeladeraDTO> = ...
-
-    Map<String, Object> model = new HashMap<>();
-    model.put("titulo", "Heladeras");
-    model.put("heladeras", heladeras);
-
-    context.render("mapa.hbs", model);
   }
 
   //RECIBE POR PATH PARAM EL ID DE UN PRODUCTO Y PRETENDE DEVOLVER UNA

@@ -3,6 +3,8 @@ package server;
 import config.ControllerLocator;
 import controllers.CanjearPuntosController;
 import controllers.HeladerasController;
+import controllers.MapaController;
+import controllers.VulnerablesController;
 import io.javalin.Javalin;
 import java.util.Map;
 import java.util.Objects;
@@ -33,63 +35,39 @@ public class Router {
         Map.of("titulo", "Registrarse")));
 
     //VISTAS COLABORADOR
-    //TODO SELECTOR
-//    app.get("/heladerasSolidarias/colaborar", ctx -> ctx.render("/colaborar.hbs",
-//        Map.of("titulo", "Colaborar")));
 
-    //TODO SELECTOR
-    app.get("/heladerasSolidarias/colaborar",
-        ControllerLocator.instanceOf(CanjearPuntosController.class)::create);
+    app.get("/heladerasSolidarias/vulnerables",
+        ControllerLocator.instanceOf(VulnerablesController.class)::create);
 
-    /*app.post("/heladerasSolidarias/colaborar",
-        ControllerLocator.instanceOf(CanjearPuntosController.class)::save);*/
-
-    app.post("/heladerasSolidarias/canjear-puntos", ctx -> {
-      System.out.println("A ver si llega a hacer esto");
-      ControllerLocator.instanceOf(CanjearPuntosController.class).save(ctx);
-    });
-
-
-    app.get("/heladerasSolidarias/heladeras", ctx -> ctx.render("/heladeras-colaborador.hbs",
-        Map.of("titulo", "Heladeras")));
-
-    //PARA VER LAS OFERTAS Y CANJEAR LOS PUNTOS
-    app.get("/heladerasSolidarias/canjear-puntos",
-            ControllerLocator.instanceOf(CanjearPuntosController.class)::index);
+    app.post("/heladerasSolidarias/vulnerables",
+        ControllerLocator.instanceOf(VulnerablesController.class)::save);
 
     //VISTAS ADMINISTRADOR
     app.get("/heladerasSolidarias/heladerasAdmin", ctx -> ctx.render("/heladeras-admin.hbs",
-            Map.of("titulo", "Heladeras")));
+        Map.of("titulo", "Heladeras")));
 
     app.post("/heladerasSolidarias/heladerasAdmin", ctx -> {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {
-        case "darAlta" ->
-          ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
-        case "darBaja" ->
-          ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
+        case "darAlta" -> ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
+        case "darBaja" -> ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
         case "modificarHeladeras" ->
-          ControllerLocator.instanceOf(HeladerasController.class).edit(ctx);
-        case "verAlertas" ->
-          System.out.println("NO LO TENEMOS");
-          //CONTROLLER VER ALERTAS
-          //ControllerLocator.instanceOf(AlertasController.class).index(ctx);
-        default ->
-          ctx.status(400).result("Tipo de formulario no valido");
+            ControllerLocator.instanceOf(HeladerasController.class).edit(ctx);
+        case "verAlertas" -> System.out.println("NO LO TENEMOS");
+        //CONTROLLER VER ALERTAS
+        //ControllerLocator.instanceOf(AlertasController.class).index(ctx);
+        default -> ctx.status(400).result("Tipo de formulario no valido");
       }
     });
 
     app.get("/heladerasSolidarias/verMapa",
-        ControllerLocator.instanceOf(HeladerasController.class)::index);
+        ControllerLocator.instanceOf(MapaController.class)::index);
 
     app.get("/heladerasSolidarias/reportes", ctx -> ctx.render("/reportes.hbs",
         Map.of("titulo", "Reportes")));
 
-    app.get("/heladerasSolidarias/vulnerables", ctx -> ctx.render("/registrar-vulnerable.hbs",
-        Map.of("titulo", "Registrar Vulnerable")));
-
     app.get("/heladerasSolidarias/cargar-csv", ctx -> ctx.render("/cargar-csv.hbs",
-            Map.of("titulo", "Cargar CSV")));
+        Map.of("titulo", "Cargar CSV")));
 
     //Query Params
     //app.get("/saludo", ctx -> {

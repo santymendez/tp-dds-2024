@@ -11,6 +11,7 @@ import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import services.ColaboradoresService;
+import services.VulnerablesService;
 import utils.sender.channels.EmailSender;
 
 /**
@@ -49,7 +50,10 @@ public class ControllerLocator {
             .instanceOf(GenericRepository.class));
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(VulnerablesController.class)) {
-        VulnerablesController instance = new VulnerablesController();
+        VulnerablesController instance = new VulnerablesController(
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            ServiceLocator.instanceOf(VulnerablesService.class)
+        );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(MapaController.class)) {
         MapaController instance =

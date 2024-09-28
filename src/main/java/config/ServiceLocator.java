@@ -2,8 +2,11 @@ package config;
 
 import java.util.HashMap;
 import models.repositories.imp.ColaboradoresRepository;
+import models.repositories.imp.DireccionesRepository;
+import models.repositories.imp.ProvinciasRepository;
 import services.ColaboradoresService;
 import services.DireccionesService;
+import services.VulnerablesService;
 
 /**
  * Clase serviceLocator para obtener los services.
@@ -30,7 +33,13 @@ public class ServiceLocator {
             new ColaboradoresService(RepositoryLocator.instanceOf(ColaboradoresRepository.class));
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(DireccionesService.class)) {
-        DireccionesService instance = new DireccionesService();
+        DireccionesService instance = new DireccionesService(
+            RepositoryLocator.instanceOf(DireccionesRepository.class),
+            RepositoryLocator.instanceOf(ProvinciasRepository.class)
+        );
+        instances.put(serviceName, instance);
+      } else if (serviceClass.equals(VulnerablesService.class)) {
+        VulnerablesService instance = new VulnerablesService();
         instances.put(serviceName, instance);
       }
     }

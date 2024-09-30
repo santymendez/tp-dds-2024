@@ -12,34 +12,34 @@ import models.repositories.imp.ColaboradoresRepository;
 
 public class OfertasService {
 
-    private final ColaboradoresRepository colaboradoresRepository;
+  private final ColaboradoresRepository colaboradoresRepository;
 
-    public OfertasService(ColaboradoresRepository colaboradoresRepository) {
-        this.colaboradoresRepository = colaboradoresRepository;
+  public OfertasService(ColaboradoresRepository colaboradoresRepository) {
+    this.colaboradoresRepository = colaboradoresRepository;
+  }
+
+  /**
+   * Crea una oferta a partir de un DTO.
+   *
+   * @param ofertaDto el DTO con los datos del producto/servicio.
+   * @return la oferta creada.
+   */
+
+  public Oferta crear(OfertaDto ofertaDto) {
+    Optional<Colaborador> posibleOfertante = colaboradoresRepository
+        .buscarPorId(Long.parseLong(ofertaDto.getOfertante()), Colaborador.class);
+
+    if (posibleOfertante.isEmpty()) {
+      throw new IllegalArgumentException("No existe ese colaborador");
     }
 
-    /**
-     * Crea una oferta a partir de un DTO.
-     *
-     * @param ofertaDto el DTO con los datos del producto/servicio.
-     * @return la oferta creada.
-     */
+    Oferta oferta = new Oferta();
+    oferta.setNombre(ofertaDto.getNombre());
+    oferta.setPuntosNecesarios(Float.parseFloat(ofertaDto.getPuntosNecesarios()));
+    oferta.setImagenIlustrativa(ofertaDto.getImagenIlustrativa());
+    oferta.setDescripcion(ofertaDto.getDescripcion());
+    oferta.setOfertante(posibleOfertante.get());
 
-    public Oferta crear(OfertaDto ofertaDto) {
-        Optional<Colaborador> posibleOfertante = colaboradoresRepository.
-                buscarPorId(Long.parseLong(ofertaDto.getOfertante()), Colaborador.class);
-
-        if(posibleOfertante.isEmpty()){
-            throw new IllegalArgumentException("No existe ese colaborador");
-        }
-
-        Oferta oferta = new Oferta();
-        oferta.setNombre(ofertaDto.getNombre());
-        oferta.setPuntosNecesarios(Float.parseFloat(ofertaDto.getPuntosNecesarios()));
-        oferta.setImagenIlustrativa(ofertaDto.getImagenIlustrativa());
-        oferta.setDescripcion(ofertaDto.getDescripcion());
-        oferta.setOfertante(posibleOfertante.get());
-
-        return oferta;
-    }
+    return oferta;
+  }
 }

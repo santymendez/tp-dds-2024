@@ -1,6 +1,6 @@
 {{#partial "estilo"}}
     <link rel="stylesheet" href="/css/mapa.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 {{/partial}}
 
 {{#partial "cuerpo"}}
@@ -8,7 +8,7 @@
     <div id="map"></div>
 {{/partial}}
 
-{{#partial "script"}}
+{{#partial "scripts"}}
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         const map = L.map('map').setView([51.505, -0.09], 13);
@@ -16,20 +16,18 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        let lugar, lat, long, marker, markers = [];
+
             {{#each heladeras}}
-            const lugar = "{{this.direccion.nombreUbicacion}}";
-            const lat = parseFloat({{this.direccion.latitud}});
-            const long = parseFloat({{this.direccion.longitud}});
-            L.marker([lat, long]).addTo(map)
+            lugar = "{{this.direccion.nombreUbicacion}}";
+            lat = parseFloat({{this.direccion.latitud}});
+            long = parseFloat({{this.direccion.longitud}});
+            marker = L.marker([lat, long]).addTo(map)
                     .bindPopup('<b>' + lugar + '</b>');
+            markers.push(marker)
             {{/each}}
 
-        const group = L.featureGroup(
-            {{#each heladeras}}
-                    L.marker([parseFloat({{this.direccion.latitud}}), parseFloat({{this.direccion.longitud}})])
-                {{#unless @last}},{{/unless}}
-            {{/each}}
-        );
+        const group = L.featureGroup(markers);
         map.fitBounds(group.getBounds());
     </script>
 {{/partial}}

@@ -4,10 +4,8 @@ import dtos.VulnerableInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.Map;
-
 import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
-import services.DireccionesService;
 import services.VulnerablesService;
 import utils.javalin.InterfaceCrudViewsHandler;
 

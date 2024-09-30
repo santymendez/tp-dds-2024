@@ -47,25 +47,29 @@ public class Router {
     //CANJEAR PUNTOS
 
     app.get("/heladeras-solidarias/canjear-puntos",
-            ControllerLocator.instanceOf(CanjearPuntosController.class)::index);
+        ControllerLocator.instanceOf(CanjearPuntosController.class)::index);
 
     //COLABORAR
     app.get("/heladeras-solidarias/colaborar", ctx -> ctx.render("/colaborar.hbs",
-            Map.of("titulo", "Heladeras")));
+        Map.of("titulo", "Heladeras")));
 
     app.post("/heladeras-solidarias/colaborar", ctx -> {
       String formType = ctx.formParam("formType");
-      /* switch (Objects.requireNonNull(formType)) {
+      /*
+      switch (Objects.requireNonNull(formType)) {
         case "donarDinero" -> ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
         case "donarViandas":
         case "realizarOfertas":
-          case "colocar-heladera" -> ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
-          case "distribuirTarjetas" -> ControllerLocator.instanceOf(HeladerasController.class).edit(ctx);
+        case "colocar-heladera" ->
+            ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
+        case "distribuirTarjetas" ->
+            ControllerLocator.instanceOf(HeladerasController.class).edit(ctx);
           case "distribuirViandas" -> System.out.println("NO LO TENEMOS");
         //CONTROLLER VER ALERTAS
         //ControllerLocator.instanceOf(AlertasController.class).index(ctx);
         default -> ctx.status(400).result("Tipo de formulario no valido");
-      }*/
+      }
+      */
     });
 
     //VISTAS ADMINISTRADOR

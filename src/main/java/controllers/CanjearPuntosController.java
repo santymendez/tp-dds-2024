@@ -53,10 +53,10 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
   @Override
   public void save(Context context) {
     OfertaDto nuevaOferta = new OfertaDto(
-      context.formParam("nombre"),
-      context.formParam("puntosRequeridos"),
-      context.formParam("imagen"),
-      context.formParam("descripcion"), "aca va el id del que hace el post"
+        context.formParam("nombre"),
+        context.formParam("puntosRequeridos"),
+        context.formParam("imagen"),
+        context.formParam("descripcion"), "aca va el id del que hace el post"
     );
 
     this.ofertasRepository.guardar(this.ofertasService.crear(nuevaOferta));

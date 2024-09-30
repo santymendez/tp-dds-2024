@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class OfertaDto {
-    private String nombre;
-    private String puntosNecesarios;
-    private String imagenIlustrativa;
-    private String descripcion;
-    private String ofertante;
+  private String nombre;
+  private String puntosNecesarios;
+  private String imagenIlustrativa;
+  private String descripcion;
+  private String ofertante;
 }

@@ -6,12 +6,16 @@ import java.util.Map;
 import models.repositories.imp.GenericRepository;
 import utils.javalin.InterfaceCrudViewsHandler;
 
+/**
+ * DonarDineroController.
+ */
+
 public class DonarDineroController implements InterfaceCrudViewsHandler {
 
   private final GenericRepository colaboracionesRepository;
   //private final OfertasService dineroService; //TODO: Implementar OfertasService
 
-  public DonarDineroController (GenericRepository repo) {
+  public DonarDineroController(GenericRepository repo) {
     this.colaboracionesRepository = repo;
   }
 

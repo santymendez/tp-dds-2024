@@ -104,6 +104,12 @@ public class CsvController {
     Colaboracion unaColaboracion = FactoryColaboracion.crearCon(colaboracionInputDto);
     unaColaboracion.setColaborador(unColaborador);
 
+    // Guardar el colaborador si no está ya guardado
+    if (colaboradoresRepository.buscarPorDocumento(unColaborador
+        .getDocumento().getNroDocumento()).isEmpty()) {
+      colaboradoresRepository.guardar(unColaborador);
+    }
+
     unColaborador.getColaboraciones().add(unaColaboracion);
     unColaborador.aumentarReconocimiento(unaColaboracion);
 

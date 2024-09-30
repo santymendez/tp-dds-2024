@@ -3,6 +3,10 @@ package controllers.colaboraciones;
 import io.javalin.http.Context;
 import utils.javalin.InterfaceCrudViewsHandler;
 
+/**
+ * DonarViandasController.
+ */
+
 public class DonarViandasController implements InterfaceCrudViewsHandler {
   @Override
   public void index(Context context) {

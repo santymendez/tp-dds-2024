@@ -74,7 +74,7 @@ public class CsvController {
         ColaboracionInputDto colaboracionInputDto = new ColaboracionInputDto();
         colaboracionInputDto.setFecha(nextLine[5]);
         colaboracionInputDto.setTipoColaboracion(nextLine[6]);
-        colaboracionInputDto.setCantidad(Integer.parseInt(nextLine[7]));
+        colaboracionInputDto.setCantidad(nextLine[7]);
 
         this.crear(colaboradorInputDto, colaboracionInputDto);
       }

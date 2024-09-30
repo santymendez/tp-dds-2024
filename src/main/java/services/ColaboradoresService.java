@@ -1,7 +1,6 @@
 package services;
 
 import dtos.ColaboradorInputDto;
-import lombok.Setter;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 import models.factories.FactoryColaborador;
@@ -54,8 +53,6 @@ public class ColaboradoresService {
     // y solo deberiamos hacer el set al reconocimiento.
     Formula formula = new Formula();
     colaborador.getReconocimiento().setFormulaCalculoDePuntos(formula);
-
-    colaboradoresRepository.guardar(colaborador);
 
     return colaborador;
   }

@@ -2,12 +2,16 @@ package controllers;
 
 import dtos.OfertaDto;
 import io.javalin.http.Context;
+import io.javalin.http.UploadedFile;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.repositories.imp.GenericRepository;
+import org.apache.commons.io.FileUtils;
 import services.OfertasService;
 import utils.javalin.InterfaceCrudViewsHandler;
 
@@ -58,6 +62,16 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
         context.formParam("imagen"),
         context.formParam("descripcion"), "aca va el id del que hace el post"
     );
+
+    UploadedFile file = context.uploadedFile("imagen");
+    if (file != null) {
+      try {
+        FileUtils.copyInputStreamToFile(file.content(),
+            new File("/public/uploaded-imgs/" + file.filename()));
+      } catch (IOException e) {
+        nuevaOferta.setImagenIlustrativa("/public/static-imgs/logo.png");
+      }
+    }
 
     this.ofertasRepository.guardar(this.ofertasService.crear(nuevaOferta));
 

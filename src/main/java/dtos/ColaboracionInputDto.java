@@ -10,5 +10,6 @@ import lombok.Data;
 public class ColaboracionInputDto {
   private String fecha;
   private String tipoColaboracion;
-  private Integer cantidad;
+  private String cantidad;
+  private String colaborador;
 }

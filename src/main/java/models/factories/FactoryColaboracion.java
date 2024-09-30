@@ -33,7 +33,7 @@ public class FactoryColaboracion {
     unaColaboracion.setTipoColaboracion(TipoColaboracion
         .valueOf(colaboracionInputDto.getTipoColaboracion()));
 
-    Integer cantidad = colaboracionInputDto.getCantidad();
+    Integer cantidad = Integer.parseInt(colaboracionInputDto.getCantidad());
 
     switch (unaColaboracion.getTipoColaboracion()) {
       case DONAR_DINERO -> {

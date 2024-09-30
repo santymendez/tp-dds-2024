@@ -2,6 +2,7 @@ package server;
 
 import config.ControllerLocator;
 import controllers.CanjearPuntosController;
+import controllers.CsvController2;
 import controllers.HeladerasController;
 import controllers.MapaController;
 import controllers.VulnerablesController;
@@ -107,6 +108,9 @@ public class Router {
 
     app.get("/heladeras-solidarias/cargar-csv", ctx -> ctx.render("/cargar-csv.hbs",
         Map.of("titulo", "Cargar CSV")));
+
+    app.post("heladeras-solidarias/cargar-csv",
+        ControllerLocator.instanceOf(CsvController2.class)::save);
 
     //Query Params
     //app.get("/saludo", ctx -> {

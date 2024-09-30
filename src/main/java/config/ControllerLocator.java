@@ -2,6 +2,7 @@ package config;
 
 import controllers.CanjearPuntosController;
 import controllers.CsvController;
+import controllers.CsvController2;
 import controllers.HeladerasController;
 import controllers.MapaController;
 import controllers.VulnerablesController;
@@ -10,6 +11,7 @@ import java.util.Map;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
+import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.OfertasService;
 import services.VulnerablesService;
@@ -62,8 +64,16 @@ public class ControllerLocator {
       } else if (controllerClass.equals(MapaController.class)) {
         MapaController instance =
             new MapaController(RepositoryLocator.instanceOf(GenericRepository.class));
-        instances.put(controllerName, instance
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(CsvController2.class)) {
+        CsvController2 instance = new CsvController2(
+            ServiceLocator.instanceOf(ColaboradoresService.class),
+            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
+            RepositoryLocator.instanceOf(ColaboracionesRepository.class),
+            ServiceLocator.instanceOf(ColaboracionesService.class),
+            EmailSender.getInstance()
         );
+        instances.put(controllerName, instance);
       }
     }
 

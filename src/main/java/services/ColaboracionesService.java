@@ -16,10 +16,9 @@ public class ColaboracionesService {
    *
    * @param dtoColaboracion input del csv para la creacion.
    * @param unColaborador colaborador cargado desde el controller del csv.
-   * @return colaboracion del csv.
    */
 
-  public Colaboracion crearDesdeCsv(
+  public void crearDesdeCsv(
       ColaboracionInputDto dtoColaboracion,
       Colaborador unColaborador
   ) {
@@ -28,8 +27,6 @@ public class ColaboracionesService {
 
     unColaborador.getColaboraciones().add(unaColaboracion);
     unColaborador.aumentarReconocimiento(unaColaboracion);
-
-    return unaColaboracion;
   }
 
   //TODO completar (falta el colaborador y para eso necesitamos sesiones)

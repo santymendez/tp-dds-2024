@@ -69,7 +69,6 @@ public class ControllerLocator {
         CsvController2 instance = new CsvController2(
             ServiceLocator.instanceOf(ColaboradoresService.class),
             RepositoryLocator.instanceOf(ColaboradoresRepository.class),
-            RepositoryLocator.instanceOf(ColaboracionesRepository.class),
             ServiceLocator.instanceOf(ColaboracionesService.class),
             EmailSender.getInstance()
         );

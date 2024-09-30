@@ -9,6 +9,7 @@ import io.javalin.http.UploadedFile;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.TipoColaborador;
@@ -29,7 +30,6 @@ public class CsvController2 implements InterfaceCrudViewsHandler {
   private final EmailSender emailSender;
   private final ColaboradoresService colaboradoresService;
   private final ColaboradoresRepository colaboradoresRepository;
-  private final ColaboracionesRepository colaboracionesRepository;
   private final ColaboracionesService colaboracionesService;
 
   /**
@@ -41,13 +41,11 @@ public class CsvController2 implements InterfaceCrudViewsHandler {
   public CsvController2(
       ColaboradoresService colaboradoresService,
       ColaboradoresRepository colaboradoresRepository,
-      ColaboracionesRepository colaboracionesRepository,
       ColaboracionesService colaboracionesService,
       EmailSender emailSender
   ) {
     this.colaboradoresService = colaboradoresService;
     this.colaboradoresRepository = colaboradoresRepository;
-    this.colaboracionesRepository = colaboracionesRepository;
     this.emailSender = emailSender;
     this.colaboracionesService = colaboracionesService;
   }
@@ -89,12 +87,19 @@ public class CsvController2 implements InterfaceCrudViewsHandler {
           colaboracionInputDto.setTipoColaboracion(nextLine[6]);
           colaboracionInputDto.setCantidad(nextLine[7]);
 
-          Colaborador colaborador = this.colaboradoresService
-              .crearDesdeCsv(colaboradorInputDto, this.emailSender);
-          Colaboracion colaboracion = this.colaboracionesService
-              .crearDesdeCsv(colaboracionInputDto, colaborador);
-          this.colaboradoresRepository.guardar(colaborador);
-          this.colaboracionesRepository.guardar(colaboracion);
+          Optional<Colaborador> posibleColaborador = this.colaboradoresRepository
+              .buscarPorDocumento(Integer.parseInt(colaboradorInputDto.getNumeroDocumento()));
+
+          if (posibleColaborador.isPresent()) {
+            Colaborador colaborador = posibleColaborador.get();
+            this.colaboracionesService.crearDesdeCsv(colaboracionInputDto, colaborador);
+            this.colaboradoresRepository.modificar(colaborador);
+          } else {
+            Colaborador colaborador = this.colaboradoresService
+                .crearDesdeCsv(colaboradorInputDto, this.emailSender);
+            this.colaboracionesService.crearDesdeCsv(colaboracionInputDto, colaborador);
+            this.colaboradoresRepository.guardar(colaborador);
+          }
         }
         context.redirect("/heladeras-solidarias");
         //TODO cambiar a que te lleve a una pagina de error

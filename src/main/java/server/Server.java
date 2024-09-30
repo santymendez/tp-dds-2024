@@ -41,7 +41,7 @@ public class Server {
   public static void init() {
     if (app == null) {
 
-      Integer port = Integer
+      int port = Integer
           .parseInt(Config.getServerPort());
       app = Javalin.create(config()).start(port);
 
@@ -49,6 +49,8 @@ public class Server {
 
       if (Boolean.parseBoolean(Config.getDevMode())) {
         Initializer.init("simple-persistence-unit");
+      } else {
+        Initializer.init("database-persistence-unit");
       }
     }
   }

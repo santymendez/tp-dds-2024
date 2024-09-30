@@ -11,7 +11,7 @@ import models.repositories.PersistenciaSimple;
 
 public class GenericRepository implements PersistenciaSimple {
 
-  /**
+  /** TODO
    * Guarda un objeto en la base de datos.
    * (CUIDADO!!! por motivos desconocidos da errores inesperados)
    *

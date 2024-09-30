@@ -18,9 +18,7 @@ public class ColaboradoresService {
 
   private final ColaboradoresRepository colaboradoresRepository;
 
-  public ColaboradoresService(
-      ColaboradoresRepository colaboradorRepository
-  ) {
+  public ColaboradoresService(ColaboradoresRepository colaboradorRepository) {
     this.colaboradoresRepository = colaboradorRepository;
   }
 

@@ -28,24 +28,21 @@ public class VulnerablesService {
     Vulnerable vulnerable = new Vulnerable();
     vulnerable.setNombre(vulnerableInputDto.getNombre());
     vulnerable.setFechaNacimiento(LocalDate.parse(vulnerableInputDto.getFechaNacimiento()));
+
     TipoDocumento tipoDocumento = TipoDocumento.valueOf(vulnerableInputDto.getTipoDocumento());
     Integer nroDocumento = Integer.parseInt(vulnerableInputDto.getNumeroDocumento());
-
     vulnerable.setDocumento(new Documento(nroDocumento, tipoDocumento));
 
-    //SI TENGO ALGUN DATO, ASUMO QUE TENGO TODOS
-    if (vulnerableInputDto.getNumero() != null) {
-      DireccionInputDto direccionInputDto = DireccionInputDto.builder()
-          .nombreProvincia(vulnerableInputDto.getProvincia())
-          .nombreCiudad(vulnerableInputDto.getCuidad())
-          .nombreBarrio(vulnerableInputDto.getBarrio())
-          .calle(vulnerableInputDto.getCalle())
-          .numero(vulnerableInputDto.getNumero())
-          .build();
+    DireccionInputDto direccionInputDto = DireccionInputDto.builder()
+            .provincia(vulnerableInputDto.getProvincia())
+            .nombreCiudad(vulnerableInputDto.getCuidad())
+            .nombreBarrio(vulnerableInputDto.getBarrio())
+            .calle(vulnerableInputDto.getCalle())
+            .numero(vulnerableInputDto.getNumero())
+            .build();
 
-      vulnerable.setDomicilio(ServiceLocator.instanceOf(DireccionesService.class)
-          .crear(direccionInputDto));
-    }
+    vulnerable.setDomicilio(ServiceLocator.instanceOf(DireccionesService.class)
+            .crear(direccionInputDto));
 
     return vulnerable;
   }

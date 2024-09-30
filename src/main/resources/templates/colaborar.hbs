@@ -14,7 +14,7 @@
                 <option value="realizar_ofertas">Realizar una Oferta</option>
                 <option value="distribuir_tarjetas">Distribuir Tarjetas</option>
                 <option value="distribuir_viandas">Distribuir Viandas</option>
-                <option value="/heladerasSolidarias/colaborar/colocarHeladera">Colocar una
+                <option value="/heladeras-solidarias/colaborar/colocar-heladera">Colocar una
                     Heladera
                 </option>
             </select>
@@ -22,6 +22,7 @@
 
         <!-- Formulario para Donar Dinero -->
         <div id="donar_dinero" class="action-form d-none chico">
+            <input type="hidden" name="formType" value="donarDinero">
             <h3>Donación de Dinero</h3>
             <form class="formulario">
                 <div class="mb-3">
@@ -44,6 +45,7 @@
 
         <!-- Formulario para Donar Viandas -->
         <div id="donar_viandas" class="action-form donar-viandas-form d-none">
+            <input type="hidden" name="formType" value="donarViandas">
             <h3>Donación de Viandas</h3>
             <form class="formulario">
                 <div class="form-row">
@@ -88,9 +90,10 @@
 
         <!-- Formulario para Realizar Ofertas -->
         <div id="realizar_ofertas" class="action-form d-none mediano">
+            <input type="hidden" name="formType" value="realizarOfertas">
             <h3>Realizar una Oferta</h3>
             <form class="formulario realizar-ofertas-form" method="POST"
-                  action="/heladerasSolidarias/canjear-puntos">
+                  action="/heladeras-solidarias/canjear-puntos">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="nombre_oferta" class="form-label">Nombre</label>
@@ -122,6 +125,7 @@
 
         <!-- Formulario para Distribuir Tarjetas -->
         <div id="distribuir_tarjetas" class="action-form d-none chico">
+            <input type="hidden" name="formType" value="distribuirTarjetas">
             <h3>Distribuir Tarjetas</h3>
             <form class="formulario">
                 <div class="mb-3">
@@ -133,8 +137,9 @@
             </form>
         </div>
 
-
+        <!-- Formulario para Distribuir Viandas -->
         <div id="distribuir_viandas" class="action-form d-none distribuir-viandas-form">
+            <input type="hidden" name="formType" value="distribuirViandas">
             <h3>Distribución de Viandas</h3>
             <form class="formulario">
                 <div class="form-row">
@@ -198,7 +203,7 @@
     <script>
         document.getElementById('actionSelector').addEventListener('change', function () {
             var selectedValue = this.value;
-            if (selectedValue == "/heladerasSolidarias/colaborar/colocarHeladera") {
+            if (selectedValue == "/heladeras-solidarias/colaborar/colocar-heladera") {
                 window.location.href = selectedValue;
             }
         });

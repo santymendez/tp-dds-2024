@@ -67,7 +67,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     //O BIEN REDIRECCIONO AL USER A LA PANTALLA DE LISTADO DE PRODUCTOS
 
     // TODO Duplicar la misma pantalla pero con un script abajo con la alerta!
-    context.redirect("/heladerasSolidarias/heladerasAdmin");
+    context.redirect("/heladeras-solidarias/heladerasAdmin");
   }
 
   @Override

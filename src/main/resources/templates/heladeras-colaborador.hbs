@@ -10,7 +10,7 @@
             <select class="form-select form-select-lg chico" id="actionSelector">
                 <option value="" selected>Elija una opción</option>
                 <option value="suscribirse">Suscribirse</option>
-                <option value="/heladerasSolidarias/heladeras">Ver Mapa Heladeras</option>
+                <option value="/heladeras-solidarias/heladeras">Ver Mapa Heladeras</option>
                 <option value="reportar_falla">Reportar Falla Técnica</option>
                 <option value="recomendaciones.html">Solicitar Recomendación</option>
             </select>
@@ -115,7 +115,7 @@
     <script>
         document.getElementById('actionSelector').addEventListener('change', function () {
             var selectedValue = this.value;
-            if (selectedValue == "/heladerasSolidarias/heladeras") {
+            if (selectedValue == "/heladeras-solidarias/heladeras") {
                 window.location.href = selectedValue;
             }
         });

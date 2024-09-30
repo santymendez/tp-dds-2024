@@ -24,12 +24,11 @@ public class MapaController implements InterfaceCrudViewsHandler {
   public void index(Context context) {
     List<Heladera> heladeras = this.repositorioDeHeladeras.buscarTodos(Heladera.class);
 
-    // TODO es lo que dijo eze de hacer
-    //List<HeladeraDTO> = ...
-
     Map<String, Object> model = new HashMap<>();
-    model.put("titulo", "Heladeras");
+    model.put("titulo", "Mapa Heladeras");
     model.put("heladeras", heladeras);
+
+    System.out.println(model);
 
     context.render("mapa.hbs", model);
   }

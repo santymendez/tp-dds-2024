@@ -4,8 +4,10 @@ import dtos.VulnerableInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.Map;
+
 import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
+import services.DireccionesService;
 import services.VulnerablesService;
 import utils.javalin.InterfaceCrudViewsHandler;
 
@@ -13,7 +15,6 @@ import utils.javalin.InterfaceCrudViewsHandler;
  * Controller para el registro de vulnerables.
  */
 
-//TODO REVISAR
 public class VulnerablesController implements InterfaceCrudViewsHandler {
 
   private final GenericRepository vulnerablesRepository;
@@ -59,9 +60,13 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
         context.formParam("cantMenores")
     );
 
-    this.vulnerablesRepository.guardar(this.vulnerablesService.crear(vulnerableInputDto));
+    Vulnerable vulnerable = this.vulnerablesService.crear(vulnerableInputDto);
 
-    context.redirect("/heladerasSolidarias");
+    //TODO LOGICA DE MENORES A CARGO
+
+    this.vulnerablesRepository.guardar(vulnerable);
+
+    context.redirect("/heladeras-solidarias");
   }
 
   @Override

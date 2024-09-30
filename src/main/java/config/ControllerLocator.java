@@ -11,6 +11,7 @@ import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import services.ColaboradoresService;
+import services.OfertasService;
 import services.VulnerablesService;
 import utils.sender.channels.EmailSender;
 
@@ -35,7 +36,8 @@ public class ControllerLocator {
     if (!instances.containsKey(controllerName)) {
       if (controllerClass.equals(HeladerasController.class)) {
         HeladerasController instance = new HeladerasController(RepositoryLocator
-            .instanceOf(GenericRepository.class));
+            .instanceOf(GenericRepository.class)
+        );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(CsvController.class)) {
         CsvController instance = new CsvController(
@@ -46,8 +48,10 @@ public class ControllerLocator {
         );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(CanjearPuntosController.class)) {
-        CanjearPuntosController instance = new CanjearPuntosController(RepositoryLocator
-            .instanceOf(GenericRepository.class));
+        CanjearPuntosController instance = new CanjearPuntosController(
+                RepositoryLocator.instanceOf(GenericRepository.class),
+                ServiceLocator.instanceOf(OfertasService.class)
+        );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(VulnerablesController.class)) {
         VulnerablesController instance = new VulnerablesController(
@@ -58,7 +62,8 @@ public class ControllerLocator {
       } else if (controllerClass.equals(MapaController.class)) {
         MapaController instance =
             new MapaController(RepositoryLocator.instanceOf(GenericRepository.class));
-        instances.put(controllerName, instance);
+        instances.put(controllerName, instance
+        );
       }
     }
 

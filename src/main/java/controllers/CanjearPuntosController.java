@@ -1,13 +1,14 @@
 package controllers;
 
+import dtos.OfertaDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.repositories.imp.GenericRepository;
+import services.OfertasService;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -16,15 +17,17 @@ import utils.javalin.InterfaceCrudViewsHandler;
 
 public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
-  private final GenericRepository canjesRepository;
+  private final GenericRepository ofertasRepository;
+  private final OfertasService ofertasService;
 
-  public CanjearPuntosController(GenericRepository repo) {
-    this.canjesRepository = repo;
+  public CanjearPuntosController(GenericRepository repo, OfertasService ofertasService) {
+    this.ofertasRepository = repo;
+    this.ofertasService = ofertasService;
   }
 
   @Override
   public void index(Context context) {
-    List<Oferta> ofertas = canjesRepository.buscarTodos(Oferta.class);
+    List<Oferta> ofertas = ofertasRepository.buscarTodos(Oferta.class);
 
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Ofertas");
@@ -46,24 +49,22 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     context.render("colaborar.hbs", model);
   }
 
-  //TODO esto va en la pagina de colaborar
+  //TODO esto va en la pagina de colaborar cuando se cree
   @Override
   public void save(Context context) {
-    Oferta nuevaOferta = new Oferta();
+    OfertaDto nuevaOferta = new OfertaDto(
+      context.formParam("nombre"),
+      context.formParam("puntosRequeridos"),
+      context.formParam("imagen"),
+      context.formParam("descripcion"), "aca va el id del que hace el post"
+    );
 
-    nuevaOferta.setNombre(context.formParam("nombre"));
-    nuevaOferta.setPuntosNecesarios(Float
-        .valueOf(Objects.requireNonNull(context.formParam("puntosRequeridos"))));
-    nuevaOferta.setDescripcion(context.formParam("descripcion"));
+    this.ofertasRepository.guardar(this.ofertasService.crear(nuevaOferta));
 
-    nuevaOferta.setImagenIlustrativa("/imgs/logo.png");
-
-    this.canjesRepository.guardar(nuevaOferta);
     //O BIEN LANZO UNA PANTALLA DE EXITO
     //O BIEN REDIRECCIONO AL USER A LA PANTALLA DE LISTADO DE PRODUCTOS
 
-    System.out.println("Redirigiendo a canjear puntos...");
-    context.redirect("/heladerasSolidarias/canjear-puntos");
+    context.redirect("/heladeras-solidarias/canjear-puntos");
   }
 
   @Override
@@ -74,16 +75,16 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
   @Override
   public void update(Context context) {
     Optional<Oferta> posibleCanjeBuscado = this
-        .canjesRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
+        .ofertasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
 
-    posibleCanjeBuscado.ifPresent(canjesRepository::modificar);
+    posibleCanjeBuscado.ifPresent(ofertasRepository::modificar);
   }
 
   @Override
   public void delete(Context context) {
     Optional<Oferta> posibleCanjeBuscado = this
-        .canjesRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
+        .ofertasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
 
-    posibleCanjeBuscado.ifPresent(canjesRepository::eliminar);
+    posibleCanjeBuscado.ifPresent(ofertasRepository::eliminar);
   }
 }

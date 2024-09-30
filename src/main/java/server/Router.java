@@ -24,35 +24,65 @@ public class Router {
   public static void init(Javalin app) {
 
     // HOME PAGE
-    app.get("/heladerasSolidarias", ctx -> ctx.render("/home-page.hbs",
+    app.get("/heladeras-solidarias", ctx -> ctx.render("/home-page.hbs",
         Map.of("titulo", "Heladeras Solidarias")));
 
     // INICIAR SESION / REGISTRARSE
-    app.get("/heladerasSolidarias/iniciarSesion", ctx -> ctx.render("/iniciar-sesion.hbs",
+    app.get("/heladeras-solidarias/iniciar-sesion", ctx -> ctx.render("/iniciar-sesion.hbs",
         Map.of("titulo", "Iniciar Sesion")));
 
-    app.get("/heladerasSolidarias/registrarse", ctx -> ctx.render("/registrarse.hbs",
+    app.get("/heladeras-solidarias/registrarse", ctx -> ctx.render("/registrarse.hbs",
         Map.of("titulo", "Registrarse")));
 
     //VISTAS COLABORADOR
 
-    app.get("/heladerasSolidarias/vulnerables",
+    //VULNERABLES
+
+    app.get("/heladeras-solidarias/vulnerables",
         ControllerLocator.instanceOf(VulnerablesController.class)::create);
 
-    app.post("/heladerasSolidarias/vulnerables",
+    app.post("/heladeras-solidarias/vulnerables",
         ControllerLocator.instanceOf(VulnerablesController.class)::save);
 
+    //CANJEAR PUNTOS
+
+    app.get("/heladeras-solidarias/canjear-puntos",
+            ControllerLocator.instanceOf(CanjearPuntosController.class)::index);
+
+    //COLABORAR
+    app.get("/heladeras-solidarias/colaborar", ctx -> ctx.render("/colaborar.hbs",
+            Map.of("titulo", "Heladeras")));
+
+    app.post("/heladeras-solidarias/colaborar", ctx -> {
+      String formType = ctx.formParam("formType");
+      /* switch (Objects.requireNonNull(formType)) {
+        case "donarDinero" -> ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
+        case "donarViandas":
+        case "realizarOfertas":
+          case "colocar-heladera" -> ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
+          case "distribuirTarjetas" -> ControllerLocator.instanceOf(HeladerasController.class).edit(ctx);
+          case "distribuirViandas" -> System.out.println("NO LO TENEMOS");
+        //CONTROLLER VER ALERTAS
+        //ControllerLocator.instanceOf(AlertasController.class).index(ctx);
+        default -> ctx.status(400).result("Tipo de formulario no valido");
+      }*/
+    });
+
     //VISTAS ADMINISTRADOR
-    app.get("/heladerasSolidarias/heladerasAdmin", ctx -> ctx.render("/heladeras-admin.hbs",
+    app.get("/heladeras-solidarias/heladeras-admin", ctx -> ctx.render("/heladeras-admin.hbs",
         Map.of("titulo", "Heladeras")));
 
-    app.post("/heladerasSolidarias/heladerasAdmin", ctx -> {
+    app.post("/heladeras-solidarias/heladeras-admin", ctx -> {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {
+
         case "darAlta" -> ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
+
         case "darBaja" -> ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
+
         case "modificarHeladeras" ->
             ControllerLocator.instanceOf(HeladerasController.class).edit(ctx);
+
         case "verAlertas" -> System.out.println("NO LO TENEMOS");
         //CONTROLLER VER ALERTAS
         //ControllerLocator.instanceOf(AlertasController.class).index(ctx);
@@ -60,13 +90,13 @@ public class Router {
       }
     });
 
-    app.get("/heladerasSolidarias/verMapa",
+    app.get("/heladeras-solidarias/ver-mapa",
         ControllerLocator.instanceOf(MapaController.class)::index);
 
-    app.get("/heladerasSolidarias/reportes", ctx -> ctx.render("/reportes.hbs",
-        Map.of("titulo", "Reportes")));
+    app.get("/heladeras-solidarias/reportar-falla", ctx -> ctx.render("/reportar-falla-tecnica.hbs",
+        Map.of("titulo", "Reportar Falla")));
 
-    app.get("/heladerasSolidarias/cargar-csv", ctx -> ctx.render("/cargar-csv.hbs",
+    app.get("/heladeras-solidarias/cargar-csv", ctx -> ctx.render("/cargar-csv.hbs",
         Map.of("titulo", "Cargar CSV")));
 
     //Query Params

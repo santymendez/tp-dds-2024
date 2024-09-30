@@ -64,7 +64,7 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     //O BIEN LANZO UNA PANTALLA DE EXITO
     //O BIEN REDIRECCIONO AL USER A LA PANTALLA DE LISTADO DE PRODUCTOS
 
-    context.redirect("/heladeras-solidarias/canjear-puntos");
+    context.redirect("/canjear-puntos");
   }
 
   @Override

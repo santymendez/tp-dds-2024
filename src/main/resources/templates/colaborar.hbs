@@ -47,7 +47,8 @@
         <div id="donar_viandas" class="action-form donar-viandas-form d-none">
             <input type="hidden" name="formType" value="donarViandas">
             <h3>Donación de Viandas</h3>
-            <form class="formulario">
+            <form class="formulario" method="POST"
+                  action="/heladeras-solidarias/colaborar">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="descripcion" class="form-label">Descripción</label>
@@ -93,7 +94,7 @@
             <input type="hidden" name="formType" value="realizarOfertas">
             <h3>Realizar una Oferta</h3>
             <form class="formulario realizar-ofertas-form" method="POST"
-                  action="/heladeras-solidarias/canjear-puntos">
+                  action="/heladeras-solidarias/colaborar">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="nombre_oferta" class="form-label">Nombre</label>
@@ -127,7 +128,8 @@
         <div id="distribuir_tarjetas" class="action-form d-none chico">
             <input type="hidden" name="formType" value="distribuirTarjetas">
             <h3>Distribuir Tarjetas</h3>
-            <form class="formulario">
+            <form class="formulario" method="POST"
+                  action="/heladeras-solidarias/colaborar">
                 <div class="mb-3">
                     <label for="cantidad_tarjetas" class="form-label">Cantidad a Solicitar</label>
                     <input type="number" class="form-control form-control-lg" id="cantidad_tarjetas"
@@ -141,7 +143,8 @@
         <div id="distribuir_viandas" class="action-form d-none distribuir-viandas-form">
             <input type="hidden" name="formType" value="distribuirViandas">
             <h3>Distribución de Viandas</h3>
-            <form class="formulario">
+            <form class="formulario" method="POST"
+                  action="/heladeras-solidarias/colaborar">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="heladera_origen" class="form-label extra-class">Heladera

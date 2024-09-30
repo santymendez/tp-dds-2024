@@ -5,6 +5,10 @@ import controllers.CanjearPuntosController;
 import controllers.HeladerasController;
 import controllers.MapaController;
 import controllers.VulnerablesController;
+import controllers.colaboraciones.DonarDineroController;
+import controllers.colaboraciones.DonarViandasController;
+import controllers.colaboraciones.TarjetasController;
+import controllers.colaboraciones.ViandasController;
 import io.javalin.Javalin;
 import java.util.Map;
 import java.util.Objects;
@@ -55,21 +59,22 @@ public class Router {
 
     app.post("/heladeras-solidarias/colaborar", ctx -> {
       String formType = ctx.formParam("formType");
-      /*
       switch (Objects.requireNonNull(formType)) {
-        case "donarDinero" -> ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
-        case "donarViandas":
-        case "realizarOfertas":
+        case "donarDinero" ->
+            ControllerLocator.instanceOf(DonarDineroController.class).save(ctx);
+        case "donarViandas" ->
+            ControllerLocator.instanceOf(DonarViandasController.class).save(ctx);
+        case "realizarOfertas" ->
+            ControllerLocator.instanceOf(CanjearPuntosController.class).save(ctx);
         case "colocar-heladera" ->
             ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
         case "distribuirTarjetas" ->
-            ControllerLocator.instanceOf(HeladerasController.class).edit(ctx);
-          case "distribuirViandas" -> System.out.println("NO LO TENEMOS");
-        //CONTROLLER VER ALERTAS
-        //ControllerLocator.instanceOf(AlertasController.class).index(ctx);
-        default -> ctx.status(400).result("Tipo de formulario no valido");
+            ControllerLocator.instanceOf(TarjetasController.class).edit(ctx);
+        case "distribuirViandas" ->
+            ControllerLocator.instanceOf(ViandasController.class).edit(ctx);
+        default -> ctx.status(404).render("/error404.hbs",
+            Map.of("titulo", "Error 404", "mensaje", "Tipo de formulario no valido"));
       }
-      */
     });
 
     //VISTAS ADMINISTRADOR

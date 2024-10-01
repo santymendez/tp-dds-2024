@@ -6,6 +6,6 @@ import io.javalin.Javalin;
  * Interfaz para los Handlers.
  */
 
-public interface IHandler {
-    void setHandle(Javalin app);
+public interface Ihandler {
+  void setHandle(Javalin app);
 }

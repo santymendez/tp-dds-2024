@@ -1,15 +1,18 @@
 package server.handlers;
 
 import io.javalin.Javalin;
-
 import java.util.Arrays;
 
-public class AppHandlers {
-    private final IHandler[] handlers = new IHandler[]{
-            new AccessDeniedHandler(),
-    };
+/**
+ * Clase AppHandlers.
+ */
 
-    public static void applyHandlers(Javalin app) {
-        Arrays.stream(new AppHandlers().handlers).toList().forEach(handler -> handler.setHandle(app));
-    }
+public class AppHandlers {
+  private final Ihandler[] handlers = new Ihandler[]{
+      new AccessDeniedHandler(),
+  };
+
+  public static void applyHandlers(Javalin app) {
+    Arrays.stream(new AppHandlers().handlers).toList().forEach(handler -> handler.setHandle(app));
+  }
 }

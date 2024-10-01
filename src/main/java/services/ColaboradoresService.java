@@ -28,8 +28,9 @@ public class ColaboradoresService {
     Colaborador colaborador = FactoryColaborador.crearCon(colaboradorInputDto);
 
     //Crear usuario y enviar mail
-    //puse persona fisica para que no rompa
-    Usuario usuario =  new Usuario(colaborador.getNombre(), colaborador.getApellido(), TipoRol.PERSONA_FISICA);
+    //TODO puse persona fisica para que no rompa
+    Usuario usuario =  new Usuario(colaborador.getNombre(),
+        colaborador.getApellido(), TipoRol.PERSONA_FISICA);
     colaborador.setUsuario(usuario);
 
     Mensaje message = new Mensaje("Creación de Nuevo Usuario",

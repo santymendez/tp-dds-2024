@@ -21,9 +21,9 @@
 
         <!-- Formulario para Donar Dinero -->
         <div id="donar_dinero" class="action-form d-none chico">
-            <input type="hidden" name="formType" value="donarDinero">
             <h3>Donación de Dinero</h3>
             <form class="formulario">
+                <input type="hidden" name="formType" value="donarDinero">
                 <div class="mb-3">
                     <label for="monto" class="form-label">Ingresar monto</label>
                     <input type="number" class="form-control form-control-lg espacio" id="monto"
@@ -44,10 +44,10 @@
 
         <!-- Formulario para Donar Viandas -->
         <div id="donar_viandas" class="action-form donar-viandas-form d-none">
-            <input type="hidden" name="formType" value="donarViandas">
             <h3>Donación de Viandas</h3>
             <form class="formulario" method="POST"
                   action="/heladeras-solidarias/colaborar">
+                <input type="hidden" name="formType" value="donarViandas">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="descripcion" class="form-label">Descripción</label>
@@ -124,10 +124,10 @@
 
         <!-- Formulario para Distribuir Tarjetas -->
         <div id="distribuir_tarjetas" class="action-form d-none chico">
-            <input type="hidden" name="formType" value="distribuirTarjetas">
             <h3>Distribuir Tarjetas</h3>
             <form class="formulario" method="POST"
                   action="/heladeras-solidarias/colaborar">
+                <input type="hidden" name="formType" value="distribuirTarjetas">
                 <div class="mb-3">
                     <label for="cantidad_tarjetas" class="form-label">Cantidad a Solicitar</label>
                     <input type="number" class="form-control form-control-lg" id="cantidad_tarjetas"

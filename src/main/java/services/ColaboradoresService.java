@@ -3,9 +3,9 @@ package services;
 import dtos.ColaboradorInputDto;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
+import models.entities.personas.users.TipoRol;
+import models.entities.personas.users.Usuario;
 import models.factories.FactoryColaborador;
-import models.repositories.imp.ColaboradoresRepository;
-import utils.security.Usuario;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
 
@@ -14,12 +14,6 @@ import utils.sender.channels.EmailSender;
  */
 
 public class ColaboradoresService {
-
-  private final ColaboradoresRepository colaboradoresRepository;
-
-  public ColaboradoresService(ColaboradoresRepository colaboradorRepository) {
-    this.colaboradoresRepository = colaboradorRepository;
-  }
 
   /**
    * Se cargan los datos a un colaborador.
@@ -34,7 +28,8 @@ public class ColaboradoresService {
     Colaborador colaborador = FactoryColaborador.crearCon(colaboradorInputDto);
 
     //Crear usuario y enviar mail
-    Usuario usuario =  new Usuario(colaborador.getNombre(), colaborador.getApellido());
+    //puse persona fisica para que no rompa
+    Usuario usuario =  new Usuario(colaborador.getNombre(), colaborador.getApellido(), TipoRol.PERSONA_FISICA);
     colaborador.setUsuario(usuario);
 
     Mensaje message = new Mensaje("Creación de Nuevo Usuario",

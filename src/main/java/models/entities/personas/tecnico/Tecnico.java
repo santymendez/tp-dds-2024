@@ -1,9 +1,7 @@
 package models.entities.personas.tecnico;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +12,7 @@ import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
+import models.entities.personas.users.Usuario;
 
 /**
  * Representa a un técnico en el sistema.
@@ -28,6 +27,9 @@ import models.entities.personas.documento.Documento;
 @Entity
 @Table(name = "tecnicos")
 public class Tecnico extends Persistente {
+
+  @Transient
+  private Usuario usuario;
 
   @Column(name = "nombre", nullable = false)
   private String nombre;

@@ -60,7 +60,7 @@ public class Router {
 
     app.post("/heladeras-solidarias/colaborar", ctx -> {
       String formType = ctx.formParam("formType");
-      switch (Objects.requireNonNull(formType)) {
+      switch (formType) {
         case "donarDinero" ->
             ControllerLocator.instanceOf(DonarDineroController.class).save(ctx);
         case "donarViandas" ->

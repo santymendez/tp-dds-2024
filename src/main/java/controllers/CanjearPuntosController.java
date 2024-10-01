@@ -56,29 +56,42 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
   //TODO esto va en la pagina de colaborar cuando se cree
   @Override
   public void save(Context context) {
-    OfertaDto nuevaOferta = new OfertaDto(
-        context.formParam("nombre"),
-        context.formParam("puntosRequeridos"),
-        context.formParam("imagen"),
-        context.formParam("descripcion"), "aca va el id del que hace el post"
-    );
+
+    // TODO sacar al finalizar
+    // para ver que se esta trayendo
+    context.formParamMap().forEach((key, value) -> System.out.println(key + " " + value));
+
+    OfertaDto nuevaOferta = new OfertaDto();
+    nuevaOferta.setNombre(context.formParam("nombre"));
+    nuevaOferta.setDescripcion(context.formParam("descripcion"));
+    nuevaOferta.setPuntosNecesarios(context.formParam("puntosNecesarios"));
+    nuevaOferta.setOfertante("4");
+    //nuevaOferta.setOfertante(context.sessionAttribute("idUsuario"));
 
     UploadedFile file = context.uploadedFile("imagen");
     if (file != null) {
+      String path = "/public/uploaded-imgs/" + file.filename();
       try {
         FileUtils.copyInputStreamToFile(file.content(),
-            new File("/public/uploaded-imgs/" + file.filename()));
+            new File(path));
+        nuevaOferta.setImagenIlustrativa(path);
       } catch (IOException e) {
         nuevaOferta.setImagenIlustrativa("/public/static-imgs/logo.png");
       }
+    } else {
+      nuevaOferta.setImagenIlustrativa("/public/static-imgs/logo.png");
     }
 
-    this.ofertasRepository.guardar(this.ofertasService.crear(nuevaOferta));
+    try {
+      this.ofertasRepository.guardar(this.ofertasService.crear(nuevaOferta));
+    } catch (Exception e) {
+      context.status(500).result("Error al guardar la oferta: " + e.getMessage());
+    }
 
     //O BIEN LANZO UNA PANTALLA DE EXITO
     //O BIEN REDIRECCIONO AL USER A LA PANTALLA DE LISTADO DE PRODUCTOS
 
-    context.redirect("/canjear-puntos");
+    context.redirect("/heladeras-solidarias/canjear-puntos");
   }
 
   @Override

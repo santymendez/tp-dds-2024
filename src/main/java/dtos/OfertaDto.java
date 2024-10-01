@@ -2,6 +2,7 @@ package dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Clase para el output de las ofertas.
@@ -9,6 +10,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class OfertaDto {
   private String nombre;
   private String puntosNecesarios;

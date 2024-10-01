@@ -29,6 +29,8 @@ public class OfertasService {
     Optional<Colaborador> posibleOfertante = colaboradoresRepository
         .buscarPorId(Long.parseLong(ofertaDto.getOfertante()), Colaborador.class);
 
+    Colaborador ofertante = posibleOfertante.get();
+
     //  if (posibleOfertante.isEmpty()) {
     //    throw new IllegalArgumentException("No existe ese colaborador");
     //  }
@@ -38,10 +40,7 @@ public class OfertasService {
     oferta.setPuntosNecesarios(Float.parseFloat(ofertaDto.getPuntosNecesarios()));
     oferta.setImagenIlustrativa(ofertaDto.getImagenIlustrativa());
     oferta.setDescripcion(ofertaDto.getDescripcion());
-
-    //TODO
-    Optional<Colaborador> colaborador = colaboradoresRepository.buscarPorDocumento(45345678);
-    oferta.setOfertante(colaborador.get());
+    oferta.setOfertante(ofertante);
 
     return oferta;
   }

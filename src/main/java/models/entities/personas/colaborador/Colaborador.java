@@ -16,7 +16,6 @@ import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.db.Persistente;
 import models.entities.colaboracion.Colaboracion;
@@ -27,8 +26,7 @@ import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
-import utils.recomendator.adapter.AdapterServicioRecomendacion;
-import utils.security.Usuario;
+import models.entities.personas.users.Usuario;
 
 /**
  * Representa a un colaborador en el sistema.

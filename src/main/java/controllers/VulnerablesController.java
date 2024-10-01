@@ -52,6 +52,7 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
   @Override
   public void save(Context context) {
 
+    // TODO sacar al finalizar
     // para ver que se esta trayendo
     context.formParamMap().forEach((key, value) -> {
       System.out.println(key + " " + value);

@@ -90,10 +90,9 @@
 
         <!-- Formulario para Realizar Ofertas -->
         <div id="realizar_ofertas" class="action-form d-none mediano">
-            <input type="hidden" name="formType" value="realizarOfertas">
             <h3>Realizar una Oferta</h3>
-            <form class="formulario realizar-ofertas-form" method="POST"
-                  action="/heladeras-solidarias/colaborar">
+            <form class="formulario realizar-ofertas-form" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="formType" value="realizarOfertas">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="nombre_oferta" class="form-label">Nombre</label>
@@ -102,14 +101,14 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="puntos_requeridos" class="form-label">Puntos requeridos</label>
-                        <input name="puntosRequeridos" type="number"
+                        <input name="puntosNecesarios" type="number"
                                class="form-control form-control-lg"
                                id="puntos_requeridos" placeholder="Ej. 2500">
                     </div>
                 </div>
                 <div class="image-upload mb-3">
                     <label for="imagen_oferta" class="form-label">Imagen</label>
-                    <input type="file" class="form-control form-control-lg" id="imagen_oferta">
+                    <input name="imagen" type="file" class="form-control form-control-lg" id="imagen_oferta">
                 </div>
                 <div class="description-container mb-3">
                     <label for="descripcion_imagen" class="form-label">Descripción de la
@@ -140,10 +139,10 @@
 
         <!-- Formulario para Distribuir Viandas -->
         <div id="distribuir_viandas" class="action-form d-none distribuir-viandas-form">
-            <input type="hidden" name="formType" value="distribuirViandas">
             <h3>Distribución de Viandas</h3>
             <form class="formulario" method="POST"
                   action="/heladeras-solidarias/colaborar">
+                <input type="hidden" name="formType" value="distribuirViandas">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="heladera_origen" class="form-label extra-class">Heladera
@@ -189,8 +188,8 @@
 {{#partial "scripts"}}
     <script>
         document.getElementById('actionSelector').addEventListener('change', function () {
-            var selectedValue = this.value;
-            var actionForms = document.querySelectorAll('.action-form');
+            let selectedValue = this.value;
+            let actionForms = document.querySelectorAll('.action-form');
 
             actionForms.forEach(function (form) {
                 if (form.id === selectedValue) {
@@ -204,7 +203,7 @@
 
     <script>
         document.getElementById('actionSelector').addEventListener('change', function () {
-            var selectedValue = this.value;
+            let selectedValue = this.value;
             if (selectedValue == "/heladeras-solidarias/colaborar/colocar-heladera") {
                 window.location.href = selectedValue;
             }

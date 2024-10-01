@@ -32,8 +32,20 @@ public class DireccionesService {
    */
 
   public Direccion crear(DireccionInputDto direccionInputDto) {
-    Float longitud = Float.parseFloat(direccionInputDto.getLongitud());
-    Float latitud = Float.parseFloat(direccionInputDto.getLatitud());
+    // Verifica longitud y latitud
+    if (direccionInputDto.getLongitud() == null || direccionInputDto.getLatitud() == null) {
+      throw new IllegalArgumentException("Longitud y latitud no pueden ser nulos.");
+    }
+
+    float longitud;
+    float latitud;
+
+    try {
+      longitud = Float.parseFloat(direccionInputDto.getLongitud());
+      latitud = Float.parseFloat(direccionInputDto.getLatitud());
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("Formato inválido para longitud o latitud.", e);
+    }
 
     Optional<Direccion> posibleDireccion =
         this.direccionesRepository.buscarPorLatLong(latitud, longitud);
@@ -42,14 +54,21 @@ public class DireccionesService {
       return posibleDireccion.get();
     }
 
-    Optional<Provincia> provincia =
-            this.provinciasRepository
-                .buscarPorId(Long.parseLong(direccionInputDto.getProvincia()), Provincia.class);
+    if (direccionInputDto.getProvincia() == null) {
+      throw new IllegalArgumentException("La provincia no puede ser nula.");
+    }
 
-    //ASUMIMOS QUE EL QUE CARGA LA INFORMACION NO ES PELOTUDO
+    Optional<Provincia> provincia =
+        this.provinciasRepository
+            .buscarPorId(Long.parseLong(direccionInputDto.getProvincia()), Provincia.class);
+
+    if (provincia.isEmpty()) {
+      throw new IllegalArgumentException("Provincia no encontrada.");
+    }
 
     Direccion direccion = FactoryDireccion.crearCon(direccionInputDto, provincia.get());
     this.direccionesRepository.guardar(direccion);
     return direccion;
   }
+
 }

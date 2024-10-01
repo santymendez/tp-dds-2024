@@ -4,8 +4,6 @@ import config.ServiceLocator;
 import dtos.DireccionInputDto;
 import dtos.VulnerableInputDto;
 import java.time.LocalDate;
-import models.entities.direccion.Barrio;
-import models.entities.direccion.Direccion;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
 import models.entities.personas.vulnerable.Vulnerable;
@@ -33,16 +31,20 @@ public class VulnerablesService {
     Integer nroDocumento = Integer.parseInt(vulnerableInputDto.getNumeroDocumento());
     vulnerable.setDocumento(new Documento(nroDocumento, tipoDocumento));
 
+    //TODO estan como 0 por ahora y el otro tambien no esta, pensar que dato usar
     DireccionInputDto direccionInputDto = DireccionInputDto.builder()
-            .provincia(vulnerableInputDto.getProvincia())
-            .nombreCiudad(vulnerableInputDto.getCuidad())
-            .nombreBarrio(vulnerableInputDto.getBarrio())
-            .calle(vulnerableInputDto.getCalle())
-            .numero(vulnerableInputDto.getNumero())
-            .build();
+        .nombreUbicacion("no tiene nombre") // falta
+        .latitud(String.valueOf(0)) // falta
+        .longitud(String.valueOf(0)) // falta
+        .provincia(vulnerableInputDto.getProvincia())
+        .nombreCiudad(vulnerableInputDto.getCiudad())
+        .nombreBarrio(vulnerableInputDto.getBarrio())
+        .calle(vulnerableInputDto.getCalle())
+        .numero(vulnerableInputDto.getNumero())
+        .build();
 
     vulnerable.setDomicilio(ServiceLocator.instanceOf(DireccionesService.class)
-            .crear(direccionInputDto));
+        .crear(direccionInputDto));
 
     return vulnerable;
   }

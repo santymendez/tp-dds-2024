@@ -3,7 +3,9 @@ package controllers;
 import dtos.VulnerableInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import models.entities.direccion.Provincia;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
 import services.VulnerablesService;
@@ -38,33 +40,44 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
   @Override
   public void create(Context context) {
+    // TODO no me acuerdo como queria santi encontrar a la provincias
+    List<Provincia> provincias = this.vulnerablesRepository.buscarTodos(Provincia.class);
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Registrar Vulnerable");
-    context.render("/registrar-vulnerable.hbs");
+    model.put("provincias", provincias);
+
+    context.render("/registrar-vulnerable.hbs", model);
   }
 
   @Override
   public void save(Context context) {
-    VulnerableInputDto vulnerableInputDto = new VulnerableInputDto(
-        context.formParam("nombre"),
-        context.formParam("fechaNacimiento"),
-        context.formParam("tipoDocumento"),
-        context.formParam("numeroDocumento"),
-        context.formParam("provincia"),
-        context.formParam("ciudad"),
-        context.formParam("barrio"),
-        context.formParam("calle"),
-        context.formParam("numero"),
-        context.formParam("cantMenores")
-    );
 
-    Vulnerable vulnerable = this.vulnerablesService.crear(vulnerableInputDto);
+    // para ver que se esta trayendo
+    context.formParamMap().forEach((key, value) -> {
+      System.out.println(key + " " + value);
+    });
+
+    VulnerableInputDto vulnerableInputDto = new VulnerableInputDto();
+    vulnerableInputDto.setNombre(context.formParam("nombre"));
+    vulnerableInputDto.setFechaNacimiento(context.formParam("fechaNacimiento"));
+    vulnerableInputDto.setTipoDocumento(context.formParam("tipoDocumento"));
+    vulnerableInputDto.setNumeroDocumento(context.formParam("numeroDocumento"));
+    vulnerableInputDto.setProvincia(context.formParam("provincia"));
+    vulnerableInputDto.setCiudad(context.formParam("ciudad"));
+    vulnerableInputDto.setBarrio(context.formParam("barrio"));
+    vulnerableInputDto.setCalle(context.formParam("calle"));
+    vulnerableInputDto.setNumero(context.formParam("numeroCalle"));
+    vulnerableInputDto.setCantMenores(context.formParam("cantMenores"));
 
     //TODO LOGICA DE MENORES A CARGO
 
-    this.vulnerablesRepository.guardar(vulnerable);
-
-    context.redirect("/heladeras-solidarias");
+    try {
+      Vulnerable vulnerable = this.vulnerablesService.crear(vulnerableInputDto);
+      this.vulnerablesRepository.guardar(vulnerable);
+      context.redirect("/heladeras-solidarias");
+    } catch (Exception e) {
+      context.status(500).result("Error al guardar el vulnerable: " + e.getMessage());
+    }
   }
 
   @Override

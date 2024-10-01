@@ -31,9 +31,13 @@ public class VulnerablesService {
     Integer nroDocumento = Integer.parseInt(vulnerableInputDto.getNumeroDocumento());
     vulnerable.setDocumento(new Documento(nroDocumento, tipoDocumento));
 
-    //TODO estan como 0 por ahora y el otro tambien no esta, pensar que dato usar
+    String nombreUbicacion = vulnerableInputDto.getCalle() + " " + vulnerableInputDto.getNumero()
+        + ", " + vulnerableInputDto.getBarrio() + ", " + vulnerableInputDto.getCiudad()
+        + ", " + vulnerableInputDto.getProvincia();
+
+    //TODO estan como 0 por ahora, pensar que dato usar
     DireccionInputDto direccionInputDto = DireccionInputDto.builder()
-        .nombreUbicacion("no tiene nombre") // falta
+        .nombreUbicacion(nombreUbicacion)
         .latitud(String.valueOf(0)) // falta
         .longitud(String.valueOf(0)) // falta
         .provincia(vulnerableInputDto.getProvincia())

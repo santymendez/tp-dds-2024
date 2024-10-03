@@ -1,10 +1,10 @@
 package models.repositories.imp;
 
 
-import models.entities.direccion.Provincia;
-import models.entities.personas.users.Usuario;
 import java.util.List;
 import java.util.Optional;
+import models.entities.direccion.Provincia;
+import models.entities.personas.users.Usuario;
 
 /**
  * Repositorio de usuarios.

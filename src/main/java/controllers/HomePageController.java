@@ -17,9 +17,9 @@ public class HomePageController implements InterfaceCrudViewsHandler {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Heladeras Solidarias");
 
-//    if (context.sessionAttribute("tipo_rol") == TipoRol.ADMINISTRADOR) {
-//      context.render("home-page.hbs", model);
-//    }
+    if (context.sessionAttribute("tipo_rol") == TipoRol.ADMINISTRADOR) {
+      context.render("home-page.hbs", model);
+    }
 
     context.render("home-page-admin.hbs", model);
   }

@@ -14,7 +14,6 @@ import controllers.colaboraciones.DonarViandasController;
 import controllers.colaboraciones.TarjetasController;
 import controllers.colaboraciones.ViandasController;
 import io.javalin.Javalin;
-import models.entities.personas.users.TipoRol;
 import java.util.Map;
 import java.util.Objects;
 

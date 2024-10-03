@@ -1,6 +1,7 @@
 package services;
 
 import dtos.ColaboradorInputDto;
+import java.util.List;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 import models.entities.personas.users.TipoRol;
@@ -8,7 +9,6 @@ import models.entities.personas.users.Usuario;
 import models.factories.FactoryColaborador;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
-import java.util.List;
 
 /**
  * Instancia el colaborador y lo guarda en el repositorio.

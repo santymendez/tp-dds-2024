@@ -10,6 +10,7 @@ import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.ReportesRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
+import models.repositories.imp.UsuariosRepository;
 
 /**
  * Service Locator para obtener los servicios de repositorios.
@@ -47,6 +48,8 @@ public class RepositoryLocator {
         instances.put(repositoryClassName, new DireccionesRepository());
       } else if (repositoryClass.equals(ProvinciasRepository.class)) {
         instances.put(repositoryClassName, new ProvinciasRepository());
+      } else if (repositoryClass.equals(UsuariosRepository.class)) {
+        instances.put(repositoryClassName, new UsuariosRepository());
       }
     }
 

@@ -8,6 +8,8 @@ import io.javalin.http.HttpStatus;
 import io.javalin.http.staticfiles.Location;
 import java.io.IOException;
 import java.util.function.Consumer;
+import middlewares.AuthMiddleware;
+import server.handlers.AppHandlers;
 import utils.javalin.Initializer;
 import utils.javalin.JavalinRenderer;
 import utils.sender.Config;
@@ -46,6 +48,8 @@ public class Server {
           .parseInt(Config.getServerPort());
       app = Javalin.create(config()).start(port);
 
+      AuthMiddleware.apply(app);
+      AppHandlers.applyHandlers(app);
       Router.init(app);
 
       if (Boolean.parseBoolean(Config.getDevMode())) {

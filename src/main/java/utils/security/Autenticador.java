@@ -16,9 +16,11 @@ import utils.security.rules.Regla;
 @Getter
 public class Autenticador {
   private List<Regla> politicas;
+  private List<String> mensajesParaImprimir;
 
   public Autenticador() {
-    this.setPoliticas(new ArrayList<>());
+    this.politicas = new ArrayList<>();
+    this.mensajesParaImprimir = new ArrayList<>();
   }
 
   public void agregarPoliticas(Regla... reglas) {
@@ -33,32 +35,32 @@ public class Autenticador {
    */
 
   public Boolean esValida(String unaContrasenia) {
+    this.mensajesParaImprimir.clear(); //Para reinciar los mensajes cada vez que valido
+    Boolean cumpleReglas = this.cumpleLasReglas(unaContrasenia);
 
-    List<String> mensajesDeError = new ArrayList<>();
-
-    if (this.cumpleLasReglas(unaContrasenia, mensajesDeError)) {
+    if (cumpleReglas) {
       System.out.println("Contraseña valida.");
     } else {
-      System.out.println(this.mostrarMensajesConFormato(mensajesDeError));
+      System.out.println(this.mostrarMensajesConFormato());
     }
-    return cumpleLasReglas(unaContrasenia, mensajesDeError);
+    return cumpleReglas;
   }
 
-  public Boolean cumpleLasReglas(String unaContrasenia, List<String> mensajesDeError) {
-    return politicas.stream().allMatch(m -> m.esValida(unaContrasenia, mensajesDeError));
+  public Boolean cumpleLasReglas(String unaContrasenia) {
+    return politicas.stream().allMatch(m -> m.esValida(unaContrasenia, this.mensajesParaImprimir));
   }
 
   /**
    * Formatea los mensajes de error para su visualización.
    *
-   * @param mensajes una lista de mensajes de error
    * @return los mensajes de error formateados como una cadena de texto
    */
-  public String mostrarMensajesConFormato(List<String> mensajes) {
+  public String mostrarMensajesConFormato() {
     StringBuilder mensajeCompleto = new StringBuilder();
 
-    for (String mensaje : mensajes) {
-      mensajeCompleto.append("Error: ").append(mensaje).append(" ");
+    for (String mensaje : this.mensajesParaImprimir) {
+      //TODO no se si esta bien el \n
+      mensajeCompleto.append("Error: ").append(mensaje).append("\n");
     }
 
     return String.valueOf(mensajeCompleto);

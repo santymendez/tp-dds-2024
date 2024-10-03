@@ -23,6 +23,9 @@
             <div class="d-grid mx-auto">
                 <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
             </div>
+            {{#if error}}
+                <div class="error-message" style="color:red;">{{error}}</div>
+            {{/if}}
         </form>
     </div>
 {{/partial}}

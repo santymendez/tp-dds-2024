@@ -4,13 +4,17 @@ import controllers.CanjearPuntosController;
 import controllers.CsvController;
 import controllers.CsvController2;
 import controllers.HeladerasController;
+import controllers.HomePageController;
+import controllers.IniciarSesionController;
 import controllers.MapaController;
+import controllers.RegistrarUsuarioController;
 import controllers.VulnerablesController;
 import java.util.HashMap;
 import java.util.Map;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.UsuariosRepository;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.OfertasService;
@@ -71,6 +75,19 @@ public class ControllerLocator {
             RepositoryLocator.instanceOf(ColaboradoresRepository.class),
             ServiceLocator.instanceOf(ColaboracionesService.class),
             EmailSender.getInstance()
+        );
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(IniciarSesionController.class)) {
+        IniciarSesionController instance = new IniciarSesionController(
+            RepositoryLocator.instanceOf(UsuariosRepository.class)
+        );
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(HomePageController.class)) {
+        HomePageController instance = new HomePageController();
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(RegistrarUsuarioController.class)) {
+        RegistrarUsuarioController instance = new RegistrarUsuarioController(
+            RepositoryLocator.instanceOf(UsuariosRepository.class)
         );
         instances.put(controllerName, instance);
       }

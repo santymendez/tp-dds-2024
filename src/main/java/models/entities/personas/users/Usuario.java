@@ -1,12 +1,15 @@
 package models.entities.personas.users;
 
+import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Generated;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import models.db.Persistente;
 
 /**
@@ -18,6 +21,8 @@ import models.db.Persistente;
 @Entity
 @Table(name = "usuarios")
 @NoArgsConstructor
+@Getter
+@Setter
 public class Usuario extends Persistente {
   @Column(name = "nombreUsuario")
   String nombreUsuario;
@@ -25,8 +30,7 @@ public class Usuario extends Persistente {
   @Column(name = "contrasenia")
   String contrasenia;
 
-  //TODO VER SI NO PUEDE TENER VARIOS ROLES
-  @Enumerated(EnumType.STRING)
+  @ElementCollection()
   @Column(name = "tipoRol")
-  TipoRol tipoRol;
+  List<TipoRol> tipoRol;
 }

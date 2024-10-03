@@ -57,10 +57,6 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
   @Override
   public void save(Context context) {
 
-    // TODO sacar al finalizar
-    // para ver que se esta trayendo
-    context.formParamMap().forEach((key, value) -> System.out.println(key + " " + value));
-
     OfertaDto nuevaOferta = new OfertaDto();
     nuevaOferta.setNombre(context.formParam("nombre"));
     nuevaOferta.setDescripcion(context.formParam("descripcion"));

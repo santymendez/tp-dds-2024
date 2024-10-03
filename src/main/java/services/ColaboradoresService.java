@@ -8,6 +8,7 @@ import models.entities.personas.users.Usuario;
 import models.factories.FactoryColaborador;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
+import java.util.List;
 
 /**
  * Instancia el colaborador y lo guarda en el repositorio.
@@ -29,8 +30,8 @@ public class ColaboradoresService {
 
     //Crear usuario y enviar mail
     //TODO puse persona fisica para que no rompa
-    Usuario usuario =  new Usuario(colaborador.getNombre(),
-        colaborador.getApellido(), TipoRol.PERSONA_FISICA);
+    Usuario usuario = new Usuario(colaborador.getNombre(),
+        colaborador.getApellido(), List.of(TipoRol.PERSONA_FISICA));
     colaborador.setUsuario(usuario);
 
     Mensaje message = new Mensaje("Creación de Nuevo Usuario",

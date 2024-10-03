@@ -4,13 +4,17 @@ import config.ControllerLocator;
 import controllers.CanjearPuntosController;
 import controllers.CsvController2;
 import controllers.HeladerasController;
+import controllers.HomePageController;
+import controllers.IniciarSesionController;
 import controllers.MapaController;
+import controllers.RegistrarUsuarioController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DonarDineroController;
 import controllers.colaboraciones.DonarViandasController;
 import controllers.colaboraciones.TarjetasController;
 import controllers.colaboraciones.ViandasController;
 import io.javalin.Javalin;
+import models.entities.personas.users.TipoRol;
 import java.util.Map;
 import java.util.Objects;
 
@@ -32,12 +36,18 @@ public class Router {
     app.get("/heladeras-solidarias", ctx -> ctx.render("/home-page.hbs",
         Map.of("titulo", "Heladeras Solidarias")));
 
-    // INICIAR SESION / REGISTRARSE
-    app.get("/heladeras-solidarias/iniciar-sesion", ctx -> ctx.render("/iniciar-sesion.hbs",
-        Map.of("titulo", "Iniciar Sesion")));
+    app.get("/heladeras-solidarias-admin",
+        ControllerLocator.instanceOf(HomePageController.class)::index);
 
-    app.get("/heladeras-solidarias/registrarse", ctx -> ctx.render("/registrarse.hbs",
-        Map.of("titulo", "Registrarse")));
+    // INICIAR SESION / REGISTRARSE
+    app.get("/heladeras-solidarias/iniciar-sesion",
+        ControllerLocator.instanceOf(IniciarSesionController.class)::index);
+
+    app.post("/heladeras-solidarias/iniciar-sesion",
+        ControllerLocator.instanceOf(IniciarSesionController.class)::save);
+
+    app.get("/heladeras-solidarias/registrarse",
+        ControllerLocator.instanceOf(RegistrarUsuarioController.class)::index);
 
     //VISTAS COLABORADOR
 

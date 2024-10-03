@@ -32,3 +32,5 @@ target/**
 src/main/resources/config.properties
 
 cronjobs/*
+
+uploaded-imgs/*

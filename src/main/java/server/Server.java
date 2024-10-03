@@ -7,6 +7,7 @@ import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
 import java.io.IOException;
 import java.util.function.Consumer;
+import io.javalin.http.staticfiles.Location;
 import utils.javalin.Initializer;
 import utils.javalin.JavalinRenderer;
 import utils.sender.Config;
@@ -59,7 +60,14 @@ public class Server {
     return config -> {
       config.staticFiles.add(staticFiles -> {
         staticFiles.hostedPath = "/";
-        staticFiles.directory = "/public";
+        staticFiles.directory = "public";
+        staticFiles.location = Location.CLASSPATH;
+      });
+
+      config.staticFiles.add(staticFiles -> {
+        staticFiles.hostedPath = "/uploaded-imgs";
+        staticFiles.directory = "uploaded-imgs";
+        staticFiles.location = Location.EXTERNAL;
       });
 
       config.fileRenderer(new JavalinRenderer().register("hbs", (path, model, context) -> {

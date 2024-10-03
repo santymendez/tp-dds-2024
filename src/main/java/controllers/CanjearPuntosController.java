@@ -70,16 +70,15 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
     UploadedFile file = context.uploadedFile("imagen");
     if (file != null) {
-      String path = "src/main/resources/public/uploaded-imgs/" + file.filename();
+      String path = "uploaded-imgs/" + file.filename();
       try {
         File directory = new File(path);
         FileUtils.copyInputStreamToFile(file.content(), directory);
-        nuevaOferta.setImagenIlustrativa("/uploaded-imgs/" + file.filename());
+        nuevaOferta.setImagenIlustrativa("/" + path);
       } catch (IOException e) {
         e.printStackTrace();
         nuevaOferta.setImagenIlustrativa("/static-imgs/logo.png");
       }
-
     } else {
       nuevaOferta.setImagenIlustrativa("/static-imgs/logo.png");
     }

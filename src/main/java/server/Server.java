@@ -1,6 +1,8 @@
 package server;
 
 import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Options;
+import com.github.jknack.handlebars.Helper;
 import com.github.jknack.handlebars.Template;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
@@ -76,6 +78,16 @@ public class Server {
 
       config.fileRenderer(new JavalinRenderer().register("hbs", (path, model, context) -> {
         Handlebars handlebars = new Handlebars();
+
+        handlebars.registerHelper("chequearRol", (role, options) -> {
+          String expectedRole = options.param(0);
+          if (role != null && role.toString().equals(expectedRole)) {
+            return options.fn();
+          } else {
+            return options.inverse();
+          }
+        });
+
         Template template = null;
         try {
           template = handlebars.compile(
@@ -86,6 +98,7 @@ public class Server {
           context.status(HttpStatus.NOT_FOUND);
           return "No se encuentra la página indicada...";
         }
+
       }));
     };
   }

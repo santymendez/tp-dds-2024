@@ -5,21 +5,21 @@
 {{#partial "cuerpo"}}
     <h2>Iniciar Sesión</h2>
     <div class="ini-container">
-        <form>
+        <form method="POST" action="/heladeras-solidarias/iniciar-sesion">
             <div class="mb-3">
                 <label for="nombreUsuario" class="form-label">Nombre de usuario</label>
-                <input type="text" class="form-control form-control-lg" id="nombreUsuario"
+                <input name="nombreUsuario" type="text" class="form-control form-control-lg" id="nombreUsuario"
                        placeholder="Ingrese nombre de usuario">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                <input type="password" class="form-control form-control-lg"
-                       id="exampleInputPassword1" placeholder="Ingrese contraseña">
+                <label for="contrasenia" class="form-label">Contraseña</label>
+                <input name = "contrasenia" type="password" class="form-control form-control-lg"
+                       id="contrasenia" placeholder="Ingrese contraseña">
             </div>
-            <div class="check-container">
-                <input type="checkbox" class="form-check-input" id="mantenerSesion">
-                <label class="col-form-label" for="mantenerSesion">Mantener sesión iniciada</label>
-            </div>
+<!--            <div class="check-container">-->
+<!--                <input type="checkbox" class="form-check-input" id="mantenerSesion">-->
+<!--                <label class="col-form-label" for="mantenerSesion">Mantener sesión iniciada</label>-->
+<!--            </div>-->
             <div class="d-grid mx-auto">
                 <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
             </div>

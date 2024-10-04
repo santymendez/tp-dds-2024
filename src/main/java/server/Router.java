@@ -31,22 +31,28 @@ public class Router {
 
   public static void init(Javalin app) {
 
-    // HOME PAGE
-    app.get("/heladeras-solidarias", ctx -> ctx.render("/home-page.hbs",
-        Map.of("titulo", "Heladeras Solidarias")));
-
-    app.get("/heladeras-solidarias-admin",
+    //HOME PAGE
+    app.get("/heladeras-solidarias",
         ControllerLocator.instanceOf(HomePageController.class)::index);
 
     // INICIAR SESION / REGISTRARSE
     app.get("/heladeras-solidarias/iniciar-sesion",
-        ControllerLocator.instanceOf(IniciarSesionController.class)::index);
+        ControllerLocator.instanceOf(IniciarSesionController.class)::create);
 
     app.post("/heladeras-solidarias/iniciar-sesion",
         ControllerLocator.instanceOf(IniciarSesionController.class)::save);
 
+    app.get("/heladeras-solidarias/registrarse-usuario",
+        ControllerLocator.instanceOf(RegistrarUsuarioController.class)::create);
+
+    app.post("/heladeras-solidarias/registrarse-usuario",
+            ControllerLocator.instanceOf(RegistrarUsuarioController.class)::save);
+
     app.get("/heladeras-solidarias/registrarse",
-        ControllerLocator.instanceOf(RegistrarUsuarioController.class)::index);
+            ControllerLocator.instanceOf(RegistrarUsuarioController.class)::create);
+
+    app.get("/heladeras-solidarias/cerrar-sesion",
+            ControllerLocator.instanceOf(IniciarSesionController.class)::update);
 
     //VISTAS COLABORADOR
 

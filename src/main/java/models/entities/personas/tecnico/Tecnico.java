@@ -1,10 +1,7 @@
 package models.entities.personas.tecnico;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +28,8 @@ import models.entities.personas.users.Usuario;
 @Table(name = "tecnicos")
 public class Tecnico extends Persistente {
 
-  @Transient
+  @OneToOne
+  @JoinColumn(name = "usuario_id", referencedColumnName = "id")
   private Usuario usuario;
 
   @Column(name = "nombre", nullable = false)

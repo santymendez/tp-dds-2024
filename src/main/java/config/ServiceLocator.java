@@ -4,11 +4,8 @@ import java.util.HashMap;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.ProvinciasRepository;
-import services.ColaboracionesService;
-import services.ColaboradoresService;
-import services.DireccionesService;
-import services.OfertasService;
-import services.VulnerablesService;
+import models.repositories.imp.UsuariosRepository;
+import services.*;
 
 /**
  * Clase serviceLocator para obtener los services.
@@ -31,7 +28,9 @@ public class ServiceLocator {
 
     if (!instances.containsKey(serviceName)) {
       if (serviceClass.equals(ColaboradoresService.class)) {
-        ColaboradoresService instance = new ColaboradoresService();
+        ColaboradoresService instance = new ColaboradoresService(
+                RepositoryLocator.instanceOf(UsuariosRepository.class)
+        );
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(DireccionesService.class)) {
         DireccionesService instance = new DireccionesService(
@@ -49,6 +48,9 @@ public class ServiceLocator {
         OfertasService instance = new OfertasService(
             RepositoryLocator.instanceOf(ColaboradoresRepository.class)
         );
+        instances.put(serviceName, instance);
+      } else if (serviceClass.equals(UsuariosService.class)) {
+        UsuariosService instance = new UsuariosService();
         instances.put(serviceName, instance);
       }
     }

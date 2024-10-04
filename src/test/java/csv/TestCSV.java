@@ -7,6 +7,7 @@ import config.RepositoryLocator;
 import controllers.CsvController;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
+import models.repositories.imp.UsuariosRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +32,9 @@ public class TestCSV {
 
     this.colaboracionesRepository = RepositoryLocator.instanceOf(ColaboracionesRepository.class);
 
-    colaboradoresService = new ColaboradoresService();
+    colaboradoresService = new ColaboradoresService(
+            RepositoryLocator.instanceOf(UsuariosRepository.class)
+    );
 
     csvController = new CsvController(colaboradoresService, colaboradoresRepository, colaboracionesRepository, emailSender);
   }

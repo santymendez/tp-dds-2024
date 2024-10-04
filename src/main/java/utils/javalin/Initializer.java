@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.ColocacionHeladera;
@@ -46,45 +47,33 @@ import models.entities.personas.documento.TipoDocumento;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
 import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.tecnico.Tecnico;
+import models.entities.personas.users.TipoRol;
+import models.entities.personas.users.Usuario;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ViandasPorColaborador;
-import models.repositories.imp.ColaboracionesRepository;
-import models.repositories.imp.ColaboradoresRepository;
-import models.repositories.imp.DireccionesRepository;
-import models.repositories.imp.GenericRepository;
-import models.repositories.imp.ProvinciasRepository;
-import models.repositories.imp.ReportesRepository;
-import models.repositories.imp.TecnicosRepository;
-import models.repositories.imp.UsosTarjetasVulnerablesRepository;
+import models.repositories.imp.*;
 
 /**
  * Clase que inicializa la aplicación con datos de prueba.
  */
 
+@Slf4j
 public class Initializer {
 
   @Getter
   static ColaboradoresRepository colaboradoresRepository;
-
   @Getter
   static ColaboracionesRepository colaboracionesRepository;
-
   static UsosTarjetasVulnerablesRepository usosTarjetasVulnerablesRepository;
-
   @Getter
   static TecnicosRepository tecnicosRepository;
-
   @Getter
   static GenericRepository repoGenerico;
-
   static ReportesRepository reportesRepository;
-
-  static DireccionesRepository direccionesRepository;
-
-  static ProvinciasRepository provinciasRepository;
-
   static ColocacionHeladera colocacionHeladera;
+  static UsuariosRepository usuariosRepository;
+
   @Getter
   static Colaboracion colocarHeladera;
 
@@ -225,12 +214,14 @@ public class Initializer {
   static Contacto contactoCitiGroup;
   static Contacto contactoLiam;
   static Contacto contactoSanti;
+  static Contacto contactoCorsini;
 
   @Getter
   static Colaborador augusto;
   static Colaborador iniaki;
   static Colaborador mati;
   static Colaborador elCityGroup;
+  static Colaborador oficinaDeCorsini;
 
   static Desperfecto desperfecto;
   static FaltanViandas faltanViandas;
@@ -266,6 +257,16 @@ public class Initializer {
   static ViandasPorColaborador viandasPorColaborador2;
   static ViandasPorColaborador viandasPorColaborador3;
 
+  static Usuario augustoUsuario;
+  static Usuario iniakiUsuario;
+  static Usuario matiUsuario;
+  static Usuario elCityGroupUsuario;
+  static Usuario liamUsuario;
+  static Usuario santiUsuario;
+  static Usuario oficinaDeCorsiniUsuario;
+
+  static Usuario admin;
+
   /**
    * Inicializa la aplicación con datos de prueba.
    */
@@ -298,12 +299,22 @@ public class Initializer {
     iniciarSuscripciones();
     iniciarViandasPorColaborador();
     iniciarReportes();
+    iniciarUsuarios();
 
     persistirEntidades();
   }
 
   private static void persistirEntidades() {
     iniciarRepos();
+
+    usuariosRepository.guardar(augustoUsuario);
+    usuariosRepository.guardar(iniakiUsuario);
+    usuariosRepository.guardar(matiUsuario);
+    usuariosRepository.guardar(elCityGroupUsuario);
+    usuariosRepository.guardar(oficinaDeCorsiniUsuario);
+    usuariosRepository.guardar(liamUsuario);
+    usuariosRepository.guardar(santiUsuario);
+    usuariosRepository.guardar(admin);
 
     repoGenerico.guardar(direccion1);
     repoGenerico.guardar(direccion2);
@@ -313,6 +324,7 @@ public class Initializer {
     colaboradoresRepository.guardar(iniaki);
     colaboradoresRepository.guardar(mati);
     colaboradoresRepository.guardar(elCityGroup);
+    colaboradoresRepository.guardar(oficinaDeCorsini);
 
     repoGenerico.guardar(heladera1);
     repoGenerico.guardar(heladera2);
@@ -361,6 +373,7 @@ public class Initializer {
     contactoCitiGroup = new Contacto("citigroup@hdp.com", TipoContacto.MAIL);
     contactoLiam = new Contacto("liam@gmail.com", TipoContacto.MAIL);
     contactoSanti = new Contacto("santi@ghost.com", TipoContacto.MAIL);
+    contactoCorsini = new Contacto("corsini@ghost.com", TipoContacto.MAIL);
   }
 
   static void iniciarColaboradores() {
@@ -405,6 +418,61 @@ public class Initializer {
     elCityGroup.setRazonSocial("El City Group PAPA.SA");
     elCityGroup.setTipoColaborador(TipoColaborador.EMPRESA_ASOCIADA);
     elCityGroup.setContacto(contactoCitiGroup);
+
+    oficinaDeCorsini = new Colaborador();
+    oficinaDeCorsini.setRubro("Divorcios");
+    oficinaDeCorsini.setRazonSocial("The Best Doc Ever");
+    oficinaDeCorsini.setTipoColaborador(TipoColaborador.JURIDICO);
+    oficinaDeCorsini.setContacto(contactoCorsini);
+  }
+
+  static void iniciarUsuarios() {
+    augustoUsuario = new Usuario();
+    augustoUsuario.setNombreUsuario(augusto.getNombre());
+    augustoUsuario.setContrasenia(augusto.getApellido());
+    augustoUsuario.setTipoRol(TipoRol.PERSONA_FISICA);
+    augusto.setUsuario(augustoUsuario);
+
+    iniakiUsuario = new Usuario();
+    iniakiUsuario.setNombreUsuario(iniaki.getNombre());
+    iniakiUsuario.setContrasenia(iniaki.getApellido());
+    iniakiUsuario.setTipoRol(TipoRol.PERSONA_FISICA);
+    iniaki.setUsuario(iniakiUsuario);
+
+    matiUsuario = new Usuario();
+    matiUsuario.setNombreUsuario(mati.getNombre());
+    matiUsuario.setContrasenia(mati.getApellido());
+    matiUsuario.setTipoRol(TipoRol.PERSONA_FISICA);
+    mati.setUsuario(matiUsuario);
+
+    elCityGroupUsuario = new Usuario();
+    elCityGroupUsuario.setNombreUsuario(elCityGroup.getRazonSocial());
+    elCityGroupUsuario.setContrasenia(elCityGroup.getRubro());
+    elCityGroupUsuario.setTipoRol(TipoRol.EMPRESA_ASOCIADA);
+    elCityGroup.setUsuario(elCityGroupUsuario);
+
+    oficinaDeCorsiniUsuario = new Usuario();
+    oficinaDeCorsiniUsuario.setNombreUsuario(oficinaDeCorsini.getRazonSocial());
+    oficinaDeCorsiniUsuario.setContrasenia(oficinaDeCorsini.getRubro());
+    oficinaDeCorsiniUsuario.setTipoRol(TipoRol.PERSONA_JURIDICA);
+    oficinaDeCorsini.setUsuario(oficinaDeCorsiniUsuario);
+
+    santiUsuario = new Usuario();
+    santiUsuario.setNombreUsuario(santi.getNombre());
+    santiUsuario.setContrasenia(santi.getApellido());
+    santiUsuario.setTipoRol(TipoRol.TECNICO);
+    santi.setUsuario(santiUsuario);
+
+    liamUsuario = new Usuario();
+    liamUsuario.setNombreUsuario(liam.getNombre());
+    liamUsuario.setContrasenia(liam.getApellido());
+    liamUsuario.setTipoRol(TipoRol.TECNICO);
+    liam.setUsuario(liamUsuario);
+
+    admin = new Usuario();
+    admin.setNombreUsuario("admin");
+    admin.setContrasenia("admin");
+    admin.setTipoRol(TipoRol.ADMINISTRADOR);
   }
 
   static void iniciarVulnerables() {
@@ -1072,6 +1140,9 @@ public class Initializer {
 
     reportesRepository =
         RepositoryLocator.instanceOf(ReportesRepository.class);
+
+    usuariosRepository =
+            RepositoryLocator.instanceOf(UsuariosRepository.class);
   }
 
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import config.ServiceLocator;
 import config.UtilsLocator;
 import dtos.UsuarioDto;
 import io.javalin.http.Context;
@@ -7,26 +8,30 @@ import java.util.Map;
 import java.util.Optional;
 import models.entities.personas.users.Usuario;
 import models.repositories.imp.UsuariosRepository;
+import services.UsuariosService;
 import utils.javalin.InterfaceCrudViewsHandler;
 import utils.security.Autenticador;
 
 /**
  * Controller de la vista de registro de usuario.
- * (registrarse.hbs).
+ * (registrarse-usuario.hbs).
  */
 
 public class RegistrarUsuarioController implements InterfaceCrudViewsHandler {
 
   private final UsuariosRepository usuariosRepository;
+  private final UsuariosService usuariosService;
+  private final Autenticador autenticador;
 
-  public RegistrarUsuarioController(UsuariosRepository usuariosRepository) {
+  public RegistrarUsuarioController(UsuariosRepository usuariosRepository,
+                                    UsuariosService usuariosService, Autenticador autenticador) {
     this.usuariosRepository = usuariosRepository;
+    this.usuariosService = usuariosService;
+    this.autenticador = autenticador;
   }
 
   @Override
   public void index(Context context) {
-
-    context.render("/registrarse.hbs", Map.of("titulo", "Registrarse"));
   }
 
   @Override
@@ -36,23 +41,20 @@ public class RegistrarUsuarioController implements InterfaceCrudViewsHandler {
 
   @Override
   public void create(Context context) {
-
+    context.render("/registrarse-usuario.hbs", Map.of("titulo", "Registrarse"));
   }
 
-  //TODO gran parte de esto iria en un registrar usuario
-  //Esto en realidad me va a registrar el colaborador
   @Override
   public void save(Context context) {
     if (context.sessionAttribute("idUsuario") != null) {
       context.redirect("/heladeras-solidarias");
+      return;
     }
 
     UsuarioDto usuarioDto = new UsuarioDto(
         context.formParam("nombreUsuario"),
         context.formParam("contrasenia")
     );
-
-    //TODO validacion campos fueron rellenados (iria en hbs)
 
     //Se valida que no existe ese nombre de usuario
     Optional<Usuario> posibleUsuario =
@@ -63,11 +65,10 @@ public class RegistrarUsuarioController implements InterfaceCrudViewsHandler {
           "error",
           "Nombre de usuario ya registrado."
       );
-      context.redirect("/heladeras-solidarias/registrarse");
+      context.redirect("/heladeras-solidarias/registrarse-usuario");
+      return;
     }
 
-    //Se valida la contraseña
-    Autenticador autenticador = UtilsLocator.instanceOf(Autenticador.class);
     if (
         !autenticador.esValida(usuarioDto.getContrasenia())
     ) {
@@ -75,11 +76,17 @@ public class RegistrarUsuarioController implements InterfaceCrudViewsHandler {
           "error",
           "Contraseña invalida.\n Motivo:\n" + autenticador.mostrarMensajesConFormato()
       );
-      context.redirect("/heladeras-solidarias/registrarse");
+      context.redirect("/heladeras-solidarias/registrarse-usuario");
+      return;
     }
 
-    //TODO crear el usuario (service?) y guardarlo en el repo
+    //Se crea y se guarda el usuario
+    Usuario nuevoUsuario = usuariosService.crear(usuarioDto);
+    context.sessionAttribute("idUsuario", nuevoUsuario.getId());
+    usuariosRepository.guardar(nuevoUsuario);
 
+    //Se redirige a la creacion de colaborador
+    context.redirect("/heladeras-solidarias/registrarse");
   }
 
   @Override

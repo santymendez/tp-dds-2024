@@ -40,7 +40,7 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
   @Override
   public void create(Context context) {
-    // TODO no me acuerdo como queria santi encontrar a la provincias
+    // TODO poner en el init las provincias
     List<Provincia> provincias = this.vulnerablesRepository.buscarTodos(Provincia.class);
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Registrar Vulnerable");
@@ -51,12 +51,6 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-
-    // TODO sacar al finalizar
-    // para ver que se esta trayendo
-    context.formParamMap().forEach((key, value) -> {
-      System.out.println(key + " " + value);
-    });
 
     VulnerableInputDto vulnerableInputDto = new VulnerableInputDto();
     vulnerableInputDto.setNombre(context.formParam("nombre"));

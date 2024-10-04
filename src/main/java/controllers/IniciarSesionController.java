@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import models.entities.personas.users.Usuario;
 import models.repositories.imp.UsuariosRepository;
+import services.UsuariosService;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -23,10 +24,6 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
 
   @Override
   public void index(Context context) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("titulo", "Iniciar Sesion");
-
-    context.render("iniciar-sesion.hbs", model);
   }
 
   @Override
@@ -36,7 +33,10 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
 
   @Override
   public void create(Context context) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("titulo", "Iniciar Sesion");
 
+    context.render("iniciar-sesion.hbs", model);
   }
 
   @Override
@@ -53,21 +53,19 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
     Optional<Usuario> posibleUsuario =
         usuariosRepository.buscarPorNombreDeUsuario(usuarioDto.getNombreUsuario());
 
-    if (posibleUsuario.isEmpty()) {
-      //TODO MANEJAR ERROR
-      context.attribute("error", "Usuario incorrecto o no registrado");
-      context.redirect("/heladeras-solidarias/iniciar-sesion");
-    }
+    if (
+            posibleUsuario.isPresent() &&
+            posibleUsuario.get().getContrasenia().equals(usuarioDto.getContrasenia())
+    ) {
 
-    Usuario usuario = posibleUsuario.get();
+      Usuario usuario = posibleUsuario.get();
 
-    if (usuario.getContrasenia().equals(usuarioDto.getContrasenia())) {
       context.sessionAttribute("idUsuario", usuario.getId());
-      context.sessionAttribute("rol", usuario.getTipoRol());
+      context.sessionAttribute("tipo_rol", usuario.getTipoRol().toString());
       context.redirect("/heladeras-solidarias");
     } else {
       //TODO MANEJAR ERROR
-      context.attribute("error", "Contraseña incorrecta");
+//    context.attribute("error", "Usuario o contrasenia incorrectos");
       context.redirect("/heladeras-solidarias/iniciar-sesion");
     }
   }
@@ -79,7 +77,9 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
 
   @Override
   public void update(Context context) {
-
+      context.sessionAttribute("idUsuario", null);
+      context.sessionAttribute("tipo_rol", null);
+      context.redirect("/heladeras-solidarias");
   }
 
   @Override

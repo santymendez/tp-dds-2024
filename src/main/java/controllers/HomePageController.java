@@ -16,12 +16,17 @@ public class HomePageController implements InterfaceCrudViewsHandler {
   public void index(Context context) {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Heladeras Solidarias");
+    model.put("activeSession", false);
 
-    if (context.sessionAttribute("tipo_rol") == TipoRol.ADMINISTRADOR) {
-      context.render("home-page.hbs", model);
+    if (context.sessionAttribute("idUsuario") != null) {
+      model.put("activeSession", true);
+      model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
     }
 
-    context.render("home-page-admin.hbs", model);
+//    String rol = context.sessionAttribute("tipo_rol");
+//    model.put("rol", rol);
+
+    context.render("home-page.hbs", model);
   }
 
   @Override

@@ -15,10 +15,8 @@ import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.UsuariosRepository;
-import services.ColaboracionesService;
-import services.ColaboradoresService;
-import services.OfertasService;
-import services.VulnerablesService;
+import services.*;
+import utils.security.Autenticador;
 import utils.sender.channels.EmailSender;
 
 /**
@@ -87,7 +85,9 @@ public class ControllerLocator {
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(RegistrarUsuarioController.class)) {
         RegistrarUsuarioController instance = new RegistrarUsuarioController(
-            RepositoryLocator.instanceOf(UsuariosRepository.class)
+            RepositoryLocator.instanceOf(UsuariosRepository.class),
+            ServiceLocator.instanceOf(UsuariosService.class),
+            UtilsLocator.instanceOf(Autenticador.class)
         );
         instances.put(controllerName, instance);
       }

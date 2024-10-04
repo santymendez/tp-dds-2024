@@ -40,7 +40,8 @@ import models.entities.personas.users.Usuario;
 @AllArgsConstructor
 public class Colaborador extends Persistente {
 
-  @Transient
+  @OneToOne
+  @JoinColumn(name = "usuario_id", referencedColumnName = "id")
   private Usuario usuario;
 
   //Persona fisica

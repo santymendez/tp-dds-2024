@@ -68,4 +68,22 @@ public class ColaboradoresRepository extends GenericRepository {
       return Optional.of(results.get(0));
     }
   }
+
+  /**
+   * Busca un colaborador por su id de usuario.
+   *
+   * @param idUsuario Id del usuario del colaborador a buscar.
+   *
+   * @return Un Optional con el colaborador encontrado, o vacío si no se encontró.
+   */
+
+  public Optional<Colaborador> buscarPorIdUsuario(Long idUsuario) {
+    String query = "SELECT c FROM Colaborador c WHERE c.usuario.id = :idUsuario";
+    return entityManager().createQuery(query, Colaborador.class)
+        .setParameter("idUsuario", idUsuario)
+        .getResultList()
+        .stream()
+        .findFirst();
+  }
+
 }

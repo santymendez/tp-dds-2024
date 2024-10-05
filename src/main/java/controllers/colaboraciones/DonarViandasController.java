@@ -26,6 +26,7 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
   @Override
   public void save(Context context) {
 
+    context.redirect("/heladeras-solidarias");
   }
 
   @Override

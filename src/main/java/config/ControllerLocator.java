@@ -10,6 +10,7 @@ import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.RegistrarUsuarioController;
 import controllers.VulnerablesController;
+import controllers.colaboraciones.DonarDineroController;
 import java.util.HashMap;
 import java.util.Map;
 import models.repositories.imp.ColaboracionesRepository;
@@ -100,6 +101,12 @@ public class ControllerLocator {
         IncidentesController instance = new IncidentesController(
             RepositoryLocator.instanceOf(GenericRepository.class),
             ServiceLocator.instanceOf(IncidentesService.class)
+        );
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(DonarDineroController.class)) {
+        DonarDineroController instance = new DonarDineroController(
+            RepositoryLocator.instanceOf(ColaboracionesRepository.class),
+            RepositoryLocator.instanceOf(ColaboradoresRepository.class)
         );
         instances.put(controllerName, instance);
       }

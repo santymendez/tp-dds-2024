@@ -90,7 +90,7 @@ public class Router {
         case "realizarOfertas" ->
             ControllerLocator.instanceOf(CanjearPuntosController.class).save(ctx);
         case "colocar-heladera" ->
-            ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
+            ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
         case "distribuirTarjetas" ->
             ControllerLocator.instanceOf(TarjetasController.class).edit(ctx);
         case "distribuirViandas" ->

@@ -422,6 +422,7 @@ public class Initializer {
     elCityGroup = new Colaborador();
     elCityGroup.setNombre("CityGroup");
     elCityGroup.setRazonSocial("El City Group PAPA.SA");
+    elCityGroup.setRubro("Futbolistico");
     elCityGroup.setTipoColaborador(TipoColaborador.EMPRESA_ASOCIADA);
     elCityGroup.setContacto(contactoCitiGroup);
 

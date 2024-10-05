@@ -22,17 +22,19 @@
         <!-- Formulario para Donar Dinero -->
         <div id="donar_dinero" class="action-form d-none chico">
             <h3>Donación de Dinero</h3>
-            <form class="formulario">
+            <form class="formulario" method="POST">
                 <input type="hidden" name="formType" value="donarDinero">
                 <div class="mb-3">
                     <label for="monto" class="form-label">Ingresar monto</label>
-                    <input type="number" class="form-control form-control-lg espacio" id="monto"
-                           placeholder="Ej. 1000">
+                    <input name="montoDonado" class="form-control form-control-lg espacio"
+                           id="monto" placeholder="Ej. 1000">
                 </div>
                 <div class="mb-3">
                     <label for="frecuencia" class="form-label izquierda">Seleccionar
                         frecuencia</label>
-                    <select class="form-select form-select-lg espacio" id="frecuencia">
+                    <select name="frecuenciaDonacion" class="form-select form-select-lg espacio"
+                            id="frecuencia">
+                        <option value="unica">Unica</option>
                         <option value="mensual">Mensual</option>
                         <option value="trimestral">Trimestral</option>
                         <option value="anual">Anual</option>

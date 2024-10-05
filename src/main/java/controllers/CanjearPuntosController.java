@@ -29,25 +29,41 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     this.ofertasService = ofertasService;
   }
 
-  @Override
+  /**
+   * Muestra las ofertas.
+   *
+   * @param context el contexto de la aplicación.
+   */
+
   public void index(Context context) {
     List<Oferta> ofertas = ofertasRepository.buscarTodos(Oferta.class);
 
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Ofertas");
     model.put("ofertas", ofertas);
-    model.put("activeSession", true);
-    model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
+
+    if (context.sessionAttribute("idUsuario") != null) {
+      model.put("activeSession", true);
+      model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
+    } else {
+      model.put("activeSession", false);
+      context.redirect("/heladeras-solidarias");
+      return;
+    }
 
     context.render("canjear-puntos.hbs", model);
   }
 
-  @Override
   public void show(Context context) {
 
   }
 
-  @Override
+  /**
+   * Crea una vista para colaborar.
+   *
+   * @param context el contexto de la aplicación.
+   */
+
   public void create(Context context) {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Ofertas");
@@ -58,7 +74,13 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
   }
 
   //TODO esto va en la pagina de colaborar cuando se cree
-  @Override
+
+  /**
+   * Guarda una oferta.
+   *
+   * @param context el contexto de la aplicación.
+   */
+
   public void save(Context context) {
 
     OfertaDto nuevaOferta = new OfertaDto();
@@ -95,12 +117,16 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     context.redirect("/heladeras-solidarias/canjear-puntos");
   }
 
-  @Override
   public void edit(Context context) {
 
   }
 
-  @Override
+  /**
+   * Actualiza una oferta.
+   *
+   * @param context el contexto de la aplicación.
+   */
+
   public void update(Context context) {
     Optional<Oferta> posibleCanjeBuscado = this
         .ofertasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
@@ -108,7 +134,12 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     posibleCanjeBuscado.ifPresent(ofertasRepository::modificar);
   }
 
-  @Override
+  /**
+   * Elimina una oferta.
+   *
+   * @param context el contexto de la aplicación.
+   */
+
   public void delete(Context context) {
     Optional<Oferta> posibleCanjeBuscado = this
         .ofertasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);

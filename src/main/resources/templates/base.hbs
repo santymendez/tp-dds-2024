@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{this.titulo}}</title>
+    <title>{{titulo}}</title>
     <link rel="icon" href="/static-imgs/logo.png">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
         </a>
         <h1 class="header__titulo"><a href="/heladeras-solidarias">Heladeras Solidarias ONG</a></h1>
 
-        {{#if this.activeSession}}
+        {{#if activeSession}}
             <div class="header__buttons-container">
                 <div class="header__buttons">
                     <a href="/heladeras-solidarias/cerrar-sesion" class="header__button">Cerrar Sesión</a>
@@ -46,13 +46,13 @@
         <nav class="nav-container">
             <ul>
                 <!-- //TODO CUANDO ESTEMOS TODOS CHEQUEO DE FUNCIONES POR ROL -->
-                {{#chequearRol this.tipo_rol "ADMINISTRADOR"}}
+                {{#chequearRol tipo_rol "ADMINISTRADOR"}}
                     <li><a href="/heladeras-solidarias/cargar-csv">Cargar CSV</a></li>
-                    <li><a href="/heladeras-solidarias/heladeras-admin">Heladeras</a></li>
+                    <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
                     <li><a href="/heladeras-solidarias/reportes">Reportes</a></li>
                     <li><a href="/heladeras-solidarias/ver-mapa">Ver Mapa</a></li>
                 {{else}}
-                    {{#chequearRol this.tipo_rol "PERSONA_FISICA"}}
+                    {{#chequearRol tipo_rol "PERSONA_FISICA"}}
                         <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
                         <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
                         <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
@@ -66,14 +66,14 @@
                             <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
                             <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
                         {{else}}
-                            {{#chequearRol this.tipo_rol "EMPRESA_ASOCIADA"}}
+                            {{#chequearRol tipo_rol "EMPRESA_ASOCIADA"}}
                                 <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
                                 <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
                                 <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
                                 <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
                                 <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
                             {{else}}
-                                {{#chequearRol this.tipo_rol "TECNICO"}}
+                                {{#chequearRol tipo_rol "TECNICO"}}
                                     <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
                                     <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
                                     <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>

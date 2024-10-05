@@ -2,6 +2,7 @@ package controllers;
 
 import io.javalin.http.Context;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import models.entities.personas.users.TipoRol;
 import org.jetbrains.annotations.NotNull;

@@ -9,6 +9,7 @@ import controllers.IncidentesController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.RegistrarUsuarioController;
+import controllers.SuscribirseController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DonarDineroController;
 import controllers.colaboraciones.DonarViandasController;
@@ -100,7 +101,23 @@ public class Router {
       }
     });
 
+    app.get("/heladeras-solidarias/heladeras",
+        ControllerLocator.instanceOf(HeladerasController.class)::index);
+
+    app.post("/heladeras-solidarias/heladeras", ctx -> {
+      String formType = ctx.formParam("formType");
+      switch (Objects.requireNonNull(formType)) {
+        case "darAlta" -> ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
+        case "darBaja" -> ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
+        case "modificarHeladeras" ->
+            ControllerLocator.instanceOf(HeladerasController.class).edit(ctx);
+        case "suscribirse" -> ControllerLocator.instanceOf(SuscribirseController.class).save(ctx);
+        default -> ctx.status(400).result("Tipo de formulario no valido");
+      }
+    });
+
     //VISTAS ADMINISTRADOR
+    // TODO QUEDARON VIEJAS AHORA SOLO HAY heladeras que tiene toda la informacion
     app.get("/heladeras-solidarias/heladeras-admin", ctx -> ctx.render("/heladeras-admin.hbs",
         Map.of("titulo", "Heladeras")));
 
@@ -131,8 +148,8 @@ public class Router {
     app.post("/heladeras-solidarias/reportar-falla",
         ControllerLocator.instanceOf(IncidentesController.class)::save);
 
-    app.get("/heladeras-solidarias/cargar-csv", ctx -> ctx.render("/cargar-csv.hbs",
-        Map.of("titulo", "Cargar CSV")));
+    app.get("/heladeras-solidarias/cargar-csv",
+        ControllerLocator.instanceOf(CsvController2.class)::create);
 
     app.post("heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController2.class)::save);

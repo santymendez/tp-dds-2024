@@ -8,7 +8,9 @@ import io.javalin.http.Context;
 import io.javalin.http.UploadedFile;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
@@ -50,22 +52,42 @@ public class CsvController2 implements InterfaceCrudViewsHandler {
     this.colaboracionesService = colaboracionesService;
   }
 
-  @Override
   public void index(Context context) {
 
   }
 
-  @Override
   public void show(Context context) {
 
   }
 
-  @Override
-  public void create(Context context) {
+  /**
+   * Crea una vista para cargar un archivo CSV.
+   *
+   * @param context el contexto de la aplicación.
+   */
 
+  public void create(Context context) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("titulo", "Cargar CSV");
+
+    if (context.sessionAttribute("idUsuario") != null) {
+      model.put("activeSession", true);
+      model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
+    } else {
+      model.put("activeSession", false);
+      context.redirect("/heladeras-solidarias");
+      return;
+    }
+
+    context.render("cargar-csv.hbs", model);
   }
 
-  @Override
+  /**
+   * Guarda los datos del archivo CSV en la base de datos.
+   *
+   * @param context el contexto de la aplicación.
+   */
+
   public void save(Context context) {
     UploadedFile file = context.uploadedFile("csv");
     if (file != null) {
@@ -111,17 +133,14 @@ public class CsvController2 implements InterfaceCrudViewsHandler {
 
   }
 
-  @Override
   public void edit(Context context) {
 
   }
 
-  @Override
   public void update(Context context) {
 
   }
 
-  @Override
   public void delete(Context context) {
 
   }

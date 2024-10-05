@@ -9,6 +9,7 @@ import controllers.IncidentesController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.RegistrarUsuarioController;
+import controllers.SuscribirseController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DonarDineroController;
 import java.util.HashMap;
@@ -108,6 +109,9 @@ public class ControllerLocator {
             RepositoryLocator.instanceOf(ColaboracionesRepository.class),
             RepositoryLocator.instanceOf(ColaboradoresRepository.class)
         );
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(SuscribirseController.class)) {
+        SuscribirseController instance = new SuscribirseController();
         instances.put(controllerName, instance);
       }
     }

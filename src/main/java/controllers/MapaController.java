@@ -27,6 +27,8 @@ public class MapaController implements InterfaceCrudViewsHandler {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Mapa Heladeras");
     model.put("heladeras", heladeras);
+    model.put("activeSession", true);
+    model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
 
     System.out.println(model);
 

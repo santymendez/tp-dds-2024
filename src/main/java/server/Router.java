@@ -5,6 +5,7 @@ import controllers.CanjearPuntosController;
 import controllers.CsvController2;
 import controllers.HeladerasController;
 import controllers.HomePageController;
+import controllers.IncidentesController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.RegistrarUsuarioController;
@@ -14,6 +15,7 @@ import controllers.colaboraciones.DonarViandasController;
 import controllers.colaboraciones.TarjetasController;
 import controllers.colaboraciones.ViandasController;
 import io.javalin.Javalin;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -70,8 +72,13 @@ public class Router {
         ControllerLocator.instanceOf(CanjearPuntosController.class)::index);
 
     //COLABORAR
-    app.get("/heladeras-solidarias/colaborar", ctx -> ctx.render("/colaborar.hbs",
-        Map.of("titulo", "Heladeras")));
+    app.get("/heladeras-solidarias/colaborar", ctx -> {
+      Map<String, Object> model = new HashMap<>();
+      model.put("titulo", "Colaborar");
+      model.put("activeSession", true);
+      model.put("tipo_rol", ctx.sessionAttribute("tipo_rol"));
+      ctx.render("/colaborar.hbs", model);
+    });
 
     app.post("/heladeras-solidarias/colaborar", ctx -> {
       String formType = ctx.formParam("formType");
@@ -118,8 +125,11 @@ public class Router {
     app.get("/heladeras-solidarias/ver-mapa",
         ControllerLocator.instanceOf(MapaController.class)::index);
 
-    app.get("/heladeras-solidarias/reportar-falla", ctx -> ctx.render("/reportar-falla-tecnica.hbs",
-        Map.of("titulo", "Reportar Falla")));
+    app.get("/heladeras-solidarias/reportar-falla",
+        ControllerLocator.instanceOf(IncidentesController.class)::create);
+
+    app.post("/heladeras-solidarias/reportar-falla",
+        ControllerLocator.instanceOf(IncidentesController.class)::save);
 
     app.get("/heladeras-solidarias/cargar-csv", ctx -> ctx.render("/cargar-csv.hbs",
         Map.of("titulo", "Cargar CSV")));

@@ -101,6 +101,7 @@ public class CsvController2 implements InterfaceCrudViewsHandler {
             this.colaboradoresRepository.guardar(colaborador);
           }
         }
+
         context.redirect("/heladeras-solidarias");
         //TODO cambiar a que te lleve a una pagina de error
       } catch (IOException | CsvException e) {

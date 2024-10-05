@@ -23,6 +23,14 @@ public class RegistrarUsuarioController implements InterfaceCrudViewsHandler {
   private final UsuariosService usuariosService;
   private final Autenticador autenticador;
 
+  /**
+   * Constructor de la clase.
+   *
+   * @param usuariosRepository Repositorio de usuarios
+   * @param usuariosService Servicio de usuarios
+   * @param autenticador Autenticador
+   */
+
   public RegistrarUsuarioController(UsuariosRepository usuariosRepository,
                                     UsuariosService usuariosService, Autenticador autenticador) {
     this.usuariosRepository = usuariosRepository;

@@ -23,9 +23,6 @@ public class HomePageController implements InterfaceCrudViewsHandler {
       model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
     }
 
-//    String rol = context.sessionAttribute("tipo_rol");
-//    model.put("rol", rol);
-
     context.render("home-page.hbs", model);
   }
 

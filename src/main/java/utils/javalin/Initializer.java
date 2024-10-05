@@ -52,7 +52,13 @@ import models.entities.personas.users.Usuario;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ViandasPorColaborador;
-import models.repositories.imp.*;
+import models.repositories.imp.ColaboracionesRepository;
+import models.repositories.imp.ColaboradoresRepository;
+import models.repositories.imp.GenericRepository;
+import models.repositories.imp.ReportesRepository;
+import models.repositories.imp.TecnicosRepository;
+import models.repositories.imp.UsosTarjetasVulnerablesRepository;
+import models.repositories.imp.UsuariosRepository;
 
 /**
  * Clase que inicializa la aplicación con datos de prueba.

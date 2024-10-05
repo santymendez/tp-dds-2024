@@ -2,24 +2,6 @@
     <link rel="stylesheet" href="/css/home-page.css">
 {{/partial}}
 
-{{#partial "register-loggin"}}
-    {{#if this.activeSession}}
-        <div class="header__buttons-container">
-            <div class="header__buttons">
-                <a href="/heladeras-solidarias/cerrar-sesion" class="header__button">Cerrar Sesión</a>
-            </div>
-        </div>
-    {{else}}
-        <div class="header__buttons-container">
-            <div class="header__buttons">
-                <a href="/heladeras-solidarias/iniciar-sesion" class="header__button">Iniciar Sesión</a>
-                <a href="/heladeras-solidarias/registrarse"
-                   class="header__button-underline">Registrarse</a>
-            </div>
-        </div>
-    {{/if}}
-{{/partial}}
-
 {{#partial "cuerpo"}}
     <main class="main-content">
         <div class="main-text">

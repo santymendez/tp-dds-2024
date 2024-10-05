@@ -36,6 +36,8 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Ofertas");
     model.put("ofertas", ofertas);
+    model.put("activeSession", true);
+    model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
 
     context.render("canjear-puntos.hbs", model);
   }
@@ -49,6 +51,8 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
   public void create(Context context) {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Ofertas");
+    model.put("activeSession", true);
+    model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
 
     context.render("colaborar.hbs", model);
   }

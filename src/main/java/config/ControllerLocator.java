@@ -5,6 +5,7 @@ import controllers.CsvController;
 import controllers.CsvController2;
 import controllers.HeladerasController;
 import controllers.HomePageController;
+import controllers.IncidentesController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.RegistrarUsuarioController;
@@ -15,7 +16,12 @@ import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.UsuariosRepository;
-import services.*;
+import services.ColaboracionesService;
+import services.ColaboradoresService;
+import services.IncidentesService;
+import services.OfertasService;
+import services.UsuariosService;
+import services.VulnerablesService;
 import utils.security.Autenticador;
 import utils.sender.channels.EmailSender;
 
@@ -88,6 +94,12 @@ public class ControllerLocator {
             RepositoryLocator.instanceOf(UsuariosRepository.class),
             ServiceLocator.instanceOf(UsuariosService.class),
             UtilsLocator.instanceOf(Autenticador.class)
+        );
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(IncidentesController.class)) {
+        IncidentesController instance = new IncidentesController(
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            ServiceLocator.instanceOf(IncidentesService.class)
         );
         instances.put(controllerName, instance);
       }

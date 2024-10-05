@@ -5,7 +5,7 @@
 {{#partial "cuerpo"}}
     <h2>Reportar Falla Técnica</h2>
 
-    <form action="reportar-falla-tecnica.hbs" method="post" class="form"
+    <form action="reportar-falla-tecnica.hbs" method="POST" class="form"
           enctype="multipart/form-data">
 
         <div class="row">
@@ -14,7 +14,9 @@
                 <label for="heladera" class="form-label">Heladera</label>
                 <select name="heladera" id="heladera" class="form-select">
                     <option selected>Seleccione una heladera</option>
-                    <option value="heladera"></option>
+                    {{#each heladeras}}
+                        <option value="{{this.getId}}">{{this.getNombre}}</option>
+                    {{/each}}
                 </select>
             </div>
 
@@ -25,7 +27,7 @@
 
             <div class="image-upload mb-3">
                 <label for="imagen_reporte" class="form-label">Imagen</label>
-                <input type="file" class="form-control form-control-lg" id="imagen_reporte">
+                <input name="imagen" type="file" class="form-control form-control-lg" id="imagen_reporte">
             </div>
 
         </div>

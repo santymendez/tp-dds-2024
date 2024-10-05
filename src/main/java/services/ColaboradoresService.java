@@ -34,7 +34,7 @@ public class ColaboradoresService {
     Colaborador colaborador = FactoryColaborador.crearCon(colaboradorInputDto);
 
     Usuario usuario = new Usuario(colaborador.getNombre(),
-        colaborador.getApellido(),TipoRol.PERSONA_FISICA);
+        colaborador.getApellido(), TipoRol.PERSONA_FISICA);
 
     this.usuariosRepository.guardar(usuario);
 

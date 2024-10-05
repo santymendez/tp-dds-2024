@@ -54,8 +54,8 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
         usuariosRepository.buscarPorNombreDeUsuario(usuarioDto.getNombreUsuario());
 
     if (
-            posibleUsuario.isPresent() &&
-            posibleUsuario.get().getContrasenia().equals(usuarioDto.getContrasenia())
+        posibleUsuario.isPresent()
+            && posibleUsuario.get().getContrasenia().equals(usuarioDto.getContrasenia())
     ) {
 
       Usuario usuario = posibleUsuario.get();
@@ -65,7 +65,7 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
       context.redirect("/heladeras-solidarias");
     } else {
       //TODO MANEJAR ERROR
-//    context.attribute("error", "Usuario o contrasenia incorrectos");
+      // context.attribute("error", "Usuario o contrasenia incorrectos");
       context.redirect("/heladeras-solidarias/iniciar-sesion");
     }
   }
@@ -77,9 +77,9 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
 
   @Override
   public void update(Context context) {
-      context.sessionAttribute("idUsuario", null);
-      context.sessionAttribute("tipo_rol", null);
-      context.redirect("/heladeras-solidarias");
+    context.sessionAttribute("idUsuario", null);
+    context.sessionAttribute("tipo_rol", null);
+    context.redirect("/heladeras-solidarias");
   }
 
   @Override

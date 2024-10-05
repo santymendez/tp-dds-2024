@@ -24,24 +24,65 @@
             <img src="/static-imgs/logo.png" alt="Logo" class="header__logo">
         </a>
         <h1 class="header__titulo"><a href="/heladeras-solidarias">Heladeras Solidarias ONG</a></h1>
-        {{#block "register-loggin"}}{{/block}}
+
+        {{#if this.activeSession}}
+            <div class="header__buttons-container">
+                <div class="header__buttons">
+                    <a href="/heladeras-solidarias/cerrar-sesion" class="header__button">Cerrar Sesión</a>
+                </div>
+            </div>
+        {{else}}
+            <div class="header__buttons-container">
+                <div class="header__buttons">
+                    <a href="/heladeras-solidarias/iniciar-sesion" class="header__button">Iniciar Sesión</a>
+                    <a href="/heladeras-solidarias/registrarse"
+                       class="header__button-underline">Registrarse</a>
+                </div>
+            </div>
+        {{/if}}
     </div>
 
     <div class="header__nav">
         <nav class="nav-container">
             <ul>
-                <!-- //TODO CHEQUEO DE ROLES -->
+                <!-- //TODO CUANDO ESTEMOS TODOS CHEQUEO DE FUNCIONES POR ROL -->
                 {{#chequearRol this.tipo_rol "ADMINISTRADOR"}}
                     <li><a href="/heladeras-solidarias/cargar-csv">Cargar CSV</a></li>
                     <li><a href="/heladeras-solidarias/heladeras-admin">Heladeras</a></li>
                     <li><a href="/heladeras-solidarias/reportes">Reportes</a></li>
                     <li><a href="/heladeras-solidarias/ver-mapa">Ver Mapa</a></li>
                 {{else}}
-                    <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
-                    <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
-                    <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
-                    <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
-                    <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
+                    {{#chequearRol this.tipo_rol "PERSONA_FISICA"}}
+                        <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
+                        <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
+                        <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
+                        <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
+                        <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
+                    {{else}}
+                        {{#chequearRol this.tipo_rol "PERSONA_JURIDICA"}}
+                            <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
+                            <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
+                            <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
+                            <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
+                            <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
+                        {{else}}
+                            {{#chequearRol this.tipo_rol "EMPRESA_ASOCIADA"}}
+                                <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
+                                <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
+                                <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
+                                <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
+                                <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
+                            {{else}}
+                                {{#chequearRol this.tipo_rol "TECNICO"}}
+                                    <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
+                                    <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
+                                    <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
+                                    <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
+                                    <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
+                                {{/chequearRol}}
+                            {{/chequearRol}}
+                        {{/chequearRol}}
+                    {{/chequearRol}}
                 {{/chequearRol}}
             </ul>
         </nav>

@@ -11,10 +11,6 @@ import models.entities.personas.tecnico.Tecnico;
 
 public class TecnicosRepository extends GenericRepository {
 
-  public void guardar(Tecnico... tecnicos) {
-    super.guardar((Object) tecnicos);
-  }
-
   public void guardar(Tecnico tecnico) {
     super.guardar(tecnico);
   }

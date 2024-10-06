@@ -23,7 +23,7 @@ public class FactoryColaboracion {
    * @return Una instancia de una Colaboracion.
    */
 
-  public static Colaboracion crearCon(ColaboracionInputDto colaboracionInputDto) {
+  public static Colaboracion crearDesdeCsv(ColaboracionInputDto colaboracionInputDto) {
     Colaboracion unaColaboracion = new Colaboracion();
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

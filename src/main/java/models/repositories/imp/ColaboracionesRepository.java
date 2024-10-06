@@ -11,10 +11,6 @@ import models.entities.colaboracion.TipoColaboracion;
 
 public class ColaboracionesRepository extends GenericRepository {
 
-  public void guardar(Colaboracion ... colaboraciones) {
-    super.guardar((Object) colaboraciones);
-  }
-
   public void guardar(Colaboracion colaboracion) {
     super.guardar(colaboracion);
   }

@@ -1,6 +1,5 @@
 package models.repositories.imp;
 
-
 import java.util.List;
 import java.util.Optional;
 import models.entities.direccion.Provincia;
@@ -11,10 +10,6 @@ import models.entities.personas.users.Usuario;
  */
 
 public class UsuariosRepository extends GenericRepository {
-
-  public void guardar(Usuario... usuarios) {
-    super.guardar((Object) usuarios);
-  }
 
   public void guardar(Usuario usuario) {
     super.guardar(usuario);

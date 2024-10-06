@@ -7,13 +7,26 @@
         <h2>Registro</h2>
         <div class="d-flex justify-content-end mb-3">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="personaToggle">
+                <input class="form-check-input" type="checkbox" id="personaToggle" >
                 <label class="form-check-label" for="personaToggle">Persona Jurídica</label>
             </div>
         </div>
 
         <!-- Formulario Persona Jurídica -->
         <form id="form-juridica" class="d-none">
+            <input type="hidden" name="tipoColaborador" value="JURIDICO">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nombreUsuarioJuridico" class="form-label">Nombre de Usuario *</label>
+                    <input name="usuarioJuridico" type="text" class="form-control" id="nombreUsuarioJuridico"
+                           placeholder="Ingresar nombre de usuario" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="contraseniaJuridico" class="form-label">Contraseña *</label>
+                    <input name="contraseniaJuridico" type="text" class="form-control" id="contraseniaJuridico"
+                           placeholder="Ingresar contraseña" required>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="nombreEmpresa" class="form-label">Nombre *</label>
@@ -97,29 +110,43 @@
 
         <!-- Formulario Persona Física -->
         <form id="form-fisica">
+            <input type="hidden" name="tipoColaborador" value="FISICO">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nombreUsuarioFisico" class="form-label">Nombre de Usuario *</label>
+                    <input name="usuarioFisico" type="text" class="form-control" id="nombreUsuarioFisico"
+                           placeholder="Ingresar nombre de usuario" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="contraseniaFisico" class="form-label">Contraseña *</label>
+                    <input name="contraseniaFisico" type="text" class="form-control" id="contraseniaFisico"
+                           placeholder="Ingresar contraseña" required>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="nombreFisica" class="form-label">Nombre *</label>
-                    <input type="text" class="form-control" id="nombreFisica"
+                    <input name="nombreFisica" type="text" class="form-control" id="nombreFisica"
                            placeholder="Ingresar nombre" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="apellidoFisica" class="form-label">Apellido *</label>
-                    <input type="text" class="form-control" id="apellidoFisica"
+                    <input name="apellidoFisica" type="text" class="form-control" id="apellidoFisica"
                            placeholder="Ingresar apellido" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="tipoDocumentoFisica" class="form-label">Tipo de Documento *</label>
-                    <select class="form-select" id="tipoDocumentoFisica">
-                        <option selected>DNI</option>
-                        <option value="1">Otro</option>
+                    <select name="tipoDocFisica" class="form-select" id="tipoDocumentoFisica">
+                        <option selected value="dni">DNI</option>
+                        <option value="lc">LC</option>
+                        <option value="le">LE</option>
                     </select>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="numeroDocumentoFisica" class="form-label">Nro de Documento *</label>
-                    <input type="text" class="form-control" id="numeroDocumentoFisica"
+                    <input name="nroDocFisica" type="text" class="form-control" id="numeroDocumentoFisica"
                            placeholder="Ingrese sin puntos ni espacios" required>
                 </div>
             </div>

@@ -45,7 +45,6 @@
     <div class="header__nav">
         <nav class="nav-container">
             <ul>
-                <!-- //TODO CUANDO ESTEMOS TODOS CHEQUEO DE FUNCIONES POR ROL -->
                 {{#chequearRol tipo_rol "ADMINISTRADOR"}}
                     <li><a href="/heladeras-solidarias/cargar-csv">Cargar CSV</a></li>
                     <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
@@ -58,19 +57,18 @@
                         <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
                         <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
                         <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
+                        <li><a href="/heladeras-solidarias/ver-mapa">Ver Mapa</a></li>
                     {{else}}
                         {{#chequearRol this.tipo_rol "PERSONA_JURIDICA"}}
                             <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
                             <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
                             <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
-                            <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
                             <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
                         {{else}}
                             {{#chequearRol tipo_rol "EMPRESA_ASOCIADA"}}
                                 <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
                                 <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
                                 <li><a href="/heladeras-solidarias/reportar-falla">Reportar Falla</a></li>
-                                <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
                                 <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
                             {{else}}
                                 {{#chequearRol tipo_rol "TECNICO"}}

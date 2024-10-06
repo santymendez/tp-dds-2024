@@ -1,8 +1,10 @@
 package config;
 
 import controllers.CanjearPuntosController;
+import controllers.ColaboracionesController;
 import controllers.CsvController;
 import controllers.CsvController2;
+import controllers.HeladerasAdminController;
 import controllers.HeladerasController;
 import controllers.HomePageController;
 import controllers.IncidentesController;
@@ -16,10 +18,13 @@ import java.util.HashMap;
 import java.util.Map;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
+import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.UsuariosRepository;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
+import services.DireccionesService;
+import services.HeladerasService;
 import services.IncidentesService;
 import services.OfertasService;
 import services.UsuariosService;
@@ -47,8 +52,11 @@ public class ControllerLocator {
 
     if (!instances.containsKey(controllerName)) {
       if (controllerClass.equals(HeladerasController.class)) {
-        HeladerasController instance = new HeladerasController(RepositoryLocator
-            .instanceOf(GenericRepository.class)
+        HeladerasController instance = new HeladerasController(
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            ServiceLocator.instanceOf(HeladerasService.class),
+            ServiceLocator.instanceOf(DireccionesService.class),
+            RepositoryLocator.instanceOf(DireccionesRepository.class)
         );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(CsvController.class)) {
@@ -94,7 +102,9 @@ public class ControllerLocator {
       } else if (controllerClass.equals(RegistrarUsuarioController.class)) {
         RegistrarUsuarioController instance = new RegistrarUsuarioController(
             RepositoryLocator.instanceOf(UsuariosRepository.class),
+            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
             ServiceLocator.instanceOf(UsuariosService.class),
+            ServiceLocator.instanceOf(ColaboradoresService.class),
             UtilsLocator.instanceOf(Autenticador.class)
         );
         instances.put(controllerName, instance);
@@ -107,11 +117,18 @@ public class ControllerLocator {
       } else if (controllerClass.equals(DonarDineroController.class)) {
         DonarDineroController instance = new DonarDineroController(
             RepositoryLocator.instanceOf(ColaboracionesRepository.class),
-            RepositoryLocator.instanceOf(ColaboradoresRepository.class)
+            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
+            ServiceLocator.instanceOf(ColaboracionesService.class)
         );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(SuscribirseController.class)) {
         SuscribirseController instance = new SuscribirseController();
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(HeladerasAdminController.class)) {
+        HeladerasAdminController instance = new HeladerasAdminController();
+        instances.put(controllerName, instance);
+      } else if (controllerClass.equals(ColaboracionesController.class)) {
+        ColaboracionesController instance = new ColaboracionesController();
         instances.put(controllerName, instance);
       }
     }

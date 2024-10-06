@@ -73,8 +73,6 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     context.render("colaborar.hbs", model);
   }
 
-  //TODO esto va en la pagina de colaborar cuando se cree
-
   /**
    * Guarda una oferta.
    *
@@ -88,7 +86,9 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     nuevaOferta.setDescripcion(context.formParam("descripcion"));
     nuevaOferta.setPuntosNecesarios(context.formParam("puntosNecesarios"));
     nuevaOferta.setOfertante("4");
-    //nuevaOferta.setOfertante(context.sessionAttribute("idUsuario"));
+    nuevaOferta.setOfertante(context.sessionAttribute("idUsuario"));
+
+    // TODO ojo no creo la colaboracion y se lo meto al que hizo la oferta
 
     UploadedFile file = context.uploadedFile("imagen");
     if (file != null) {

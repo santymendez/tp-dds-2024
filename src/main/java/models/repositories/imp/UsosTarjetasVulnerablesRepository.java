@@ -10,10 +10,6 @@ import models.entities.personas.tarjetas.vulnerable.UsoTarjetaVulnerable;
 
 public class UsosTarjetasVulnerablesRepository extends GenericRepository {
 
-  public void guardar(UsoTarjetaVulnerable... usosTarjetasVulnerables) {
-    super.guardar((Object) usosTarjetasVulnerables);
-  }
-
   public void guardar(UsoTarjetaVulnerable usoTarjetaVulnerable) {
     super.guardar(usoTarjetaVulnerable);
   }

@@ -1,12 +1,18 @@
 package controllers;
 
+import dtos.DireccionInputDto;
+import dtos.HeladeraInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
+import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
+import services.DireccionesService;
+import services.HeladerasService;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -15,9 +21,29 @@ import utils.javalin.InterfaceCrudViewsHandler;
 
 public class HeladerasController implements InterfaceCrudViewsHandler {
   private final GenericRepository heladerasRepository;
+  private final HeladerasService heladerasService;
+  private final DireccionesService direccionesService;
+  private final DireccionesRepository direccionesRepository;
 
-  public HeladerasController(GenericRepository genericRepository) {
+  /**
+   * Constructor de la clase.
+   *
+   * @param genericRepository Repositorio generico.
+   * @param heladerasService Servicio de heladeras.
+   * @param direccionesService Servicio de direcciones.
+   * @param direccionesRepository Repositorio de direcciones.
+   */
+
+  public HeladerasController(
+      GenericRepository genericRepository,
+      HeladerasService heladerasService,
+      DireccionesService direccionesService,
+      DireccionesRepository direccionesRepository
+  ) {
     this.heladerasRepository = genericRepository;
+    this.heladerasService = heladerasService;
+    this.direccionesService = direccionesService;
+    this.direccionesRepository = direccionesRepository;
   }
 
   /**
@@ -29,19 +55,11 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
   public void index(Context context) {
     Map<String, Object> model = new HashMap<>();
 
-    //TODO VER SI SE PUEDE GENERALIZAR PORQUE VA A ESTAR EN TODOS LOS CONTROLLERS
-    if (context.sessionAttribute("idUsuario") != null) {
-      model.put("activeSession", true);
-      model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
-    } else {
-      model.put("activeSession", false);
-      context.redirect("/heladeras-solidarias");
-      return;
-    }
-
     model.put("titulo", "Heladeras");
     List<Heladera> heladeras = this.heladerasRepository.buscarTodos(Heladera.class);
     model.put("heladeras", heladeras);
+    model.put("activeSession", true);
+    model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
 
     context.render("heladeras.hbs", model);
   }
@@ -61,14 +79,38 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    */
 
   public void save(Context context) {
-    //Heladera nuevaHeladera = new Heladera();
+    HeladeraInputDto heladeraInputDto = context.bodyAsClass(HeladeraInputDto.class);
 
-    //this.repositorioDeHeladeras.guardar(nuevaHeladera);
-    //O BIEN LANZO UNA PANTALLA DE EXITO
-    //O BIEN REDIRECCIONO AL USER A LA PANTALLA DE LISTADO DE PRODUCTOS
+    DireccionInputDto direccionInputDto = DireccionInputDto.builder()
+        .nombreBarrio(heladeraInputDto.getBarrio())
+        .calle(heladeraInputDto.getCalle())
+        .numero(heladeraInputDto.getNumero())
+        .latitud(heladeraInputDto.getLatitud())
+        .longitud(heladeraInputDto.getLongitud())
+        .nombreCiudad(heladeraInputDto.getCiudad())
+        .provincia(heladeraInputDto.getProvincia())
+        .build();
 
-    // TODO Duplicar la misma pantalla pero con un script abajo con la alerta!
-    context.redirect("/heladeras-solidarias/heladeras");
+    Heladera heladera = this.heladerasService.crear(heladeraInputDto);
+
+    Float latitud = Float.valueOf(heladeraInputDto.getLatitud());
+    Float longitud = Float.valueOf(heladeraInputDto.getLongitud());
+
+    Optional<Direccion> posibleDireccion =
+        this.direccionesRepository.buscarPorLatLong(latitud, longitud);
+
+    if (posibleDireccion.isPresent()) {
+      //TODO tirar pantalla de error?
+      context.redirect("/heladeras-solidarias/heladeras");
+      return;
+    }
+
+    Direccion direccion = this.direccionesService.crear(direccionInputDto);
+    this.direccionesRepository.guardar(direccion);
+
+    heladera.setDireccion(direccion);
+    this.heladerasRepository.guardar(heladera);
+    context.redirect("/heladeras-solidarias");
   }
 
   /**

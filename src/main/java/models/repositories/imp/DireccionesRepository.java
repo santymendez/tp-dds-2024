@@ -10,10 +10,6 @@ import models.entities.direccion.Direccion;
 
 public class DireccionesRepository extends GenericRepository {
 
-  public void guardar(Direccion... direcciones) {
-    super.guardar((Object) direcciones);
-  }
-
   public void guardar(Direccion direccion) {
     super.guardar((direccion));
   }

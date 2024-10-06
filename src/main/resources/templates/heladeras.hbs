@@ -17,9 +17,8 @@
                 {{else}}
                     {{#chequearRol tipo_rol "PERSONA_FISICA"}}
                         <option value="suscribirse">Suscribirse</option>
-                        <option value="/heladeras-solidarias/heladeras">Ver Mapa Heladeras</option>
-                        <option value="reportar_falla">Reportar Falla Técnica</option>
-                        <option value="recomendaciones.html">Solicitar Recomendación</option>
+                        <option value="reportarFalla">Reportar Falla Técnica</option>
+                        <option value="recomendaciones">Solicitar Recomendación</option>
                     {{/chequearRol}}
                     <!-- TODO MAS ROLES -->
                 {{/chequearRol}}
@@ -74,7 +73,7 @@
 
 <!--    <div class="reportar_falla"></div> TODO se puede borrar esta linea? -->
 
-    <div id="reportar_falla" class="suscribirse-content action-form d-none">
+    <div id="reportarFalla" class="suscribirse-content action-form d-none">
         <form class="probar">
             <div class="mb-3 primero">
                 <div class = "mediano_s">
@@ -119,6 +118,7 @@
                 </div>
             </div>
             <div class="row">
+                <!-- TODO AGREGAR LAT LONG BARRIO ETC, LAT LONG NOMBRE_UBICACION OBLIGATORIOS-->
                 <div class="col-md-6 mb-3">
                     <label for="direccionHeladera" class="form-label">Dirección *</label>
                     <input type="text" class="form-control" id="direccionHeladera" placeholder="Ingresar dirección" required>

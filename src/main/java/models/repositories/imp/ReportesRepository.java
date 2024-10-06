@@ -11,10 +11,6 @@ import models.entities.reporte.ReporteHeladera;
 
 public class ReportesRepository extends GenericRepository {
 
-  public void guardar(ReporteHeladera... reportes) {
-    super.guardar((Object) reportes);
-  }
-
   public void guardar(ReporteHeladera reporte) {
     super.guardar(reporte);
   }

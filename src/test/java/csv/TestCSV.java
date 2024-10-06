@@ -32,9 +32,7 @@ public class TestCSV {
 
     this.colaboracionesRepository = RepositoryLocator.instanceOf(ColaboracionesRepository.class);
 
-    colaboradoresService = new ColaboradoresService(
-            RepositoryLocator.instanceOf(UsuariosRepository.class)
-    );
+    colaboradoresService = new ColaboradoresService();
 
     csvController = new CsvController(colaboradoresService, colaboradoresRepository, colaboracionesRepository, emailSender);
   }

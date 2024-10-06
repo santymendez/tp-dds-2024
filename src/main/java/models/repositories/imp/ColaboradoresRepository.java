@@ -10,10 +10,6 @@ import models.entities.personas.colaborador.Colaborador;
 
 public class ColaboradoresRepository extends GenericRepository {
 
-  public void guardar(Colaborador ... colaboradores) {
-    super.guardar((Object) colaboradores);
-  }
-
   public void guardar(Colaborador colaborador) {
     super.guardar((colaborador));
   }

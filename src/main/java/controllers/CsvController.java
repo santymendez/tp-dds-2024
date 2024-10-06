@@ -101,7 +101,7 @@ public class CsvController {
       ColaboracionInputDto colaboracionInputDto
   ) {
     Colaborador unColaborador = this.crear(colaboradorInputDto);
-    Colaboracion unaColaboracion = FactoryColaboracion.crearCon(colaboracionInputDto);
+    Colaboracion unaColaboracion = FactoryColaboracion.crearDesdeCsv(colaboracionInputDto);
     unaColaboracion.setColaborador(unColaborador);
 
     // Guardar el colaborador si no está ya guardado

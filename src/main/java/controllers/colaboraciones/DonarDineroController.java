@@ -1,18 +1,17 @@
 package controllers.colaboraciones;
 
+import dtos.DonacionDineroDto;
 import io.javalin.http.Context;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
-import models.entities.colaboracion.DonacionDinero;
-import models.entities.colaboracion.TipoColaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
+import services.ColaboracionesService;
+import utils.ColaboracionesHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -23,12 +22,23 @@ public class DonarDineroController implements InterfaceCrudViewsHandler {
 
   private final ColaboracionesRepository colaboracionesRepository;
   private final ColaboradoresRepository colaboradoresRepository;
-  //private final OfertasService dineroService; //TODO: Implementar OfertasService
+  private final ColaboracionesService colaboracionesService;
 
-  public DonarDineroController(ColaboracionesRepository repo1,
-                               ColaboradoresRepository repo2) {
-    this.colaboracionesRepository = repo1;
-    this.colaboradoresRepository = repo2;
+  /**
+   * Constructor de la clase.
+   *
+   * @param colaboracionesRepository repositorio de colaboraciones.
+   * @param colaboradoresRepository repositorio de colaboradores.
+   * @param colaboracionesService service de colaboraciones.
+   */
+
+  public DonarDineroController(
+      ColaboracionesRepository colaboracionesRepository,
+      ColaboradoresRepository colaboradoresRepository,
+      ColaboracionesService colaboracionesService) {
+    this.colaboracionesRepository = colaboracionesRepository;
+    this.colaboradoresRepository = colaboradoresRepository;
+    this.colaboracionesService = colaboracionesService;
   }
 
   @Override
@@ -51,28 +61,26 @@ public class DonarDineroController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-    DonacionDinero donacionDinero = new DonacionDinero();
-    donacionDinero.setMontoDonado(Integer.valueOf(Objects
-        .requireNonNull(context.formParam("montoDonado"))));
-    donacionDinero.setFrecuenciaDonacion(context.formParam("frecuenciaDonacion"));
+    DonacionDineroDto donacionDineroDto = new DonacionDineroDto(
+        context.formParam("montoDonado"),
+        context.formParam("frecuenciaDonacion"));
 
-    //TODO revisar, aca tengo en cuenta que un usuario es unico por
-    //colaborador asi que lo puedo usar de PK
-    Optional<Colaborador> colaborador = colaboradoresRepository.buscarPorIdUsuario(
-        Long.valueOf(Objects.requireNonNull(context.sessionAttribute("idUsuario"))));
+    Long idUsuario = (Long) context.sessionAttribute("idUsuario");
 
-    Long idColaborador = colaborador.get().getUsuario().getId();
+    Optional<Colaborador> posibleColaborador = this.colaboradoresRepository.buscarPorIdUsuario(
+        idUsuario);
 
-    Colaboracion donarDinero = new Colaboracion();
-    Optional<Colaborador> posibleColaborador = colaboradoresRepository
-        .buscarPorIdUsuario(idColaborador);
-    donarDinero.setFechaColaboracion(LocalDate.now());
-    donarDinero.setTipoColaboracion(TipoColaboracion.DONAR_DINERO);
-    posibleColaborador.ifPresent(donarDinero::setColaborador);
-    donarDinero.setDonacionDinero(donacionDinero);
+    if (posibleColaborador.isPresent()) {
+      Colaborador colaborador = posibleColaborador.get();
 
-    colaboracionesRepository.guardar(donarDinero);
-    context.redirect("/heladeras-solidarias");
+      Colaboracion colaboracion = this.colaboracionesService.crear(donacionDineroDto);
+
+      ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
+
+      context.redirect("/heladeras-solidarias");
+    } else {
+      context.status(500).result("Error al realizar la Donacion");
+    }
   }
 
   @Override

@@ -10,10 +10,6 @@ import models.entities.direccion.Provincia;
 
 public class ProvinciasRepository extends GenericRepository {
 
-  public void guardar(Provincia... provincias) {
-    super.guardar((Object) provincias);
-  }
-
   public void guardar(Provincia provincia) {
     super.guardar((provincia));
   }

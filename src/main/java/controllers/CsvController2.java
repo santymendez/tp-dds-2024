@@ -12,11 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.contacto.TipoContacto;
-import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
@@ -69,15 +67,7 @@ public class CsvController2 implements InterfaceCrudViewsHandler {
   public void create(Context context) {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Cargar CSV");
-
-    if (context.sessionAttribute("idUsuario") != null) {
-      model.put("activeSession", true);
-      model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
-    } else {
-      model.put("activeSession", false);
-      context.redirect("/heladeras-solidarias");
-      return;
-    }
+    model.put("activeSession", true);
 
     context.render("cargar-csv.hbs", model);
   }

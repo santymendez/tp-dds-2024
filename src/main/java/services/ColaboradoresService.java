@@ -16,11 +16,7 @@ import utils.sender.channels.EmailSender;
 
 public class ColaboradoresService {
 
-  private final UsuariosRepository usuariosRepository;
-
-  public ColaboradoresService(UsuariosRepository usuariosRepository) {
-    this.usuariosRepository = usuariosRepository;
-  }
+  public ColaboradoresService() {}
 
   /**
    * Se cargan los datos a un colaborador.
@@ -31,12 +27,10 @@ public class ColaboradoresService {
   public Colaborador crearDesdeCsv(
           ColaboradorInputDto colaboradorInputDto, EmailSender emailSender) {
 
-    Colaborador colaborador = FactoryColaborador.crearCon(colaboradorInputDto);
+    Colaborador colaborador = this.crear(colaboradorInputDto);
 
     Usuario usuario = new Usuario(colaborador.getNombre(),
         colaborador.getApellido(), TipoRol.PERSONA_FISICA);
-
-    this.usuariosRepository.guardar(usuario);
 
     colaborador.setUsuario(usuario);
 
@@ -59,4 +53,9 @@ public class ColaboradoresService {
 
     return colaborador;
   }
+
+  public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
+    return FactoryColaborador.crearCon(colaboradorInputDto);
+  }
+
 }

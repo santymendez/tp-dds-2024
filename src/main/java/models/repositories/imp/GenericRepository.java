@@ -11,21 +11,6 @@ import models.repositories.PersistenciaSimple;
 
 public class GenericRepository implements PersistenciaSimple {
 
-  /** TODO
-   * Guarda un objeto en la base de datos.
-   * (CUIDADO!!! por motivos desconocidos da errores inesperados)
-   *
-   * @param objetos Objetos a guardar.
-   */
-
-  public void guardar(Object ... objetos) {
-    withTransaction(() -> {
-      for (Object objeto : objetos) {
-        this.guardarModificar(objeto);
-      }
-    });
-  }
-
   public void guardar(Object objeto) {
     withTransaction(() -> this.guardarModificar(objeto));
   }

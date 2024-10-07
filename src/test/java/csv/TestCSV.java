@@ -4,7 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import config.RepositoryLocator;
-import controllers.CsvController;
+import controllers.OldCsvController;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.UsuariosRepository;
@@ -12,15 +12,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import services.ColaboracionesService;
 import services.ColaboradoresService;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
 
 public class TestCSV {
-  CsvController csvController;
+  OldCsvController oldCsvController;
   ColaboradoresService colaboradoresService;
   ColaboradoresRepository colaboradoresRepository;
   ColaboracionesRepository colaboracionesRepository;
+  ColaboracionesService colaboracionesService;
 
   @BeforeEach
   void inicializar() {
@@ -32,15 +34,20 @@ public class TestCSV {
 
     this.colaboracionesRepository = RepositoryLocator.instanceOf(ColaboracionesRepository.class);
 
-    colaboradoresService = new ColaboradoresService();
+    colaboradoresService = new ColaboradoresService(
+        RepositoryLocator.instanceOf(UsuariosRepository.class),
+        RepositoryLocator.instanceOf(ColaboradoresRepository.class)
+    );
 
-    csvController = new CsvController(colaboradoresService, colaboradoresRepository, colaboracionesRepository, emailSender);
+    colaboracionesService = new ColaboracionesService();
+
+    oldCsvController = new OldCsvController(colaboradoresService, colaboradoresRepository, colaboracionesRepository, emailSender, colaboracionesService);
   }
 
   @Test
   @DisplayName("Se realiza la carga, se guardan los usuarios y se les envia un mail")
   public void losUsuariosRecibenMail(){
-    csvController.leerArchivoCsv();
+    oldCsvController.leerArchivoCsv();
     Assertions.assertTrue(colaboradoresRepository.buscarPorDocumento(12345678).isPresent());
   }
 

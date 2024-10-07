@@ -3,13 +3,13 @@ package config;
 import controllers.CanjearPuntosController;
 import controllers.ColaboracionesController;
 import controllers.CsvController;
-import controllers.CsvController2;
 import controllers.HeladerasAdminController;
 import controllers.HeladerasController;
 import controllers.HomePageController;
 import controllers.IncidentesController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
+import controllers.OldCsvController;
 import controllers.RegistrarColaboradorController;
 import controllers.SuscribirseController;
 import controllers.VulnerablesController;
@@ -22,7 +22,6 @@ import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.UsuariosRepository;
-import net.bytebuddy.description.type.TypeList;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.DireccionesService;
@@ -61,12 +60,13 @@ public class ControllerLocator {
             RepositoryLocator.instanceOf(DireccionesRepository.class)
         );
         instances.put(controllerName, instance);
-      } else if (controllerClass.equals(CsvController.class)) {
-        CsvController instance = new CsvController(
+      } else if (controllerClass.equals(OldCsvController.class)) {
+        OldCsvController instance = new OldCsvController(
             ServiceLocator.instanceOf(ColaboradoresService.class),
             RepositoryLocator.instanceOf(ColaboradoresRepository.class),
             RepositoryLocator.instanceOf(ColaboracionesRepository.class),
-            EmailSender.getInstance()
+            EmailSender.getInstance(),
+            ServiceLocator.instanceOf(ColaboracionesService.class)
         );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(CanjearPuntosController.class)) {
@@ -85,8 +85,8 @@ public class ControllerLocator {
         MapaController instance =
             new MapaController(RepositoryLocator.instanceOf(GenericRepository.class));
         instances.put(controllerName, instance);
-      } else if (controllerClass.equals(CsvController2.class)) {
-        CsvController2 instance = new CsvController2(
+      } else if (controllerClass.equals(CsvController.class)) {
+        CsvController instance = new CsvController(
             ServiceLocator.instanceOf(ColaboradoresService.class),
             RepositoryLocator.instanceOf(ColaboradoresRepository.class),
             ServiceLocator.instanceOf(ColaboracionesService.class),

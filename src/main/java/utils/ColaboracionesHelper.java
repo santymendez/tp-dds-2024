@@ -21,13 +21,10 @@ public class ColaboracionesHelper {
   public static void realizarColaboracion(Colaboracion colaboracion, Colaborador colaborador) {
     colaboracion.setColaborador(colaborador);
 
-    GenericRepository repository = RepositoryLocator.instanceOf(GenericRepository.class);
-
-    repository.guardar(colaboracion);
-
     colaborador.agregarColaboracion(colaboracion);
     colaborador.aumentarReconocimiento(colaboracion);
 
-    repository.modificar(colaborador);
+    GenericRepository repository = RepositoryLocator.instanceOf(GenericRepository.class);
+    repository.guardar(colaborador);
   }
 }

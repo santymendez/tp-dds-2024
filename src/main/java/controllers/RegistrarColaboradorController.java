@@ -59,7 +59,7 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
       ColaboradoresService colaboradoresService,
       DireccionesService direccionesService,
       Autenticador autenticador
-      ) {
+  ) {
     this.usuariosRepository = usuariosRepository;
     this.genericRepository = genericRepository;
     this.usuariosService = usuariosService;
@@ -143,7 +143,7 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
     DireccionInputDto direccionInputDto = null;
 
     if (!Objects.equals(calle, "") && !Objects.equals(numero, "") && !Objects.equals(provincia, "")
-              && !Objects.equals(barrio, "") && !Objects.equals(ciudad, "")){
+              && !Objects.equals(barrio, "") && !Objects.equals(ciudad, "")) {
       direccionInputDto = DireccionInputDto.builder()
           .calle(calle)
           .numero(numero)

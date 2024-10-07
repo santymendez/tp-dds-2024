@@ -23,18 +23,12 @@ public class ColaboracionesService {
   /** Crea una colaboracion a partir de un dto (para csv).
    *
    * @param dtoColaboracion input del csv para la creacion.
-   * @param unColaborador colaborador cargado desde el controller del csv.
    */
 
-  public void crearDesdeCsv(
-      ColaboracionInputDto dtoColaboracion,
-      Colaborador unColaborador
+  public Colaboracion crearDesdeCsv(
+      ColaboracionInputDto dtoColaboracion
   ) {
-    Colaboracion unaColaboracion = FactoryColaboracion.crearDesdeCsv(dtoColaboracion);
-    unaColaboracion.setColaborador(unColaborador);
-
-    unColaborador.getColaboraciones().add(unaColaboracion);
-    unColaborador.aumentarReconocimiento(unaColaboracion);
+    return FactoryColaboracion.crearDesdeCsv(dtoColaboracion);
   }
 
   /** Crea una colaboración a partir del DTO donacionDinero.

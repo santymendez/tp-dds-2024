@@ -3,7 +3,7 @@ package server;
 import config.ControllerLocator;
 import controllers.CanjearPuntosController;
 import controllers.ColaboracionesController;
-import controllers.CsvController2;
+import controllers.CsvController;
 import controllers.HeladerasController;
 import controllers.HomePageController;
 import controllers.IncidentesController;
@@ -132,10 +132,10 @@ public class Router {
         ControllerLocator.instanceOf(MapaController.class)::index);
 
     app.get("/heladeras-solidarias/cargar-csv",
-        ControllerLocator.instanceOf(CsvController2.class)::create);
+        ControllerLocator.instanceOf(CsvController.class)::create);
 
     app.post("heladeras-solidarias/cargar-csv",
-        ControllerLocator.instanceOf(CsvController2.class)::save);
+        ControllerLocator.instanceOf(CsvController.class)::save);
 
     //Query Params
     //app.get("/saludo", ctx -> {

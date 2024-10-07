@@ -19,12 +19,12 @@ public class DireccionInputDto {
   private String latitud;
 
   //Barrio
-  private String nombreBarrio;
+  private String barrio;
   private String calle;
   private String numero;
 
   //Ciudad
-  private String nombreCiudad;
+  private String ciudad;
 
   //Provincia
   private String provincia;

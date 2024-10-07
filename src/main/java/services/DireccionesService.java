@@ -32,41 +32,33 @@ public class DireccionesService {
    */
 
   public Direccion crear(DireccionInputDto direccionInputDto) {
-    // Verifica longitud y latitud
-    if (direccionInputDto.getLongitud() == null || direccionInputDto.getLatitud() == null) {
-      throw new IllegalArgumentException("Longitud y latitud no pueden ser nulos.");
-    }
 
-    float longitud;
-    float latitud;
+    float longitud = 0f;
+    float latitud = 0f;
 
-    try {
+    if (direccionInputDto.getLongitud() != null && direccionInputDto.getLatitud() != null) {
       longitud = Float.parseFloat(direccionInputDto.getLongitud());
       latitud = Float.parseFloat(direccionInputDto.getLatitud());
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException("Formato inválido para longitud o latitud.", e);
+
+      Optional<Direccion> posibleDireccion =
+          this.direccionesRepository.buscarPorLatLong(latitud, longitud);
+
+      if (posibleDireccion.isPresent()) {
+        return posibleDireccion.get();
+      }
     }
 
-    Optional<Direccion> posibleDireccion =
-        this.direccionesRepository.buscarPorLatLong(latitud, longitud);
+    Direccion direccion;
 
-    if (posibleDireccion.isPresent()) {
-      return posibleDireccion.get();
+    if (direccionInputDto.getProvincia() != null) {
+      Optional<Provincia> provincia =
+          this.provinciasRepository
+              .buscarPorId(Long.parseLong(direccionInputDto.getProvincia()), Provincia.class);
+      direccion = FactoryDireccion.crearCon(direccionInputDto, provincia.get());
+    } else {
+      direccion = FactoryDireccion.crearCon(direccionInputDto);
     }
 
-    if (direccionInputDto.getProvincia() == null) {
-      throw new IllegalArgumentException("La provincia no puede ser nula.");
-    }
-
-    Optional<Provincia> provincia =
-        this.provinciasRepository
-            .buscarPorId(Long.parseLong(direccionInputDto.getProvincia()), Provincia.class);
-
-    if (provincia.isEmpty()) {
-      throw new IllegalArgumentException("Provincia no encontrada.");
-    }
-
-    Direccion direccion = FactoryDireccion.crearCon(direccionInputDto, provincia.get());
     this.direccionesRepository.guardar(direccion);
     return direccion;
   }

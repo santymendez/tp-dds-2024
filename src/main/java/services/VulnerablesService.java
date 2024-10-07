@@ -41,8 +41,8 @@ public class VulnerablesService {
         .latitud(String.valueOf(0)) // falta
         .longitud(String.valueOf(0)) // falta
         .provincia(vulnerableInputDto.getProvincia())
-        .nombreCiudad(vulnerableInputDto.getCiudad())
-        .nombreBarrio(vulnerableInputDto.getBarrio())
+        .ciudad(vulnerableInputDto.getCiudad())
+        .barrio(vulnerableInputDto.getBarrio())
         .calle(vulnerableInputDto.getCalle())
         .numero(vulnerableInputDto.getNumero())
         .build();

@@ -30,10 +30,10 @@ public class UtilsLocator {
 
     if (!instances.containsKey(utilName)) {
       if (utilClass.equals(Autenticador.class)) {
-        Autenticador autenticador = new Autenticador();
+        Autenticador instance = new Autenticador();
         //SE LE ASIGNAN ESTAS POLITICAS POR DEFAULT
         //En caso de querer otras, avisen
-        autenticador.agregarPoliticas(
+        instance.agregarPoliticas(
             new CantidadMaximaDeCaracteres(64),
             new CantidadMinimaDeCaracteres(8),
             new PerteneceAlArchivo(
@@ -43,6 +43,7 @@ public class UtilsLocator {
             new TieneMayusculasMinusculas(),
             new TieneNumeros(),
             new TieneCaracteresEspeciales());
+        instances.put(utilName, instance);
       }
     }
     return (T) instances.get(utilName);

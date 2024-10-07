@@ -82,12 +82,12 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     HeladeraInputDto heladeraInputDto = context.bodyAsClass(HeladeraInputDto.class);
 
     DireccionInputDto direccionInputDto = DireccionInputDto.builder()
-        .nombreBarrio(heladeraInputDto.getBarrio())
+        .barrio(heladeraInputDto.getBarrio())
         .calle(heladeraInputDto.getCalle())
         .numero(heladeraInputDto.getNumero())
         .latitud(heladeraInputDto.getLatitud())
         .longitud(heladeraInputDto.getLongitud())
-        .nombreCiudad(heladeraInputDto.getCiudad())
+        .ciudad(heladeraInputDto.getCiudad())
         .provincia(heladeraInputDto.getProvincia())
         .build();
 

@@ -19,15 +19,15 @@ public class ColaboradorInputDto {
   private String tipo;
   private String rubro;
 
-  //Direccion
-  private String nombreUbicacion;
-  private String longitud;
-  private String latitud;
-  private String nombreBarrio;
-  private String calle;
-  private String numero;
-  private String nombreCiudad;
-  private String nombreProvincia;
+//  //Direccion
+////  private String nombreUbicacion;
+////  private String longitud;
+////  private String latitud;
+//  private String nombreBarrio;
+//  private String calle;
+//  private String numero;
+//  private String nombreCiudad;
+//  private String nombreProvincia;
 
   private String contacto;
   private String tipoContacto;

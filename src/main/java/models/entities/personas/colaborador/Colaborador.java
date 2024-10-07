@@ -58,8 +58,9 @@ public class Colaborador extends Persistente {
   @Column(name = "razonSocial")
   private String razonSocial;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "tipo")
-  private String tipo;
+  private TipoJuridico tipo;
 
   @Column(name = "rubro")
   private String rubro;

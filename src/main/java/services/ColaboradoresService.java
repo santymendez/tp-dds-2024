@@ -2,6 +2,7 @@ package services;
 
 import dtos.ColaboradorInputDto;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 import models.entities.personas.users.TipoRol;
 import models.entities.personas.users.Usuario;

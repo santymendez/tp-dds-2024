@@ -10,7 +10,7 @@ import controllers.HomePageController;
 import controllers.IncidentesController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
-import controllers.RegistrarUsuarioController;
+import controllers.RegistrarColaboradorController;
 import controllers.SuscribirseController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DonarDineroController;
@@ -20,7 +20,9 @@ import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.UsuariosRepository;
+import net.bytebuddy.description.type.TypeList;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.DireccionesService;
@@ -99,12 +101,14 @@ public class ControllerLocator {
       } else if (controllerClass.equals(HomePageController.class)) {
         HomePageController instance = new HomePageController();
         instances.put(controllerName, instance);
-      } else if (controllerClass.equals(RegistrarUsuarioController.class)) {
-        RegistrarUsuarioController instance = new RegistrarUsuarioController(
+      } else if (controllerClass.equals(RegistrarColaboradorController.class)) {
+        RegistrarColaboradorController instance = new RegistrarColaboradorController(
             RepositoryLocator.instanceOf(UsuariosRepository.class),
-            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(ProvinciasRepository.class),
             ServiceLocator.instanceOf(UsuariosService.class),
             ServiceLocator.instanceOf(ColaboradoresService.class),
+            ServiceLocator.instanceOf(DireccionesService.class),
             UtilsLocator.instanceOf(Autenticador.class)
         );
         instances.put(controllerName, instance);

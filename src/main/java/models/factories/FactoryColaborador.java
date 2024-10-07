@@ -4,6 +4,7 @@ import dtos.ColaboradorInputDto;
 import java.util.ArrayList;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.TipoColaborador;
+import models.entities.personas.colaborador.TipoJuridico;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
@@ -42,7 +43,7 @@ public class FactoryColaborador {
       nuevoColaborador = Colaborador.builder()
           .tipoColaborador(TipoColaborador.JURIDICO)
           .rubro(colaboradorInputDto.getRubro())
-          .tipo(colaboradorInputDto.getTipo())
+          .tipo(TipoJuridico.valueOf(colaboradorInputDto.getTipo()))
           .razonSocial(colaboradorInputDto.getRazonSocial())
           .contacto(new Contacto(colaboradorInputDto.getContacto(),
               TipoContacto.valueOf(colaboradorInputDto.getTipoContacto())))

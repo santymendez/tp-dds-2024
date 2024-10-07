@@ -25,6 +25,7 @@ public class Reconocimiento {
 
   public Reconocimiento() {
     this.puntosPorColaborar = 0f;
+    this.formulaCalculoDePuntos = new Formula();
   }
 
   public void sumarPuntos(Colaboracion colaboracion) {

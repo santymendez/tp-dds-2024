@@ -13,93 +13,89 @@
         </div>
 
         <!-- Formulario Persona Jurídica -->
-        <form id="form-juridica" class="d-none">
+        <form id="form-juridica" class="d-none" method="POST" action="/heladeras-solidarias/registrarse">
             <input type="hidden" name="tipoColaborador" value="JURIDICO">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="nombreUsuarioJuridico" class="form-label">Nombre de Usuario *</label>
-                    <input name="usuarioJuridico" type="text" class="form-control" id="nombreUsuarioJuridico"
+                    <input name="usuario" type="text" class="form-control" id="nombreUsuarioJuridico"
                            placeholder="Ingresar nombre de usuario" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="contraseniaJuridico" class="form-label">Contraseña *</label>
-                    <input name="contraseniaJuridico" type="text" class="form-control" id="contraseniaJuridico"
+                    <input name="contrasenia" type="text" class="form-control" id="contraseniaJuridico"
                            placeholder="Ingresar contraseña" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="nombreEmpresa" class="form-label">Nombre *</label>
-                    <input type="text" class="form-control" id="nombreEmpresa"
-                           placeholder="Ingresar nombre" required>
-                </div>
-                <div class="col-md-6 mb-3">
                     <label for="razonSocial" class="form-label">Razón Social *</label>
-                    <input type="text" class="form-control" id="razonSocial"
+                    <input name="razonSocial" type="text" class="form-control" id="razonSocial"
                            placeholder="Ingresar razón social" required>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="tipo" class="form-label">Tipo *</label>
-                    <input type="text" class="form-control" id="tipo" placeholder="Ingresar tipo"
-                           required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="rubro" class="form-label">Rubro *</label>
-                    <input type="text" class="form-control" id="rubro" placeholder="Ingresar rubro"
-                           required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="correoJuridica" class="form-label">Correo electrónico *</label>
-                    <input type="email" class="form-control" id="correoJuridica"
-                           placeholder="ejemplo@correo.com" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="tipoContactoJuridica" class="form-label">Tipo de Contacto</label>
-                    <select class="form-select" id="tipoContactoJuridica">
-                        <option selected>Teléfono</option>
-                        <option value="1">Email</option>
-                        <option value="2">Otro</option>
+                    <label for="tipoOrganizacion" class="form-label">Tipo *</label>
+                    <select name="tipoOrganizacion" class="form-select" id="tipoOrganizacion" required>
+                        <option selected value="">Seleccione una Opción</option>
+                        <option value="GUBERNAMENTAL">Gubernamental</option>
+                        <option value="ONG">ONG</option>
+                        <option value="EMPRESA">Empresa</option>
+                        <option value="INSTITUCION">Institución</option>
                     </select>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="contactoJuridica" class="form-label">Contacto</label>
-                    <input type="text" class="form-control" id="contactoJuridica"
-                           placeholder="ej: 1122334455">
+                    <label for="rubro" class="form-label">Rubro *</label>
+                    <input name="rubro" type="text" class="form-control" id="rubro" placeholder="Ingresar rubro"
+                           required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="tipoContactoJuridica" class="form-label">Tipo de Contacto *</label>
+                    <select name="tipoContacto" class="form-select" id="tipoContactoJuridica" required>
+                        <option selected value="">Seleccione una opción</option>
+                        <option value="TELEFONO">Teléfono</option>
+                        <option value="EMAIL">Email</option>
+                        <option value="TELEGRAM">Telegram</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="contactoJuridica" class="form-label">Contacto *</label>
+                    <input name="contacto" type="text" class="form-control" id="contactoJuridica"
+                           placeholder="ej: 1122334455" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="provinciaJuridica" class="form-label">Provincia</label>
-                    <select class="form-select" id="provinciaJuridica">
-                        <option selected>Buenos Aires</option>
-                        <option value="1">Otra</option>
+                    <select name="provincia" class="form-select" id="provinciaJuridica">
+                        <option value="" selected>Seleccione una provinicia</option>
+                        {{#each provincias}}
+                            <option value="{{this.getId}}">{{this.getNombreProvincia}}</option>
+                        {{/each}}
                     </select>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="ciudadJuridica" class="form-label">Ciudad</label>
-                    <input type="text" class="form-control" id="ciudadJuridica"
+                    <input name="ciudad" type="text" class="form-control" id="ciudadJuridica"
                            placeholder="ej: CABA">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="barrioJuridica" class="form-label">Barrio</label>
-                    <input type="text" class="form-control" id="barrioJuridica"
+                    <input name="barrio" type="text" class="form-control" id="barrioJuridica"
                            placeholder="ej: Villa Crespo">
                 </div>
             </div><div class="row">
             <div class="col-md-6 mb-3">
                 <label for="calleJuridica" class="form-label">Calle</label>
-                <input type="text" class="form-control" id="calleJuridica"
+                <input name="calle" type="text" class="form-control" id="calleJuridica"
                        placeholder="ej: Malabia">
             </div>
             <div class="col-md-6 mb-3">
                 <label for="numeroJuridico" class="form-label">Numero</label>
-                <input type="text" class="form-control" id="numeroJuridico"
+                <input name="numero" type="text" class="form-control" id="numeroJuridico"
                        placeholder="ej: 500">
             </div>
         </div>
@@ -109,17 +105,17 @@
         </form>
 
         <!-- Formulario Persona Física -->
-        <form id="form-fisica">
-            <input type="hidden" name="tipoColaborador" value="FISICO">
+        <form id="form-fisica" method="POST" action="/heladeras-solidarias/registrarse">
+            <input type="hidden" name="tipoColaborador" value="FISICO" >
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="nombreUsuarioFisico" class="form-label">Nombre de Usuario *</label>
-                    <input name="usuarioFisico" type="text" class="form-control" id="nombreUsuarioFisico"
+                    <input name="usuario" type="text" class="form-control" id="nombreUsuarioFisico"
                            placeholder="Ingresar nombre de usuario" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="contraseniaFisico" class="form-label">Contraseña *</label>
-                    <input name="contraseniaFisico" type="text" class="form-control" id="contraseniaFisico"
+                    <input name="contrasenia" type="text" class="form-control" id="contraseniaFisico"
                            placeholder="Ingresar contraseña" required>
                 </div>
             </div>
@@ -138,10 +134,11 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="tipoDocumentoFisica" class="form-label">Tipo de Documento *</label>
-                    <select name="tipoDocFisica" class="form-select" id="tipoDocumentoFisica">
-                        <option selected value="dni">DNI</option>
-                        <option value="lc">LC</option>
-                        <option value="le">LE</option>
+                    <select name="tipoDocFisica" class="form-select" id="tipoDocumentoFisica" required>
+                        <option selected value="">Seleccione una Opción</option>
+                        <option value="DNI">DNI</option>
+                        <option value="LC">LC</option>
+                        <option value="LE">LE</option>
                     </select>
                 </div>
                 <div class="col-md-6 mb-3">
@@ -152,54 +149,55 @@
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="correoFisica" class="form-label">Correo electrónico *</label>
-                    <input type="email" class="form-control" id="correoFisica"
-                           placeholder="ejemplo@correo.com">
+                    <label for="tipoContactoFisica" class="form-label">Tipo de Contacto *</label>
+                    <select name="tipoContacto" class="form-select" id="tipoContactoFisica" required>
+                        <option selected value="">Seleccione una Opción</option>
+                        <option value="MAIL">Email</option>
+                        <option value="WHATSAPP">WhatsApp</option>
+                        <option value="TELEGRAM">Telegram</option>
+                    </select>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="tipoContactoFisica" class="form-label">Tipo de Contacto</label>
-                    <select class="form-select" id="tipoContactoFisica">
-                        <option selected>Teléfono</option>
-                        <option value="1">Email</option>
-                        <option value="2">Otro</option>
-                    </select>
+                    <label for="contactoFisica" class="form-label">Contacto *</label>
+                    <input name="contacto" type="text" class="form-control" id="contactoFisica"
+                           placeholder="ej: 1122334455 o example@ghost.com" required>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="contactoFisica" class="form-label">Contacto</label>
-                    <input type="text" class="form-control" id="contactoFisica"
-                           placeholder="ej: 1122334455">
-                </div>
                 <div class="col-md-6 mb-3">
                     <label for="provinciaFisica" class="form-label">Provincia</label>
-                    <select class="form-select" id="provinciaFisica">
-                        <option selected>Buenos Aires</option>
-                        <option value="1">Otra</option>
+                    <select name="provincia" class="form-select" id="provinciaFisica">
+                        <option selected value="">Seleccione una Opción</option>
+                        {{#each provincias}}
+                            <option value="{{this.getId}}">{{this.getNombreProvincia}}</option>
+                        {{/each}}
                     </select>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="ciudadFisica" class="form-label">Ciudad</label>
-                    <input type="text" class="form-control" id="ciudadFisica"
+                    <input name="ciudad" type="text" class="form-control" id="ciudadFisica"
                            placeholder="ej: CABA">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="barrioFisica" class="form-label">Barrio</label>
-                    <input type="text" class="form-control" id="barrioFisica"
-                           placeholder="ej: Villa Crespo">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
+                    <label for="barrioFisica" class="form-label">Barrio</label>
+                    <input name="barrio" type="text" class="form-control" id="barrioFisica"
+                           placeholder="ej: Villa Crespo">
+                </div>
+                <div class="col-md-6 mb-3">
                     <label for="calleFisica" class="form-label">Calle</label>
-                    <input type="text" class="form-control" id="calleFisica"
+                    <input name="calle" type="text" class="form-control" id="calleFisica"
                            placeholder="ej: Malabia">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <!--Columna vacia para que quede ordenado-->
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="numeroFisico" class="form-label">Numero</label>
-                    <input type="text" class="form-control" id="numeroFisico"
+                    <input name="numero" type="text" class="form-control" id="numeroFisico"
                            placeholder="ej: 411">
                 </div>
             </div>
@@ -216,14 +214,40 @@
             crossorigin="anonymous"></script>
     <script>
         document.getElementById('personaToggle').addEventListener('change', function () {
-            var juridicaForm = document.getElementById('form-juridica');
-            var fisicaForm = document.getElementById('form-fisica');
+            let juridicaForm = document.getElementById('form-juridica');
+            let fisicaForm = document.getElementById('form-fisica');
             if (this.checked) {
                 juridicaForm.classList.remove('d-none');
                 fisicaForm.classList.add('d-none');
             } else {
                 juridicaForm.classList.add('d-none');
                 fisicaForm.classList.remove('d-none');
+            }
+        });
+    </script>
+
+    <script>
+        // Seleccionamos el campo obligatorio y el resto de campos opcionales
+        const opcion1 = document.getElementById('provincia');
+        const opcion2 = document.getElementById('ciudad');
+        const opcion3 = document.getElementById('barrio');
+        const opcion4 = document.getElementById('calle');
+        const opcion5 = document.getElementById('numero');
+
+        // Agregamos un evento para cuando se cambia el valor del campo obligatorio
+        opcion1.addEventListener('input', function() {
+            if (opcion1.value.trim() !== '') {
+                // Si el campo obligatorio tiene valor, los demás campos opcionales se vuelven obligatorios
+                opcion2.required = true;
+                opcion3.required = true;
+                opcion4.required = true;
+                opcion5.required = true;
+            } else {
+                // Si el campo obligatorio está vacío, los otros vuelven a ser opcionales
+                opcion2.required = false;
+                opcion3.required = false;
+                opcion4.required = false;
+                opcion5.required = false;
             }
         });
     </script>

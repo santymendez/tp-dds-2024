@@ -9,7 +9,7 @@ import controllers.HomePageController;
 import controllers.IncidentesController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
-import controllers.RegistrarUsuarioController;
+import controllers.RegistrarColaboradorController;
 import controllers.SuscribirseController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DonarDineroController;
@@ -47,14 +47,11 @@ public class Router {
     app.post("/heladeras-solidarias/iniciar-sesion",
         ControllerLocator.instanceOf(IniciarSesionController.class)::save);
 
-    app.get("/heladeras-solidarias/registrarse-usuario",
-        ControllerLocator.instanceOf(RegistrarUsuarioController.class)::create);
-
-    app.post("/heladeras-solidarias/registrarse-usuario",
-            ControllerLocator.instanceOf(RegistrarUsuarioController.class)::save);
-
     app.get("/heladeras-solidarias/registrarse",
-            ControllerLocator.instanceOf(RegistrarUsuarioController.class)::create);
+            ControllerLocator.instanceOf(RegistrarColaboradorController.class)::create);
+
+    app.post("/heladeras-solidarias/registrarse",
+        ControllerLocator.instanceOf(RegistrarColaboradorController.class)::save);
 
     app.get("/heladeras-solidarias/cerrar-sesion",
             ControllerLocator.instanceOf(IniciarSesionController.class)::update);

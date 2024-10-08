@@ -2,7 +2,6 @@ package db;
 
 import java.util.List;
 import java.util.Optional;
-import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.direccion.Direccion;
@@ -65,7 +64,7 @@ public class EntityTest {
 
     // Recupero la provincia sin ningun problema
 
-    Optional<Provincia> provincia = Initializer.getRepoGenerico().buscarPorId(Initializer.getProvincia1().getId(), Provincia.class);
+    Optional<Provincia> provincia = Initializer.getRepoGenerico().buscarPorId(Initializer.getBuenosAires().getId(), Provincia.class);
 
     // Recupero una colaboracion sin ningun problema
 

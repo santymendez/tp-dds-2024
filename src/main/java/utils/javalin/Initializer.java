@@ -117,9 +117,31 @@ public class Initializer {
   static Ciudad ciudad3;
 
   @Getter
-  static Provincia provincia1;
-  static Provincia provincia2;
-  static Provincia provincia3;
+  static Provincia buenosAires;
+  static Provincia ciudadAutonomaDeBuenosAires;
+  static Provincia catamarca;
+  static Provincia chaco;
+  static Provincia chubut;
+  static Provincia cordoba;
+  static Provincia corrientes;
+  static Provincia entreRios;
+  static Provincia formosa;
+  static Provincia jujuy;
+  static Provincia laPampa;
+  static Provincia laRioja;
+  static Provincia mendoza;
+  static Provincia misiones;
+  static Provincia neuquen;
+  static Provincia rioNegro;
+  static Provincia salta;
+  static Provincia sanJuan;
+  static Provincia sanLuis;
+  static Provincia santaCruz;
+  static Provincia santaFe;
+  static Provincia santiagoDelEstero;
+  static Provincia tierraDelFuego;
+  static Provincia tucuman;
+
 
   static Formulario formulario1;
 
@@ -321,6 +343,31 @@ public class Initializer {
     usuariosRepository.guardar(liamUsuario);
     usuariosRepository.guardar(santiUsuario);
     usuariosRepository.guardar(admin);
+
+    repoGenerico.guardar(buenosAires);
+    repoGenerico.guardar(ciudadAutonomaDeBuenosAires);
+    repoGenerico.guardar(catamarca);
+    repoGenerico.guardar(chaco);
+    repoGenerico.guardar(chubut);
+    repoGenerico.guardar(cordoba);
+    repoGenerico.guardar(corrientes);
+    repoGenerico.guardar(entreRios);
+    repoGenerico.guardar(formosa);
+    repoGenerico.guardar(jujuy);
+    repoGenerico.guardar(laPampa);
+    repoGenerico.guardar(laRioja);
+    repoGenerico.guardar(mendoza);
+    repoGenerico.guardar(misiones);
+    repoGenerico.guardar(neuquen);
+    repoGenerico.guardar(rioNegro);
+    repoGenerico.guardar(salta);
+    repoGenerico.guardar(sanJuan);
+    repoGenerico.guardar(sanLuis);
+    repoGenerico.guardar(santaCruz);
+    repoGenerico.guardar(santaFe);
+    repoGenerico.guardar(santiagoDelEstero);
+    repoGenerico.guardar(tierraDelFuego);
+    repoGenerico.guardar(tucuman);
 
     repoGenerico.guardar(direccion1);
     repoGenerico.guardar(direccion2);
@@ -817,27 +864,91 @@ public class Initializer {
   static void iniciarCiudades() {
 
     ciudad1 = new Ciudad();
-    ciudad1.setProvincia(provincia1);
+    ciudad1.setProvincia(buenosAires);
     ciudad1.setNombreCiudad("CABA");
 
     ciudad2 = new Ciudad();
-    ciudad2.setProvincia(provincia2);
+    ciudad2.setProvincia(cordoba);
     ciudad2.setNombreCiudad("Rio cuarto");
 
     ciudad3 = new Ciudad();
-    ciudad3.setProvincia(provincia3);
+    ciudad3.setProvincia(santiagoDelEstero);
     ciudad3.setNombreCiudad("La Banda");
   }
 
   static void iniciarProvincias() {
-    provincia1 = new Provincia();
-    provincia1.setNombreProvincia("Buenos Aires");
+    buenosAires = new Provincia();
+    buenosAires.setNombreProvincia("Buenos Aires");
 
-    provincia2 = new Provincia();
-    provincia2.setNombreProvincia("Cordoba");
+    ciudadAutonomaDeBuenosAires = new Provincia();
+    ciudadAutonomaDeBuenosAires.setNombreProvincia("Ciudad Autónoma de Buenos Aires");
 
-    provincia3 = new Provincia();
-    provincia3.setNombreProvincia("Santiago del Estero");
+    catamarca = new Provincia();
+    catamarca.setNombreProvincia("Catamarca");
+
+    chaco = new Provincia();
+    chaco.setNombreProvincia("Chaco");
+
+    chubut = new Provincia();
+    chubut.setNombreProvincia("Chubut");
+
+    cordoba = new Provincia();
+    cordoba.setNombreProvincia("Córdoba");
+
+    corrientes = new Provincia();
+    corrientes.setNombreProvincia("Corrientes");
+
+    entreRios = new Provincia();
+    entreRios.setNombreProvincia("Entre Ríos");
+
+    formosa = new Provincia();
+    formosa.setNombreProvincia("Formosa");
+
+    jujuy = new Provincia();
+    jujuy.setNombreProvincia("Jujuy");
+
+    laPampa = new Provincia();
+    laPampa.setNombreProvincia("La Pampa");
+
+    laRioja = new Provincia();
+    laRioja.setNombreProvincia("La Rioja");
+
+    mendoza = new Provincia();
+    mendoza.setNombreProvincia("Mendoza");
+
+    misiones = new Provincia();
+    misiones.setNombreProvincia("Misiones");
+
+    neuquen = new Provincia();
+    neuquen.setNombreProvincia("Neuquén");
+
+    rioNegro = new Provincia();
+    rioNegro.setNombreProvincia("Río Negro");
+
+    salta = new Provincia();
+    salta.setNombreProvincia("Salta");
+
+    sanJuan = new Provincia();
+    sanJuan.setNombreProvincia("San Juan");
+
+    sanLuis = new Provincia();
+    sanLuis.setNombreProvincia("San Luis");
+
+    santaCruz = new Provincia();
+    santaCruz.setNombreProvincia("Santa Cruz");
+
+    santaFe = new Provincia();
+    santaFe.setNombreProvincia("Santa Fe");
+
+    santiagoDelEstero = new Provincia();
+    santiagoDelEstero.setNombreProvincia("Santiago del Estero");
+
+    tierraDelFuego = new Provincia();
+    tierraDelFuego.setNombreProvincia("Tierra del Fuego");
+
+    tucuman = new Provincia();
+    tucuman.setNombreProvincia("Tucumán");
+
   }
 
   static void iniciarEstados() {

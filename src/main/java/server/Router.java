@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import models.entities.personas.users.TipoRol;
 
-
 /**
  * Clase Router.
  */
@@ -72,12 +71,12 @@ public class Router {
 
     app.get("/heladeras-solidarias/canjear-puntos",
         ControllerLocator.instanceOf(CanjearPuntosController.class)::index,
-        TipoRol.PERSONA_FISICA, TipoRol.EMPRESA_ASOCIADA);
+        TipoRol.PERSONA_FISICA, TipoRol.EMPRESA_ASOCIADA, TipoRol.ADMINISTRADOR);
 
     //COLABORAR
     app.get("/heladeras-solidarias/colaborar", 
         ControllerLocator.instanceOf(ColaboracionesController.class)::create,
-        TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA);
+        TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
 
     app.post("/heladeras-solidarias/colaborar", ctx -> {
       String formType = ctx.formParam("formType");
@@ -97,10 +96,11 @@ public class Router {
         default -> ctx.status(404).render("/error404.hbs",
             Map.of("titulo", "Error 404", "mensaje", "Tipo de formulario no valido"));
       }
-    }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA);
+    }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
 
     app.get("/heladeras-solidarias/heladeras",
-        ControllerLocator.instanceOf(HeladerasController.class)::index);
+        ControllerLocator.instanceOf(HeladerasController.class)::index,
+        TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
 
     app.post("/heladeras-solidarias/heladeras", ctx -> {
       String formType = ctx.formParam("formType");
@@ -113,8 +113,8 @@ public class Router {
     });
 
     //VISTAS ADMINISTRADOR
-    app.get("/heladeras-solidarias/heladeras-admin", ctx -> ctx.render("/heladeras-admin.hbs",
-        Map.of("titulo", "Heladeras")));
+    app.get("/heladeras-solidarias/heladeras-admin",
+        ControllerLocator.instanceOf(HeladerasController.class)::index, TipoRol.ADMINISTRADOR);
 
     app.post("/heladeras-solidarias/heladeras-admin", ctx -> {
       String formType = ctx.formParam("formType");
@@ -132,35 +132,10 @@ public class Router {
         ControllerLocator.instanceOf(MapaController.class)::index);
 
     app.get("/heladeras-solidarias/cargar-csv",
-        ControllerLocator.instanceOf(CsvController.class)::create);
+        ControllerLocator.instanceOf(CsvController.class)::create, TipoRol.ADMINISTRADOR);
 
     app.post("heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController.class)::save);
 
-    //Query Params
-    //app.get("/saludo", ctx -> {
-    //ctx.result("Hola " + ctx.queryParam("nombre") + " " + ctx.queryParam("apellido"));
-    //});
-
-    //Route params | Path params
-    //app.get("/saludo-para/{nombre}", ctx -> ctx.result("Hola " + ctx.pathParam("nombre")));
-
-    //PROYECTO
-    //app.get("/productos", ServiceLocator.instanceOf(ProductosController.class)::index);
-
-    //app.get("/productos/nuevo", ServiceLocator.instanceOf(ProductosController.class)::create);
-
-    //app.get("/productos/{id}", ServiceLocator.instanceOf(ProductosController.class)::show);
-
-    //app.get("/productos/{id}/edicion",
-    // ServiceLocator.instanceOf(ProductosController.class)::edit);
-
-    //app.post("/productos/{id}/edicion",
-    // ServiceLocator.instanceOf(ProductosController.class)::update);
-
-    //app.post("/productos/{id}/eliminiacion",
-    // ServiceLocator.instanceOf(ProductosController.class)::delete);
-
-    //app.post("/productos", ServiceLocator.instanceOf(ProductosController.class)::save);
   }
 }

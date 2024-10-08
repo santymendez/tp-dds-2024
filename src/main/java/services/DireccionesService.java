@@ -1,6 +1,7 @@
 package services;
 
 import dtos.DireccionInputDto;
+import java.util.Objects;
 import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
@@ -12,7 +13,6 @@ import models.repositories.imp.GenericRepository;
  * Service para las Direcciones.
  */
 
-//TODO REVISAR
 public class DireccionesService {
 
   private final DireccionesRepository direccionesRepository;
@@ -33,12 +33,10 @@ public class DireccionesService {
 
   public Direccion crear(DireccionInputDto direccionInputDto) {
 
-    float longitud = 0f;
-    float latitud = 0f;
-
-    if (direccionInputDto.getLongitud() != null && direccionInputDto.getLatitud() != null) {
-      longitud = Float.parseFloat(direccionInputDto.getLongitud());
-      latitud = Float.parseFloat(direccionInputDto.getLatitud());
+    if (direccionInputDto.getLongitud() != null
+        && direccionInputDto.getLatitud() != null) {
+      Float longitud = Float.parseFloat(direccionInputDto.getLongitud());
+      Float latitud = Float.parseFloat(direccionInputDto.getLatitud());
 
       Optional<Direccion> posibleDireccion =
           this.direccionesRepository.buscarPorLatLong(latitud, longitud);
@@ -50,7 +48,7 @@ public class DireccionesService {
 
     Direccion direccion;
 
-    if (direccionInputDto.getProvincia() != null) {
+    if (!Objects.equals(direccionInputDto.getProvincia(), "")) {
       Optional<Provincia> provincia =
           this.provinciasRepository
               .buscarPorId(Long.parseLong(direccionInputDto.getProvincia()), Provincia.class);

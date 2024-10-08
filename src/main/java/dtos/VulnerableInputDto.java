@@ -1,5 +1,8 @@
 package dtos;
 
+import io.javalin.http.Context;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,15 +12,31 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class VulnerableInputDto {
   String nombre;
   String fechaNacimiento;
   String tipoDocumento;
   String numeroDocumento;
-  String provincia;
-  String ciudad;
-  String barrio;
-  String calle;
-  String numero;
   String cantMenores;
+  String tarjeta;
+
+  /**
+   * Instancia el VulnerableInputDTO.
+   *
+   * @param context el contexto con los valores recibidos del formulario.
+   * @return Un vulnerableInputDTO.
+   */
+
+  public static VulnerableInputDto fromContext(Context context) {
+    return VulnerableInputDto.builder()
+        .nombre(context.formParam("nombre"))
+        .fechaNacimiento(context.formParam("fechaNacimiento"))
+        .tipoDocumento(context.formParam("tipoDocumento"))
+        .numeroDocumento(context.formParam("numeroDocumento"))
+        .cantMenores(context.formParam("cantMenores"))
+        .tarjeta(context.formParam("tarjeta"))
+        .build();
+  }
 }

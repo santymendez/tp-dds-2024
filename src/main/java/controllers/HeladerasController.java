@@ -6,10 +6,12 @@ import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import models.entities.direccion.Direccion;
+import models.entities.direccion.Provincia;
 import models.entities.heladera.Heladera;
-import models.repositories.imp.DireccionesRepository;
+import models.entities.personas.users.TipoRol;
 import models.repositories.imp.GenericRepository;
 import services.DireccionesService;
 import services.HeladerasService;
@@ -20,10 +22,9 @@ import utils.javalin.InterfaceCrudViewsHandler;
  */
 
 public class HeladerasController implements InterfaceCrudViewsHandler {
-  private final GenericRepository heladerasRepository;
+  private final GenericRepository genericRepository;
   private final HeladerasService heladerasService;
   private final DireccionesService direccionesService;
-  private final DireccionesRepository direccionesRepository;
 
   /**
    * Constructor de la clase.
@@ -31,19 +32,16 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    * @param genericRepository Repositorio generico.
    * @param heladerasService Servicio de heladeras.
    * @param direccionesService Servicio de direcciones.
-   * @param direccionesRepository Repositorio de direcciones.
    */
 
   public HeladerasController(
       GenericRepository genericRepository,
       HeladerasService heladerasService,
-      DireccionesService direccionesService,
-      DireccionesRepository direccionesRepository
+      DireccionesService direccionesService
   ) {
-    this.heladerasRepository = genericRepository;
+    this.genericRepository = genericRepository;
     this.heladerasService = heladerasService;
     this.direccionesService = direccionesService;
-    this.direccionesRepository = direccionesRepository;
   }
 
   /**
@@ -56,12 +54,21 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     Map<String, Object> model = new HashMap<>();
 
     model.put("titulo", "Heladeras");
-    List<Heladera> heladeras = this.heladerasRepository.buscarTodos(Heladera.class);
+
+    List<Heladera> heladeras = this.genericRepository.buscarTodos(Heladera.class);
     model.put("heladeras", heladeras);
+
+    List<Provincia> provincias = this.genericRepository.buscarTodos(Provincia.class);
+    model.put("provincias", provincias);
+
     model.put("activeSession", true);
     model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
 
-    context.render("heladeras.hbs", model);
+    if (TipoRol.valueOf(context.sessionAttribute("tipo_rol")).equals(TipoRol.ADMINISTRADOR)) {
+      context.render("heladeras-admin.hbs", model);
+    } else {
+      context.render("heladeras.hbs", model);
+    }
   }
 
   public void show(Context context) {
@@ -79,37 +86,12 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    */
 
   public void save(Context context) {
-    HeladeraInputDto heladeraInputDto = context.bodyAsClass(HeladeraInputDto.class);
-
-    DireccionInputDto direccionInputDto = DireccionInputDto.builder()
-        .barrio(heladeraInputDto.getBarrio())
-        .calle(heladeraInputDto.getCalle())
-        .numero(heladeraInputDto.getNumero())
-        .latitud(heladeraInputDto.getLatitud())
-        .longitud(heladeraInputDto.getLongitud())
-        .ciudad(heladeraInputDto.getCiudad())
-        .provincia(heladeraInputDto.getProvincia())
-        .build();
-
-    Heladera heladera = this.heladerasService.crear(heladeraInputDto);
-
-    Float latitud = Float.valueOf(heladeraInputDto.getLatitud());
-    Float longitud = Float.valueOf(heladeraInputDto.getLongitud());
-
-    Optional<Direccion> posibleDireccion =
-        this.direccionesRepository.buscarPorLatLong(latitud, longitud);
-
-    if (posibleDireccion.isPresent()) {
-      //TODO tirar pantalla de error?
-      context.redirect("/heladeras-solidarias/heladeras");
-      return;
-    }
+    HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
+    DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
     Direccion direccion = this.direccionesService.crear(direccionInputDto);
-    this.direccionesRepository.guardar(direccion);
+    this.heladerasService.crear(heladeraInputDto, direccion);
 
-    heladera.setDireccion(direccion);
-    this.heladerasRepository.guardar(heladera);
     context.redirect("/heladeras-solidarias");
   }
 
@@ -120,22 +102,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    */
 
   public void edit(Context context) {
-    //PRETENDE DEVOLVER UNA VISTA CON UN FORMULARIO QUE
-    // PERMITA EDITAR AL RECURSO QUE LLEGA POR PATH PARAM
-    Optional<Heladera> posibleHeladeraBuscada = this
-        .heladerasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Heladera.class);
 
-    /*TODO
-    if (posibleHeladeraBuscada.isEmpty()) {
-      context.status(HttpStatus.NOT_FOUND);
-      return;
-    }*/
-
-    Map<String, Object> model = new HashMap<>();
-
-    posibleHeladeraBuscada.ifPresent(heladera -> model.put("producto", heladera));
-
-    context.render("productos/detalle_producto.hbs", model);
   }
 
   /**
@@ -145,10 +112,25 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    */
 
   public void update(Context context) {
-    Optional<Heladera> posibleHeladeraBuscada = this
-        .heladerasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Heladera.class);
+    Long heladeraId = Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
 
-    posibleHeladeraBuscada.ifPresent(heladerasRepository::modificar);
+    Optional<Heladera> posibleHeladeraBuscada = this
+        .genericRepository.buscarPorId(heladeraId, Heladera.class);
+
+    Heladera heladera = posibleHeladeraBuscada.get();
+
+    HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
+    DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
+
+    if (direccionInputDto != null) {
+      Direccion direccion = this.direccionesService.crear(direccionInputDto);
+      heladera.setDireccion(direccion);
+    }
+
+    //TODO no tenemos nada para hacer con la razon?
+    //String razonModificacion = context.formParam("razonModificacion");
+
+    this.heladerasService.modificar(heladera, heladeraInputDto);
   }
 
   /**
@@ -158,9 +140,14 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    */
 
   public void delete(Context context) {
-    Optional<Heladera> posibleHeladeraBuscada = this
-        .heladerasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Heladera.class);
+    Long heladeraId = Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
 
-    posibleHeladeraBuscada.ifPresent(heladerasRepository::eliminar);
+    Optional<Heladera> posibleHeladeraBuscada = this
+        .genericRepository.buscarPorId(heladeraId, Heladera.class);
+
+    //TODO QUE HACEMOS CON ESTO?
+    String descripcion = context.formParam("descripcion");
+
+    posibleHeladeraBuscada.ifPresent(genericRepository::eliminar);
   }
 }

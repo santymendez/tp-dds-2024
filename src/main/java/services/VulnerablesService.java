@@ -1,28 +1,50 @@
 package services;
 
-import config.ServiceLocator;
-import dtos.DireccionInputDto;
 import dtos.VulnerableInputDto;
 import java.time.LocalDate;
+import java.util.Optional;
+import models.entities.direccion.Direccion;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
+import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.vulnerable.Vulnerable;
+import models.repositories.imp.GenericRepository;
+import models.repositories.imp.TarjetasVulnerablesRepository;
 
 /**
  * Service para los vulnerables.
  */
 
-//TODO REVISAR
 public class VulnerablesService {
+
+  private final GenericRepository genericRepository;
+  private final TarjetasVulnerablesRepository tarjetasVulnerablesRepository;
+
+  public VulnerablesService(
+      GenericRepository genericRepository,
+      TarjetasVulnerablesRepository tarjetasVulnerablesRepository
+  ) {
+    this.genericRepository = genericRepository;
+    this.tarjetasVulnerablesRepository = tarjetasVulnerablesRepository;
+  }
 
   /**
    * Crea un vulnerable a partir de un DTO.
    *
    * @param vulnerableInputDto el DTO con los datos del vulnerable.
-   * @return el vulnerable creado.
    */
 
-  public Vulnerable crear(VulnerableInputDto vulnerableInputDto) {
+  public void crear(VulnerableInputDto vulnerableInputDto) {
+    this.crear(vulnerableInputDto, null);
+  }
+
+  /** Crea un vulnerable a partir de un input.
+   *
+   * @param vulnerableInputDto el input de un vulnerable.
+   * @param domicilio domicilio del vulnerable.
+   */
+
+  public void crear(VulnerableInputDto vulnerableInputDto, Direccion domicilio) {
     Vulnerable vulnerable = new Vulnerable();
     vulnerable.setNombre(vulnerableInputDto.getNombre());
     vulnerable.setFechaNacimiento(LocalDate.parse(vulnerableInputDto.getFechaNacimiento()));
@@ -31,25 +53,13 @@ public class VulnerablesService {
     Integer nroDocumento = Integer.parseInt(vulnerableInputDto.getNumeroDocumento());
     vulnerable.setDocumento(new Documento(nroDocumento, tipoDocumento));
 
-    String nombreUbicacion = vulnerableInputDto.getCalle() + " " + vulnerableInputDto.getNumero()
-        + ", " + vulnerableInputDto.getBarrio() + ", " + vulnerableInputDto.getCiudad()
-        + ", " + vulnerableInputDto.getProvincia();
+    vulnerable.setDomicilio(domicilio);
 
-    //TODO estan como 0 por ahora, pensar que dato usar
-    DireccionInputDto direccionInputDto = DireccionInputDto.builder()
-        .nombreUbicacion(nombreUbicacion)
-        .latitud(String.valueOf(0)) // falta
-        .longitud(String.valueOf(0)) // falta
-        .provincia(vulnerableInputDto.getProvincia())
-        .ciudad(vulnerableInputDto.getCiudad())
-        .barrio(vulnerableInputDto.getBarrio())
-        .calle(vulnerableInputDto.getCalle())
-        .numero(vulnerableInputDto.getNumero())
-        .build();
+    Optional<TarjetaVulnerable> posibleTarjeta =
+        this.tarjetasVulnerablesRepository.buscarPorUuid(vulnerableInputDto.getTarjeta());
 
-    vulnerable.setDomicilio(ServiceLocator.instanceOf(DireccionesService.class)
-        .crear(direccionInputDto));
+    //TODO LOGICA TARJETA
 
-    return vulnerable;
+    this.genericRepository.guardar(vulnerable);
   }
 }

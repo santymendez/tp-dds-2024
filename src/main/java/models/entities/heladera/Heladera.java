@@ -14,12 +14,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.db.Persistente;
 import models.entities.direccion.Direccion;
@@ -39,7 +37,6 @@ import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "heladeras")
 public class Heladera extends Persistente {
@@ -104,6 +101,24 @@ public class Heladera extends Persistente {
     this.modelo = modelo;
     this.estaAbierta = false;
     this.capacidadMaximaViandas = capacidadMaximaViandas;
+    this.viandas = new ArrayList<>();
+
+    this.estadosHeladera = new ArrayList<>();
+    this.estadoActual = new Estado(TipoEstado.ACTIVA);
+    this.estadosHeladera.add(estadoActual);
+
+    this.suscripciones = new ArrayList<>();
+
+    this.tarjetasHabilitadas = new ArrayList<>();
+    this.limitador = new Limitador(UnidadTiempo.HORAS, 3);
+  }
+
+  /**
+   * Contructor sin argumentos de la clase heladera.
+   */
+
+  public Heladera() {
+    this.estaAbierta = false;
     this.viandas = new ArrayList<>();
 
     this.estadosHeladera = new ArrayList<>();

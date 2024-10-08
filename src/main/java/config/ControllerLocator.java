@@ -56,8 +56,7 @@ public class ControllerLocator {
         HeladerasController instance = new HeladerasController(
             RepositoryLocator.instanceOf(GenericRepository.class),
             ServiceLocator.instanceOf(HeladerasService.class),
-            ServiceLocator.instanceOf(DireccionesService.class),
-            RepositoryLocator.instanceOf(DireccionesRepository.class)
+            ServiceLocator.instanceOf(DireccionesService.class)
         );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(OldCsvController.class)) {
@@ -78,7 +77,8 @@ public class ControllerLocator {
       } else if (controllerClass.equals(VulnerablesController.class)) {
         VulnerablesController instance = new VulnerablesController(
             RepositoryLocator.instanceOf(GenericRepository.class),
-            ServiceLocator.instanceOf(VulnerablesService.class)
+            ServiceLocator.instanceOf(VulnerablesService.class),
+            ServiceLocator.instanceOf(DireccionesService.class)
         );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(MapaController.class)) {

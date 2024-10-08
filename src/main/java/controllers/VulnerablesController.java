@@ -1,13 +1,15 @@
 package controllers;
 
+import dtos.DireccionInputDto;
 import dtos.VulnerableInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
-import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
+import services.DireccionesService;
 import services.VulnerablesService;
 import utils.javalin.InterfaceCrudViewsHandler;
 
@@ -19,13 +21,23 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
   private final GenericRepository vulnerablesRepository;
   private final VulnerablesService vulnerablesService;
+  private final DireccionesService direccionesService;
+
+  /** Construcctor de la clase.
+   *
+   * @param vulnerablesRepository el repo de vulnerables.
+   * @param vulnerablesService el sevice de vulnerables.
+   * @param direccionesService el service de direcciones.
+   */
 
   public VulnerablesController(
       GenericRepository vulnerablesRepository,
-      VulnerablesService vulnerablesService
+      VulnerablesService vulnerablesService,
+      DireccionesService direccionesService
   ) {
     this.vulnerablesRepository = vulnerablesRepository;
     this.vulnerablesService = vulnerablesService;
+    this.direccionesService = direccionesService;
   }
 
   @Override
@@ -53,28 +65,19 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-
-    VulnerableInputDto vulnerableInputDto = new VulnerableInputDto();
-    vulnerableInputDto.setNombre(context.formParam("nombre"));
-    vulnerableInputDto.setFechaNacimiento(context.formParam("fechaNacimiento"));
-    vulnerableInputDto.setTipoDocumento(context.formParam("tipoDocumento"));
-    vulnerableInputDto.setNumeroDocumento(context.formParam("numeroDocumento"));
-    vulnerableInputDto.setProvincia(context.formParam("provincia"));
-    vulnerableInputDto.setCiudad(context.formParam("ciudad"));
-    vulnerableInputDto.setBarrio(context.formParam("barrio"));
-    vulnerableInputDto.setCalle(context.formParam("calle"));
-    vulnerableInputDto.setNumero(context.formParam("numeroCalle"));
-    vulnerableInputDto.setCantMenores(context.formParam("cantMenores"));
+    VulnerableInputDto vulnerableInputDto = VulnerableInputDto.fromContext(context);
+    DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
     //TODO LOGICA DE MENORES A CARGO
 
-    try {
-      Vulnerable vulnerable = this.vulnerablesService.crear(vulnerableInputDto);
-      this.vulnerablesRepository.guardar(vulnerable);
-      context.redirect("/heladeras-solidarias");
-    } catch (Exception e) {
-      context.status(500).result("Error al guardar el vulnerable: " + e.getMessage());
+    if (direccionInputDto != null) {
+      Direccion direccion = this.direccionesService.crear(direccionInputDto);
+      this.vulnerablesService.crear(vulnerableInputDto, direccion);
+    } else {
+      this.vulnerablesService.crear(vulnerableInputDto);
     }
+
+    context.redirect("/heladeras-solidarias");
   }
 
   @Override

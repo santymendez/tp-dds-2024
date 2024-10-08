@@ -9,19 +9,12 @@
             <label for="actionSelector" class="form-label chico">Elige una acción</label>
             <select class="form-select form-select-lg chico" id="actionSelector">
             <option value="" selected>Elija una opción</option>
-                {{#chequearRol tipo_rol "ADMINISTRADOR"}}
-                        <option value="darAlta">Dar de Alta</option>
-                        <option value="darBaja">Dar de Baja</option>
-                        <option value="modificar">Modificar Heladera</option>
-                        <option value="verAlertas">Ver Alertas</option>
-                {{else}}
-                    {{#chequearRol tipo_rol "PERSONA_FISICA"}}
-                        <option value="suscribirse">Suscribirse</option>
-                        <option value="reportarFalla">Reportar Falla Técnica</option>
-                        <option value="recomendaciones">Solicitar Recomendación</option>
-                    {{/chequearRol}}
-                    <!-- TODO MAS ROLES -->
+                {{#chequearRol tipo_rol "PERSONA_FISICA"}}
+                    <option value="suscribirse">Suscribirse</option>
+                    <option value="reportarFalla">Reportar Falla Técnica</option>
+                    <option value="recomendaciones">Solicitar Recomendación</option>
                 {{/chequearRol}}
+                    <!-- TODO MAS ROLES -->
             </select>
         </div>
     </div>
@@ -71,8 +64,6 @@
         </form>
     </div>
 
-<!--    <div class="reportar_falla"></div> TODO se puede borrar esta linea? -->
-
     <div id="reportarFalla" class="suscribirse-content action-form d-none">
         <form class="probar">
             <div class="mb-3 primero">
@@ -104,153 +95,6 @@
         </form>
     </div>
 
-    <div id="darAlta" class="d-none action-form">
-        <form>
-            <input type="hidden" name="formtype" value="darAlta">
-            <div class="row darAlta">
-                <div class="col-md-6 mb-3">
-                    <label for="nombreHeladera" class="form-label">Nombre de la Heladera *</label>
-                    <input type="text" class="form-control" id="nombreHeladera" placeholder="Ingresar nombre" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="modeloHeladera" class="form-label">Modelo de la Heladera *</label>
-                    <input type="text" class="form-control" id="modeloHeladera" placeholder="Ingresar modelo" required>
-                </div>
-            </div>
-            <div class="row">
-                <!-- TODO AGREGAR LAT LONG BARRIO ETC, LAT LONG NOMBRE_UBICACION OBLIGATORIOS-->
-                <div class="col-md-6 mb-3">
-                    <label for="direccionHeladera" class="form-label">Dirección *</label>
-                    <input type="text" class="form-control" id="direccionHeladera" placeholder="Ingresar dirección" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="fechaAltaHeladera" class="form-label">Fecha de Alta *</label>
-                    <input type="date" class="form-control" id="fechaAltaHeladera" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="minTempHeladera" class="form-label">Temperatura Mínima *</label>
-                    <input type="number" step="1" class="form-control" id="minTempHeladera" placeholder="Ingresar temperatura mínima" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="maxTempHeladera" class="form-label">Temperatura Máxima *</label>
-                    <input type="number" step="1" class="form-control" id="maxTempHeladera" placeholder="Ingresar temperatura máxima" required>
-                </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Registrar Heladera</button>
-            </div>
-        </form>
-    </div>
-
-    <div id="darBaja" class="suscribirse-content action-form d-none">
-        <form class="probar">
-            <input type="hidden" name="formtype" value="darBaja">
-            <div class="mb-3 primero">
-                <div class = "mediano_s">
-                    <label for="actionSelector" class="form-label chico">Elija una Heladera</label>
-                    <select class="form-select form-select-lg chico" id="actionSelector">
-                        <option value="" disabled selected>Seleccione una heladera</option>
-                        {{#each heladeras}}
-                            <option value="{{this.getId}}">{{this.getNombre}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-            </div>
-
-            <div class="algo">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <textarea name="descripcion" id="descripcion" class="form-control"></textarea>
-            </div>
-            <div class="d-grid gap-2 col-6 mx-auto">
-                <button type="submit" class="btn btn-primary">Reportar</button>
-            </div>
-
-        </form>
-    </div>
-
-    <div id="modificar" class="action-form container mt-5 nopadding d-none">
-        <form>
-            <div class="fila">
-                <label for="actionSelector" class="form-label chico">Elija una Heladera</label>
-                <select class="form-select form-select-lg chico" id="actionSelector">
-                    <option value="" disabled selected>Seleccione una heladera</option>
-                    {{#each heladeras}}
-                        <option value="{{this.getId}}">{{this.getNombre}}</option>
-                    {{/each}}
-                </select>
-            </div>
-
-            <div class="fila columnas">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="nombreHeladera" class="form-label este">Nombre</label>
-                        <input type="text" class="form-control" id="nombreHeladera2" placeholder="Ingresar nombre de la heladera">
-                    </div>
-                    <div class="form-group">
-                        <label for="minTempHeladera" class="form-label este">Temperatura Mínima</label>
-                        <input type="number" class="form-control" id="minTempHeladera2" placeholder="Ingresar temperatura mínima">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="direccionHeladera" class="form-label este">Dirección</label>
-                        <input type="text" class="form-control" id="direccionHeladera2" placeholder="Ingresar dirección de la heladera">
-                    </div>
-                    <div class="form-group">
-                        <label for="maxTempHeladera" class="form-label este">Temperatura Máxima</label>
-                        <input type="number" class="form-control" id="maxTempHeladera2" placeholder="Ingresar temperatura máxima">
-                    </div>
-                </div>
-            </div>
-
-            <div class="fila">
-                <label for="modeloHeladera" class="form-label este">Modelo de la Heladera</label>
-                <input type="text" class="form-control ancho-reducido-rmx" id="modeloHeladera2" placeholder="Ingresar modelo de la heladera">
-            </div>
-
-            <div class="fila">
-                <label for="razonModificacion" class="form-label este">Razón de la Modificación</label>
-                <textarea id="razonModificacion" class="form-control" rows="4" placeholder="Ingrese la razón de la modificación (opcional)"></textarea>
-            </div>
-
-            <div class="fila d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary btn-lg">Modificar Heladera</button>
-            </div>
-        </form>
-    </div>
-
-    <div id="verAlertas" class="containerEste d-none action-form">
-        <form>
-            <input type="hidden" name="formType" value="verAlertas">
-            <div class="mb-3 containerPrincipal">
-                <label for="actionSelector" class="form-label chico">Elija una Heladera</label>
-                <select class="form-select form-select-lg chico" id="actionSelector">
-                    <option value="" disabled selected>Seleccione una heladera</option>
-                    {{#each heladeras}}
-                        <option value="{{this.getId}}">{{this.getNombre}}</option>
-                    {{/each}}
-                </select>
-            </div>
-
-            <div id="heladera_1" class="list-group">
-                <a class="list-group-item">
-                    <div class="d-flex w-100 justify-content-between temperatura">
-                        <h4>Exceso de Temperatura</h4>
-                        <h4>Valor: 23.5º</h4>
-                        <h4>Momento: 23-10-2024-11:55</h4>
-                    </div>
-                </a>
-                <a class="list-group-item">
-                    <div class="d-flex w-100 justify-content-between temperatura">
-                        <h4>Fraude</h4>
-                        <h4>Momento: 23-10-2024-11:55</h4>
-                    </div>
-                </a>
-            </div>
-        </form>
-    </div>
 {{/partial}}
 
 {{#partial "scripts"}}
@@ -269,21 +113,6 @@
             if (selectedValue == "/heladeras-solidarias/heladeras") {
                 window.location.href = selectedValue;
             }
-        });
-    </script>
-
-    <script>
-        document.getElementById('actionSelector').addEventListener('change', function () {
-            var selectedValue = this.value;
-            var actionForms = document.querySelectorAll('.action-form');
-
-            actionForms.forEach(function (form) {
-                if (form.id === selectedValue) {
-                    form.classList.remove('d-none');
-                } else {
-                    form.classList.add('d-none');
-                }
-            });
         });
     </script>
 {{/partial}}

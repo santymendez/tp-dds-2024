@@ -5,6 +5,7 @@ import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ProvinciasRepository;
+import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
@@ -48,7 +49,10 @@ public class ServiceLocator {
         );
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(VulnerablesService.class)) {
-        VulnerablesService instance = new VulnerablesService();
+        VulnerablesService instance = new VulnerablesService(
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(TarjetasVulnerablesRepository.class)
+        );
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(ColaboracionesService.class)) {
         ColaboracionesService instance = new ColaboracionesService();
@@ -66,7 +70,9 @@ public class ServiceLocator {
             RepositoryLocator.instanceOf(GenericRepository.class));
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(HeladerasService.class)) {
-        HeladerasService instance = new HeladerasService();
+        HeladerasService instance = new HeladerasService(
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
         instances.put(serviceName, instance);
       }
     }

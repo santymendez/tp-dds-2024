@@ -7,13 +7,9 @@ import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
-import models.entities.personas.colaborador.Colaborador;
-import models.entities.personas.colaborador.TipoColaborador;
-import models.entities.personas.users.TipoRol;
 import models.entities.personas.users.Usuario;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ProvinciasRepository;
@@ -42,13 +38,13 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
   /**
    * Constructor de la clase.
    *
-   * @param usuariosRepository Repositorio de usuarios
-   * @param genericRepository Repositorio de colaboradores
+   * @param usuariosRepository   Repositorio de usuarios
+   * @param genericRepository    Repositorio de colaboradores
    * @param provinciasRepository Repositorio de provincias
-   * @param direccionesService Servicio de direcciones
-   * @param usuariosService Servicio de usuarios
+   * @param direccionesService   Servicio de direcciones
+   * @param usuariosService      Servicio de usuarios
    * @param colaboradoresService Servicio de colaboradores
-   * @param autenticador Autenticador
+   * @param autenticador         Autenticador
    */
 
   public RegistrarColaboradorController(
@@ -94,16 +90,10 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
 
     if (context.sessionAttribute("idUsuario") != null) {
       context.redirect("/heladeras-solidarias");
+      return;
     }
 
-    //Inicializo algunas variables locales para despues
-    TipoRol rol = null;
-
-    //Creacion del usuario
-    UsuarioDto usuarioDto = new UsuarioDto(
-        context.formParam("usuario"),
-        context.formParam("contrasenia")
-    );
+    UsuarioDto usuarioDto = UsuarioDto.fromContext(context);
 
     //Se valida que no existe ese nombre de usuario
     Optional<Usuario> posibleUsuario =
@@ -116,6 +106,7 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
           "Nombre de usuario ya registrado."
       );
       context.redirect("/heladeras-solidarias/registrarse");
+      return;
     }
 
     //Se valida la contraseña
@@ -126,72 +117,22 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
           "Contraseña invalida.\n Motivo:\n" + autenticador.mostrarMensajesConFormato()
       );
       context.redirect("/heladeras-solidarias/registrarse");
+      return;
     }
 
-    //Creación del colaborador asociado al usuario
-    ColaboradorInputDto colaboradorDto = new ColaboradorInputDto();
+    //Creación del colaborador y la dirección asociado al usuario
+    ColaboradorInputDto colaboradorDto = ColaboradorInputDto.fromContext(context);
+    DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
-    colaboradorDto.setTipoContacto(context.formParam("tipoContacto"));
-    colaboradorDto.setContacto(context.formParam("contacto"));
+    Direccion direccion = null;
 
-    String calle = context.formParam("calle");
-    String numero = context.formParam("numero");
-    String provincia = context.formParam("provincia");
-    String barrio = context.formParam("barrio");
-    String ciudad = context.formParam("ciudad");
-
-    DireccionInputDto direccionInputDto = null;
-
-    if (!Objects.equals(calle, "") && !Objects.equals(numero, "") && !Objects.equals(provincia, "")
-              && !Objects.equals(barrio, "") && !Objects.equals(ciudad, "")) {
-      direccionInputDto = DireccionInputDto.builder()
-          .calle(calle)
-          .numero(numero)
-          .provincia(provincia)
-          .barrio(barrio)
-          .ciudad(ciudad)
-          .build();
-    }
-
-    TipoColaborador tipoColaborador = TipoColaborador.valueOf(context.formParam("tipoColaborador"));
-
-    if (tipoColaborador == TipoColaborador.JURIDICO) {
-      rol = TipoRol.PERSONA_JURIDICA;
-
-      colaboradorDto.setTipoColaborador(tipoColaborador.toString());
-
-      colaboradorDto.setRubro(context.formParam("rubro"));
-      colaboradorDto.setTipo(context.formParam("tipoOrganizacion"));
-      colaboradorDto.setRazonSocial(context.formParam("razonSocial"));
-
-    } else if (tipoColaborador == TipoColaborador.FISICO) {
-      //Rol
-      rol = TipoRol.PERSONA_FISICA;
-
-      colaboradorDto.setTipoColaborador(tipoColaborador.toString());
-      colaboradorDto.setNombre(context.formParam("nombreFisica"));
-      colaboradorDto.setApellido(context.formParam("apellidoFisica"));
-      colaboradorDto.setTipoDocumento(context.formParam("tipoDocFisica"));
-      colaboradorDto.setNumeroDocumento(context.formParam("nroDocFisica"));
-    }
-
-    //Se crean el usuario y el colaborador
-    Usuario nuevoUsuario = usuariosService.crear(usuarioDto);
-    nuevoUsuario.setTipoRol(rol);
-
-    Colaborador nuevoColaborador = colaboradoresService.crear(colaboradorDto);
-    nuevoColaborador.setUsuario(nuevoUsuario);
-
-    //Si tiene direccion la guardo
     if (direccionInputDto != null) {
-      Direccion direccion = this.direccionesService.crear(direccionInputDto);
-      nuevoColaborador.setDireccion(direccion);
+      direccion = this.direccionesService.crear(direccionInputDto);
       this.genericRepository.guardar(direccion);
     }
 
-    //Se guardan en los repos
-    usuariosRepository.guardar(nuevoUsuario);
-    genericRepository.guardar(nuevoColaborador);
+    Usuario nuevoUsuario = this.usuariosService.crear(usuarioDto);
+    this.colaboradoresService.crear(colaboradorDto, direccion, nuevoUsuario);
 
     //Se setea la session
     context.sessionAttribute("idUsuario", nuevoUsuario.getId());

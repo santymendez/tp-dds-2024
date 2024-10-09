@@ -21,4 +21,8 @@ public class RealizacionOfertas {
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "colaboracion_id", referencedColumnName = "id")
   private List<Oferta> ofertasRealizadas;
+
+  public void agregarOferta(Oferta oferta) {
+    this.ofertasRealizadas.add(oferta);
+  }
 }

@@ -37,8 +37,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: bold;
     margin-top: 10px;
-    text-align: left;
+    text-align: center;
+}
+
+.button-points {
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-style: italic;
+    text-decoration: underline;
+    padding: 0;
+    box-shadow: none;
 }
 
 .redeem-button {

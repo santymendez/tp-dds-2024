@@ -13,21 +13,22 @@ import controllers.OldCsvController;
 import controllers.RegistrarColaboradorController;
 import controllers.SuscribirseController;
 import controllers.VulnerablesController;
+import controllers.colaboraciones.DistribuirViandasController;
 import controllers.colaboraciones.DonarDineroController;
 import java.util.HashMap;
 import java.util.Map;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
-import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.UsuariosRepository;
+import services.CanjearPuntosService;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.DireccionesService;
+import services.DistribucionViandasService;
 import services.HeladerasService;
 import services.IncidentesService;
-import services.OfertasService;
 import services.UsuariosService;
 import services.VulnerablesService;
 import utils.security.Autenticador;
@@ -70,8 +71,9 @@ public class ControllerLocator {
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(CanjearPuntosController.class)) {
         CanjearPuntosController instance = new CanjearPuntosController(
-                RepositoryLocator.instanceOf(GenericRepository.class),
-                ServiceLocator.instanceOf(OfertasService.class)
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
+            ServiceLocator.instanceOf(CanjearPuntosService.class)
         );
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(VulnerablesController.class)) {
@@ -133,8 +135,17 @@ public class ControllerLocator {
         HeladerasAdminController instance = new HeladerasAdminController();
         instances.put(controllerName, instance);
       } else if (controllerClass.equals(ColaboracionesController.class)) {
-        ColaboracionesController instance = new ColaboracionesController();
+        ColaboracionesController instance = new ColaboracionesController(
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
         instances.put(controllerName, instance);
+      } else if (controllerClass.equals(DistribuirViandasController.class)) {
+        DistribuirViandasController instance = new DistribuirViandasController(
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
+            ServiceLocator.instanceOf(DistribucionViandasService.class),
+            ServiceLocator.instanceOf(ColaboracionesService.class)
+        );
       }
     }
 

@@ -6,11 +6,12 @@ import dtos.DistribucionTarjetasDto;
 import dtos.DistribucionViandasDto;
 import dtos.DonacionDineroDto;
 import dtos.DonacionViandasDto;
-import dtos.RealizacionOfertasDto;
 import models.entities.colaboracion.Colaboracion;
+import models.entities.colaboracion.DistribucionViandas;
 import models.entities.colaboracion.DonacionDinero;
+import models.entities.colaboracion.RealizacionOfertas;
 import models.entities.colaboracion.TipoColaboracion;
-import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.canje.Oferta;
 import models.factories.FactoryColaboracion;
 
 /**
@@ -25,9 +26,7 @@ public class ColaboracionesService {
    * @param dtoColaboracion input del csv para la creacion.
    */
 
-  public Colaboracion crearDesdeCsv(
-      ColaboracionInputDto dtoColaboracion
-  ) {
+  public Colaboracion crearDesdeCsv(ColaboracionInputDto dtoColaboracion) {
     return FactoryColaboracion.crearDesdeCsv(dtoColaboracion);
   }
 
@@ -65,8 +64,37 @@ public class ColaboracionesService {
     return null;
   }
 
-  public Colaboracion crear(RealizacionOfertasDto distribucionTarjetasDto) {
-    return null;
+  /**
+   * Crea una colaboracion a partir de una oferta.
+   *
+   * @param oferta input de realizacion de ofertas.
+   * @return colaboracion.
+   */
+
+  public Colaboracion crear(Oferta oferta) {
+    RealizacionOfertas realizacionOfertas = new RealizacionOfertas();
+    realizacionOfertas.agregarOferta(oferta);
+
+    Colaboracion colaboracion = new Colaboracion();
+    colaboracion.setRealizarOfertas(realizacionOfertas);
+    colaboracion.setTipoColaboracion(TipoColaboracion.REALIZAR_OFERTAS);
+
+    return colaboracion;
+  }
+
+  /**
+   * Crea una colaboracion a partir de una distribucion de viandas.
+   *
+   * @param distribucion distribucion de viandas.
+   * @return colaboracion.
+   */
+
+  public Colaboracion crear(DistribucionViandas distribucion) {
+    Colaboracion colaboracion = new Colaboracion();
+    colaboracion.setDistribucionViandas(distribucion);
+    colaboracion.setTipoColaboracion(TipoColaboracion.DISTRIBUIR_VIANDAS);
+
+    return colaboracion;
   }
 
 }

@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import models.db.Persistente;
 import models.entities.personas.colaborador.Colaborador;
 
@@ -13,6 +15,8 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Entity
 @Table(name = "canjes")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Canje extends Persistente {
 
   @ManyToOne

@@ -11,11 +11,14 @@
     <div class="services-container" id="services-container">
         {{#each ofertas}}
             <div class="service-rectangle">
-                <img src="{{this.imagenIlustrativa}}" alt="Service Image" class="service-image">
-                <p class="service-name">{{this.nombre}}</p>
-                <p class="service-description">{{this.descripcion}}</p>
-                <p class="service-points">{{this.puntosNecesarios}} pts <span
-                        class="redeem-button">Canjear</span></p>
+                <form class="formulario" method="POST" action="/heladeras-solidarias/canjear-puntos">
+                    <input type="hidden" name="idOferta" value="{{this.id}}">
+                    <img src="{{this.imagenIlustrativa}}" alt="Service Image" class="service-image">
+                    <p class="service-name">{{this.nombre}}</p>
+                    <p class="service-description">{{this.descripcion}}</p>
+                    <p class="service-points"> Puntos: {{this.puntosNecesarios}}</p>
+                    <button type="submit" class="button-points">Canjear</button>
+                </form>
             </div>
         {{/each}}
     </div>

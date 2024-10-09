@@ -12,10 +12,11 @@ import controllers.MapaController;
 import controllers.RegistrarColaboradorController;
 import controllers.SuscribirseController;
 import controllers.VulnerablesController;
+import controllers.colaboraciones.DistribuirViandasController;
 import controllers.colaboraciones.DonarDineroController;
 import controllers.colaboraciones.DonarViandasController;
-import controllers.colaboraciones.TarjetasController;
-import controllers.colaboraciones.ViandasController;
+import controllers.colaboraciones.DsitribuirTarjetasController;
+import controllers.colaboraciones.RealizarOfertasController;
 import io.javalin.Javalin;
 import java.util.Map;
 import java.util.Objects;
@@ -65,7 +66,7 @@ public class Router {
 
     app.post("/heladeras-solidarias/vulnerables",
         ControllerLocator.instanceOf(VulnerablesController.class)::save,
-        TipoRol.PERSONA_FISICA, TipoRol.ADMINISTRADOR);
+        TipoRol.PERSONA_FISICA);
 
     //CANJEAR PUNTOS
 
@@ -73,10 +74,17 @@ public class Router {
         ControllerLocator.instanceOf(CanjearPuntosController.class)::index,
         TipoRol.PERSONA_FISICA, TipoRol.EMPRESA_ASOCIADA, TipoRol.ADMINISTRADOR);
 
+    app.post("/heladeras-solidarias/canjear-puntos",
+        ControllerLocator.instanceOf(CanjearPuntosController.class)::update,
+        TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA);
+
     //COLABORAR
     app.get("/heladeras-solidarias/colaborar", 
         ControllerLocator.instanceOf(ColaboracionesController.class)::create,
-        TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
+        TipoRol.PERSONA_FISICA,
+        TipoRol.PERSONA_JURIDICA,
+        TipoRol.ADMINISTRADOR,
+        TipoRol.EMPRESA_ASOCIADA);
 
     app.post("/heladeras-solidarias/colaborar", ctx -> {
       String formType = ctx.formParam("formType");
@@ -86,17 +94,17 @@ public class Router {
         case "donarViandas" ->
             ControllerLocator.instanceOf(DonarViandasController.class).save(ctx);
         case "realizarOfertas" ->
-            ControllerLocator.instanceOf(CanjearPuntosController.class).save(ctx);
+            ControllerLocator.instanceOf(RealizarOfertasController.class).save(ctx);
         case "colocar-heladera" ->
             ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
         case "distribuirTarjetas" ->
-            ControllerLocator.instanceOf(TarjetasController.class).edit(ctx);
+            ControllerLocator.instanceOf(DsitribuirTarjetasController.class).edit(ctx);
         case "distribuirViandas" ->
-            ControllerLocator.instanceOf(ViandasController.class).edit(ctx);
+            ControllerLocator.instanceOf(DistribuirViandasController.class).edit(ctx);
         default -> ctx.status(404).render("/error404.hbs",
             Map.of("titulo", "Error 404", "mensaje", "Tipo de formulario no valido"));
       }
-    }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
+    }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA);
 
     app.get("/heladeras-solidarias/heladeras",
         ControllerLocator.instanceOf(HeladerasController.class)::index,
@@ -110,7 +118,7 @@ public class Router {
         case "recomendaciones" -> System.out.println("NO LO TENEMOS");
         default -> ctx.status(400).result("Tipo de formulario no valido");
       }
-    });
+    }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
 
     //VISTAS ADMINISTRADOR
     app.get("/heladeras-solidarias/heladeras-admin",
@@ -126,7 +134,7 @@ public class Router {
         case "verAlertas" -> System.out.println("NO LO TENEMOS");
         default -> ctx.status(400).result("Tipo de formulario no valido");
       }
-    });
+    }, TipoRol.ADMINISTRADOR);
 
     app.get("/heladeras-solidarias/ver-mapa",
         ControllerLocator.instanceOf(MapaController.class)::index);
@@ -135,7 +143,7 @@ public class Router {
         ControllerLocator.instanceOf(CsvController.class)::create, TipoRol.ADMINISTRADOR);
 
     app.post("heladeras-solidarias/cargar-csv",
-        ControllerLocator.instanceOf(CsvController.class)::save);
+        ControllerLocator.instanceOf(CsvController.class)::save, TipoRol.ADMINISTRADOR);
 
   }
 }

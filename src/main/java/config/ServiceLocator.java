@@ -7,9 +7,11 @@ import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
+import services.CanjearPuntosService;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.DireccionesService;
+import services.DistribucionViandasService;
 import services.HeladerasService;
 import services.IncidentesService;
 import services.OfertasService;
@@ -58,9 +60,7 @@ public class ServiceLocator {
         ColaboracionesService instance = new ColaboracionesService();
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(OfertasService.class)) {
-        OfertasService instance = new OfertasService(
-            RepositoryLocator.instanceOf(ColaboradoresRepository.class)
-        );
+        OfertasService instance = new OfertasService();
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(UsuariosService.class)) {
         UsuariosService instance = new UsuariosService();
@@ -71,6 +71,14 @@ public class ServiceLocator {
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(HeladerasService.class)) {
         HeladerasService instance = new HeladerasService(
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
+        instances.put(serviceName, instance);
+      } else if (serviceClass.equals(DistribucionViandasService.class)) {
+        DistribucionViandasService instance = new DistribucionViandasService();
+        instances.put(serviceName, instance);
+      } else if (serviceClass.equals(CanjearPuntosService.class)) {
+        CanjearPuntosService instance = new CanjearPuntosService(
             RepositoryLocator.instanceOf(GenericRepository.class)
         );
         instances.put(serviceName, instance);

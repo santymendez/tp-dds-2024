@@ -1,5 +1,6 @@
 package dtos;
 
+import io.javalin.http.Context;
 import lombok.Data;
 import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.contacto.TipoContacto;
@@ -42,6 +43,28 @@ public class ColaboradorInputDto {
     colaboradorInputDto.setContacto(line[4]);
     colaboradorInputDto.setTipoContacto(TipoContacto.MAIL.toString());
     colaboradorInputDto.setTipoColaborador(TipoColaborador.FISICO.toString());
+    return colaboradorInputDto;
+  }
+
+  /**
+   * Metodo que genera un colaborador dto a partir del contexto.
+   *
+   * @param context Contexto.
+   * @return colaboradorInputDto generado.
+   */
+
+  public static ColaboradorInputDto fromContext(Context context) {
+    ColaboradorInputDto colaboradorInputDto = new ColaboradorInputDto();
+    colaboradorInputDto.setNombre(context.formParam("nombre"));
+    colaboradorInputDto.setApellido(context.formParam("apellido"));
+    colaboradorInputDto.setTipoDocumento(context.formParam("tipoDocumento"));
+    colaboradorInputDto.setNumeroDocumento(context.formParam("numeroDocumento"));
+    colaboradorInputDto.setRazonSocial(context.formParam("razonSocial"));
+    colaboradorInputDto.setTipo(context.formParam("tipoOrganizacion"));
+    colaboradorInputDto.setRubro(context.formParam("rubro"));
+    colaboradorInputDto.setContacto(context.formParam("contacto"));
+    colaboradorInputDto.setTipoContacto(context.formParam("tipoContacto"));
+    colaboradorInputDto.setTipoColaborador(context.formParam("tipoColaborador"));
     return colaboradorInputDto;
   }
 }

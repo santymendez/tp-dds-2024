@@ -4,10 +4,11 @@ import io.javalin.http.Context;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
- * TarjetasController.
+ * Controller para la distribucion de tarjetas.
  */
 
-public class TarjetasController implements InterfaceCrudViewsHandler {
+public class DsitribuirTarjetasController implements InterfaceCrudViewsHandler {
+
   @Override
   public void index(Context context) {
 
@@ -26,7 +27,6 @@ public class TarjetasController implements InterfaceCrudViewsHandler {
   @Override
   public void save(Context context) {
 
-    context.redirect("/heladeras-solidarias");
   }
 
   @Override

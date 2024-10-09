@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 import models.entities.personas.users.Usuario;
 import models.repositories.imp.UsuariosRepository;
-import services.UsuariosService;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -43,6 +42,7 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     if (context.sessionAttribute("idUsuario") != null) {
       context.redirect("/heladeras-solidarias");
+      return;
     }
 
     UsuarioDto usuarioDto = new UsuarioDto(

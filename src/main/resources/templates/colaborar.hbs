@@ -9,13 +9,19 @@
             <label for="actionSelector" class="form-label chico">Elige una acción</label>
             <select class="form-select form-select-lg chico" id="actionSelector">
                 <option value="" selected>Elija una opción</option>
-                <option value="donar_dinero">Donar Dinero</option>
-                <option value="donar_viandas">Donar Viandas</option>
-                <option value="realizar_ofertas">Realizar una Oferta</option>
-                <option value="distribuir_tarjetas">Distribuir Tarjetas</option>
-                <option value="distribuir_viandas">Distribuir Viandas</option>
-                <option value="/heladeras-solidarias/colaborar/colocar-heladera">
-                    Colocar una Heladera</option>
+                {{#chequearRol tipo_rol "PERSONA_FISICA"}}
+                    <option value="donar_dinero">Donar Dinero</option>
+                    <option value="donar_viandas">Donar Viandas</option>
+                    <option value="distribuir_tarjetas">Distribuir Tarjetas</option>
+                    <option value="distribuir_viandas">Distribuir Viandas</option>
+                {{/chequearRol}}
+                {{#chequearRol tipo_rol "PERSONA_JURIDICA"}}
+                    <option value="donar_dinero">Donar Dinero</option>
+                    <option value="colocar_heladera">Colocar una Heladera</option>
+                {{/chequearRol}}
+                {{#chequearRol tipo_rol "EMPRESA_ASOCIADA"}}
+                    <option value="realizar_ofertas">Realizar una Oferta</option>
+                {{/chequearRol}}
             </select>
         </div>
 
@@ -27,13 +33,13 @@
                 <div class="mb-3">
                     <label for="monto" class="form-label">Ingresar monto</label>
                     <input name="montoDonado" class="form-control form-control-lg espacio"
-                           id="monto" placeholder="Ej. 1000">
+                           id="monto" placeholder="Ej. 1000" required>
                 </div>
                 <div class="mb-3">
                     <label for="frecuencia" class="form-label izquierda">Seleccionar
                         frecuencia</label>
                     <select name="frecuenciaDonacion" class="form-select form-select-lg espacio"
-                            id="frecuencia">
+                            id="frecuencia" required>
                         <option value="unica">Unica</option>
                         <option value="mensual">Mensual</option>
                         <option value="trimestral">Trimestral</option>
@@ -60,8 +66,9 @@
                         <label for="heladera" class="form-label">Seleccionar heladera</label>
                         <select class="form-select form-select-lg" id="heladera" required>
                             <option value="" selected>Elija una opción</option>
-                            <option value="heladera1">Heladera 1</option>
-                            <option value="heladera2">Heladera 2</option>
+                            {{#each heladeras}}
+                                <option value="{{this.getId}}">{{this.getNombre}}</option>
+                            {{/each}}
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -147,37 +154,36 @@
                 <input type="hidden" name="formType" value="distribuirViandas">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="heladera_origen" class="form-label extra-class">Heladera
-                            Origen</label>
-                        <select class="form-select form-select-lg" id="heladera_origen" required>
+                        <label for="heladera_origen" class="form-label extra-class">Heladera Origen</label>
+                        <select name = "heladeraOrigen" class="form-select form-select-lg" id="heladera_origen" required>
                             <option value="" selected>Elija una opción</option>
-                            <option value="heladera1">Heladera 1</option>
-                            <option value="heladera2">Heladera 2</option>
+                            {{#each heladeras}}
+                                <option value="{{this.getId}}">{{this.getNombre}}</option>
+                            {{/each}}
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="heladera_destino" class="form-label extra-class">Heladera
-                            Destino</label>
-                        <select class="form-select form-select-lg" id="heladera_destino" required>
+                        <label for="heladera_destino" class="form-label extra-class">Heladera Destino</label>
+                        <select name = "heladeraDestino" class="form-select form-select-lg" id="heladera_destino" required>
                             <option value="" selected>Elija una opción</option>
-                            <option value="heladera1">Heladera 1</option>
-                            <option value="heladera2">Heladera 2</option>
+                            {{#each heladeras}}
+                                <option value="{{this.getId}}">{{this.getNombre}}</option>
+                            {{/each}}
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="cantidad_viandas" class="form-label extra-class">Cantidad de
-                            Viandas</label>
-                        <input type="number" class="form-control form-control-lg"
+                        <label for="cantidad_viandas" class="form-label extra-class">Cantidad de Viandas</label>
+                        <input name = "cantidad" type="number" class="form-control form-control-lg"
                                id="cantidad_viandas" placeholder="Ej. 3" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="motivo" class="form-label extra-class">Motivo de la
                             Distribución</label>
-                        <select class="form-select form-select-lg" id="motivo" required>
+                        <select name = "motivo" class="form-select form-select-lg" id="motivo" required>
                             <option value="" selected>Elija una opción</option>
                             <option value="desperfecto">Desperfecto en la heladera</option>
-                            <option value="falta_viandas">Falta de viandas en la heladera destino
-                            </option>
+                            <option value="falta_viandas">Falta de viandas en la heladera destino</option>
+                            <option value="sobra_viandas">Sobran viandas en la heladera origen</option>
                         </select>
                     </div>
                 </div>

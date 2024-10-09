@@ -54,8 +54,8 @@
                     <label for="tipoContactoJuridica" class="form-label">Tipo de Contacto *</label>
                     <select name="tipoContacto" class="form-select" id="tipoContactoJuridica" required>
                         <option selected value="">Seleccione una opción</option>
+                        <option value="MAIL">Email</option>
                         <option value="TELEFONO">Teléfono</option>
-                        <option value="EMAIL">Email</option>
                         <option value="TELEGRAM">Telegram</option>
                     </select>
                 </div>
@@ -122,20 +122,19 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="nombreFisica" class="form-label">Nombre *</label>
-                    <input name="nombreFisica" type="text" class="form-control" id="nombreFisica"
+                    <input name="nombre" type="text" class="form-control" id="nombreFisica"
                            placeholder="Ingresar nombre" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="apellidoFisica" class="form-label">Apellido *</label>
-                    <input name="apellidoFisica" type="text" class="form-control" id="apellidoFisica"
+                    <input name="apellido" type="text" class="form-control" id="apellidoFisica"
                            placeholder="Ingresar apellido" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="tipoDocumentoFisica" class="form-label">Tipo de Documento *</label>
-                    <select name="tipoDocFisica" class="form-select" id="tipoDocumentoFisica" required>
-                        <option selected value="">Seleccione una Opción</option>
+                    <select name="tipoDocumento" class="form-select" id="tipoDocumentoFisica" required>
                         <option value="DNI">DNI</option>
                         <option value="LC">LC</option>
                         <option value="LE">LE</option>
@@ -143,7 +142,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="numeroDocumentoFisica" class="form-label">Nro de Documento *</label>
-                    <input name="nroDocFisica" type="text" class="form-control" id="numeroDocumentoFisica"
+                    <input name="numeroDocumento" type="text" class="form-control" id="numeroDocumentoFisica"
                            placeholder="Ingrese sin puntos ni espacios" required>
                 </div>
             </div>
@@ -152,7 +151,7 @@
                     <label for="tipoContactoFisica" class="form-label">Tipo de Contacto *</label>
                     <select name="tipoContacto" class="form-select" id="tipoContactoFisica" required>
                         <option selected value="">Seleccione una Opción</option>
-                        <option value="MAIL">Email</option>
+                        <option value="MAIL">Mail</option>
                         <option value="WHATSAPP">WhatsApp</option>
                         <option value="TELEGRAM">Telegram</option>
                     </select>

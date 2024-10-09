@@ -25,6 +25,6 @@ public class ColaboracionesHelper {
     colaborador.aumentarReconocimiento(colaboracion);
 
     GenericRepository repository = RepositoryLocator.instanceOf(GenericRepository.class);
-    repository.guardar(colaborador);
+    repository.modificar(colaborador);
   }
 }

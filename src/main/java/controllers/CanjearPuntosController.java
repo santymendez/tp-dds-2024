@@ -1,18 +1,17 @@
 package controllers;
 
-import dtos.OfertaDto;
+import dtos.CanjeInputDto;
 import io.javalin.http.Context;
-import io.javalin.http.UploadedFile;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.canje.Oferta;
+import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
-import org.apache.commons.io.FileUtils;
-import services.OfertasService;
+import services.CanjearPuntosService;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -22,11 +21,25 @@ import utils.javalin.InterfaceCrudViewsHandler;
 public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
   private final GenericRepository ofertasRepository;
-  private final OfertasService ofertasService;
+  private final ColaboradoresRepository colaboradoresRepository;
+  private final CanjearPuntosService canjearPuntosService;
 
-  public CanjearPuntosController(GenericRepository repo, OfertasService ofertasService) {
-    this.ofertasRepository = repo;
-    this.ofertasService = ofertasService;
+  /**
+   * Constructor del controller de canjear puntos.
+   *
+   * @param ofertasRepository el repositorio de ofertas.
+   * @param colaboradoresRepository el repositorio de colaboradores.
+   * @param canjearPuntosService el servicio de canjear puntos.
+   */
+
+  public CanjearPuntosController(
+      GenericRepository ofertasRepository,
+      ColaboradoresRepository colaboradoresRepository,
+      CanjearPuntosService canjearPuntosService
+  ) {
+    this.ofertasRepository = ofertasRepository;
+    this.colaboradoresRepository = colaboradoresRepository;
+    this.canjearPuntosService = canjearPuntosService;
   }
 
   /**
@@ -58,92 +71,39 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
   }
 
-  /**
-   * Crea una vista para colaborar.
-   *
-   * @param context el contexto de la aplicación.
-   */
-
   public void create(Context context) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("titulo", "Ofertas");
-    model.put("activeSession", true);
-    model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
-
-    context.render("colaborar.hbs", model);
   }
-
-  /**
-   * Guarda una oferta.
-   *
-   * @param context el contexto de la aplicación.
-   */
 
   public void save(Context context) {
 
-    OfertaDto nuevaOferta = new OfertaDto();
-    nuevaOferta.setNombre(context.formParam("nombre"));
-    nuevaOferta.setDescripcion(context.formParam("descripcion"));
-    nuevaOferta.setPuntosNecesarios(context.formParam("puntosNecesarios"));
-    nuevaOferta.setOfertante("4");
-    nuevaOferta.setOfertante(context.sessionAttribute("idUsuario"));
-
-    // TODO ojo no creo la colaboracion y se lo meto al que hizo la oferta
-
-    UploadedFile file = context.uploadedFile("imagen");
-    if (file != null) {
-      String path = "uploaded-imgs/" + file.filename();
-      try {
-        File directory = new File(path);
-        FileUtils.copyInputStreamToFile(file.content(), directory);
-        nuevaOferta.setImagenIlustrativa("/" + path);
-      } catch (IOException e) {
-        e.printStackTrace();
-        nuevaOferta.setImagenIlustrativa("/static-imgs/logo.png");
-      }
-    } else {
-      nuevaOferta.setImagenIlustrativa("/static-imgs/logo.png");
-    }
-
-    try {
-      this.ofertasRepository.guardar(this.ofertasService.crear(nuevaOferta));
-    } catch (Exception e) {
-      context.status(500).result("Error al guardar la oferta: " + e.getMessage());
-    }
-
-    //O BIEN LANZO UNA PANTALLA DE EXITO
-    //O BIEN REDIRECCIONO AL USER A LA PANTALLA DE LISTADO DE PRODUCTOS
-
-    context.redirect("/heladeras-solidarias/canjear-puntos");
   }
 
   public void edit(Context context) {
 
   }
 
-  /**
-   * Actualiza una oferta.
+  /** metodo para canjear una oferta por puntos.
    *
-   * @param context el contexto de la aplicación.
+   * @param context el contexto de quien realiza el post.
    */
 
   public void update(Context context) {
-    Optional<Oferta> posibleCanjeBuscado = this
-        .ofertasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
+    Long idUsuario = (Long) context.sessionAttribute("idUsuario");
+    Long idOferta = Long.valueOf(Objects.requireNonNull(context.formParam("idOferta")));
 
-    posibleCanjeBuscado.ifPresent(ofertasRepository::modificar);
+    Colaborador colaborador = this.colaboradoresRepository.buscarPorIdUsuario(idUsuario).get();
+    Oferta oferta = this.ofertasRepository.buscarPorId(idOferta, Oferta.class).get();
+
+    if (colaborador.puedeCanjear(oferta)) {
+      this.canjearPuntosService.crear(oferta, colaborador);
+      context.redirect("/heladeras-solidarias");
+    } else {
+      //TODO MANEJAR ERROR PUNTOS INSUFICIENTES
+      context.redirect("/heladeras-solidarias/canjear-puntos");
+    }
   }
 
-  /**
-   * Elimina una oferta.
-   *
-   * @param context el contexto de la aplicación.
-   */
-
   public void delete(Context context) {
-    Optional<Oferta> posibleCanjeBuscado = this
-        .ofertasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
 
-    posibleCanjeBuscado.ifPresent(ofertasRepository::eliminar);
   }
 }

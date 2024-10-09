@@ -3,7 +3,9 @@ package services;
 import dtos.ColaboradorInputDto;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
+import models.entities.direccion.Direccion;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.users.TipoRol;
 import models.entities.personas.users.Usuario;
 import models.factories.FactoryColaborador;
@@ -74,6 +76,30 @@ public class ColaboradoresService {
 
   public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
     return FactoryColaborador.crearCon(colaboradorInputDto);
+  }
+
+  /**
+   * Crea un con colaborador a partir de un input, una direccion y un usuario.
+   *
+   * @param colaboradorInputDto los datos del cobalorador recibidos del formulario.
+   * @param direccion direccion del colaborador (opcional)
+   * @param usuario el usuario del colaborador.
+   */
+
+  public void crear(ColaboradorInputDto colaboradorInputDto,
+                           Direccion direccion,
+                           Usuario usuario) {
+    Colaborador colaborador = this.crear(colaboradorInputDto);
+
+    if (colaborador.getTipoColaborador().equals(TipoColaborador.FISICO)) {
+      usuario.setTipoRol(TipoRol.PERSONA_FISICA);
+    } else {
+      usuario.setTipoRol(TipoRol.PERSONA_JURIDICA);
+    }
+    colaborador.setDireccion(direccion);
+    colaborador.setUsuario(usuario);
+
+    this.colaboradoresRepository.guardar(colaborador);
   }
 
 }

@@ -1,3 +1,13 @@
+h3 {
+    font-family: var(--fuenteSubtitulos), sans-serif;
+    color: var(--negro);
+    text-decoration: none;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0.75rem;
+    text-align: left;
+}
+
 .form-check {
     display: flex;
     align-items: center;
@@ -39,7 +49,6 @@
     margin-right: 20%;
 }
 
-/* Mantén el tamaño de los inputs */
 .form-control, .form-select {
     font-family: var(--fuenteParrafos), serif;
     font-size: 1.4rem;
@@ -56,7 +65,5 @@
 }
 
 .form-control:focus, .form-select:focus {
-/*    border-color: var(--verdeBotonesCuadrados);*/
-/*    box-shadow: none;*/
     font-size: 1.4rem;
 }

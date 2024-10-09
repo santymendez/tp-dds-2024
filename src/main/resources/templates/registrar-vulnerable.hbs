@@ -66,7 +66,7 @@
                 <div class="col-md-6 mb-3">
                     <label for="cantidadMenoresVulnerable" class="form-label">Cantidad de Menores a Cargo</label>
                     <select name="cantMenores" class="form-select" id="cantidadMenoresVulnerable">
-                        <option selected value="">Cantidad</option>
+                        <option selected value="">Cantidad de Menores</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -96,11 +96,59 @@
 
                 </div>
             </div>
+
+            <div id="contenedor-menores"></div>
+
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary btn-lg">Registrar</button>
             </div>
         </form>
     </div>
 {{/partial}}
+
+{{#partial "scripts"}}
+    <script>
+        function agregarCamposMenores() {
+            const cantidad = document.getElementById('cantidadMenoresVulnerable').value;
+            const contenedor = document.getElementById('contenedor-menores');
+            contenedor.innerHTML = '';
+
+            for (let i = 1; i <= cantidad; i++) {
+                contenedor.innerHTML += `
+                    <div class="row mt-4">
+                        <h3>Menor a Cargo ${i}</h3>
+                        <div class="col-md-6 mb-3">
+                            <label for="nombreMenor${i}" class="form-label">Nombre del Menor *</label>
+                            <input name="menores[${i}][nombre]" type="text" class="form-control" id="nombreMenor${i}"
+                                   placeholder="Ingresar nombre" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="fechaNacimientoMenor${i}" class="form-label">Fecha de Nacimiento *</label>
+                            <input name="menores[${i}][fechaNacimiento]" type="date" class="form-control"
+                                   id="fechaNacimientoMenor${i}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="tipoDocumentoMenor${i}" class="form-label">Tipo de Documento *</label>
+                            <select class="form-select" id="tipoDocumentoMenor${i}" name="menores[${i}][tipoDocumento]">
+                                <option value="DNI" selected>DNI</option>
+                                <option value="LE">Libreta de Enrolamiento</option>
+                                <option value="LC">Libreta Cívica</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="numeroDocumentoMenor${i}" class="form-label">Nro de Documento *</label>
+                            <input name="menores[${i}][numeroDocumento]" type="text" class="form-control"
+                                   id="numeroDocumentoMenor${i}"
+                                   placeholder="Ingrese sin puntos ni espacios" required>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        document.getElementById('cantidadMenoresVulnerable').addEventListener('change', agregarCamposMenores);
+    </script>
+{{/partial}}
+
 
 {{> templates/base }}

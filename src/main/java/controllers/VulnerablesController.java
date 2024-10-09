@@ -85,6 +85,16 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
     //TODO LOGICA DE MENORES A CARGO
 
+    /* EJEMPLO PARA ACCEDER A LOS DATOS DE LOS MENORES A CARGO:
+
+    Menor 2:
+
+    menores[2][nombre] → El nombre del segundo menor.
+    menores[2][fechaNacimiento] → La fecha de nacimiento del segundo menor.
+    menores[2][tipoDocumento] → El tipo de documento del segundo menor.
+    menores[2][numeroDocumento] → El número de documento del segundo menor.
+    */
+
     if (direccionInputDto != null) {
       Direccion direccion = this.direccionesService.crear(direccionInputDto);
       this.vulnerablesService.crear(vulnerableInputDto, direccion, colaborador);

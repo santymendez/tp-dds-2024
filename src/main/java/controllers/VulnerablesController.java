@@ -6,8 +6,12 @@ import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
+import models.entities.personas.colaborador.Colaborador;
+import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import services.DireccionesService;
 import services.VulnerablesService;
@@ -22,20 +26,24 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
   private final GenericRepository vulnerablesRepository;
   private final VulnerablesService vulnerablesService;
   private final DireccionesService direccionesService;
+  private final ColaboradoresRepository colaboradoresRepository;
 
-  /** Construcctor de la clase.
+  /**
+   * Construcctor de la clase.
    *
    * @param vulnerablesRepository el repo de vulnerables.
-   * @param vulnerablesService el sevice de vulnerables.
-   * @param direccionesService el service de direcciones.
+   * @param vulnerablesService    el sevice de vulnerables.
+   * @param direccionesService    el service de direcciones.
    */
 
   public VulnerablesController(
       GenericRepository vulnerablesRepository,
+      ColaboradoresRepository colaboradoresRepository,
       VulnerablesService vulnerablesService,
       DireccionesService direccionesService
   ) {
     this.vulnerablesRepository = vulnerablesRepository;
+    this.colaboradoresRepository = colaboradoresRepository;
     this.vulnerablesService = vulnerablesService;
     this.direccionesService = direccionesService;
   }
@@ -52,11 +60,12 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
   @Override
   public void create(Context context) {
-    // TODO poner en el init las provincias
-    List<Provincia> provincias = this.vulnerablesRepository.buscarTodos(Provincia.class);
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Registrar Vulnerable");
+
+    List<Provincia> provincias = this.vulnerablesRepository.buscarTodos(Provincia.class);
     model.put("provincias", provincias);
+
     model.put("activeSession", true);
     model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
 
@@ -68,13 +77,19 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
     VulnerableInputDto vulnerableInputDto = VulnerableInputDto.fromContext(context);
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
+    Optional<Colaborador> posibleColaborador = this.colaboradoresRepository.buscarPorIdUsuario(
+        context.sessionAttribute("idUsuario")
+    );
+
+    Colaborador colaborador = posibleColaborador.get();
+
     //TODO LOGICA DE MENORES A CARGO
 
     if (direccionInputDto != null) {
       Direccion direccion = this.direccionesService.crear(direccionInputDto);
-      this.vulnerablesService.crear(vulnerableInputDto, direccion);
+      this.vulnerablesService.crear(vulnerableInputDto, direccion, colaborador);
     } else {
-      this.vulnerablesService.crear(vulnerableInputDto);
+      this.vulnerablesService.crear(vulnerableInputDto, colaborador);
     }
 
     context.redirect("/heladeras-solidarias");

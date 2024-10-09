@@ -32,7 +32,7 @@ public class RegistroVulnerable extends Persistente {
   private Colaborador colaborador;
 
   @OneToOne
-  @JoinColumn(name = "vulnerableRegistrado_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "vulnerable_id", referencedColumnName = "id", nullable = false)
   private Vulnerable vulnerable;
 
   @Column(name = "fechaRegistro", columnDefinition = "DATE")

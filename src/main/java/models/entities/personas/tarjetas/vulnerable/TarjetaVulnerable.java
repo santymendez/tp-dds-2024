@@ -1,5 +1,6 @@
 package models.entities.personas.tarjetas.vulnerable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.CascadeType;
@@ -23,7 +24,6 @@ import models.entities.heladera.Heladera;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "tarjetas_vulnerables")
 public class TarjetaVulnerable {
@@ -34,7 +34,7 @@ public class TarjetaVulnerable {
   @Column(name = "activo")
   private Boolean activo;
 
-  @Column(name = "cantUsosMaxima", nullable = false)
+  @Column(name = "cantUsosMaxima")
   private Integer cantidadDeUsosMaxima;
 
   @OneToMany(mappedBy = "tarjetaVulnerable",
@@ -43,7 +43,7 @@ public class TarjetaVulnerable {
   private List<UsoTarjetaVulnerable> usosTarjetaVulnerables;
 
   @OneToOne
-  @JoinColumn(name = "registroVulnerable_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "registroVulnerable_id", referencedColumnName = "id")
   private RegistroVulnerable registroVulnerable;
 
   /**
@@ -54,6 +54,18 @@ public class TarjetaVulnerable {
     this.registroVulnerable = registro;
     this.cantidadDeUsosMaxima = this.calcularUsos();
     this.codigo = this.generarCodigoAlfanumerico();
+    this.usosTarjetaVulnerables = new ArrayList<>();
+    this.activo = true;
+  }
+
+  /**
+   * Constructor vacio de la clase Tarjeta.
+   */
+
+  public TarjetaVulnerable() {
+    this.codigo = this.generarCodigoAlfanumerico();
+    this.usosTarjetaVulnerables = new ArrayList<>();
+    this.activo = true;
   }
 
   /**

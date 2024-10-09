@@ -77,6 +77,7 @@ public class ControllerLocator {
       } else if (controllerClass.equals(VulnerablesController.class)) {
         VulnerablesController instance = new VulnerablesController(
             RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
             ServiceLocator.instanceOf(VulnerablesService.class),
             ServiceLocator.instanceOf(DireccionesService.class)
         );

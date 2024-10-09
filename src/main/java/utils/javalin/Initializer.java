@@ -394,9 +394,9 @@ public class Initializer {
     repoGenerico.guardar(faltanViandas);
     repoGenerico.guardar(quedanViandas);
 
-    repoGenerico.guardar(registroVulnerable1);
-    repoGenerico.guardar(registroVulnerable2);
-    repoGenerico.guardar(registroVulnerable3);
+//    repoGenerico.guardar(registroVulnerable1);
+//    repoGenerico.guardar(registroVulnerable2);
+//    repoGenerico.guardar(registroVulnerable3);
 
     colaboracionesRepository.guardar(colocarHeladera);
     colaboracionesRepository.guardar(distribuirTarjetas);
@@ -643,11 +643,17 @@ public class Initializer {
 
     lstTarjetas = new ArrayList<>();
 
-    tarjeta1 = new TarjetaVulnerable(registroVulnerable1);
+//    tarjeta1 = new TarjetaVulnerable(registroVulnerable1);
+//
+//    tarjeta2 = new TarjetaVulnerable(registroVulnerable2);
+//
+//    tarjeta3 = new TarjetaVulnerable(registroVulnerable3);
 
-    tarjeta2 = new TarjetaVulnerable(registroVulnerable2);
+    tarjeta1 = new TarjetaVulnerable();
 
-    tarjeta3 = new TarjetaVulnerable(registroVulnerable3);
+    tarjeta2 = new TarjetaVulnerable();
+
+    tarjeta3 = new TarjetaVulnerable();
 
     lstTarjetas.add(tarjeta1);
     lstTarjetas.add(tarjeta2);

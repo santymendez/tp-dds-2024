@@ -13,7 +13,7 @@
                            placeholder="Ingresar nombre" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                    <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento *</label>
                     <input name="fechaNacimiento" type="date" class="form-control"
                            id="fechaNacimiento" required>
                 </div>
@@ -38,7 +38,7 @@
                 <div class="col-md-6 mb-3">
                     <label for="provinciaVulnerable" class="form-label">Provincia</label>
                     <select name="provincia" class="form-select" id="provinciaVulnerable">
-                        <option selected>Provincia</option>
+                        <option selected value="">Provincia</option>
                         {{#each provincias}}
                             <option value="{{this.getId}}">{{this.getNombreProvincia}}</option>
                         {{/each}}
@@ -47,26 +47,26 @@
                 <div class="col-md-6 mb-3">
                     <label for="ciudadVulnerable" class="form-label">Ciudad</label>
                     <input name="ciudad" type="text" class="form-control"
-                           id="ciudadVulnerable" placeholder="Ingresar ciudad" required>
+                           id="ciudadVulnerable" placeholder="Ingresar ciudad">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="barrioVulnerable" class="form-label">Barrio</label>
                     <input name="barrio" type="text" class="form-control"
-                           id="barrioVulnerable" placeholder="Ingresar barrio" required>
+                           id="barrioVulnerable" placeholder="Ingresar barrio">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="calleVulnerable" class="form-label">Calle</label>
                     <input name="calle" type="text" class="form-control"
-                           id="calleVulnerable" placeholder="ej: Malabia" required>
+                           id="calleVulnerable" placeholder="ej: Malabia">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="cantidadMenoresVulnerable" class="form-label">Cantidad de Menores a Cargo</label>
                     <select name="cantMenores" class="form-select" id="cantidadMenoresVulnerable">
-                        <option selected>Cantidad</option>
+                        <option selected value="">Cantidad</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -90,7 +90,7 @@
                 <div class="col-md-6 mb-3">
                     <label for="tarjetaVulnerable" class="form-label">Tarjeta *</label>
                     <input name="tarjeta" type="text" class="form-control"
-                           id="tarjetaVulnerable" placeholder="ej: a54sejwhk" required>
+                           id="tarjetaVulnerable" placeholder="Ej. 0a9a498aef0" required>
                 </div>
                 <div class="col-md-6 mb-3">
 

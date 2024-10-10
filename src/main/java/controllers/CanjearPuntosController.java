@@ -1,17 +1,16 @@
 package controllers;
 
-import dtos.CanjeInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import services.CanjearPuntosService;
+import utils.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -57,7 +56,7 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
     if (context.sessionAttribute("idUsuario") != null) {
       model.put("activeSession", true);
-      model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
+      model.put("tipoRol", context.sessionAttribute("tipoRol"));
     } else {
       model.put("activeSession", false);
       context.redirect("/heladeras-solidarias");
@@ -88,10 +87,10 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
    */
 
   public void update(Context context) {
-    Long idUsuario = (Long) context.sessionAttribute("idUsuario");
+    Long idUsuario = context.sessionAttribute("idUsuario");
     Long idOferta = Long.valueOf(Objects.requireNonNull(context.formParam("idOferta")));
 
-    Colaborador colaborador = this.colaboradoresRepository.buscarPorIdUsuario(idUsuario).get();
+    Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
     Oferta oferta = this.ofertasRepository.buscarPorId(idOferta, Oferta.class).get();
 
     if (colaborador.puedeCanjear(oferta)) {

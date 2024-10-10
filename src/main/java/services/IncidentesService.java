@@ -2,7 +2,6 @@ package services;
 
 import dtos.IncidenteDto;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
@@ -16,43 +15,25 @@ import models.repositories.imp.GenericRepository;
 
 public class IncidentesService {
 
-  private final GenericRepository repo;
+  private final GenericRepository genericRepository;
 
-  public IncidentesService(GenericRepository repo) {
-    this.repo = repo;
+  public IncidentesService(GenericRepository genericRepository) {
+    this.genericRepository = genericRepository;
   }
 
-  /**
-   * Crea un incidente a partir de un DTO.
-   *
-   * @param input DTO con los datos del incidente.
-   * @return Incidente instanciado.
-   */
+  public void crear(IncidenteDto incidenteDto, Heladera heladera, Colaborador colaborador) {
+    Incidente incidente = Incidente.builder()
+        .momentoIncidente(LocalDateTime.now())
+        .tipo(TipoIncidente.FALLA_TECNICA)
+        .descripcion(incidenteDto.getDescripcion())
+        .imagen(incidenteDto.getImagen())
+        .colaborador(colaborador)
+        .heladera(heladera)
+        .build();
 
-  public Incidente crear(IncidenteDto input) {
-    Incidente incidente = new Incidente();
-    incidente.setTipo(TipoIncidente.valueOf(input.getTipoIncidente()));
-    incidente.setMomentoIncidente(LocalDateTime.parse(input.getMomentoIncidente()));
+    heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
+    this.genericRepository.modificar(heladera);
 
-    if (input.getHeladera() != null) {
-      Optional<Heladera> posibleHeladera = repo.buscarPorId(Long.parseLong(input.getHeladera()),
-          Heladera.class);
-
-      incidente.setHeladera(posibleHeladera.orElse(null));
-    }
-
-    incidente.setTipoAlerta(TipoEstado.valueOf(input.getTipoAlerta()));
-
-    if (input.getColaborador() != null) {
-      Optional<Colaborador> posibleColaborador = repo.buscarPorId(
-          Long.parseLong(input.getColaborador()), Colaborador.class);
-
-      incidente.setColaborador(posibleColaborador.orElse(null));
-    }
-
-    incidente.setDescripcion(input.getDescripcion());
-    incidente.setImagen(input.getImagen());
-
-    return incidente;
+    this.genericRepository.guardar(incidente);
   }
 }

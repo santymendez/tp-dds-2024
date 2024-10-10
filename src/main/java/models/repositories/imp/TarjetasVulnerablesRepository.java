@@ -27,11 +27,11 @@ public class TarjetasVulnerablesRepository extends GenericRepository {
   }
 
   /**
-   * Busca un direccion por su id.
+   * Busca una tarjeta por su id.
    *
-   * @param id Id del direccion a buscar.
+   * @param id Id de la tarjeta a buscar.
    *
-   * @return Un Optional con el direccion encontrado, o vacío si no se encontró.
+   * @return Un Optional con la tarjeta encontrada, o vacío si no se encontró.
    */
 
   public Optional<TarjetaVulnerable> buscarPorId(Long id) {

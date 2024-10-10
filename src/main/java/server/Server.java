@@ -77,7 +77,7 @@ public class Server {
       config.fileRenderer(new JavalinRenderer().register("hbs", (path, model, context) -> {
         Handlebars handlebars = new Handlebars();
 
-        handlebars.registerHelper("chequearRol", (role, options) -> {
+        handlebars.registerHelper("verifyRole", (role, options) -> {
           String expectedRole = options.param(0);
           if (role != null && role.toString().equals(expectedRole)) {
             return options.fn();

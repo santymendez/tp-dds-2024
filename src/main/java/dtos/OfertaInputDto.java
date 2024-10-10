@@ -2,8 +2,10 @@ package dtos;
 
 import io.javalin.http.Context;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import utils.UploadedFilesHelper;
 
 /**
  * Clase para el output de las ofertas.
@@ -12,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class OfertaInputDto {
   private String nombre;
   private String puntosNecesarios;
@@ -26,10 +29,17 @@ public class OfertaInputDto {
    */
 
   public static OfertaInputDto fromContext(Context context) {
-    OfertaInputDto nuevaOferta = new OfertaInputDto();
-    nuevaOferta.setNombre(context.formParam("nombre"));
-    nuevaOferta.setDescripcion(context.formParam("descripcion"));
-    nuevaOferta.setPuntosNecesarios(context.formParam("puntosNecesarios"));
-    return nuevaOferta;
+    String path = UploadedFilesHelper.getImageFromContext(context);
+
+    if (path == null) {
+      path = "/static-imgs/logo.png";
+    }
+
+    return OfertaInputDto.builder()
+        .nombre(context.formParam("nombre"))
+        .descripcion(context.formParam("descripcion"))
+        .puntosNecesarios(context.formParam("puntosNecesarios"))
+        .imagenIlustrativa(path)
+        .build();
   }
 }

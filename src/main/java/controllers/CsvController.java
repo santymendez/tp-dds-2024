@@ -20,6 +20,8 @@ import models.repositories.imp.ColaboradoresRepository;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import utils.ColaboracionesHelper;
+import utils.ContextHelper;
+import utils.UploadedFilesHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 import utils.sender.channels.EmailSender;
 
@@ -81,27 +83,24 @@ public class CsvController implements InterfaceCrudViewsHandler {
    */
 
   public void save(Context context) {
-    UploadedFile file = context.uploadedFile("csv");
-    if (file != null) {
-      try {
-        CSVReader reader = new CSVReader(new InputStreamReader(file.content()));
-        List<String[]> allLines = reader.readAll();
-        for (String[] nextLine : allLines) {
-          ColaboradorInputDto colaboradorInputDto = ColaboradorInputDto.fromCsv(nextLine);
-          ColaboracionInputDto colaboracionInputDto = ColaboracionInputDto.fromCsv(nextLine);
+    List<String[]> allLines = UploadedFilesHelper.getCsvFromContext(context);
 
-          Colaboracion colaboracion =
-              this.colaboracionesService.crearDesdeCsv(colaboracionInputDto);
+    if (!allLines.isEmpty()) {
+      for (String[] nextLine : allLines) {
+        ColaboradorInputDto colaboradorInputDto = ColaboradorInputDto.fromCsv(nextLine);
+        ColaboracionInputDto colaboracionInputDto = ColaboracionInputDto.fromCsv(nextLine);
 
-          this.colaboradoresService
-                .crearDesdeCsv(colaboradorInputDto, this.emailSender, colaboracion);
-        }
+        Colaboracion colaboracion =
+            this.colaboracionesService.crearDesdeCsv(colaboracionInputDto);
 
-        context.redirect("/heladeras-solidarias");
-      } catch (IOException | CsvException e) {
-        //TODO cambiar a que te lleve a una pagina de error
-        throw new RuntimeException(e);
+        this.colaboradoresService
+            .crearDesdeCsv(colaboradorInputDto, this.emailSender, colaboracion);
       }
+
+      context.redirect("/heladeras-solidarias");
+    } else {
+      //TODO LLEVAR A ERROR
+      context.redirect("/heladeras-solidarias");
     }
 
   }

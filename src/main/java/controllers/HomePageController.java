@@ -21,7 +21,7 @@ public class HomePageController implements InterfaceCrudViewsHandler {
 
     if (context.sessionAttribute("idUsuario") != null) {
       model.put("activeSession", true);
-      model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
+      model.put("tipoRol", context.sessionAttribute("tipoRol"));
     }
 
     context.render("home-page.hbs", model);

@@ -28,4 +28,13 @@ public class Direccion extends Persistente {
 
   @Embedded
   private Barrio barrio;
+
+  //Si cualquiera de los datos de la direccion es null, no se puede hacer el envio
+  public Boolean admiteEnvio() {
+    return this.getBarrio().getCiudad().getProvincia() != null &&
+        this.getBarrio().getCiudad().getNombreCiudad() != null &&
+        this.getBarrio().getNombreBarrio() != null &&
+        this.getBarrio().getCalle() != null &&
+        this.getBarrio().getNumero() != null;
+  }
 }

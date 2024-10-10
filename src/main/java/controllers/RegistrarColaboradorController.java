@@ -7,15 +7,19 @@ import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
+import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.users.Usuario;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.UsuariosRepository;
 import services.ColaboradoresService;
 import services.DireccionesService;
+import services.TarjetaColaboradorService;
 import services.UsuariosService;
 import utils.javalin.InterfaceCrudViewsHandler;
 import utils.security.Autenticador;
@@ -33,18 +37,20 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
   private final UsuariosService usuariosService;
   private final ColaboradoresService colaboradoresService;
   private final DireccionesService direccionesService;
+  private final TarjetaColaboradorService tarjetaColaboradorService;
   private final Autenticador autenticador;
 
   /**
    * Constructor de la clase.
    *
-   * @param usuariosRepository   Repositorio de usuarios
-   * @param genericRepository    Repositorio de colaboradores
-   * @param provinciasRepository Repositorio de provincias
-   * @param direccionesService   Servicio de direcciones
-   * @param usuariosService      Servicio de usuarios
-   * @param colaboradoresService Servicio de colaboradores
-   * @param autenticador         Autenticador
+   * @param usuariosRepository        Repositorio de usuarios
+   * @param genericRepository         Repositorio de colaboradores
+   * @param provinciasRepository      Repositorio de provincias
+   * @param direccionesService        Servicio de direcciones
+   * @param usuariosService           Servicio de usuarios
+   * @param colaboradoresService      Servicio de colaboradores
+   * @param tarjetaColaboradorService Servicio de tarjetas de colaborador
+   * @param autenticador              Autenticador
    */
 
   public RegistrarColaboradorController(
@@ -54,6 +60,7 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
       UsuariosService usuariosService,
       ColaboradoresService colaboradoresService,
       DireccionesService direccionesService,
+      TarjetaColaboradorService tarjetaColaboradorService,
       Autenticador autenticador
   ) {
     this.usuariosRepository = usuariosRepository;
@@ -62,6 +69,7 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
     this.colaboradoresService = colaboradoresService;
     this.autenticador = autenticador;
     this.provinciasRepository = provinciasRepository;
+    this.tarjetaColaboradorService = tarjetaColaboradorService;
     this.direccionesService = direccionesService;
   }
 
@@ -132,11 +140,15 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
     }
 
     Usuario nuevoUsuario = this.usuariosService.crear(usuarioDto);
-    this.colaboradoresService.crear(colaboradorDto, direccion, nuevoUsuario);
+    Colaborador nuevoColaborador = this.colaboradoresService.crear(colaboradorDto, direccion, nuevoUsuario);
+
+    //DECISION DE DISEÑO
+    //Si ya se cargo una direccion, se envia la tarjeta de una
+    tarjetaColaboradorService.crear(nuevoColaborador, direccion);
 
     //Se setea la session
     context.sessionAttribute("idUsuario", nuevoUsuario.getId());
-    context.sessionAttribute("tipo_rol", nuevoUsuario.getTipoRol().toString());
+    context.sessionAttribute("tipoRol", nuevoUsuario.getTipoRol().toString());
 
     //Se redirige a la homepage
     context.redirect("/heladeras-solidarias");

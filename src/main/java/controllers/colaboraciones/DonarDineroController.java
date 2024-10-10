@@ -12,6 +12,7 @@ import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import services.ColaboracionesService;
 import utils.ColaboracionesHelper;
+import utils.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -63,10 +64,9 @@ public class DonarDineroController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     DonacionDineroDto donacionDineroDto = DonacionDineroDto.fromContext(context);
 
-    Long idUsuario = (Long) context.sessionAttribute("idUsuario");
+    Long idUsuario = context.sessionAttribute("idUsuario");
 
-    Optional<Colaborador> posibleColaborador = this.colaboradoresRepository.buscarPorIdUsuario(
-        idUsuario);
+    Optional<Colaborador> posibleColaborador = ContextHelper.getColaboradorFromContext(context);
 
     if (posibleColaborador.isPresent()) {
       Colaborador colaborador = posibleColaborador.get();

@@ -62,9 +62,9 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     model.put("provincias", provincias);
 
     model.put("activeSession", true);
-    model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
+    model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
-    if (TipoRol.valueOf(context.sessionAttribute("tipo_rol")).equals(TipoRol.ADMINISTRADOR)) {
+    if (TipoRol.valueOf(context.sessionAttribute("tipoRol")).equals(TipoRol.ADMINISTRADOR)) {
       context.render("heladeras-admin.hbs", model);
     } else {
       context.render("heladeras.hbs", model);

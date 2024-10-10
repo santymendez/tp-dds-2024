@@ -8,10 +8,12 @@ import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.ReportesRepository;
+import models.repositories.imp.TarjetasColaboradoresRepository;
 import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
+import models.repositories.imp.VulnerablesRepository;
 
 /**
  * Service Locator para obtener los servicios de repositorios.
@@ -53,6 +55,10 @@ public class RepositoryLocator {
         instances.put(repositoryClassName, new UsuariosRepository());
       } else if (repositoryClass.equals(TarjetasVulnerablesRepository.class)) {
         instances.put(repositoryClassName, new TarjetasVulnerablesRepository());
+      } else if (repositoryClass.equals(TarjetasColaboradoresRepository.class)) {
+        instances.put(repositoryClassName, new TarjetasColaboradoresRepository());
+      } else if (repositoryClass.equals(VulnerablesRepository.class)) {
+        instances.put(repositoryClassName, new VulnerablesRepository());
       }
     }
 

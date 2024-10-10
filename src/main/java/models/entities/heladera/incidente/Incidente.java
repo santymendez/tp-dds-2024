@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,9 +28,11 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "incidentes")
-@NoArgsConstructor
 public class Incidente extends Persistente {
 
   @Enumerated(EnumType.STRING)

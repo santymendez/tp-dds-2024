@@ -12,6 +12,7 @@ import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.TarjetasVulnerablesRepository;
+import models.repositories.imp.VulnerablesRepository;
 
 /**
  * Service para los vulnerables.
@@ -21,23 +22,16 @@ public class VulnerablesService {
 
   private final GenericRepository genericRepository;
   private final TarjetasVulnerablesRepository tarjetasVulnerablesRepository;
+  private final VulnerablesRepository vulnerablesRepository;
 
   public VulnerablesService(
       GenericRepository genericRepository,
-      TarjetasVulnerablesRepository tarjetasVulnerablesRepository
+      TarjetasVulnerablesRepository tarjetasVulnerablesRepository,
+      VulnerablesRepository vulnerablesRepository
   ) {
     this.genericRepository = genericRepository;
     this.tarjetasVulnerablesRepository = tarjetasVulnerablesRepository;
-  }
-
-  /**
-   * Crea un vulnerable a partir de un DTO.
-   *
-   * @param vulnerableInputDto el DTO con los datos del vulnerable.
-   */
-
-  public void crear(VulnerableInputDto vulnerableInputDto, Colaborador colaborador) {
-    this.crear(vulnerableInputDto, null, colaborador);
+    this.vulnerablesRepository = vulnerablesRepository;
   }
 
   /** Crea un vulnerable a partir de un input.
@@ -46,7 +40,7 @@ public class VulnerablesService {
    * @param domicilio domicilio del vulnerable.
    */
 
-  public void crear(
+  public Vulnerable crear(
       VulnerableInputDto vulnerableInputDto,
       Direccion domicilio,
       Colaborador colaborador
@@ -60,7 +54,7 @@ public class VulnerablesService {
     vulnerable.setDocumento(new Documento(nroDocumento, tipoDocumento));
 
     vulnerable.setDomicilio(domicilio);
-    this.genericRepository.guardar(vulnerable);
+    this.vulnerablesRepository.guardar(vulnerable);
 
     Optional<TarjetaVulnerable> posibleTarjeta =
         this.tarjetasVulnerablesRepository.buscarPorUuid(vulnerableInputDto.getTarjeta());
@@ -75,5 +69,43 @@ public class VulnerablesService {
     tarjetaVulnerable.calcularUsos();
 
     this.tarjetasVulnerablesRepository.modificar(tarjetaVulnerable);
+
+    return vulnerable;
+  }
+
+  public void crearMenor(
+      VulnerableInputDto menorInputDto,
+      Vulnerable padre,
+      Colaborador colaborador
+  ) {
+
+    Integer numeroDocumento = Integer.parseInt(menorInputDto.getNumeroDocumento());
+    LocalDate fechaNacimiento = LocalDate.parse(menorInputDto.getFechaNacimiento());
+
+    Optional<Vulnerable> posibleMenor =
+        this.vulnerablesRepository.buscarPorDocumentoYFechaNacimiento(numeroDocumento, fechaNacimiento);
+
+    Vulnerable menor;
+
+    if (posibleMenor.isPresent()) {
+      menor = posibleMenor.get();
+    } else {
+      menor = new Vulnerable();
+      menor.setNombre(menorInputDto.getNombre());
+      menor.setFechaNacimiento(fechaNacimiento);
+
+      TipoDocumento tipoDocumento = TipoDocumento.valueOf(menorInputDto.getTipoDocumento());
+      menor.setDocumento(new Documento(numeroDocumento, tipoDocumento));
+
+      menor.setDomicilio(padre.getDomicilio());
+      this.genericRepository.guardar(menor);
+
+      RegistroVulnerable registroVulnerable =
+          new RegistroVulnerable(colaborador, menor, LocalDate.now());
+      this.genericRepository.guardar(registroVulnerable);
+    }
+
+    padre.agregarMenorCargo(menor);
+    this.genericRepository.modificar(padre);
   }
 }

@@ -86,7 +86,7 @@ public class ColaboradoresService {
    * @param usuario el usuario del colaborador.
    */
 
-  public void crear(ColaboradorInputDto colaboradorInputDto,
+  public Colaborador crear(ColaboradorInputDto colaboradorInputDto,
                            Direccion direccion,
                            Usuario usuario) {
     Colaborador colaborador = this.crear(colaboradorInputDto);
@@ -100,6 +100,7 @@ public class ColaboradoresService {
     colaborador.setUsuario(usuario);
 
     this.colaboradoresRepository.guardar(colaborador);
+    return  colaborador;
   }
 
 }

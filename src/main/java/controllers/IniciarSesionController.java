@@ -61,7 +61,7 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
       Usuario usuario = posibleUsuario.get();
 
       context.sessionAttribute("idUsuario", usuario.getId());
-      context.sessionAttribute("tipo_rol", usuario.getTipoRol().toString());
+      context.sessionAttribute("tipoRol", usuario.getTipoRol().toString());
       context.redirect("/heladeras-solidarias");
     } else {
       //TODO MANEJAR ERROR
@@ -78,7 +78,7 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
   @Override
   public void update(Context context) {
     context.sessionAttribute("idUsuario", null);
-    context.sessionAttribute("tipo_rol", null);
+    context.sessionAttribute("tipoRol", null);
     context.redirect("/heladeras-solidarias");
   }
 

@@ -27,6 +27,8 @@ public class ColaboradorInputDto {
 
   private String tipoColaborador;
 
+  private String tarjeta;
+
   /**
    * Crea un objeto ColaboradorInputDto a partir de un array de Strings.
    *

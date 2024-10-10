@@ -48,7 +48,7 @@ public class DireccionesService {
 
     Direccion direccion;
 
-    if (!Objects.equals(direccionInputDto.getProvincia(), "")) {
+    if (direccionInputDto.getProvincia() != null) {
       Optional<Provincia> provincia =
           this.provinciasRepository
               .buscarPorId(Long.parseLong(direccionInputDto.getProvincia()), Provincia.class);

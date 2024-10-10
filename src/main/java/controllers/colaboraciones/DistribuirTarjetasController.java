@@ -7,7 +7,7 @@ import utils.javalin.InterfaceCrudViewsHandler;
  * Controller para la distribucion de tarjetas.
  */
 
-public class DsitribuirTarjetasController implements InterfaceCrudViewsHandler {
+public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
 
   @Override
   public void index(Context context) {

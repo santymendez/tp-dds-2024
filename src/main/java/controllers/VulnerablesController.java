@@ -7,14 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.entities.personas.colaborador.Colaborador;
-import models.repositories.imp.ColaboradoresRepository;
+import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
 import services.DireccionesService;
 import services.VulnerablesService;
+import utils.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -23,10 +23,9 @@ import utils.javalin.InterfaceCrudViewsHandler;
 
 public class VulnerablesController implements InterfaceCrudViewsHandler {
 
-  private final GenericRepository vulnerablesRepository;
+  private final GenericRepository genericRepository;
   private final VulnerablesService vulnerablesService;
   private final DireccionesService direccionesService;
-  private final ColaboradoresRepository colaboradoresRepository;
 
   /**
    * Construcctor de la clase.
@@ -38,12 +37,10 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
   public VulnerablesController(
       GenericRepository vulnerablesRepository,
-      ColaboradoresRepository colaboradoresRepository,
       VulnerablesService vulnerablesService,
       DireccionesService direccionesService
   ) {
-    this.vulnerablesRepository = vulnerablesRepository;
-    this.colaboradoresRepository = colaboradoresRepository;
+    this.genericRepository = vulnerablesRepository;
     this.vulnerablesService = vulnerablesService;
     this.direccionesService = direccionesService;
   }
@@ -63,43 +60,39 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Registrar Vulnerable");
 
-    List<Provincia> provincias = this.vulnerablesRepository.buscarTodos(Provincia.class);
+    List<Provincia> provincias = this.genericRepository.buscarTodos(Provincia.class);
     model.put("provincias", provincias);
 
     model.put("activeSession", true);
-    model.put("tipo_rol", context.sessionAttribute("tipo_rol"));
+    model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
     context.render("/registrar-vulnerable.hbs", model);
   }
 
   @Override
   public void save(Context context) {
+
     VulnerableInputDto vulnerableInputDto = VulnerableInputDto.fromContext(context);
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
-    Optional<Colaborador> posibleColaborador = this.colaboradoresRepository.buscarPorIdUsuario(
-        context.sessionAttribute("idUsuario")
-    );
+    Long idUsuario = context.sessionAttribute("idUsuario");
 
-    Colaborador colaborador = posibleColaborador.get();
+    Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
-    //TODO LOGICA DE MENORES A CARGO
+    int cantMenores = Integer.parseInt(Objects.requireNonNull(context.formParam("cantMenores")));
 
-    /* EJEMPLO PARA ACCEDER A LOS DATOS DE LOS MENORES A CARGO:
-
-    Menor 2:
-
-    menores[2][nombre] → El nombre del segundo menor.
-    menores[2][fechaNacimiento] → La fecha de nacimiento del segundo menor.
-    menores[2][tipoDocumento] → El tipo de documento del segundo menor.
-    menores[2][numeroDocumento] → El número de documento del segundo menor.
-    */
+    Direccion direccion = null;
 
     if (direccionInputDto != null) {
-      Direccion direccion = this.direccionesService.crear(direccionInputDto);
-      this.vulnerablesService.crear(vulnerableInputDto, direccion, colaborador);
-    } else {
-      this.vulnerablesService.crear(vulnerableInputDto, colaborador);
+      direccion = this.direccionesService.crear(direccionInputDto);
+      this.genericRepository.guardar(direccion);
+    }
+
+    Vulnerable padre =  this.vulnerablesService.crear(vulnerableInputDto, direccion, colaborador);
+
+    for(int i=1; i<=cantMenores; i++) {
+      VulnerableInputDto menorInputDto = VulnerableInputDto.fromContext(context, i);
+      this.vulnerablesService.crearMenor(menorInputDto, padre, colaborador);
     }
 
     context.redirect("/heladeras-solidarias");

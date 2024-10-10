@@ -8,11 +8,13 @@ import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.DistribucionViandas;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
-import models.repositories.imp.ColaboradoresRepository;
+import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.TarjetasColaboradoresRepository;
 import services.ColaboracionesService;
 import services.DistribucionViandasService;
 import utils.ColaboracionesHelper;
+import utils.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -21,28 +23,27 @@ import utils.javalin.InterfaceCrudViewsHandler;
 
 public class DistribuirViandasController implements InterfaceCrudViewsHandler {
   private final GenericRepository genericRepository;
-  private final ColaboradoresRepository colaboradoresRepository;
   private final DistribucionViandasService distribucionViandasService;
   private final ColaboracionesService colaboracionesService;
+  private final TarjetasColaboradoresRepository tarjetasColaboradoresRepository;
 
   /**
    * Constructor del controller de distribucion de viandas.
    *
    * @param genericRepository repositorio generico.
-   * @param colaboradoresRepository repositorio de colaboradores.
    * @param distribucionViandasService service de distribucion de viandas.
    */
 
   public DistribuirViandasController(
       GenericRepository genericRepository,
-      ColaboradoresRepository colaboradoresRepository,
       DistribucionViandasService distribucionViandasService,
-      ColaboracionesService colaboracionesService
+      ColaboracionesService colaboracionesService,
+      TarjetasColaboradoresRepository tarjetasColaboradoresRepository
   ) {
     this.genericRepository = genericRepository;
-    this.colaboradoresRepository = colaboradoresRepository;
     this.distribucionViandasService = distribucionViandasService;
     this.colaboracionesService = colaboracionesService;
+    this.tarjetasColaboradoresRepository = tarjetasColaboradoresRepository;
   }
 
   @Override
@@ -62,13 +63,22 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-    Optional<Colaborador> posibleColaborador =
-        this.colaboradoresRepository.buscarPorIdUsuario(context.sessionAttribute("idUsuario"));
 
-    Colaborador colaborador = posibleColaborador.get();
+    Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
-    //TODO chequear que tenga tarjeta para abrir heladeras y manejar error
-    if (false) {
+    Optional<TarjetaColaborador> posibleTarjeta =
+        this.tarjetasColaboradoresRepository.buscarPorIdColaborador(colaborador.getId());
+
+    TarjetaColaborador tarjetaColaborador = null;
+
+    if(posibleTarjeta.isPresent()) {
+      tarjetaColaborador = posibleTarjeta.get();
+    }
+
+    if (tarjetaColaborador == null) {
+      //TODO
+      //COMO PUSIMOS QUE SI TIENE DIRECCION, SE ENVIA LA TARJETA
+      //SI NO TIENE TARJETA TENEMOS QUE PEDIRLE LA DIRECCION PARA MANDARSELA
       context.attribute("error", "No tiene tarjeta para abrir las heladeras");
       context.redirect("/heladeras-solidarias/colaborar");
       return;
@@ -95,8 +105,6 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
 
     Colaboracion colaboracion = colaboracionesService.crear(distribucion);
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
-
-    //TODO habilitar tarjeta del colaborador para abrir heladeras
 
     context.redirect("/heladeras-solidarias");
   }

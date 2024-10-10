@@ -9,19 +9,19 @@
             <label for="actionSelector" class="form-label chico">Elige una acción</label>
             <select class="form-select form-select-lg chico" id="actionSelector">
                 <option value="" selected>Elija una opción</option>
-                {{#chequearRol tipo_rol "PERSONA_FISICA"}}
+                {{#verifyRole tipoRol "PERSONA_FISICA"}}
                     <option value="donar_dinero">Donar Dinero</option>
                     <option value="donar_viandas">Donar Viandas</option>
                     <option value="distribuir_tarjetas">Distribuir Tarjetas</option>
                     <option value="distribuir_viandas">Distribuir Viandas</option>
-                {{/chequearRol}}
-                {{#chequearRol tipo_rol "PERSONA_JURIDICA"}}
+                {{/verifyRole}}
+                {{#verifyRole tipoRol "PERSONA_JURIDICA"}}
                     <option value="donar_dinero">Donar Dinero</option>
                     <option value="colocar_heladera">Colocar una Heladera</option>
-                {{/chequearRol}}
-                {{#chequearRol tipo_rol "EMPRESA_ASOCIADA"}}
+                {{/verifyRole}}
+                {{#verifyRole tipoRol "EMPRESA_ASOCIADA"}}
                     <option value="realizar_ofertas">Realizar una Oferta</option>
-                {{/chequearRol}}
+                {{/verifyRole}}
             </select>
         </div>
 

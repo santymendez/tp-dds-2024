@@ -6,7 +6,7 @@ import controllers.ColaboracionesController;
 import controllers.CsvController;
 import controllers.HeladerasController;
 import controllers.HomePageController;
-import controllers.IncidentesController;
+import controllers.ReportarFallaTecnicaController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.RegistrarColaboradorController;
@@ -15,7 +15,7 @@ import controllers.VulnerablesController;
 import controllers.colaboraciones.DistribuirViandasController;
 import controllers.colaboraciones.DonarDineroController;
 import controllers.colaboraciones.DonarViandasController;
-import controllers.colaboraciones.DsitribuirTarjetasController;
+import controllers.colaboraciones.DistribuirTarjetasController;
 import controllers.colaboraciones.RealizarOfertasController;
 import io.javalin.Javalin;
 import java.util.Map;
@@ -98,7 +98,7 @@ public class Router {
         case "colocar-heladera" ->
             ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
         case "distribuirTarjetas" ->
-            ControllerLocator.instanceOf(DsitribuirTarjetasController.class).edit(ctx);
+            ControllerLocator.instanceOf(DistribuirTarjetasController.class).edit(ctx);
         case "distribuirViandas" ->
             ControllerLocator.instanceOf(DistribuirViandasController.class).edit(ctx);
         default -> ctx.status(404).render("/error404.hbs",
@@ -114,11 +114,14 @@ public class Router {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {
         case "suscribirse" -> ControllerLocator.instanceOf(SuscribirseController.class).save(ctx);
-        case "reportarFalla" -> ControllerLocator.instanceOf(IncidentesController.class).save(ctx);
+        case "reportarFalla" -> ControllerLocator.instanceOf(ReportarFallaTecnicaController.class).save(ctx);
         case "recomendaciones" -> System.out.println("NO LO TENEMOS");
         default -> ctx.status(400).result("Tipo de formulario no valido");
       }
     }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
+
+    app.get("/heladeras-solidarias/ver-mapa",
+        ControllerLocator.instanceOf(MapaController.class)::index);
 
     //VISTAS ADMINISTRADOR
     app.get("/heladeras-solidarias/heladeras-admin",
@@ -131,13 +134,9 @@ public class Router {
         case "darBaja" -> ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
         case "modificar" ->
             ControllerLocator.instanceOf(HeladerasController.class).update(ctx);
-        case "verAlertas" -> System.out.println("NO LO TENEMOS");
         default -> ctx.status(400).result("Tipo de formulario no valido");
       }
     }, TipoRol.ADMINISTRADOR);
-
-    app.get("/heladeras-solidarias/ver-mapa",
-        ControllerLocator.instanceOf(MapaController.class)::index);
 
     app.get("/heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController.class)::create, TipoRol.ADMINISTRADOR);

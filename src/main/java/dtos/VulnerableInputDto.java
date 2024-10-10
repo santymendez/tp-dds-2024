@@ -39,4 +39,16 @@ public class VulnerableInputDto {
         .tarjeta(context.formParam("tarjeta"))
         .build();
   }
+
+  public static VulnerableInputDto fromContext (Context context, int i) {
+    String plantilla = "menores[" + i + "]";
+
+    return VulnerableInputDto.builder()
+        .nombre(context.formParam(plantilla + "[nombre]"))
+        .fechaNacimiento(context.formParam(plantilla + "[fechaNacimiento]"))
+        .tipoDocumento(context.formParam(plantilla + "[tipoDocumento]"))
+        .numeroDocumento(context.formParam(plantilla + "[numeroDocumento]"))
+        .cantMenores("0")
+        .build();
+  }
 }

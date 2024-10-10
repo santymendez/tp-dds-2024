@@ -23,11 +23,10 @@ import models.db.Persistente;
 @NoArgsConstructor
 @Embeddable
 public class Ciudad {
-
   @Column(name = "nombreCiudad", nullable = false)
   private String nombreCiudad;
 
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinColumn(name = "provincia_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "provincia_id", referencedColumnName = "id")
   private Provincia provincia;
 }

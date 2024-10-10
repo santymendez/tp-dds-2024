@@ -26,9 +26,9 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
   /**
    * Constructor del controller de canjear puntos.
    *
-   * @param ofertasRepository el repositorio de ofertas.
+   * @param ofertasRepository       el repositorio de ofertas.
    * @param colaboradoresRepository el repositorio de colaboradores.
-   * @param canjearPuntosService el servicio de canjear puntos.
+   * @param canjearPuntosService    el servicio de canjear puntos.
    */
 
   public CanjearPuntosController(
@@ -54,9 +54,15 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
     model.put("titulo", "Ofertas");
     model.put("ofertas", ofertas);
 
-    if (context.sessionAttribute("idUsuario") != null) {
+    Long idSesion = context.sessionAttribute("idUsuario");
+    if (idSesion != null) {
       model.put("activeSession", true);
       model.put("tipoRol", context.sessionAttribute("tipoRol"));
+
+      colaboradoresRepository.buscarPorIdUsuario(idSesion).ifPresent(colaborador -> {
+        model.put("puntos", colaborador.getReconocimiento().getPuntosPorColaborar());
+      });
+
     } else {
       model.put("activeSession", false);
       context.redirect("/heladeras-solidarias");
@@ -81,7 +87,8 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
   }
 
-  /** metodo para canjear una oferta por puntos.
+  /**
+   * metodo para canjear una oferta por puntos.
    *
    * @param context el contexto de quien realiza el post.
    */

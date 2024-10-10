@@ -29,12 +29,18 @@ public class Direccion extends Persistente {
   @Embedded
   private Barrio barrio;
 
-  //Si cualquiera de los datos de la direccion es null, no se puede hacer el envio
+  /**
+   * Verifica si la dirección admite envío.
+   * (Si cualquiera de los datos de la direccion es null, no se puede hacer el envio).
+   *
+   * @return true si la dirección admite envío, false en caso contrario.
+   */
+
   public Boolean admiteEnvio() {
-    return this.getBarrio().getCiudad().getProvincia() != null &&
-        this.getBarrio().getCiudad().getNombreCiudad() != null &&
-        this.getBarrio().getNombreBarrio() != null &&
-        this.getBarrio().getCalle() != null &&
-        this.getBarrio().getNumero() != null;
+    return this.getBarrio().getCiudad().getProvincia() != null
+        && this.getBarrio().getCiudad().getNombreCiudad() != null
+        && this.getBarrio().getNombreBarrio() != null
+        && this.getBarrio().getCalle() != null
+        && this.getBarrio().getNumero() != null;
   }
 }

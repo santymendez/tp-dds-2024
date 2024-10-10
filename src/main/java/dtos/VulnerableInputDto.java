@@ -40,7 +40,15 @@ public class VulnerableInputDto {
         .build();
   }
 
-  public static VulnerableInputDto fromContext (Context context, int i) {
+  /**
+   * Instancia el VulnerableInputDTO.
+   *
+   * @param context el contexto con los valores recibidos del formulario.
+   * @param i el índice del menor.
+   * @return Un vulnerableInputDTO.
+   */
+
+  public static VulnerableInputDto fromContext(Context context, int i) {
     String plantilla = "menores[" + i + "]";
 
     return VulnerableInputDto.builder()

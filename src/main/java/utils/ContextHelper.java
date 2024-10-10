@@ -2,10 +2,10 @@ package utils;
 
 import config.RepositoryLocator;
 import io.javalin.http.Context;
-import models.entities.personas.colaborador.Colaborador;
-import models.repositories.imp.ColaboradoresRepository;
 import java.util.Objects;
 import java.util.Optional;
+import models.entities.personas.colaborador.Colaborador;
+import models.repositories.imp.ColaboradoresRepository;
 
 /**
  * Clase Auxiliar para chequear si el parametro de un formulario es vacio.
@@ -37,8 +37,16 @@ public class ContextHelper {
     return areEmptyStatus;
   }
 
+  /**
+   * Obtiene el colaborador de la sesión.
+   *
+   * @param context el contexto de la aplicación.
+   * @return un Optional con el colaborador si existe, un Optional vacío en caso contrario.
+   */
+
   public static Optional<Colaborador> getColaboradorFromContext(Context context) {
     Long usuarioId = context.sessionAttribute("idUsuario");
-    return RepositoryLocator.instanceOf(ColaboradoresRepository.class).buscarPorIdUsuario(usuarioId);
+    return RepositoryLocator.instanceOf(ColaboradoresRepository.class)
+        .buscarPorIdUsuario(usuarioId);
   }
 }

@@ -17,10 +17,17 @@ public class TarjetaColaboradorService {
     this.genericRepository = genericRepository;
   }
 
+  /**
+   * Crea una tarjeta de colaborador.
+   *
+   * @param colaborador Colaborador al que se le asigna la tarjeta.
+   * @param direccion   Dirección del colaborador.
+   */
+
   public void crear(Colaborador colaborador, Direccion direccion) {
 
-    if (colaborador.getTipoColaborador() != TipoColaborador.FISICO ||
-        !direccion.admiteEnvio()
+    if (colaborador.getTipoColaborador() != TipoColaborador.FISICO
+        || !direccion.admiteEnvio()
     ) {
       //El envio es solo para los colaboradores
       return;

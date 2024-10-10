@@ -24,6 +24,13 @@ public class VulnerablesService {
   private final TarjetasVulnerablesRepository tarjetasVulnerablesRepository;
   private final VulnerablesRepository vulnerablesRepository;
 
+  /** Constructor de la clase.
+   *
+   * @param genericRepository repositorio generico.
+   * @param tarjetasVulnerablesRepository repositorio de tarjetas vulnerables.
+   * @param vulnerablesRepository repositorio de vulnerables.
+   */
+
   public VulnerablesService(
       GenericRepository genericRepository,
       TarjetasVulnerablesRepository tarjetasVulnerablesRepository,
@@ -73,6 +80,12 @@ public class VulnerablesService {
     return vulnerable;
   }
 
+  /** Crea un menor a partir de un input.
+   *
+   * @param menorInputDto el input de un menor.
+   * @param padre el padre del menor.
+   */
+
   public void crearMenor(
       VulnerableInputDto menorInputDto,
       Vulnerable padre,
@@ -82,8 +95,8 @@ public class VulnerablesService {
     Integer numeroDocumento = Integer.parseInt(menorInputDto.getNumeroDocumento());
     LocalDate fechaNacimiento = LocalDate.parse(menorInputDto.getFechaNacimiento());
 
-    Optional<Vulnerable> posibleMenor =
-        this.vulnerablesRepository.buscarPorDocumentoYFechaNacimiento(numeroDocumento, fechaNacimiento);
+    Optional<Vulnerable> posibleMenor = this.vulnerablesRepository
+        .buscarPorDocumentoFechaNacimiento(numeroDocumento, fechaNacimiento);
 
     Vulnerable menor;
 

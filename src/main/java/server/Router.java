@@ -6,16 +6,16 @@ import controllers.ColaboracionesController;
 import controllers.CsvController;
 import controllers.HeladerasController;
 import controllers.HomePageController;
-import controllers.ReportarFallaTecnicaController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.RegistrarColaboradorController;
+import controllers.ReportarFallaTecnicaController;
 import controllers.SuscribirseController;
 import controllers.VulnerablesController;
+import controllers.colaboraciones.DistribuirTarjetasController;
 import controllers.colaboraciones.DistribuirViandasController;
 import controllers.colaboraciones.DonarDineroController;
 import controllers.colaboraciones.DonarViandasController;
-import controllers.colaboraciones.DistribuirTarjetasController;
 import controllers.colaboraciones.RealizarOfertasController;
 import io.javalin.Javalin;
 import java.util.Map;
@@ -113,9 +113,12 @@ public class Router {
     app.post("/heladeras-solidarias/heladeras", ctx -> {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {
-        case "suscribirse" -> ControllerLocator.instanceOf(SuscribirseController.class).save(ctx);
-        case "reportarFalla" -> ControllerLocator.instanceOf(ReportarFallaTecnicaController.class).save(ctx);
-        case "recomendaciones" -> System.out.println("NO LO TENEMOS");
+        case "suscribirse" ->
+            ControllerLocator.instanceOf(SuscribirseController.class).save(ctx);
+        case "reportarFalla" ->
+            ControllerLocator.instanceOf(ReportarFallaTecnicaController.class).save(ctx);
+        case "recomendaciones" ->
+            System.out.println("NO LO TENEMOS");
         default -> ctx.status(400).result("Tipo de formulario no valido");
       }
     }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);

@@ -90,7 +90,7 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
     Vulnerable padre =  this.vulnerablesService.crear(vulnerableInputDto, direccion, colaborador);
 
-    for(int i=1; i<=cantMenores; i++) {
+    for (int i = 1; i <= cantMenores; i++) {
       VulnerableInputDto menorInputDto = VulnerableInputDto.fromContext(context, i);
       this.vulnerablesService.crearMenor(menorInputDto, padre, colaborador);
     }

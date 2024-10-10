@@ -71,7 +71,7 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
 
     TarjetaColaborador tarjetaColaborador = null;
 
-    if(posibleTarjeta.isPresent()) {
+    if (posibleTarjeta.isPresent()) {
       tarjetaColaborador = posibleTarjeta.get();
     }
 

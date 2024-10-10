@@ -21,6 +21,14 @@ public class IncidentesService {
     this.genericRepository = genericRepository;
   }
 
+  /**
+   * Crea un incidente a partir de un DTO.
+   *
+   * @param incidenteDto DTO del incidente.
+   * @param heladera Heladera a la que pertenece el incidente.
+   * @param colaborador Colaborador que reporta el incidente.
+   */
+
   public void crear(IncidenteDto incidenteDto, Heladera heladera, Colaborador colaborador) {
     Incidente incidente = Incidente.builder()
         .momentoIncidente(LocalDateTime.now())

@@ -101,6 +101,7 @@ public class Initializer {
   static Oferta oferta1;
   static Oferta oferta2;
   static Oferta oferta3;
+  static Oferta oferta4;
   static Colaboracion realizarOferta;
 
   @Getter
@@ -1045,9 +1046,20 @@ public class Initializer {
         + "de fútbol, de clubes, que tiene el control sobre muchas instituciones a nivel mundial.");
     oferta3.setImagenIlustrativa("/static-imgs/es_el_city_group.jpg");
 
+    oferta4 = new Oferta();
+    oferta4.setNombre("Cazadores de utopías imposibles - Libro");
+    oferta4.setPuntosNecesarios(7500.850F);
+    oferta4.setOfertante(elCityGroup);
+    oferta4.setDescripcion("El profe Gustavo Alfaro es un técnico sudamericano altamente"
+        + " preparado, especialista en táctica, detallista y líder natural. "
+        + "Desde su inicio en Rafaela, ha escalado la carrera de entrenador, y su trayectoria lo "
+        + "llevará a dirigir en el Mundial de Qatar.");
+    oferta4.setImagenIlustrativa("/static-imgs/libro_profe_alfaro.jpg");
+
     lstOfertas.add(oferta1);
     lstOfertas.add(oferta2);
     lstOfertas.add(oferta3);
+    lstOfertas.add(oferta4);
   }
 
   static void iniciarSensores() {
@@ -1256,7 +1268,7 @@ public class Initializer {
         RepositoryLocator.instanceOf(ReportesRepository.class);
 
     usuariosRepository =
-            RepositoryLocator.instanceOf(UsuariosRepository.class);
+        RepositoryLocator.instanceOf(UsuariosRepository.class);
   }
 
 }

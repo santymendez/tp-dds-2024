@@ -140,7 +140,8 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
     }
 
     Usuario nuevoUsuario = this.usuariosService.crear(usuarioDto);
-    Colaborador nuevoColaborador = this.colaboradoresService.crear(colaboradorDto, direccion, nuevoUsuario);
+    Colaborador nuevoColaborador = this.colaboradoresService
+        .crear(colaboradorDto, direccion, nuevoUsuario);
 
     //DECISION DE DISEÑO
     //Si ya se cargo una direccion, se envia la tarjeta de una

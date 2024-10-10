@@ -14,7 +14,7 @@
                 <option value="" selected>Elija una opción</option>
                 <option value="darAlta">Dar de Alta</option>
                 <option value="darBaja">Dar de Baja</option>
-                <option value="modificarHeladeras">Modificar Heladera</option>
+                <option value="modificar">Modificar Heladera</option>
                 <option value="verAlertas">Ver Alertas</option>
             </select>
         </div>
@@ -137,6 +137,7 @@
 
     <div id="modificar" class="action-form container mt-5 nopadding d-none">
         <form method="POST" action="/heladeras-solidarias/heladeras-admin">
+            <input type="hidden" name="formType" value="modificar">
             <div class="fila">
                 <label for="actionSelector" class="form-label chico">Elija una Heladera</label>
                 <select name="heladera" class="form-select form-select-lg chico" id="actionSelector" required>
@@ -147,73 +148,86 @@
                 </select>
             </div>
 
-            <div class="fila columnas">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="nombreHeladeraM" class="form-label este">Nombre</label>
-                        <input name="nombre" type="text" class="form-control" id="nombreHeladeraM" placeholder="Ingresar nombre de la heladera">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="fechaModificacionHeladera" class="form-label">Fecha de Alta</label>
-                        <input name="fechaModificacion" type="date" class="form-control" id="fechaModificacionHeladera">
-                    </div>
+            <div class="row darAlta">
+                <div class="col-md-6 mb-3">
+                    <label for="nombreHeladera" class="form-label">Nombre de la Heladera</label>
+                    <input name="nombre" type="text" class="form-control" id="nombreHeladera" placeholder="Ingresar nombre">
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="ciudad" class="form-label">Ciudad</label>
-                        <input name="ciudad" type="text" class="form-control" id="ciudad"
-                               placeholder="ej: CABA">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="barrio" class="form-label">Barrio</label>
-                        <input name="barrio" type="text" class="form-control" id="barrio"
-                               placeholder="ej: Villa Crespo">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="calle" class="form-label">Calle</label>
-                        <input name="calle" type="text" class="form-control" id="calle"
-                               placeholder="ej: Malabia">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="numero" class="form-label">Numero</label>
-                        <input name="numero" type="text" class="form-control" id="numero"
-                               placeholder="ej: 411">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="latitud" class="form-label">Latitud</label>
-                        <input name="latitud" type="text" class="form-control" id="latitud"
-                               placeholder="ej: 1.1212">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="longitud" class="form-label">Longitud</label>
-                        <input name="longitud" type="text" class="form-control" id="longitud"
-                               placeholder="ej: -321.341">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="minTempHeladeraM" class="form-label este">Temperatura Mínima</label>
-                        <input name="temperaturaMin" type="number" class="form-control" id="minTempHeladeraM" placeholder="Ingresar temperatura mínima">
-                    </div>
-                    <div class="form-group">
-                        <label for="maxTempHeladeraM" class="form-label este">Temperatura Máxima</label>
-                        <input name="temperaturaMax" type="number" class="form-control" id="maxTempHeladeraM" placeholder="Ingresar temperatura máxima">
-                    </div>
+                <div class="col-md-6 mb-3">
+                    <label for="modeloHeladera" class="form-label">Modelo de la Heladera</label>
+                    <input name="modelo" type="text" class="form-control" id="modeloHeladera" placeholder="Ingresar modelo">
                 </div>
             </div>
-
-            <div class="fila">
-                <label for="modeloHeladeraM" class="form-label este">Modelo de la Heladera</label>
-                <input name="modelo" type="text" class="form-control ancho-reducido-rmx" id="modeloHeladeraM" placeholder="Ingresar modelo de la heladera">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="fechaAltaHeladera" class="form-label">Fecha de Alta</label>
+                    <input name="fechaCreacion" type="date" class="form-control" id="fechaAltaHeladera">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="provincia" class="form-label">Provincia</label>
+                    <select name="provincia" class="form-select" id="provincia">
+                        <option selected value="">Seleccione una Opción</option>
+                        {{#each provincias}}
+                            <option value="{{this.getId}}">{{this.getNombreProvincia}}</option>
+                        {{/each}}
+                    </select>
+                </div>
             </div>
-
-            <div class="fila">
-                <label for="razonModificacion" class="form-label este">Razón de la Modificación</label>
-                <textarea name="razonModificacion" id="razonModificacion" class="form-control" rows="4" placeholder="Ingrese la razón de la modificación (opcional)"></textarea>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="ciudad" class="form-label">Ciudad</label>
+                    <input name="ciudad" type="text" class="form-control" id="ciudad"
+                           placeholder="ej: CABA">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="barrio" class="form-label">Barrio</label>
+                    <input name="barrio" type="text" class="form-control" id="barrio"
+                           placeholder="ej: Villa Crespo">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="calle" class="form-label">Calle</label>
+                    <input name="calle" type="text" class="form-control" id="calle"
+                           placeholder="ej: Malabia">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="numero" class="form-label">Numero</label>
+                    <input name="numero" type="text" class="form-control" id="numero"
+                           placeholder="ej: 411">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="latitud" class="form-label">Latitud</label>
+                    <input name="latitud" type="text" class="form-control" id="latitud"
+                           placeholder="ej: 1.1212">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="longitud" class="form-label">Longitud</label>
+                    <input name="longitud" type="text" class="form-control" id="longitud"
+                           placeholder="ej: -321.341">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="minTempHeladera" class="form-label">Temperatura Mínima</label>
+                    <input name="temperaturaMin" type="number" step="1" class="form-control" id="minTempHeladera" placeholder="Ingresar temperatura mínima" >
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="maxTempHeladera" class="form-label">Temperatura Máxima</label>
+                    <input name="temperaturaMax" type="number" step="1" class="form-control" id="maxTempHeladera" placeholder="Ingresar temperatura máxima">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="capacidadMaxViandas" class="form-label">Capacidad Máxima</label>
+                    <input name="capacidadMaximaViandas" type="number" step="1" class="form-control" id="capacidadMaxViandas" placeholder="Ingresar capacidad Maxima">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="razonModificacion" class="form-label">Razon de modificacion</label>
+                    <input name="razonModificacion" type="text" class="form-control" id="razonModificacion" placeholder="Ingresar la razon">
+                </div>
             </div>
 
             <div class="fila d-flex justify-content-center">

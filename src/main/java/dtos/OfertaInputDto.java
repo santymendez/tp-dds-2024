@@ -30,7 +30,6 @@ public class OfertaInputDto {
     nuevaOferta.setNombre(context.formParam("nombre"));
     nuevaOferta.setDescripcion(context.formParam("descripcion"));
     nuevaOferta.setPuntosNecesarios(context.formParam("puntosNecesarios"));
-
     return nuevaOferta;
   }
 }

@@ -61,9 +61,7 @@ public class DonarDineroController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-    DonacionDineroDto donacionDineroDto = new DonacionDineroDto(
-        context.formParam("montoDonado"),
-        context.formParam("frecuenciaDonacion"));
+    DonacionDineroDto donacionDineroDto = DonacionDineroDto.fromContext(context);
 
     Long idUsuario = (Long) context.sessionAttribute("idUsuario");
 

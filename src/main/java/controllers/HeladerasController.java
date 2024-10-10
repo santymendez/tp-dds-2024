@@ -131,6 +131,8 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     //String razonModificacion = context.formParam("razonModificacion");
 
     this.heladerasService.modificar(heladera, heladeraInputDto);
+
+    context.redirect("/heladeras-solidarias");
   }
 
   /**

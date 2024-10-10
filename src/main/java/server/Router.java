@@ -130,7 +130,7 @@ public class Router {
         case "darAlta" -> ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
         case "darBaja" -> ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
         case "modificar" ->
-            ControllerLocator.instanceOf(HeladerasController.class).edit(ctx);
+            ControllerLocator.instanceOf(HeladerasController.class).update(ctx);
         case "verAlertas" -> System.out.println("NO LO TENEMOS");
         default -> ctx.status(400).result("Tipo de formulario no valido");
       }

@@ -147,5 +147,8 @@ public class Router {
     app.post("heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController.class)::save, TipoRol.ADMINISTRADOR);
 
+    //TODO path reporte
+    //app.get("/heladeras-solidarias/reportes",
+    //        ControllerLocator.instanceOf(ReportesController.class)::index, TipoRol.ADMINISTRADOR);
   }
 }

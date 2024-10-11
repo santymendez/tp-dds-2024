@@ -4,6 +4,7 @@
           href= "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity= "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/iniciar-sesion.css">
 {{/partial}}
 
@@ -16,12 +17,13 @@
                 <input name="nombreUsuario" type="text" class="form-control form-control-lg" id="nombreUsuario"
                        placeholder="Ingrese nombre de usuario">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
                 <label for="contrasenia" class="form-label">Contraseña</label>
                 <input name = "contrasenia" type="password" class="form-control form-control-lg"
                        id="contrasenia" placeholder="Ingrese contraseña">
                 <!--TODO METERLO ADENTRO DEL INPUT-->
-                <i class="bi bi-eye-slash" id="togglePassword"></i>
+                <i class="bi bi-eye-slash" id="togglePassword"
+                   style="position: absolute; top: 65%; right: 3rem; transform: translateY(-15%); cursor: pointer;"></i>
             </div>
             <div class="d-grid mx-auto">
                 <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
@@ -37,7 +39,7 @@
     <script>
         const togglePassword = document
                 .querySelector('#togglePassword');
-        const password = document.querySelector('#password');
+        const password = document.querySelector('#contrasenia');
         togglePassword.addEventListener('click', () => {
             const type = password
                     .getAttribute('type') === 'password' ?

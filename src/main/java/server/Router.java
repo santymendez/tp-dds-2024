@@ -1,6 +1,7 @@
 package server;
 
 import config.ControllerLocator;
+import controllers.AgregarDireccionController;
 import controllers.CanjearPuntosController;
 import controllers.ColaboracionesController;
 import controllers.CsvController;
@@ -10,6 +11,7 @@ import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
+import controllers.ReportesController;
 import controllers.SuscribirseController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DistribuirTarjetasController;
@@ -18,9 +20,9 @@ import controllers.colaboraciones.DonarDineroController;
 import controllers.colaboraciones.DonarViandasController;
 import controllers.colaboraciones.RealizarOfertasController;
 import io.javalin.Javalin;
-import java.util.Map;
 import java.util.Objects;
 import models.entities.personas.users.TipoRol;
+import utils.ErrorHelper;
 
 /**
  * Clase Router.
@@ -100,11 +102,13 @@ public class Router {
         case "distribuirTarjetas" ->
             ControllerLocator.instanceOf(DistribuirTarjetasController.class).edit(ctx);
         case "distribuirViandas" ->
-            ControllerLocator.instanceOf(DistribuirViandasController.class).edit(ctx);
-        default -> ctx.status(404).render("/error404.hbs",
-            Map.of("titulo", "Error 404", "mensaje", "Tipo de formulario no valido"));
+            ControllerLocator.instanceOf(DistribuirViandasController.class).save(ctx);
+        default -> ctx.status(404).render("/error-base.hbs", ErrorHelper.generateError(
+                404,
+                "Página No Encontrada",
+                "La página a la que quieres acceder no está disponible"));
       }
-    }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA);
+    }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.EMPRESA_ASOCIADA);
 
     app.get("/heladeras-solidarias/heladeras",
         ControllerLocator.instanceOf(HeladerasController.class)::index,
@@ -125,6 +129,13 @@ public class Router {
 
     app.get("/heladeras-solidarias/ver-mapa",
         ControllerLocator.instanceOf(MapaController.class)::index);
+
+    //AGREGAR DIRECCION
+    app.get("/heladeras-solidarias/agregar-direccion",
+        ControllerLocator.instanceOf(AgregarDireccionController.class)::create);
+
+    app.post("/heladeras-solidarias/agregar-direccion",
+        ControllerLocator.instanceOf(AgregarDireccionController.class)::save);
 
     //VISTAS ADMINISTRADOR
     app.get("/heladeras-solidarias/heladeras-admin",
@@ -152,7 +163,7 @@ public class Router {
     // VER REPORTES
 
     //TODO path reporte
-    //app.get("/heladeras-solidarias/reportes",
-    //        ControllerLocator.instanceOf(ReportesController.class)::index, TipoRol.ADMINISTRADOR);
+    app.get("/heladeras-solidarias/reportes",
+        ControllerLocator.instanceOf(ReportesController.class)::index, TipoRol.ADMINISTRADOR);
   }
 }

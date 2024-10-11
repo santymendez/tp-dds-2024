@@ -143,7 +143,6 @@ public class Initializer {
   static Provincia tierraDelFuego;
   static Provincia tucuman;
 
-
   static Formulario formulario1;
 
   static List<Pregunta> lstPreguntas1;

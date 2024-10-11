@@ -45,7 +45,8 @@ public class DetectorFallaDesconexion {
         heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_CONEXION);
 
         //Se reporta la falla
-        ReporteHeladera reporte = reportesRepository.buscarSemanalPorHeladera(heladera.getId());
+        ReporteHeladera reporte =
+            reportesRepository.buscarSemanalPorHeladera(heladera.getId()).get();
         reporte.ocurrioUnaFalla();
         heladera.intentarNotificarSuscriptores();
 

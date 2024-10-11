@@ -60,7 +60,9 @@ public class ServiceLocator {
         );
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(ColaboracionesService.class)) {
-        ColaboracionesService instance = new ColaboracionesService();
+        ColaboracionesService instance = new ColaboracionesService(
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(OfertasService.class)) {
         OfertasService instance = new OfertasService();

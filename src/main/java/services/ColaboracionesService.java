@@ -6,13 +6,20 @@ import dtos.DistribucionTarjetasDto;
 import dtos.DistribucionViandasDto;
 import dtos.DonacionDineroDto;
 import dtos.DonacionViandasDto;
+import java.time.LocalDate;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.DistribucionViandas;
 import models.entities.colaboracion.DonacionDinero;
+import models.entities.colaboracion.DonacionViandas;
 import models.entities.colaboracion.RealizacionOfertas;
 import models.entities.colaboracion.TipoColaboracion;
+import models.entities.heladera.Heladera;
+import models.entities.heladera.vianda.Comida;
+import models.entities.heladera.vianda.Vianda;
+import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.factories.FactoryColaboracion;
+import models.repositories.imp.GenericRepository;
 
 /**
  * With or without youuu.
@@ -20,6 +27,14 @@ import models.factories.FactoryColaboracion;
  */
 
 public class ColaboracionesService {
+
+  private final GenericRepository genericRepository;
+
+  public ColaboracionesService(
+      GenericRepository genericRepository
+  ) {
+    this.genericRepository = genericRepository;
+  }
 
   /** Crea una colaboracion a partir de un dto (para csv).
    *
@@ -48,8 +63,46 @@ public class ColaboracionesService {
     return colaboracion;
   }
 
-  public Colaboracion crear(DonacionViandasDto donacionViandasDto) {
-    return null;
+  /**
+   * Crea una colaboracion a para el caso de donacion de viandas.
+   *
+   * @param donacionViandasDto dto de la donacion.
+   * @param heladera la heladera.
+   * @param colaborador colaborador.
+   * @return una colaboracion.
+   */
+
+  public Colaboracion crear(DonacionViandasDto donacionViandasDto,
+                            Heladera heladera, Colaborador colaborador) {
+    DonacionViandas donacionViandas = new DonacionViandas();
+    int cantViandas = Integer.parseInt(donacionViandasDto.getCantViandas());
+
+    Comida comida = new Comida(
+        donacionViandasDto.getNombreComida(),
+        LocalDate.parse(donacionViandasDto.getFechaVencimiento())
+    );
+
+    for (int i = 0; i < cantViandas; i++) {
+      Vianda vianda = new Vianda(
+          comida,
+          LocalDate.now(),
+          colaborador,
+          heladera,
+          Integer.parseInt(donacionViandasDto.getCalorias()),
+          Float.parseFloat(donacionViandasDto.getPeso()),
+          false
+      );
+
+      this.genericRepository.guardar(vianda);
+
+      donacionViandas.getViandasDonadas().add(vianda);
+    }
+
+    Colaboracion colaboracion = new Colaboracion();
+    colaboracion.setDonacionViandas(donacionViandas);
+    colaboracion.setTipoColaboracion(TipoColaboracion.DONAR_VIANDA);
+    
+    return colaboracion;
   }
 
   public Colaboracion crear(DistribucionViandasDto distribucionViandasDto) {

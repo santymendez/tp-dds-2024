@@ -1,10 +1,10 @@
 package services;
 
 import dtos.DireccionInputDto;
-import java.util.Objects;
 import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
+import models.entities.personas.colaborador.Colaborador;
 import models.factories.FactoryDireccion;
 import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
@@ -16,12 +16,12 @@ import models.repositories.imp.GenericRepository;
 public class DireccionesService {
 
   private final DireccionesRepository direccionesRepository;
-  private final GenericRepository provinciasRepository;
+  private final GenericRepository genericRepository;
 
   public DireccionesService(DireccionesRepository direccionesRepository,
-                            GenericRepository provinciasRepository) {
+                            GenericRepository genericRepository) {
     this.direccionesRepository = direccionesRepository;
-    this.provinciasRepository = provinciasRepository;
+    this.genericRepository = genericRepository;
   }
 
   /**
@@ -50,7 +50,7 @@ public class DireccionesService {
 
     if (direccionInputDto.getProvincia() != null) {
       Optional<Provincia> provincia =
-          this.provinciasRepository
+          this.genericRepository
               .buscarPorId(Long.parseLong(direccionInputDto.getProvincia()), Provincia.class);
       direccion = FactoryDireccion.crearCon(direccionInputDto, provincia.get());
     } else {
@@ -58,6 +58,25 @@ public class DireccionesService {
     }
 
     this.direccionesRepository.guardar(direccion);
+    return direccion;
+  }
+
+  /**
+   * Crea una direccion y se la asigna al colaborador.
+   *
+   * @param direccionInputDto el dto de la direccion.
+   * @param colaborador un colaborador.
+   * @return una direccion.
+   */
+
+  public Direccion crearAsignar(DireccionInputDto direccionInputDto, Colaborador colaborador) {
+    //Se crea la direccion
+    Direccion direccion = this.crear(direccionInputDto);
+
+    //Se asigna la direccion
+    colaborador.setDireccion(direccion);
+    this.genericRepository.modificar(colaborador);
+
     return direccion;
   }
 

@@ -58,13 +58,13 @@
                 <input type="hidden" name="formType" value="donarViandas">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <input type="text" class="form-control form-control-lg" id="descripcion"
-                               placeholder="Descripción" required>
+                        <label for="nombreComida" class="form-label">Nombre de la Comida</label>
+                        <input name="nombreComida" type="text" class="form-control form-control-lg" id="nombreComida"
+                               placeholder="Nombre" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="heladera" class="form-label">Seleccionar heladera</label>
-                        <select class="form-select form-select-lg" id="heladera" required>
+                        <select name="heladera" class="form-select form-select-lg" id="heladera" required>
                             <option value="" selected>Elija una opción</option>
                             {{#each heladeras}}
                                 <option value="{{this.getId}}">{{this.getNombre}}</option>
@@ -73,22 +73,22 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="calorias" class="form-label">Calorías</label>
-                        <input type="number" class="form-control form-control-lg" id="calorias"
+                        <input name="calorias" type="number" class="form-control form-control-lg" id="calorias"
                                placeholder="Ej. 500" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="vencimiento" class="form-label">Fecha de vencimiento</label>
-                        <input type="date" class="form-control form-control-lg" id="vencimiento"
+                        <input name="fechaVencimiento" type="date" class="form-control form-control-lg" id="vencimiento"
                                required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="peso" class="form-label">Peso en kilos</label>
-                        <input type="number" class="form-control form-control-lg" id="peso"
+                        <input name="peso" type="number" class="form-control form-control-lg" id="peso"
                                placeholder="Ej. 0.5" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="cantidad" class="form-label">Cantidad</label>
-                        <input type="number" class="form-control form-control-lg" id="cantidad"
+                        <input name="cantidad" type="number" class="form-control form-control-lg" id="cantidad"
                                placeholder="Ej. 3" required>
                     </div>
                 </div>

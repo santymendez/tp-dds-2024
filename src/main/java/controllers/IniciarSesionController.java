@@ -66,8 +66,7 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
     } else {
       //TODO MANEJAR ERROR
       // context.attribute("error", "Usuario o contrasenia incorrectos");
-      // context.redirect("/heladeras-solidarias/iniciar-sesion");
-      context.render("iniciar-sesion.hbs");
+      context.redirect("/heladeras-solidarias/iniciar-sesion");
     }
   }
 

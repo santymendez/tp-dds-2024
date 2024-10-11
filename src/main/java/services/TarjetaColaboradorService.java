@@ -29,7 +29,6 @@ public class TarjetaColaboradorService {
     if (colaborador.getTipoColaborador() != TipoColaborador.FISICO
         || !direccion.admiteEnvio()
     ) {
-      //El envio es solo para los colaboradores
       return;
     }
 

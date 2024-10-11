@@ -61,18 +61,17 @@
                         {{#verifyRole tipoRol "PERSONA_JURIDICA"}}
                             <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
                             <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
-                            <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
+                            <li><a href="/heladeras-solidarias/ver-mapa">Ver Mapa</a></li>
                         {{else}}
                             {{#verifyRole tipoRol "EMPRESA_ASOCIADA"}}
                                 <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
                                 <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
-                                <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
+                                <li><a href="/heladeras-solidarias/ver-mapa">Ver Mapa</a></li>
                             {{else}}
                                 {{#verifyRole tipoRol "TECNICO"}}
                                     <li><a href="/heladeras-solidarias/colaborar">Colaborar</a></li>
                                     <li><a href="/heladeras-solidarias/heladeras">Heladeras</a></li>
-                                    <li><a href="/heladeras-solidarias/canjear-puntos">Canjear Puntos</a></li>
-                                    <li><a href="/heladeras-solidarias/vulnerables">Registrar Vulnerable</a></li>
+                                    <li><a href="/heladeras-solidarias/ver-mapa">Ver Mapa</a></li>
                                 {{/verifyRole}}
                             {{/verifyRole}}
                         {{/verifyRole}}

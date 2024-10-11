@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.entities.personas.colaborador.Colaborador;
@@ -71,11 +72,8 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-
     VulnerableInputDto vulnerableInputDto = VulnerableInputDto.fromContext(context);
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
-
-    Long idUsuario = context.sessionAttribute("idUsuario");
 
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 

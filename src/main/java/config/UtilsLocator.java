@@ -1,6 +1,8 @@
 package config;
 
 import java.util.HashMap;
+import models.repositories.imp.TecnicosRepository;
+import models.searchers.BuscadorTecnicosCercanos;
 import utils.security.Autenticador;
 import utils.security.rules.CantidadMaximaDeCaracteres;
 import utils.security.rules.CantidadMinimaDeCaracteres;
@@ -43,6 +45,11 @@ public class UtilsLocator {
             new TieneMayusculasMinusculas(),
             new TieneNumeros(),
             new TieneCaracteresEspeciales());
+        instances.put(utilName, instance);
+      } else if (utilClass.equals(BuscadorTecnicosCercanos.class)) {
+        BuscadorTecnicosCercanos instance = new BuscadorTecnicosCercanos(
+            RepositoryLocator.instanceOf(TecnicosRepository.class)
+        );
         instances.put(utilName, instance);
       }
     }

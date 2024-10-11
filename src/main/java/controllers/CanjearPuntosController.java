@@ -99,10 +99,9 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
    */
 
   public void update(Context context) {
-    Long idUsuario = context.sessionAttribute("idUsuario");
-    Long idOferta = Long.valueOf(Objects.requireNonNull(context.formParam("idOferta")));
-
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
+
+    Long idOferta = Long.valueOf(Objects.requireNonNull(context.formParam("idOferta")));
     Oferta oferta = this.ofertasRepository.buscarPorId(idOferta, Oferta.class).get();
 
     if (colaborador.puedeCanjear(oferta)) {

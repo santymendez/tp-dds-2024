@@ -9,7 +9,7 @@ import io.javalin.security.RouteRole;
 public enum TipoRol implements RouteRole {
     PERSONA_FISICA,
     PERSONA_JURIDICA,
-    EMPRESA_ASOCIADA, //TODO ???
+    EMPRESA_ASOCIADA,
     ADMINISTRADOR,
     TECNICO
 }

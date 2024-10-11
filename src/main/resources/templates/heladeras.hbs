@@ -14,7 +14,6 @@
                     <option value="reportarFalla">Reportar Falla Técnica</option>
                     <option value="recomendaciones">Solicitar Recomendación</option>
                 {{/verifyRole}}
-                    <!-- TODO MAS ROLES -->
                 {{#verifyRole tipoRol "PERSONA_JURIDICA"}}
                     <option value="recomendaciones">Solicitar Recomendación</option>
                 {{/verifyRole}}
@@ -28,7 +27,7 @@
             <div class="mb-3 primero">
                 <div class = "mediano_s">
                     <label for="actionSelector" class="form-label chico">Elija una Heladera</label>
-                    <select name="heladera"""class="form-select form-select-lg chico" id="actionSelector">
+                    <select name="heladera" class="form-select form-select-lg chico" id="actionSelector">
                         <option value="" disabled selected>Seleccione una heladera</option>
                         {{#each heladeras}}
                             <option value="{{this.getId}}">{{this.getNombre}}</option>

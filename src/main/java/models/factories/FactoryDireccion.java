@@ -46,7 +46,13 @@ public class FactoryDireccion {
         barrio.setCiudad(ciudad);
       }
       nuevaDireccion.setBarrio(barrio);
-      nuevaDireccion.setNombreUbicacion(crearNombreUbicacion(barrio));
+
+      if (direccionInputDto.getNombreUbicacion() != null) {
+        nuevaDireccion.setNombreUbicacion(direccionInputDto.getNombreUbicacion());
+      } else {
+        nuevaDireccion.setNombreUbicacion(crearNombreUbicacion(barrio));
+      }
+      
     }
 
     return nuevaDireccion;

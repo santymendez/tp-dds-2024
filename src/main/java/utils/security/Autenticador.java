@@ -59,7 +59,6 @@ public class Autenticador {
     StringBuilder mensajeCompleto = new StringBuilder();
 
     for (String mensaje : this.mensajesParaImprimir) {
-      //TODO no se si esta bien el \n
       mensajeCompleto.append("Error: ").append(mensaje).append("\n");
     }
 

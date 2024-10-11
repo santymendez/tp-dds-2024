@@ -141,11 +141,15 @@ public class Router {
       }
     }, TipoRol.ADMINISTRADOR);
 
+    // CARGAR CSV
+
     app.get("/heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController.class)::create, TipoRol.ADMINISTRADOR);
 
     app.post("heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController.class)::save, TipoRol.ADMINISTRADOR);
+
+    // VER REPORTES
 
     //TODO path reporte
     //app.get("/heladeras-solidarias/reportes",

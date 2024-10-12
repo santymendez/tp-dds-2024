@@ -46,16 +46,16 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
     }
 
     UsuarioDto usuarioDto = new UsuarioDto(
-        context.formParam("nombreUsuario"),
-        context.formParam("contrasenia")
+            context.formParam("nombreUsuario"),
+            context.formParam("contrasenia")
     );
 
     Optional<Usuario> posibleUsuario =
-        usuariosRepository.buscarPorNombreDeUsuario(usuarioDto.getNombreUsuario());
+            usuariosRepository.buscarPorNombreDeUsuario(usuarioDto.getNombreUsuario());
 
     if (
-        posibleUsuario.isPresent()
-            && posibleUsuario.get().getContrasenia().equals(usuarioDto.getContrasenia())
+            posibleUsuario.isPresent()
+                    && posibleUsuario.get().getContrasenia().equals(usuarioDto.getContrasenia())
     ) {
 
       Usuario usuario = posibleUsuario.get();
@@ -64,9 +64,10 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
       context.sessionAttribute("tipoRol", usuario.getTipoRol().toString());
       context.redirect("/heladeras-solidarias");
     } else {
-      //TODO MANEJAR ERROR
-      // context.attribute("error", "Usuario o contrasenia incorrectos");
-      context.redirect("/heladeras-solidarias/iniciar-sesion");
+      Map <String, Object> model = new HashMap<>();
+      model.put("titulo", "Iniciar Sesion");
+      model.put("error", "Usuario y/o Contraseña Incorrectos");
+      context.render("iniciar-sesion.hbs", model);
     }
   }
 

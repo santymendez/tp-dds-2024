@@ -15,6 +15,7 @@ import services.DireccionesService;
 import services.HeladerasService;
 import services.IncidentesService;
 import services.OfertasService;
+import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
 import services.UsuariosService;
 import services.VulnerablesService;
@@ -45,6 +46,7 @@ public class ServiceLocator {
             RepositoryLocator.instanceOf(ColaboradoresRepository.class)
         );
         instances.put(serviceName, instance);
+
       } else if (serviceClass.equals(DireccionesService.class)) {
         DireccionesService instance = new DireccionesService(
             RepositoryLocator.instanceOf(DireccionesRepository.class),
@@ -58,35 +60,44 @@ public class ServiceLocator {
             RepositoryLocator.instanceOf(VulnerablesRepository.class)
         );
         instances.put(serviceName, instance);
+
       } else if (serviceClass.equals(ColaboracionesService.class)) {
-        ColaboracionesService instance = new ColaboracionesService(
-            RepositoryLocator.instanceOf(GenericRepository.class)
-        );
+        ColaboracionesService instance = new ColaboracionesService();
         instances.put(serviceName, instance);
+
       } else if (serviceClass.equals(OfertasService.class)) {
         OfertasService instance = new OfertasService();
         instances.put(serviceName, instance);
+
       } else if (serviceClass.equals(UsuariosService.class)) {
         UsuariosService instance = new UsuariosService();
         instances.put(serviceName, instance);
+
       } else if (serviceClass.equals(IncidentesService.class)) {
         IncidentesService instance = new IncidentesService(
             RepositoryLocator.instanceOf(GenericRepository.class));
         instances.put(serviceName, instance);
+
       } else if (serviceClass.equals(HeladerasService.class)) {
         HeladerasService instance = new HeladerasService(
             RepositoryLocator.instanceOf(GenericRepository.class)
         );
         instances.put(serviceName, instance);
+
       } else if (serviceClass.equals(CanjearPuntosService.class)) {
         CanjearPuntosService instance = new CanjearPuntosService(
             RepositoryLocator.instanceOf(GenericRepository.class)
         );
         instances.put(serviceName, instance);
+
       } else if (serviceClass.equals(TarjetaColaboradorService.class)) {
         TarjetaColaboradorService instance = new TarjetaColaboradorService(
             RepositoryLocator.instanceOf(GenericRepository.class)
         );
+        instances.put(serviceName, instance);
+
+      } else if (serviceClass.equals(SuscripcionesService.class)) {
+        SuscripcionesService instance = new SuscripcionesService();
         instances.put(serviceName, instance);
       }
     }

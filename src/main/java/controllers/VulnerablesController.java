@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.entities.personas.colaborador.Colaborador;
@@ -31,17 +30,17 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
   /**
    * Construcctor de la clase.
    *
-   * @param vulnerablesRepository el repo de vulnerables.
+   * @param genericRepository el repo de vulnerables.
    * @param vulnerablesService    el sevice de vulnerables.
    * @param direccionesService    el service de direcciones.
    */
 
   public VulnerablesController(
-      GenericRepository vulnerablesRepository,
+      GenericRepository genericRepository,
       VulnerablesService vulnerablesService,
       DireccionesService direccionesService
   ) {
-    this.genericRepository = vulnerablesRepository;
+    this.genericRepository = genericRepository;
     this.vulnerablesService = vulnerablesService;
     this.direccionesService = direccionesService;
   }

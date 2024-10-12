@@ -50,13 +50,13 @@ public class Router {
         ControllerLocator.instanceOf(IniciarSesionController.class)::save);
 
     app.get("/heladeras-solidarias/registrarse",
-            ControllerLocator.instanceOf(RegistrarColaboradorController.class)::create);
+        ControllerLocator.instanceOf(RegistrarColaboradorController.class)::create);
 
     app.post("/heladeras-solidarias/registrarse",
         ControllerLocator.instanceOf(RegistrarColaboradorController.class)::save);
 
     app.get("/heladeras-solidarias/cerrar-sesion",
-            ControllerLocator.instanceOf(IniciarSesionController.class)::update);
+        ControllerLocator.instanceOf(IniciarSesionController.class)::update);
 
     //VISTAS COLABORADOR
 
@@ -81,7 +81,7 @@ public class Router {
         TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA);
 
     //COLABORAR
-    app.get("/heladeras-solidarias/colaborar", 
+    app.get("/heladeras-solidarias/colaborar",
         ControllerLocator.instanceOf(ColaboracionesController.class)::create,
         TipoRol.PERSONA_FISICA,
         TipoRol.PERSONA_JURIDICA,
@@ -104,9 +104,9 @@ public class Router {
         case "distribuirViandas" ->
             ControllerLocator.instanceOf(DistribuirViandasController.class).save(ctx);
         default -> ctx.status(404).render("/error-base.hbs", ErrorHelper.generateError(
-                404,
-                "Página No Encontrada",
-                "La página a la que quieres acceder no está disponible"));
+            404,
+            "Página No Encontrada",
+            "La página a la que quieres acceder no está disponible"));
       }
     }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.EMPRESA_ASOCIADA);
 
@@ -162,7 +162,6 @@ public class Router {
 
     // VER REPORTES
 
-    //TODO path reporte
     app.get("/heladeras-solidarias/reportes",
         ControllerLocator.instanceOf(ReportesController.class)::index, TipoRol.ADMINISTRADOR);
   }

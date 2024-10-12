@@ -13,7 +13,6 @@ import utils.javalin.InterfaceCrudViewsHandler;
  * Controller para la distribucion de tarjetas.
  */
 
-//TODO
 public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
 
   private final ColaboracionesService colaboracionesService;
@@ -46,7 +45,7 @@ public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
 
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
-    if (!colaborador.getDireccion().admiteEnvio()) {
+    if (colaborador.getDireccion() == null || !colaborador.getDireccion().admiteEnvio()) {
       //TODO MANEJAR ERROR
       context.redirect("/heladeras-solidarias/agregar-direccion");
       return;

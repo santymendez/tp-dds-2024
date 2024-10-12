@@ -22,6 +22,7 @@ public class AuthMiddleware {
       var userRole = getUserRoleType(ctx);
 
       if (!ctx.routeRoles().isEmpty() && !ctx.routeRoles().contains(userRole)) {
+
         throw new AccessDeniedException();
       }
     });

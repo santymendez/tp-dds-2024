@@ -13,6 +13,7 @@ import utils.javalin.InterfaceCrudViewsHandler;
  * Controller para la distribucion de tarjetas.
  */
 
+//TODO
 public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
 
   private final ColaboracionesService colaboracionesService;

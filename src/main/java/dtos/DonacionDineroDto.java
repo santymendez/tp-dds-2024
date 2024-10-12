@@ -25,8 +25,8 @@ public class DonacionDineroDto {
 
   public static DonacionDineroDto fromContext(Context context) {
     DonacionDineroDto nuevaDonacion = new DonacionDineroDto();
-    context.formParam("montoDonado");
-    context.formParam("frecuenciaDonacion");
+    nuevaDonacion.setMontoDonado(context.formParam("montoDonado"));
+    nuevaDonacion.setFrecuencia(context.formParam("frecuenciaDonacion"));
     return nuevaDonacion;
   }
 }

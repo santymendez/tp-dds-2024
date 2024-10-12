@@ -197,7 +197,7 @@ class ColocacionHeladera {
 }
 
 class RealizacionOfertas {
-    -List<Oferta> ofertasRealizadas
+    -ofertaRealizada: Oferta
 }
 
 '========================================== Clases de la entrega 2 ============================================='
@@ -629,7 +629,7 @@ Colaboracion --> Colaborador
 DonacionViandas -->"*" Vianda
 DistribucionViandas --> Heladera
 DistribucionTarjetas -->"*" TarjetaVulnerable
-RealizacionOfertas -->"*" Oferta
+RealizacionOfertas --> Oferta
 Oferta --> Colaborador
 ColocacionHeladera --> Heladera
 

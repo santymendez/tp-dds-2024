@@ -7,11 +7,11 @@
     <div class="container chico">
         <div class="mb-3 containerPrincipal">
             <label for="actionSelector" class="form-label chico">Elige una Heladera</label>
-            <select class="form-select form-select-lg chico" id="actionSelector">
-                <option value="" selected>Seleccione una opcion</option>
-                <option value="heladera_1">Heladera 1</option>
-                <option value="heladera_2">Heladera 2</option>
-                <option value="heladera_3">Heladera 3</option>
+            <select name="heladera" class="form-select form-select-lg chico" id="actionSelector">
+                <option value="" disabled selected>Seleccione una heladera</option>
+                {{#each heladeras}}
+                    <option value="{{this.getId}}">{{this.getNombre}}</option>
+                {{/each}}
             </select>
         </div>
 

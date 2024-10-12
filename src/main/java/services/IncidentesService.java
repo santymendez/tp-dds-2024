@@ -40,6 +40,7 @@ public class IncidentesService {
         .build();
 
     heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
+
     this.genericRepository.modificar(heladera);
 
     this.genericRepository.guardar(incidente);

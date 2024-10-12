@@ -14,6 +14,10 @@ public class CalculoHeladerasActivas implements InterfazFormula {
 
   @Override
   public Float calcularPuntosDe(Colaboracion colaboracion) {
+
+    //TODO ESTA MAL EL CALCULO:
+    // HAY QUE SUMAR LOS MESES ACTIVAS DE CADA HELADERA Y ESO MULTIPLICARLO POR EL COEFICIENTE
+
     return colaboracion.tiempoActivaHeladera() * coeficiente;
   }
 }

@@ -21,16 +21,12 @@
                 <label for="contrasenia" class="form-label">Contraseña</label>
                 <input name = "contrasenia" type="password" class="form-control form-control-lg"
                        id="contrasenia" placeholder="Ingrese contraseña">
-                <!--TODO METERLO ADENTRO DEL INPUT-->
                 <i class="bi bi-eye-slash" id="togglePassword"
                    style="position: absolute; top: 65%; right: 3rem; transform: translateY(-15%); cursor: pointer;"></i>
             </div>
             <div class="d-grid mx-auto">
                 <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
             </div>
-            {{#if error}}
-                <div class="error-message" style="color:red;">{{error}}</div>
-            {{/if}}
         </form>
     </div>
 {{/partial}}

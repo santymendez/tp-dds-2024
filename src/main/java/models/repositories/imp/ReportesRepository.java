@@ -41,10 +41,10 @@ public class ReportesRepository extends GenericRepository {
    * @return Lista de reportes de heladera.
    */
 
-  public ReporteHeladera buscarSemanalPorHeladera(Long id) {
+  public Optional<ReporteHeladera> buscarSemanalPorHeladera(Long id) {
     LocalDate haceUnaSemana = LocalDate.now().minusWeeks(1);
 
-    return entityManager()
+    return Optional.ofNullable(entityManager()
         .createQuery(
             "SELECT r FROM ReporteHeladera r WHERE r.heladera.id = :id AND "
                 + "r.fecha >= :haceUnaSemana",
@@ -52,7 +52,7 @@ public class ReportesRepository extends GenericRepository {
         )
         .setParameter("id", id)
         .setParameter("haceUnaSemana", haceUnaSemana)
-        .getSingleResult();
+        .getSingleResult());
   }
 
   /**

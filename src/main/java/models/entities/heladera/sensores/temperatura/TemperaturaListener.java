@@ -71,7 +71,8 @@ public class TemperaturaListener implements IMqttMessageListener {
 
       //Se desactiva la heladera, se reporta la falla y se notifican suscriptores
       sensorTemperatura.desactivarHeladera(incidente);
-      ReporteHeladera reporte = this.reportesRepository.buscarSemanalPorHeladera(heladera.getId());
+      ReporteHeladera reporte =
+          this.reportesRepository.buscarSemanalPorHeladera(heladera.getId()).get();
       reporte.ocurrioUnaFalla();
       heladera.intentarNotificarSuscriptores();
     }

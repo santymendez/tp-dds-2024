@@ -55,6 +55,7 @@
     cursor: pointer;
     outline: none;
     transition: background-color 0.3s;
+    border-color: var(--blanco);
 }
 
 .form-check-input::before {
@@ -71,10 +72,17 @@
 
 .form-check-input:checked {
     background-color: var(--verdeSecundario); /* Color de fondo cuando está activado */
+    border-color: var(--blanco);
 }
 
 .form-check-input:checked::before {
     transform: translateX(1.5rem); /* Mueve el círculo del toggle switch */
+    border-color: var(--blanco);
+}
+
+.form-check-input:focus {
+    box-shadow: none;
+    border-color: var(--blanco);
 }
 
 .btn-primary {
@@ -120,6 +128,7 @@
 
 .form-control:focus, .form-select:focus {
 /*    border-color: var(--verdeBotonesCuadrados);*/
-/*    box-shadow: none;*/
+    box-shadow: none;
     font-size: 1.4rem;
+    border-color: var(--blanco);
 }

@@ -70,7 +70,7 @@ public class TarjetasColaboradoresRepository extends GenericRepository {
    */
 
   public Optional<TarjetaColaborador> buscarPorIdColaborador(Long idColaborador) {
-    String query = "SELECT tc FROM TarjetaColaborador tc WHERE tc.colaborador.id =: idColaborador";
+    String query = "SELECT tc FROM TarjetaColaborador tc WHERE tc.colaborador.id = :idColaborador";
     return entityManager().createQuery(query, TarjetaColaborador.class)
         .setParameter("idColaborador", idColaborador)
         .getResultList()

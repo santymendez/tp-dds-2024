@@ -44,6 +44,7 @@ import models.entities.personas.contacto.Contacto;
 import models.entities.personas.contacto.TipoContacto;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
+import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
 import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.tecnico.Tecnico;
@@ -96,13 +97,18 @@ public class Initializer {
   static DonacionDinero donacionDinero;
   static Colaboracion donarDinero;
 
-  static RealizacionOfertas realizarOfertas;
-  static List<Oferta> lstOfertas;
+  static RealizacionOfertas realizarOferta1;
+  static RealizacionOfertas realizarOferta2;
+  static RealizacionOfertas realizarOferta3;
+
   static Oferta oferta1;
   static Oferta oferta2;
   static Oferta oferta3;
   static Oferta oferta4;
-  static Colaboracion realizarOferta;
+
+  static Colaboracion realizarOfertaColab1;
+  static Colaboracion realizarOfertaColab2;
+  static Colaboracion realizarOfertaColab3;
 
   @Getter
   static Direccion direccion1;
@@ -142,7 +148,6 @@ public class Initializer {
   static Provincia santiagoDelEstero;
   static Provincia tierraDelFuego;
   static Provincia tucuman;
-
 
   static Formulario formulario1;
 
@@ -236,6 +241,8 @@ public class Initializer {
   static Reconocimiento reconocimientoAugusto;
   static Reconocimiento reconocimientoIniaqui;
   static Reconocimiento reconocimientoMati;
+  static Reconocimiento reconocimientoCitiGroup;
+  static Reconocimiento reconocimientoOficinaDeCorsini;
 
   static Contacto contactoAugusto;
   static Contacto contactoIniaqui;
@@ -251,6 +258,9 @@ public class Initializer {
   static Colaborador mati;
   static Colaborador elCityGroup;
   static Colaborador oficinaDeCorsini;
+
+  static TarjetaColaborador tarjetaAugusto;
+  static TarjetaColaborador tarjetaIniaqui;
 
   static Desperfecto desperfecto;
   static FaltanViandas faltanViandas;
@@ -380,6 +390,9 @@ public class Initializer {
     colaboradoresRepository.guardar(elCityGroup);
     colaboradoresRepository.guardar(oficinaDeCorsini);
 
+    repoGenerico.guardar(tarjetaAugusto);
+    repoGenerico.guardar(tarjetaIniaqui);
+
     repoGenerico.guardar(heladera1);
     repoGenerico.guardar(heladera2);
     repoGenerico.guardar(heladera3);
@@ -399,7 +412,9 @@ public class Initializer {
     colaboracionesRepository.guardar(distribuirTarjetas);
     colaboracionesRepository.guardar(distribuirViandas);
     colaboracionesRepository.guardar(donarDinero);
-    colaboracionesRepository.guardar(realizarOferta);
+    colaboracionesRepository.guardar(realizarOfertaColab1);
+    colaboracionesRepository.guardar(realizarOfertaColab2);
+    colaboracionesRepository.guardar(realizarOfertaColab3);
 
     tecnicosRepository.guardar(liam);
     tecnicosRepository.guardar(santi);
@@ -428,6 +443,12 @@ public class Initializer {
 
   static void iniciarColaboradores() {
 
+    tarjetaAugusto = new TarjetaColaborador();
+    tarjetaAugusto.setFechaAlta(LocalDate.of(2019, 7, 10));
+
+    tarjetaIniaqui = new TarjetaColaborador();
+    tarjetaIniaqui.setFechaAlta(LocalDate.of(2020, 9, 1));
+
     formula = new Formula();
 
     reconocimientoAugusto = new Reconocimiento();
@@ -439,6 +460,12 @@ public class Initializer {
     reconocimientoMati = new Reconocimiento();
     reconocimientoMati.setFormulaCalculoDePuntos(formula);
 
+    reconocimientoCitiGroup = new Reconocimiento();
+    reconocimientoCitiGroup.setFormulaCalculoDePuntos(formula);
+
+    reconocimientoOficinaDeCorsini = new Reconocimiento();
+    reconocimientoOficinaDeCorsini.setFormulaCalculoDePuntos(formula);
+
     documentoAugusto = new Documento(45345678, TipoDocumento.DNI);
 
     augusto = new Colaborador();
@@ -448,6 +475,7 @@ public class Initializer {
     augusto.setContacto(contactoAugusto);
     augusto.setTipoColaborador(TipoColaborador.FISICO);
     augusto.setReconocimiento(reconocimientoAugusto);
+    tarjetaAugusto.setColaborador(augusto);
 
     iniaki = new Colaborador();
     iniaki.setNombre("Iñaki");
@@ -455,6 +483,7 @@ public class Initializer {
     iniaki.setContacto(contactoIniaqui);
     iniaki.setTipoColaborador(TipoColaborador.FISICO);
     iniaki.setReconocimiento(reconocimientoIniaqui);
+    tarjetaIniaqui.setColaborador(iniaki);
 
     mati = new Colaborador();
     mati.setNombre("Matias");
@@ -469,12 +498,14 @@ public class Initializer {
     elCityGroup.setRubro("Futbolistico");
     elCityGroup.setTipoColaborador(TipoColaborador.EMPRESA_ASOCIADA);
     elCityGroup.setContacto(contactoCitiGroup);
+    elCityGroup.setReconocimiento(reconocimientoCitiGroup);
 
     oficinaDeCorsini = new Colaborador();
     oficinaDeCorsini.setRubro("Divorcios");
     oficinaDeCorsini.setRazonSocial("The Best Doc Ever");
     oficinaDeCorsini.setTipoColaborador(TipoColaborador.JURIDICO);
     oficinaDeCorsini.setContacto(contactoCorsini);
+    oficinaDeCorsini.setReconocimiento(reconocimientoOficinaDeCorsini);
   }
 
   static void iniciarUsuarios() {
@@ -607,7 +638,7 @@ public class Initializer {
 
     donacionDinero = new DonacionDinero();
     donacionDinero.setMontoDonado(150000);
-    donacionDinero.setFrecuenciaDonacion("Casi nunca, tampoco es millonario");
+    donacionDinero.setFrecuenciaDonacion("Unica");
 
     donarDinero = new Colaboracion();
     donarDinero.setFechaColaboracion(LocalDate.of(2011, 6, 26));
@@ -623,17 +654,34 @@ public class Initializer {
     mati.getReconocimiento().sumarPuntos(distribuirViandas);
     iniaki.getReconocimiento().sumarPuntos(donarDinero);
 
-
     // Colaboracion - Realizar Ofertas
 
-    realizarOfertas = new RealizacionOfertas();
-    realizarOfertas.setOfertasRealizadas(lstOfertas);
+    realizarOferta1 = new RealizacionOfertas();
+    realizarOferta1.setOferta(oferta1);
 
-    realizarOferta = new Colaboracion();
-    realizarOferta.setColaborador(elCityGroup);
-    realizarOferta.setTipoColaboracion(TipoColaboracion.REALIZAR_OFERTAS);
-    realizarOferta.setFechaColaboracion(LocalDate.of(2012, 7, 27));
-    realizarOferta.setRealizarOfertas(realizarOfertas);
+    realizarOferta2 = new RealizacionOfertas();
+    realizarOferta2.setOferta(oferta2);
+
+    realizarOferta3 = new RealizacionOfertas();
+    realizarOferta3.setOferta(oferta3);
+
+    realizarOfertaColab1 = new Colaboracion();
+    realizarOfertaColab1.setColaborador(elCityGroup);
+    realizarOfertaColab1.setTipoColaboracion(TipoColaboracion.REALIZAR_OFERTAS);
+    realizarOfertaColab1.setFechaColaboracion(LocalDate.of(2012, 7, 27));
+    realizarOfertaColab1.setOfertaRealizada(realizarOferta1);
+
+    realizarOfertaColab2 = new Colaboracion();
+    realizarOfertaColab2.setColaborador(elCityGroup);
+    realizarOfertaColab2.setTipoColaboracion(TipoColaboracion.REALIZAR_OFERTAS);
+    realizarOfertaColab2.setFechaColaboracion(LocalDate.of(2012, 7, 27));
+    realizarOfertaColab2.setOfertaRealizada(realizarOferta2);
+
+    realizarOfertaColab3 = new Colaboracion();
+    realizarOfertaColab3.setColaborador(elCityGroup);
+    realizarOfertaColab3.setTipoColaboracion(TipoColaboracion.REALIZAR_OFERTAS);
+    realizarOfertaColab3.setFechaColaboracion(LocalDate.of(2012, 7, 27));
+    realizarOfertaColab3.setOfertaRealizada(realizarOferta3);
   }
 
   static void iniciarTarjetas() {
@@ -1018,8 +1066,6 @@ public class Initializer {
   }
 
   static void iniciarOfertas() {
-    lstOfertas = new ArrayList<>();
-
     oferta1 = new Oferta();
     oferta1.setNombre("Oferton");
     oferta1.setPuntosNecesarios(1000F);
@@ -1055,11 +1101,6 @@ public class Initializer {
         + "Desde su inicio en Rafaela, ha escalado la carrera de entrenador, y su trayectoria lo "
         + "llevará a dirigir en el Mundial de Qatar.");
     oferta4.setImagenIlustrativa("/static-imgs/libro_profe_alfaro.jpg");
-
-    lstOfertas.add(oferta1);
-    lstOfertas.add(oferta2);
-    lstOfertas.add(oferta3);
-    lstOfertas.add(oferta4);
   }
 
   static void iniciarSensores() {

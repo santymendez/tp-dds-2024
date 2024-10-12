@@ -33,7 +33,6 @@ public class CsvController implements InterfaceCrudViewsHandler {
 
   private final EmailSender emailSender;
   private final ColaboradoresService colaboradoresService;
-  private final ColaboradoresRepository colaboradoresRepository;
   private final ColaboracionesService colaboracionesService;
 
   /**
@@ -44,12 +43,10 @@ public class CsvController implements InterfaceCrudViewsHandler {
 
   public CsvController(
       ColaboradoresService colaboradoresService,
-      ColaboradoresRepository colaboradoresRepository,
       ColaboracionesService colaboracionesService,
       EmailSender emailSender
   ) {
     this.colaboradoresService = colaboradoresService;
-    this.colaboradoresRepository = colaboradoresRepository;
     this.emailSender = emailSender;
     this.colaboracionesService = colaboracionesService;
   }

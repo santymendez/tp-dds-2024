@@ -3,6 +3,7 @@ package utils;
 import config.RepositoryLocator;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.TipoColaborador;
 import models.repositories.imp.GenericRepository;
 
 /**
@@ -22,7 +23,10 @@ public class ColaboracionesHelper {
     colaboracion.setColaborador(colaborador);
 
     colaborador.agregarColaboracion(colaboracion);
-    colaborador.aumentarReconocimiento(colaboracion);
+
+    if (colaborador.getTipoColaborador() == TipoColaborador.FISICO) {
+      colaborador.aumentarReconocimiento(colaboracion);
+    }
 
     GenericRepository repository = RepositoryLocator.instanceOf(GenericRepository.class);
     repository.modificar(colaborador);

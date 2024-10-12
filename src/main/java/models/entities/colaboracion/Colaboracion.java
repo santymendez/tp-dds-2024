@@ -53,7 +53,7 @@ public class Colaboracion extends Persistente {
   private ColocacionHeladera colocacionHeladera;
 
   @Embedded
-  private RealizacionOfertas realizarOfertas;
+  private RealizacionOfertas ofertaRealizada;
 
   //============================== Metodos Auxiliares ========================================
 

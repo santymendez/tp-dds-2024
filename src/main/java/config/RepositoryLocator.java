@@ -6,6 +6,7 @@ import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.HeladerasRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.ReportesRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
@@ -59,6 +60,8 @@ public class RepositoryLocator {
         instances.put(repositoryClassName, new TarjetasColaboradoresRepository());
       } else if (repositoryClass.equals(VulnerablesRepository.class)) {
         instances.put(repositoryClassName, new VulnerablesRepository());
+      } else if (repositoryClass.equals(HeladerasRepository.class)) {
+        instances.put(repositoryClassName, new HeladerasRepository());
       }
     }
 

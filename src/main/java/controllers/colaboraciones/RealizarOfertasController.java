@@ -2,12 +2,10 @@ package controllers.colaboraciones;
 
 import dtos.OfertaInputDto;
 import io.javalin.http.Context;
-import java.util.Objects;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.canje.Oferta;
-import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import services.ColaboracionesService;
 import services.OfertasService;
@@ -22,7 +20,6 @@ import utils.javalin.InterfaceCrudViewsHandler;
 
 public class RealizarOfertasController implements InterfaceCrudViewsHandler {
   private final GenericRepository ofertasRepository;
-  private final OfertasService ofertasService;
   private final ColaboracionesService colaboracionesService;
 
   /**
@@ -39,7 +36,6 @@ public class RealizarOfertasController implements InterfaceCrudViewsHandler {
       ColaboracionesService colaboracionesService
   ) {
     this.ofertasRepository = ofertasRepository;
-    this.ofertasService = ofertasService;
     this.colaboracionesService = colaboracionesService;
   }
 
@@ -64,13 +60,11 @@ public class RealizarOfertasController implements InterfaceCrudViewsHandler {
 
     String path = UploadedFilesHelper.getImageFromContext(context);
 
-    ofertaInputDto.setImagenIlustrativa(Objects.requireNonNullElse(path, "/static-imgs/logo.png"));
+    ofertaInputDto.setImagenIlustrativa(path);
 
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
-    Oferta oferta = this.ofertasService.crear(ofertaInputDto, colaborador);
-
-    Colaboracion colaboracion = this.colaboracionesService.crear(oferta);
+    Colaboracion colaboracion = this.colaboracionesService.crear(ofertaInputDto, colaborador);
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
@@ -84,17 +78,17 @@ public class RealizarOfertasController implements InterfaceCrudViewsHandler {
 
   @Override
   public void update(Context context) {
-    Optional<Oferta> posibleCanjeBuscado = this
-        .ofertasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
+    Optional<Oferta> posibleCanjeBuscado = this.ofertasRepository
+        .buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
 
-    posibleCanjeBuscado.ifPresent(ofertasRepository::modificar);
+    posibleCanjeBuscado.ifPresent(this.ofertasRepository::modificar);
   }
 
   @Override
   public void delete(Context context) {
-    Optional<Oferta> posibleCanjeBuscado = this
-        .ofertasRepository.buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
+    Optional<Oferta> posibleCanjeBuscado = this.ofertasRepository
+        .buscarPorId(Long.valueOf(context.pathParam("id")), Oferta.class);
 
-    posibleCanjeBuscado.ifPresent(ofertasRepository::eliminar);
+    posibleCanjeBuscado.ifPresent(this.ofertasRepository::eliminar);
   }
 }

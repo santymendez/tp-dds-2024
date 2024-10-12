@@ -2,6 +2,7 @@ package dtos;
 
 import io.javalin.http.Context;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,9 +13,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class DonacionViandasDto {
-  private String tipoVianda;
   private String cantViandas;
+  private String calorias;
+  private String peso;
+  private String nombreComida;
+  private String fechaVencimiento;
 
   /**
    * Crea una donacion de viandas a partir de un contexto.
@@ -24,9 +29,12 @@ public class DonacionViandasDto {
    */
 
   public static DonacionViandasDto fromContext(Context context) {
-    DonacionViandasDto donacionViandasDto = new DonacionViandasDto();
-    donacionViandasDto.setCantViandas(context.pathParam("cantViandas"));
-    donacionViandasDto.setTipoVianda(context.pathParam("descripcion"));
-    return donacionViandasDto;
+    return DonacionViandasDto.builder()
+        .cantViandas(context.formParam("cantidad"))
+        .peso(context.formParam("peso"))
+        .fechaVencimiento(context.formParam("fechaVencimiento"))
+        .calorias(context.formParam("calorias"))
+        .nombreComida(context.formParam("nombreComida"))
+        .build();
   }
 }

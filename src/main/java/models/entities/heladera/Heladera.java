@@ -161,7 +161,6 @@ public class Heladera extends Persistente {
 
     this.viandas.add(vianda);
     vianda.setEntregada(true);
-    vianda.setHeladera(this);
 
     Heladera heladera = vianda.getHeladera();
     //heladera.getModReportes().getReporteHeladera().viandaColocada(); Se hace en el controller

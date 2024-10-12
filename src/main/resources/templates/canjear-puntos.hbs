@@ -4,14 +4,17 @@
 
 {{#partial "cuerpo"}}
     <div class="main-content__titulo">
-        <h2>Puntos Acumulados:</h2>
-        <h2>{{this.puntos}}</h2>
+        {{#verifyRole tipoRol "PERSONA_FISICA"}}
+            <h2>Puntos Acumulados:</h2>
+            <h2>{{this.puntos}}</h2>
+        {{/verifyRole}}
     </div>
 
     <div class="services-container" id="services-container">
         {{#each ofertas}}
             <div class="service-rectangle">
-                <form class="formulario" method="POST" action="/heladeras-solidarias/canjear-puntos">
+                <form class="formulario" method="POST"
+                      action="/heladeras-solidarias/canjear-puntos">
                     <input type="hidden" name="idOferta" value="{{this.id}}">
                     <img src="{{this.imagenIlustrativa}}" alt="Service Image" class="service-image">
                     <p class="service-name">{{this.nombre}}</p>

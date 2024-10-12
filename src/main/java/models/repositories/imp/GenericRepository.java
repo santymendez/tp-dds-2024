@@ -72,7 +72,8 @@ public class GenericRepository implements PersistenciaSimple {
 
   public <T> List<T> buscarTodos(Class<T> clase) {
     return entityManager()
-        .createQuery("from " + clase.getName(), clase)
+        .createQuery("FROM " + clase.getName() + " c WHERE c.activo = :activo", clase)
+        .setParameter("activo", true)
         .getResultList();
   }
 

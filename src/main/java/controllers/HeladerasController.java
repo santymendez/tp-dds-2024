@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.entities.heladera.Heladera;
@@ -112,15 +111,11 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    */
 
   public void update(Context context) {
-    Long heladeraId = Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
-
-    Optional<Heladera> posibleHeladeraBuscada = this
-        .genericRepository.buscarPorId(heladeraId, Heladera.class);
-
-    Heladera heladera = posibleHeladeraBuscada.get();
-
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
+
+    Long heladeraId = Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
+    Heladera heladera = this.genericRepository.buscarPorId(heladeraId, Heladera.class).get();
 
     if (direccionInputDto != null) {
       Direccion direccion = this.direccionesService.crear(direccionInputDto);
@@ -144,12 +139,13 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
   public void delete(Context context) {
     Long heladeraId = Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
 
-    Optional<Heladera> posibleHeladeraBuscada = this
-        .genericRepository.buscarPorId(heladeraId, Heladera.class);
+    Heladera heladera = this.genericRepository.buscarPorId(heladeraId, Heladera.class).get();
 
     //TODO QUE HACEMOS CON ESTO?
     String descripcion = context.formParam("descripcion");
 
-    posibleHeladeraBuscada.ifPresent(genericRepository::eliminar);
+    this.genericRepository.eliminar(heladera);
+
+    context.redirect("/heladeras-solidarias");
   }
 }

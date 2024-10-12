@@ -1,5 +1,6 @@
 package config;
 
+import controllers.AgregarDireccionController;
 import controllers.CanjearPuntosController;
 import controllers.ColaboracionesController;
 import controllers.CsvController;
@@ -11,6 +12,7 @@ import controllers.MapaController;
 import controllers.OldCsvController;
 import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
+import controllers.ReportesController;
 import controllers.SuscribirseController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DistribuirViandasController;
@@ -19,17 +21,18 @@ import controllers.colaboraciones.DonarViandasController;
 import controllers.colaboraciones.RealizarOfertasController;
 import java.util.HashMap;
 import java.util.Map;
-import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.HeladerasRepository;
 import models.repositories.imp.ProvinciasRepository;
+import models.repositories.imp.ReportesRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
 import models.repositories.imp.UsuariosRepository;
+import models.searchers.BuscadorTecnicosCercanos;
 import services.CanjearPuntosService;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.DireccionesService;
-import services.DistribucionViandasService;
 import services.HeladerasService;
 import services.IncidentesService;
 import services.OfertasService;
@@ -69,8 +72,6 @@ public class ControllerLocator {
       } else if (controllerClass.equals(OldCsvController.class)) {
         OldCsvController instance = new OldCsvController(
             ServiceLocator.instanceOf(ColaboradoresService.class),
-            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
-            RepositoryLocator.instanceOf(ColaboracionesRepository.class),
             EmailSender.getInstance(),
             ServiceLocator.instanceOf(ColaboracionesService.class)
         );
@@ -100,7 +101,6 @@ public class ControllerLocator {
       } else if (controllerClass.equals(CsvController.class)) {
         CsvController instance = new CsvController(
             ServiceLocator.instanceOf(ColaboradoresService.class),
-            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
             ServiceLocator.instanceOf(ColaboracionesService.class),
             EmailSender.getInstance()
         );
@@ -132,7 +132,9 @@ public class ControllerLocator {
       } else if (controllerClass.equals(ReportarFallaTecnicaController.class)) {
         ReportarFallaTecnicaController instance = new ReportarFallaTecnicaController(
             RepositoryLocator.instanceOf(GenericRepository.class),
-            ServiceLocator.instanceOf(IncidentesService.class)
+            ServiceLocator.instanceOf(IncidentesService.class),
+            UtilsLocator.instanceOf(BuscadorTecnicosCercanos.class),
+            RepositoryLocator.instanceOf(ReportesRepository.class)
         );
         instances.put(controllerName, instance);
 
@@ -146,14 +148,12 @@ public class ControllerLocator {
 
       } else if (controllerClass.equals(ColaboracionesController.class)) {
         ColaboracionesController instance = new ColaboracionesController(
-            RepositoryLocator.instanceOf(GenericRepository.class)
+            RepositoryLocator.instanceOf(HeladerasRepository.class)
         );
         instances.put(controllerName, instance);
 
       } else if (controllerClass.equals(DonarDineroController.class)) {
         DonarDineroController instance = new DonarDineroController(
-            RepositoryLocator.instanceOf(ColaboracionesRepository.class),
-            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
             ServiceLocator.instanceOf(ColaboracionesService.class)
         );
         instances.put(controllerName, instance);
@@ -161,7 +161,6 @@ public class ControllerLocator {
       } else if (controllerClass.equals(DistribuirViandasController.class)) {
         DistribuirViandasController instance = new DistribuirViandasController(
             RepositoryLocator.instanceOf(GenericRepository.class),
-            ServiceLocator.instanceOf(DistribucionViandasService.class),
             ServiceLocator.instanceOf(ColaboracionesService.class),
             RepositoryLocator.instanceOf(TarjetasColaboradoresRepository.class)
         );
@@ -169,11 +168,13 @@ public class ControllerLocator {
 
       } else if (controllerClass.equals(DonarViandasController.class)) {
         DonarViandasController instance = new DonarViandasController(
-            RepositoryLocator.instanceOf(TarjetasColaboradoresRepository.class)
+            RepositoryLocator.instanceOf(TarjetasColaboradoresRepository.class),
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            ServiceLocator.instanceOf(ColaboracionesService.class)
         );
         instances.put(controllerName, instance);
 
-      }  else if (controllerClass.equals(RealizarOfertasController.class)) {
+      } else if (controllerClass.equals(RealizarOfertasController.class)) {
         RealizarOfertasController instance = new RealizarOfertasController(
             RepositoryLocator.instanceOf(GenericRepository.class),
             ServiceLocator.instanceOf(OfertasService.class),
@@ -181,6 +182,17 @@ public class ControllerLocator {
         );
         instances.put(controllerName, instance);
 
+      } else if (controllerClass.equals(AgregarDireccionController.class)) {
+        AgregarDireccionController instance = new AgregarDireccionController(
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            ServiceLocator.instanceOf(DireccionesService.class),
+            ServiceLocator.instanceOf(TarjetaColaboradorService.class)
+        );
+        instances.put(controllerName, instance);
+
+      } else if (controllerClass.equals(ReportesController.class)) {
+        ReportesController instance = new ReportesController();
+        instances.put(controllerName, instance);
       }
     }
     return (T) instances.get(controllerName);

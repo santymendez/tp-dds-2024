@@ -80,20 +80,4 @@ public class Incidente extends Persistente {
       this.momentoIncidente = LocalDateTime.now();
     }
   }
-
-  /*Logica de manejo de incidentes
-
-  public void reportarIncidente(Incidente incidente) {
-    //reportarFalla
-    this.heladera.intentarNotificarSuscriptores();
-  }*/
-
-
-  /*TODO CONTROLLER
-  public void reportarFallaTecnica(Incidente incidente) {
-    this.heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
-    //reportarFalla
-    this.heladera.intentarNotificarSuscriptores();
-    //buscarTecnicos
-  }*/
 }

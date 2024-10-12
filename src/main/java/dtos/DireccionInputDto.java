@@ -33,6 +33,7 @@ public class DireccionInputDto {
 
   //Provincia
   private String provincia;
+  private String nombreUbicacion;
 
   /**
    * Crea un DireccionInputDto a partir de un contexto.
@@ -43,7 +44,14 @@ public class DireccionInputDto {
 
   public static DireccionInputDto fromContext(Context context) {
     if (ContextHelper.areEmpty(context,
-        "barrio", "calle", "numero", "latitud", "longitud", "ciudad", "provincia")) {
+        "barrio",
+        "calle",
+        "numero",
+        "latitud",
+        "longitud",
+        "ciudad",
+        "provincia",
+        "nombreUbicacion")) {
       return null;
     }
 
@@ -69,6 +77,9 @@ public class DireccionInputDto {
     }
     if (!ContextHelper.isEmpty(context, "provincia")) {
       direccionInputDto.setProvincia(context.formParam("provincia"));
+    }
+    if (!ContextHelper.isEmpty(context, "nombreUbicacion")) {
+      direccionInputDto.setNombreUbicacion(context.formParam("nombreUbicacion"));
     }
 
     return direccionInputDto;

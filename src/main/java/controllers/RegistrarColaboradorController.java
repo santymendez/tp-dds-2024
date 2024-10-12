@@ -118,11 +118,11 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
     }
 
     //Se valida la contraseña
-    if (!autenticador.esValida(usuarioDto.getContrasenia())) {
+    if (!this.autenticador.esValida(usuarioDto.getContrasenia())) {
       //TODO ver errores
       context.attribute(
           "error",
-          "Contraseña invalida.\n Motivo:\n" + autenticador.mostrarMensajesConFormato()
+          "Contraseña invalida.\n Motivo:\n" + this.autenticador.mostrarMensajesConFormato()
       );
       context.redirect("/heladeras-solidarias/registrarse");
       return;
@@ -145,7 +145,7 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
 
     //DECISION DE DISEÑO
     //Si ya se cargo una direccion, se envia la tarjeta de una
-    tarjetaColaboradorService.crear(nuevoColaborador, direccion);
+    this.tarjetaColaboradorService.crear(nuevoColaborador, direccion);
 
     //Se setea la session
     context.sessionAttribute("idUsuario", nuevoUsuario.getId());

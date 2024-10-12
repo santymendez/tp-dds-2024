@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.repositories.imp.ColaboradoresRepository;
@@ -59,9 +60,13 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
       model.put("activeSession", true);
       model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
-      colaboradoresRepository.buscarPorIdUsuario(idSesion).ifPresent(colaborador -> {
-        model.put("puntos", colaborador.getReconocimiento().getPuntosPorColaborar());
-      });
+      Optional<Colaborador> colaborador = colaboradoresRepository.buscarPorIdUsuario(idSesion);
+
+      if (colaborador.isPresent()) {
+        model.put("puntos", colaborador.get().getReconocimiento().getPuntosPorColaborar());
+      } else {
+        model.put("puntos", 0f);
+      }
 
     } else {
       model.put("activeSession", false);
@@ -94,10 +99,9 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
    */
 
   public void update(Context context) {
-    Long idUsuario = context.sessionAttribute("idUsuario");
-    Long idOferta = Long.valueOf(Objects.requireNonNull(context.formParam("idOferta")));
-
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
+
+    Long idOferta = Long.valueOf(Objects.requireNonNull(context.formParam("idOferta")));
     Oferta oferta = this.ofertasRepository.buscarPorId(idOferta, Oferta.class).get();
 
     if (colaborador.puedeCanjear(oferta)) {

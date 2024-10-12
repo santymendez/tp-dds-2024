@@ -32,8 +32,6 @@ public class OldCsvController {
   private static final String ruta_archivo = "src/main/resources/lista_colaboradores.csv";
   private final EmailSender emailSender;
   private final ColaboradoresService colaboradoresService;
-  private final ColaboradoresRepository colaboradoresRepository;
-  private final ColaboracionesRepository colaboracionesRepository;
   private final ColaboracionesService colaboracionesService;
 
   /**
@@ -44,14 +42,10 @@ public class OldCsvController {
 
   public OldCsvController(
       ColaboradoresService colaboradoresService,
-      ColaboradoresRepository colaboradoresRepository,
-      ColaboracionesRepository colaboracionesRepository,
       EmailSender emailSender,
       ColaboracionesService colaboracionesService
   ) {
     this.colaboradoresService = colaboradoresService;
-    this.colaboradoresRepository = colaboradoresRepository;
-    this.colaboracionesRepository = colaboracionesRepository;
     this.emailSender = emailSender;
     this.colaboracionesService = colaboracionesService;
   }

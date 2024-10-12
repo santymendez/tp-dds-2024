@@ -1,10 +1,17 @@
 package controllers.colaboraciones;
 
+import dtos.DonacionViandasDto;
 import io.javalin.http.Context;
+import java.util.Objects;
 import java.util.Optional;
+import models.entities.colaboracion.Colaboracion;
+import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
+import models.repositories.imp.GenericRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
+import services.ColaboracionesService;
+import utils.ColaboracionesHelper;
 import utils.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
@@ -14,9 +21,25 @@ import utils.javalin.InterfaceCrudViewsHandler;
 
 public class DonarViandasController implements InterfaceCrudViewsHandler {
   private final TarjetasColaboradoresRepository tarjetasColaboradoresRepository;
+  private final GenericRepository genericRepository;
+  private final ColaboracionesService colaboracionesService;
 
-  public DonarViandasController(TarjetasColaboradoresRepository tarjetasColaboradoresRepository) {
+  /**
+   * Constructor del Controller.
+   *
+   * @param tarjetasColaboradoresRepository repositorio de tarjetas de colaboradores.
+   * @param genericRepository repositorio generico.
+   * @param colaboracionesService service de colaboraciones.
+   */
+
+  public DonarViandasController(
+      TarjetasColaboradoresRepository tarjetasColaboradoresRepository,
+      GenericRepository genericRepository,
+      ColaboracionesService colaboracionesService
+  ) {
     this.tarjetasColaboradoresRepository = tarjetasColaboradoresRepository;
+    this.genericRepository = genericRepository;
+    this.colaboracionesService = colaboracionesService;
   }
 
   @Override
@@ -46,21 +69,36 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
 
     if (posibleTarjeta.isPresent()) {
       tarjetaColaborador = posibleTarjeta.get();
-    }
-
-    if (tarjetaColaborador == null) {
-      //TODO
-      //COMO PUSIMOS QUE SI TIENE DIRECCION, SE ENVIA LA TARJETA
-      //SI NO TIENE TARJETA TENEMOS QUE PEDIRLE LA DIRECCION PARA MANDARSELA
-      context.attribute("error", "No tiene tarjeta para abrir las heladeras");
-      context.redirect("/heladeras-solidarias/colaborar");
+    } else {
+      context.redirect("/heladeras-solidarias/agregar-direccion");
       return;
     }
 
-    //TODO la colaboracion en si misma
+    //TODO HACE FALTA HACER ALGO CON LA TARJETA?
+    //Como sabria cuando autorizar las aperturas
 
+    DonacionViandasDto donacionViandasDto = DonacionViandasDto.fromContext(context);
 
-    context.redirect("/heladeras-solidarias");
+    Long idHeladera =
+        Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
+    Heladera heladera =
+        this.genericRepository.buscarPorId(idHeladera, Heladera.class).get();
+
+    int cantViandas = Integer.parseInt(donacionViandasDto.getCantViandas());
+
+    if (cantViandas <= heladera.consultarEspacioSobrante()) {
+      Colaboracion colaboracion =
+          this.colaboracionesService.crear(donacionViandasDto, heladera, colaborador);
+
+      ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
+
+      this.genericRepository.modificar(heladera);
+
+      context.redirect("/heladeras-solidarias");
+    } else {
+      //TODO TIRAR ERROR
+      context.redirect("/heladeras-solidarias");
+    }
   }
 
   @Override

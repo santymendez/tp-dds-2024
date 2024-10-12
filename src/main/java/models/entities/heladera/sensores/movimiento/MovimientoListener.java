@@ -58,7 +58,8 @@ public class MovimientoListener implements IMqttMessageListener {
       incidente.setTipoAlerta(TipoEstado.INACTIVA_FRAUDE);
       sensorMovimiento.desactivarHeladera(incidente);
 
-      ReporteHeladera reporte = this.reportesRepository.buscarSemanalPorHeladera(heladera.getId());
+      ReporteHeladera reporte =
+          this.reportesRepository.buscarSemanalPorHeladera(heladera.getId()).get();
       reporte.ocurrioUnaFalla();
 
       heladera.intentarNotificarSuscriptores();

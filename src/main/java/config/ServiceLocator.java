@@ -12,7 +12,6 @@ import services.CanjearPuntosService;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.DireccionesService;
-import services.DistribucionViandasService;
 import services.HeladerasService;
 import services.IncidentesService;
 import services.OfertasService;
@@ -60,7 +59,9 @@ public class ServiceLocator {
         );
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(ColaboracionesService.class)) {
-        ColaboracionesService instance = new ColaboracionesService();
+        ColaboracionesService instance = new ColaboracionesService(
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(OfertasService.class)) {
         OfertasService instance = new OfertasService();
@@ -76,9 +77,6 @@ public class ServiceLocator {
         HeladerasService instance = new HeladerasService(
             RepositoryLocator.instanceOf(GenericRepository.class)
         );
-        instances.put(serviceName, instance);
-      } else if (serviceClass.equals(DistribucionViandasService.class)) {
-        DistribucionViandasService instance = new DistribucionViandasService();
         instances.put(serviceName, instance);
       } else if (serviceClass.equals(CanjearPuntosService.class)) {
         CanjearPuntosService instance = new CanjearPuntosService(

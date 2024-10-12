@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import models.entities.heladera.Heladera;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.HeladerasRepository;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -14,10 +15,10 @@ import utils.javalin.InterfaceCrudViewsHandler;
 
 public class ColaboracionesController implements InterfaceCrudViewsHandler {
 
-  private final GenericRepository genericRepository;
+  private final HeladerasRepository heladerasRepository;
 
-  public ColaboracionesController(GenericRepository genericRepository) {
-    this.genericRepository = genericRepository;
+  public ColaboracionesController(HeladerasRepository heladerasRepository) {
+    this.heladerasRepository = heladerasRepository;
   }
 
   @Override
@@ -32,7 +33,7 @@ public class ColaboracionesController implements InterfaceCrudViewsHandler {
 
   @Override
   public void create(Context context) {
-    List<Heladera> heladeras = genericRepository.buscarTodos(Heladera.class);
+    List<Heladera> heladeras = heladerasRepository.buscarActivas();
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Colaborar");
     model.put("heladeras", heladeras);

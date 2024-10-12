@@ -49,13 +49,17 @@ public class UploadedFilesHelper {
     String imagePath = null;
 
     if (file != null) {
-      String staticPath = "uploaded-imgs/" + file.filename();
-      try {
-        File directory = new File(staticPath);
-        FileUtils.copyInputStreamToFile(file.content(), directory);
-        imagePath = "/" + staticPath;
-      } catch (IOException e) {
-        e.printStackTrace();
+      if (!file.filename().isEmpty()) {
+        String staticPath = "uploaded-imgs/" + file.filename();
+        try {
+          File directory = new File(staticPath);
+          FileUtils.copyInputStreamToFile(file.content(), directory);
+          imagePath = "/" + staticPath;
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } else {
+        imagePath = "/static-imgs/logo.png";
       }
     }
 

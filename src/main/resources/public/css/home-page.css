@@ -25,3 +25,9 @@
 .bottom-image{
     width: 50%;
 }
+
+.close{
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+}

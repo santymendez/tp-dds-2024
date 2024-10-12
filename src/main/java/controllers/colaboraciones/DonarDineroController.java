@@ -51,7 +51,12 @@ public class DonarDineroController implements InterfaceCrudViewsHandler {
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
-    context.redirect("/heladeras-solidarias");
+    //Opcion 1 ponerlo en la sesión
+    //context.sessionAttribute("success", true);
+
+    //Opcion 2 ponerlo en un query param
+    context.redirect("/heladeras-solidarias?colabSuccess=true");
+
   }
 
   @Override

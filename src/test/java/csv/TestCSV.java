@@ -40,9 +40,7 @@ public class TestCSV {
         RepositoryLocator.instanceOf(ColaboradoresRepository.class)
     );
 
-    colaboracionesService = new ColaboracionesService(
-        RepositoryLocator.instanceOf(GenericRepository.class)
-    );
+    colaboracionesService = new ColaboracionesService();
 
     oldCsvController = new OldCsvController(colaboradoresService, emailSender, colaboracionesService);
   }

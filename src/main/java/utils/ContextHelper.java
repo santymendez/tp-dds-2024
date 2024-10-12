@@ -14,7 +14,7 @@ import models.repositories.imp.ColaboradoresRepository;
 public class ContextHelper {
 
   public static Boolean isEmpty(Context context, String key) {
-    return Objects.equals(context.formParam(key), "");
+    return Objects.equals(context.formParam(key), "") || context.formParam(key) == null;
   }
 
   /**

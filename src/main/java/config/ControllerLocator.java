@@ -36,6 +36,7 @@ import services.DireccionesService;
 import services.HeladerasService;
 import services.IncidentesService;
 import services.OfertasService;
+import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
 import services.UsuariosService;
 import services.VulnerablesService;
@@ -139,7 +140,10 @@ public class ControllerLocator {
         instances.put(controllerName, instance);
 
       } else if (controllerClass.equals(SuscribirseController.class)) {
-        SuscribirseController instance = new SuscribirseController();
+        SuscribirseController instance = new SuscribirseController(
+            RepositoryLocator.instanceOf(HeladerasRepository.class),
+            ServiceLocator.instanceOf(SuscripcionesService.class)
+        );
         instances.put(controllerName, instance);
 
       } else if (controllerClass.equals(HeladerasAdminController.class)) {

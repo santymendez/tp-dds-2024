@@ -74,7 +74,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="calorias" class="form-label">Calorías</label>
                         <input name="calorias" type="number" class="form-control form-control-lg" id="calorias"
-                               placeholder="Ej. 500" required>
+                               placeholder="Ej. 500" min="0" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="vencimiento" class="form-label">Fecha de vencimiento</label>
@@ -84,12 +84,12 @@
                     <div class="col-md-6 mb-3">
                         <label for="peso" class="form-label">Peso en gramos</label>
                         <input name="peso" type="number" class="form-control form-control-lg" id="peso"
-                               placeholder="Ej. 200 gr" required>
+                               placeholder="Ej. 200 gr" min="0" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="cantidad" class="form-label">Cantidad</label>
                         <input name="cantidad" type="number" class="form-control form-control-lg" id="cantidad"
-                               placeholder="Ej. 3" required>
+                               placeholder="Ej. 3" min="0" required>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success btn-lg">Colaborar</button>
@@ -104,15 +104,15 @@
                 <input type="hidden" name="formType" value="realizarOfertas">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        <label for="nombre_oferta" class="form-label">Nombre</label>
+                        <label for="nombre_oferta" class="form-label">Nombre *</label>
                         <input name="nombre" type="text" class="form-control form-control-lg"
-                               id="nombre_oferta" placeholder="Ej. Oferta 1">
+                               id="nombre_oferta" placeholder="Ej. Oferta 1" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="puntos_requeridos" class="form-label">Puntos requeridos</label>
+                        <label for="puntos_requeridos" class="form-label">Puntos requeridos *</label>
                         <input name="puntosNecesarios" type="number"
                                class="form-control form-control-lg"
-                               id="puntos_requeridos" placeholder="Ej. 2500">
+                               id="puntos_requeridos" placeholder="Ej. 2500" min="0" required>
                     </div>
                 </div>
                 <div class="image-upload mb-3">
@@ -120,8 +120,7 @@
                     <input name="imagen" type="file" class="form-control form-control-lg" id="imagen_oferta">
                 </div>
                 <div class="description-container mb-3">
-                    <label for="descripcion_imagen" class="form-label">Descripción de la
-                        Imagen</label>
+                    <label for="descripcion_imagen" class="form-label">Descripción de la Oferta</label>
                     <textarea name="descripcion" class="form-control form-control-lg"
                               id="descripcion_imagen" rows="4"
                               placeholder="Descripción de la imagen"></textarea>
@@ -140,7 +139,7 @@
                 <div class="mb-3">
                     <label for="cantidad_tarjetas" class="form-label">Cantidad a Solicitar</label>
                     <input name="cant_tarjetas" type="number" class="form-control form-control-lg"
-                           id="cantidad_tarjetas" placeholder="Ej. 15">
+                           id="cantidad_tarjetas" placeholder="Ej. 15" min="0">
                 </div>
                 <button type="submit" class="btn btn-success btn-lg">Solicitar</button>
             </form>
@@ -174,7 +173,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="cantidad_viandas" class="form-label extra-class">Cantidad de Viandas</label>
                         <input name = "cantidad" type="number" class="form-control form-control-lg"
-                               id="cantidad_viandas" placeholder="Ej. 3" required>
+                               id="cantidad_viandas" placeholder="Ej. 3" min="0" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="motivo" class="form-label extra-class">Motivo de la

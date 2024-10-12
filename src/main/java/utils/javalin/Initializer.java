@@ -657,13 +657,13 @@ public class Initializer {
     // Colaboracion - Realizar Ofertas
 
     realizarOferta1 = new RealizacionOfertas();
-    realizarOferta1.setOferta(oferta1);
+    realizarOferta1.setOfertaRealizada(oferta1);
 
     realizarOferta2 = new RealizacionOfertas();
-    realizarOferta2.setOferta(oferta2);
+    realizarOferta2.setOfertaRealizada(oferta2);
 
     realizarOferta3 = new RealizacionOfertas();
-    realizarOferta3.setOferta(oferta3);
+    realizarOferta3.setOfertaRealizada(oferta3);
 
     realizarOfertaColab1 = new Colaboracion();
     realizarOfertaColab1.setColaborador(elCityGroup);

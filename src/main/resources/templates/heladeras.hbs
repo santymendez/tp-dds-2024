@@ -3,12 +3,12 @@
 {{/partial}}
 
 {{#partial "cuerpo"}}
-    <h2 class="arribita">Heladeras</h2>
     <div class="container chico">
+        <h2 class="arribita">Heladeras</h2>
         <div class="mb-3 containerPrincipal chico">
             <label for="actionSelector" class="form-label chico">Elige una acción</label>
             <select class="form-select form-select-lg chico" id="actionSelector">
-            <option value="" selected>Elija una opción</option>
+                <option value="" selected>Elija una opción</option>
                 {{#verifyRole tipoRol "PERSONA_FISICA"}}
                     <option value="suscribirse">Suscribirse</option>
                     <option value="reportarFalla">Reportar Falla Técnica</option>
@@ -27,7 +27,7 @@
             <div class="mb-3 primero">
                 <div class = "mediano_s">
                     <label for="actionSelector" class="form-label chico">Elija una Heladera</label>
-                    <select name="heladera" class="form-select form-select-lg chico" id="actionSelector">
+                    <select name="heladera" class="form-select form-select-lg chico" id="actionSelector" required>
                         <option value="" disabled selected>Seleccione una heladera</option>
                         {{#each heladeras}}
                             <option value="{{this.getId}}">{{this.getNombre}}</option>
@@ -39,26 +39,26 @@
             <label class="form-label">Notificarme si...</label>
 
             <div class="mb-3 form-check flex-container">
-                <input type="checkbox" class="form-check-input" id="faltan">
+                <input name="faltan_n_viandas_check" value="FALTAN_N_VIANDAS" type="checkbox" class="form-check-input" id="faltan">
                 <div class="flex-item">
                     <label for="faltan" class="col-form-label">Faltan X Viandas</label>
                 </div>
-                <input name="faltanXviandas" type="text" aria-label="cant_faltan" class="form-control flex-input alto"
-                       placeholder="Ingrese la Cantidad de Viandas">
+                <input name="faltan_n_viandas" type="number" aria-label="cant_faltan" class="form-control flex-input alto"
+                       placeholder="Ingrese la Cantidad de Viandas" min="0">
             </div>
 
             <div class="mb-3 form-check flex-container">
-                <input type="checkbox" class="form-check-input" id="quedan">
+                <input name="quedan_n_viandas_check" value="QUEDAN_N_VIANDAS" type="checkbox" class="form-check-input" id="quedan">
                 <div class="flex-item">
                     <label for="quedan" class="col-form-label">Quedan X Viandas</label>
                 </div>
-                <input name="quedanXviandas" type="text" aria-label="cant_quedan" class="form-control flex-input alto"
-                       placeholder="Ingrese la Cantidad de Viandas">
+                <input name="quedan_n_viandas" type="number" aria-label="cant_quedan" class="form-control flex-input alto"
+                       placeholder="Ingrese la Cantidad de Viandas" min="0">
             </div>
 
             <div class="mb-3 form-check">
-                <input name="falla" type="checkbox" class="form-check-input" id="falla">
-                <label for="falla" class="col-form-label">Ocurrió una Falla en la Heladera</label>
+                <input name="desperfecto" value ="OCURRIO_DESPERFECTO" type="checkbox" class="form-check-input" id="desperfecto">
+                <label for="desperfecto" class="col-form-label">Ocurrió una Falla en la Heladera</label>
             </div>
 
             <div class="d-grid gap-2 col-6 mx-auto">
@@ -73,7 +73,7 @@
             <div class="mb-3 primero">
                 <div class = "mediano_s">
                     <label for="actionSelector" class="form-label chico">Elija una Heladera</label>
-                    <select name="heladera" class="form-select form-select-lg chico" id="actionSelector">
+                    <select name="heladera" class="form-select form-select-lg chico" id="actionSelector" required>
                         <option value="" disabled selected>Seleccione una heladera</option>
                         {{#each heladeras}}
                             <option value="{{this.getId}}">{{this.getNombre}}</option>
@@ -131,6 +131,28 @@
                 } else {
                     form.classList.add('d-none');
                 }
+            });
+        });
+    </script>
+
+    <script>
+        function toggleRequired(checkbox, input) {
+            input.required = checkbox.checked;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const faltanCheckbox = document.getElementById('faltan');
+            const faltanInput = document.querySelector('input[name="faltan_n_viandas"]');
+
+            const quedanCheckbox = document.getElementById('quedan');
+            const quedanInput = document.querySelector('input[name="quedan_n_viandas"]');
+
+            faltanCheckbox.addEventListener('change', function () {
+                toggleRequired(faltanCheckbox, faltanInput);
+            });
+
+            quedanCheckbox.addEventListener('change', function () {
+                toggleRequired(quedanCheckbox, quedanInput);
             });
         });
     </script>

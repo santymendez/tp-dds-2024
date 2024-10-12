@@ -7,7 +7,9 @@ import dtos.DonacionDineroDto;
 import dtos.DonacionViandasDto;
 import dtos.OfertaInputDto;
 import java.time.LocalDate;
+import java.util.concurrent.Callable;
 import models.entities.colaboracion.Colaboracion;
+import models.entities.colaboracion.DistribucionTarjetas;
 import models.entities.colaboracion.DistribucionViandas;
 import models.entities.colaboracion.DonacionDinero;
 import models.entities.colaboracion.DonacionViandas;
@@ -28,13 +30,7 @@ import models.repositories.imp.GenericRepository;
 
 public class ColaboracionesService {
 
-  private final GenericRepository genericRepository;
-
-  public ColaboracionesService(
-      GenericRepository genericRepository
-  ) {
-    this.genericRepository = genericRepository;
-  }
+  public ColaboracionesService() {}
 
   /** Crea una colaboracion a partir de un dto (para csv).
    *
@@ -103,7 +99,7 @@ public class ColaboracionesService {
     Colaboracion colaboracion = new Colaboracion();
     colaboracion.setDonacionViandas(donacionViandas);
     colaboracion.setTipoColaboracion(TipoColaboracion.DONAR_VIANDA);
-    
+
     return colaboracion;
   }
 
@@ -136,8 +132,22 @@ public class ColaboracionesService {
     return colaboracion;
   }
 
+  /**
+   * Crea una colaboracion a partir de una distribucion de tarjetas.
+   *
+   * @param cantidadTarjetas la cantidad de tarjetas a distribuir
+   * @return una colaboración.
+   */
+
   public Colaboracion crear(Integer cantidadTarjetas) {
-    return null;
+    DistribucionTarjetas distribucionTarjetas = new DistribucionTarjetas();
+    distribucionTarjetas.setCantTarjetasEntregadas(cantidadTarjetas);
+
+    Colaboracion colaboracion = new Colaboracion();
+    colaboracion.setDistribucionTarjetas(distribucionTarjetas);
+    colaboracion.setTipoColaboracion(TipoColaboracion.ENTREGAR_TARJETA);
+
+    return colaboracion;
   }
 
   public Colaboracion crear(ColocacionHeladeraDto colocacionHeladeraDto) {
@@ -161,7 +171,7 @@ public class ColaboracionesService {
     oferta.setOfertante(colaborador);
 
     RealizacionOfertas realizacionOfertas = new RealizacionOfertas();
-    realizacionOfertas.setOferta(oferta);
+    realizacionOfertas.setOfertaRealizada(oferta);
 
     Colaboracion colaboracion = new Colaboracion();
     colaboracion.setOfertaRealizada(realizacionOfertas);

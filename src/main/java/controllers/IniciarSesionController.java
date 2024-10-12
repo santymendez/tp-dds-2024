@@ -64,10 +64,9 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
       context.sessionAttribute("tipoRol", usuario.getTipoRol().toString());
       context.redirect("/heladeras-solidarias");
     } else {
-      Map <String, Object> model = new HashMap<>();
-      model.put("titulo", "Iniciar Sesion");
-      model.put("error", "Usuario y/o Contraseña Incorrectos");
-      context.render("iniciar-sesion.hbs", model);
+      //TODO MANEJAR ERROR
+      // context.attribute("error", "Usuario o contrasenia incorrectos");
+      context.redirect("/heladeras-solidarias/iniciar-sesion");
     }
   }
 

@@ -11,7 +11,7 @@ import models.entities.personas.colaborador.canje.Oferta;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import services.CanjearPuntosService;
-import utils.ContextHelper;
+import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**

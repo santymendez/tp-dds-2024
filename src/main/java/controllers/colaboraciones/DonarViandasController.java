@@ -11,8 +11,8 @@ import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
 import services.ColaboracionesService;
-import utils.ColaboracionesHelper;
-import utils.ContextHelper;
+import utils.helpers.ColaboracionesHelper;
+import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -94,10 +94,10 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
 
       this.genericRepository.modificar(heladera);
 
-      context.redirect("/heladeras-solidarias");
+      context.redirect("/heladeras-solidarias?colabSucess=true");
     } else {
       //TODO TIRAR ERROR
-      context.redirect("/heladeras-solidarias");
+      context.redirect("/heladeras-solidarias/colaborar");
     }
   }
 

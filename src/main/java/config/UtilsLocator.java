@@ -3,6 +3,8 @@ package config;
 import java.util.HashMap;
 import models.repositories.imp.TecnicosRepository;
 import models.searchers.BuscadorTecnicosCercanos;
+import utils.recomendator.adapter.AdapterServicioRecomendacion;
+import utils.reportes.GeneradorReporte;
 import utils.security.Autenticador;
 import utils.security.rules.CantidadMaximaDeCaracteres;
 import utils.security.rules.CantidadMinimaDeCaracteres;
@@ -50,6 +52,12 @@ public class UtilsLocator {
         BuscadorTecnicosCercanos instance = new BuscadorTecnicosCercanos(
             RepositoryLocator.instanceOf(TecnicosRepository.class)
         );
+        instances.put(utilName, instance);
+      } else if (utilClass.equals(GeneradorReporte.class)) {
+        GeneradorReporte instance = new GeneradorReporte();
+        instances.put(utilName, instance);
+      } else if (utilClass.equals(AdapterServicioRecomendacion.class)) {
+        AdapterServicioRecomendacion instance = new AdapterServicioRecomendacion();
         instances.put(utilName, instance);
       }
     }

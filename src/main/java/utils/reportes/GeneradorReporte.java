@@ -1,4 +1,4 @@
-package models.entities.reporte.generador;
+package utils.reportes;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -36,7 +36,7 @@ public class GeneradorReporte {
   public String generarReporte(List<ReporteHeladera> reportes) {
     LocalDate semanaActual = LocalDate.now();
 
-    String path = "reportes/reporte-semana-" + semanaActual + ".pdf";
+    String path = "/reportes/reporte-semana-" + semanaActual + ".pdf";
 
     try (PDDocument document = new PDDocument()) {
       for (ReporteHeladera reporte : reportes) {

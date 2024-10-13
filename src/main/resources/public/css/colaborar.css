@@ -196,4 +196,25 @@ h3 {
     margin-bottom: 0.5rem;
 }
 
+.close{
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+}
+
+.form-check-input {
+    margin: 1rem ;
+    box-shadow: none;
+}
+
+.form-check-input:checked {
+    background-color: var(--verdeBotonesCuadrados);
+    border-color: var(--verdeBotonesCuadrados);
+    box-shadow: none;
+}
+
+.form-check-input:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
 

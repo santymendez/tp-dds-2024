@@ -50,7 +50,7 @@ public class Colaboracion extends Persistente {
   private DistribucionTarjetas distribucionTarjetas;
 
   @Embedded
-  private ColocacionHeladera colocacionHeladera;
+  private HacerseCargoHeladera hacerseCargoHeladera;
 
   @Embedded
   private RealizacionOfertas ofertaRealizada;
@@ -58,7 +58,7 @@ public class Colaboracion extends Persistente {
   //============================== Metodos Auxiliares ========================================
 
   public Integer tiempoActivaHeladera() {
-    return this.colocacionHeladera.getHeladeraColocada().calcularMesesActiva();
+    return this.hacerseCargoHeladera.getHeladeraColocada().calcularMesesActiva();
   }
 
   @PrePersist

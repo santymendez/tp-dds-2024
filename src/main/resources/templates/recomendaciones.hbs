@@ -11,37 +11,61 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         const map = L.map('map').setView([51.505, -0.09], 13);
-
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Cargar el archivo JSON
-        fetch('../resources/map/data.json')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error al cargar el archivo JSON');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Datos cargados:', data); // Verifica si se cargan los datos
+        let lugar, lat, long, marker, markers = [];
 
-                    // Iterar sobre los lugares y agregar marcadores
-                    data.forEach(location => {
-                        const lugar = location.lugar;
-                        const lat = location.lat;
-                        const lng = location.lng;
+            {{#each puntos}}
+            <!-- lugar = { {this.nombreUbicacion} }; -->
+            lat = parseFloat({{this.lat}});
+            long = parseFloat({{this.lon}});
+            marker = L.marker([lat, long]).addTo(map)
+            markers.push(marker)
+            {{/each}}
 
-                        L.marker([lat, lng]).addTo(map)
-                                .bindPopup('<b>' + lugar + '</b>');
-                    });
-
-                    const group = L.featureGroup(data.map(location => L.marker([location.lat, location.lng])));
-                    map.fitBounds(group.getBounds());
-                })
-                .catch(error => console.error('Error cargando el JSON:', error));
+        const group = L.featureGroup(markers);
+        map.fitBounds(group.getBounds());
     </script>
+
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        let lat = position.coords.latitude;
+                        let lon = position.coords.longitude;
+
+                        // Ahora envía la ubicación al backend
+                        enviarUbicacionAlBackend(lat, lon);
+                    },
+                    function(error) {
+                        console.error("Error obteniendo la ubicación", error);
+                    }
+            );
+        } else {
+            console.log("La geolocalización no es soportada en este navegador.");
+        }
+
+        function enviarUbicacionAlBackend(lat, lon) {
+            fetch('/heladeras-solidarias/recomendaciones', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ lat: lat, lon: lon }),
+            })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Recomendaciones recibidas:', data);
+                        // Aquí puedes procesar las recomendaciones recibidas
+                    })
+                    .catch((error) => {
+                        console.error('Error enviando la ubicación:', error);
+                    });
+        }
+    </script>
+
 {{/partial}}
 
 {{> templates/base }}

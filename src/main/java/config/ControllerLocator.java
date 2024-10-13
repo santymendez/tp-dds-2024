@@ -10,6 +10,7 @@ import controllers.HomePageController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.OldCsvController;
+import controllers.RecomendacionesController;
 import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
 import controllers.ReportesController;
@@ -18,14 +19,17 @@ import controllers.VulnerablesController;
 import controllers.colaboraciones.DistribuirViandasController;
 import controllers.colaboraciones.DonarDineroController;
 import controllers.colaboraciones.DonarViandasController;
+import controllers.colaboraciones.HacerseCargoController;
 import controllers.colaboraciones.RealizarOfertasController;
 import java.util.HashMap;
 import java.util.Map;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.HeladerasRepository;
+import models.repositories.imp.IncidentesRepository;
 import models.repositories.imp.ProvinciasRepository;
-import models.repositories.imp.ReportesRepository;
+import models.repositories.imp.ReportesHeladerasRepository;
+import models.repositories.imp.ReportesSemanalesRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
 import models.repositories.imp.UsuariosRepository;
 import models.searchers.BuscadorTecnicosCercanos;
@@ -40,6 +44,7 @@ import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
 import services.UsuariosService;
 import services.VulnerablesService;
+import utils.recomendator.adapter.AdapterServicioRecomendacion;
 import utils.security.Autenticador;
 import utils.sender.channels.EmailSender;
 
@@ -65,6 +70,7 @@ public class ControllerLocator {
       if (controllerClass.equals(HeladerasController.class)) {
         HeladerasController instance = new HeladerasController(
             RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(IncidentesRepository.class),
             ServiceLocator.instanceOf(HeladerasService.class),
             ServiceLocator.instanceOf(DireccionesService.class)
         );
@@ -135,7 +141,7 @@ public class ControllerLocator {
             RepositoryLocator.instanceOf(GenericRepository.class),
             ServiceLocator.instanceOf(IncidentesService.class),
             UtilsLocator.instanceOf(BuscadorTecnicosCercanos.class),
-            RepositoryLocator.instanceOf(ReportesRepository.class)
+            RepositoryLocator.instanceOf(ReportesHeladerasRepository.class)
         );
         instances.put(controllerName, instance);
 
@@ -152,7 +158,8 @@ public class ControllerLocator {
 
       } else if (controllerClass.equals(ColaboracionesController.class)) {
         ColaboracionesController instance = new ColaboracionesController(
-            RepositoryLocator.instanceOf(HeladerasRepository.class)
+            RepositoryLocator.instanceOf(HeladerasRepository.class),
+            RepositoryLocator.instanceOf(GenericRepository.class)
         );
         instances.put(controllerName, instance);
 
@@ -195,8 +202,26 @@ public class ControllerLocator {
         instances.put(controllerName, instance);
 
       } else if (controllerClass.equals(ReportesController.class)) {
-        ReportesController instance = new ReportesController();
+        ReportesController instance = new ReportesController(
+            RepositoryLocator.instanceOf(GenericRepository.class),
+                RepositoryLocator.instanceOf(ReportesSemanalesRepository.class)
+        );
         instances.put(controllerName, instance);
+
+      } else if (controllerClass.equals(RecomendacionesController.class)) {
+        RecomendacionesController instance = new RecomendacionesController(
+            UtilsLocator.instanceOf(AdapterServicioRecomendacion.class)
+        );
+        instances.put(controllerName, instance);
+
+      } else if (controllerClass.equals(HacerseCargoController.class)) {
+        HacerseCargoController instance = new HacerseCargoController(
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            ServiceLocator.instanceOf(DireccionesService.class),
+            ServiceLocator.instanceOf(ColaboracionesService.class)
+        );
+        instances.put(controllerName, instance);
+
       }
     }
     return (T) instances.get(controllerName);

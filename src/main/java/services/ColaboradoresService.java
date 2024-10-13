@@ -11,7 +11,7 @@ import models.entities.personas.users.Usuario;
 import models.factories.FactoryColaborador;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.UsuariosRepository;
-import utils.ColaboracionesHelper;
+import utils.helpers.ColaboracionesHelper;
 import utils.sender.Mensaje;
 import utils.sender.channels.EmailSender;
 

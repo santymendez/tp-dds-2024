@@ -10,7 +10,7 @@ import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
-import models.repositories.imp.ReportesRepository;
+import models.repositories.imp.ReportesHeladerasRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -21,7 +21,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class TemperaturaListener implements IMqttMessageListener {
   private String topic = "sensores/temperatura";
   private GenericRepository repoGenerico;
-  private ReportesRepository reportesRepository;
+  private ReportesHeladerasRepository reportesRepository;
 
   /**
    * Constructor para el Listener de los Sensores de Temperatura.
@@ -33,7 +33,7 @@ public class TemperaturaListener implements IMqttMessageListener {
             .instanceOf(GenericRepository.class);
     this.reportesRepository =
         RepositoryLocator
-            .instanceOf(ReportesRepository.class);
+            .instanceOf(ReportesHeladerasRepository.class);
   }
 
   @Override

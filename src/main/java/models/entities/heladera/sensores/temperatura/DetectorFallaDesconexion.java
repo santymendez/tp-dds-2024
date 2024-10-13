@@ -8,7 +8,7 @@ import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
-import models.repositories.imp.ReportesRepository;
+import models.repositories.imp.ReportesHeladerasRepository;
 
 /**
  * Representa al detector de la falla de conexion entre la heladera
@@ -25,8 +25,8 @@ public class DetectorFallaDesconexion {
     GenericRepository repoGenerico = RepositoryLocator
         .instanceOf(GenericRepository.class);
 
-    ReportesRepository reportesRepository =
-        RepositoryLocator.instanceOf(ReportesRepository.class);
+    ReportesHeladerasRepository reportesRepository =
+        RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);
 
     List<SensorTemperatura> sensores = repoGenerico.buscarTodos(SensorTemperatura.class);
 

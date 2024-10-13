@@ -1,6 +1,5 @@
 package controllers;
 
-import config.RepositoryLocator;
 import dtos.IncidenteDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
@@ -11,11 +10,10 @@ import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
-import models.repositories.imp.ReportesRepository;
-import models.repositories.imp.TecnicosRepository;
+import models.repositories.imp.ReportesHeladerasRepository;
 import models.searchers.BuscadorTecnicosCercanos;
 import services.IncidentesService;
-import utils.ContextHelper;
+import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -26,7 +24,7 @@ public class ReportarFallaTecnicaController implements InterfaceCrudViewsHandler
   private final GenericRepository genericRepository;
   private final IncidentesService incidentesService;
   private final BuscadorTecnicosCercanos buscadorTecnicosCercanos;
-  private final ReportesRepository reportesRepository;
+  private final ReportesHeladerasRepository reportesRepository;
 
   /**
    * Metodo constructor del controller.
@@ -41,7 +39,7 @@ public class ReportarFallaTecnicaController implements InterfaceCrudViewsHandler
       GenericRepository genericRepository,
       IncidentesService incidentesService,
       BuscadorTecnicosCercanos buscadorTecnicosCercanos,
-      ReportesRepository reportesRepository
+      ReportesHeladerasRepository reportesRepository
   ) {
     this.genericRepository = genericRepository;
     this.incidentesService = incidentesService;

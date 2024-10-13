@@ -14,7 +14,7 @@ import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
 import services.DireccionesService;
 import services.VulnerablesService;
-import utils.ContextHelper;
+import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**

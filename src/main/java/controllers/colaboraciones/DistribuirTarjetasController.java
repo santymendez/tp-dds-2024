@@ -5,8 +5,8 @@ import java.util.Objects;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import services.ColaboracionesService;
-import utils.ColaboracionesHelper;
-import utils.ContextHelper;
+import utils.helpers.ColaboracionesHelper;
+import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -46,7 +46,7 @@ public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
     if (colaborador.getDireccion() == null || !colaborador.getDireccion().admiteEnvio()) {
-      //TODO MANEJAR ERROR
+      //TODO MANEJAR ERROR (lo hacemos como un modal como cuando esta todo bien????)
       context.redirect("/heladeras-solidarias/agregar-direccion");
       return;
     }
@@ -55,7 +55,7 @@ public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
-    context.redirect("/heladeras-solidarias");
+    context.redirect("/heladeras-solidarias?colabSuccess=true");
   }
 
   @Override

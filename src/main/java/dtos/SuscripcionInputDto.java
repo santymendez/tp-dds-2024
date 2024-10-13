@@ -4,7 +4,7 @@ import io.javalin.http.Context;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
-import utils.ContextHelper;
+import utils.helpers.ContextHelper;
 
 /**
  * DTO para la suscripción de heladeras.

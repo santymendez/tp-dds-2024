@@ -9,7 +9,7 @@ import models.entities.reporte.ReporteHeladera;
  * Clase que representa a los repositorios de reportes de heladeras.
  */
 
-public class ReportesRepository extends GenericRepository {
+public class ReportesHeladerasRepository extends GenericRepository {
 
   public void guardar(ReporteHeladera reporte) {
     super.guardar(reporte);

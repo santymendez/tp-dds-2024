@@ -16,7 +16,7 @@ import models.entities.heladera.Heladera;
 @Setter
 @NoArgsConstructor
 @Embeddable
-public class ColocacionHeladera {
+public class HacerseCargoHeladera {
   @OneToOne
   @JoinColumn(name = "heladeraColocada_id", referencedColumnName = "id")
   private Heladera heladeraColocada;

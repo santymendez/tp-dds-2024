@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import utils.ContextHelper;
+import utils.helpers.ContextHelper;
 
 /**
  * Representa el input de una direccion.

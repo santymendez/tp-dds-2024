@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import utils.UploadedFilesHelper;
+import utils.helpers.UploadedFilesHelper;
 
 /**
  * Clase para el output de las ofertas.

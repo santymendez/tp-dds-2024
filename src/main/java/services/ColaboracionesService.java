@@ -1,27 +1,26 @@
 package services;
 
 import dtos.ColaboracionInputDto;
-import dtos.ColocacionHeladeraDto;
 import dtos.DistribucionViandasDto;
 import dtos.DonacionDineroDto;
 import dtos.DonacionViandasDto;
 import dtos.OfertaInputDto;
 import java.time.LocalDate;
-import java.util.concurrent.Callable;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.DistribucionTarjetas;
 import models.entities.colaboracion.DistribucionViandas;
 import models.entities.colaboracion.DonacionDinero;
 import models.entities.colaboracion.DonacionViandas;
+import models.entities.colaboracion.HacerseCargoHeladera;
 import models.entities.colaboracion.RealizacionOfertas;
 import models.entities.colaboracion.TipoColaboracion;
+import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.vianda.Comida;
 import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.factories.FactoryColaboracion;
-import models.repositories.imp.GenericRepository;
 
 /**
  * With or without youuu.
@@ -150,8 +149,30 @@ public class ColaboracionesService {
     return colaboracion;
   }
 
-  public Colaboracion crear(ColocacionHeladeraDto colocacionHeladeraDto) {
-    return null;
+  /**
+   * Para hacerse cargo de una heladera.
+   *
+   * @param heladeraApadrinada la heladera a hacerse cargo.
+   * @param direccion la direccion.
+   * @param colaborador colaborador que se hace cargo.
+   * @return colaboracion.
+   */
+
+  public Colaboracion crear(Heladera heladeraApadrinada,
+                            Direccion direccion, Colaborador colaborador) {
+
+    heladeraApadrinada.setDireccion(direccion);
+
+    HacerseCargoHeladera hacerseCargoHeladera = new HacerseCargoHeladera();
+    hacerseCargoHeladera.setHeladeraColocada(heladeraApadrinada);
+
+    Colaboracion colaboracion = new Colaboracion();
+    colaboracion.setColaborador(colaborador);
+    colaboracion.setFechaColaboracion(LocalDate.now());
+    colaboracion.setTipoColaboracion(TipoColaboracion.HACERSE_CARGO_HELADERA);
+    colaboracion.setHacerseCargoHeladera(hacerseCargoHeladera);
+
+    return colaboracion;
   }
 
   /**

@@ -2,16 +2,17 @@ package utils.javalin;
 
 import config.RepositoryLocator;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
-import models.entities.colaboracion.ColocacionHeladera;
 import models.entities.colaboracion.DistribucionTarjetas;
 import models.entities.colaboracion.DistribucionViandas;
 import models.entities.colaboracion.DonacionDinero;
+import models.entities.colaboracion.HacerseCargoHeladera;
 import models.entities.colaboracion.RealizacionOfertas;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.direccion.Barrio;
@@ -28,6 +29,8 @@ import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
 import models.entities.heladera.estados.Estado;
 import models.entities.heladera.estados.TipoEstado;
+import models.entities.heladera.incidente.Incidente;
+import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.movimiento.SensorMovimiento;
 import models.entities.heladera.sensores.temperatura.SensorTemperatura;
 import models.entities.heladera.vianda.Comida;
@@ -52,11 +55,12 @@ import models.entities.personas.users.TipoRol;
 import models.entities.personas.users.Usuario;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.entities.reporte.ReporteHeladera;
+import models.entities.reporte.ReporteSemanal;
 import models.entities.reporte.ViandasPorColaborador;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
-import models.repositories.imp.ReportesRepository;
+import models.repositories.imp.ReportesHeladerasRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
@@ -77,8 +81,8 @@ public class Initializer {
   static TecnicosRepository tecnicosRepository;
   @Getter
   static GenericRepository repoGenerico;
-  static ReportesRepository reportesRepository;
-  static ColocacionHeladera colocacionHeladera;
+  static ReportesHeladerasRepository reportesRepository;
+  static HacerseCargoHeladera hacerseCargoHeladera;
   static UsuariosRepository usuariosRepository;
 
   @Getter
@@ -114,14 +118,17 @@ public class Initializer {
   static Direccion direccion1;
   static Direccion direccion2;
   static Direccion direccion3;
+  static Direccion direccion4;
 
   static Barrio barrio1;
   static Barrio barrio2;
   static Barrio barrio3;
+  static Barrio barrio4;
 
   static Ciudad ciudad1;
   static Ciudad ciudad2;
   static Ciudad ciudad3;
+  static Ciudad ciudad4;
 
   @Getter
   static Provincia buenosAires;
@@ -183,28 +190,34 @@ public class Initializer {
   static Heladera heladera1;
   static Heladera heladera2;
   static Heladera heladera3;
+  static Heladera heladeraRota;
 
   static Estado estadoActual1;
   static Estado estadoActual2;
   static Estado estadoActual3;
+  static Estado estadoActualRota;
 
   static List<Estado> lstEstados1;
   static List<Estado> lstEstados2;
   static List<Estado> lstEstados3;
+  static List<Estado> lstEstados4;
 
   static Estado estado1;
   static Estado estado2;
   static Estado estado3;
   static Estado estado4;
   static Estado estado5;
+  static Estado estado6;
 
   static SensorMovimiento sensorMovimiento1;
   static SensorMovimiento sensorMovimiento2;
   static SensorMovimiento sensorMovimiento3;
+  static SensorMovimiento sensorMovimiento4;
 
   static SensorTemperatura sensorTemperatura1;
   static SensorTemperatura sensorTemperatura2;
   static SensorTemperatura sensorTemperatura3;
+  static SensorTemperatura sensorTemperatura4;
 
   static List<Vianda> lstViandas1;
   static List<Vianda> lstViandas2;
@@ -233,6 +246,7 @@ public class Initializer {
   static Modelo modelo1;
   static Modelo modelo2;
   static Modelo modelo3;
+  static Modelo modelo4;
 
   static Documento documentoAugusto;
 
@@ -292,6 +306,10 @@ public class Initializer {
   static ReporteHeladera reporteHeladera2;
   static ReporteHeladera reporteHeladera3;
 
+  static ReporteSemanal reporteSemanal1;
+  static ReporteSemanal reporteSemanal2;
+  static ReporteSemanal reporteSemanal3;
+
   static ViandasPorColaborador viandasPorColaborador1;
   static ViandasPorColaborador viandasPorColaborador2;
   static ViandasPorColaborador viandasPorColaborador3;
@@ -305,6 +323,8 @@ public class Initializer {
   static Usuario oficinaDeCorsiniUsuario;
 
   static Usuario admin;
+
+  static Incidente alerta1;
 
   /**
    * Inicializa la aplicación con datos de prueba.
@@ -328,6 +348,7 @@ public class Initializer {
     iniciarModelos();
     iniciarSensores();
     iniciarHeladeras();
+    iniciarIncidentes();
     iniciarViandas();
     iniciarRegistrosVulnerables();
     iniciarTarjetas();
@@ -339,6 +360,7 @@ public class Initializer {
     iniciarViandasPorColaborador();
     iniciarReportes();
     iniciarUsuarios();
+    iniciarIncidentes();
 
     persistirEntidades();
   }
@@ -383,6 +405,7 @@ public class Initializer {
     repoGenerico.guardar(direccion1);
     repoGenerico.guardar(direccion2);
     repoGenerico.guardar(direccion3);
+    repoGenerico.guardar(direccion4);
 
     colaboradoresRepository.guardar(augusto);
     colaboradoresRepository.guardar(iniaki);
@@ -396,6 +419,7 @@ public class Initializer {
     repoGenerico.guardar(heladera1);
     repoGenerico.guardar(heladera2);
     repoGenerico.guardar(heladera3);
+    repoGenerico.guardar(heladeraRota);
 
     repoGenerico.guardar(villalva);
     repoGenerico.guardar(enrique);
@@ -429,6 +453,11 @@ public class Initializer {
     reportesRepository.guardar(reporteHeladera2);
     reportesRepository.guardar(reporteHeladera3);
 
+    repoGenerico.guardar(reporteSemanal1);
+    repoGenerico.guardar(reporteSemanal2);
+    repoGenerico.guardar(reporteSemanal3);
+
+    repoGenerico.guardar(alerta1);
   }
 
   static void iniciarContactos() {
@@ -599,13 +628,13 @@ public class Initializer {
 
     // Colaboracion - Colocar Heladera
 
-    colocacionHeladera = new ColocacionHeladera();
-    colocacionHeladera.setHeladeraColocada(heladera2);
+    hacerseCargoHeladera = new HacerseCargoHeladera();
+    hacerseCargoHeladera.setHeladeraColocada(heladera2);
 
     colocarHeladera = new Colaboracion();
     colocarHeladera.setFechaColaboracion(LocalDate.of(2021, 10, 10));
-    colocarHeladera.setColocacionHeladera(colocacionHeladera);
-    colocarHeladera.setTipoColaboracion(TipoColaboracion.COLOCAR_HELADERA);
+    colocarHeladera.setHacerseCargoHeladera(hacerseCargoHeladera);
+    colocarHeladera.setTipoColaboracion(TipoColaboracion.HACERSE_CARGO_HELADERA);
     colocarHeladera.setColaborador(augusto);
 
     // Colaboracion - Distribuir Tarjetas
@@ -748,6 +777,15 @@ public class Initializer {
     heladera3.setEstadosHeladera(lstEstados3);
     heladera3.setModelo(modelo3);
     heladera3.setCapacidadMaximaViandas(4);
+
+    heladeraRota = new Heladera();
+    heladeraRota.setFechaDeCreacion(LocalDate.of(2012, 9, 15));
+    heladeraRota.setEstadoActual(estadoActualRota);
+    heladeraRota.setDireccion(direccion4);
+    heladeraRota.setNombre("Heladera Rota");
+    heladeraRota.setEstadosHeladera(lstEstados4);
+    heladeraRota.setModelo(modelo4);
+    heladeraRota.setCapacidadMaximaViandas(0);
   }
 
   static void iniciarViandas() {
@@ -883,6 +921,12 @@ public class Initializer {
     direccion3.setNombreUbicacion("Lavalle 800, Villa Griselda, La Banda");
     direccion3.setLongitud(-64.239235F);
     direccion3.setLatitud(-27.732836F);
+
+    direccion4 = new Direccion();
+    direccion4.setBarrio(barrio4);
+    direccion4.setNombreUbicacion("Sarmiento 15, Ameghino Viejo, Florentino Ameghino");
+    direccion4.setLongitud(-62.4653F);
+    direccion4.setLatitud(-34.7935F);
   }
 
   static void iniciarBarrios() {
@@ -904,6 +948,13 @@ public class Initializer {
     barrio3.setNombreBarrio("Villa Griselda");
     barrio3.setNumero(800);
     barrio3.setCalle("Lavalle");
+
+    barrio4 = new Barrio();
+    barrio4.setCiudad(ciudad4);
+    barrio4.setNombreBarrio("Ameghino Viejo");
+    barrio4.setNumero(15);
+    barrio4.setCalle("San Martin");
+
   }
 
   static void iniciarCiudades() {
@@ -919,6 +970,10 @@ public class Initializer {
     ciudad3 = new Ciudad();
     ciudad3.setProvincia(santiagoDelEstero);
     ciudad3.setNombreCiudad("La Banda");
+
+    ciudad4 = new Ciudad();
+    ciudad4.setProvincia(buenosAires);
+    ciudad4.setNombreCiudad("Florentino Ameghino");
   }
 
   static void iniciarProvincias() {
@@ -1013,9 +1068,15 @@ public class Initializer {
     estadoActual3.setFechaInicial(LocalDate.of(2021, 12, 14));
     estadoActual3.setFechaFinal(LocalDate.of(2021, 12, 15));
 
+    estadoActualRota = new Estado();
+    estadoActualRota.setEstado(TipoEstado.INACTIVA_TEMPERATURA);
+    estadoActualRota.setFechaInicial(LocalDate.of(2023, 1, 14));
+    estadoActualRota.setFechaFinal(LocalDate.of(2024, 4, 15));
+
     lstEstados1 = new ArrayList<>();
     lstEstados2 = new ArrayList<>();
     lstEstados3 = new ArrayList<>();
+    lstEstados4 = new ArrayList<>();
 
     estado1 = new Estado();
     estado1.setEstado(TipoEstado.ACTIVA);
@@ -1046,6 +1107,12 @@ public class Initializer {
     estado5.setFechaInicial(LocalDate.of(2022, 2, 18));
     estado5.setFechaFinal(LocalDate.of(2022, 2, 19));
     lstEstados2.add(estado5);
+
+    estado6 = new Estado();
+    estado6.setEstado(TipoEstado.INACTIVA_FRAUDE);
+    estado6.setFechaInicial(LocalDate.of(2022, 2, 18));
+    estado6.setFechaFinal(LocalDate.of(2022, 2, 19));
+    lstEstados4.add(estado6);
   }
 
   static void iniciarModelos() {
@@ -1063,6 +1130,11 @@ public class Initializer {
     modelo3.setNombre("MK-2688");
     modelo3.setTemperaturaMaxima(22F);
     modelo3.setTemperaturaMinima(-5F);
+
+    modelo4 = new Modelo();
+    modelo4.setNombre("MK-2655");
+    modelo4.setTemperaturaMaxima(16F);
+    modelo4.setTemperaturaMinima(-8F);
   }
 
   static void iniciarOfertas() {
@@ -1113,6 +1185,9 @@ public class Initializer {
     sensorMovimiento3 = new SensorMovimiento();
     sensorMovimiento3.setHeladera(heladera3);
 
+    sensorMovimiento4 = new SensorMovimiento();
+    sensorMovimiento4.setHeladera(heladeraRota);
+
     sensorTemperatura1 = new SensorTemperatura();
     sensorTemperatura1.setHeladera(heladera1);
 
@@ -1121,6 +1196,9 @@ public class Initializer {
 
     sensorTemperatura3 = new SensorTemperatura();
     sensorTemperatura3.setHeladera(heladera3);
+
+    sensorTemperatura4 = new SensorTemperatura();
+    sensorTemperatura4.setHeladera(heladeraRota);
   }
 
   static void iniciarFormularios() {
@@ -1267,25 +1345,43 @@ public class Initializer {
 
   static void iniciarReportes() {
     reporteHeladera1 = new ReporteHeladera(heladera1);
-    reporteHeladera1.setPath("/home/usuario/reporte1.pdf");
     reporteHeladera1.setFallas(0);
     reporteHeladera1.setViandasRetiradas(5);
     reporteHeladera1.setViandasColocadas(11);
     reporteHeladera1.agregarNuevaColaboracion(viandasPorColaborador1);
 
     reporteHeladera2 = new ReporteHeladera(heladera2);
-    reporteHeladera2.setPath("/home/usuario/reporte2.pdf");
-    reporteHeladera2.setFallas(1);
-    reporteHeladera2.setViandasRetiradas(5);
-    reporteHeladera2.setViandasColocadas(22);
+    reporteHeladera2.setFallas(0);
+    reporteHeladera2.setViandasRetiradas(14);
+    reporteHeladera2.setViandasColocadas(24);
     reporteHeladera2.agregarNuevaColaboracion(viandasPorColaborador2);
 
     reporteHeladera3 = new ReporteHeladera(heladera3);
-    reporteHeladera3.setPath("/home/usuario/reporte3.pdf");
     reporteHeladera3.setFallas(2);
     reporteHeladera3.setViandasRetiradas(7);
     reporteHeladera3.setViandasColocadas(33);
     reporteHeladera3.agregarNuevaColaboracion(viandasPorColaborador3);
+
+    reporteSemanal1 = new ReporteSemanal("/reportes/reporte-semana-2024-06-16.pdf",
+        List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
+    reporteSemanal1.setNombre("reporte-semana-2024-06-16.pdf");
+    reporteSemanal1.setFecha(LocalDate.of(2024, 6, 22));
+
+    reporteSemanal2 = new ReporteSemanal("/reportes/reporte-semana-2024-06-22.pdf",
+        List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
+    reporteSemanal2.setNombre("reporte-semana-2024-06-22.pdf");
+    reporteSemanal2.setFecha(LocalDate.of(2024, 6, 22));
+
+    reporteSemanal3 = new ReporteSemanal("/reportes/reporte-semana-2024-06-29.pdf",
+        List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
+    reporteSemanal3.setNombre("reporte-semana-2024-06-29.pdf");
+    reporteSemanal3.setFecha(LocalDate.of(2024, 6, 29));
+  }
+
+  static void iniciarIncidentes() {
+    alerta1 = new Incidente(TipoIncidente.ALERTA, heladeraRota);
+    alerta1.setTipoAlerta(TipoEstado.INACTIVA_TEMPERATURA);
+    alerta1.setMomentoIncidente(LocalDateTime.now());
   }
 
   static void iniciarRepos() {
@@ -1306,7 +1402,7 @@ public class Initializer {
         RepositoryLocator.instanceOf(GenericRepository.class);
 
     reportesRepository =
-        RepositoryLocator.instanceOf(ReportesRepository.class);
+        RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);
 
     usuariosRepository =
         RepositoryLocator.instanceOf(UsuariosRepository.class);

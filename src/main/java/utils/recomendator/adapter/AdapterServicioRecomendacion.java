@@ -17,7 +17,11 @@ public class AdapterServicioRecomendacion implements InterfaceAdapterServicioRec
   private static final String urAPI = "https://71f019a3-8787-49bf-891b-05a9650407ed.mock.pstmn.io/";
   private final Retrofit retrofit;
 
-  private AdapterServicioRecomendacion() {
+  /**
+   * Constructor para AdapterServicioRecomendacion.
+   */
+
+  public AdapterServicioRecomendacion() {
     this.retrofit = new Retrofit.Builder()
         .baseUrl(urAPI)
         .addConverterFactory(GsonConverterFactory.create())

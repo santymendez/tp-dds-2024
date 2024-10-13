@@ -17,10 +17,11 @@
                 {{/verifyRole}}
                 {{#verifyRole tipoRol "PERSONA_JURIDICA"}}
                     <option value="donar_dinero">Donar Dinero</option>
-                    <option value="colocar_heladera">Colocar una Heladera</option>
+                    <option value="hacerse_cargo">Hacerse Cargo de una Heladera</option>
                 {{/verifyRole}}
                 {{#verifyRole tipoRol "EMPRESA_ASOCIADA"}}
                     <option value="realizar_ofertas">Realizar una Oferta</option>
+                    <option value="hacerse_cargo">Hacerse Cargo de una Heladera</option>
                 {{/verifyRole}}
             </select>
         </div>
@@ -189,6 +190,90 @@
                 <button type="submit" class="btn btn-success btn-lg">Confirmar</button>
             </form>
         </div>
+
+        <!-- Formulario para Colocar Heladera -->
+        <div id="hacerse_cargo" class="action-form d-none distribuir-viandas-form">
+            <h3>Hacerse cargo de una heladera</h3>
+            <form class="formulario" method="POST"
+                  action="/heladeras-solidarias/colaborar">
+                <input type="hidden" name="formType" value="hacerseCargo">
+                <div class="col-md-6 mb-3">
+                    <label for="heladera" class="form-label">Seleccionar heladera</label>
+                    <select name="heladera" class="form-select form-select-lg" id="heladera" required>
+                        <option value="" selected>Elija una opción</option>
+                        {{#each heladeras}}
+                            <option value="{{this.getId}}">{{this.getNombre}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="flex-item">
+                    <input name="direccionPropia" value="true" type="checkbox" class="form-check-input" id="direccionPropia">
+                    <label for="direccionPropia" class="col-form-label">Usar mi dirección</label>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="nombreDireccion" class="form-label">Nombre</label>
+                        <input name="nombreUbicacion" type="text" class="form-control form-control-lg espacio" id="nombreDireccion"
+                               placeholder="ej: Casa" >
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="provinciaJuridica" class="form-label">Provincia</label>
+                        <select name="provincia" class="form-select form-select-lg" id="provinciaJuridica" >
+                            <option value="" selected>Seleccione una provinicia</option>
+                            {{#each provincias}}
+                                <option value="{{this.getId}}">{{this.getNombreProvincia}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="ciudadJuridica" class="form-label">Ciudad</label>
+                        <input name="ciudad" type="text" class="form-control form-control-lg espacio" id="ciudadJuridica"
+                               placeholder="ej: CABA" >
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="barrio" class="form-label">Barrio</label>
+                        <input name="barrio" type="text" class="form-control form-control-lg espacio" id="barrio"
+                               placeholder="ej: Villa Crespo">
+                    </div>
+                </div><div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="calleJuridica" class="form-label">Calle</label>
+                    <input name="calle" type="text" class="form-control form-control-lg espacio" id="calleJuridica"
+                           placeholder="ej: Malabia" >
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="numeroJuridico" class="form-label">Numero</label>
+                    <input name="numero" type="text" class="form-control form-control-lg espacio" id="numeroJuridico"
+                           placeholder="ej: 500" >
+                </div>
+            </div>
+                <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success btn-lg">Confirmar Direccion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Error Colaboracion -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">¡Ups! Surgió un Problema</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Tu colaboración no pudo ser procesada. Inténtalo de Nuevo</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
     </div>
 {{/partial}}
 
@@ -216,6 +301,41 @@
             }
         });
     </script>
+
+    <!-- TODO ver si implementar esto o no jijoo -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lee los parámetros de la URL
+            const params = new URLSearchParams(window.location.search);
+
+            // Si el parámetro "success" es "true", mostramos el modal
+            if (params.get("colabError") === "true") {
+                $('#exampleModalCenter').modal('show');
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.getElementById('direccionPropia');
+            const inputs = document.querySelectorAll('#hacerse_cargo input[type="text"], #hacerse_cargo select');
+
+            checkbox.addEventListener('change', function() {
+                inputs.forEach(input => {
+                    if (!checkbox.checked) {
+                        input.setAttribute('required', true);
+                    } else {
+                        input.removeAttribute('required');
+                    }
+                });
+            });
+        });
+    </script>
+
 {{/partial}}
 
 {{> templates/base}}

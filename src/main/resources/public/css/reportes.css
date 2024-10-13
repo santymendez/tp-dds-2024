@@ -63,12 +63,22 @@ h2 {
     text-align: left;
 }
 
-.form-select{
-    padding: 0.8rem;
-    font-size: 1.3rem;
-    border-radius: 1rem;
-    text-align: left;
+.form-control, .form-select {
+    font-family: var(--fuenteParrafos), serif;
+    font-size: 1.4rem;
+    color: var(--negro);
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 80%;
+    margin-inline: auto;
 }
+
+/*.form-select{*/
+/*    padding: 0.8rem;*/
+/*    font-size: 1.3rem;*/
+/*    border-radius: 1rem;*/
+/*    text-align: left;*/
+/*}*/
 
 .btn-primary {
     color: var(--blanco);

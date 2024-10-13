@@ -3,7 +3,7 @@ package server.handlers;
 import exceptions.AccessDeniedException;
 import io.javalin.Javalin;
 import java.util.Map;
-import utils.ErrorHelper;
+import utils.helpers.ErrorHelper;
 
 /**
  * Handler de acceso denegado.

@@ -10,8 +10,10 @@ import java.util.Objects;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.incidente.Incidente;
 import models.entities.personas.users.TipoRol;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.IncidentesRepository;
 import services.DireccionesService;
 import services.HeladerasService;
 import utils.javalin.InterfaceCrudViewsHandler;
@@ -22,6 +24,7 @@ import utils.javalin.InterfaceCrudViewsHandler;
 
 public class HeladerasController implements InterfaceCrudViewsHandler {
   private final GenericRepository genericRepository;
+  private final IncidentesRepository incidentesRepository;
   private final HeladerasService heladerasService;
   private final DireccionesService direccionesService;
 
@@ -29,16 +32,19 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    * Constructor de la clase.
    *
    * @param genericRepository Repositorio generico.
+   * @param incidentesRepository Repositorio de incidentes.
    * @param heladerasService Servicio de heladeras.
    * @param direccionesService Servicio de direcciones.
    */
 
   public HeladerasController(
       GenericRepository genericRepository,
+      IncidentesRepository incidentesRepository,
       HeladerasService heladerasService,
       DireccionesService direccionesService
   ) {
     this.genericRepository = genericRepository;
+    this.incidentesRepository = incidentesRepository;
     this.heladerasService = heladerasService;
     this.direccionesService = direccionesService;
   }
@@ -60,6 +66,9 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     List<Provincia> provincias = this.genericRepository.buscarTodos(Provincia.class);
     model.put("provincias", provincias);
 
+    List<Incidente> alertas = incidentesRepository.buscarAlertas();
+    model.put("alertas", alertas);
+    
     model.put("activeSession", true);
     model.put("tipoRol", context.sessionAttribute("tipoRol"));
 

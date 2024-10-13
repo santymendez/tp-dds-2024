@@ -9,6 +9,7 @@ import controllers.HeladerasController;
 import controllers.HomePageController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
+import controllers.RecomendacionesController;
 import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
 import controllers.ReportesController;
@@ -18,11 +19,12 @@ import controllers.colaboraciones.DistribuirTarjetasController;
 import controllers.colaboraciones.DistribuirViandasController;
 import controllers.colaboraciones.DonarDineroController;
 import controllers.colaboraciones.DonarViandasController;
+import controllers.colaboraciones.HacerseCargoController;
 import controllers.colaboraciones.RealizarOfertasController;
 import io.javalin.Javalin;
 import java.util.Objects;
 import models.entities.personas.users.TipoRol;
-import utils.ErrorHelper;
+import utils.helpers.ErrorHelper;
 
 /**
  * Clase Router.
@@ -82,7 +84,7 @@ public class Router {
 
     //COLABORAR
     app.get("/heladeras-solidarias/colaborar",
-        ControllerLocator.instanceOf(ColaboracionesController.class)::create,
+        ControllerLocator.instanceOf(ColaboracionesController.class)::index,
         TipoRol.PERSONA_FISICA,
         TipoRol.PERSONA_JURIDICA,
         TipoRol.ADMINISTRADOR,
@@ -97,8 +99,8 @@ public class Router {
             ControllerLocator.instanceOf(DonarViandasController.class).save(ctx);
         case "realizarOfertas" ->
             ControllerLocator.instanceOf(RealizarOfertasController.class).save(ctx);
-        case "colocar-heladera" ->
-            ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
+        case "hacerseCargo" ->
+            ControllerLocator.instanceOf(HacerseCargoController.class).save(ctx);
         case "distribuirTarjetas" ->
             ControllerLocator.instanceOf(DistribuirTarjetasController.class).save(ctx);
         case "distribuirViandas" ->
@@ -122,13 +124,17 @@ public class Router {
         case "reportarFalla" ->
             ControllerLocator.instanceOf(ReportarFallaTecnicaController.class).save(ctx);
         case "recomendaciones" ->
-            System.out.println("NO LO TENEMOS");
+            ctx.redirect("/heladeras-solidarias/recomendaciones");
         default -> ctx.status(400).result("Tipo de formulario no valido");
       }
     }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
 
     app.get("/heladeras-solidarias/ver-mapa",
         ControllerLocator.instanceOf(MapaController.class)::index);
+
+    app.post("/heladeras-solidarias/recomendaciones",
+        ControllerLocator.instanceOf(RecomendacionesController.class)::index,
+        TipoRol.PERSONA_JURIDICA, TipoRol.PERSONA_FISICA, TipoRol.ADMINISTRADOR);
 
     //AGREGAR DIRECCION
     app.get("/heladeras-solidarias/agregar-direccion",
@@ -144,8 +150,10 @@ public class Router {
     app.post("/heladeras-solidarias/heladeras-admin", ctx -> {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {
-        case "darAlta" -> ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
-        case "darBaja" -> ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
+        case "darAlta" ->
+            ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
+        case "darBaja" ->
+            ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
         case "modificar" ->
             ControllerLocator.instanceOf(HeladerasController.class).update(ctx);
         default -> ctx.status(400).result("Tipo de formulario no valido");
@@ -164,5 +172,8 @@ public class Router {
 
     app.get("/heladeras-solidarias/reportes",
         ControllerLocator.instanceOf(ReportesController.class)::index, TipoRol.ADMINISTRADOR);
+    
+    app.post("/heladeras-solidarias/reportes", 
+        ControllerLocator.instanceOf(ReportesController.class)::save, TipoRol.ADMINISTRADOR);
   }
 }

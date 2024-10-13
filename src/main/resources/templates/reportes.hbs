@@ -6,34 +6,47 @@
     <div class="list-group">
         <h2>Últimos Reportes</h2>
         {{#each reportes}}
-            <a href="#"
-               class="list-group-item top-item list-group-item-action">reporte-semana-{{this.fecha}}
-                .pdf</a>
+            <a href="{{this.path}}"
+               download="{{this.nombre}}"
+               class="list-group-item top-item list-group-item-action">{{this.nombre}}</a>
         {{/each}}
         <p>Haga click para descargar</p>
     </div>
 
-    <div class="selector">
-        <div class="left"><label for="monthSelection" class="form-label"> O solicite los reportes
-            de... </label></div>
-        <select class="form-select" id="monthSelection" aria-label="Default select example">
-            <option selected>Seleccione un mes</option>
-            <option value="1">Enero</option>
-            <option value="2">Febrero</option>
-            <option value="3">Marzo</option>
-            <option value="4">Abril</option>
-            <option value="5">Mayo</option>
-            <option value="6">Junio</option>
-            <option value="7">Julio</option>
-            <option value="8">Agosto</option>
-            <option value="9">Septiembre</option>
-            <option value="10">Octubre</option>
-            <option value="11">Noviembre</option>
-            <option value="12">Diciembre</option>
-        </select>
+    <form method="POST" action="/heladeras-solidarias/reportes">
+        <div><label class="form-label"> O solicite los reportes de... </label></div>
+        <div class="selector">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="fechaInicial" class="form-label">Fecha Inicial</label>
+                    <input name="fechaInicial" type="date" class="form-control"
+                           id="fechaInicial" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="fechaFinal" class="form-label">Fecha Final</label>
+                    <input name="fechaFinal" type="date" class="form-control"
+                           id="fechaFinal" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Pedir reportes</button>
+        </div>
+    </form>
 
-        <button type="submit" class="btn btn-primary">Pedir reportes</button>
-    </div>
 {{/partial}}
+
+{{#partial "scripts"}}
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var fechaInicial = new Date(document.getElementById('fechaInicial').value);
+            var fechaFinal = new Date(document.getElementById('fechaFinal').value);
+
+            if (fechaInicial >= fechaFinal) {
+                event.preventDefault();
+                alert('La fecha inicial debe ser anterior a la fecha final.');
+            }
+        });
+    </script>
+{{/partial}}
+
 
 {{> templates/base}}

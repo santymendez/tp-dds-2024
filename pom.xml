@@ -276,7 +276,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>models.entities.reporte.generador.GeneradorReporte</mainClass>
+              <mainClass>utils.reportes.GeneradorReporte</mainClass>
             </manifest>
           </archive>
         </configuration>

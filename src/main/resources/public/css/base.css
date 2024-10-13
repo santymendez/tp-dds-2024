@@ -157,6 +157,7 @@ nav ul li a:hover {
 
 .btn-primary:active:focus {
     background: var(--verdeSecundario);
+    box-shadow: none;
     border-color: transparent;
 }
 
@@ -195,4 +196,23 @@ nav ul li a:hover {
     color: var(--blanco);
     margin-right: 10px;
     font-size: 1.4rem;
+}
+
+.btn-primary:active {
+    background-color: var(--verdeSecundario) !important;
+    border-color: var(--verdeSecundario) !important;
+    box-shadow: none !important;
+    color: var(--blanco);
+}
+
+/* Para tener consistencia en los forms y los botones */
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--blanco);
+}
+
+.form-select:focus {
+    box-shadow: none;
+    border-color: var(--blanco);
 }

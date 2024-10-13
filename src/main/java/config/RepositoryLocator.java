@@ -7,8 +7,10 @@ import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.HeladerasRepository;
+import models.repositories.imp.IncidentesRepository;
 import models.repositories.imp.ProvinciasRepository;
-import models.repositories.imp.ReportesRepository;
+import models.repositories.imp.ReportesHeladerasRepository;
+import models.repositories.imp.ReportesSemanalesRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
 import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.TecnicosRepository;
@@ -44,8 +46,8 @@ public class RepositoryLocator {
         instances.put(repositoryClassName, new ColaboradoresRepository());
       } else if (repositoryClass.equals(TecnicosRepository.class)) {
         instances.put(repositoryClassName, new TecnicosRepository());
-      } else if (repositoryClass.equals(ReportesRepository.class)) {
-        instances.put(repositoryClassName, new ReportesRepository());
+      } else if (repositoryClass.equals(ReportesHeladerasRepository.class)) {
+        instances.put(repositoryClassName, new ReportesHeladerasRepository());
       } else if (repositoryClass.equals(UsosTarjetasVulnerablesRepository.class)) {
         instances.put(repositoryClassName, new UsosTarjetasVulnerablesRepository());
       } else if (repositoryClass.equals(DireccionesRepository.class)) {
@@ -62,6 +64,10 @@ public class RepositoryLocator {
         instances.put(repositoryClassName, new VulnerablesRepository());
       } else if (repositoryClass.equals(HeladerasRepository.class)) {
         instances.put(repositoryClassName, new HeladerasRepository());
+      } else if (repositoryClass.equals(IncidentesRepository.class)) {
+        instances.put(repositoryClassName, new IncidentesRepository());
+      } else if (repositoryClass.equals(ReportesSemanalesRepository.class)) {
+        instances.put(repositoryClassName, new ReportesSemanalesRepository());
       }
     }
 

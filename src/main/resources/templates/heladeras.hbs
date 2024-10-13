@@ -15,7 +15,7 @@
                     <option value="recomendaciones">Solicitar Recomendación</option>
                 {{/verifyRole}}
                 {{#verifyRole tipoRol "PERSONA_JURIDICA"}}
-                    <option value="recomendaciones">Solicitar Recomendación</option>
+                    <option value="/heladeras-solidarias/recomendaciones">Solicitar Recomendación</option>
                 {{/verifyRole}}
             </select>
         </div>
@@ -105,20 +105,12 @@
     <script>
         document.getElementById('actionSelector').addEventListener('change', function () {
             var selectedValue = this.value;
-            if (selectedValue == "recomendaciones.hbs") {
+            if (selectedValue === "/heladeras-solidarias/recomendaciones" || selectedValue === "/heladeras-solidarias/heladeras") {
                 window.location.href = selectedValue;
             }
         });
     </script>
 
-    <script>
-        document.getElementById('actionSelector').addEventListener('change', function () {
-            var selectedValue = this.value;
-            if (selectedValue == "/heladeras-solidarias/heladeras") {
-                window.location.href = selectedValue;
-            }
-        });
-    </script>
 
     <script>
         document.getElementById('actionSelector').addEventListener('change', function () {

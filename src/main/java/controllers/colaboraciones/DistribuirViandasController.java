@@ -10,8 +10,8 @@ import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
 import services.ColaboracionesService;
-import utils.ColaboracionesHelper;
-import utils.ContextHelper;
+import utils.helpers.ColaboracionesHelper;
+import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -90,7 +90,7 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
-    context.redirect("/heladeras-solidarias");
+    context.redirect("/heladeras-solidarias?colabSuccess=true");
   }
 
   @Override

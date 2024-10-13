@@ -44,7 +44,7 @@ public class Formula
         calculoTarjetasRepartidas::calcularPuntosDe);
 
     CalculoHeladerasActivas calculoHeladerasActivas = new CalculoHeladerasActivas();
-    this.mapCalculos.put(TipoColaboracion.COLOCAR_HELADERA,
+    this.mapCalculos.put(TipoColaboracion.HACERSE_CARGO_HELADERA,
         calculoHeladerasActivas::calcularPuntosDe);
   }
 

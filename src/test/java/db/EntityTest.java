@@ -69,12 +69,12 @@ public class EntityTest {
     // Recupero una colaboracion sin ningun problema
 
     List<Colaboracion> colaboraciones =
-        Initializer.getColaboracionesRepository().buscarPorTipo(TipoColaboracion.COLOCAR_HELADERA);
+        Initializer.getColaboracionesRepository().buscarPorTipo(TipoColaboracion.HACERSE_CARGO_HELADERA);
 
     Colaboracion colaboracion = colaboraciones.get(0);
 
     Assertions.assertEquals(colaboracion.getTipoColaboracion(),
-        TipoColaboracion.COLOCAR_HELADERA);
+        TipoColaboracion.HACERSE_CARGO_HELADERA);
 
     Assertions.assertEquals(colaboracion.getColaborador().getNombre(), "Augusto");
 

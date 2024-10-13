@@ -9,9 +9,9 @@ import models.entities.personas.colaborador.canje.Oferta;
 import models.repositories.imp.GenericRepository;
 import services.ColaboracionesService;
 import services.OfertasService;
-import utils.ColaboracionesHelper;
-import utils.ContextHelper;
-import utils.UploadedFilesHelper;
+import utils.helpers.ColaboracionesHelper;
+import utils.helpers.ContextHelper;
+import utils.helpers.UploadedFilesHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**

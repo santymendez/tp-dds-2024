@@ -11,6 +11,6 @@ import lombok.Getter;
 public class Persona {
   //Necesitamos que se llame asi para poder integrarnos
   //Usamos el suppress para evitar problemas con el checkstyle
-  @SuppressWarnings("all")
+  @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
   private String nombreYApellido;
 }

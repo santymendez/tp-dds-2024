@@ -1,6 +1,7 @@
 package config;
 
 import java.util.HashMap;
+import models.repositories.ModelosRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
@@ -14,6 +15,7 @@ import services.ColaboradoresService;
 import services.DireccionesService;
 import services.HeladerasService;
 import services.IncidentesService;
+import services.ModelosService;
 import services.OfertasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
@@ -99,6 +101,13 @@ public class ServiceLocator {
       } else if (serviceClass.equals(SuscripcionesService.class)) {
         SuscripcionesService instance = new SuscripcionesService();
         instances.put(serviceName, instance);
+
+      } else if (serviceClass.equals(ModelosService.class)) {
+        ModelosService instance = new ModelosService(
+            RepositoryLocator.instanceOf(ModelosRepository.class)
+        );
+        instances.put(serviceName, instance);
+
       }
     }
     return (T) instances.get(serviceName);

@@ -194,32 +194,39 @@
         <!-- Formulario para Colocar Heladera -->
         <div id="hacerse_cargo" class="action-form d-none distribuir-viandas-form">
             <h3>Hacerse cargo de una heladera</h3>
-            <form class="formulario" method="POST"
-                  action="/heladeras-solidarias/colaborar">
+            <form method="POST" action="/heladeras-solidarias/colaborar">
                 <input type="hidden" name="formType" value="hacerseCargo">
-                <div class="col-md-6 mb-3">
-                    <label for="heladera" class="form-label">Seleccionar heladera</label>
-                    <select name="heladera" class="form-select form-select-lg" id="heladera" required>
-                        <option value="" selected>Elija una opción</option>
-                        {{#each heladeras}}
-                            <option value="{{this.getId}}">{{this.getNombre}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-                <div class="flex-item">
-                    <input name="direccionPropia" value="true" type="checkbox" class="form-check-input" id="direccionPropia">
-                    <label for="direccionPropia" class="col-form-label">Usar mi dirección</label>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 mb-3">
+                        <label for="nombreHeladera" class="form-label">Nombre de la Heladera</label>
+                        <input name="nombre" type="text" class="form-control" id="nombreHeladera" placeholder="Ingresar nombre" required>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="nombreDireccion" class="form-label">Nombre</label>
-                        <input name="nombreUbicacion" type="text" class="form-control form-control-lg espacio" id="nombreDireccion"
-                               placeholder="ej: Casa" >
+                        <label for="capacidadMaxViandas" class="form-label">Capacidad Máxima</label>
+                        <input name="capacidadMaximaViandas" type="number" step="1" class="form-control" id="capacidadMaxViandas"
+                               placeholder="Ingresar capacidad Maxima" min="0" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="provinciaJuridica" class="form-label">Provincia</label>
-                        <select name="provincia" class="form-select form-select-lg" id="provinciaJuridica" >
-                            <option value="" selected>Seleccione una provinicia</option>
+                        <label for="modeloHeladera" class="form-label">Modelo de la Heladera</label>
+                        <select name="modelo" class="form-select" id="modeloHeladera" required>
+                            <option selected value="">Seleccione una Opción</option>
+                            {{#each modelos}}
+                                <option value="{{this.getId}}">{{this.getNombre}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="fechaAltaHeladera" class="form-label">Fecha de Alta</label>
+                        <input name="fechaCreacion" type="date" class="form-control" id="fechaAltaHeladera" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="provincia" class="form-label">Provincia</label>
+                        <select name="provincia" class="form-select" id="provincia">
+                            <option selected value="">Seleccione una Opción</option>
                             {{#each provincias}}
                                 <option value="{{this.getId}}">{{this.getNombreProvincia}}</option>
                             {{/each}}
@@ -227,30 +234,44 @@
                     </div>
                 </div>
                 <div class="row">
+
                     <div class="col-md-6 mb-3">
-                        <label for="ciudadJuridica" class="form-label">Ciudad</label>
-                        <input name="ciudad" type="text" class="form-control form-control-lg espacio" id="ciudadJuridica"
-                               placeholder="ej: CABA" >
+                        <label for="ciudad" class="form-label">Ciudad</label>
+                        <input name="ciudad" type="text" class="form-control" id="ciudad"
+                               placeholder="ej: CABA" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="barrio" class="form-label">Barrio</label>
-                        <input name="barrio" type="text" class="form-control form-control-lg espacio" id="barrio"
-                               placeholder="ej: Villa Crespo">
+                        <input name="barrio" type="text" class="form-control" id="barrio"
+                               placeholder="ej: Villa Crespo" required>
                     </div>
-                </div><div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="calleJuridica" class="form-label">Calle</label>
-                    <input name="calle" type="text" class="form-control form-control-lg espacio" id="calleJuridica"
-                           placeholder="ej: Malabia" >
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label for="numeroJuridico" class="form-label">Numero</label>
-                    <input name="numero" type="text" class="form-control form-control-lg espacio" id="numeroJuridico"
-                           placeholder="ej: 500" >
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="calle" class="form-label">Calle</label>
+                        <input name="calle" type="text" class="form-control" id="calle"
+                               placeholder="ej: Malabia" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="numero" class="form-label">Numero</label>
+                        <input name="numero" type="text" class="form-control" id="numero"
+                               placeholder="ej: 411" required>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="longitud" class="form-label">Longitud</label>
+                        <input name="longitud" type="text" class="form-control" id="longitud"
+                               placeholder="ej: -321.341" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="latitud" class="form-label">Latitud</label>
+                        <input name="latitud" type="text" class="form-control" id="latitud"
+                               placeholder="ej: 1.1212" required>
+                    </div>
+                </div>
                 <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-success btn-lg">Confirmar Direccion</button>
+                    <button type="submit" class="btn btn-primary">Registrar Heladera</button>
                 </div>
             </form>
         </div>

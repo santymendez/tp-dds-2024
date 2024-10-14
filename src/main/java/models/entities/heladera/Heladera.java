@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
@@ -53,7 +54,8 @@ public class Heladera extends Persistente {
   @Column(name = "estaAbierta")
   private Boolean estaAbierta;
 
-  @Embedded
+  @ManyToOne
+  @JoinColumn(name = "modelo_id", referencedColumnName = "id", nullable = false)
   private Modelo modelo;
 
   @Column(name = "capacidadMaximaViandas", nullable = false)

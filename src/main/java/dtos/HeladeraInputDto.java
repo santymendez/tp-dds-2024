@@ -16,9 +16,6 @@ import models.entities.heladera.Heladera;
 public class HeladeraInputDto {
   String nombre;
   String fechaCreacion;
-  String modelo;
-  String temperaturaMax;
-  String temperaturaMin;
   String capacidadMaximaViandas;
 
   /**
@@ -32,9 +29,6 @@ public class HeladeraInputDto {
     return HeladeraInputDto.builder()
         .nombre(context.formParam("nombre"))
         .fechaCreacion(context.formParam("fechaCreacion"))
-        .modelo(context.formParam("modelo"))
-        .temperaturaMax(context.formParam("temperaturaMax"))
-        .temperaturaMin(context.formParam("temperaturaMin"))
         .capacidadMaximaViandas(context.formParam("capacidadMaximaViandas"))
         .build();
   }

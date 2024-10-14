@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import models.entities.direccion.Provincia;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.Modelo;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.HeladerasRepository;
 import utils.javalin.InterfaceCrudViewsHandler;
@@ -35,6 +36,9 @@ public class ColaboracionesController implements InterfaceCrudViewsHandler {
 
     List<Provincia> provincias = this.genericRepository.buscarTodos(Provincia.class);
     model.put("provincias", provincias);
+
+    List<Modelo> modelos = this.genericRepository.buscarTodos(Modelo.class);
+    model.put("modelos", modelos);
 
     model.put("activeSession", true);
     model.put("tipoRol", context.sessionAttribute("tipoRol"));

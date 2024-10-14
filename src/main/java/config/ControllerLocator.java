@@ -9,6 +9,7 @@ import controllers.HeladerasController;
 import controllers.HomePageController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
+import controllers.ModelosController;
 import controllers.OldCsvController;
 import controllers.RecomendacionesController;
 import controllers.RegistrarColaboradorController;
@@ -23,6 +24,7 @@ import controllers.colaboraciones.HacerseCargoController;
 import controllers.colaboraciones.RealizarOfertasController;
 import java.util.HashMap;
 import java.util.Map;
+import models.repositories.ModelosRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.HeladerasRepository;
@@ -39,6 +41,7 @@ import services.ColaboradoresService;
 import services.DireccionesService;
 import services.HeladerasService;
 import services.IncidentesService;
+import services.ModelosService;
 import services.OfertasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
@@ -219,6 +222,13 @@ public class ControllerLocator {
             RepositoryLocator.instanceOf(GenericRepository.class),
             ServiceLocator.instanceOf(DireccionesService.class),
             ServiceLocator.instanceOf(ColaboracionesService.class)
+        );
+        instances.put(controllerName, instance);
+
+      } else if (controllerClass.equals(ModelosController.class)) {
+        ModelosController instance = new ModelosController(
+            RepositoryLocator.instanceOf(ModelosRepository.class),
+            ServiceLocator.instanceOf(ModelosService.class)
         );
         instances.put(controllerName, instance);
 

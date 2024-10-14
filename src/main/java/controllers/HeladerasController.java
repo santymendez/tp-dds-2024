@@ -10,6 +10,7 @@ import java.util.Objects;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.Modelo;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.personas.users.TipoRol;
 import models.repositories.imp.GenericRepository;
@@ -97,8 +98,11 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
+    Long idModelo = Long.parseLong(Objects.requireNonNull(context.formParam("modelo")));
+    Modelo modelo = this.genericRepository.buscarPorId(idModelo, Modelo.class).get();
+
     Direccion direccion = this.direccionesService.crear(direccionInputDto);
-    this.heladerasService.crear(heladeraInputDto, direccion);
+    this.heladerasService.crear(heladeraInputDto, direccion, modelo);
 
     context.redirect("/heladeras-solidarias");
   }
@@ -119,6 +123,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    * @param context el contexto de la aplicación.
    */
 
+  //TODO MODELO
   public void update(Context context) {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
@@ -145,6 +150,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    * @param context el contexto de la aplicación.
    */
 
+  //TODO MODELO
   public void delete(Context context) {
     Long heladeraId = Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
 

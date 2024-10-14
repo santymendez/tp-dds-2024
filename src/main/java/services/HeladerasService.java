@@ -26,21 +26,13 @@ public class HeladerasService {
    * @param heladeraInputDto el DTO con los datos de la heladera.
    */
 
-  public void crear(HeladeraInputDto heladeraInputDto, Direccion direccion) {
+  public void crear(HeladeraInputDto heladeraInputDto, Direccion direccion, Modelo modelo) {
     Heladera heladera = new Heladera();
     heladera.setNombre(heladeraInputDto.getNombre());
     heladera.setFechaDeCreacion(LocalDate.parse(heladeraInputDto.getFechaCreacion()));
-
-    Modelo modelo = new Modelo();
-    modelo.setNombre(heladeraInputDto.getModelo());
-    modelo.setTemperaturaMaxima(Float.parseFloat(heladeraInputDto.getTemperaturaMax()));
-    modelo.setTemperaturaMinima(Float.parseFloat(heladeraInputDto.getTemperaturaMin()));
-
     heladera.setModelo(modelo);
-
     heladera
         .setCapacidadMaximaViandas(Integer.valueOf(heladeraInputDto.getCapacidadMaximaViandas()));
-
     heladera.setDireccion(direccion);
 
     genericRepository.guardar(heladera);
@@ -57,20 +49,6 @@ public class HeladerasService {
 
     if (!Objects.equals(heladeraInputDto.getNombre(), "")) {
       heladera.setNombre(heladeraInputDto.getNombre());
-    }
-
-    if (!Objects.equals(heladeraInputDto.getModelo(), "")) {
-      heladera.getModelo().setNombre(heladeraInputDto.getModelo());
-    }
-
-    if (!Objects.equals(heladeraInputDto.getTemperaturaMax(), "")) {
-      heladera.getModelo()
-          .setTemperaturaMaxima(Float.parseFloat(heladeraInputDto.getTemperaturaMax()));
-    }
-
-    if (!Objects.equals(heladeraInputDto.getTemperaturaMin(), "")) {
-      heladera.getModelo()
-          .setTemperaturaMinima(Float.parseFloat(heladeraInputDto.getTemperaturaMin()));
     }
 
     if (!Objects.equals(heladeraInputDto.getCapacidadMaximaViandas(), "")) {

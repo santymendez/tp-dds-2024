@@ -416,6 +416,11 @@ public class Initializer {
     repoGenerico.guardar(tarjetaAugusto);
     repoGenerico.guardar(tarjetaIniaqui);
 
+    repoGenerico.guardar(modelo1);
+    repoGenerico.guardar(modelo2);
+    repoGenerico.guardar(modelo3);
+    repoGenerico.guardar(modelo4);
+
     repoGenerico.guardar(heladera1);
     repoGenerico.guardar(heladera2);
     repoGenerico.guardar(heladera3);

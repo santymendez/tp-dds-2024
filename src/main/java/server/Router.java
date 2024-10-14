@@ -9,6 +9,7 @@ import controllers.HeladerasController;
 import controllers.HomePageController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
+import controllers.ModelosController;
 import controllers.RecomendacionesController;
 import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
@@ -100,7 +101,7 @@ public class Router {
         case "realizarOfertas" ->
             ControllerLocator.instanceOf(RealizarOfertasController.class).save(ctx);
         case "hacerseCargo" ->
-            ControllerLocator.instanceOf(HacerseCargoController.class).save(ctx);
+            ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
         case "distribuirTarjetas" ->
             ControllerLocator.instanceOf(DistribuirTarjetasController.class).save(ctx);
         case "distribuirViandas" ->
@@ -151,7 +152,7 @@ public class Router {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {
         case "darAlta" ->
-            ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
+            ControllerLocator.instanceOf(ModelosController.class).save(ctx);
         case "darBaja" ->
             ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
         case "modificar" ->

@@ -1,19 +1,21 @@
 package models.entities.heladera;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import models.db.Persistente;
 
 /**
- * Representa un modelo de Heladera. Tiene como atributos su modelo y un sensor de temperatura.
+ * Representa un modelo de Heladera.
  */
 
 @Getter
 @Setter
-@Embeddable
-public class Modelo {
-
+@Entity
+@Table(name = "modelos")
+public class Modelo extends Persistente {
   @Column(name = "modelo")
   private String nombre;
 

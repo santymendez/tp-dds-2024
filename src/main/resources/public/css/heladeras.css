@@ -237,3 +237,9 @@ h2 {
     height: 3rem;
     width: 33%;
 }
+
+.close{
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+}

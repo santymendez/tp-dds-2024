@@ -20,6 +20,7 @@ import services.OfertasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
 import services.UsuariosService;
+import services.VisitasTecnicasService;
 import services.VulnerablesService;
 
 /**
@@ -105,6 +106,12 @@ public class ServiceLocator {
       } else if (serviceClass.equals(ModelosService.class)) {
         ModelosService instance = new ModelosService(
             RepositoryLocator.instanceOf(ModelosRepository.class)
+        );
+        instances.put(serviceName, instance);
+
+      } else if (serviceClass.equals(VisitasTecnicasService.class)) {
+        VisitasTecnicasService instance = new VisitasTecnicasService(
+            RepositoryLocator.instanceOf(GenericRepository.class)
         );
         instances.put(serviceName, instance);
 

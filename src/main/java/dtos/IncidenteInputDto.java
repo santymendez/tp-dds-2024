@@ -16,7 +16,7 @@ import utils.helpers.UploadedFilesHelper;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class IncidenteDto {
+public class IncidenteInputDto {
   private String descripcion;
   private String imagen;
 
@@ -27,10 +27,10 @@ public class IncidenteDto {
    * @return Objeto IncidenteDto.
    */
 
-  public static IncidenteDto fromContext(Context context) {
+  public static IncidenteInputDto fromContext(Context context) {
     String path = UploadedFilesHelper.getImageFromContext(context);
 
-    return IncidenteDto.builder()
+    return IncidenteInputDto.builder()
         .descripcion(context.formParam("descripcion"))
         .imagen(Objects.requireNonNullElse(path, ""))
         .build();

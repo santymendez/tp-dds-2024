@@ -12,21 +12,27 @@
             <label for="actionSelector" class="form-label chico">Elige una acción</label>
             <select class="form-select form-select-lg chico" id="actionSelector">
                 <option value="" selected>Elija una opción</option>
-                <option value="darAlta">Dar de Alta</option>
-                <option value="darBaja">Dar de Baja</option>
-                <option value="modificar">Modificar Heladera</option>
+                <option value="darAltaModelo">Dar de Alta un Modelo de Heladera</option>
+                <option value="darBaja">Dar de Baja una Heladera</option>
+                <option value="modificar">Modificar una Heladera</option>
                 <option value="verAlertas">Ver Alertas</option>
             </select>
         </div>
     </div>
 
-    <div id="darAlta" class="d-none action-form">
-        <form method="POST" action="/heladeras-solidarias/heladeras-admin">
-            <input type="hidden" name="formType" value="darAlta">
+    <div id="darAltaModelo" class="d-none action-form">
+        <form id="darAltaModeloForm" method="POST" action="/heladeras-solidarias/heladeras-admin">
+            <input type="hidden" name="formType" value="darAltaModelo">
             <div class="row justify-content-center">
                 <div class="col-md-6 mb-3">
-                    <label for="modeloHeladera" class="form-label">Modelo de la Heladera</label>
-                    <input name="modelo" type="text" class="form-control" id="modeloHeladera" placeholder="Ingresar modelo" required>
+                    <label for="modelo" class="form-label">Modelo de la Heladera</label>
+                    <input name="nombre" type="text" class="form-control" id="modelo" placeholder="Ingresar modelo" required>
+                    <span id="error" class="error" style="color:red;"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="capacidadMaximaViandas" class="form-label">Capacidad Máxima de Viandas</label>
+                    <input name="capacidadMaximaViandas" type="number" step="1" class="form-control" id="capacidadMaximaViandas"
+                           placeholder="Ingresar capacidad Maxima" min="0" required>
                 </div>
             </div>
             <div class="row">
@@ -50,9 +56,9 @@
             <input type="hidden" name="formType" value="darBaja">
             <div class="mb-3 primero">
                 <div class = "mediano_s">
-                    <label for="actionSelector" class="form-label chico">Elija una Heladera</label>
+                    <label for="actionSelector" class="form-label chico">Heladera</label>
                     <select name="heladera" class="form-select form-select-lg chico" id="actionSelector" required>
-                        <option disabled selected>Seleccione una heladera</option>
+                        <option disabled selected>Seleccione una Heladera</option>
                         {{#each heladeras}}
                             <option value="{{this.getId}}">{{this.getNombre}}</option>
                         {{/each}}
@@ -75,9 +81,9 @@
         <form method="POST" action="/heladeras-solidarias/heladeras-admin">
             <input type="hidden" name="formType" value="modificar">
             <div class="fila">
-                <label for="actionSelector" class="form-label chico">Elija una Heladera</label>
+                <label for="actionSelector" class="form-label chico">Heladera</label>
                 <select name="heladera" class="form-select form-select-lg chico" id="actionSelector" required>
-                    <option value="" disabled selected>Seleccione una heladera</option>
+                    <option value="" disabled selected>Seleccione una Heladera</option>
                     {{#each heladeras}}
                         <option value="{{this.getId}}">{{this.getNombre}}</option>
                     {{/each}}
@@ -189,6 +195,25 @@
             </div>
         </form>
     </div>
+
+    <div class="modal fade" id="modeloExistente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">¡Ups! Ocurrió un Error</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Ese modelo ya existe. Inténtalo de nuevo</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {{/partial}}
 
 {{#partial "scripts"}}
@@ -206,6 +231,23 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lee los parámetros de la URL
+            const params = new URLSearchParams(window.location.search);
+
+            // Si el parámetro "success" es "true", mostramos el modal
+            if (params.get("modelExists") === "true") {
+                $('#modeloExistente').modal('show');
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 {{/partial}}
 
 {{> templates/base}}

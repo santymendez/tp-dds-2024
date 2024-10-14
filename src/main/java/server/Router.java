@@ -15,6 +15,7 @@ import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
 import controllers.ReportesController;
 import controllers.SuscribirseController;
+import controllers.VisitasTecnicasController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DistribuirTarjetasController;
 import controllers.colaboraciones.DistribuirViandasController;
@@ -101,7 +102,7 @@ public class Router {
         case "realizarOfertas" ->
             ControllerLocator.instanceOf(RealizarOfertasController.class).save(ctx);
         case "hacerseCargo" ->
-            ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
+            ControllerLocator.instanceOf(HacerseCargoController.class).save(ctx);
         case "distribuirTarjetas" ->
             ControllerLocator.instanceOf(DistribuirTarjetasController.class).save(ctx);
         case "distribuirViandas" ->
@@ -133,7 +134,7 @@ public class Router {
     app.get("/heladeras-solidarias/ver-mapa",
         ControllerLocator.instanceOf(MapaController.class)::index);
 
-    app.post("/heladeras-solidarias/recomendaciones",
+    app.get("/heladeras-solidarias/recomendaciones",
         ControllerLocator.instanceOf(RecomendacionesController.class)::index,
         TipoRol.PERSONA_JURIDICA, TipoRol.PERSONA_FISICA, TipoRol.ADMINISTRADOR);
 
@@ -146,12 +147,13 @@ public class Router {
 
     //VISTAS ADMINISTRADOR
     app.get("/heladeras-solidarias/heladeras-admin",
-        ControllerLocator.instanceOf(HeladerasController.class)::index, TipoRol.ADMINISTRADOR);
+        ControllerLocator.instanceOf(HeladerasController.class)::index,
+        TipoRol.ADMINISTRADOR);
 
     app.post("/heladeras-solidarias/heladeras-admin", ctx -> {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {
-        case "darAlta" ->
+        case "darAltaModelo" ->
             ControllerLocator.instanceOf(ModelosController.class).save(ctx);
         case "darBaja" ->
             ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
@@ -164,17 +166,31 @@ public class Router {
     // CARGAR CSV
 
     app.get("/heladeras-solidarias/cargar-csv",
-        ControllerLocator.instanceOf(CsvController.class)::create, TipoRol.ADMINISTRADOR);
+        ControllerLocator.instanceOf(CsvController.class)::create,
+        TipoRol.ADMINISTRADOR);
 
     app.post("heladeras-solidarias/cargar-csv",
-        ControllerLocator.instanceOf(CsvController.class)::save, TipoRol.ADMINISTRADOR);
+        ControllerLocator.instanceOf(CsvController.class)::save,
+        TipoRol.ADMINISTRADOR);
 
     // VER REPORTES
 
     app.get("/heladeras-solidarias/reportes",
-        ControllerLocator.instanceOf(ReportesController.class)::index, TipoRol.ADMINISTRADOR);
+        ControllerLocator.instanceOf(ReportesController.class)::index,
+        TipoRol.ADMINISTRADOR);
     
     app.post("/heladeras-solidarias/reportes", 
-        ControllerLocator.instanceOf(ReportesController.class)::save, TipoRol.ADMINISTRADOR);
+        ControllerLocator.instanceOf(ReportesController.class)::save,
+        TipoRol.ADMINISTRADOR);
+
+    // TECNICOS
+
+    app.get("/heladeras-solidarias/registrar-visita",
+        ControllerLocator.instanceOf(VisitasTecnicasController.class)::index,
+        TipoRol.TECNICO, TipoRol.ADMINISTRADOR);
+
+    app.post("/heladeras-solidarias/registrar-visita",
+        ControllerLocator.instanceOf(VisitasTecnicasController.class)::save,
+        TipoRol.TECNICO);
   }
 }

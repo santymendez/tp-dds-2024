@@ -58,9 +58,6 @@ public class Heladera extends Persistente {
   @JoinColumn(name = "modelo_id", referencedColumnName = "id", nullable = false)
   private Modelo modelo;
 
-  @Column(name = "capacidadMaximaViandas", nullable = false)
-  private Integer capacidadMaximaViandas;
-
   @OneToMany(mappedBy = "heladera",
       cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   private List<Vianda> viandas;
@@ -89,20 +86,18 @@ public class Heladera extends Persistente {
    *
    * @param direccion              es la direccion actual de la heladera.
    * @param nombre                 es el nombre de la heladera.
-   * @param capacidadMaximaViandas es la capacidad maxima de viandas.
    * @param modelo                 es el modelo de la heladera.
    * @param fechaDeCreacion        fecha en la que se colocó la heladera.
    */
 
   public Heladera(Direccion direccion, String nombre,
-                  Integer capacidadMaximaViandas, LocalDate fechaDeCreacion,
+                  LocalDate fechaDeCreacion,
                   Modelo modelo) {
     this.direccion = direccion;
     this.nombre = nombre;
     this.fechaDeCreacion = fechaDeCreacion;
     this.modelo = modelo;
     this.estaAbierta = false;
-    this.capacidadMaximaViandas = capacidadMaximaViandas;
     this.viandas = new ArrayList<>();
 
     this.estadosHeladera = new ArrayList<>();
@@ -281,7 +276,7 @@ public class Heladera extends Persistente {
   }
 
   public Boolean tieneEspacio() {
-    return this.capacidadMaximaViandas > this.viandas.size();
+    return this.modelo.getCapacidadMaximaViandas() > this.viandas.size();
   }
 
   public Integer consultarStock() {
@@ -289,32 +284,8 @@ public class Heladera extends Persistente {
   }
 
   public Integer consultarEspacioSobrante() {
-    return this.capacidadMaximaViandas - this.consultarStock();
+    return this.modelo.getCapacidadMaximaViandas() - this.consultarStock();
   }
-
-  //  /**
-  //   * Metodo que junta toda la logica de la heladera ante la ocurrencia de una falla.
-  //   * Las alertas, por deffault, solo usan esta logica.
-  //   */
-
-  //  public void ocurreFalla() {
-  //    this.reportarFalla();
-  //    this.modSuscripciones.intentarNotificarSuscriptores();
-  //  }
-
-  //  /**
-  //   * Metodo que junta toda la logica de la heladera ante la ocurrencia de una falla tecnica.
-  //   */
-
-  //  public void ocurreFallaTecnica() {
-  //    this.modEstados.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);
-  //    this.ocurreFalla();
-  //   //this.modTecnicos.notificarTecnicos(this); WAIT FOR THE CONTROLLER !
-  //  }
-  //
-  //  public void reportarFalla() {
-  //    this.reporte.ocurrioUnaFalla();
-  //  }
 
   @PrePersist
   protected void onInsert() {

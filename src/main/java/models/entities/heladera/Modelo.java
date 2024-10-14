@@ -24,4 +24,7 @@ public class Modelo extends Persistente {
 
   @Column(name = "temperaturaMaxima", nullable = false)
   private Float temperaturaMaxima;
+
+  @Column(name = "capacidadMaximaViandas", nullable = false)
+  private Integer capacidadMaximaViandas;
 }

@@ -28,10 +28,10 @@ public class BuscadorTecnicosCercanos {
    * @param heladera Heladera tomada como parametro de busqueda.
    */
 
-  public void buscarTecnicosCercanosA(Heladera heladera) {
+  public void buscarTecnicosCercanosA(Heladera heladera, Long idIncidente) {
     Ciudad nombreCiudad = heladera.getDireccion().getBarrio().getCiudad();
 
-    notificarTecnicos(tecnicosRepository.buscarPorCiudad(nombreCiudad), heladera);
+    notificarTecnicos(tecnicosRepository.buscarPorCiudad(nombreCiudad), heladera, idIncidente);
   }
 
   /**
@@ -41,14 +41,16 @@ public class BuscadorTecnicosCercanos {
    * @param heladera La heladera a ser reparada.
    */
 
-  public void notificarTecnicos(List<Tecnico> tecnicos, Heladera heladera) {
+  public void notificarTecnicos(List<Tecnico> tecnicos, Heladera heladera, Long idIncidente) {
     tecnicos.parallelStream().forEach(tecnico -> {
       SenderInterface sender =
           SenderLocator.instanceOf(tecnico.getContacto().getTipoContacto());
 
       String asunto = "La heladera " + heladera.getNombre() + " ha sufrido una falla tecnica";
       String cuerpo = "Podes acercarte a revisarla, se encuentra en: "
-          + heladera.getDireccion().getNombreUbicacion();
+          + heladera.getDireccion().getNombreUbicacion()
+          + "\n El ID del Incidente con el que deberas registrar la visita es: "
+          + idIncidente;
 
       Mensaje mensaje = new Mensaje(asunto, cuerpo);
 

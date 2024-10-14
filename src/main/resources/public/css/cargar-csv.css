@@ -41,3 +41,12 @@
     border-color: var(--verdeBotonesCuadrados);
     color: var(--blanco);
 }
+.close{
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+}
+
+.largo{
+    width: 7rem;
+}

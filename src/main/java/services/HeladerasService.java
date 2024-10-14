@@ -26,16 +26,16 @@ public class HeladerasService {
    * @param heladeraInputDto el DTO con los datos de la heladera.
    */
 
-  public void crear(HeladeraInputDto heladeraInputDto, Direccion direccion, Modelo modelo) {
+  public Heladera crear(HeladeraInputDto heladeraInputDto, Direccion direccion, Modelo modelo) {
     Heladera heladera = new Heladera();
     heladera.setNombre(heladeraInputDto.getNombre());
     heladera.setFechaDeCreacion(LocalDate.parse(heladeraInputDto.getFechaCreacion()));
     heladera.setModelo(modelo);
-    heladera
-        .setCapacidadMaximaViandas(Integer.valueOf(heladeraInputDto.getCapacidadMaximaViandas()));
     heladera.setDireccion(direccion);
 
     genericRepository.guardar(heladera);
+
+    return heladera;
   }
 
   /** Metodo del service que permite la modificacion de heladeras a partir de un dto.
@@ -49,11 +49,6 @@ public class HeladerasService {
 
     if (!Objects.equals(heladeraInputDto.getNombre(), "")) {
       heladera.setNombre(heladeraInputDto.getNombre());
-    }
-
-    if (!Objects.equals(heladeraInputDto.getCapacidadMaximaViandas(), "")) {
-      heladera
-          .setCapacidadMaximaViandas(Integer.valueOf(heladeraInputDto.getCapacidadMaximaViandas()));
     }
 
     if (!Objects.equals(heladeraInputDto.getFechaCreacion(), "")) {

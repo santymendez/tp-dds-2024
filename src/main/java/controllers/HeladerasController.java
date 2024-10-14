@@ -69,7 +69,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
     List<Incidente> alertas = incidentesRepository.buscarAlertas();
     model.put("alertas", alertas);
-    
+
     model.put("activeSession", true);
     model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
@@ -88,23 +88,8 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
   }
 
-  /**
-   * Guarda una heladera en la base de datos.
-   *
-   * @param context el contexto de la aplicación.
-   */
-
   public void save(Context context) {
-    HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
-    DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
-    Long idModelo = Long.parseLong(Objects.requireNonNull(context.formParam("modelo")));
-    Modelo modelo = this.genericRepository.buscarPorId(idModelo, Modelo.class).get();
-
-    Direccion direccion = this.direccionesService.crear(direccionInputDto);
-    this.heladerasService.crear(heladeraInputDto, direccion, modelo);
-
-    context.redirect("/heladeras-solidarias");
   }
 
   /**
@@ -130,6 +115,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
     Long heladeraId = Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
     Heladera heladera = this.genericRepository.buscarPorId(heladeraId, Heladera.class).get();
+
 
     if (direccionInputDto != null) {
       Direccion direccion = this.direccionesService.crear(direccionInputDto);

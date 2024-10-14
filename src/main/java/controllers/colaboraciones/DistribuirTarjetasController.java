@@ -46,7 +46,6 @@ public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
     if (colaborador.getDireccion() == null || !colaborador.getDireccion().admiteEnvio()) {
-      //TODO MANEJAR ERROR (lo hacemos como un modal como cuando esta todo bien????)
       context.redirect("/heladeras-solidarias/agregar-direccion");
       return;
     }

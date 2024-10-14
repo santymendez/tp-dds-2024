@@ -5,7 +5,9 @@ import io.javalin.http.Context;
 import java.util.Objects;
 import java.util.Optional;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.tecnico.Tecnico;
 import models.repositories.imp.ColaboradoresRepository;
+import models.repositories.imp.TecnicosRepository;
 
 /**
  * Clase Auxiliar para chequear si el parametro de un formulario es vacio.
@@ -47,6 +49,12 @@ public class ContextHelper {
   public static Optional<Colaborador> getColaboradorFromContext(Context context) {
     Long usuarioId = context.sessionAttribute("idUsuario");
     return RepositoryLocator.instanceOf(ColaboradoresRepository.class)
+        .buscarPorIdUsuario(usuarioId);
+  }
+
+  public static Optional<Tecnico> getTecnicoFromContext(Context context) {
+    Long usuarioId = context.sessionAttribute("idUsuario");
+    return RepositoryLocator.instanceOf(TecnicosRepository.class)
         .buscarPorIdUsuario(usuarioId);
   }
 }

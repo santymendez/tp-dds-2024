@@ -763,7 +763,7 @@ public class Initializer {
     heladera1.setNombre("Heladera Porteña");
     heladera1.setEstadosHeladera(lstEstados1);
     heladera1.setModelo(modelo1);
-    heladera1.setCapacidadMaximaViandas(18);
+    modelo1.setCapacidadMaximaViandas(18);
 
     heladera2 = new Heladera();
     heladera2.setFechaDeCreacion(LocalDate.now());
@@ -772,7 +772,7 @@ public class Initializer {
     heladera2.setNombre("Heladera Cordobesa");
     heladera2.setEstadosHeladera(lstEstados2);
     heladera2.setModelo(modelo2);
-    heladera2.setCapacidadMaximaViandas(25);
+    modelo2.setCapacidadMaximaViandas(25);
 
     heladera3 = new Heladera();
     heladera3.setFechaDeCreacion(LocalDate.now());
@@ -781,7 +781,7 @@ public class Initializer {
     heladera3.setNombre("Heladera Santiagueña");
     heladera3.setEstadosHeladera(lstEstados3);
     heladera3.setModelo(modelo3);
-    heladera3.setCapacidadMaximaViandas(4);
+    modelo3.setCapacidadMaximaViandas(4);
 
     heladeraRota = new Heladera();
     heladeraRota.setFechaDeCreacion(LocalDate.of(2012, 9, 15));
@@ -790,7 +790,7 @@ public class Initializer {
     heladeraRota.setNombre("Heladera Rota");
     heladeraRota.setEstadosHeladera(lstEstados4);
     heladeraRota.setModelo(modelo4);
-    heladeraRota.setCapacidadMaximaViandas(0);
+    modelo4.setCapacidadMaximaViandas(0);
   }
 
   static void iniciarViandas() {

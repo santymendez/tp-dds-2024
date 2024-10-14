@@ -59,7 +59,6 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
     Optional<TarjetaColaborador> posibleTarjeta =
@@ -96,8 +95,10 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
 
       context.redirect("/heladeras-solidarias?colabSucess=true");
     } else {
-      //TODO TIRAR ERROR
-      context.redirect("/heladeras-solidarias/colaborar");
+      int espacioDisponible = heladera.consultarEspacioSobrante();
+      context.redirect("/heladeras-solidarias/colaborar?" +
+          "errorDonacionViandas=true&espacioDisponible="
+          + espacioDisponible);
     }
   }
 

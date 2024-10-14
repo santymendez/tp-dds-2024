@@ -3,12 +3,12 @@
 {{/partial}}
 
 {{#partial "cuerpo"}}
-    <h2>Selecciona una Opción para Colaborar</h2>
+    <h2>Colaboraciones</h2>
     <div class="container">
         <div class="mb-3 containerPrincipal">
-            <label for="actionSelector" class="form-label chico">Elige una acción</label>
+            <label for="actionSelector" class="form-label chico">Colaboracion</label>
             <select class="form-select form-select-lg chico" id="actionSelector">
-                <option value="" selected>Elija una opción</option>
+                <option value="" selected>Seleccione una Colaboracion</option>
                 {{#verifyRole tipoRol "PERSONA_FISICA"}}
                     <option value="donar_dinero">Donar Dinero</option>
                     <option value="donar_viandas">Donar Viandas</option>
@@ -64,13 +64,19 @@
                                placeholder="Nombre" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="heladera" class="form-label">Seleccionar heladera</label>
+                        <label for="heladera" class="form-label">Heladera</label>
                         <select name="heladera" class="form-select form-select-lg" id="heladera" required>
-                            <option value="" selected>Elija una opción</option>
+                            <option value="" selected>Seleccione una Heladera</option>
                             {{#each heladeras}}
                                 <option value="{{this.getId}}">{{this.getNombre}}</option>
                             {{/each}}
                         </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="cantidad" class="form-label">Cantidad</label>
+                        <input name="cantidad" type="number" class="form-control form-control-lg" id="cantidad"
+                               placeholder="Ej. 3" min="0" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="calorias" class="form-label">Calorías</label>
@@ -87,11 +93,7 @@
                         <input name="peso" type="number" class="form-control form-control-lg" id="peso"
                                placeholder="Ej. 200 gr" min="0" required>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="cantidad" class="form-label">Cantidad</label>
-                        <input name="cantidad" type="number" class="form-control form-control-lg" id="cantidad"
-                               placeholder="Ej. 3" min="0" required>
-                    </div>
+
                 </div>
                 <button type="submit" class="btn btn-success btn-lg">Colaborar</button>
             </form>
@@ -156,7 +158,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="heladera_origen" class="form-label extra-class">Heladera Origen</label>
                         <select name = "heladeraOrigen" class="form-select form-select-lg" id="heladera_origen" required>
-                            <option value="" selected>Elija una opción</option>
+                            <option value="" selected>Seleccione una Heladera</option>
                             {{#each heladeras}}
                                 <option value="{{this.getId}}">{{this.getNombre}}</option>
                             {{/each}}
@@ -165,7 +167,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="heladera_destino" class="form-label extra-class">Heladera Destino</label>
                         <select name = "heladeraDestino" class="form-select form-select-lg" id="heladera_destino" required>
-                            <option value="" selected>Elija una opción</option>
+                            <option value="" selected>Seleccione una Heladera</option>
                             {{#each heladeras}}
                                 <option value="{{this.getId}}">{{this.getNombre}}</option>
                             {{/each}}
@@ -193,7 +195,7 @@
 
         <!-- Formulario para Colocar Heladera -->
         <div id="hacerse_cargo" class="action-form d-none distribuir-viandas-form">
-            <h3>Hacerse cargo de una heladera</h3>
+            <h3>Hacerse cargo de una Heladera</h3>
             <form method="POST" action="/heladeras-solidarias/colaborar">
                 <input type="hidden" name="formType" value="hacerseCargo">
                 <div class="row justify-content-center">
@@ -201,17 +203,10 @@
                         <label for="nombreHeladera" class="form-label">Nombre de la Heladera</label>
                         <input name="nombre" type="text" class="form-control" id="nombreHeladera" placeholder="Ingresar nombre" required>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="capacidadMaxViandas" class="form-label">Capacidad Máxima</label>
-                        <input name="capacidadMaximaViandas" type="number" step="1" class="form-control" id="capacidadMaxViandas"
-                               placeholder="Ingresar capacidad Maxima" min="0" required>
-                    </div>
                     <div class="col-md-6 mb-3">
                         <label for="modeloHeladera" class="form-label">Modelo de la Heladera</label>
                         <select name="modelo" class="form-select" id="modeloHeladera" required>
-                            <option selected value="">Seleccione una Opción</option>
+                            <option selected value="">Seleccione un Modelo</option>
                             {{#each modelos}}
                                 <option value="{{this.getId}}">{{this.getNombre}}</option>
                             {{/each}}
@@ -226,7 +221,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="provincia" class="form-label">Provincia</label>
                         <select name="provincia" class="form-select" id="provincia">
-                            <option selected value="">Seleccione una Opción</option>
+                            <option selected value="">Seleccione una Provincia</option>
                             {{#each provincias}}
                                 <option value="{{this.getId}}">{{this.getNombreProvincia}}</option>
                             {{/each}}
@@ -234,7 +229,6 @@
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-md-6 mb-3">
                         <label for="ciudad" class="form-label">Ciudad</label>
                         <input name="ciudad" type="text" class="form-control" id="ciudad"
@@ -278,7 +272,7 @@
     </div>
 
     <!-- Modal Error Colaboracion -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="errorDonacionViandas" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -288,7 +282,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4>Tu colaboración no pudo ser procesada. Inténtalo de Nuevo</h4>
+                    <h4 id="mensajeError">Tu colaboración no pudo ser procesada.
+                        El espacio disponible en la heladera es </h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
@@ -296,6 +291,7 @@
             </div>
         </div>
     </div>
+
 {{/partial}}
 
 {{#partial "scripts"}}
@@ -317,21 +313,21 @@
     <script>
         document.getElementById('actionSelector').addEventListener('change', function () {
             let selectedValue = this.value;
-            if (selectedValue == "/heladeras-solidarias/colaborar/colocar-heladera") {
+            if (selectedValue === "/heladeras-solidarias/colaborar/colocar-heladera") {
                 window.location.href = selectedValue;
             }
         });
     </script>
 
-    <!-- TODO ver si implementar esto o no jijoo -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Lee los parámetros de la URL
             const params = new URLSearchParams(window.location.search);
 
             // Si el parámetro "success" es "true", mostramos el modal
-            if (params.get("colabError") === "true") {
-                $('#exampleModalCenter').modal('show');
+            if (params.get("errorDonacionViandas") === "true") {
+                $('#errorDonacionViandas').modal('show');
+                document.getElementById("mensajeError").textContent += params.get("espacioDisponible");
             }
         });
     </script>
@@ -360,5 +356,3 @@
 {{/partial}}
 
 {{> templates/base}}
-
-

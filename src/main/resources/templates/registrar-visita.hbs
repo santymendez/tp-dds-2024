@@ -1,0 +1,88 @@
+{{#partial "estilo"}}
+    <link rel="stylesheet" href="/css/reportar-falla-tecnica.css">
+{{/partial}}
+
+{{#partial "cuerpo"}}
+    <h2>Registrar Visita Técnica</h2>
+
+    <form action="registrar-visita.hbs" method="POST" class="form"
+          enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="mb-3">
+                <label for="idIncidente" class="form-label">Ingresar ID del Incidente</label>
+                <input name="idIncidente" class="form-control form-control-lg espacio"
+                       id="idIncidente" placeholder="84382" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="fechaVisita" class="form-label">Fecha de la Visita</label>
+                <input name="fechaVisita" type="date" class="form-control"
+                       id="fechaVisita" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="trabajoRealizado" class="form-label">Descripción del trabajo realizado</label>
+                <textarea name="trabajoRealizado" id="trabajoRealizado" class="form-control" required></textarea>
+            </div>
+
+            <div class="image-upload mb-3">
+                <label for="fotoVisita" class="form-label">Imagen</label>
+                <input name="fotoVisita" type="file" class="form-control form-control-lg" id="fotoVisita">
+            </div>
+
+            <div class="mb-3 form-check">
+                <input name="incidenteSolucionado" value ="incidenteSolucionado" type="checkbox" class="form-check-input" id="incidenteSolucionado">
+                <label for="incidenteSolucionado" class="col-form-label">Solucioné el Problema</label>
+            </div>
+
+
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary btn-lg">Registrar</button>
+        </div>
+    </form>
+
+    <div class="modal fade" id="errorId" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">¡Ups! Surgió un Problema</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 id="mensajeError"> El ID ingresado no corresponde con ningún incidente.
+                                                Inténtalo de Nuevo</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/partial}}
+
+{{#partial "scripts"}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lee los parámetros de la URL
+            const params = new URLSearchParams(window.location.search);
+
+            // Si el parámetro "success" es "true", mostramos el modal
+            if (params.get("errorID") === "true") {
+                $('#errorId').modal('show');
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+{{/partial}}
+
+{{> templates/base}}

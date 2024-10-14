@@ -1,6 +1,6 @@
 package services;
 
-import dtos.IncidenteDto;
+import dtos.IncidenteInputDto;
 import java.time.LocalDateTime;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
@@ -29,7 +29,8 @@ public class IncidentesService {
    * @param colaborador Colaborador que reporta el incidente.
    */
 
-  public void crear(IncidenteDto incidenteDto, Heladera heladera, Colaborador colaborador) {
+  public Incidente crear(IncidenteInputDto incidenteDto,
+                         Heladera heladera, Colaborador colaborador) {
     Incidente incidente = Incidente.builder()
         .momentoIncidente(LocalDateTime.now())
         .tipo(TipoIncidente.FALLA_TECNICA)
@@ -44,5 +45,7 @@ public class IncidentesService {
     this.genericRepository.modificar(heladera);
 
     this.genericRepository.guardar(incidente);
+
+    return incidente;
   }
 }

@@ -3,6 +3,7 @@ package models.repositories.imp;
 import java.util.List;
 import java.util.Optional;
 import models.entities.direccion.Ciudad;
+import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tecnico.Tecnico;
 
 /**
@@ -47,5 +48,14 @@ public class TecnicosRepository extends GenericRepository {
         .createQuery("FROM Tecnico tecnico WHERE tecnico.areaDeCobertura = :ciudad", Tecnico.class)
         .setParameter("ciudad", ciudad)
         .getResultList();
+  }
+
+  public Optional<Tecnico> buscarPorIdUsuario(Long idUsuario) {
+    String query = "SELECT t FROM Tecnico t WHERE t.usuario.id = :idUsuario";
+    return entityManager().createQuery(query, Tecnico.class)
+        .setParameter("idUsuario", idUsuario)
+        .getResultList()
+        .stream()
+        .findFirst();
   }
 }

@@ -10,7 +10,6 @@ class Heladera {
     -modelo: Modelo
 
     -List<Vianda> viandas
-    -capacidadMaximaViandas: Integer
 
     -List<Suscripcion> suscripciones
 
@@ -206,6 +205,7 @@ class Modelo{
     -nombre: String
     -temperaturaMinima: Float
     -temperaturaMaxima: Float
+    -capacidadMaximaViandas: Integer
 }
 
 class SensorTemperatura{

@@ -16,7 +16,6 @@ import models.entities.heladera.Heladera;
 public class HeladeraInputDto {
   String nombre;
   String fechaCreacion;
-  String capacidadMaximaViandas;
 
   /**
    * Crea un HeladeraInputDto a partir de un contexto.
@@ -29,7 +28,6 @@ public class HeladeraInputDto {
     return HeladeraInputDto.builder()
         .nombre(context.formParam("nombre"))
         .fechaCreacion(context.formParam("fechaCreacion"))
-        .capacidadMaximaViandas(context.formParam("capacidadMaximaViandas"))
         .build();
   }
 }

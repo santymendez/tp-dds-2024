@@ -2,7 +2,6 @@ package models.entities.personas.tecnico;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.db.Persistente;
+import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 
@@ -24,7 +24,6 @@ import models.entities.heladera.incidente.Incidente;
 @Entity
 @Table(name = "visitas_tecnicas")
 public class VisitaTecnica extends Persistente {
-
   @ManyToOne
   @JoinColumn(name = "incidente_id", referencedColumnName = "id", nullable = false)
   private Incidente incidente;
@@ -44,23 +43,4 @@ public class VisitaTecnica extends Persistente {
   @ManyToOne
   @JoinColumn(name = "tecnico_id", referencedColumnName = "id")
   private Tecnico tecnico;
-
-  /**
-   * Metodo constructor de la visita tecnica.
-   *
-   * @param incidente incidente a revisar durante la visita tecnica.
-   */
-
-  public VisitaTecnica(Incidente incidente, String trabajoRealizado, Tecnico tecnico) {
-    this.incidente = incidente;
-    this.fechaVisita = LocalDate.now();
-    this.trabajoRealizado = trabajoRealizado;
-    this.incidenteSolucionado = false;
-    this.tecnico = tecnico;
-  }
-
-  public void incidenteSolucionado() {
-    this.incidenteSolucionado = true;
-    this.incidente.getHeladera().modificarEstado(TipoEstado.ACTIVA);
-  }
 }

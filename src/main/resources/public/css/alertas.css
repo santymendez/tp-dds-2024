@@ -8,3 +8,9 @@
     margin-left: 20%;
     margin-right: 20%;
 }
+
+.close{
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+}

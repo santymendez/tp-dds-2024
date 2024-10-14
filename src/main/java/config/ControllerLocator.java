@@ -4,7 +4,6 @@ import controllers.AgregarDireccionController;
 import controllers.CanjearPuntosController;
 import controllers.ColaboracionesController;
 import controllers.CsvController;
-import controllers.HeladerasAdminController;
 import controllers.HeladerasController;
 import controllers.HomePageController;
 import controllers.IniciarSesionController;
@@ -16,6 +15,7 @@ import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
 import controllers.ReportesController;
 import controllers.SuscribirseController;
+import controllers.VisitasTecnicasController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DistribuirViandasController;
 import controllers.colaboraciones.DonarDineroController;
@@ -46,6 +46,7 @@ import services.OfertasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
 import services.UsuariosService;
+import services.VisitasTecnicasService;
 import services.VulnerablesService;
 import utils.recomendator.adapter.AdapterServicioRecomendacion;
 import utils.security.Autenticador;
@@ -155,10 +156,6 @@ public class ControllerLocator {
         );
         instances.put(controllerName, instance);
 
-      } else if (controllerClass.equals(HeladerasAdminController.class)) {
-        HeladerasAdminController instance = new HeladerasAdminController();
-        instances.put(controllerName, instance);
-
       } else if (controllerClass.equals(ColaboracionesController.class)) {
         ColaboracionesController instance = new ColaboracionesController(
             RepositoryLocator.instanceOf(HeladerasRepository.class),
@@ -221,7 +218,8 @@ public class ControllerLocator {
         HacerseCargoController instance = new HacerseCargoController(
             RepositoryLocator.instanceOf(GenericRepository.class),
             ServiceLocator.instanceOf(DireccionesService.class),
-            ServiceLocator.instanceOf(ColaboracionesService.class)
+            ServiceLocator.instanceOf(ColaboracionesService.class),
+            ServiceLocator.instanceOf(HeladerasService.class)
         );
         instances.put(controllerName, instance);
 
@@ -229,6 +227,14 @@ public class ControllerLocator {
         ModelosController instance = new ModelosController(
             RepositoryLocator.instanceOf(ModelosRepository.class),
             ServiceLocator.instanceOf(ModelosService.class)
+        );
+        instances.put(controllerName, instance);
+
+      } else if (controllerClass.equals(VisitasTecnicasController.class)) {
+        VisitasTecnicasController instance = new VisitasTecnicasController(
+            RepositoryLocator.instanceOf(HeladerasRepository.class),
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            ServiceLocator.instanceOf(VisitasTecnicasService.class)
         );
         instances.put(controllerName, instance);
 

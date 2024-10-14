@@ -70,7 +70,7 @@ public class CsvController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     List<String[]> allLines = UploadedFilesHelper.getCsvFromContext(context);
 
-    if (!allLines.isEmpty()) {
+    if (allLines != null) {
       for (String[] nextLine : allLines) {
         ColaboradorInputDto colaboradorInputDto = ColaboradorInputDto.fromCsv(nextLine);
         ColaboracionInputDto colaboracionInputDto = ColaboracionInputDto.fromCsv(nextLine);
@@ -84,10 +84,8 @@ public class CsvController implements InterfaceCrudViewsHandler {
 
       context.redirect("/heladeras-solidarias");
     } else {
-      //TODO LLEVAR A ERROR
-      context.redirect("/heladeras-solidarias");
+      context.redirect("/heladeras-solidarias/cargar-csv?invalidFile=true");
     }
-
   }
 
   public void edit(Context context) {

@@ -5,6 +5,7 @@ import io.javalin.http.Context;
 import models.repositories.ModelosRepository;
 import services.ModelosService;
 import utils.javalin.InterfaceCrudViewsHandler;
+import java.util.Map;
 
 /**
  * Controlador de modelos para alta, baja y modificacion.
@@ -43,13 +44,11 @@ public class ModelosController implements InterfaceCrudViewsHandler {
     ModeloInputDto modeloInputDto = ModeloInputDto.fromContext(context);
 
     if (this.modelosRepository.buscarPorNombre(modeloInputDto.getNombre()).isPresent()) {
-      //TODO MANEJAR ERROR
-      return;
+      context.redirect("/heladeras-solidarias/heladeras-admin?modelExists=true");
+    } else {
+      this.modelosService.crear(modeloInputDto);
+      context.redirect("/heladeras-solidarias");
     }
-
-    this.modelosService.crear(modeloInputDto);
-
-    context.redirect("/heladeras-solidarias");
   }
 
   @Override

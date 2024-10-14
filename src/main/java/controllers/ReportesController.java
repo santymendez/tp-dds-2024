@@ -69,7 +69,7 @@ public class ReportesController implements InterfaceCrudViewsHandler {
         this.reportesSemanalesRepository.buscarTodosPorRangoDeFecha(fechaInicial, fechaFinal);
 
     if (reportes.isEmpty()) {
-      //TODO TIRAR ERROR
+      //TODO TIRAR ERROR NO HAY NINGUN REPORTE EN LAS FECHAS SELECCIONADAS
       return;
     }
 
@@ -81,12 +81,10 @@ public class ReportesController implements InterfaceCrudViewsHandler {
     context.header("Content-Disposition", "attachment; filename=" + zipFile.getName());
 
     try {
-      // Subo el archivo para descargar
       context.result(new FileInputStream(zipFile));
     } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);  // Puedes manejar el error de manera más amigable si lo deseas
+      throw new RuntimeException(e);
     }
-
   }
 
   @Override

@@ -49,4 +49,9 @@ public class HeladerasRepository extends GenericRepository {
     return this.buscarTodos().stream()
         .filter(h -> h.getEstadoActual().getEstado().equals(TipoEstado.ACTIVA)).toList();
   }
+
+  public List<Heladera> buscarInactivas() {
+    return this.buscarTodos().stream()
+        .filter(h -> !h.getEstadoActual().getEstado().equals(TipoEstado.ACTIVA)).toList();
+  }
 }

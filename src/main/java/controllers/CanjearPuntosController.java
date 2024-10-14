@@ -108,8 +108,7 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
       this.canjearPuntosService.crear(oferta, colaborador);
       context.redirect("/heladeras-solidarias");
     } else {
-      //TODO MANEJAR ERROR PUNTOS INSUFICIENTES
-      context.redirect("/heladeras-solidarias/canjear-puntos");
+      context.redirect("/heladeras-solidarias/canjear-puntos?insufficientFunds=true");
     }
   }
 

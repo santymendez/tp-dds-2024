@@ -1,12 +1,13 @@
 package controllers;
 
-import dtos.IncidenteDto;
+import dtos.IncidenteInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.incidente.Incidente;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
@@ -74,14 +75,14 @@ public class ReportarFallaTecnicaController implements InterfaceCrudViewsHandler
 
   @Override
   public void save(Context context) {
-    IncidenteDto incidenteDto = IncidenteDto.fromContext(context);
+    IncidenteInputDto incidenteDto = IncidenteInputDto.fromContext(context);
 
     Long heladeraId = Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
     Heladera heladera = this.genericRepository.buscarPorId(heladeraId, Heladera.class).get();
 
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
-    this.incidentesService.crear(incidenteDto, heladera, colaborador);
+    Incidente incidente = this.incidentesService.crear(incidenteDto, heladera, colaborador);
 
     ReporteHeladera reporteHeladera =
         this.reportesRepository.buscarSemanalPorHeladera(heladeraId).get();
@@ -90,7 +91,7 @@ public class ReportarFallaTecnicaController implements InterfaceCrudViewsHandler
     this.reportesRepository.modificar(reporteHeladera);
 
     heladera.intentarNotificarSuscriptores();
-    this.buscadorTecnicosCercanos.buscarTecnicosCercanosA(heladera);
+    this.buscadorTecnicosCercanos.buscarTecnicosCercanosA(heladera, incidente.getId());
 
     context.redirect("/heladeras-solidarias");
   }

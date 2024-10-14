@@ -31,7 +31,7 @@ public class UploadedFilesHelper {
         CSVReader reader = new CSVReader((new InputStreamReader((file.content()))));
         allLines = reader.readAll();
       } catch (IOException | CsvException e) {
-        throw new RuntimeException(e);
+        e.printStackTrace();
       }
     }
     return allLines;

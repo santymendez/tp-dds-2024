@@ -14,6 +14,7 @@ public class ModeloInputDto {
   private String nombre;
   private String temperaturaMinima;
   private String temperaturaMaxima;
+  private String capacidadMaximaViandas;
 
   /**
    * Crea un ModeloInputDto a partir de un contexto.
@@ -24,9 +25,10 @@ public class ModeloInputDto {
 
   public static ModeloInputDto fromContext(Context context) {
     return ModeloInputDto.builder()
-        .nombre(context.formParam("nombreModelo"))
+        .nombre(context.formParam("nombre"))
         .temperaturaMinima(context.formParam("temperaturaMin"))
         .temperaturaMaxima(context.formParam("temperaturaMax"))
+        .capacidadMaximaViandas(context.formParam("capacidadMaximaViandas"))
         .build();
   }
 }

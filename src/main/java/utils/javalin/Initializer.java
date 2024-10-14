@@ -1365,17 +1365,17 @@ public class Initializer {
     reporteSemanal1 = new ReporteSemanal("/reportes/reporte-semana-2024-06-16.pdf",
         List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
     reporteSemanal1.setNombre("reporte-semana-2024-06-16.pdf");
-    reporteSemanal1.setFecha(LocalDate.of(2024, 6, 22));
+    reporteSemanal1.setFecha(LocalDate.of(2024, 6, 16));
 
     reporteSemanal2 = new ReporteSemanal("/reportes/reporte-semana-2024-06-22.pdf",
         List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
     reporteSemanal2.setNombre("reporte-semana-2024-06-22.pdf");
     reporteSemanal2.setFecha(LocalDate.of(2024, 6, 22));
 
-    reporteSemanal3 = new ReporteSemanal("/reportes/reporte-semana-2024-06-29.pdf",
+    reporteSemanal3 = new ReporteSemanal("/reportes/reporte-semana-2024-06-27.pdf",
         List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
     reporteSemanal3.setNombre("reporte-semana-2024-06-29.pdf");
-    reporteSemanal3.setFecha(LocalDate.of(2024, 6, 29));
+    reporteSemanal3.setFecha(LocalDate.of(2024, 6, 27));
   }
 
   static void iniciarIncidentes() {

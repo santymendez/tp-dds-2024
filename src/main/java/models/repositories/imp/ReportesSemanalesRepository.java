@@ -21,7 +21,7 @@ public class ReportesSemanalesRepository extends GenericRepository {
   public List<ReporteSemanal> buscarTodosPorRangoDeFecha(LocalDate desde, LocalDate hasta) {
     return entityManager()
         .createQuery(
-            "FROM ReporteSemanal r WHERE r.fecha BETWEEN :desde AND :hasta",
+            "FROM ReporteSemanal r WHERE r.fecha BETWEEN :desde AND :hasta ORDER BY r.fecha DESC",
             ReporteSemanal.class
         )
         .setParameter("desde", desde)

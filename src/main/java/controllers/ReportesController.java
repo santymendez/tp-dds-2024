@@ -77,9 +77,7 @@ public class ReportesController implements InterfaceCrudViewsHandler {
 
     File zipFile = DownloaderHelper.zip(paths);
 
-    //establezco el tipo de archivo
     context.contentType("application/octet-stream");
-    // Indico al navegador que debe realizar la descarga
     context.header("Content-Disposition", "attachment; filename=" + zipFile.getName());
 
     try {

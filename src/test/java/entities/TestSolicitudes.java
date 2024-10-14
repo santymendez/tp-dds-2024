@@ -25,8 +25,8 @@ public class TestSolicitudes {
     this.tarjeta = new TarjetaColaborador();
     this.tarjeta.setColaborador(this.colaborador);
 
-    this.heladera1 = new Heladera(new Direccion(), "Heladera 1", 3, LocalDate.now(), new Modelo());
-    this.heladera2 = new Heladera(new Direccion(), "Heladera 2", 4, LocalDate.now(), new Modelo());
+    this.heladera1 = new Heladera(new Direccion(), "Heladera 1", LocalDate.now(), new Modelo());
+    this.heladera2 = new Heladera(new Direccion(), "Heladera 2", LocalDate.now(), new Modelo());
 
     tarjeta.getUsos().add(new UsoTarjetaColaborador(this.heladera1, this.tarjeta));
     this.colaborador.agregarSolicitudApertura(this.heladera1, this.tarjeta);

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<suppressions>
+    <suppress checks="AbbreviationAsWordInName"
+              files=".*Persona.java"/>
+</suppressions>
+

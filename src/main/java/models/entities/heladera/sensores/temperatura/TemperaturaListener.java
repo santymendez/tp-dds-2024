@@ -37,10 +37,14 @@ public class TemperaturaListener implements IMqttMessageListener {
   }
 
   @Override
-  public void messageArrived(String topic, MqttMessage message) throws Exception {
-    Long sensorId = Long.parseLong(message.toString().split(";")[0]);
-    Float temp = Float.parseFloat(message.toString().split(";")[1]);
-    this.enviarMedicion(sensorId, temp);
+  public void messageArrived(String topic, MqttMessage message) {
+    try {
+      Long sensorId = Long.parseLong(message.toString().split(";")[0]);
+      Float temp = Float.parseFloat(message.toString().split(";")[1]);
+      this.enviarMedicion(sensorId, temp);
+    } catch (NumberFormatException e) {
+      e.printStackTrace();
+    }
   }
 
   /**

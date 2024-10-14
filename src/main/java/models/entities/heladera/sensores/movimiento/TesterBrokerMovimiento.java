@@ -7,6 +7,6 @@ package models.entities.heladera.sensores.movimiento;
 public class TesterBrokerMovimiento {
   public static void main(String[] args) {
     BrokerSensorMovimiento b = new BrokerSensorMovimiento();
-    b.suscribir("sensores/movimiento");
+    b.suscribir("sensores/movimiento", "movId");
   }
 }

@@ -19,11 +19,10 @@ public class BrokerSensorMovimiento {
    * @param topic Topico al que suscribe.
    */
 
-  public void suscribir(String topic) {
+  public void suscribir(String topic, String clientId) {
     String content      = "Message from MqttPublishSample";
     int qos             = 2;
     String broker       = "tcp://localhost:1883";
-    String clientId     = "JavaSample";
     MemoryPersistence persistence = new MemoryPersistence();
 
     try {

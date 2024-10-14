@@ -7,6 +7,6 @@ package models.entities.heladera.sensores.temperatura;
 public class TesterBrokerTemperatura {
   public static void main(String[] args) {
     BrokerSensorTemperatura b = new BrokerSensorTemperatura();
-    b.suscribir("sensores/temperatura");
+    b.suscribir("sensores/temperatura", "tempId");
   }
 }

@@ -1,6 +1,7 @@
 package models.entities.heladera.sensores.temperatura;
 
 import config.RepositoryLocator;
+import config.ServiceLocator;
 import java.util.Optional;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
@@ -13,6 +14,7 @@ import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import services.IncidentesService;
 
 /**
  * Clase que representa al listener del sensor de temperatura para el broker.
@@ -22,18 +24,16 @@ public class TemperaturaListener implements IMqttMessageListener {
   private String topic = "sensores/temperatura";
   private GenericRepository repoGenerico;
   private ReportesHeladerasRepository reportesRepository;
+  private IncidentesService incidentesService;
 
   /**
    * Constructor para el Listener de los Sensores de Temperatura.
    */
 
   public TemperaturaListener() {
-    this.repoGenerico =
-        RepositoryLocator
-            .instanceOf(GenericRepository.class);
-    this.reportesRepository =
-        RepositoryLocator
-            .instanceOf(ReportesHeladerasRepository.class);
+    this.repoGenerico = RepositoryLocator.instanceOf(GenericRepository.class);
+    this.reportesRepository = RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);
+    this.incidentesService = ServiceLocator.instanceOf(IncidentesService.class);
   }
 
   @Override
@@ -68,7 +68,10 @@ public class TemperaturaListener implements IMqttMessageListener {
     sensorTemperatura.recibirMedicion(medicion);
     this.repoGenerico.guardar(medicion);
 
-    if (!sensorTemperatura.comprobarTemperatura(temp)) {
+    //TODO PROBAR
+    if (!sensorTemperatura.comprobarTemperatura(temp)
+        && this.incidentesService.noFueAlertadoPor(TipoEstado.INACTIVA_TEMPERATURA, heladera)
+    ) {
       Incidente incidente = new Incidente(TipoIncidente.ALERTA, heladera);
       incidente.setTipoAlerta(TipoEstado.INACTIVA_TEMPERATURA);
       this.repoGenerico.guardar(incidente);

@@ -50,6 +50,13 @@ public class TecnicosRepository extends GenericRepository {
         .getResultList();
   }
 
+  /**
+   * Busca un Tecnico por su id de usuario.
+   *
+   * @param idUsuario Id del usuario a buscar.
+   * @return Un Optional con el Tecnico encontrado, o vacío si no se encontró.
+   */
+
   public Optional<Tecnico> buscarPorIdUsuario(Long idUsuario) {
     String query = "SELECT t FROM Tecnico t WHERE t.usuario.id = :idUsuario";
     return entityManager().createQuery(query, Tecnico.class)

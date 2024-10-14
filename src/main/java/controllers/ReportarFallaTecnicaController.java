@@ -83,15 +83,15 @@ public class ReportarFallaTecnicaController implements InterfaceCrudViewsHandler
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
     Incidente incidente = this.incidentesService.crear(incidenteDto, heladera, colaborador);
+    this.buscadorTecnicosCercanos.buscarTecnicosCercanosA(heladera, incidente.getId());
+
+    heladera.intentarNotificarSuscriptores();
 
     ReporteHeladera reporteHeladera =
         this.reportesRepository.buscarSemanalPorHeladera(heladeraId).get();
 
     reporteHeladera.ocurrioUnaFalla();
     this.reportesRepository.modificar(reporteHeladera);
-
-    heladera.intentarNotificarSuscriptores();
-    this.buscadorTecnicosCercanos.buscarTecnicosCercanosA(heladera, incidente.getId());
 
     context.redirect("/heladeras-solidarias");
   }

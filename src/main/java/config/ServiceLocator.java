@@ -5,6 +5,7 @@ import models.repositories.ModelosRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.IncidentesRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
@@ -78,7 +79,9 @@ public class ServiceLocator {
 
       } else if (serviceClass.equals(IncidentesService.class)) {
         IncidentesService instance = new IncidentesService(
-            RepositoryLocator.instanceOf(GenericRepository.class));
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(IncidentesRepository.class)
+        );
         instances.put(serviceName, instance);
 
       } else if (serviceClass.equals(HeladerasService.class)) {
@@ -111,7 +114,8 @@ public class ServiceLocator {
 
       } else if (serviceClass.equals(VisitasTecnicasService.class)) {
         VisitasTecnicasService instance = new VisitasTecnicasService(
-            RepositoryLocator.instanceOf(GenericRepository.class)
+            RepositoryLocator.instanceOf(GenericRepository.class),
+            ServiceLocator.instanceOf(IncidentesService.class)
         );
         instances.put(serviceName, instance);
 

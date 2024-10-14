@@ -28,7 +28,6 @@ import models.entities.personas.colaborador.Colaborador;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Builder
 @AllArgsConstructor
 @Entity
@@ -61,6 +60,9 @@ public class Incidente extends Persistente {
   @Column(name = "imagen")
   private String imagen;
 
+  @Column(name = "solucionado", nullable = false)
+  private Boolean solucionado;
+
   /**
    * Instancia la clase Incidente.
    *
@@ -71,7 +73,11 @@ public class Incidente extends Persistente {
   public Incidente(TipoIncidente tipo, Heladera heladera) {
     this.tipo = tipo;
     this.heladera = heladera;
-    this.momentoIncidente = LocalDateTime.now();
+    this.solucionado = false;
+  }
+
+  public Incidente() {
+    this.solucionado = false;
   }
 
   @PrePersist

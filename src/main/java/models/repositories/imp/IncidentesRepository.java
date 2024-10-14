@@ -58,4 +58,18 @@ public class IncidentesRepository extends GenericRepository {
             .filter(i -> i.getTipo().equals(TipoIncidente.ALERTA))
             .toList();
   }
+
+  /**
+   * Devuelve todos los incidentes de tipo Mantenimiento.
+   *
+   * @param idHeladera id de la heladera.
+   * @return todos los mantenimientos.
+   */
+
+  public List<Incidente> buscarPorHeladera(Long idHeladera) {
+    return entityManager()
+        .createQuery("FROM Incidente i WHERE i.heladera.id = :idHeladera", Incidente.class)
+        .setParameter("idHeladera", idHeladera)
+        .getResultList();
+  }
 }

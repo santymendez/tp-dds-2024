@@ -96,8 +96,8 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
       context.redirect("/heladeras-solidarias?colabSucess=true");
     } else {
       int espacioDisponible = heladera.consultarEspacioSobrante();
-      context.redirect("/heladeras-solidarias/colaborar?" +
-          "errorDonacionViandas=true&espacioDisponible="
+      context.redirect("/heladeras-solidarias/colaborar?"
+          + "errorDonacionViandas=true&espacioDisponible="
           + espacioDisponible);
     }
   }

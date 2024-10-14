@@ -1,6 +1,7 @@
 package models.entities.heladera.sensores.movimiento;
 
 import config.RepositoryLocator;
+import config.ServiceLocator;
 import java.util.Optional;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
@@ -13,6 +14,7 @@ import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import services.IncidentesService;
 
 /**
  * Clase que representa al listener del sensor de movimiento para el broker.
@@ -23,6 +25,7 @@ public class MovimientoListener implements IMqttMessageListener {
   private String topic = "sensores/movimiento";
   private GenericRepository repoGenerico;
   private ReportesHeladerasRepository reportesRepository;
+  private IncidentesService incidentesService;
 
   /**
    * Constructor del Listener para los Sensores de Movimento.
@@ -31,12 +34,17 @@ public class MovimientoListener implements IMqttMessageListener {
   public MovimientoListener() {
     this.repoGenerico = RepositoryLocator.instanceOf(GenericRepository.class);
     this.reportesRepository = RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);
+    this.incidentesService = ServiceLocator.instanceOf(IncidentesService.class);
   }
 
   @Override
   public void messageArrived(String topic, MqttMessage message) {
-    int sensorId = Integer.parseInt(message.toString());
-    this.activarSensor(sensorId);
+    try {
+      Long sensorId = Long.parseLong(message.toString().split(";")[0]);
+      this.activarSensor(sensorId);
+    } catch (NumberFormatException e) {
+      e.printStackTrace();
+    }
   }
 
   private void activarSensor(long sensorId) {
@@ -49,7 +57,10 @@ public class MovimientoListener implements IMqttMessageListener {
     SensorMovimiento sensorMovimiento = sensor.get();
     Heladera heladera = sensorMovimiento.getHeladera();
 
-    if (sensorMovimiento.debeActivarSensor()) {
+    //TODO PROBAR
+    if (sensorMovimiento.debeActivarSensor()
+        && this.incidentesService.noFueAlertadoPor(TipoEstado.INACTIVA_FRAUDE, heladera)
+    ) {
       MedicionSensor medicion = new MedicionSensor(null, sensorMovimiento.getHeladera());
       sensorMovimiento.recibirMedicion(medicion);
       this.repoGenerico.guardar(medicion);

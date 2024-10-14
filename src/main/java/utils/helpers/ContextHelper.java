@@ -52,6 +52,13 @@ public class ContextHelper {
         .buscarPorIdUsuario(usuarioId);
   }
 
+  /**
+   * Obtiene el técnico de la sesión.
+   *
+   * @param context el contexto de la aplicación.
+   * @return un Optional con el técnico si existe, un Optional vacío en caso contrario.
+   */
+
   public static Optional<Tecnico> getTecnicoFromContext(Context context) {
     Long usuarioId = context.sessionAttribute("idUsuario");
     return RepositoryLocator.instanceOf(TecnicosRepository.class)

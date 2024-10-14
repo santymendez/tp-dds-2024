@@ -2,6 +2,10 @@ package controllers;
 
 import dtos.VisitaInputDto;
 import io.javalin.http.Context;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.personas.tecnico.Tecnico;
@@ -10,10 +14,6 @@ import models.repositories.imp.HeladerasRepository;
 import services.VisitasTecnicasService;
 import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * Representa al controlador del repositorio de visitas.
@@ -23,6 +23,14 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
   private final HeladerasRepository heladerasRepository;
   private final GenericRepository genericRepository;
   private final VisitasTecnicasService visitasTecnicasService;
+
+  /**
+   * Constructor del controlador de visitas técnicas.
+   *
+   * @param heladerasRepository repositorio de heladeras.
+   * @param genericRepository repositorio generico.
+   * @param visitasTecnicasService service de visitas técnicas.
+   */
 
   public VisitasTecnicasController(
       HeladerasRepository heladerasRepository,

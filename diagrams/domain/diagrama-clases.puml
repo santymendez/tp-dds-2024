@@ -431,6 +431,8 @@ class Incidente {
     -colaborador: Colaborador
     -descripcionIncidente: String
     -fotoIncidente: String
+
+    -solucionado: Boolean
 }
 
 enum TipoIncidente {

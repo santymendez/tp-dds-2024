@@ -108,23 +108,23 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
         usuariosRepository.buscarPorNombreDeUsuario(usuarioDto.getNombreUsuario());
 
     if (posibleUsuario.isPresent()) {
-      //TODO ver como imprimir los errores
-      context.attribute(
-          "error",
-          "Nombre de usuario ya registrado."
-      );
-      context.redirect("/heladeras-solidarias/registrarse");
+      Map<String, Object> model = new HashMap<>();
+      model.put("titulo", "Registrarse");
+      model.put("error2", "Nombre de Usuario ya registrado.");
+      List<Provincia> provincias = this.provinciasRepository.buscarTodos();
+      model.put("provincias", provincias);
+      context.render("registrarse.hbs", model);
       return;
     }
 
     //Se valida la contraseña
     if (!this.autenticador.esValida(usuarioDto.getContrasenia())) {
-      //TODO ver errores
-      context.attribute(
-          "error",
-          "Contraseña invalida.\n Motivo:\n" + this.autenticador.mostrarMensajesConFormato()
-      );
-      context.redirect("/heladeras-solidarias/registrarse");
+      Map<String, Object> model = new HashMap<>();
+      model.put("titulo", "Registrarse");
+      model.put("error", "Contraseña invalida. \n" + this.autenticador.mostrarMensajesConFormato());
+      List<Provincia> provincias = this.provinciasRepository.buscarTodos();
+      model.put("provincias", provincias);
+      context.render("registrarse.hbs", model);
       return;
     }
 

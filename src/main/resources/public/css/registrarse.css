@@ -132,3 +132,23 @@
     font-size: 1.4rem;
     border-color: var(--blanco);
 }
+
+.alert {
+    max-width: 100%;
+    margin-left: 35rem;
+    margin-right: 35rem;
+    height: 4rem;
+}
+
+.alert2 {
+    max-width: 25%;
+    margin-left: 42rem;
+    margin-right: 40rem;
+    height: 2.8rem;
+    padding-left: 0.5rem;
+    margin-bottom: 1rem;
+}
+h5{
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}

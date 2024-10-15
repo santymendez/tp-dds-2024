@@ -15,7 +15,7 @@ public class CantidadMinimaDeCaracteres extends Regla {
 
   public CantidadMinimaDeCaracteres(Integer unaCantidadMinima) {
     this.setCantidadMinima(unaCantidadMinima);
-    this.setMensajeError("tamanio de contrasenia menor al permitido");
+    this.setMensajeError("Tamaño de contraseña menor al permitido");
   }
 
   @Override

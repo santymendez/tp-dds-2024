@@ -3,7 +3,6 @@ package dtos;
 import lombok.Builder;
 import lombok.Data;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
-import java.time.LocalDateTime;
 
 /**
  * Representa el Input de la Solicitud de Apertura.

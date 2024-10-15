@@ -1,5 +1,6 @@
 package utils.sender.channels;
 
+import config.Config;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -11,7 +12,6 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import config.Config;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 

@@ -67,10 +67,12 @@ public class GeneradorReporte {
         y = agregarLineaTexto(contentStream, y, "Cantidad de Fallas: " + cantFallas);
 
         int cantViandasColocadas = reporte.getViandasColocadas();
-        y = agregarLineaTexto(contentStream, y, "Cantidad de Viandas Colocadas: " + cantViandasColocadas);
+        y = agregarLineaTexto(contentStream, y, "Cantidad de Viandas Colocadas: "
+            + cantViandasColocadas);
 
         int cantViandasRetiradas = reporte.getViandasRetiradas();
-        y = agregarLineaTexto(contentStream, y, "Cantidad de Viandas Retiradas: " + cantViandasRetiradas);
+        y = agregarLineaTexto(contentStream, y, "Cantidad de Viandas Retiradas: "
+            + cantViandasRetiradas);
 
         List<ViandasPorColaborador> viandasPorColaboradores = reporte.getViandasPorColaboradores();
 
@@ -88,7 +90,8 @@ public class GeneradorReporte {
           }
           String nombreColaborador = viandasPorColaborador.getColaborador().getNombre();
           int cantViandas = viandasPorColaborador.getViandas();
-          y = agregarLineaTexto(contentStream, y, "Colaborador: " + nombreColaborador + " - Viandas: " + cantViandas);
+          y = agregarLineaTexto(contentStream, y, "Colaborador: "
+              + nombreColaborador + " - Viandas: " + cantViandas);
         }
         contentStream.close();
       }

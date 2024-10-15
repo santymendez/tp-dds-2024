@@ -358,7 +358,7 @@ public class Initializer {
     iniciarFormularios();
     iniciarSuscripciones();
     iniciarViandasPorColaborador();
-    //iniciarReportes();
+    iniciarReportes();
     iniciarUsuarios();
     iniciarIncidentes();
 
@@ -450,17 +450,17 @@ public class Initializer {
 
     repoGenerico.guardar(formulario1);
 
-//    repoGenerico.guardar(viandasPorColaborador1);
-//    repoGenerico.guardar(viandasPorColaborador2);
-//    repoGenerico.guardar(viandasPorColaborador3);
+    repoGenerico.guardar(viandasPorColaborador1);
+    repoGenerico.guardar(viandasPorColaborador2);
+    repoGenerico.guardar(viandasPorColaborador3);
 
-//    reportesRepository.guardar(reporteHeladera1);
-//    reportesRepository.guardar(reporteHeladera2);
-//    reportesRepository.guardar(reporteHeladera3);
+    reportesRepository.guardar(reporteHeladera1);
+    reportesRepository.guardar(reporteHeladera2);
+    reportesRepository.guardar(reporteHeladera3);
 
-//    repoGenerico.guardar(reporteSemanal1);
-//    repoGenerico.guardar(reporteSemanal2);
-//    repoGenerico.guardar(reporteSemanal3);
+    repoGenerico.guardar(reporteSemanal1);
+    repoGenerico.guardar(reporteSemanal2);
+    repoGenerico.guardar(reporteSemanal3);
 
     repoGenerico.guardar(alerta1);
   }
@@ -1348,40 +1348,40 @@ public class Initializer {
     viandasPorColaborador3 = new ViandasPorColaborador(mati, 33);
   }
 
-//  static void iniciarReportes() {
-//    reporteHeladera1 = new ReporteHeladera(heladera1);
-//    reporteHeladera1.setFallas(0);
-//    reporteHeladera1.setViandasRetiradas(5);
-//    reporteHeladera1.setViandasColocadas(11);
-//    reporteHeladera1.agregarNuevaColaboracion(viandasPorColaborador1);
-//
-//    reporteHeladera2 = new ReporteHeladera(heladera2);
-//    reporteHeladera2.setFallas(0);
-//    reporteHeladera2.setViandasRetiradas(14);
-//    reporteHeladera2.setViandasColocadas(24);
-//    reporteHeladera2.agregarNuevaColaboracion(viandasPorColaborador2);
-//
-//    reporteHeladera3 = new ReporteHeladera(heladera3);
-//    reporteHeladera3.setFallas(2);
-//    reporteHeladera3.setViandasRetiradas(7);
-//    reporteHeladera3.setViandasColocadas(33);
-//    reporteHeladera3.agregarNuevaColaboracion(viandasPorColaborador3);
-//
-//    reporteSemanal1 = new ReporteSemanal("/reportes/reporte-semana-2024-06-16.pdf",
-//        List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
-//    reporteSemanal1.setNombre("reporte-semana-2024-06-16.pdf");
-//    reporteSemanal1.setFecha(LocalDate.of(2024, 6, 16));
-//
-//    reporteSemanal2 = new ReporteSemanal("/reportes/reporte-semana-2024-06-22.pdf",
-//        List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
-//    reporteSemanal2.setNombre("reporte-semana-2024-06-22.pdf");
-//    reporteSemanal2.setFecha(LocalDate.of(2024, 6, 22));
-//
-//    reporteSemanal3 = new ReporteSemanal("/reportes/reporte-semana-2024-06-27.pdf",
-//        List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
-//    reporteSemanal3.setNombre("reporte-semana-2024-06-29.pdf");
-//    reporteSemanal3.setFecha(LocalDate.of(2024, 6, 27));
-//  }
+  static void iniciarReportes() {
+    reporteHeladera1 = new ReporteHeladera(heladera1);
+    reporteHeladera1.setFallas(0);
+    reporteHeladera1.setViandasRetiradas(5);
+    reporteHeladera1.setViandasColocadas(11);
+    reporteHeladera1.agregarNuevaColaboracion(viandasPorColaborador1);
+
+    reporteHeladera2 = new ReporteHeladera(heladera2);
+    reporteHeladera2.setFallas(0);
+    reporteHeladera2.setViandasRetiradas(14);
+    reporteHeladera2.setViandasColocadas(24);
+    reporteHeladera2.agregarNuevaColaboracion(viandasPorColaborador2);
+
+    reporteHeladera3 = new ReporteHeladera(heladera3);
+    reporteHeladera3.setFallas(2);
+    reporteHeladera3.setViandasRetiradas(7);
+    reporteHeladera3.setViandasColocadas(33);
+    reporteHeladera3.agregarNuevaColaboracion(viandasPorColaborador3);
+
+    reporteSemanal1 = new ReporteSemanal("/reportes/reporte-semana-2024-06-16.pdf",
+        List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
+    reporteSemanal1.setNombre("reporte-semana-2024-06-16.pdf");
+    reporteSemanal1.setFecha(LocalDate.of(2024, 6, 16));
+
+    reporteSemanal2 = new ReporteSemanal("/reportes/reporte-semana-2024-06-22.pdf",
+        List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
+    reporteSemanal2.setNombre("reporte-semana-2024-06-22.pdf");
+    reporteSemanal2.setFecha(LocalDate.of(2024, 6, 22));
+
+    reporteSemanal3 = new ReporteSemanal("/reportes/reporte-semana-2024-06-27.pdf",
+        List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));
+    reporteSemanal3.setNombre("reporte-semana-2024-06-29.pdf");
+    reporteSemanal3.setFecha(LocalDate.of(2024, 6, 27));
+  }
 
   static void iniciarIncidentes() {
     alerta1 = new Incidente(TipoIncidente.ALERTA, heladeraRota);

@@ -1,11 +1,11 @@
 package utils.sender.channels;
 
+import config.Config;
 import java.util.List;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import config.Config;
 
 /**
  * Clase Bot para el Telegram Sender.

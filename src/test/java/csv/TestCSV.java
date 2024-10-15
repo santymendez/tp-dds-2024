@@ -4,10 +4,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import config.RepositoryLocator;
+import config.ServiceLocator;
 import controllers.OldCsvController;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.ReportesHeladerasRepository;
 import models.repositories.imp.UsuariosRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,12 +37,9 @@ public class TestCSV {
 
     this.colaboracionesRepository = RepositoryLocator.instanceOf(ColaboracionesRepository.class);
 
-    colaboradoresService = new ColaboradoresService(
-        RepositoryLocator.instanceOf(UsuariosRepository.class),
-        RepositoryLocator.instanceOf(ColaboradoresRepository.class)
-    );
+    colaboradoresService = ServiceLocator.instanceOf(ColaboradoresService.class);
 
-    colaboracionesService = new ColaboracionesService();
+    colaboracionesService = ServiceLocator.instanceOf(ColaboracionesService.class);
 
     oldCsvController = new OldCsvController(colaboradoresService, emailSender, colaboracionesService);
   }

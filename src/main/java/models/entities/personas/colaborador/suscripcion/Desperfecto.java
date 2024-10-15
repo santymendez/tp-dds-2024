@@ -1,6 +1,7 @@
 package models.entities.personas.colaborador.suscripcion;
 
 import config.SenderLocator;
+import config.UtilsLocator;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -19,9 +20,6 @@ import models.searchers.BuscadorHeladerasFrecuentes;
 @NoArgsConstructor
 @Entity
 public class Desperfecto extends Suscripcion {
-
-  @Transient
-  private BuscadorHeladerasFrecuentes buscadorHeladerasFrecuentes;
   
   /**
    * Constructor de la suscripcion en caso de que ocurran fallas.
@@ -33,9 +31,6 @@ public class Desperfecto extends Suscripcion {
   public Desperfecto(Colaborador colaborador, Heladera heladera) {
     this.colaborador = colaborador;
     this.heladera = heladera;
-    this.buscadorHeladerasFrecuentes = new BuscadorHeladerasFrecuentes();
-    this.senderInterface =
-        SenderLocator.instanceOf(colaborador.getContacto().getTipoContacto());
   }
 
   @Override
@@ -62,8 +57,10 @@ public class Desperfecto extends Suscripcion {
    */
 
   public String nombresDeHeladerasString() {
+    BuscadorHeladerasFrecuentes buscadorHeladerasFrecuentes =
+        UtilsLocator.instanceOf(BuscadorHeladerasFrecuentes.class);
     List<Heladera> heladerasFrecuentes =
-        this.buscadorHeladerasFrecuentes.heladerasFrecuentes(this.colaborador);
+        buscadorHeladerasFrecuentes.heladerasFrecuentes(this.colaborador);
     StringBuilder s = new StringBuilder();
     for (Heladera heladera : heladerasFrecuentes) {
       s.append(heladera.getNombre()).append("\n");

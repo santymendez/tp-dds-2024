@@ -452,7 +452,6 @@ class VisitaTecnica {
 abstract class Suscripcion {
     #colaborador: Colaborador
     #heladera: Heladera
-    #senderInterface: SenderInterface
     #tipo: TipoSuscripcion
 
     +intentarNotificar()
@@ -483,7 +482,6 @@ class FaltanViandas {
 }
 
 class Desperfecto {
-    -buscadorHeladerasFrecuentes: BuscadorHeladerasFrecuentes
 
     +intentarNotificar()
     +notificar()
@@ -704,13 +702,8 @@ Desperfecto --|> Suscripcion
 QuedanViandas --|> Suscripcion
 FaltanViandas --|> Suscripcion
 Suscripcion --> TipoSuscripcion
-Suscripcion --> SenderInterface
 Suscripcion --> Colaborador
 Suscripcion --> Heladera
-
-'DESPERFECTO'
-
-Desperfecto *-- BuscadorHeladerasFrecuentes
 
 'SENDER'
 SenderInterface ..> Mensaje

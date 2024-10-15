@@ -45,6 +45,7 @@ public class IncidentesService {
         .imagen(incidenteDto.getImagen())
         .colaborador(colaborador)
         .heladera(heladera)
+        .solucionado(false)
         .build();
 
     heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_TECNICA);

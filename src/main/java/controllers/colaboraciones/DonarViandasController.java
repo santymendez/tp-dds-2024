@@ -73,9 +73,6 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
       return;
     }
 
-    //TODO HACE FALTA HACER ALGO CON LA TARJETA?
-    //Como sabria cuando autorizar las aperturas
-
     DonacionViandasDto donacionViandasDto = DonacionViandasDto.fromContext(context);
 
     Long idHeladera =
@@ -92,6 +89,8 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
       ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
       this.genericRepository.modificar(heladera);
+
+      //TODO broker
 
       context.redirect("/heladeras-solidarias?colabSucess=true");
     } else {

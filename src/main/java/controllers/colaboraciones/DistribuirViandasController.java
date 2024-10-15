@@ -73,9 +73,6 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
       return;
     }
 
-    //TODO HACE FALTA HACER ALGO CON LA TARJETA?
-    //Como sabria cuando autorizar las aperturas
-
     DistribucionViandasDto distrbucionDto = DistribucionViandasDto.fromContext(context);
 
     Heladera heladeraOrigen = this.genericRepository
@@ -89,6 +86,8 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
         this.colaboracionesService.crear(distrbucionDto, heladeraOrigen, heladeraDestino);
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
+
+    //TODO broker
 
     context.redirect("/heladeras-solidarias?colabSuccess=true");
   }

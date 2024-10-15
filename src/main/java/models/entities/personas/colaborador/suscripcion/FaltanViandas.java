@@ -34,8 +34,6 @@ public class FaltanViandas extends Suscripcion {
     this.colaborador = colaborador;
     this.heladera = heladera;
     this.viandasFaltantes = viandas;
-    this.senderInterface =
-        SenderLocator.instanceOf(colaborador.getContacto().getTipoContacto());
   }
 
   @Override

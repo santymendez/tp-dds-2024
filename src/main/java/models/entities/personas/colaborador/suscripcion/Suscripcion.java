@@ -1,5 +1,6 @@
 package models.entities.personas.colaborador.suscripcion;
 
+import config.SenderLocator;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -37,9 +38,6 @@ public abstract class Suscripcion extends Persistente {
   @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
   protected Heladera heladera;
 
-  @Transient
-  protected SenderInterface senderInterface;
-
   public abstract Boolean seCumpleCondicion();
 
   public abstract String getAsunto();
@@ -63,10 +61,12 @@ public abstract class Suscripcion extends Persistente {
    */
 
   public void notificar() {
+    SenderInterface senderInterface =
+        SenderLocator.instanceOf(colaborador.getContacto().getTipoContacto());
     String destinatario = colaborador.getContacto().getInfo();
     String asunto = this.getAsunto();
     String cuerpo = this.getCuerpo();
     Mensaje mensaje = new Mensaje(asunto, cuerpo);
-    this.senderInterface.enviar(mensaje, destinatario);
+    senderInterface.enviar(mensaje, destinatario);
   }
 }

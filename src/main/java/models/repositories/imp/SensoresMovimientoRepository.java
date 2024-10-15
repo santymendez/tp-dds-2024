@@ -2,7 +2,7 @@ package models.repositories.imp;
 
 import java.util.List;
 import java.util.Optional;
-import models.entities.heladera.sensores.movimiento.SensorMovimiento;
+import models.entities.heladera.sensores.SensorMovimiento;
 
 /**
  * Repositorio de sensores de movimiento.

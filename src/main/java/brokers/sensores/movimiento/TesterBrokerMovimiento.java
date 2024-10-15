@@ -1,4 +1,4 @@
-package models.entities.heladera.sensores.movimiento;
+package brokers.sensores.movimiento;
 
 /**
  * Tester para el Broker de los Sensores de Movimiento.

@@ -1,4 +1,4 @@
-package models.entities.heladera.sensores.temperatura;
+package cronjobs;
 
 import config.RepositoryLocator;
 import java.util.List;
@@ -6,6 +6,7 @@ import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
+import models.entities.heladera.sensores.SensorTemperatura;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;

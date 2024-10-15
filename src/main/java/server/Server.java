@@ -9,12 +9,13 @@ import io.javalin.http.staticfiles.Location;
 import java.io.IOException;
 import java.util.function.Consumer;
 import middlewares.AuthMiddleware;
-import models.entities.heladera.sensores.movimiento.BrokerSensorMovimiento;
-import models.entities.heladera.sensores.temperatura.BrokerSensorTemperatura;
+import brokers.sensores.movimiento.BrokerSensorMovimiento;
+import brokers.sensores.temperatura.BrokerSensorTemperatura;
+import models.db.PersistenceUnitSwitcher;
 import server.handlers.AppHandlers;
 import utils.javalin.Initializer;
 import utils.javalin.JavalinRenderer;
-import utils.sender.Config;
+import config.Config;
 
 /**
  * Clase que inicializa el servidor Javalin y configura las rutas de la aplicación.

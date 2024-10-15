@@ -1,15 +1,18 @@
-package models.entities.heladera.sensores.temperatura;
+package brokers.sensores.movimiento;
 
+import config.Config;
+import lombok.Setter;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 /**
- * Clase que representa al sensor encargado de enviar las mediciones.
+ * Clase que representa al broker encargado de enviar las mediciones.
  */
 
-public class BrokerSensorTemperatura {
+@Setter
+public class BrokerSensorMovimiento {
 
   /**
    * Suscribe al Broker.
@@ -18,7 +21,7 @@ public class BrokerSensorTemperatura {
    */
 
   public void suscribir(String topic, String clientId) {
-    String broker       = "tcp://localhost:1883";
+    String broker = Config.getBrokerUrl();
     MemoryPersistence persistence = new MemoryPersistence();
 
     try {
@@ -31,7 +34,7 @@ public class BrokerSensorTemperatura {
       System.out.println("Connected");
 
       System.out.println("Build our receptor");
-      TemperaturaListener receptor = new TemperaturaListener();
+      MovimientoListener receptor = new MovimientoListener();
 
       System.out.println("Now we subscribe to the topic");
       sampleClient.subscribe(topic, receptor);

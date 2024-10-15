@@ -1,4 +1,4 @@
-package utils.reportes;
+package cronjobs;
 
 import config.RepositoryLocator;
 import config.UtilsLocator;
@@ -8,6 +8,7 @@ import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ReporteSemanal;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
+import utils.reportes.GeneradorReporte;
 
 /**
  * CronJob para la generacion de reportes semanal.
@@ -19,6 +20,7 @@ public class GeneradorReporteCronJob {
    * Genera el reporte semanal.
    */
 
+  //TODO NO TRAE REPORTES
   public static void main(String[] args) {
     ReportesHeladerasRepository reportesHeladerasRepository =
         RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);

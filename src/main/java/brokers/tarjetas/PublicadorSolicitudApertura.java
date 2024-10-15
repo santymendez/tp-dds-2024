@@ -1,7 +1,8 @@
-package models.entities.personas.tarjetas.colaborador;
+package brokers.tarjetas;
 
 import com.google.gson.JsonObject;
-import dtos.SolicitudAperturaInputDto;
+import config.Config;
+import dtos.SolicitudAperturaOutputDto;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -13,8 +14,6 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
  */
 
 public class PublicadorSolicitudApertura {
-  String broker = "tcp://broker.hivemq.com:1883";
-  String topic = "dds2024/colaboradores";
 
   /**
    * Publica la Solicitud en el Broker.
@@ -22,12 +21,13 @@ public class PublicadorSolicitudApertura {
    * @param nuevaSolicitud Input de la Solicitud recibida por el Controller.
    */
 
-  public void publicarSolicitudEnBroker(SolicitudAperturaInputDto nuevaSolicitud) {
+  public void publicarSolicitudEnBroker(SolicitudAperturaOutputDto nuevaSolicitud,
+                                        String topic, String clientid
+  ) {
     JsonObject content = new JsonObject();
     content.addProperty("uuid", nuevaSolicitud.getUuid());
     content.addProperty("fechaSolicitud", nuevaSolicitud.getFecha());
 
-    String clientid = "a";
     int qos = 0;
 
     try {
@@ -35,7 +35,7 @@ public class PublicadorSolicitudApertura {
 
       options.setConnectionTimeout(60);
       options.setKeepAliveInterval(60);
-      MqttClient client = new MqttClient(broker, clientid, new MemoryPersistence());
+      MqttClient client = new MqttClient(Config.getBrokerUrl(), clientid, new MemoryPersistence());
       // connect
       client.connect(options);
       // create message and setup QoS
@@ -48,8 +48,6 @@ public class PublicadorSolicitudApertura {
       System.out.println("message content: " + content);
       // disconnect
       client.disconnect();
-      // close client
-      client.close();
     } catch (MqttException e) {
       throw new RuntimeException(e);
     }

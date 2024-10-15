@@ -4,7 +4,7 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.sender.Config;
+import config.Config;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 

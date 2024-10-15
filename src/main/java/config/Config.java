@@ -1,4 +1,4 @@
-package utils.sender;
+package config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -74,5 +74,17 @@ public class Config {
 
   public static String getMovCli() {
     return properties.getProperty("mov_cli");
+  }
+
+  public static String getSolicTopic() {
+    return properties.getProperty("solic_topic");
+  }
+
+  public static String getSolicCli() {
+    return properties.getProperty("solic_cli");
+  }
+
+  public static String getBrokerUrl() {
+    return properties.getProperty("broker_url");
   }
 }

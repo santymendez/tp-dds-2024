@@ -20,7 +20,6 @@ import models.entities.heladera.Heladera;
 @Setter
 @Entity
 @Table(name = "usos_tarjetas_colaboradores")
-@NoArgsConstructor
 public class UsoTarjetaColaborador extends Persistente {
 
   @Embedded
@@ -36,13 +35,9 @@ public class UsoTarjetaColaborador extends Persistente {
 
   /**
    * Instancia la clase de Uso.
-   *
-   * @param heladera Heladera solicitada para abrir.
    */
 
-  public UsoTarjetaColaborador(Heladera heladera, TarjetaColaborador tarjetaColaborador) {
+  public UsoTarjetaColaborador() {
     this.apertura = new Apertura(LocalDateTime.now());
-    this.heladera = heladera;
-    this.tarjetaColaborador = tarjetaColaborador;
   }
 }

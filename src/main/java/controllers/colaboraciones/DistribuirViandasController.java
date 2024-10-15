@@ -15,6 +15,7 @@ import services.ColaboracionesService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
 import utils.helpers.ReportesHelper;
+import utils.helpers.SolicitudAperturaHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -106,7 +107,9 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
             reporteOrigen, reporteDestino,
             colaborador, cantViandasDistribuidas
     );
-    //TODO broker
+
+    SolicitudAperturaHelper.realizarSolicitud(tarjetaColaborador, heladeraOrigen);
+    SolicitudAperturaHelper.realizarSolicitud(tarjetaColaborador, heladeraDestino);
 
     context.redirect("/heladeras-solidarias?colabSuccess=true");
   }

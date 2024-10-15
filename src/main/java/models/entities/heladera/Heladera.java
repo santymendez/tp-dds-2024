@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -267,6 +266,10 @@ public class Heladera extends Persistente {
 
   public void eliminarSuscripcion(Suscripcion suscripcion) {
     this.suscripciones.remove(suscripcion);
+  }
+
+  public void habilitarTarjeta(TarjetaColaborador tarjeta) {
+    this.tarjetasHabilitadas.add(tarjeta);
   }
 
   //==================================== Métodos auxiliares ========================================

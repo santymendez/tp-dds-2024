@@ -100,16 +100,6 @@ public class Colaborador extends Persistente {
     this.reconocimiento.sumarPuntos(colaboracion);
   }
 
-  /**
-   * Crea la solicitud para abrir una heladera.
-   *
-   * @param heladera Heladera que se busca abrir.
-   */
-
-  public void agregarSolicitudApertura(Heladera heladera, TarjetaColaborador tarjeta) {
-    heladera.getTarjetasHabilitadas().add(tarjeta);
-  }
-
   public void agregarColaboracion(Colaboracion colaboracion) {
     this.colaboraciones.add(colaboracion);
     colaboracion.setColaborador(this);

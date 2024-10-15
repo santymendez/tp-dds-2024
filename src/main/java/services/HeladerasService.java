@@ -6,8 +6,8 @@ import java.util.Objects;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
-import models.entities.heladera.sensores.movimiento.SensorMovimiento;
-import models.entities.heladera.sensores.temperatura.SensorTemperatura;
+import models.entities.heladera.sensores.SensorMovimiento;
+import models.entities.heladera.sensores.SensorTemperatura;
 import models.repositories.imp.GenericRepository;
 
 /**

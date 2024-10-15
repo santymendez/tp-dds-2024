@@ -48,6 +48,6 @@ public class ReporteSemanal extends Persistente {
     this.reportesHeladeras = reportesHeladeras;
     this.path = path;
     this.fecha = LocalDate.now();
-    this.nombre = "reporte de la semana " + fecha;
+    this.nombre = "reporte-semana-" + this.fecha;
   }
 }

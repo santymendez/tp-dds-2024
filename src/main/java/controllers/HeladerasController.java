@@ -1,5 +1,7 @@
 package controllers;
 
+import config.RepositoryLocator;
+import config.UtilsLocator;
 import dtos.DireccionInputDto;
 import dtos.HeladeraInputDto;
 import io.javalin.http.Context;
@@ -12,17 +14,21 @@ import models.entities.direccion.Provincia;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
 import models.entities.heladera.incidente.Incidente;
-import models.entities.heladera.sensores.movimiento.SensorMovimiento;
-import models.entities.heladera.sensores.temperatura.SensorTemperatura;
+import models.entities.heladera.sensores.SensorMovimiento;
+import models.entities.heladera.sensores.SensorTemperatura;
 import models.entities.personas.users.TipoRol;
+import models.entities.reporte.ReporteHeladera;
+import models.entities.reporte.ReporteSemanal;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.IncidentesRepository;
+import models.repositories.imp.ReportesHeladerasRepository;
 import models.repositories.imp.SensoresMovimientoRepository;
 import models.repositories.imp.SensoresTemperaturaRepository;
 import services.DireccionesService;
 import services.HeladerasService;
 import services.ReportesHeladerasService;
 import utils.javalin.InterfaceCrudViewsHandler;
+import utils.reportes.GeneradorReporte;
 
 /**
  * Controlador de heladeras para alta, baja y modificacion.
@@ -101,7 +107,6 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
   }
 
   public void show(Context context) {
-
   }
 
   public void create(Context context) {

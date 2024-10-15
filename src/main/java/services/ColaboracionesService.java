@@ -102,7 +102,7 @@ public class ColaboracionesService {
           heladera,
           Integer.parseInt(donacionViandasDto.getCalorias()),
           Float.parseFloat(donacionViandasDto.getPeso()),
-          false
+          true
       );
 
       donacionViandas.getViandasDonadas().add(vianda);

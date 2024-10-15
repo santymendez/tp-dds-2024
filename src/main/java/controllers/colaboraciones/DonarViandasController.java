@@ -16,6 +16,7 @@ import services.ColaboracionesService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
 import utils.helpers.ReportesHelper;
+import utils.helpers.SolicitudAperturaHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -98,15 +99,13 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
       ReporteHeladera reporteHeladera =
           reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();
 
-      //Registra las viandas donadas por
       ReportesHelper.actualizarReportePorDonacion(reporteHeladera, colaborador, cantViandas);
+      SolicitudAperturaHelper.realizarSolicitud(tarjetaColaborador, heladera);
 
       this.genericRepository.modificar(heladera);
       this.genericRepository.modificar(reporteHeladera);
 
-      //TODO broker
-
-      context.redirect("/heladeras-solidarias?colabSucess=true");
+      context.redirect("/heladeras-solidarias?colabSuccess=true");
     } else {
       int espacioDisponible = heladera.consultarEspacioSobrante();
       context.redirect("/heladeras-solidarias/colaborar?"

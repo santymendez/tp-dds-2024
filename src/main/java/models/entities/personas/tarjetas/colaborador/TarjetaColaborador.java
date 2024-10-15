@@ -17,6 +17,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 
 /**
@@ -62,9 +63,17 @@ public class TarjetaColaborador {
     return UUID.randomUUID().toString().replace("-", "").substring(0, 11);
   }
 
-  public void agregarUso(UsoTarjetaColaborador u) {
-    this.usos.add(u);
-    u.setTarjetaColaborador(this);
+  /**
+   * Metodo que agrega un uso a la tarjeta del colaborador.
+   *
+   * @param uso Uso de la tarjeta.
+   * @param heladera Heladera a la que se le solicita el uso.
+   */
+
+  public void agregarUso(UsoTarjetaColaborador uso, Heladera heladera) {
+    this.usos.add(uso);
+    uso.setTarjetaColaborador(this);
+    uso.setHeladera(heladera);
   }
 
   @PrePersist

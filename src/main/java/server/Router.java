@@ -194,5 +194,8 @@ public class Router {
     app.post("/heladeras-solidarias/registrar-visita",
         ControllerLocator.instanceOf(VisitasTecnicasController.class)::save,
         TipoRol.TECNICO);
+
+    app.get("/heladeras-solidarias/ayudame",
+        ControllerLocator.instanceOf(HeladerasController.class)::show);
   }
 }

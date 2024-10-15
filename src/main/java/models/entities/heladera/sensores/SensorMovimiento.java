@@ -1,11 +1,9 @@
-package models.entities.heladera.sensores.movimiento;
+package models.entities.heladera.sensores;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -15,8 +13,6 @@ import lombok.Setter;
 import models.db.Persistente;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
-import models.entities.heladera.incidente.Incidente;
-import models.entities.heladera.sensores.MedicionSensor;
 
 /**
  * Representa un sensor de movimiento.

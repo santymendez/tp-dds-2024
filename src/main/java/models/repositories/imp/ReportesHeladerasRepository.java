@@ -62,14 +62,16 @@ public class ReportesHeladerasRepository extends GenericRepository {
    */
 
   public List<ReporteHeladera> buscarTodosUltimaSemana() {
-    LocalDate haceUnaSemana = LocalDate.now().minusWeeks(1);
+    LocalDate hoy = LocalDate.now();
+    LocalDate haceUnaSemana = hoy.minusWeeks(1);
 
     return entityManager()
         .createQuery(
-            "SELECT r FROM ReporteHeladera r WHERE r.fecha >= :haceUnaSemana",
+            "FROM ReporteHeladera WHERE fecha BETWEEN :haceUnaSemana AND :hoy",
             ReporteHeladera.class
         )
         .setParameter("haceUnaSemana", haceUnaSemana)
+        .setParameter("hoy", hoy)
         .getResultList();
   }
 }

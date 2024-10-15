@@ -1,4 +1,4 @@
-package models.entities.heladera.sensores.temperatura;
+package brokers.sensores.temperatura;
 
 /**
  * Tester para el Broker de los Sensores de Temperatura.

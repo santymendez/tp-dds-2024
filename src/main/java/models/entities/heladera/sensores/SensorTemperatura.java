@@ -1,4 +1,4 @@
-package models.entities.heladera.sensores.temperatura;
+package models.entities.heladera.sensores;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -15,7 +15,6 @@ import lombok.Setter;
 import models.db.Persistente;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
-import models.entities.heladera.sensores.MedicionSensor;
 
 /**
  * Representa un sensor de temperatura con la última temperatura.

@@ -1,5 +1,6 @@
 package utils.reportes;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -35,8 +36,16 @@ public class GeneradorReporte {
 
   public String generarReporte(List<ReporteHeladera> reportes) {
     LocalDate semanaActual = LocalDate.now();
+    String path = "reportes/reporte-semana-" + semanaActual + ".pdf";
 
-    String path = "/reportes/reporte-semana-" + semanaActual + ".pdf";
+    // Verificar si el directorio existe, y si no, crearlo
+    File directory = new File(path);
+    if (!directory.exists()) {
+      boolean dirCreated = directory.mkdirs();
+      if (!dirCreated) {
+        throw new RuntimeException("No se pudo crear el directorio: " + path);
+      }
+    }
 
     try (PDDocument document = new PDDocument()) {
       for (ReporteHeladera reporte : reportes) {
@@ -55,22 +64,18 @@ public class GeneradorReporte {
         y = agregarLineaTexto(contentStream, y, nombreHeladera);
 
         int cantFallas = reporte.getFallas();
-        y = agregarLineaTexto(
-            contentStream, y, "Cantidad de Fallas: " + cantFallas);
+        y = agregarLineaTexto(contentStream, y, "Cantidad de Fallas: " + cantFallas);
 
         int cantViandasColocadas = reporte.getViandasColocadas();
-        y = agregarLineaTexto(
-            contentStream, y, "Cantidad de Viandas Colocadas: " + cantViandasColocadas);
+        y = agregarLineaTexto(contentStream, y, "Cantidad de Viandas Colocadas: " + cantViandasColocadas);
 
         int cantViandasRetiradas = reporte.getViandasRetiradas();
-        y = agregarLineaTexto(
-            contentStream, y, "Cantidad de Viandas Retiradas: " + cantViandasRetiradas);
+        y = agregarLineaTexto(contentStream, y, "Cantidad de Viandas Retiradas: " + cantViandasRetiradas);
 
-        List<ViandasPorColaborador> viandasPorColaboradores =
-            reporte.getViandasPorColaboradores();
+        List<ViandasPorColaborador> viandasPorColaboradores = reporte.getViandasPorColaboradores();
 
         for (ViandasPorColaborador viandasPorColaborador : viandasPorColaboradores) {
-          //Si me paso de líneas, creo una nueva página para la misma heladera.
+          // Si me paso de líneas, creo una nueva página para la misma heladera.
           if (currentLines == 0) {
             contentStream.close();
             document.save(path);
@@ -83,12 +88,12 @@ public class GeneradorReporte {
           }
           String nombreColaborador = viandasPorColaborador.getColaborador().getNombre();
           int cantViandas = viandasPorColaborador.getViandas();
-          y = agregarLineaTexto(
-              contentStream, y, "Colaborador: " + nombreColaborador + " - Viandas: " + cantViandas);
+          y = agregarLineaTexto(contentStream, y, "Colaborador: " + nombreColaborador + " - Viandas: " + cantViandas);
         }
         contentStream.close();
-        document.save(path);
       }
+      // Guardar el archivo PDF
+      document.save(path);
       System.out.println("Se generó el PDF correctamente en: " + path);
     } catch (IOException e) {
       e.printStackTrace();
@@ -107,4 +112,5 @@ public class GeneradorReporte {
     currentLines--;
     return y - leading;
   }
+
 }

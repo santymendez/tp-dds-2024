@@ -1,4 +1,4 @@
-package models.entities.heladera.sensores.movimiento;
+package brokers.sensores.movimiento;
 
 import config.RepositoryLocator;
 import config.ServiceLocator;
@@ -10,6 +10,7 @@ import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
+import models.entities.heladera.sensores.SensorMovimiento;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
@@ -50,11 +51,12 @@ public class MovimientoListener implements IMqttMessageListener {
     }
   }
 
-  private void activarSensor(long sensorId) {
+  private void activarSensor(Long sensorId) {
     Optional<SensorMovimiento> sensor = this.repoGenerico
         .buscarPorId(sensorId, SensorMovimiento.class);
     if (sensor.isEmpty()) {
-      throw new RuntimeException("No existe el sensor");
+      System.out.println("\nNo existe un Sensor de Temperatura con ese ID\n");
+      return;
     }
 
     SensorMovimiento sensorMovimiento = sensor.get();

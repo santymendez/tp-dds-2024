@@ -1,4 +1,4 @@
-package models.entities.heladera.sensores.temperatura;
+package brokers.sensores.temperatura;
 
 import config.RepositoryLocator;
 import config.ServiceLocator;
@@ -10,6 +10,7 @@ import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
+import models.entities.heladera.sensores.SensorTemperatura;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
@@ -61,7 +62,8 @@ public class TemperaturaListener implements IMqttMessageListener {
     Optional<SensorTemperatura> sensor = this.repoGenerico
         .buscarPorId(sensorId, SensorTemperatura.class);
     if (sensor.isEmpty()) {
-      throw new RuntimeException("No existe el sensor");
+      System.out.println("\nNo existe un Sensor de Temperatura con ese ID\n");
+      return;
     }
 
     SensorTemperatura sensorTemperatura = sensor.get();

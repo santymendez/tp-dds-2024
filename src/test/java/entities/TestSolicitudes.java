@@ -28,11 +28,11 @@ public class TestSolicitudes {
     this.heladera1 = new Heladera(new Direccion(), "Heladera 1", LocalDate.now(), new Modelo());
     this.heladera2 = new Heladera(new Direccion(), "Heladera 2", LocalDate.now(), new Modelo());
 
-    tarjeta.getUsos().add(new UsoTarjetaColaborador(this.heladera1, this.tarjeta));
-    this.colaborador.agregarSolicitudApertura(this.heladera1, this.tarjeta);
+    tarjeta.agregarUso(new UsoTarjetaColaborador(), heladera1);
+    this.heladera1.habilitarTarjeta(this.tarjeta);
 
-    this.colaborador.agregarSolicitudApertura(this.heladera1, this.tarjeta);
-    this.colaborador.agregarSolicitudApertura(this.heladera2, this.tarjeta);
+    this.heladera1.habilitarTarjeta(this.tarjeta);
+    this.heladera2.habilitarTarjeta(this.tarjeta);
   }
 
   @Test

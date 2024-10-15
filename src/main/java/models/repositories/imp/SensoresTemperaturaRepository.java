@@ -2,7 +2,7 @@ package models.repositories.imp;
 
 import java.util.List;
 import java.util.Optional;
-import models.entities.heladera.sensores.temperatura.SensorTemperatura;
+import models.entities.heladera.sensores.SensorTemperatura;
 
 /**
  * Repositorio de sensores de temperatura.

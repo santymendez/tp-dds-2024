@@ -11,7 +11,7 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.sender.Config;
+import config.Config;
 import utils.sender.Mensaje;
 import utils.sender.SenderInterface;
 

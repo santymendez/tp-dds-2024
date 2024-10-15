@@ -30,6 +30,10 @@
     display: block;
 }
 
+.form-select {
+    max-width: 60%;
+}
+
 .form-control-file {
     display: block;
     width: 100%;

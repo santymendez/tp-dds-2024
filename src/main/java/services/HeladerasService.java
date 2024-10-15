@@ -6,6 +6,8 @@ import java.util.Objects;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
+import models.entities.heladera.sensores.movimiento.SensorMovimiento;
+import models.entities.heladera.sensores.temperatura.SensorTemperatura;
 import models.repositories.imp.GenericRepository;
 
 /**
@@ -33,7 +35,15 @@ public class HeladerasService {
     heladera.setModelo(modelo);
     heladera.setDireccion(direccion);
 
-    genericRepository.guardar(heladera);
+    this.genericRepository.guardar(heladera);
+
+    SensorTemperatura sensorTemperatura = new SensorTemperatura();
+    sensorTemperatura.setHeladera(heladera);
+    this.genericRepository.guardar(sensorTemperatura);
+
+    SensorMovimiento sensorMovimiento = new SensorMovimiento();
+    sensorMovimiento.setHeladera(heladera);
+    this.genericRepository.guardar(sensorMovimiento);
 
     return heladera;
   }

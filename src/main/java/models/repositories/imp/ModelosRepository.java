@@ -1,9 +1,8 @@
-package models.repositories;
+package models.repositories.imp;
 
 import java.util.List;
 import java.util.Optional;
 import models.entities.heladera.Modelo;
-import models.repositories.imp.GenericRepository;
 
 /**
  * Repositorio de modelos.

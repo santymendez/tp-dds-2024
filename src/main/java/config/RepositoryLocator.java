@@ -2,13 +2,13 @@ package config;
 
 import java.util.HashMap;
 import java.util.Map;
-import models.repositories.ModelosRepository;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.DireccionesRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.HeladerasRepository;
 import models.repositories.imp.IncidentesRepository;
+import models.repositories.imp.ModelosRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
 import models.repositories.imp.ReportesSemanalesRepository;

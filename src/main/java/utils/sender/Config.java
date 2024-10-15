@@ -59,4 +59,20 @@ public class Config {
   public static String getDevMode() {
     return properties.getProperty("dev_mode");
   }
+
+  public static String getTempTopic() {
+    return properties.getProperty("temp_topic");
+  }
+
+  public static String getTempCli() {
+    return properties.getProperty("temp_cli");
+  }
+
+  public static String getMovTopic() {
+    return properties.getProperty("mov_topic");
+  }
+
+  public static String getMovCli() {
+    return properties.getProperty("mov_cli");
+  }
 }

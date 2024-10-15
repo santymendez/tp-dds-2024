@@ -5,12 +5,13 @@ import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.personas.tecnico.Tecnico;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.HeladerasRepository;
+import models.repositories.imp.IncidentesRepository;
 import services.VisitasTecnicasService;
 import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
@@ -23,6 +24,7 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
   private final HeladerasRepository heladerasRepository;
   private final GenericRepository genericRepository;
   private final VisitasTecnicasService visitasTecnicasService;
+  private final IncidentesRepository incidentesRepository;
 
   /**
    * Constructor del controlador de visitas técnicas.
@@ -35,11 +37,13 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
   public VisitasTecnicasController(
       HeladerasRepository heladerasRepository,
       GenericRepository genericRepository,
-      VisitasTecnicasService visitasTecnicasService
+      VisitasTecnicasService visitasTecnicasService,
+      IncidentesRepository incidentesRepository
   ) {
     this.heladerasRepository = heladerasRepository;
     this.genericRepository = genericRepository;
     this.visitasTecnicasService = visitasTecnicasService;
+    this.incidentesRepository = incidentesRepository;
   }
 
 
@@ -51,6 +55,9 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
 
     List<Heladera> heladeras = this.heladerasRepository.buscarInactivas();
     model.put("heladeras", heladeras);
+
+    List<Incidente> incidentes = this.incidentesRepository.buscarNoSolucionados();
+    model.put("incidentes", incidentes);
 
     model.put("activeSession", true);
     model.put("tipoRol", context.sessionAttribute("tipoRol"));
@@ -72,15 +79,8 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     VisitaInputDto visitaInputDto = VisitaInputDto.fromContext(context);
 
-    Long id = Long.parseLong(context.formParam("idIncidente"));
-    Optional<Incidente> posibleIncidente = this.genericRepository.buscarPorId(id, Incidente.class);
-
-    if (posibleIncidente.isEmpty()) {
-      context.redirect("/heladeras-solidarias/registrar-visita?errorID=true");
-      return;
-    }
-
-    Incidente incidente = posibleIncidente.get();
+    Long id = Long.parseLong(Objects.requireNonNull(context.formParam("incidente")));
+    Incidente incidente = this.genericRepository.buscarPorId(id, Incidente.class).get();
 
     Tecnico tecnico = ContextHelper.getTecnicoFromContext(context).get();
 

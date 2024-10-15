@@ -9,6 +9,8 @@ import io.javalin.http.staticfiles.Location;
 import java.io.IOException;
 import java.util.function.Consumer;
 import middlewares.AuthMiddleware;
+import models.entities.heladera.sensores.movimiento.BrokerSensorMovimiento;
+import models.entities.heladera.sensores.temperatura.BrokerSensorTemperatura;
 import server.handlers.AppHandlers;
 import utils.javalin.Initializer;
 import utils.javalin.JavalinRenderer;
@@ -57,6 +59,12 @@ public class Server {
       } else {
         Initializer.init("database-persistence-unit");
       }
+
+      BrokerSensorTemperatura brokerSensorTemperatura = new BrokerSensorTemperatura();
+      brokerSensorTemperatura.suscribir(Config.getTempTopic(), Config.getTempCli());
+
+      BrokerSensorMovimiento brokerSensorMovimiento = new BrokerSensorMovimiento();
+      brokerSensorMovimiento.suscribir(Config.getMovTopic(), Config.getMovCli());
     }
   }
 

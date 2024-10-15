@@ -18,8 +18,6 @@ public class BrokerSensorTemperatura {
    */
 
   public void suscribir(String topic, String clientId) {
-    String content      = "Message from MqttPublishSample";
-    int qos             = 2;
     String broker       = "tcp://localhost:1883";
     MemoryPersistence persistence = new MemoryPersistence();
 

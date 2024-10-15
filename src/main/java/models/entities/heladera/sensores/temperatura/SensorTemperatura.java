@@ -2,6 +2,7 @@ package models.entities.heladera.sensores.temperatura;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +15,6 @@ import lombok.Setter;
 import models.db.Persistente;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
-import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.sensores.MedicionSensor;
 
 /**
@@ -35,6 +35,10 @@ public class SensorTemperatura extends Persistente {
   @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
   private Heladera heladera;
 
+  public SensorTemperatura() {
+    this.mediciones = new ArrayList<>();
+  }
+
   public void recibirMedicion(MedicionSensor medicion) {
     this.mediciones.add(medicion);
   }
@@ -43,19 +47,15 @@ public class SensorTemperatura extends Persistente {
    * Comprueba si la temperatura esta fuera del rango.
    */
 
-  public Boolean comprobarTemperatura(Float temperatura) {
+  public Boolean fueraDeRango(Float temperatura) {
     float tempMin = this.heladera.getModelo().getTemperaturaMinima();
     float tempMax = this.heladera.getModelo().getTemperaturaMaxima();
 
     return temperatura > tempMax || temperatura < tempMin;
   }
 
-  public void desactivarHeladera(Incidente incidente) {
+  public void desactivarHeladera() {
     this.heladera.modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
-  }
-
-  public void activarHeladera() {
-    this.heladera.modificarEstado(TipoEstado.ACTIVA);
   }
 
   public Boolean estaConectado() {

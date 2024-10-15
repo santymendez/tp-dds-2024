@@ -9,10 +9,12 @@ import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import services.ColaboracionesService;
 import services.DireccionesService;
 import services.HeladerasService;
+import services.ReportesHeladerasService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
@@ -27,6 +29,7 @@ public class HacerseCargoController implements InterfaceCrudViewsHandler {
   private final DireccionesService direccionesService;
   private final ColaboracionesService colaboracionesService;
   private final HeladerasService heladerasService;
+  private final ReportesHeladerasService reportesHeladerasService;
 
   /**
    * Constructor del controller de hacerse cargo de una heladera.
@@ -34,18 +37,22 @@ public class HacerseCargoController implements InterfaceCrudViewsHandler {
    * @param genericRepository un repositorio generico.
    * @param direccionesService servicio de direcciones.
    * @param colaboracionesService servicio de colaboraciones.
+   * @param heladerasService servicio de heladeras.
+   * @param reportesHeladerasService servicio de r
    */
 
   public HacerseCargoController(
       GenericRepository genericRepository,
       DireccionesService direccionesService,
       ColaboracionesService colaboracionesService,
-      HeladerasService heladerasService
+      HeladerasService heladerasService,
+      ReportesHeladerasService reportesHeladerasService
   ) {
     this.genericRepository = genericRepository;
     this.direccionesService = direccionesService;
     this.colaboracionesService = colaboracionesService;
     this.heladerasService = heladerasService;
+    this.reportesHeladerasService = reportesHeladerasService;
   }
 
   @Override
@@ -80,6 +87,8 @@ public class HacerseCargoController implements InterfaceCrudViewsHandler {
     Colaboracion colaboracion = this.colaboracionesService.crear(heladera, direccion, colaborador);
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
+
+    this.reportesHeladerasService.crear(heladera);
 
     context.redirect("/heladeras-solidarias?colabSuccess=true");
   }

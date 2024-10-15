@@ -2,6 +2,7 @@ package models.repositories.imp;
 
 import java.util.List;
 import java.util.Optional;
+import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 
@@ -60,6 +61,25 @@ public class IncidentesRepository extends GenericRepository {
   }
 
   /**
+   * Busca los incidentes no resueltos de una heladera.
+   *
+   * @param tipoAlerta el tipo de la alerta.
+   * @param idHeladera el id de la heladera.
+   * @return una lista de incidentes.
+   */
+
+  public List<Incidente> alertasNoSolucionadasPorHeladera(TipoEstado tipoAlerta, Long idHeladera) {
+    return entityManager()
+        .createQuery("FROM Incidente i WHERE i.solucionado = false "
+                + "AND i.heladera.id = :idHeladera" + " AND i.tipoAlerta = :tipoAlerta",
+            Incidente.class
+        )
+        .setParameter("idHeladera", idHeladera)
+        .setParameter("tipoAlerta", tipoAlerta)
+        .getResultList();
+  }
+
+  /**
    * Devuelve todos los incidentes de tipo Mantenimiento.
    *
    * @param idHeladera id de la heladera.
@@ -69,6 +89,34 @@ public class IncidentesRepository extends GenericRepository {
   public List<Incidente> buscarPorHeladera(Long idHeladera) {
     return entityManager()
         .createQuery("FROM Incidente i WHERE i.heladera.id = :idHeladera", Incidente.class)
+        .setParameter("idHeladera", idHeladera)
+        .getResultList();
+  }
+
+  /**
+   * Devuelve todos los incidentes no solucionados.
+   *
+   * @return todos los incidentes no solucionados.
+   */
+
+  public List<Incidente> buscarNoSolucionados() {
+    return entityManager()
+        .createQuery("FROM Incidente i WHERE i.solucionado = false", Incidente.class)
+        .getResultList();
+  }
+
+  /**
+   * Devuelve todos los incidentes no solucionados de una heladera.
+   *
+   * @param idHeladera id de la heladera.
+   * @return todos los incidentes no solucionados de una heladera.
+   */
+
+  public List<Incidente> buscarNoSolucionadosPorHeladera(Long idHeladera) {
+    return entityManager()
+        .createQuery("FROM Incidente i WHERE i.solucionado = false AND i.heladera.id = :idHeladera",
+            Incidente.class
+        )
         .setParameter("idHeladera", idHeladera)
         .getResultList();
   }

@@ -6,6 +6,7 @@ import dtos.DonacionDineroDto;
 import dtos.DonacionViandasDto;
 import dtos.OfertaInputDto;
 import java.time.LocalDate;
+import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.DistribucionTarjetas;
 import models.entities.colaboracion.DistribucionViandas;
@@ -20,7 +21,10 @@ import models.entities.heladera.vianda.Comida;
 import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.canje.Oferta;
+import models.entities.reporte.ReporteHeladera;
+import models.entities.reporte.ViandasPorColaborador;
 import models.factories.FactoryColaboracion;
+import models.repositories.imp.ReportesHeladerasRepository;
 
 /**
  * With or without youuu.
@@ -29,7 +33,13 @@ import models.factories.FactoryColaboracion;
 
 public class ColaboracionesService {
 
-  public ColaboracionesService() {}
+  private final ReportesHeladerasRepository reportesHeladerasRepository;
+
+  public ColaboracionesService(
+      ReportesHeladerasRepository reportesHeladerasRepository
+  ) {
+    this.reportesHeladerasRepository = reportesHeladerasRepository;
+  }
 
   /** Crea una colaboracion a partir de un dto (para csv).
    *
@@ -80,6 +90,9 @@ public class ColaboracionesService {
         donacionViandasDto.getNombreComida(),
         LocalDate.parse(donacionViandasDto.getFechaVencimiento())
     );
+
+    ReporteHeladera reporteHeladera = this
+        .reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();
 
     for (int i = 0; i < cantViandas; i++) {
       Vianda vianda = new Vianda(

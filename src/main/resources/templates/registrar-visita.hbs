@@ -5,14 +5,18 @@
 {{#partial "cuerpo"}}
     <h2>Registrar Visita Técnica</h2>
 
-    <form action="registrar-visita.hbs" method="POST" class="form"
+    <form action="/heladeras-solidarias/registrar-visita" method="POST" class="form"
           enctype="multipart/form-data">
 
         <div class="row">
             <div class="mb-3">
-                <label for="idIncidente" class="form-label">Ingresar ID del Incidente</label>
-                <input name="idIncidente" class="form-control form-control-lg espacio"
-                       id="idIncidente" placeholder="84382" required>
+                <label for="incidenteHeladera" class="form-label">Incidente por el que visita</label>
+                <select name="incidente" class="form-select" id="incidenteHeladera" required>
+                    <option selected value="">Seleccione un Incidente</option>
+                    {{#each incidentes}}
+                        <option value="{{this.getId}}">Heladera: {{this.getHeladera.getNombre}}, Incidente: {{this.getTipoAlerta}}, Fecha: {{get.MomentoIncidente}}</option>
+                    {{/each}}
+                </select>
             </div>
 
             <div class="col-md-6 mb-3">
@@ -32,8 +36,8 @@
             </div>
 
             <div class="mb-3 form-check">
-                <input name="incidenteSolucionado" value ="incidenteSolucionado" type="checkbox" class="form-check-input" id="incidenteSolucionado">
-                <label for="incidenteSolucionado" class="col-form-label">Solucioné el Problema</label>
+                <input name="incidenteSolucionado" value ="true" type="checkbox" class="form-check-input" id="incidenteSolucionado">
+                <label for="incidenteSolucionado" class="col-form-label">Solucionó el problema?</label>
             </div>
 
 

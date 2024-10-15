@@ -2,6 +2,7 @@ package models.entities.heladera.sensores.movimiento;
 
 import config.RepositoryLocator;
 import config.ServiceLocator;
+import config.UtilsLocator;
 import java.util.Optional;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
@@ -12,6 +13,7 @@ import models.entities.heladera.sensores.MedicionSensor;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
+import models.searchers.BuscadorTecnicosCercanos;
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import services.IncidentesService;
@@ -22,10 +24,10 @@ import services.IncidentesService;
 
 @Setter
 public class MovimientoListener implements IMqttMessageListener {
-  private String topic = "sensores/movimiento";
   private GenericRepository repoGenerico;
   private ReportesHeladerasRepository reportesRepository;
   private IncidentesService incidentesService;
+  private BuscadorTecnicosCercanos buscadorTecnicosCercanos;
 
   /**
    * Constructor del Listener para los Sensores de Movimento.
@@ -35,6 +37,7 @@ public class MovimientoListener implements IMqttMessageListener {
     this.repoGenerico = RepositoryLocator.instanceOf(GenericRepository.class);
     this.reportesRepository = RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);
     this.incidentesService = ServiceLocator.instanceOf(IncidentesService.class);
+    this.buscadorTecnicosCercanos = UtilsLocator.instanceOf(BuscadorTecnicosCercanos.class);
   }
 
   @Override
@@ -57,7 +60,6 @@ public class MovimientoListener implements IMqttMessageListener {
     SensorMovimiento sensorMovimiento = sensor.get();
     Heladera heladera = sensorMovimiento.getHeladera();
 
-    //TODO PROBAR
     if (sensorMovimiento.debeActivarSensor()
         && this.incidentesService.noFueAlertadoPor(TipoEstado.INACTIVA_FRAUDE, heladera)
     ) {
@@ -67,15 +69,18 @@ public class MovimientoListener implements IMqttMessageListener {
 
       Incidente incidente = new Incidente(TipoIncidente.ALERTA, sensorMovimiento.getHeladera());
       incidente.setTipoAlerta(TipoEstado.INACTIVA_FRAUDE);
-      sensorMovimiento.desactivarHeladera(incidente);
+      this.repoGenerico.guardar(incidente);
+
+      sensorMovimiento.desactivarHeladera();
+
+      this.buscadorTecnicosCercanos.notificarTecnicos(heladera);
+
+      heladera.intentarNotificarSuscriptores();
 
       ReporteHeladera reporte =
           this.reportesRepository.buscarSemanalPorHeladera(heladera.getId()).get();
       reporte.ocurrioUnaFalla();
-
-      heladera.intentarNotificarSuscriptores();
-
-      this.repoGenerico.guardar(incidente);
+      this.reportesRepository.modificar(reporte);
     }
   }
 }

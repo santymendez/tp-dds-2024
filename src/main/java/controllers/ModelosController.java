@@ -2,7 +2,7 @@ package controllers;
 
 import dtos.ModeloInputDto;
 import io.javalin.http.Context;
-import models.repositories.ModelosRepository;
+import models.repositories.imp.ModelosRepository;
 import services.ModelosService;
 import utils.javalin.InterfaceCrudViewsHandler;
 

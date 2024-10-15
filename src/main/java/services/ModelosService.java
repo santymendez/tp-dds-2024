@@ -2,8 +2,7 @@ package services;
 
 import dtos.ModeloInputDto;
 import models.entities.heladera.Modelo;
-import models.repositories.ModelosRepository;
-import models.repositories.imp.GenericRepository;
+import models.repositories.imp.ModelosRepository;
 
 /**
  * Servicio de modelos.

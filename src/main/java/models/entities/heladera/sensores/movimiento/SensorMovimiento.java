@@ -1,5 +1,6 @@
 package models.entities.heladera.sensores.movimiento;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -35,6 +36,10 @@ public class SensorMovimiento extends Persistente {
   @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
   private Heladera heladera;
 
+  public SensorMovimiento() {
+    this.mediciones = new ArrayList<>();
+  }
+
   public void recibirMedicion(MedicionSensor medicion) {
     this.mediciones.add(medicion);
   }
@@ -43,11 +48,7 @@ public class SensorMovimiento extends Persistente {
     return !this.heladera.getEstaAbierta();
   }
 
-  public void desactivarHeladera(Incidente incidente) {
+  public void desactivarHeladera() {
     this.heladera.modificarEstado(TipoEstado.INACTIVA_FRAUDE);
-  }
-
-  public void activarHeladera() {
-    this.heladera.modificarEstado(TipoEstado.ACTIVA);
   }
 }

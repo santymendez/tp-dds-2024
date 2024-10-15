@@ -36,11 +36,12 @@ public class IncidentesService {
    * @param colaborador Colaborador que reporta el incidente.
    */
 
-  public Incidente crear(IncidenteInputDto incidenteDto,
+  public void crear(IncidenteInputDto incidenteDto,
                          Heladera heladera, Colaborador colaborador) {
     Incidente incidente = Incidente.builder()
         .momentoIncidente(LocalDateTime.now())
         .tipo(TipoIncidente.FALLA_TECNICA)
+        .tipoAlerta(TipoEstado.INACTIVA_FALLA_TECNICA)
         .descripcion(incidenteDto.getDescripcion())
         .imagen(incidenteDto.getImagen())
         .colaborador(colaborador)
@@ -53,8 +54,6 @@ public class IncidentesService {
     this.genericRepository.modificar(heladera);
 
     this.incidentesRepository.guardar(incidente);
-
-    return incidente;
   }
 
   /**
@@ -64,24 +63,13 @@ public class IncidentesService {
    */
 
   public void intentarHabilitarHeladera(Heladera heladera) {
-    if (this.incidentesSolucionados(heladera)) {
+    List<Incidente> incidentesNoSolucionados =
+        this.incidentesRepository.buscarNoSolucionadosPorHeladera(heladera.getId());
+
+    if (incidentesNoSolucionados.isEmpty()) {
       heladera.modificarEstado(TipoEstado.ACTIVA);
       this.genericRepository.modificar(heladera);
     }
-  }
-
-  /**
-   * Chequea si todos los incidentes de una heladera fueron solucionados.
-   *
-   * @param heladera Heladera a chequear.
-   * @return true si todos los incidentes fueron solucionados, false en caso contrario.
-   */
-
-  public Boolean incidentesSolucionados(Heladera heladera) {
-    List<Incidente> incidentes =
-        this.incidentesRepository.buscarPorHeladera(heladera.getId());
-
-    return incidentes.stream().allMatch(Incidente::getSolucionado);
   }
 
   /**
@@ -94,10 +82,8 @@ public class IncidentesService {
 
   public Boolean noFueAlertadoPor(TipoEstado tipoAlerta, Heladera heladera) {
     List<Incidente> incidentes =
-        this.incidentesRepository.buscarPorHeladera(heladera.getId());
+        this.incidentesRepository.alertasNoSolucionadasPorHeladera(tipoAlerta, heladera.getId());
 
-    return incidentes.stream().noneMatch(incidente ->
-        incidente.getTipoAlerta().equals(tipoAlerta) && !incidente.getSolucionado()
-    );
+    return incidentes.isEmpty();
   }
 }

@@ -155,9 +155,11 @@ public class Router {
       switch (Objects.requireNonNull(formType)) {
         case "darAltaModelo" ->
             ControllerLocator.instanceOf(ModelosController.class).save(ctx);
-        case "darBaja" ->
+        case "darAltaHeladera" ->
+            ControllerLocator.instanceOf(HeladerasController.class).save(ctx);
+        case "darBajaHeladera" ->
             ControllerLocator.instanceOf(HeladerasController.class).delete(ctx);
-        case "modificar" ->
+        case "modificarHeladera" ->
             ControllerLocator.instanceOf(HeladerasController.class).update(ctx);
         default -> ctx.status(400).result("Tipo de formulario no valido");
       }

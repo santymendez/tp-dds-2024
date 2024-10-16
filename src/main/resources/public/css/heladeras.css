@@ -134,6 +134,10 @@ h2{
     margin-top: 1rem;
 }
 
+.div-btn-que-no-anda {
+    padding-top: 1rem; !important;
+}
+
 .btn-primary:active:focus {
     background: var(--verdeSecundario);
     border-color: transparent;
@@ -242,4 +246,35 @@ h2 {
     margin-left: auto;
     background-color: transparent;
     border: none;
+}
+
+.h3-extra {
+    font-size: 2rem;
+    padding-top: 1rem; !important;
+    padding-bottom: 1rem;
+}
+
+.form-control-lg {
+    padding-bottom: 0.5rem;
+    width: 60%;
+    height: 80%;
+}
+
+.form-label-final {
+    width: 60%;
+}
+
+.form-control-lg-col {
+    width: 85%;
+    height: 50%;
+}
+
+.kol {
+    width: 90%;
+    padding-left: 10%;
+}
+
+.rou {
+    width: 85%;
+    padding-left: 25%;
 }

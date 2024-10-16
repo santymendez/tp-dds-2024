@@ -14,8 +14,8 @@
                 <option value="" selected>Elija una opción</option>
                 <option value="darAltaModelo">Dar de Alta un Modelo</option>
                 <option value="darAltaHeladera">Dar de Alta una Heladera</option>
-                <option value="darBajaHeladera">Dar de Baja una Heladera</option>
                 <option value="modificarHeladera">Modificar una Heladera</option>
+                <option value="darBajaHeladera">Dar de Baja una Heladera</option>
                 <option value="verAlertas">Ver Alertas</option>
             </select>
         </div>
@@ -128,7 +128,7 @@
         </form>
     </div>
 
-    <div id="darBaja" class="suscribirse-content action-form d-none">
+    <div id="darBajaHeladera" class="suscribirse-content action-form d-none">
         <form class="probar" method="POST" action="/heladeras-solidarias/heladeras-admin">
             <input type="hidden" name="formType" value="darBajaHeladera">
             <div class="mb-3 primero">
@@ -149,7 +149,7 @@
         </form>
     </div>
 
-    <div id="modificar" class="action-form container mt-5 nopadding d-none">
+    <div id="modificarHeladera" class="action-form container mt-5 nopadding d-none">
         <form method="POST" action="/heladeras-solidarias/heladeras-admin">
             <input type="hidden" name="formType" value="modificarHeladera">
             <div class="fila">

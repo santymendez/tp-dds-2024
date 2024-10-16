@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-md-6 mb-3 position-relative">
                     <label for="contrasenia" class="form-label">Contraseña *</label>
-                    <input name="contrasenia" type="password" class="form-control" id="contrasenia"
+                    <input name="contrasenia" type="password" class="form-control" id="contrasenia1"
                            placeholder="Ingresar contraseña" required>
                     <i class="bi bi-eye-slash" id="togglePassword1"
                        style="position: absolute; top: 59%; right: 5rem; transform: translateY(-15%); cursor: pointer;"></i>
@@ -166,7 +166,7 @@
                 <div class="col-md-6 mb-3 position-relative">
                     <label for="contrasenia" class="form-label">Contraseña *</label>
                     <input name = "contrasenia" type="password" class="form-control"
-                           id="contrasenia" placeholder="Ingrese contraseña">
+                           id="contrasenia2" placeholder="Ingrese contraseña">
                     <i class="bi bi-eye-slash" id="togglePassword2"
                        style="position: absolute; top: 59%; right: 5rem; transform: translateY(-15%); cursor: pointer;"></i>
                 </div>
@@ -308,7 +308,7 @@
     <script>
         // Alternar visibilidad de la contraseña
         const togglePassword1 = document.querySelector('#togglePassword1');
-        const password1 = document.querySelector('#contraseniaJuridica');
+        const password1 = document.querySelector('#contrasenia1');
 
         togglePassword1.addEventListener('click', () => {
             const type = password1.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -321,7 +321,7 @@
     <script>
         // Alternar visibilidad de la contraseña
         const togglePassword2 = document.querySelector('#togglePassword2');
-        const password2 = document.querySelector('#contrasenia');
+        const password2 = document.querySelector('#contrasenia2');
 
         togglePassword2.addEventListener('click', () => {
             const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';

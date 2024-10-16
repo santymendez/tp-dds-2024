@@ -1,5 +1,6 @@
 {{#partial "estilo"}}
     <link rel="stylesheet" href="/css/reportar-falla-tecnica.css">
+    <link rel="stylesheet" href="/css/registrar-visita.css">
 {{/partial}}
 
 {{#partial "cuerpo"}}
@@ -8,9 +9,9 @@
     <form action="/heladeras-solidarias/registrar-visita" method="POST" class="form"
           enctype="multipart/form-data">
 
-        <div class="row">
+        <div class="row medio">
             <div class="mb-3">
-                <label for="incidenteHeladera" class="form-label">Incidente por el que visita</label>
+                <label for="incidenteHeladera" class="form-label centro3">Incidente por el que visita</label>
                 <select name="incidente" class="form-select" id="incidenteHeladera" required>
                     <option selected value="">Seleccione un Incidente</option>
                     {{#each incidentes}}
@@ -19,25 +20,25 @@
                 </select>
             </div>
 
-            <div class="col-md-6 mb-3">
+            <div class="mb-3">
                 <label for="fechaVisita" class="form-label">Fecha de la Visita</label>
                 <input name="fechaVisita" type="date" class="form-control"
                        id="fechaVisita" required>
             </div>
 
-            <div class="col-md-6 mb-3">
+            <div class="mb-3">
                 <label for="trabajoRealizado" class="form-label">Descripción del trabajo realizado</label>
-                <textarea name="trabajoRealizado" id="trabajoRealizado" class="form-control" required></textarea>
+                <textarea name="trabajoRealizado" id="trabajoRealizado" class="form-control largo" required></textarea>
             </div>
 
             <div class="image-upload mb-3">
                 <label for="fotoVisita" class="form-label">Imagen</label>
-                <input name="fotoVisita" type="file" class="form-control form-control-lg" id="fotoVisita">
+                <input name="fotoVisita" type="file" class="form-control form-control-lg noEspacio" id="fotoVisita">
             </div>
 
-            <div class="mb-3 form-check">
-                <input name="incidenteSolucionado" value ="true" type="checkbox" class="form-check-input" id="incidenteSolucionado">
-                <label for="incidenteSolucionado" class="col-form-label">Solucionó el problema?</label>
+            <div class="mb-3 form-check centro2">
+                <input name="incidenteSolucionado" value ="true" type="checkbox" class="form-check-input " id="incidenteSolucionado">
+                <label for="incidenteSolucionado" class="col-form-label noEspacioRmx">¿Solucionó el problema?</label>
             </div>
 
 

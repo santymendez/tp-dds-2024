@@ -87,4 +87,8 @@ public class Config {
   public static String getBrokerUrl() {
     return properties.getProperty("broker_url");
   }
+
+  public static String getUrlApiRecom() {
+    return properties.getProperty("url_api_recom");
+  }
 }

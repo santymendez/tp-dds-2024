@@ -126,7 +126,7 @@ public class Router {
         case "reportarFalla" ->
             ControllerLocator.instanceOf(ReportarFallaTecnicaController.class).save(ctx);
         case "recomendaciones" ->
-            ctx.redirect("/heladeras-solidarias/recomendaciones");
+            ControllerLocator.instanceOf(RecomendacionesController.class).show(ctx);
         default -> ctx.status(400).result("Tipo de formulario no valido");
       }
     }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
@@ -194,8 +194,5 @@ public class Router {
     app.post("/heladeras-solidarias/registrar-visita",
         ControllerLocator.instanceOf(VisitasTecnicasController.class)::save,
         TipoRol.TECNICO);
-
-    app.get("/heladeras-solidarias/ayudame",
-        ControllerLocator.instanceOf(HeladerasController.class)::show);
   }
 }

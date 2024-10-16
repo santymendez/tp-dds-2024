@@ -1,5 +1,6 @@
 package utils.recomendator.adapter;
 
+import config.Config;
 import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -14,7 +15,7 @@ import utils.recomendator.entities.ListadoPuntos;
 
 public class AdapterServicioRecomendacion implements InterfaceAdapterServicioRecomendacion {
   private static AdapterServicioRecomendacion instancia = null;
-  private static final String urAPI = "https://71f019a3-8787-49bf-891b-05a9650407ed.mock.pstmn.io/";
+  private static final String urAPI = Config.getUrlApiRecom();
   private final Retrofit retrofit;
 
   /**
@@ -47,15 +48,15 @@ public class AdapterServicioRecomendacion implements InterfaceAdapterServicioRec
    * una consulta a la API Rest y devuelve un listado de puntos.
    *
    * @param lat la latitud
-   * @param lon la longitud
+   * @param lng la longitud
    * @param rad el radio
    * @return ListadoDepuntos un listado con los puntos
    * @throws IOException si ocurre un error lanza una excepción.
    */
 
-  public ListadoPuntos puntos(String lat, String lon, String rad) throws IOException {
+  public ListadoPuntos puntos(String lat, String lng, String rad) throws IOException {
     RecommendationService recomendationService = this.retrofit.create(RecommendationService.class);
-    Call<ListadoPuntos> requestPuntos = recomendationService.puntos(lat, lon, rad);
+    Call<ListadoPuntos> requestPuntos = recomendationService.puntos(lat, lng, rad);
     Response<ListadoPuntos> responsePuntos = requestPuntos.execute();
 
     return responsePuntos.body();

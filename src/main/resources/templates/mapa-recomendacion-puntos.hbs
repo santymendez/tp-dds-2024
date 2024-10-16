@@ -1,9 +1,10 @@
 {{#partial "estilo"}}
     <link rel="stylesheet" href="/css/mapa.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 {{/partial}}
 
 {{#partial "cuerpo"}}
-    <h2>Recomendacion de Puntos</h2>
+    <h2>Puntos de Colocacion Recomendados</h2>
     <div id="map"></div>
 {{/partial}}
 
@@ -18,10 +19,11 @@
         let lugar, lat, long, marker, markers = [];
 
             {{#each puntos}}
-            <!-- lugar = { {this.nombreUbicacion} }; -->
+            lugar = "{{this.referencia}}";
             lat = parseFloat({{this.lat}});
-            long = parseFloat({{this.lon}});
+            long = parseFloat({{this.lng}});
             marker = L.marker([lat, long]).addTo(map)
+                    .bindPopup('<b>' + lugar + '</b>');
             markers.push(marker)
             {{/each}}
 
@@ -35,9 +37,6 @@
                     function(position) {
                         let lat = position.coords.latitude;
                         let lon = position.coords.longitude;
-
-                        // Ahora envía la ubicación al backend
-                        enviarUbicacionAlBackend(lat, lon);
                     },
                     function(error) {
                         console.error("Error obteniendo la ubicación", error);
@@ -46,26 +45,8 @@
         } else {
             console.log("La geolocalización no es soportada en este navegador.");
         }
-
-        function enviarUbicacionAlBackend(lat, lon) {
-            fetch('/heladeras-solidarias/recomendaciones', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ lat: lat, lon: lon }),
-            })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Recomendaciones recibidas:', data);
-                        // Aquí puedes procesar las recomendaciones recibidas
-                    })
-                    .catch((error) => {
-                        console.error('Error enviando la ubicación:', error);
-                    });
-        }
     </script>
 
 {{/partial}}
 
-{{> templates/base }}
+{{> templates/base}}

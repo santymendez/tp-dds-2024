@@ -37,13 +37,13 @@ public class GeneradorReporte {
   public String generarReporte(List<ReporteHeladera> reportes) {
     LocalDate semanaActual = LocalDate.now();
     String path = "reportes/reporte-semana-" + semanaActual + ".pdf";
-
+    String directoryPath = "reportes";
     // Verificar si el directorio existe, y si no, crearlo
-    File directory = new File(path);
+    File directory = new File(directoryPath);
     if (!directory.exists()) {
       boolean dirCreated = directory.mkdirs();
       if (!dirCreated) {
-        throw new RuntimeException("No se pudo crear el directorio: " + path);
+        throw new RuntimeException("No se pudo crear el directorio: " + directoryPath);
       }
     }
 

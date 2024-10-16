@@ -12,10 +12,9 @@
                 {{#verifyRole tipoRol "PERSONA_FISICA"}}
                     <option value="suscribirse">Suscribirse</option>
                     <option value="reportarFalla">Reportar Falla Técnica</option>
-                    <option value="recomendaciones">Solicitar Recomendación</option>
                 {{/verifyRole}}
                 {{#verifyRole tipoRol "PERSONA_JURIDICA"}}
-                    <option value="/heladeras-solidarias/recomendaciones">Solicitar Recomendación</option>
+                    <option value="recomendaciones">Solicitar Recomendación</option>
                 {{/verifyRole}}
             </select>
         </div>
@@ -96,6 +95,33 @@
                 <button type="submit" class="btn btn-primary">Reportar</button>
             </div>
 
+        </form>
+    </div>
+
+    <!-- TODO SE VE HORRIBLE AYUDA -->
+    <div id="recomendaciones" class="d-none action-form">
+        <form id="recomendaciones" method="POST" action="/heladeras-solidarias/heladeras">
+            <input type="hidden" name="formType" value="recomendaciones">
+            <label class="form-label"> UN TITULO </label>
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-3">
+                    <label for="lat" class="form-label">Latitud</label>
+                    <input name="lat" type="text" class="form-control" id="lat" placeholder="Ingresar latitud" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="lng" class="form-label">Longitud</label>
+                    <input name="lng" type="text" class="form-control" id="lng" placeholder="Ingresar longitud" required>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-3">
+                    <label for="rad" class="form-label">Radio</label>
+                    <input name="rad" type="text" class="form-control" id="rad" placeholder="Ingresar radio" required>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Solicitar Puntos</button>
+            </div>
         </form>
     </div>
 

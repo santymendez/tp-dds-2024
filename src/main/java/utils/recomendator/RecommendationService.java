@@ -13,6 +13,6 @@ public interface RecommendationService {
   @GET("puntos")
   Call<ListadoPuntos> puntos(
       @Query("lat") String lat,
-      @Query("lon") String lon,
+      @Query("lng") String lng,
       @Query("rad") String rad);
 }

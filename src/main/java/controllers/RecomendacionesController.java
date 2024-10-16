@@ -5,6 +5,7 @@ import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import utils.helpers.ContextHelper;
 import utils.helpers.ErrorHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 import utils.recomendator.adapter.AdapterServicioRecomendacion;
@@ -26,26 +27,16 @@ public class RecomendacionesController implements InterfaceCrudViewsHandler {
 
   @Override
   public void index(Context context) {
+  }
 
-    double lat;
-    double lon;
-
+  @Override
+  public void show(Context context) {
     try {
-      String body = context.body();
+      String lat = context.formParam("lat");
+      String lng = context.formParam("lng");
+      String rad = context.formParam("rad");
 
-      ObjectMapper objectMapper = new ObjectMapper();
-      Map<String, Object> jsonMap = objectMapper.readValue(body, Map.class);
-
-      lat = (double) jsonMap.get("lat");
-      lon = (double) jsonMap.get("lon");
-
-      System.out.println("Latitud prueba: " + lat + " Longitud prueba: " + lon);
-
-      String latitud = String.valueOf(lat);
-      String longitud = String.valueOf(lon);
-      String radio = "3";
-
-      ListadoPuntos listadoPuntos = adapterRecomendacion.puntos(latitud, longitud, radio);
+      ListadoPuntos listadoPuntos = this.adapterRecomendacion.puntos(lat, lng, rad);
 
       List<Punto> puntos = listadoPuntos.getPuntos();
 
@@ -55,7 +46,7 @@ public class RecomendacionesController implements InterfaceCrudViewsHandler {
       model.put("activeSession", true);
       model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
-      context.render("recomendaciones.hbs", model);
+      context.render("mapa-recomendacion-puntos.hbs", model);
 
     } catch (Exception e) {
       context.status(400).render("/error-base.hbs", ErrorHelper.generateError(
@@ -63,12 +54,6 @@ public class RecomendacionesController implements InterfaceCrudViewsHandler {
           "Localizacion no encontrada",
           "No logramos utilizar tu ubicacion"));
     }
-
-  }
-
-  @Override
-  public void show(Context context) {
-
   }
 
   @Override

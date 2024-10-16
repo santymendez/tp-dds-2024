@@ -10,7 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Punto {
-  String referencia;
   String lat;
-  String lon;
+  String lng;
+  String referencia;
 }

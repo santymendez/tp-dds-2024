@@ -57,9 +57,9 @@ public class TestRecomendator {
       Assertions.assertEquals(lst.puntos.get(1).getLat(), puntosRequest.puntos.get(1).getLat());
       Assertions.assertEquals(lst.puntos.get(2).getLat(), puntosRequest.puntos.get(2).getLat());
 
-      Assertions.assertEquals(lst.puntos.get(0).getLon(), puntosRequest.puntos.get(0).getLon());
-      Assertions.assertEquals(lst.puntos.get(1).getLon(), puntosRequest.puntos.get(1).getLon());
-      Assertions.assertEquals(lst.puntos.get(2).getLon(), puntosRequest.puntos.get(2).getLon());
+      Assertions.assertEquals(lst.puntos.get(0).getLng(), puntosRequest.puntos.get(0).getLng());
+      Assertions.assertEquals(lst.puntos.get(1).getLng(), puntosRequest.puntos.get(1).getLng());
+      Assertions.assertEquals(lst.puntos.get(2).getLng(), puntosRequest.puntos.get(2).getLng());
 
       Assertions.assertEquals(lst.puntos.get(0).getReferencia(), puntosRequest.puntos.get(0).getReferencia());
       Assertions.assertEquals(lst.puntos.get(1).getReferencia(), puntosRequest.puntos.get(1).getReferencia());

@@ -10,6 +10,7 @@ import models.entities.heladera.estados.TipoEstado;
  */
 
 public class HeladerasRepository extends GenericRepository {
+
   public void guardar(Heladera heladera) {
     super.guardar((heladera));
   }
@@ -36,7 +37,7 @@ public class HeladerasRepository extends GenericRepository {
 
   public Optional<Heladera> buscarPorId(Long id) {
     if (id == null) {
-      throw new IllegalArgumentException("id to load is required for loading");
+      throw new IllegalArgumentException("El id es nulo");
     }
     return super.buscarPorId(id, Heladera.class);
   }

@@ -1,7 +1,8 @@
-package models.entities.personas.colaborador.reconocimiento.formula;
+package cronjobs;
 
 import config.RepositoryLocator;
 import java.util.List;
+import models.db.PersistenceUnitSwitcher;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.personas.colaborador.Colaborador;
@@ -23,8 +24,12 @@ public class CalculoHacerseCargo {
 
   public static void main(String[] args) {
 
-    List<Colaborador> colaboradores = RepositoryLocator
-        .instanceOf(ColaboradoresRepository.class).buscarTodos();
+    PersistenceUnitSwitcher.switchPersistenceUnit("cronjob-persistence-unit");
+
+    ColaboradoresRepository colaboradoresRepository = RepositoryLocator
+        .instanceOf(ColaboradoresRepository.class);
+
+    List<Colaborador> colaboradores = colaboradoresRepository.buscarTodos();
 
     for (Colaborador colaborador : colaboradores) {
 
@@ -35,6 +40,8 @@ public class CalculoHacerseCargo {
       for (Colaboracion colaboracion : colaboraciones) {
         colaborador.getReconocimiento().sumarPuntos(colaboracion);
       }
+
+      colaboradoresRepository.modificar(colaborador);
     }
 
   }

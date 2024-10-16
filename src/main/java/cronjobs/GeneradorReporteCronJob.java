@@ -3,6 +3,7 @@ package cronjobs;
 import config.RepositoryLocator;
 import config.UtilsLocator;
 import java.util.List;
+import models.db.PersistenceUnitSwitcher;
 import models.entities.heladera.Heladera;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ReporteSemanal;
@@ -20,8 +21,10 @@ public class GeneradorReporteCronJob {
    * Genera el reporte semanal.
    */
 
-  //TODO NO TRAE REPORTES
   public static void main(String[] args) {
+
+    PersistenceUnitSwitcher.switchPersistenceUnit("cronjob-persistence-unit");
+
     ReportesHeladerasRepository reportesHeladerasRepository =
         RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);
     GenericRepository genericRepository =

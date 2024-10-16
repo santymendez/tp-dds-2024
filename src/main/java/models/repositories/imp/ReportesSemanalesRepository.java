@@ -2,6 +2,7 @@ package models.repositories.imp;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import models.entities.reporte.ReporteSemanal;
 
 /**
@@ -9,6 +10,40 @@ import models.entities.reporte.ReporteSemanal;
  */
 
 public class ReportesSemanalesRepository extends GenericRepository {
+
+  public void guardar(ReporteSemanal reporteSemanal) {
+    super.guardar((reporteSemanal));
+  }
+
+  public void modificar(ReporteSemanal reporteSemanal) {
+    super.modificar(reporteSemanal);
+  }
+
+  public void eliminarFisico(ReporteSemanal reporteSemanal) {
+    super.eliminarFisico(reporteSemanal);
+  }
+
+  public void eliminar(ReporteSemanal reporteSemanal) {
+    super.eliminar(reporteSemanal);
+  }
+
+  /**
+   * Busca un reporte semanal por su id.
+   *
+   * @param id id del reporte semanal.
+   * @return el reporte semanal.
+   */
+
+  public Optional<ReporteSemanal> buscarPorId(Long id) {
+    if (id == null) {
+      throw new IllegalArgumentException("El id es null");
+    }
+    return super.buscarPorId(id, ReporteSemanal.class);
+  }
+
+  public List<ReporteSemanal> buscarTodos() {
+    return super.buscarTodos(ReporteSemanal.class);
+  }
 
   /**
    * Busca todos los reportes dentro del rango de fechas.

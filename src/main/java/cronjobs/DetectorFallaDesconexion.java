@@ -2,6 +2,7 @@ package cronjobs;
 
 import config.RepositoryLocator;
 import java.util.List;
+import models.db.PersistenceUnitSwitcher;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
@@ -23,6 +24,8 @@ public class DetectorFallaDesconexion {
    */
 
   public static void main(String[] args) {
+    PersistenceUnitSwitcher.switchPersistenceUnit("cronjob-persistence-unit");
+
     GenericRepository repoGenerico = RepositoryLocator
         .instanceOf(GenericRepository.class);
 

@@ -11,6 +11,7 @@ import models.entities.heladera.incidente.TipoIncidente;
  */
 
 public class IncidentesRepository extends GenericRepository {
+
   public void guardar(Incidente incidente) {
     super.guardar((incidente));
   }
@@ -37,7 +38,7 @@ public class IncidentesRepository extends GenericRepository {
 
   public Optional<Incidente> buscarPorId(Long id) {
     if (id == null) {
-      throw new IllegalArgumentException("id to load is required for loading");
+      throw new IllegalArgumentException("El id es nulo");
     }
     return super.buscarPorId(id, Incidente.class);
   }

@@ -37,7 +37,7 @@ public class VulnerablesRepository extends GenericRepository {
 
   public Optional<Vulnerable> buscarPorId(Long id) {
     if (id == null) {
-      throw new IllegalArgumentException("id to load is required for loading");
+      throw new IllegalArgumentException("El id es nulo");
     }
     return super.buscarPorId(id, Vulnerable.class);
   }

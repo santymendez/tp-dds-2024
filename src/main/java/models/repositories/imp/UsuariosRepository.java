@@ -36,7 +36,7 @@ public class UsuariosRepository extends GenericRepository {
 
   public Optional<Usuario> buscarPorId(Long id) {
     if (id == null) {
-      throw new IllegalArgumentException("id to load is required for loading");
+      throw new IllegalArgumentException("El id es null");
     }
     return super.buscarPorId(id, Usuario.class);
   }

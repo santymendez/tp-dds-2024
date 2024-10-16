@@ -36,7 +36,7 @@ public class DireccionesRepository extends GenericRepository {
 
   public Optional<Direccion> buscarPorId(Long id) {
     if (id == null) {
-      throw new IllegalArgumentException("id to load is required for loading");
+      throw new IllegalArgumentException("El id es nulo");
     }
     return super.buscarPorId(id, Direccion.class);
   }

@@ -26,17 +26,16 @@ public class ProvinciasRepository extends GenericRepository {
     super.eliminar(provincia);
   }
 
-  /**
-   * Busca un direccion por su id.
+
+  /** Busca una provincia por su id.
    *
-   * @param id Id del direccion a buscar.
-   *
-   * @return Un Optional con el direccion encontrado, o vacío si no se encontró.
+   * @param id id de la provincia a buscar.
+   * @return Un Optional con la provincia encontrada, o vacío si no se encontró.
    */
 
   public Optional<Provincia> buscarPorId(Long id) {
     if (id == null) {
-      throw new IllegalArgumentException("id to load is required for loading");
+      throw new IllegalArgumentException("El id es null");
     }
     return super.buscarPorId(id, Provincia.class);
   }

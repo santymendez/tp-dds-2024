@@ -1,7 +1,8 @@
 package recomendator;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 import utils.recomendator.adapter.AdapterServicioRecomendacion;
 import utils.recomendator.entities.ListadoPuntos;
@@ -10,10 +11,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(AdapterServicioRecomendacion.class) // Prepare the class for PowerMock
 public class TestRecomendator {
   private AdapterServicioRecomendacion servicioRecomendacion;
 

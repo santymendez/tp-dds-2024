@@ -10,26 +10,32 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class TestRecomendator {
-  AdapterServicioRecomendacion servicioRecomendacion;
+  private AdapterServicioRecomendacion servicioRecomendacion;
 
   @BeforeEach
-  public void inicializar() throws IOException {
+  public void inicializar() {
     servicioRecomendacion = mock(AdapterServicioRecomendacion.class);
     ListadoPuntos lst = new ListadoPuntos();
     lst.puntos = new ArrayList<>();
+
     Punto pto1 = new Punto("heladera_3", "26", "96");
     Punto pto2 = new Punto("heladera_27", "22", "94");
     Punto pto3 = new Punto("heladera_49", "24", "96");
     lst.puntos.add(pto1);
     lst.puntos.add(pto2);
     lst.puntos.add(pto3);
-    when(servicioRecomendacion.puntos("14", "55", "2")).thenReturn(lst);
-  }
 
+    try {
+      when(servicioRecomendacion.puntos("14", "55", "2")).thenReturn(lst);
+    } catch (IOException e) {
+      throw new RuntimeException("IOException inesperado durante mockeo", e);
+    }
+  }
 
   @Test
   @DisplayName("El recomendador de puntos devuelve puntos y no tira una excepción ")
@@ -40,34 +46,26 @@ public class TestRecomendator {
   @Test
   @DisplayName("El recomendador de puntos obtiene los puntos que deberia mandar")
   public void test02() {
+    ListadoPuntos expectedList = new ListadoPuntos();
+    expectedList.puntos = new ArrayList<>();
+    expectedList.puntos.add(new Punto("heladera_3", "26", "96"));
+    expectedList.puntos.add(new Punto("heladera_27", "22", "94"));
+    expectedList.puntos.add(new Punto("heladera_49", "24", "96"));
 
-    ListadoPuntos lst = new ListadoPuntos();
-    lst.puntos = new ArrayList<>();
-    Punto pto1 = new Punto("heladera_3", "26", "96");
-    Punto pto2 = new Punto("heladera_27", "22", "94");
-    Punto pto3 = new Punto("heladera_49", "24", "96");
-    lst.puntos.add(pto1);
-    lst.puntos.add(pto2);
-    lst.puntos.add(pto3);
-
+    ListadoPuntos puntosRequest;
     try {
-      ListadoPuntos puntosRequest = servicioRecomendacion.puntos("14", "55", "2");
+      puntosRequest = servicioRecomendacion.puntos("14", "55", "2");
 
-      Assertions.assertEquals(lst.puntos.get(0).getLat(), puntosRequest.puntos.get(0).getLat());
-      Assertions.assertEquals(lst.puntos.get(1).getLat(), puntosRequest.puntos.get(1).getLat());
-      Assertions.assertEquals(lst.puntos.get(2).getLat(), puntosRequest.puntos.get(2).getLat());
+      Assertions.assertNotNull(puntosRequest);
+      Assertions.assertEquals(expectedList.puntos.size(), puntosRequest.puntos.size());
 
-      Assertions.assertEquals(lst.puntos.get(0).getLng(), puntosRequest.puntos.get(0).getLng());
-      Assertions.assertEquals(lst.puntos.get(1).getLng(), puntosRequest.puntos.get(1).getLng());
-      Assertions.assertEquals(lst.puntos.get(2).getLng(), puntosRequest.puntos.get(2).getLng());
-
-      Assertions.assertEquals(lst.puntos.get(0).getReferencia(), puntosRequest.puntos.get(0).getReferencia());
-      Assertions.assertEquals(lst.puntos.get(1).getReferencia(), puntosRequest.puntos.get(1).getReferencia());
-      Assertions.assertEquals(lst.puntos.get(2).getReferencia(), puntosRequest.puntos.get(2).getReferencia());
-
-    } catch (IOException exception) {
-      System.out.println("Ocurrió la siguiente excepción: " + exception);
+      for (int i = 0; i < expectedList.puntos.size(); i++) {
+        Assertions.assertEquals(expectedList.puntos.get(i).getLat(), puntosRequest.puntos.get(i).getLat());
+        Assertions.assertEquals(expectedList.puntos.get(i).getLng(), puntosRequest.puntos.get(i).getLng());
+        Assertions.assertEquals(expectedList.puntos.get(i).getReferencia(), puntosRequest.puntos.get(i).getReferencia());
+      }
+    } catch (IOException e) {
+      Assertions.fail("IOException arrojado durante ejecución: " + e.getMessage());
     }
   }
-
 }

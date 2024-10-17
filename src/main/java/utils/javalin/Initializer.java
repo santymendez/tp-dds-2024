@@ -64,6 +64,7 @@ import models.repositories.imp.ReportesHeladerasRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
+import utils.security.PasswordHasher;
 
 /**
  * Clase que inicializa la aplicación con datos de prueba.
@@ -545,49 +546,49 @@ public class Initializer {
   static void iniciarUsuarios() {
     augustoUsuario = new Usuario();
     augustoUsuario.setNombreUsuario(augusto.getNombre());
-    augustoUsuario.setContrasenia(augusto.getApellido());
+    augustoUsuario.setContrasenia(PasswordHasher.hashPassword(augusto.getApellido()));
     augustoUsuario.setTipoRol(TipoRol.PERSONA_FISICA);
     augusto.setUsuario(augustoUsuario);
 
     iniakiUsuario = new Usuario();
     iniakiUsuario.setNombreUsuario(iniaki.getNombre());
-    iniakiUsuario.setContrasenia(iniaki.getApellido());
+    iniakiUsuario.setContrasenia(PasswordHasher.hashPassword(iniaki.getApellido()));
     iniakiUsuario.setTipoRol(TipoRol.PERSONA_FISICA);
     iniaki.setUsuario(iniakiUsuario);
 
     matiUsuario = new Usuario();
     matiUsuario.setNombreUsuario(mati.getNombre());
-    matiUsuario.setContrasenia(mati.getApellido());
+    matiUsuario.setContrasenia(PasswordHasher.hashPassword(mati.getApellido()));
     matiUsuario.setTipoRol(TipoRol.PERSONA_FISICA);
     mati.setUsuario(matiUsuario);
 
     elCityGroupUsuario = new Usuario();
     elCityGroupUsuario.setNombreUsuario(elCityGroup.getRazonSocial());
-    elCityGroupUsuario.setContrasenia(elCityGroup.getRubro());
+    elCityGroupUsuario.setContrasenia(PasswordHasher.hashPassword(elCityGroup.getRubro()));
     elCityGroupUsuario.setTipoRol(TipoRol.EMPRESA_ASOCIADA);
     elCityGroup.setUsuario(elCityGroupUsuario);
 
     oficinaDeCorsiniUsuario = new Usuario();
     oficinaDeCorsiniUsuario.setNombreUsuario(oficinaDeCorsini.getRazonSocial());
-    oficinaDeCorsiniUsuario.setContrasenia(oficinaDeCorsini.getRubro());
+    oficinaDeCorsiniUsuario.setContrasenia(PasswordHasher.hashPassword(oficinaDeCorsini.getRubro()));
     oficinaDeCorsiniUsuario.setTipoRol(TipoRol.PERSONA_JURIDICA);
     oficinaDeCorsini.setUsuario(oficinaDeCorsiniUsuario);
 
     santiUsuario = new Usuario();
     santiUsuario.setNombreUsuario(santi.getNombre());
-    santiUsuario.setContrasenia(santi.getApellido());
+    santiUsuario.setContrasenia(PasswordHasher.hashPassword(santi.getApellido()));
     santiUsuario.setTipoRol(TipoRol.TECNICO);
     santi.setUsuario(santiUsuario);
 
     liamUsuario = new Usuario();
     liamUsuario.setNombreUsuario(liam.getNombre());
-    liamUsuario.setContrasenia(liam.getApellido());
+    liamUsuario.setContrasenia(PasswordHasher.hashPassword(liam.getApellido()));
     liamUsuario.setTipoRol(TipoRol.TECNICO);
     liam.setUsuario(liamUsuario);
 
     admin = new Usuario();
     admin.setNombreUsuario("admin");
-    admin.setContrasenia("admin");
+    admin.setContrasenia(PasswordHasher.hashPassword("admin"));
     admin.setTipoRol(TipoRol.ADMINISTRADOR);
   }
 

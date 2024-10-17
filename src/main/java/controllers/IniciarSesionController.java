@@ -1,6 +1,6 @@
 package controllers;
 
-import dtos.UsuarioDto;
+import dtos.UsuarioInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +8,7 @@ import java.util.Optional;
 import models.entities.personas.users.Usuario;
 import models.repositories.imp.UsuariosRepository;
 import utils.javalin.InterfaceCrudViewsHandler;
+import utils.security.PasswordHasher;
 
 /**
  * Controlador de la vista de inicio de sesión.
@@ -45,19 +46,17 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
       return;
     }
 
-    UsuarioDto usuarioDto = new UsuarioDto(
+    UsuarioInputDto usuarioInputDto = new UsuarioInputDto(
             context.formParam("nombreUsuario"),
             context.formParam("contrasenia")
     );
 
     Optional<Usuario> posibleUsuario =
-            usuariosRepository.buscarPorNombreDeUsuario(usuarioDto.getNombreUsuario());
+            usuariosRepository.buscarPorNombreDeUsuario(usuarioInputDto.getNombreUsuario());
 
-    if (
-            posibleUsuario.isPresent()
-                    && posibleUsuario.get().getContrasenia().equals(usuarioDto.getContrasenia())
+    if (posibleUsuario.isPresent() && PasswordHasher
+        .validatePassword(usuarioInputDto.getContrasenia(), posibleUsuario.get().getContrasenia())
     ) {
-
       Usuario usuario = posibleUsuario.get();
 
       context.sessionAttribute("idUsuario", usuario.getId());

@@ -2,17 +2,15 @@ package controllers;
 
 import dtos.ColaboradorInputDto;
 import dtos.DireccionInputDto;
-import dtos.UsuarioDto;
+import dtos.UsuarioInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.entities.personas.colaborador.Colaborador;
-import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.users.Usuario;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ProvinciasRepository;
@@ -101,11 +99,11 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
       return;
     }
 
-    UsuarioDto usuarioDto = UsuarioDto.fromContext(context);
+    UsuarioInputDto usuarioInputDto = UsuarioInputDto.fromContext(context);
 
     //Se valida que no existe ese nombre de usuario
     Optional<Usuario> posibleUsuario =
-        usuariosRepository.buscarPorNombreDeUsuario(usuarioDto.getNombreUsuario());
+        usuariosRepository.buscarPorNombreDeUsuario(usuarioInputDto.getNombreUsuario());
 
     if (posibleUsuario.isPresent()) {
       Map<String, Object> model = new HashMap<>();
@@ -118,7 +116,7 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
     }
 
     //Se valida la contraseña
-    if (!this.autenticador.esValida(usuarioDto.getContrasenia())) {
+    if (!this.autenticador.esValida(usuarioInputDto.getContrasenia())) {
       Map<String, Object> model = new HashMap<>();
       model.put("titulo", "Registrarse");
       model.put("error", "Contraseña invalida. \n" + this.autenticador.mostrarMensajesConFormato());
@@ -139,7 +137,7 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
       this.genericRepository.guardar(direccion);
     }
 
-    Usuario nuevoUsuario = this.usuariosService.crear(usuarioDto);
+    Usuario nuevoUsuario = this.usuariosService.crear(usuarioInputDto);
     Colaborador nuevoColaborador = this.colaboradoresService
         .crear(colaboradorDto, direccion, nuevoUsuario);
 

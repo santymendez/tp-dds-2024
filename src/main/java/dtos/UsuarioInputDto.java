@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioDto {
+public class UsuarioInputDto {
   String nombreUsuario;
   String contrasenia;
 
@@ -23,8 +23,8 @@ public class UsuarioDto {
    * @return UsuarioDto.
    */
 
-  public static UsuarioDto fromContext(Context context) {
-    return new UsuarioDto(
+  public static UsuarioInputDto fromContext(Context context) {
+    return new UsuarioInputDto(
         context.formParam("usuario"),
         context.formParam("contrasenia")
     );

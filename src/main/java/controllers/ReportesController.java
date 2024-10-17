@@ -69,7 +69,7 @@ public class ReportesController implements InterfaceCrudViewsHandler {
         this.reportesSemanalesRepository.buscarTodosPorRangoDeFecha(fechaInicial, fechaFinal);
 
     if (reportes.isEmpty()) {
-      //TODO TIRAR ERROR NO HAY NINGUN REPORTE EN LAS FECHAS SELECCIONADAS
+      context.redirect("/heladeras-solidarias/reportes?emptyDates=true");
       return;
     }
 

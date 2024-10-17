@@ -78,16 +78,4 @@ public class PasswordHasher {
     }
     return diff == 0;
   }
-
-  public static void main(String[] args) {
-    String password = "miContraseniaSegura";
-
-    // Hasheamos la contraseña
-    String hashedPassword = PasswordHasher.hashPassword(password);
-    System.out.println("Contraseña hasheada: " + hashedPassword);
-
-    // Validamos la contraseña
-    boolean isValid = PasswordHasher.validatePassword(password, hashedPassword);
-    System.out.println("¿La contraseña es válida? " + isValid);
-  }
 }

@@ -15,7 +15,7 @@ import utils.recomendator.entities.ListadoPuntos;
 
 public class AdapterServicioRecomendacion implements InterfaceAdapterServicioRecomendacion {
   private static AdapterServicioRecomendacion instancia = null;
-  private static final String urAPI = Config.getUrlApiRecom();
+  private static final String urAPI = "https://8d039fc3-53c7-4579-95cd-5cdfd50aff50.mock.pstmn.io/";
   private final Retrofit retrofit;
 
   /**

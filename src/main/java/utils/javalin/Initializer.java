@@ -570,7 +570,8 @@ public class Initializer {
 
     oficinaDeCorsiniUsuario = new Usuario();
     oficinaDeCorsiniUsuario.setNombreUsuario(oficinaDeCorsini.getRazonSocial());
-    oficinaDeCorsiniUsuario.setContrasenia(PasswordHasher.hashPassword(oficinaDeCorsini.getRubro()));
+    oficinaDeCorsiniUsuario
+        .setContrasenia(PasswordHasher.hashPassword(oficinaDeCorsini.getRubro()));
     oficinaDeCorsiniUsuario.setTipoRol(TipoRol.PERSONA_JURIDICA);
     oficinaDeCorsini.setUsuario(oficinaDeCorsiniUsuario);
 

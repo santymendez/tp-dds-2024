@@ -93,8 +93,7 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
     int cantViandas = Integer.parseInt(distrbucionDto.getCantViandasDistribuidas());
     if (cantViandas > heladeraOrigen.consultarStock()
         || cantViandas > heladeraDestino.consultarEspacioSobrante()) {
-      //TODO MODAL
-      context.redirect("/heladeras-solidarias?errorDistribucion=true&espacioDisponible="
+      context.redirect("/heladeras-solidarias/colaborar?errorDistribucion=true&espacioDisponible="
           + cantViandas);
       return;
     }

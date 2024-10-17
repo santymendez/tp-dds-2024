@@ -7,7 +7,6 @@ import models.repositories.imp.GenericRepository;
 import models.repositories.imp.IncidentesRepository;
 import models.repositories.imp.ModelosRepository;
 import models.repositories.imp.ProvinciasRepository;
-import models.repositories.imp.ReportesHeladerasRepository;
 import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
 import models.repositories.imp.VulnerablesRepository;
@@ -68,9 +67,7 @@ public class ServiceLocator {
         instances.put(serviceName, instance);
 
       } else if (serviceClass.equals(ColaboracionesService.class)) {
-        ColaboracionesService instance = new ColaboracionesService(
-            RepositoryLocator.instanceOf(ReportesHeladerasRepository.class)
-        );
+        ColaboracionesService instance = new ColaboracionesService();
         instances.put(serviceName, instance);
 
       } else if (serviceClass.equals(OfertasService.class)) {

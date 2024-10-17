@@ -8,6 +8,7 @@ import javax.persistence.Transient;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.estados.TipoEstado;
 import models.entities.personas.colaborador.Colaborador;
 import models.searchers.BuscadorHeladerasFrecuentes;
 
@@ -35,7 +36,7 @@ public class Desperfecto extends Suscripcion {
 
   @Override
   public Boolean seCumpleCondicion() {
-    return true;
+    return !this.heladera.getEstadoActual().getEstado().equals(TipoEstado.ACTIVA);
   }
 
   @Override

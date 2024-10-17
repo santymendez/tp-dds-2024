@@ -6,6 +6,7 @@ import dtos.DonacionDineroDto;
 import dtos.DonacionViandasDto;
 import dtos.OfertaInputDto;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.DistribucionTarjetas;
@@ -24,6 +25,7 @@ import models.entities.personas.colaborador.canje.Oferta;
 import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ViandasPorColaborador;
 import models.factories.FactoryColaboracion;
+import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
 
 /**
@@ -32,14 +34,6 @@ import models.repositories.imp.ReportesHeladerasRepository;
  */
 
 public class ColaboracionesService {
-
-  private final ReportesHeladerasRepository reportesHeladerasRepository;
-
-  public ColaboracionesService(
-      ReportesHeladerasRepository reportesHeladerasRepository
-  ) {
-    this.reportesHeladerasRepository = reportesHeladerasRepository;
-  }
 
   /** Crea una colaboracion a partir de un dto (para csv).
    *
@@ -103,6 +97,7 @@ public class ColaboracionesService {
       );
 
       donacionViandas.getViandasDonadas().add(vianda);
+      heladera.agregarVianda(vianda);
     }
 
     Colaboracion colaboracion = new Colaboracion();
@@ -133,6 +128,14 @@ public class ColaboracionesService {
     );
     distribucionViandas.setHeladeraOrigen(heladeraOrigen);
     distribucionViandas.setHeladeraDestino(heladeraDestino);
+
+    List<Vianda> viandas =
+        heladeraOrigen.removerViandas(distribucionViandas.getCantViandasDistribuidas());
+
+    viandas.forEach(vianda -> {
+      vianda.setHeladera(heladeraDestino);
+      heladeraDestino.agregarVianda(vianda);
+    });
 
     Colaboracion colaboracion = new Colaboracion();
     colaboracion.setDistribucionViandas(distribucionViandas);

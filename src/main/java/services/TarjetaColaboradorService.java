@@ -27,7 +27,7 @@ public class TarjetaColaboradorService {
   public void crear(Colaborador colaborador, Direccion direccion) {
 
     if (colaborador.getTipoColaborador() != TipoColaborador.FISICO
-        || !direccion.admiteEnvio()
+        || direccion == null || !direccion.admiteEnvio()
     ) {
       return;
     }

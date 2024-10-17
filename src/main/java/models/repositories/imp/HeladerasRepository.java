@@ -56,7 +56,10 @@ public class HeladerasRepository extends GenericRepository {
 
   public List<Heladera> buscarActivas() {
     return entityManager()
-        .createQuery("SELECT h FROM Heladera h WHERE h.estadoActual.estado = :activa", Heladera.class)
+        .createQuery(
+            "SELECT h FROM Heladera h WHERE h.estadoActual.estado = :activa",
+            Heladera.class
+        )
         .setParameter("activa", TipoEstado.ACTIVA)
         .getResultList();
   }

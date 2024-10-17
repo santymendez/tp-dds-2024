@@ -152,30 +152,32 @@ public class Heladera extends Persistente {
 
   public void agregarVianda(Vianda vianda) {
     if (!this.tieneEspacio()) {
-      throw new RuntimeException("No hay mas espacio en la heladera");
+      System.out.println("No hay espacio en la heladera.");
+      return;
     }
 
     this.viandas.add(vianda);
-    vianda.setEntregada(true);
-
-    Heladera heladera = vianda.getHeladera();
-    //heladera.getModReportes().getReporteHeladera().viandaColocada(); Se hace en el controller
-    heladera.intentarNotificarSuscriptores(); //Deberia ir a controller
+    this.intentarNotificarSuscriptores();
   }
 
   /**
    * Se elimina una vianda de la heladera (sirve para la distribución).
    */
 
-  public void removerVianda(Vianda vianda) {
-    if (this.viandas.isEmpty()) {
-      throw new RuntimeException("No hay viandas para retirar");
+  public List<Vianda> removerViandas(Integer cant) {
+    if (cant > this.viandas.size()) {
+      System.out.println("No hay suficiente espacio en la heladera.");
+      return null;
     }
 
-    this.viandas.remove(vianda);
+    List<Vianda> viandasRemovidas = new ArrayList<>();
+    for (int i = 0; i < cant; i++) {
+      viandasRemovidas.add(this.viandas.remove(viandas.size() - 1));
+    }
 
-    //heladera.getModReportes().getReporteHeladera().viandaRetirada(); en el controller
-    this.intentarNotificarSuscriptores(); //Deberia ir a controller
+    this.intentarNotificarSuscriptores();
+
+    return viandasRemovidas;
   }
 
   //==================================== Estados ========================================

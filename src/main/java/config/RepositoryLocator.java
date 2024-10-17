@@ -12,6 +12,8 @@ import models.repositories.imp.ModelosRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
 import models.repositories.imp.ReportesSemanalesRepository;
+import models.repositories.imp.SensoresMovimientoRepository;
+import models.repositories.imp.SensoresTemperaturaRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
 import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.TecnicosRepository;
@@ -71,6 +73,10 @@ public class RepositoryLocator {
         instances.put(repositoryClassName, new ReportesSemanalesRepository());
       } else if (repositoryClass.equals(ModelosRepository.class)) {
         instances.put(repositoryClassName, new ModelosRepository());
+      } else if (repositoryClass.equals(SensoresTemperaturaRepository.class)) {
+        instances.put(repositoryClassName, new SensoresTemperaturaRepository());
+      } else if (repositoryClass.equals(SensoresMovimientoRepository.class)) {
+        instances.put(repositoryClassName, new SensoresMovimientoRepository());
       }
     }
 

@@ -28,6 +28,7 @@ import utils.sender.SenderInterface;
 @Entity
 @Table(name = "suscripciones")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//TODO DISCRIMINAR NOTIFICACIONES PARA QUE NO MANDE VARIAS VECES LA DE DESPERFECTO?
 public abstract class Suscripcion extends Persistente {
 
   @ManyToOne

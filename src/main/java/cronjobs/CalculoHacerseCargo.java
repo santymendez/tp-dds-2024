@@ -29,7 +29,7 @@ public class CalculoHacerseCargo {
     ColaboradoresRepository colaboradoresRepository = RepositoryLocator
         .instanceOf(ColaboradoresRepository.class);
 
-    List<Colaborador> colaboradores = colaboradoresRepository.buscarTodos();
+    List<Colaborador> colaboradores = colaboradoresRepository.buscarTodosCon1MesActivoMinimo();
 
     for (Colaborador colaborador : colaboradores) {
 
@@ -38,7 +38,12 @@ public class CalculoHacerseCargo {
           .toList();
 
       for (Colaboracion colaboracion : colaboraciones) {
+        colaboracion.getHacerseCargoHeladera().getHeladeraColocada().getEstadosHeladera().sort(
+            (e1, e2) -> e1.getFechaInicial().compareTo(e2.getFechaInicial()));
+
         colaborador.getReconocimiento().sumarPuntos(colaboracion);
+
+        System.out.println(colaborador.getReconocimiento().getPuntosPorColaborar());
       }
 
       colaboradoresRepository.modificar(colaborador);

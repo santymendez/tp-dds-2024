@@ -142,6 +142,20 @@ public class Heladera extends Persistente {
         .sum();
   }
 
+  /**
+   * Metodo para calcular los meses que una heladera estuvo inactiva hasta el momento
+   * en que se pide calcular.
+   */
+
+  public boolean estuvoActivaElUltimoMes() {
+    return estadoActual.getEstado() == TipoEstado.ACTIVA
+        && estadoActual.calcularMeses() >= 1;
+  }
+
+  public boolean recienCargadaEnSistema() {
+    return super.recienCargado();
+  }
+
   //==================================== Almacenamiento ========================================
 
   /**

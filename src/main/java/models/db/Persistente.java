@@ -32,4 +32,8 @@ public abstract class Persistente {
     this.fechaAlta = LocalDate.now();
     this.activo = true;
   }
+
+  public boolean recienCargado() {
+    return fechaAlta.isAfter(LocalDate.now().minusMonths(1));
+  }
 }

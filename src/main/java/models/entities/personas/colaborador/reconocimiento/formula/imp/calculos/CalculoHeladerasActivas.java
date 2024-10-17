@@ -2,6 +2,7 @@ package models.entities.personas.colaborador.reconocimiento.formula.imp.calculos
 
 import lombok.Setter;
 import models.entities.colaboracion.Colaboracion;
+import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.reconocimiento.formula.InterfazFormula;
 
 /**
@@ -15,10 +16,16 @@ public class CalculoHeladerasActivas implements InterfazFormula {
   @Override
   public Float calcularPuntosDe(Colaboracion colaboracion) {
 
-    // El calculo se hace 1 vez al mes para todos los colaboradores,
-    // entonces, si tiene un mes activa, comienza a sumar puntos.
+    // La primera vez que se llama a calcularMesesActiva() se calcula la cantidad de meses que
+    // estuvo activa la heladera.
 
-    return colaboracion.getHacerseCargoHeladera()
-        .getHeladeraColocada().calcularMesesActiva() > 0 ? coeficiente : 0;
+    Heladera heladera = colaboracion.getHacerseCargoHeladera().getHeladeraColocada();
+
+    if (heladera.recienCargadaEnSistema()) {
+      return colaboracion.getHacerseCargoHeladera().getHeladeraColocada()
+          .calcularMesesActiva() * coeficiente;
+    } else {
+      return heladera.estuvoActivaElUltimoMes() ? coeficiente : 0f;
+    }
   }
 }

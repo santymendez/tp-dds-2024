@@ -45,6 +45,11 @@ public class ColaboradoresRepository extends GenericRepository {
     return super.buscarTodos(Colaborador.class);
   }
 
+  public List<Colaborador> buscarTodosCon1MesActivoMinimo() {
+    String query = "SELECT c FROM Colaborador c WHERE c.fechaAlta <= CURRENT_DATE - 30";
+    return entityManager().createQuery(query, Colaborador.class).getResultList();
+  }
+
   /**
    * Busca un colaborador por su número de documento.
    *

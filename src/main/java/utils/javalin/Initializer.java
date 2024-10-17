@@ -193,22 +193,26 @@ public class Initializer {
   static Heladera heladera3;
   static Heladera heladeraRota;
 
-  static Estado estadoActual1;
-  static Estado estadoActual2;
-  static Estado estadoActual3;
-  static Estado estadoActualRota;
-
   static List<Estado> lstEstados1;
   static List<Estado> lstEstados2;
   static List<Estado> lstEstados3;
   static List<Estado> lstEstados4;
 
-  static Estado estado1;
-  static Estado estado2;
-  static Estado estado3;
-  static Estado estado4;
-  static Estado estado5;
-  static Estado estado6;
+  static Estado estado1H1;
+  static Estado estado2H1;
+  static Estado estado3H1;
+
+  static Estado estado1H2;
+  static Estado estado2H2;
+  static Estado estado3H2;
+  static Estado estado4H2;
+
+  static Estado estado1H3;
+  static Estado estado2H3;
+  static Estado estado3H3;
+
+  static Estado estado1HR;
+  static Estado estado2HR;
 
   static SensorMovimiento sensorMovimiento1;
   static SensorMovimiento sensorMovimiento2;
@@ -347,8 +351,8 @@ public class Initializer {
     iniciarDirecciones();
     iniciarEstados();
     iniciarModelos();
-    iniciarSensores();
     iniciarHeladeras();
+    iniciarSensores();
     iniciarIncidentes();
     iniciarViandas();
     iniciarRegistrosVulnerables();
@@ -426,6 +430,16 @@ public class Initializer {
     repoGenerico.guardar(heladera2);
     repoGenerico.guardar(heladera3);
     repoGenerico.guardar(heladeraRota);
+
+    repoGenerico.guardar(sensorMovimiento1);
+    repoGenerico.guardar(sensorMovimiento2);
+    repoGenerico.guardar(sensorMovimiento3);
+    repoGenerico.guardar(sensorMovimiento4);
+
+    repoGenerico.guardar(sensorTemperatura1);
+    repoGenerico.guardar(sensorTemperatura2);
+    repoGenerico.guardar(sensorTemperatura3);
+    repoGenerico.guardar(sensorTemperatura4);
 
     repoGenerico.guardar(villalva);
     repoGenerico.guardar(enrique);
@@ -760,7 +774,7 @@ public class Initializer {
 
     heladera1 = new Heladera();
     heladera1.setFechaDeCreacion(LocalDate.now());
-    heladera1.setEstadoActual(estadoActual1);
+    heladera1.setEstadoActual(estado3H1);
     heladera1.setDireccion(direccion1);
     heladera1.setNombre("Heladera Porteña");
     heladera1.setEstadosHeladera(lstEstados1);
@@ -768,8 +782,8 @@ public class Initializer {
     modelo1.setCapacidadMaximaViandas(18);
 
     heladera2 = new Heladera();
-    heladera2.setFechaDeCreacion(LocalDate.now());
-    heladera2.setEstadoActual(estadoActual2);
+    heladera2.setFechaDeCreacion(LocalDate.of(2021, 10, 10));
+    heladera2.setEstadoActual(estado4H2);
     heladera2.setDireccion(direccion2);
     heladera2.setNombre("Heladera Cordobesa");
     heladera2.setEstadosHeladera(lstEstados2);
@@ -778,7 +792,7 @@ public class Initializer {
 
     heladera3 = new Heladera();
     heladera3.setFechaDeCreacion(LocalDate.now());
-    heladera3.setEstadoActual(estadoActual3);
+    heladera3.setEstadoActual(estado3H3);
     heladera3.setDireccion(direccion3);
     heladera3.setNombre("Heladera Santiagueña");
     heladera3.setEstadosHeladera(lstEstados3);
@@ -787,7 +801,7 @@ public class Initializer {
 
     heladeraRota = new Heladera();
     heladeraRota.setFechaDeCreacion(LocalDate.of(2012, 9, 15));
-    heladeraRota.setEstadoActual(estadoActualRota);
+    heladeraRota.setEstadoActual(estado2HR);
     heladeraRota.setDireccion(direccion4);
     heladeraRota.setNombre("Heladera Rota");
     heladeraRota.setEstadosHeladera(lstEstados4);
@@ -919,21 +933,21 @@ public class Initializer {
 
     direccion2 = new Direccion();
     direccion2.setBarrio(barrio2);
-    direccion2.setNombreUbicacion("Ruy Díaz de Guzmán 675, Villa Alem, Rio Cuarto");
+    direccion2.setNombreUbicacion("Ruy Díaz de Guzmán 675, X5800 Río Cuarto, Córdoba");
     direccion2.setLongitud(-64.353041F);
     direccion2.setLatitud(-33.136980F);
 
     direccion3 = new Direccion();
     direccion3.setBarrio(barrio3);
-    direccion3.setNombreUbicacion("Lavalle 800, Villa Griselda, La Banda");
+    direccion3.setNombreUbicacion("Lavalle 800, G4300 La Banda, Santiago del Estero");
     direccion3.setLongitud(-64.239235F);
     direccion3.setLatitud(-27.732836F);
 
     direccion4 = new Direccion();
     direccion4.setBarrio(barrio4);
-    direccion4.setNombreUbicacion("Sarmiento 15, Ameghino Viejo, Florentino Ameghino");
-    direccion4.setLongitud(-62.4653F);
-    direccion4.setLatitud(-34.7935F);
+    direccion4.setNombreUbicacion("B6064 Florentino Ameghino, Provincia de Buenos Aires");
+    direccion4.setLongitud(-62.4674F);
+    direccion4.setLatitud(-34.8461F);
   }
 
   static void iniciarBarrios() {
@@ -1060,66 +1074,94 @@ public class Initializer {
 
   static void iniciarEstados() {
 
-    estadoActual1 = new Estado();
-    estadoActual1.setEstado(TipoEstado.ACTIVA);
-    estadoActual1.setFechaInicial(LocalDate.of(2021, 10, 10));
-    estadoActual1.setFechaFinal(LocalDate.of(2021, 10, 11));
+    // Estados de la primer heladera
 
-    estadoActual2 = new Estado();
-    estadoActual2.setEstado(TipoEstado.ACTIVA);
-    estadoActual2.setFechaInicial(LocalDate.of(2021, 11, 12));
-    estadoActual2.setFechaFinal(LocalDate.of(2021, 11, 13));
+    estado1H1 = new Estado();
+    estado1H1.setEstado(TipoEstado.ACTIVA);
+    estado1H1.setFechaInicial(LocalDate.of(2021, 1, 1));
+    estado1H1.setFechaFinal(LocalDate.of(2021, 6, 30));
 
-    estadoActual3 = new Estado();
-    estadoActual3.setEstado(TipoEstado.ACTIVA);
-    estadoActual3.setFechaInicial(LocalDate.of(2021, 12, 14));
-    estadoActual3.setFechaFinal(LocalDate.of(2021, 12, 15));
+    estado2H1 = new Estado();
+    estado2H1.setEstado(TipoEstado.INACTIVA_FUNCIONAL);
+    estado2H1.setFechaInicial(LocalDate.of(2021, 7, 1));
+    estado2H1.setFechaFinal(LocalDate.of(2022, 6, 30));
 
-    estadoActualRota = new Estado();
-    estadoActualRota.setEstado(TipoEstado.INACTIVA_TEMPERATURA);
-    estadoActualRota.setFechaInicial(LocalDate.of(2023, 1, 14));
-    estadoActualRota.setFechaFinal(LocalDate.of(2024, 4, 15));
+    estado3H1 = new Estado();
+    estado3H1.setEstado(TipoEstado.ACTIVA);
+    estado3H1.setFechaInicial(LocalDate.of(2022, 7, 1));
+    estado3H1.setFechaFinal(LocalDate.now());
+
+    // Estados de la segunda heladera
+
+    estado1H2 = new Estado();
+    estado1H2.setEstado(TipoEstado.ACTIVA);
+    estado1H2.setFechaInicial(LocalDate.of(2021, 1, 1));
+    estado1H2.setFechaFinal(LocalDate.of(2022, 3, 31));
+
+    estado2H2 = new Estado();
+    estado2H2.setEstado(TipoEstado.INACTIVA_TEMPERATURA);
+    estado2H2.setFechaInicial(LocalDate.of(2022, 4, 1));
+    estado2H2.setFechaFinal(LocalDate.of(2022, 4, 15));
+
+    estado3H2 = new Estado();
+    estado3H2.setEstado(TipoEstado.INACTIVA_FUNCIONAL);
+    estado3H2.setFechaInicial(LocalDate.of(2022, 4, 16));
+    estado3H2.setFechaFinal(LocalDate.of(2022, 5, 15));
+
+    estado4H2 = new Estado();
+    estado4H2.setEstado(TipoEstado.ACTIVA);
+    estado4H2.setFechaInicial(LocalDate.of(2022, 5, 16));
+    estado4H2.setFechaFinal(LocalDate.now());
+
+    // Estados de la tercer heladera
+
+    estado1H3 = new Estado();
+    estado1H3.setEstado(TipoEstado.ACTIVA);
+    estado1H3.setFechaInicial(LocalDate.of(2021, 1, 1));
+    estado1H3.setFechaFinal(LocalDate.of(2021, 3, 31));
+
+    estado2H3 = new Estado();
+    estado2H3.setEstado(TipoEstado.INACTIVA_TEMPERATURA);
+    estado2H3.setFechaInicial(LocalDate.of(2021, 4, 1));
+    estado2H3.setFechaFinal(LocalDate.of(2021, 6, 30));
+
+    estado3H3 = new Estado();
+    estado3H3.setEstado(TipoEstado.ACTIVA);
+    estado3H3.setFechaInicial(LocalDate.of(2021, 7, 1));
+    estado3H3.setFechaFinal(LocalDate.now());
+
+    // Estados de la heladera rota
+
+    estado1HR = new Estado();
+    estado1HR.setEstado(TipoEstado.ACTIVA);
+    estado1HR.setFechaInicial(LocalDate.of(2021, 1, 1));
+    estado1HR.setFechaFinal(LocalDate.of(2023, 4, 15));
+
+    estado2HR = new Estado();
+    estado2HR.setEstado(TipoEstado.INACTIVA_FRAUDE);
+    estado2HR.setFechaInicial(LocalDate.of(2023, 4, 16));
+    estado2HR.setFechaFinal(LocalDate.now());
 
     lstEstados1 = new ArrayList<>();
     lstEstados2 = new ArrayList<>();
     lstEstados3 = new ArrayList<>();
     lstEstados4 = new ArrayList<>();
 
-    estado1 = new Estado();
-    estado1.setEstado(TipoEstado.ACTIVA);
-    estado1.setFechaInicial(LocalDate.of(2021, 10, 10));
-    estado1.setFechaFinal(LocalDate.of(2021, 10, 11));
-    lstEstados1.add(estado1);
+    lstEstados1.add(estado1H1);
+    lstEstados1.add(estado2H1);
+    lstEstados1.add(estado3H1);
 
-    estado2 = new Estado();
-    estado2.setEstado(TipoEstado.INACTIVA_FUNCIONAL);
-    estado2.setFechaInicial(LocalDate.of(2021, 11, 12));
-    estado2.setFechaFinal(LocalDate.of(2021, 11, 13));
-    lstEstados2.add(estado2);
+    lstEstados2.add(estado1H2);
+    lstEstados2.add(estado2H2);
+    lstEstados2.add(estado3H2);
+    lstEstados2.add(estado4H2);
 
-    estado3 = new Estado();
-    estado3.setEstado(TipoEstado.INACTIVA_TEMPERATURA);
-    estado3.setFechaInicial(LocalDate.of(2021, 12, 14));
-    estado3.setFechaFinal(LocalDate.of(2021, 12, 15));
-    lstEstados3.add(estado3);
+    lstEstados3.add(estado1H3);
+    lstEstados3.add(estado2H3);
+    lstEstados3.add(estado3H3);
 
-    estado4 = new Estado();
-    estado4.setEstado(TipoEstado.ACTIVA);
-    estado4.setFechaInicial(LocalDate.of(2022, 1, 16));
-    estado4.setFechaFinal(LocalDate.of(2022, 1, 17));
-    lstEstados1.add(estado4);
-
-    estado5 = new Estado();
-    estado5.setEstado(TipoEstado.INACTIVA_FRAUDE);
-    estado5.setFechaInicial(LocalDate.of(2022, 2, 18));
-    estado5.setFechaFinal(LocalDate.of(2022, 2, 19));
-    lstEstados2.add(estado5);
-
-    estado6 = new Estado();
-    estado6.setEstado(TipoEstado.INACTIVA_FRAUDE);
-    estado6.setFechaInicial(LocalDate.of(2022, 2, 18));
-    estado6.setFechaFinal(LocalDate.of(2022, 2, 19));
-    lstEstados4.add(estado6);
+    lstEstados4.add(estado1HR);
+    lstEstados4.add(estado2HR);
   }
 
   static void iniciarModelos() {

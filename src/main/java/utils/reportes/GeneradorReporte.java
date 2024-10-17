@@ -101,7 +101,7 @@ public class GeneradorReporte {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return path;
+    return "/" + path;
   }
 
   private static int agregarLineaTexto(

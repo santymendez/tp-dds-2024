@@ -17,6 +17,7 @@ import controllers.ReportesController;
 import controllers.SuscribirseController;
 import controllers.VisitasTecnicasController;
 import controllers.VulnerablesController;
+import controllers.colaboraciones.DistribuirTarjetasController;
 import controllers.colaboraciones.DistribuirViandasController;
 import controllers.colaboraciones.DonarDineroController;
 import controllers.colaboraciones.DonarViandasController;
@@ -112,7 +113,7 @@ public class ControllerLocator {
 
       } else if (controllerClass.equals(MapaController.class)) {
         MapaController instance =
-            new MapaController(RepositoryLocator.instanceOf(GenericRepository.class));
+            new MapaController(RepositoryLocator.instanceOf(HeladerasRepository.class));
         instances.put(controllerName, instance);
 
       } else if (controllerClass.equals(CsvController.class)) {
@@ -201,6 +202,11 @@ public class ControllerLocator {
         );
         instances.put(controllerName, instance);
 
+      } else if (controllerClass.equals(DistribuirTarjetasController.class)) {
+        DistribuirTarjetasController instance = new DistribuirTarjetasController(
+            ServiceLocator.instanceOf(ColaboracionesService.class)
+        );
+        instances.put(controllerName, instance);
       } else if (controllerClass.equals(AgregarDireccionController.class)) {
         AgregarDireccionController instance = new AgregarDireccionController(
             RepositoryLocator.instanceOf(GenericRepository.class),
@@ -212,7 +218,7 @@ public class ControllerLocator {
       } else if (controllerClass.equals(ReportesController.class)) {
         ReportesController instance = new ReportesController(
             RepositoryLocator.instanceOf(GenericRepository.class),
-                RepositoryLocator.instanceOf(ReportesSemanalesRepository.class)
+            RepositoryLocator.instanceOf(ReportesSemanalesRepository.class)
         );
         instances.put(controllerName, instance);
 

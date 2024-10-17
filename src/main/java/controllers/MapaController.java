@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import models.entities.heladera.Heladera;
+import models.entities.personas.users.TipoRol;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.HeladerasRepository;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -14,23 +16,30 @@ import utils.javalin.InterfaceCrudViewsHandler;
 
 public class MapaController implements InterfaceCrudViewsHandler {
 
-  private final GenericRepository repositorioDeHeladeras;
+  private final HeladerasRepository repositorioDeHeladeras;
 
-  public MapaController(GenericRepository repo) {
+  public MapaController(HeladerasRepository repo) {
     this.repositorioDeHeladeras = repo;
   }
 
   @Override
   public void index(Context context) {
-    List<Heladera> heladeras = this.repositorioDeHeladeras.buscarTodos(Heladera.class);
+    List<Heladera> heladeras;
+    TipoRol tipoRol = TipoRol.valueOf(context.sessionAttribute("tipoRol"));
+
+    if (tipoRol.equals(TipoRol.TECNICO)) {
+      heladeras = this.repositorioDeHeladeras.buscarInactivas();
+    } else if (tipoRol.equals(TipoRol.ADMINISTRADOR)) {
+      heladeras = this.repositorioDeHeladeras.buscarTodos();
+    } else {
+      heladeras = this.repositorioDeHeladeras.buscarActivas();
+    }
 
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Mapa Heladeras");
     model.put("heladeras", heladeras);
     model.put("activeSession", true);
-    model.put("tipoRol", context.sessionAttribute("tipoRol"));
-
-    System.out.println(model);
+    model.put("tipoRol", tipoRol.toString());
 
     context.render("mapa.hbs", model);
   }

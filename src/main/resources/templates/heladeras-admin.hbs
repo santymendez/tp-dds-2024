@@ -244,6 +244,11 @@
                             <h4>Alerta: {{this.getTipoAlerta}}</h4>
                             <h4>Heladera: {{this.getHeladera.getNombre}}</h4>
                             <h4>Momento: {{this.getMomentoIncidente}}</h4>
+                            {{#if this.solucionado}}
+                                <h4>Estado: Solucionado</h4>
+                            {{else}}
+                                <h4>Estado: No Solucionado</h4>
+                            {{/if}}
                         </div>
                     </a>
                 {{/each}}

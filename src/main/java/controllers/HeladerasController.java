@@ -90,7 +90,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     List<Provincia> provincias = this.genericRepository.buscarTodos(Provincia.class);
     model.put("provincias", provincias);
 
-    List<Incidente> alertas = this.incidentesRepository.buscarNoSolucionados();
+    List<Incidente> alertas = this.incidentesRepository.buscarTodos();
     model.put("alertas", alertas);
 
     List<Modelo> modelos = this.genericRepository.buscarTodos(Modelo.class);

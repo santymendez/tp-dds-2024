@@ -8,9 +8,9 @@
         {{#each reportes}}
             <a href="{{this.path}}"
                download="{{this.nombre}}"
-               class="list-group-item top-item list-group-item-action">{{this.nombre}}</a>
+               class="list-group-item list-group-item-action">{{this.nombre}}</a>
         {{/each}}
-        <p>Haga click para descargar</p>
+        <p>Haga click para descargar un Reporte</p>
     </div>
 
     <form method="POST" action="/heladeras-solidarias/reportes">
@@ -28,7 +28,7 @@
                            id="fechaFinal" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Pedir reportes</button>
+            <button type="submit" class="btn btn-primary">Pedir Reportes</button>
         </div>
     </form>
 

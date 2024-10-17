@@ -91,9 +91,6 @@ public class ColaboracionesService {
         LocalDate.parse(donacionViandasDto.getFechaVencimiento())
     );
 
-    ReporteHeladera reporteHeladera = this
-        .reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();
-
     for (int i = 0; i < cantViandas; i++) {
       Vianda vianda = new Vianda(
           comida,

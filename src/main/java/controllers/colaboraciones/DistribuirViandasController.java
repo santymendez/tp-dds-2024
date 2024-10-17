@@ -90,6 +90,15 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
         .buscarPorId(Long.parseLong(distrbucionDto.getHeladeraDestino()), Heladera.class)
         .get();
 
+    int cantViandas = Integer.parseInt(distrbucionDto.getCantViandasDistribuidas());
+    if (cantViandas > heladeraOrigen.consultarStock()
+        || cantViandas > heladeraDestino.consultarEspacioSobrante()) {
+      //TODO MODAL
+      context.redirect("/heladeras-solidarias?errorDistribucion=true&espacioDisponible="
+          + cantViandas);
+      return;
+    }
+
     Colaboracion colaboracion =
         this.colaboracionesService.crear(distrbucionDto, heladeraOrigen, heladeraDestino);
 

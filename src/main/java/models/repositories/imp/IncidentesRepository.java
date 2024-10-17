@@ -48,20 +48,6 @@ public class IncidentesRepository extends GenericRepository {
   }
 
   /**
-   * Devuelve todos los incidentes de tipo Alerta.
-   *
-   * @return todas las alertas.
-   */
-
-  public List<Incidente> buscarAlertas() {
-    return
-        this.buscarTodos()
-            .stream()
-            .filter(i -> i.getTipo().equals(TipoIncidente.ALERTA))
-            .toList();
-  }
-
-  /**
    * Busca los incidentes no resueltos de una heladera.
    *
    * @param tipoAlerta el tipo de la alerta.
@@ -77,20 +63,6 @@ public class IncidentesRepository extends GenericRepository {
         )
         .setParameter("idHeladera", idHeladera)
         .setParameter("tipoAlerta", tipoAlerta)
-        .getResultList();
-  }
-
-  /**
-   * Devuelve todos los incidentes de tipo Mantenimiento.
-   *
-   * @param idHeladera id de la heladera.
-   * @return todos los mantenimientos.
-   */
-
-  public List<Incidente> buscarPorHeladera(Long idHeladera) {
-    return entityManager()
-        .createQuery("FROM Incidente i WHERE i.heladera.id = :idHeladera", Incidente.class)
-        .setParameter("idHeladera", idHeladera)
         .getResultList();
   }
 

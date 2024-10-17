@@ -46,7 +46,7 @@ public class Router {
     app.get("/heladeras-solidarias",
         ControllerLocator.instanceOf(HomePageController.class)::index);
 
-    // INICIAR SESION / REGISTRARSE
+    // INICIAR SESION / REGISTRARSE / CERRAR SESION
     app.get("/heladeras-solidarias/iniciar-sesion",
         ControllerLocator.instanceOf(IniciarSesionController.class)::create);
 
@@ -132,7 +132,9 @@ public class Router {
     }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
 
     app.get("/heladeras-solidarias/ver-mapa",
-        ControllerLocator.instanceOf(MapaController.class)::index);
+        ControllerLocator.instanceOf(MapaController.class)::index,
+        TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR, TipoRol.TECNICO
+    );
 
     app.get("/heladeras-solidarias/recomendaciones",
         ControllerLocator.instanceOf(RecomendacionesController.class)::index,

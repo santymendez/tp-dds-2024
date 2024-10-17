@@ -19,12 +19,13 @@
         let lugar, lat, long, marker, markers = [];
 
             {{#each heladeras}}
-            lugar = "{{this.direccion.nombreUbicacion}}";
-            lat = parseFloat({{this.direccion.latitud}});
-            long = parseFloat({{this.direccion.longitud}});
-            marker = L.marker([lat, long]).addTo(map)
-                    .bindPopup('<b>' + lugar + '</b>');
-            markers.push(marker)
+                lugar = "{{this.direccion.nombreUbicacion}}";
+                lat = parseFloat({{this.direccion.latitud}});
+                long = parseFloat({{this.direccion.longitud}});
+                marker = L.marker([lat, long]).addTo(map)
+                        .bindPopup('<b>' + lugar + '</b>' +
+                            '<br><div style="text-align: center;"> {{this.estadoActual.estado}}</div>');
+                markers.push(marker)
             {{/each}}
 
         const group = L.featureGroup(markers);

@@ -3,7 +3,9 @@ package models.repositories.imp;
 import java.util.List;
 import java.util.Optional;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.estados.Estado;
 import models.entities.heladera.estados.TipoEstado;
+import models.entities.personas.users.TipoRol;
 
 /**
  * Repositorio de heladeras.
@@ -46,9 +48,17 @@ public class HeladerasRepository extends GenericRepository {
     return super.buscarTodos(Heladera.class);
   }
 
+  /**
+   * Busca todas las heladeras activas.
+   *
+   * @return Lista de heladeras activas.
+   */
+
   public List<Heladera> buscarActivas() {
-    return this.buscarTodos().stream()
-        .filter(h -> h.getEstadoActual().getEstado().equals(TipoEstado.ACTIVA)).toList();
+    return entityManager()
+        .createQuery("SELECT h FROM Heladera h WHERE h.estadoActual.estado = :activa", Heladera.class)
+        .setParameter("activa", TipoEstado.ACTIVA)
+        .getResultList();
   }
 
   public List<Heladera> buscarInactivas() {

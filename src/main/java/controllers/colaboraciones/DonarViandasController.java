@@ -90,7 +90,7 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
 
     int cantViandas = Integer.parseInt(donacionViandasDto.getCantViandas());
 
-    if (cantViandas <= heladera.consultarEspacioSobrante()) {
+    if (heladera.hayEspacioPara(cantViandas)) {
       Colaboracion colaboracion =
           this.colaboracionesService.crear(donacionViandasDto, heladera, colaborador);
 

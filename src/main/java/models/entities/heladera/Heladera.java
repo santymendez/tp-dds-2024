@@ -82,35 +82,6 @@ public class Heladera extends Persistente {
   private Limitador limitador;
 
   /**
-   * Se inicializa la heladera (Dar de alta).
-   *
-   * @param direccion              es la direccion actual de la heladera.
-   * @param nombre                 es el nombre de la heladera.
-   * @param modelo                 es el modelo de la heladera.
-   * @param fechaDeCreacion        fecha en la que se colocó la heladera.
-   */
-
-  public Heladera(Direccion direccion, String nombre,
-                  LocalDate fechaDeCreacion,
-                  Modelo modelo) {
-    this.direccion = direccion;
-    this.nombre = nombre;
-    this.fechaDeCreacion = fechaDeCreacion;
-    this.modelo = modelo;
-    this.estaAbierta = false;
-    this.viandas = new ArrayList<>();
-
-    this.estadosHeladera = new ArrayList<>();
-    this.estadoActual = new Estado(TipoEstado.ACTIVA);
-    this.estadosHeladera.add(estadoActual);
-
-    this.suscripciones = new ArrayList<>();
-
-    this.tarjetasHabilitadas = new ArrayList<>();
-    this.limitador = new Limitador(UnidadTiempo.HORAS, 3);
-  }
-
-  /**
    * Contructor sin argumentos de la clase heladera.
    */
 
@@ -120,6 +91,7 @@ public class Heladera extends Persistente {
 
     this.estadosHeladera = new ArrayList<>();
     this.estadoActual = new Estado(TipoEstado.ACTIVA);
+    this.estadoActual.setFechaInicial(LocalDate.now());
     this.estadosHeladera.add(estadoActual);
 
     this.suscripciones = new ArrayList<>();
@@ -151,10 +123,6 @@ public class Heladera extends Persistente {
   public boolean estuvoActivaElUltimoMes() {
     return estadoActual.getEstado() == TipoEstado.ACTIVA
         && estadoActual.calcularMeses() >= 1;
-  }
-
-  public boolean recienCargadaEnSistema() {
-    return super.recienCargado();
   }
 
   //==================================== Almacenamiento ========================================
@@ -210,6 +178,10 @@ public class Heladera extends Persistente {
     this.estadoActual = new Estado(estado);
     this.estadoActual.setFechaInicial(LocalDate.now());
     this.estadosHeladera.add(this.estadoActual);
+  }
+
+  public Boolean estaActiva() {
+    return this.estadoActual.getEstado().equals(TipoEstado.ACTIVA);
   }
 
   //==================================== Aperturas ========================================
@@ -309,6 +281,10 @@ public class Heladera extends Persistente {
 
   public Integer consultarEspacioSobrante() {
     return this.modelo.getCapacidadMaximaViandas() - this.consultarStock();
+  }
+
+  public Boolean hayEspacioPara(Integer cantidad) {
+    return this.consultarEspacioSobrante() >= cantidad;
   }
 
   private void notificarCantidadViandas() {

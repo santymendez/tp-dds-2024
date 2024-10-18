@@ -25,8 +25,23 @@ public class TestSolicitudes {
     this.tarjeta = new TarjetaColaborador();
     this.tarjeta.setColaborador(this.colaborador);
 
-    this.heladera1 = new Heladera(new Direccion(), "Heladera 1", LocalDate.now(), new Modelo());
-    this.heladera2 = new Heladera(new Direccion(), "Heladera 2", LocalDate.now(), new Modelo());
+    Direccion direccion1 = new Direccion();
+    Direccion direccion2 = new Direccion();
+
+    Modelo modelo1 = new Modelo();
+    Modelo modelo2 = new Modelo();
+
+    this.heladera1 = new Heladera();
+    this.heladera1.setDireccion(direccion1);
+    this.heladera1.setNombre("Heladera 1");
+    this.heladera1.setFechaDeCreacion(LocalDate.now());
+    this.heladera1.setModelo(modelo1);
+
+    this.heladera2 = new Heladera();
+    this.heladera2.setDireccion(direccion2);
+    this.heladera2.setNombre("Heladera 2");
+    this.heladera2.setFechaDeCreacion(LocalDate.now());
+    this.heladera2.setModelo(modelo2);
 
     tarjeta.agregarUso(new UsoTarjetaColaborador(), heladera1);
     this.heladera1.habilitarTarjeta(this.tarjeta);

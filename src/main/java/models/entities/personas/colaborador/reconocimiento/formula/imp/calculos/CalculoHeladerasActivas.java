@@ -21,7 +21,7 @@ public class CalculoHeladerasActivas implements InterfazFormula {
 
     Heladera heladera = colaboracion.getHacerseCargoHeladera().getHeladeraColocada();
 
-    if (heladera.recienCargadaEnSistema()) {
+    if (heladera.recienCargado()) {
       return colaboracion.getHacerseCargoHeladera().getHeladeraColocada()
           .calcularMesesActiva() * coeficiente;
     } else {

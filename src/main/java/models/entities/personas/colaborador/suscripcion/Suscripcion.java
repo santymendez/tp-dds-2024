@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import lombok.Getter;
 import lombok.Setter;
 import models.db.Persistente;
 import models.entities.heladera.Heladera;
@@ -25,10 +26,10 @@ import utils.sender.SenderInterface;
  */
 
 @Setter
+@Getter
 @Entity
 @Table(name = "suscripciones")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//TODO DISCRIMINAR NOTIFICACIONES PARA QUE NO MANDE VARIAS VECES LA DE DESPERFECTO?
 public abstract class Suscripcion extends Persistente {
 
   @ManyToOne
@@ -38,6 +39,10 @@ public abstract class Suscripcion extends Persistente {
   @ManyToOne
   @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
   protected Heladera heladera;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_suscripcion", nullable = false)
+  protected TipoSuscripcion tipo;
 
   public abstract Boolean seCumpleCondicion();
 

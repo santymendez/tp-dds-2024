@@ -14,7 +14,6 @@ import models.entities.personas.colaborador.Colaborador;
  */
 
 @Setter
-@NoArgsConstructor
 @Entity
 public class QuedanViandas extends Suscripcion {
 
@@ -33,6 +32,11 @@ public class QuedanViandas extends Suscripcion {
     this.colaborador = colaborador;
     this.heladera = heladera;
     this.viandasDisponibles = viandas;
+    this.tipo = TipoSuscripcion.QUEDAN_N_VIANDAS;
+  }
+
+  public QuedanViandas() {
+    this.tipo = TipoSuscripcion.QUEDAN_N_VIANDAS;
   }
 
   @Override
@@ -42,7 +46,7 @@ public class QuedanViandas extends Suscripcion {
 
   @Override
   public String getAsunto() {
-    return "Quedan sólo " + viandasDisponibles + " en una heladera.";
+    return "Quedan sólo " + viandasDisponibles + " viandas en la heladera.";
   }
 
   @Override

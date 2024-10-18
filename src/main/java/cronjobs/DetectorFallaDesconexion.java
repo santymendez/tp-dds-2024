@@ -8,6 +8,7 @@ import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.SensorTemperatura;
+import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
@@ -52,7 +53,7 @@ public class DetectorFallaDesconexion {
         ReporteHeladera reporte =
             reportesRepository.buscarSemanalPorHeladera(heladera.getId()).get();
         reporte.ocurrioUnaFalla();
-        heladera.intentarNotificarSuscriptores();
+        heladera.intentarNotificarSuscriptores(TipoSuscripcion.OCURRIO_DESPERFECTO);
 
       }
     }

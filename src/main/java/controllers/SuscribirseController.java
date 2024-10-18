@@ -60,6 +60,7 @@ public class SuscribirseController implements InterfaceCrudViewsHandler {
         this.suscripcionesService.crear(suscripcionInputDto, colaborador, heladera);
 
     suscripciones.forEach(heladera::agregarSuscripcion);
+    suscripciones.forEach(Suscripcion::intentarNotificar);
 
     this.heladerasRepository.modificar(heladera);
 

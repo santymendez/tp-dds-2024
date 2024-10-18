@@ -11,6 +11,7 @@ import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.incidente.TipoIncidente;
 import models.entities.heladera.sensores.MedicionSensor;
 import models.entities.heladera.sensores.SensorTemperatura;
+import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
@@ -84,7 +85,7 @@ public class TemperaturaListener implements IMqttMessageListener {
 
       this.buscadorTecnicosCercanos.notificarTecnicos(heladera);
 
-      heladera.intentarNotificarSuscriptores();
+      heladera.intentarNotificarSuscriptores(TipoSuscripcion.OCURRIO_DESPERFECTO);
 
       ReporteHeladera reporte =
           this.reportesRepository.buscarSemanalPorHeladera(heladera.getId()).get();

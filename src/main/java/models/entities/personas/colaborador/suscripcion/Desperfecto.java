@@ -18,7 +18,6 @@ import models.searchers.BuscadorHeladerasFrecuentes;
  */
 
 @Setter
-@NoArgsConstructor
 @Entity
 public class Desperfecto extends Suscripcion {
   
@@ -32,6 +31,11 @@ public class Desperfecto extends Suscripcion {
   public Desperfecto(Colaborador colaborador, Heladera heladera) {
     this.colaborador = colaborador;
     this.heladera = heladera;
+    this.tipo = TipoSuscripcion.OCURRIO_DESPERFECTO;
+  }
+
+  public Desperfecto() {
+    this.tipo = TipoSuscripcion.OCURRIO_DESPERFECTO;
   }
 
   @Override

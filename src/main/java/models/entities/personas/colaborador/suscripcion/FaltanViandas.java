@@ -1,9 +1,7 @@
 package models.entities.personas.colaborador.suscripcion;
 
-import config.SenderLocator;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
@@ -14,12 +12,10 @@ import models.entities.personas.colaborador.Colaborador;
  */
 
 @Setter
-@NoArgsConstructor
 @Entity
 public class FaltanViandas extends Suscripcion {
 
   @Column(name = "viandasFaltantes")
-  @Setter
   private Integer viandasFaltantes;
 
   /**
@@ -34,6 +30,11 @@ public class FaltanViandas extends Suscripcion {
     this.colaborador = colaborador;
     this.heladera = heladera;
     this.viandasFaltantes = viandas;
+    this.tipo = TipoSuscripcion.FALTAN_N_VIANDAS;
+  }
+
+  public FaltanViandas() {
+    this.tipo = TipoSuscripcion.FALTAN_N_VIANDAS;
   }
 
   @Override
@@ -45,11 +46,11 @@ public class FaltanViandas extends Suscripcion {
 
   @Override
   public String getAsunto() {
-    return "Faltan " + this.viandasFaltantes + " para que una heladera se encuentre llena.";
+    return "Faltan " + this.viandasFaltantes + " viandas para que la heladera se encuentre llena.";
   }
 
   @Override
   public String getCuerpo() {
-    return "No deposites más viandas en la heladera: " + this.heladera.getNombre();
+    return "No deposites más o distribuye las viandas en la heladera: " + this.heladera.getNombre();
   }
 }

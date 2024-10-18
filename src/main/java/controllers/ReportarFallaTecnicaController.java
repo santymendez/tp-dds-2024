@@ -9,6 +9,7 @@ import java.util.Objects;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
@@ -86,7 +87,7 @@ public class ReportarFallaTecnicaController implements InterfaceCrudViewsHandler
 
     this.buscadorTecnicosCercanos.notificarTecnicos(heladera);
 
-    heladera.intentarNotificarSuscriptores();
+    heladera.intentarNotificarSuscriptores(TipoSuscripcion.OCURRIO_DESPERFECTO);
 
     ReporteHeladera reporteHeladera =
         this.reportesRepository.buscarSemanalPorHeladera(heladeraId).get();

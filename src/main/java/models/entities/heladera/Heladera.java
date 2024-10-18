@@ -27,6 +27,7 @@ import models.entities.heladera.limitador.Limitador;
 import models.entities.heladera.limitador.UnidadTiempo;
 import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.suscripcion.Suscripcion;
+import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 
@@ -171,7 +172,7 @@ public class Heladera extends Persistente {
     }
 
     this.viandas.add(vianda);
-    this.intentarNotificarSuscriptores();
+    this.notificarCantidadViandas();
   }
 
   /**
@@ -189,7 +190,7 @@ public class Heladera extends Persistente {
       viandasRemovidas.add(this.viandas.remove(viandas.size() - 1));
     }
 
-    this.intentarNotificarSuscriptores();
+    this.notificarCantidadViandas();
 
     return viandasRemovidas;
   }
@@ -269,9 +270,13 @@ public class Heladera extends Persistente {
    * Esta logica va en un controller.
    */
 
-  public void intentarNotificarSuscriptores() {
+  public void intentarNotificarSuscriptores(TipoSuscripcion tipoSuscripcion) {
     if (!this.suscripciones.isEmpty()) {
-      this.suscripciones.parallelStream().forEach(Suscripcion::intentarNotificar);
+      suscripciones.stream()
+          .filter(s -> s.getTipo().equals(tipoSuscripcion))
+          .toList()
+          .parallelStream()
+          .forEach(Suscripcion::intentarNotificar);
     }
   }
 
@@ -304,6 +309,11 @@ public class Heladera extends Persistente {
 
   public Integer consultarEspacioSobrante() {
     return this.modelo.getCapacidadMaximaViandas() - this.consultarStock();
+  }
+
+  private void notificarCantidadViandas() {
+    this.intentarNotificarSuscriptores(TipoSuscripcion.QUEDAN_N_VIANDAS);
+    this.intentarNotificarSuscriptores(TipoSuscripcion.FALTAN_N_VIANDAS);
   }
 
   @PrePersist

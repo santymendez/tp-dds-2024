@@ -69,6 +69,8 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
     context.render("/registrar-vulnerable.hbs", model);
   }
 
+  // TODO atajar error cuando ponen una tarjeta que no es valida
+
   @Override
   public void save(Context context) {
     VulnerableInputDto vulnerableInputDto = VulnerableInputDto.fromContext(context);

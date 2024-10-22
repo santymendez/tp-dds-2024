@@ -9,16 +9,22 @@
     <form action="/heladeras-solidarias/registrar-visita" method="POST" class="form"
           enctype="multipart/form-data">
 
-        <div class="row medio">
+        <div class="row largo">
             <div class="mb-3">
-                <label for="incidenteHeladera" class="form-label centro3">Incidente por el que visita</label>
+                <label for="incidenteHeladera" class="form-label centro3">Incidente por el que
+                    visita</label>
                 <select name="incidente" class="form-select" id="incidenteHeladera" required>
                     <option selected value="">Seleccione un Incidente</option>
                     {{#each incidentes}}
-                        <option value="{{this.getId}}">Heladera: {{this.getHeladera.getNombre}}, Incidente: {{this.getTipoAlerta}}, Fecha: {{get.MomentoIncidente}}</option>
+                        <option value="{{this.getId}}">Heladera: {{this.getHeladera.getNombre}}
+                            Incidente: {{this.getTipoAlerta}},
+                            Fecha: {{this.getMomentoIncidente}}</option>
                     {{/each}}
                 </select>
             </div>
+        </div>
+
+        <div class="row medio">
 
             <div class="mb-3">
                 <label for="fechaVisita" class="form-label">Fecha de la Visita</label>
@@ -27,18 +33,23 @@
             </div>
 
             <div class="mb-3">
-                <label for="trabajoRealizado" class="form-label">Descripción del trabajo realizado</label>
-                <textarea name="trabajoRealizado" id="trabajoRealizado" class="form-control largo"></textarea>
+                <label for="trabajoRealizado" class="form-label">Descripción del trabajo
+                    realizado</label>
+                <textarea name="trabajoRealizado" id="trabajoRealizado"
+                          class="form-control largo"></textarea>
             </div>
 
             <div class="image-upload mb-3">
                 <label for="fotoVisita" class="form-label">Imagen</label>
-                <input name="fotoVisita" type="file" class="form-control form-control-lg noEspacio" id="fotoVisita">
+                <input name="fotoVisita" type="file" class="form-control form-control-lg noEspacio"
+                       id="fotoVisita">
             </div>
 
             <div class="mb-3 form-check centro2">
-                <input name="incidenteSolucionado" value ="true" type="checkbox" class="form-check-input " id="incidenteSolucionado">
-                <label for="incidenteSolucionado" class="col-form-label noEspacioRmx">¿Solucionó el problema?</label>
+                <input name="incidenteSolucionado" value="true" type="checkbox"
+                       class="form-check-input " id="incidenteSolucionado">
+                <label for="incidenteSolucionado" class="col-form-label noEspacioRmx">¿Solucionó el
+                    problema?</label>
             </div>
 
 
@@ -49,7 +60,8 @@
         </div>
     </form>
 
-    <div class="modal fade" id="errorId" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="errorId" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -60,10 +72,11 @@
                 </div>
                 <div class="modal-body">
                     <h4 id="mensajeError"> El ID ingresado no corresponde con ningún incidente.
-                                                Inténtalo de Nuevo</h4>
+                        Inténtalo de Nuevo</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar
+                    </button>
                 </div>
             </div>
         </div>
@@ -72,7 +85,7 @@
 
 {{#partial "scripts"}}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Lee los parámetros de la URL
             const params = new URLSearchParams(window.location.search);
 

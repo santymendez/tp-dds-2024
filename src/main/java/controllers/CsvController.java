@@ -57,6 +57,7 @@ public class CsvController implements InterfaceCrudViewsHandler {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Cargar CSV");
     model.put("activeSession", true);
+    model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
     context.render("cargar-csv.hbs", model);
   }

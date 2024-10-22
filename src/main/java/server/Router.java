@@ -70,6 +70,7 @@ public class Router {
         ControllerLocator.instanceOf(VulnerablesController.class)::create,
         TipoRol.PERSONA_FISICA, TipoRol.ADMINISTRADOR);
 
+    // TODO pop de success cuando se puede registrar al vulnerable
     app.post("/heladeras-solidarias/vulnerables",
         ControllerLocator.instanceOf(VulnerablesController.class)::save,
         TipoRol.PERSONA_FISICA);
@@ -80,6 +81,7 @@ public class Router {
         ControllerLocator.instanceOf(CanjearPuntosController.class)::index,
         TipoRol.PERSONA_FISICA, TipoRol.EMPRESA_ASOCIADA, TipoRol.ADMINISTRADOR);
 
+    // TODO pop de success cuando podes canjear los puntos
     app.post("/heladeras-solidarias/canjear-puntos",
         ControllerLocator.instanceOf(CanjearPuntosController.class)::update,
         TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA);
@@ -118,6 +120,7 @@ public class Router {
         ControllerLocator.instanceOf(HeladerasController.class)::index,
         TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
 
+    // TODO pop de success cuando te suscribis
     app.post("/heladeras-solidarias/heladeras", ctx -> {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {
@@ -131,10 +134,10 @@ public class Router {
       }
     }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
 
-    app.get("/heladeras-solidarias/ver-mapa",
+    app.get("/heladeras-solidarias/ver-mapa", //TODO
         ControllerLocator.instanceOf(MapaController.class)::index,
-        TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR, TipoRol.TECNICO
-    );
+        TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR, TipoRol.TECNICO,
+        TipoRol.EMPRESA_ASOCIADA);
 
     app.get("/heladeras-solidarias/recomendaciones",
         ControllerLocator.instanceOf(RecomendacionesController.class)::index,
@@ -152,6 +155,12 @@ public class Router {
         ControllerLocator.instanceOf(HeladerasController.class)::index,
         TipoRol.ADMINISTRADOR);
 
+    // TODO pop de success cuando se puede registrar un modelo
+    // TODO pop de success cuando se puede registrar una heladera
+    // TODO pop de success cuando se modifica una heladera
+    // TODO pop de success cuando se da de baja una heladera
+
+    // TODO modelo es requier, pero si o si ha que modificarlo cuando modificas la heladera ?
     app.post("/heladeras-solidarias/heladeras-admin", ctx -> {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {
@@ -173,6 +182,7 @@ public class Router {
         ControllerLocator.instanceOf(CsvController.class)::create,
         TipoRol.ADMINISTRADOR);
 
+    // TODO pop de success cuando se carga el csv
     app.post("heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController.class)::save,
         TipoRol.ADMINISTRADOR);

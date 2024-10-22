@@ -105,6 +105,7 @@ public class Initializer {
   static RealizacionOfertas realizarOferta1;
   static RealizacionOfertas realizarOferta2;
   static RealizacionOfertas realizarOferta3;
+  static RealizacionOfertas realizarOferta4;
 
   static Oferta oferta1;
   static Oferta oferta2;
@@ -114,6 +115,7 @@ public class Initializer {
   static Colaboracion realizarOfertaColab1;
   static Colaboracion realizarOfertaColab2;
   static Colaboracion realizarOfertaColab3;
+  static Colaboracion realizarOfertaColab4;
 
   @Getter
   static Direccion direccion1;
@@ -459,6 +461,7 @@ public class Initializer {
     colaboracionesRepository.guardar(realizarOfertaColab1);
     colaboracionesRepository.guardar(realizarOfertaColab2);
     colaboracionesRepository.guardar(realizarOfertaColab3);
+    colaboracionesRepository.guardar(realizarOfertaColab4);
 
     tecnicosRepository.guardar(liam);
     tecnicosRepository.guardar(santi);
@@ -715,6 +718,9 @@ public class Initializer {
     realizarOferta3 = new RealizacionOfertas();
     realizarOferta3.setOfertaRealizada(oferta3);
 
+    realizarOferta4 = new RealizacionOfertas();
+    realizarOferta4.setOfertaRealizada(oferta4);
+
     realizarOfertaColab1 = new Colaboracion();
     realizarOfertaColab1.setColaborador(elCityGroup);
     realizarOfertaColab1.setTipoColaboracion(TipoColaboracion.REALIZAR_OFERTAS);
@@ -732,6 +738,12 @@ public class Initializer {
     realizarOfertaColab3.setTipoColaboracion(TipoColaboracion.REALIZAR_OFERTAS);
     realizarOfertaColab3.setFechaColaboracion(LocalDate.of(2012, 7, 27));
     realizarOfertaColab3.setOfertaRealizada(realizarOferta3);
+
+    realizarOfertaColab4 = new Colaboracion();
+    realizarOfertaColab4.setColaborador(elCityGroup);
+    realizarOfertaColab4.setTipoColaboracion(TipoColaboracion.REALIZAR_OFERTAS);
+    realizarOfertaColab4.setFechaColaboracion(LocalDate.of(2022, 7, 11));
+    realizarOfertaColab4.setOfertaRealizada(realizarOferta4);
   }
 
   static void iniciarTarjetas() {
@@ -1430,7 +1442,7 @@ public class Initializer {
   static void iniciarIncidentes() {
     alerta1 = new Incidente(TipoIncidente.ALERTA, heladeraRota);
     alerta1.setTipoAlerta(TipoEstado.INACTIVA_TEMPERATURA);
-    alerta1.setMomentoIncidente(LocalDateTime.now());
+    alerta1.setMomentoIncidente(LocalDateTime.of(2024, 6, 16, 12, 0));
   }
 
   static void iniciarRepos() {

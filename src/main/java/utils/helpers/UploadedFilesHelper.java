@@ -46,7 +46,7 @@ public class UploadedFilesHelper {
 
   public static String getImageFromContext(Context context) {
     UploadedFile file = context.uploadedFile("imagen");
-    String imagePath = null;
+    String imagePath = "/static-imgs/logo.png";
 
     if (file != null) {
       if (!file.filename().isEmpty()) {
@@ -58,8 +58,6 @@ public class UploadedFilesHelper {
         } catch (IOException e) {
           e.printStackTrace();
         }
-      } else {
-        imagePath = "/static-imgs/logo.png";
       }
     }
 

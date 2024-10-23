@@ -3,13 +3,13 @@ package controllers.colaboraciones;
 import dtos.DireccionInputDto;
 import dtos.HeladeraInputDto;
 import io.javalin.http.Context;
+import java.time.LocalDate;
 import java.util.Objects;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
 import models.entities.personas.colaborador.Colaborador;
-import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import services.ColaboracionesService;
 import services.DireccionesService;
@@ -17,6 +17,7 @@ import services.HeladerasService;
 import services.ReportesHeladerasService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
+import utils.helpers.DateHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -73,6 +74,11 @@ public class HacerseCargoController implements InterfaceCrudViewsHandler {
   @Override
   public void save(Context context) {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
+
+    if (DateHelper.validate(LocalDate.parse(heladeraInputDto.getFechaCreacion()))) {
+      //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
+      return;
+    }
 
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
     Direccion direccion = this.direccionesService.crear(direccionInputDto);

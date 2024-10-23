@@ -1,10 +1,9 @@
 package controllers;
 
-import config.RepositoryLocator;
-import config.UtilsLocator;
 import dtos.DireccionInputDto;
 import dtos.HeladeraInputDto;
 import io.javalin.http.Context;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,18 +16,15 @@ import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.sensores.SensorMovimiento;
 import models.entities.heladera.sensores.SensorTemperatura;
 import models.entities.personas.users.TipoRol;
-import models.entities.reporte.ReporteHeladera;
-import models.entities.reporte.ReporteSemanal;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.IncidentesRepository;
-import models.repositories.imp.ReportesHeladerasRepository;
 import models.repositories.imp.SensoresMovimientoRepository;
 import models.repositories.imp.SensoresTemperaturaRepository;
 import services.DireccionesService;
 import services.HeladerasService;
 import services.ReportesHeladerasService;
+import utils.helpers.DateHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
-import utils.reportes.GeneradorReporte;
 
 /**
  * Controlador de heladeras para alta, baja y modificacion.
@@ -122,6 +118,11 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
 
+    if (DateHelper.validate(LocalDate.parse(heladeraInputDto.getFechaCreacion()))) {
+      //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
+      return;
+    }
+
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
     Direccion direccion = this.direccionesService.crear(direccionInputDto);
 
@@ -147,6 +148,13 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
   public void update(Context context) {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
+
+    LocalDate fecha = LocalDate.parse(heladeraInputDto.getFechaCreacion());
+    if (fecha.isAfter(LocalDate.now())) {
+      //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
+      return;
+    }
+
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
     Long heladeraId = Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));

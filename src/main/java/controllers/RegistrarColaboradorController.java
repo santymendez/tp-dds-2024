@@ -93,7 +93,6 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
 
   @Override
   public void save(Context context) {
-
     if (context.sessionAttribute("idUsuario") != null) {
       context.redirect("/heladeras-solidarias");
       return;

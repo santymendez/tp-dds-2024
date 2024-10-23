@@ -2,6 +2,7 @@ package controllers;
 
 import dtos.VisitaInputDto;
 import io.javalin.http.Context;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import models.repositories.imp.HeladerasRepository;
 import models.repositories.imp.IncidentesRepository;
 import services.VisitasTecnicasService;
 import utils.helpers.ContextHelper;
+import utils.helpers.DateHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -78,6 +80,11 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
   @Override
   public void save(Context context) {
     VisitaInputDto visitaInputDto = VisitaInputDto.fromContext(context);
+
+    if (DateHelper.validate(LocalDate.parse(visitaInputDto.getFechaVisita()))) {
+      //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
+      return;
+    }
 
     Long id = Long.parseLong(Objects.requireNonNull(context.formParam("incidente")));
     Incidente incidente = this.genericRepository.buscarPorId(id, Incidente.class).get();

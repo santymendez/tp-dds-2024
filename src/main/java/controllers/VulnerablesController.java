@@ -3,6 +3,7 @@ package controllers;
 import dtos.DireccionInputDto;
 import dtos.VulnerableInputDto;
 import io.javalin.http.Context;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import models.repositories.imp.GenericRepository;
 import services.DireccionesService;
 import services.VulnerablesService;
 import utils.helpers.ContextHelper;
+import utils.helpers.DateHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 
 /**
@@ -74,6 +76,12 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
   @Override
   public void save(Context context) {
     VulnerableInputDto vulnerableInputDto = VulnerableInputDto.fromContext(context);
+
+    if (!DateHelper.legalAge(LocalDate.parse(vulnerableInputDto.getFechaNacimiento()))) {
+      //TODO ERROR CON MODAL O HBS DE MENOR DE EDAD
+      return;
+    }
+
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
@@ -91,6 +99,12 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
     for (int i = 1; i <= cantMenores; i++) {
       VulnerableInputDto menorInputDto = VulnerableInputDto.fromContext(context, i);
+
+      if (DateHelper.legalAge(LocalDate.parse(vulnerableInputDto.getFechaNacimiento()))) {
+        //TODO ERROR CON MODAL O HBS DE MAYOR DE EDAD
+        return;
+      }
+
       this.vulnerablesService.crearMenor(menorInputDto, padre, colaborador);
     }
 

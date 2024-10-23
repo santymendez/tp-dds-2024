@@ -49,6 +49,7 @@ import services.OfertasService;
 import services.ReportesHeladerasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
+import services.TarjetasVulnerablesService;
 import services.UsuariosService;
 import services.VisitasTecnicasService;
 import services.VulnerablesService;
@@ -107,7 +108,8 @@ public class ControllerLocator {
         VulnerablesController instance = new VulnerablesController(
             RepositoryLocator.instanceOf(GenericRepository.class),
             ServiceLocator.instanceOf(VulnerablesService.class),
-            ServiceLocator.instanceOf(DireccionesService.class)
+            ServiceLocator.instanceOf(DireccionesService.class),
+            ServiceLocator.instanceOf(TarjetasVulnerablesService.class)
         );
         instances.put(controllerName, instance);
 

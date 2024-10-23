@@ -2,6 +2,9 @@ package services;
 
 import dtos.VulnerableInputDto;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.personas.colaborador.Colaborador;
@@ -21,23 +24,19 @@ import models.repositories.imp.VulnerablesRepository;
 public class VulnerablesService {
 
   private final GenericRepository genericRepository;
-  private final TarjetasVulnerablesRepository tarjetasVulnerablesRepository;
   private final VulnerablesRepository vulnerablesRepository;
 
   /** Constructor de la clase.
    *
    * @param genericRepository repositorio generico.
-   * @param tarjetasVulnerablesRepository repositorio de tarjetas vulnerables.
    * @param vulnerablesRepository repositorio de vulnerables.
    */
 
   public VulnerablesService(
       GenericRepository genericRepository,
-      TarjetasVulnerablesRepository tarjetasVulnerablesRepository,
       VulnerablesRepository vulnerablesRepository
   ) {
     this.genericRepository = genericRepository;
-    this.tarjetasVulnerablesRepository = tarjetasVulnerablesRepository;
     this.vulnerablesRepository = vulnerablesRepository;
   }
 
@@ -63,62 +62,51 @@ public class VulnerablesService {
     vulnerable.setDomicilio(domicilio);
     this.vulnerablesRepository.guardar(vulnerable);
 
-    Optional<TarjetaVulnerable> posibleTarjeta =
-        this.tarjetasVulnerablesRepository.buscarPorUuid(vulnerableInputDto.getTarjeta());
-
-    TarjetaVulnerable tarjetaVulnerable = posibleTarjeta.get();
-
-    RegistroVulnerable registroVulnerable =
-        new RegistroVulnerable(colaborador, vulnerable, LocalDate.now());
-    this.genericRepository.guardar(registroVulnerable);
-
-    tarjetaVulnerable.setRegistroVulnerable(registroVulnerable);
-    tarjetaVulnerable.calcularUsos();
-
-    this.tarjetasVulnerablesRepository.modificar(tarjetaVulnerable);
-
     return vulnerable;
   }
 
   /** Crea un menor a partir de un input.
    *
-   * @param menorInputDto el input de un menor.
+   * @param menoresInputDto el input de los menores.
    * @param padre el padre del menor.
    */
 
-  public void crearMenor(
-      VulnerableInputDto menorInputDto,
+  public void crearMenores(
+      List<VulnerableInputDto> menoresInputDto,
       Vulnerable padre,
       Colaborador colaborador
   ) {
 
-    Integer numeroDocumento = Integer.parseInt(menorInputDto.getNumeroDocumento());
-    LocalDate fechaNacimiento = LocalDate.parse(menorInputDto.getFechaNacimiento());
+    List<RegistroVulnerable> registros = new ArrayList<>();
 
-    Optional<Vulnerable> posibleMenor = this.vulnerablesRepository
-        .buscarPorDocumentoFechaNacimiento(numeroDocumento, fechaNacimiento);
+    for (VulnerableInputDto menorInputDto : menoresInputDto) {
+      Integer numeroDocumento = Integer.parseInt(menorInputDto.getNumeroDocumento());
+      LocalDate fechaNacimiento = LocalDate.parse(menorInputDto.getFechaNacimiento());
 
-    Vulnerable menor;
+      Optional<Vulnerable> posibleMenor = this.vulnerablesRepository
+          .buscarPorDocumentoFechaNacimiento(numeroDocumento, fechaNacimiento);
 
-    if (posibleMenor.isPresent()) {
-      menor = posibleMenor.get();
-    } else {
-      menor = new Vulnerable();
-      menor.setNombre(menorInputDto.getNombre());
-      menor.setFechaNacimiento(fechaNacimiento);
+      Vulnerable menor;
 
-      TipoDocumento tipoDocumento = TipoDocumento.valueOf(menorInputDto.getTipoDocumento());
-      menor.setDocumento(new Documento(numeroDocumento, tipoDocumento));
+      if (posibleMenor.isPresent()) {
+        menor = posibleMenor.get();
+      } else {
+        menor = new Vulnerable();
+        menor.setNombre(menorInputDto.getNombre());
+        menor.setFechaNacimiento(fechaNacimiento);
 
-      menor.setDomicilio(padre.getDomicilio());
-      this.genericRepository.guardar(menor);
+        TipoDocumento tipoDocumento = TipoDocumento.valueOf(menorInputDto.getTipoDocumento());
+        menor.setDocumento(new Documento(numeroDocumento, tipoDocumento));
+        menor.setDomicilio(padre.getDomicilio());
 
-      RegistroVulnerable registroVulnerable =
-          new RegistroVulnerable(colaborador, menor, LocalDate.now());
-      this.genericRepository.guardar(registroVulnerable);
+        RegistroVulnerable registroVulnerable =
+            new RegistroVulnerable(colaborador, menor, LocalDate.now());
+        registros.add(registroVulnerable);
+      }
+      padre.agregarMenorCargo(menor);
     }
 
-    padre.agregarMenorCargo(menor);
+    this.genericRepository.guardarColeccion(registros);
     this.genericRepository.modificar(padre);
   }
 }

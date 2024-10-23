@@ -12,30 +12,25 @@ import models.repositories.PersistenciaSimple;
 public class GenericRepository implements PersistenciaSimple {
 
   public void guardar(Object objeto) {
-    withTransaction(() -> this.guardarModificar(objeto));
+    withTransaction(() -> entityManager().persist(objeto));
+  }
+
+  /**
+   * Guarda una lista de objetos en la base de datos.
+   *
+   * @param objects Lista de objetos a guardar.
+   */
+
+  public void guardarColeccion(List<?> objects) {
+    withTransaction(() -> {
+      for (Object object : objects) {
+        entityManager().persist(object);
+      }
+    });
   }
 
   public void modificar(Object objeto) {
     withTransaction(() -> entityManager().merge(objeto));
-  }
-
-  /**
-   * Guarda o modifica un objeto en la base de datos.
-   *
-   * @param objeto Objeto a guardar o modificar.
-   */
-
-  public void guardarModificar(Object objeto) {
-
-    if (entityManager().contains(objeto)) {
-
-      entityManager().merge(objeto);
-
-    } else {
-
-      entityManager().persist(objeto);
-
-    }
   }
 
   public void eliminarFisico(Object objeto) {

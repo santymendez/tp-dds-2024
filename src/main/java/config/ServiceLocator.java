@@ -21,6 +21,7 @@ import services.OfertasService;
 import services.ReportesHeladerasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
+import services.TarjetasVulnerablesService;
 import services.UsuariosService;
 import services.VisitasTecnicasService;
 import services.VulnerablesService;
@@ -61,7 +62,6 @@ public class ServiceLocator {
       } else if (serviceClass.equals(VulnerablesService.class)) {
         VulnerablesService instance = new VulnerablesService(
             RepositoryLocator.instanceOf(GenericRepository.class),
-            RepositoryLocator.instanceOf(TarjetasVulnerablesRepository.class),
             RepositoryLocator.instanceOf(VulnerablesRepository.class)
         );
         instances.put(serviceName, instance);
@@ -122,6 +122,13 @@ public class ServiceLocator {
 
       } else if (serviceClass.equals(ReportesHeladerasService.class)) {
         ReportesHeladerasService instance = new ReportesHeladerasService(
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
+        instances.put(serviceName, instance);
+
+      } else if (serviceClass.equals(TarjetasVulnerablesService.class)) {
+        TarjetasVulnerablesService instance = new TarjetasVulnerablesService(
+            RepositoryLocator.instanceOf(TarjetasVulnerablesRepository.class),
             RepositoryLocator.instanceOf(GenericRepository.class)
         );
         instances.put(serviceName, instance);

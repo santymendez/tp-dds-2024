@@ -134,7 +134,7 @@ public class Router {
       }
     }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR);
 
-    app.get("/heladeras-solidarias/ver-mapa", //TODO
+    app.get("/heladeras-solidarias/ver-mapa",
         ControllerLocator.instanceOf(MapaController.class)::index,
         TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.ADMINISTRADOR, TipoRol.TECNICO,
         TipoRol.EMPRESA_ASOCIADA);
@@ -160,7 +160,6 @@ public class Router {
     // TODO pop de success cuando se modifica una heladera
     // TODO pop de success cuando se da de baja una heladera
 
-    // TODO modelo es requier, pero si o si ha que modificarlo cuando modificas la heladera ?
     app.post("/heladeras-solidarias/heladeras-admin", ctx -> {
       String formType = ctx.formParam("formType");
       switch (Objects.requireNonNull(formType)) {

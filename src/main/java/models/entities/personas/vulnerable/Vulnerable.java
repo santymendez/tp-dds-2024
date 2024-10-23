@@ -3,6 +3,7 @@ package models.entities.personas.vulnerable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -43,7 +44,7 @@ public class Vulnerable extends Persistente {
   @Embedded
   private Documento documento;
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "menores_por_vulnerables",
       joinColumns = @JoinColumn(name = "vulnerable_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "menor_id", referencedColumnName = "id"))
@@ -71,7 +72,5 @@ public class Vulnerable extends Persistente {
 
   public void agregarMenorCargo(Vulnerable menor) {
     this.menoresAcargo.add(menor);
-    //En el controller se tienen que recalcular los usos
   }
-
 }

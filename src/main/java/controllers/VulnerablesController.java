@@ -4,16 +4,21 @@ import dtos.DireccionInputDto;
 import dtos.VulnerableInputDto;
 import io.javalin.http.Context;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
+import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
 import services.DireccionesService;
+import services.TarjetasVulnerablesService;
 import services.VulnerablesService;
 import utils.helpers.ContextHelper;
 import utils.helpers.DateHelper;
@@ -28,6 +33,7 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
   private final GenericRepository genericRepository;
   private final VulnerablesService vulnerablesService;
   private final DireccionesService direccionesService;
+  private final TarjetasVulnerablesService tarjetasVulneralesService;
 
   /**
    * Construcctor de la clase.
@@ -40,11 +46,13 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
   public VulnerablesController(
       GenericRepository genericRepository,
       VulnerablesService vulnerablesService,
-      DireccionesService direccionesService
+      DireccionesService direccionesService,
+      TarjetasVulnerablesService tarjetasVulneralesService
   ) {
     this.genericRepository = genericRepository;
     this.vulnerablesService = vulnerablesService;
     this.direccionesService = direccionesService;
+    this.tarjetasVulneralesService = tarjetasVulneralesService;
   }
 
   @Override
@@ -86,8 +94,6 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
-    int cantMenores = Integer.parseInt(Objects.requireNonNull(context.formParam("cantMenores")));
-
     Direccion direccion = null;
 
     if (direccionInputDto != null) {
@@ -95,18 +101,24 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
       this.genericRepository.guardar(direccion);
     }
 
-    Vulnerable padre =  this.vulnerablesService.crear(vulnerableInputDto, direccion, colaborador);
+    Vulnerable vulnerable =
+        this.vulnerablesService.crear(vulnerableInputDto, direccion, colaborador);
+    List<VulnerableInputDto> menoresInputDto = new ArrayList<>();
+
+    int cantMenores = Integer.parseInt(Objects.requireNonNull(context.formParam("cantMenores")));
 
     for (int i = 1; i <= cantMenores; i++) {
-      VulnerableInputDto menorInputDto = VulnerableInputDto.fromContext(context, i);
+      VulnerableInputDto menor = VulnerableInputDto.fromContext(context, i);
+      menoresInputDto.add(menor);
 
-      if (DateHelper.legalAge(LocalDate.parse(vulnerableInputDto.getFechaNacimiento()))) {
+      if (DateHelper.legalAge(LocalDate.parse(menor.getFechaNacimiento()))) {
         //TODO ERROR CON MODAL O HBS DE MAYOR DE EDAD
         return;
       }
-
-      this.vulnerablesService.crearMenor(menorInputDto, padre, colaborador);
     }
+
+    this.vulnerablesService.crearMenores(menoresInputDto, vulnerable, colaborador);
+    this.tarjetasVulneralesService.crear(colaborador, vulnerable, vulnerableInputDto.getTarjeta());
 
     context.redirect("/heladeras-solidarias");
   }

@@ -68,9 +68,9 @@ public class AgregarDireccionController implements InterfaceCrudViewsHandler {
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
     DireccionInputDto direccionDto = DireccionInputDto.fromContext(context);
-    Direccion direccion = direccionesService.crearAsignar(direccionDto, colaborador);
+    Direccion direccion = this.direccionesService.crearAsignar(direccionDto, colaborador);
 
-    tarjetaColaboradorService.crear(colaborador, direccion);
+    this.tarjetaColaboradorService.crear(colaborador, direccion);
 
     context.redirect("/heladeras-solidarias");
   }

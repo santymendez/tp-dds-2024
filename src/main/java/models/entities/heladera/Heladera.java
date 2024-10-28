@@ -97,7 +97,7 @@ public class Heladera extends Persistente {
     this.suscripciones = new ArrayList<>();
 
     this.tarjetasHabilitadas = new ArrayList<>();
-    this.limitador = new Limitador(UnidadTiempo.HORAS, 3);
+    this.limitador = new Limitador(UnidadTiempo.HORAS, 3L);
   }
 
   //==================================== Calcular meses ========================================

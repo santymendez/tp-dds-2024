@@ -1,6 +1,6 @@
 package controllers.colaboraciones;
 
-import dtos.DistribucionViandasDto;
+import dtos.DistribucionViandasInputDto;
 import io.javalin.http.Context;
 import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
@@ -81,7 +81,7 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
       return;
     }
 
-    DistribucionViandasDto distrbucionDto = DistribucionViandasDto.fromContext(context);
+    DistribucionViandasInputDto distrbucionDto = DistribucionViandasInputDto.fromContext(context);
 
     Heladera heladeraOrigen = this.genericRepository
         .buscarPorId(Long.parseLong(distrbucionDto.getHeladeraOrigen()), Heladera.class)
@@ -90,7 +90,7 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
         .buscarPorId(Long.parseLong(distrbucionDto.getHeladeraDestino()), Heladera.class)
         .get();
 
-    int cantViandas = Integer.parseInt(distrbucionDto.getCantViandasDistribuidas());
+    int cantViandas = distrbucionDto.getCantViandasDistribuidas();
     if (cantViandas > heladeraOrigen.consultarStock()
         || !heladeraDestino.hayEspacioPara(cantViandas)) {
       context.redirect("/heladeras-solidarias/colaborar?errorDistribucion=true&espacioDisponible="

@@ -1,6 +1,8 @@
 package dtos;
 
 import io.javalin.http.Context;
+import java.time.LocalDate;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,12 +17,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class VulnerableInputDto {
-  String nombre;
-  String fechaNacimiento;
-  String tipoDocumento;
-  String numeroDocumento;
-  String cantMenores;
-  String tarjeta;
+  private String nombre;
+  private LocalDate fechaNacimiento;
+  private String tipoDocumento;
+  private Integer numeroDocumento;
+  private Integer cantMenores;
+  private String tarjeta;
 
   /**
    * Instancia el VulnerableInputDTO.
@@ -32,10 +34,16 @@ public class VulnerableInputDto {
   public static VulnerableInputDto fromContext(Context context) {
     return VulnerableInputDto.builder()
         .nombre(context.formParam("nombre"))
-        .fechaNacimiento(context.formParam("fechaNacimiento"))
+        .fechaNacimiento(
+            LocalDate.parse(Objects.requireNonNull(context.formParam("fechaNacimiento")))
+        )
         .tipoDocumento(context.formParam("tipoDocumento"))
-        .numeroDocumento(context.formParam("numeroDocumento"))
-        .cantMenores(context.formParam("cantMenores"))
+        .numeroDocumento(
+            Integer.valueOf(Objects.requireNonNull(context.formParam("numeroDocumento")))
+        )
+        .cantMenores(
+            Integer.valueOf(Objects.requireNonNull(context.formParam("cantMenores")))
+        )
         .tarjeta(context.formParam("tarjeta"))
         .build();
   }
@@ -53,10 +61,15 @@ public class VulnerableInputDto {
 
     return VulnerableInputDto.builder()
         .nombre(context.formParam(plantilla + "[nombre]"))
-        .fechaNacimiento(context.formParam(plantilla + "[fechaNacimiento]"))
+        .fechaNacimiento(LocalDate.parse(
+            Objects.requireNonNull(context.formParam(plantilla + "[fechaNacimiento]"))
+            )
+        )
         .tipoDocumento(context.formParam(plantilla + "[tipoDocumento]"))
-        .numeroDocumento(context.formParam(plantilla + "[numeroDocumento]"))
-        .cantMenores("0")
+        .numeroDocumento(Integer.valueOf(
+            Objects.requireNonNull(context.formParam(plantilla + "[numeroDocumento]")))
+        )
+        .cantMenores(0)
         .build();
   }
 }

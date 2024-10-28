@@ -13,7 +13,7 @@ import models.entities.colaboracion.DistribucionTarjetas;
 import models.entities.colaboracion.DistribucionViandas;
 import models.entities.colaboracion.DonacionDinero;
 import models.entities.colaboracion.HacerseCargoHeladera;
-import models.entities.colaboracion.RealizacionOfertas;
+import models.entities.colaboracion.RealizacionOferta;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.direccion.Barrio;
 import models.entities.direccion.Ciudad;
@@ -102,10 +102,10 @@ public class Initializer {
   static DonacionDinero donacionDinero;
   static Colaboracion donarDinero;
 
-  static RealizacionOfertas realizarOferta1;
-  static RealizacionOfertas realizarOferta2;
-  static RealizacionOfertas realizarOferta3;
-  static RealizacionOfertas realizarOferta4;
+  static RealizacionOferta realizarOferta1;
+  static RealizacionOferta realizarOferta2;
+  static RealizacionOferta realizarOferta3;
+  static RealizacionOferta realizarOferta4;
 
   static Oferta oferta1;
   static Oferta oferta2;
@@ -709,16 +709,16 @@ public class Initializer {
 
     // Colaboracion - Realizar Ofertas
 
-    realizarOferta1 = new RealizacionOfertas();
+    realizarOferta1 = new RealizacionOferta();
     realizarOferta1.setOfertaRealizada(oferta1);
 
-    realizarOferta2 = new RealizacionOfertas();
+    realizarOferta2 = new RealizacionOferta();
     realizarOferta2.setOfertaRealizada(oferta2);
 
-    realizarOferta3 = new RealizacionOfertas();
+    realizarOferta3 = new RealizacionOferta();
     realizarOferta3.setOfertaRealizada(oferta3);
 
-    realizarOferta4 = new RealizacionOfertas();
+    realizarOferta4 = new RealizacionOferta();
     realizarOferta4.setOfertaRealizada(oferta4);
 
     realizarOfertaColab1 = new Colaboracion();
@@ -1295,7 +1295,7 @@ public class Initializer {
     pregunta1.setPregunta("Cuantos mundiales tiene uruguay?");
     pregunta1.setOpciones(lstOpciones1);
     pregunta1.setEsOpcional(true);
-    pregunta1.setTipoDeSuRespuesta(TipoPregunta.MULTIPLE_CHOICE);
+    pregunta1.setTipoPregunta(TipoPregunta.MULTIPLE_CHOICE);
 
     respuesta2 = new Respuesta();
     respuesta2.setPregunta(pregunta2);
@@ -1326,7 +1326,7 @@ public class Initializer {
     pregunta2.setPregunta("Cuantas lineas tiene este test?");
     pregunta2.setOpciones(lstOpciones2);
     pregunta2.setEsOpcional(false);
-    pregunta2.setTipoDeSuRespuesta(TipoPregunta.MULTIPLE_CHOICE);
+    pregunta2.setTipoPregunta(TipoPregunta.MULTIPLE_CHOICE);
 
     respuesta3 = new Respuesta();
     respuesta3.setPregunta(pregunta3);
@@ -1351,7 +1351,7 @@ public class Initializer {
     pregunta3.setPregunta("Cuantas intercontinentales gano Velez?");
     pregunta3.setOpciones(lstOpciones3);
     pregunta3.setEsOpcional(true);
-    pregunta3.setTipoDeSuRespuesta(TipoPregunta.SINGLE_CHOICE);
+    pregunta3.setTipoPregunta(TipoPregunta.SINGLE_CHOICE);
 
     lstPreguntas1.add(pregunta1);
     lstPreguntas1.add(pregunta2);

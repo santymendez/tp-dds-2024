@@ -53,13 +53,7 @@ public class Colaboracion extends Persistente {
   private HacerseCargoHeladera hacerseCargoHeladera;
 
   @Embedded
-  private RealizacionOfertas ofertaRealizada;
-
-  //============================== Metodos Auxiliares ========================================
-
-  public Integer tiempoActivaHeladera() {
-    return this.hacerseCargoHeladera.getHeladeraColocada().calcularMesesActiva();
-  }
+  private RealizacionOferta ofertaRealizada;
 
   @PrePersist
   protected void onInsert() {

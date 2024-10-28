@@ -35,8 +35,8 @@ public class DireccionesService {
 
     if (direccionInputDto.getLongitud() != null
         && direccionInputDto.getLatitud() != null) {
-      Float longitud = Float.parseFloat(direccionInputDto.getLongitud());
-      Float latitud = Float.parseFloat(direccionInputDto.getLatitud());
+      Float longitud = direccionInputDto.getLongitud();
+      Float latitud = direccionInputDto.getLatitud();
 
       Optional<Direccion> posibleDireccion =
           this.direccionesRepository.buscarPorLatLong(latitud, longitud);

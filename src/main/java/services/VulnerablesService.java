@@ -53,10 +53,10 @@ public class VulnerablesService {
   ) {
     Vulnerable vulnerable = new Vulnerable();
     vulnerable.setNombre(vulnerableInputDto.getNombre());
-    vulnerable.setFechaNacimiento(LocalDate.parse(vulnerableInputDto.getFechaNacimiento()));
+    vulnerable.setFechaNacimiento(vulnerableInputDto.getFechaNacimiento());
 
     TipoDocumento tipoDocumento = TipoDocumento.valueOf(vulnerableInputDto.getTipoDocumento());
-    Integer nroDocumento = Integer.parseInt(vulnerableInputDto.getNumeroDocumento());
+    Integer nroDocumento = vulnerableInputDto.getNumeroDocumento();
     vulnerable.setDocumento(new Documento(nroDocumento, tipoDocumento));
 
     vulnerable.setDomicilio(domicilio);
@@ -80,8 +80,8 @@ public class VulnerablesService {
     List<RegistroVulnerable> registros = new ArrayList<>();
 
     for (VulnerableInputDto menorInputDto : menoresInputDto) {
-      Integer numeroDocumento = Integer.parseInt(menorInputDto.getNumeroDocumento());
-      LocalDate fechaNacimiento = LocalDate.parse(menorInputDto.getFechaNacimiento());
+      Integer numeroDocumento = menorInputDto.getNumeroDocumento();
+      LocalDate fechaNacimiento = menorInputDto.getFechaNacimiento();
 
       Optional<Vulnerable> posibleMenor = this.vulnerablesRepository
           .buscarPorDocumentoFechaNacimiento(numeroDocumento, fechaNacimiento);

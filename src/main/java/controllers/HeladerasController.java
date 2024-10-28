@@ -118,7 +118,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
 
-    if (DateHelper.validate(LocalDate.parse(heladeraInputDto.getFechaCreacion()))) {
+    if (DateHelper.validate(heladeraInputDto.getFechaCreacion())) {
       //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
       return;
     }
@@ -149,8 +149,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
   public void update(Context context) {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
 
-    LocalDate fecha = LocalDate.parse(heladeraInputDto.getFechaCreacion());
-    if (fecha.isAfter(LocalDate.now())) {
+    if (heladeraInputDto.getFechaCreacion().isAfter(LocalDate.now())) {
       //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
       return;
     }

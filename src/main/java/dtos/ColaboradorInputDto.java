@@ -1,6 +1,7 @@
 package dtos;
 
 import io.javalin.http.Context;
+import java.util.Objects;
 import lombok.Data;
 import models.entities.personas.colaborador.TipoColaborador;
 import models.entities.personas.contacto.TipoContacto;
@@ -15,7 +16,7 @@ public class ColaboradorInputDto {
   private String nombre;
   private String apellido;
   private String tipoDocumento;
-  private String numeroDocumento;
+  private Integer numeroDocumento;
 
   //Persona Juridica
   private String razonSocial;
@@ -39,7 +40,7 @@ public class ColaboradorInputDto {
   public static ColaboradorInputDto fromCsv(String[] line) {
     ColaboradorInputDto colaboradorInputDto = new ColaboradorInputDto();
     colaboradorInputDto.setTipoDocumento(line[0]);
-    colaboradorInputDto.setNumeroDocumento(line[1]);
+    colaboradorInputDto.setNumeroDocumento(Integer.valueOf(line[1]));
     colaboradorInputDto.setNombre(line[2]);
     colaboradorInputDto.setApellido(line[3]);
     colaboradorInputDto.setContacto(line[4]);
@@ -60,7 +61,9 @@ public class ColaboradorInputDto {
     colaboradorInputDto.setNombre(context.formParam("nombre"));
     colaboradorInputDto.setApellido(context.formParam("apellido"));
     colaboradorInputDto.setTipoDocumento(context.formParam("tipoDocumento"));
-    colaboradorInputDto.setNumeroDocumento(context.formParam("numeroDocumento"));
+    colaboradorInputDto.setNumeroDocumento(
+        Integer.valueOf(Objects.requireNonNull(context.formParam("numeroDocumento")))
+    );
     colaboradorInputDto.setRazonSocial(context.formParam("razonSocial"));
     colaboradorInputDto.setTipo(context.formParam("tipoOrganizacion"));
     colaboradorInputDto.setRubro(context.formParam("rubro"));

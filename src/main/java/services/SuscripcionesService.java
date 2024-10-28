@@ -40,13 +40,13 @@ public class SuscripcionesService {
         case FALTAN_N_VIANDAS:
           FaltanViandas faltanViandas =
               new FaltanViandas(colaborador, heladera,
-                  Integer.parseInt(suscripcionInputDto.getViandasFaltantes()));
+                  suscripcionInputDto.getViandasFaltantes());
           suscripciones.add(faltanViandas);
           break;
         case QUEDAN_N_VIANDAS:
           QuedanViandas quedanViandas =
               new QuedanViandas(colaborador, heladera,
-                  Integer.parseInt(suscripcionInputDto.getViandasRestantes()));
+                  suscripcionInputDto.getViandasRestantes());
           suscripciones.add(quedanViandas);
           break;
         case OCURRIO_DESPERFECTO:

@@ -53,15 +53,4 @@ public class Tecnico extends Persistente {
 
   @Embedded
   private Ciudad areaDeCobertura;
-
-  /**
-   * Metodo que permite al técnico registrar una visita a una heladera.
-   *
-   * @param heladera Heladera visitada para arreglar.
-   */
-
-  public Boolean puedeVisitar(Heladera heladera) {
-    return !heladera.getEstadoActual().getEstado().equals(TipoEstado.ACTIVA);
-  }
-
 }

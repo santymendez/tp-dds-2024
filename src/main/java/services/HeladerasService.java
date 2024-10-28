@@ -31,7 +31,7 @@ public class HeladerasService {
   public Heladera crear(HeladeraInputDto heladeraInputDto, Direccion direccion, Modelo modelo) {
     Heladera heladera = new Heladera();
     heladera.setNombre(heladeraInputDto.getNombre());
-    heladera.setFechaDeCreacion(LocalDate.parse(heladeraInputDto.getFechaCreacion()));
+    heladera.setFechaDeCreacion(heladeraInputDto.getFechaCreacion());
     heladera.setModelo(modelo);
     heladera.setDireccion(direccion);
 
@@ -62,7 +62,7 @@ public class HeladerasService {
     }
 
     if (!Objects.equals(heladeraInputDto.getFechaCreacion(), "")) {
-      heladera.setFechaDeCreacion(LocalDate.parse(heladeraInputDto.getFechaCreacion()));
+      heladera.setFechaDeCreacion(heladeraInputDto.getFechaCreacion());
     }
 
     this.genericRepository.modificar(heladera);

@@ -1,5 +1,6 @@
 package models.entities.personas.tarjetas.vulnerable;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.entities.heladera.Heladera;
 
@@ -34,6 +34,9 @@ public class TarjetaVulnerable {
   @Column(name = "activo")
   private Boolean activo;
 
+  @Column(name = "fechaAlta", columnDefinition = "DATE")
+  private LocalDate fechaAlta;
+
   @Column(name = "cantUsosMaxima")
   private Integer cantidadDeUsosMaxima;
 
@@ -47,25 +50,14 @@ public class TarjetaVulnerable {
   private RegistroVulnerable registroVulnerable;
 
   /**
-   * Constructor de la clase Tarjeta.
-  */
-
-  public TarjetaVulnerable(RegistroVulnerable registro) {
-    this.registroVulnerable = registro;
-    this.cantidadDeUsosMaxima = this.calcularUsos();
-    this.codigo = this.generarCodigoAlfanumerico();
-    this.usosTarjetaVulnerables = new ArrayList<>();
-    this.activo = true;
-  }
-
-  /**
-   * Constructor vacio de la clase Tarjeta.
+   * Constructor por defecto de la tarjeta vulnerable.
    */
 
   public TarjetaVulnerable() {
     this.codigo = this.generarCodigoAlfanumerico();
     this.usosTarjetaVulnerables = new ArrayList<>();
     this.activo = true;
+    this.fechaAlta = LocalDate.now();
   }
 
   /**
@@ -89,15 +81,14 @@ public class TarjetaVulnerable {
 
   /**
    * Calcula la cantidad de usos que puede tener la tarjeta.
-   *
-   * @return la cantidad de usos.
    */
 
-  public Integer calcularUsos() {
+  public void calcularUsos() {
     if (!this.registroVulnerable.getVulnerable().getMenoresAcargo().isEmpty()) {
-      return 4 + 2 * this.registroVulnerable.getVulnerable().getMenoresAcargo().size();
+      this.cantidadDeUsosMaxima =
+          4 + 2 * this.registroVulnerable.getVulnerable().getMenoresAcargo().size();
     } else {
-      return 4;
+      this.cantidadDeUsosMaxima = 4;
     }
   }
 

@@ -37,5 +37,5 @@ public class Pregunta extends Persistente {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo", nullable = false)
-  private TipoPregunta tipoDeSuRespuesta;
+  private TipoPregunta tipoPregunta;
 }

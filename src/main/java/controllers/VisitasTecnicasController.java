@@ -81,7 +81,7 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     VisitaInputDto visitaInputDto = VisitaInputDto.fromContext(context);
 
-    if (DateHelper.validate(LocalDate.parse(visitaInputDto.getFechaVisita()))) {
+    if (DateHelper.validate(visitaInputDto.getFechaVisita())) {
       //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
       return;
     }

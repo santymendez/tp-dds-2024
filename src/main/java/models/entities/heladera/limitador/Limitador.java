@@ -8,9 +8,9 @@ import java.time.Duration;
 
 public class Limitador {
   private final UnidadTiempo unidad;
-  private final long tiempoLimite;
+  private final Long tiempoLimite;
 
-  public Limitador(UnidadTiempo unidad, long tiempo) {
+  public Limitador(UnidadTiempo unidad, Long tiempo) {
     this.unidad = unidad;
     this.tiempoLimite = tiempo;
   }
@@ -26,7 +26,7 @@ public class Limitador {
    * @return tiempo en la unidad establecida.
    */
 
-  public float calcularTiempoEnUnidad(Duration duration) {
+  public Float calcularTiempoEnUnidad(Duration duration) {
     switch (this.unidad) {
       case SEGUNDOS -> {
         return (float) duration.toSeconds();
@@ -40,9 +40,17 @@ public class Limitador {
       case DIAS -> {
         return (float) duration.toDays();
       }
-      default -> {
-        throw new RuntimeException("Unnsupported unit: " + this.unidad);
+      case SEMANAS -> {
+        return (float) duration.toDays() / 7;
       }
+      case MESES -> {
+        return (float) duration.toDays() / 30;
+      }
+      case ANIOS -> {
+        return (float) duration.toDays() / 365;
+      }
+      default ->
+        throw new RuntimeException("Unnsupported unit: " + this.unidad);
     }
   }
 }

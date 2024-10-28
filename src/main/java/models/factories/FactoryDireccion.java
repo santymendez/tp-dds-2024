@@ -24,10 +24,10 @@ public class FactoryDireccion {
     Direccion nuevaDireccion = new Direccion();
 
     if (direccionInputDto.getLongitud() != null) {
-      nuevaDireccion.setLongitud(Float.valueOf(direccionInputDto.getLongitud()));
+      nuevaDireccion.setLongitud(direccionInputDto.getLongitud());
     }
     if (direccionInputDto.getLatitud() != null) {
-      nuevaDireccion.setLatitud(Float.valueOf(direccionInputDto.getLatitud()));
+      nuevaDireccion.setLatitud(direccionInputDto.getLatitud());
     }
 
     if (direccionInputDto.getBarrio() != null
@@ -38,7 +38,7 @@ public class FactoryDireccion {
       barrio.setNombreBarrio(direccionInputDto.getBarrio());
       barrio.setCalle(direccionInputDto.getCalle());
       if (direccionInputDto.getNumero() != null) {
-        barrio.setNumero(Integer.parseInt(direccionInputDto.getNumero()));
+        barrio.setNumero(direccionInputDto.getNumero());
       }
       if (direccionInputDto.getCiudad() != null) {
         Ciudad ciudad = new Ciudad();

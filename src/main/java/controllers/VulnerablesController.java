@@ -85,7 +85,7 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     VulnerableInputDto vulnerableInputDto = VulnerableInputDto.fromContext(context);
 
-    if (!DateHelper.legalAge(LocalDate.parse(vulnerableInputDto.getFechaNacimiento()))) {
+    if (!DateHelper.legalAge(vulnerableInputDto.getFechaNacimiento())) {
       //TODO ERROR CON MODAL O HBS DE MENOR DE EDAD
       return;
     }
@@ -111,7 +111,7 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
       VulnerableInputDto menor = VulnerableInputDto.fromContext(context, i);
       menoresInputDto.add(menor);
 
-      if (DateHelper.legalAge(LocalDate.parse(menor.getFechaNacimiento()))) {
+      if (DateHelper.legalAge(menor.getFechaNacimiento())) {
         //TODO ERROR CON MODAL O HBS DE MAYOR DE EDAD
         return;
       }

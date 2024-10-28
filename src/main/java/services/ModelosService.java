@@ -24,9 +24,9 @@ public class ModelosService {
   public void crear(ModeloInputDto modeloInputDto) {
     Modelo modelo = new Modelo();
     modelo.setNombre(modeloInputDto.getNombre());
-    modelo.setTemperaturaMinima(Float.parseFloat(modeloInputDto.getTemperaturaMinima()));
-    modelo.setTemperaturaMaxima(Float.parseFloat(modeloInputDto.getTemperaturaMaxima()));
-    modelo.setCapacidadMaximaViandas(Integer.parseInt(modeloInputDto.getCapacidadMaximaViandas()));
+    modelo.setTemperaturaMinima(modeloInputDto.getTemperaturaMinima());
+    modelo.setTemperaturaMaxima(modeloInputDto.getTemperaturaMaxima());
+    modelo.setCapacidadMaximaViandas(modeloInputDto.getCapacidadMaximaViandas());
 
     this.modelosRepository.guardar(modelo);
   }

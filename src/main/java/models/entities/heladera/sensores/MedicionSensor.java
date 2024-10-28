@@ -31,7 +31,7 @@ public class MedicionSensor extends Persistente {
 
   @Convert(converter = LocalDateTimeAttributeConverter.class)
   @Column(name = "fecha")
-  private LocalDateTime fecha;
+  private LocalDateTime fechaYhora;
 
   @ManyToOne
   @JoinColumn(name = "heladera_id", referencedColumnName = "id", nullable = false)
@@ -46,14 +46,14 @@ public class MedicionSensor extends Persistente {
 
   public MedicionSensor(Float valor, Heladera heladera) {
     this.valor = valor;
-    this.fecha = LocalDateTime.now();
+    this.fechaYhora = LocalDateTime.now();
     this.heladera = heladera;
   }
 
   @PrePersist
   protected void onInsert() {
-    if (this.fecha == null) {
-      this.fecha = LocalDateTime.now();
+    if (this.fechaYhora == null) {
+      this.fechaYhora = LocalDateTime.now();
     }
   }
 }

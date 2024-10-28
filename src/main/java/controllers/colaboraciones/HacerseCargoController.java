@@ -75,7 +75,7 @@ public class HacerseCargoController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
 
-    if (DateHelper.validate(LocalDate.parse(heladeraInputDto.getFechaCreacion()))) {
+    if (DateHelper.validate(heladeraInputDto.getFechaCreacion())) {
       //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
       return;
     }

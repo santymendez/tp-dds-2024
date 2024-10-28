@@ -21,14 +21,11 @@ import utils.sender.channels.EmailSender;
 
 public class ColaboradoresService {
 
-  private final UsuariosRepository usuariosRepository;
   private final ColaboradoresRepository colaboradoresRepository;
 
   public ColaboradoresService(
-      UsuariosRepository usuariosRepository,
       ColaboradoresRepository colaboradoresRepository
   ) {
-    this.usuariosRepository = usuariosRepository;
     this.colaboradoresRepository = colaboradoresRepository;
   }
 
@@ -42,17 +39,15 @@ public class ColaboradoresService {
       ColaboradorInputDto colaboradorInputDto, EmailSender emailSender, Colaboracion colaboracion) {
 
     Optional<Colaborador> posibleColaborador = this.colaboradoresRepository
-        .buscarPorDocumento(Integer.parseInt(colaboradorInputDto.getNumeroDocumento()));
+        .buscarPorDocumento(colaboradorInputDto.getNumeroDocumento());
 
     Colaborador colaborador;
 
     if (posibleColaborador.isEmpty()) {
-      colaborador = this.crear(colaboradorInputDto);
+      colaborador = FactoryColaborador.crearCon(colaboradorInputDto);
 
       Usuario usuario = new Usuario(colaborador.getNombre(),
           colaborador.getApellido(), TipoRol.PERSONA_FISICA);
-
-      this.usuariosRepository.guardar(usuario);
 
       colaborador.setUsuario(usuario);
 
@@ -74,10 +69,6 @@ public class ColaboradoresService {
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
   }
 
-  public Colaborador crear(ColaboradorInputDto colaboradorInputDto) {
-    return FactoryColaborador.crearCon(colaboradorInputDto);
-  }
-
   /**
    * Crea un con colaborador a partir de un input, una direccion y un usuario.
    *
@@ -89,7 +80,7 @@ public class ColaboradoresService {
   public Colaborador crear(ColaboradorInputDto colaboradorInputDto,
                            Direccion direccion,
                            Usuario usuario) {
-    Colaborador colaborador = this.crear(colaboradorInputDto);
+    Colaborador colaborador = FactoryColaborador.crearCon(colaboradorInputDto);
 
     if (colaborador.getTipoColaborador().equals(TipoColaborador.FISICO)) {
       usuario.setTipoRol(TipoRol.PERSONA_FISICA);

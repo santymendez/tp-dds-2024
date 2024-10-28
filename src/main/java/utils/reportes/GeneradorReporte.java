@@ -38,7 +38,7 @@ public class GeneradorReporte {
     LocalDate semanaActual = LocalDate.now();
     String path = "reportes/reporte-semana-" + semanaActual + ".pdf";
     String directoryPath = "reportes";
-    // Verificar si el directorio existe, y si no, crearlo
+    // Verifica si el directorio existe, y si no, crearlo
     File directory = new File(directoryPath);
     if (!directory.exists()) {
       boolean dirCreated = directory.mkdirs();

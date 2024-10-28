@@ -85,6 +85,8 @@ public class ReportesController implements InterfaceCrudViewsHandler {
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
+
+    zipFile.delete();
   }
 
   @Override

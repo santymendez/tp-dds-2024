@@ -1,6 +1,6 @@
 package controllers.colaboraciones;
 
-import dtos.DonacionDineroDto;
+import dtos.DonacionDineroInputDto;
 import io.javalin.http.Context;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,10 +43,10 @@ public class DonarDineroController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-    DonacionDineroDto donacionDineroDto = DonacionDineroDto.fromContext(context);
+    DonacionDineroInputDto donacionDineroInputDto = DonacionDineroInputDto.fromContext(context);
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
-    Colaboracion colaboracion = this.colaboracionesService.crear(donacionDineroDto);
+    Colaboracion colaboracion = this.colaboracionesService.crear(donacionDineroInputDto);
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 

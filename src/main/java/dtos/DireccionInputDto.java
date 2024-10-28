@@ -1,6 +1,7 @@
 package dtos;
 
 import io.javalin.http.Context;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,13 +21,13 @@ import utils.helpers.ContextHelper;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DireccionInputDto {
-  private String longitud;
-  private String latitud;
+  private Float longitud;
+  private Float latitud;
 
   //Barrio
   private String barrio;
   private String calle;
-  private String numero;
+  private Integer numero;
 
   //Ciudad
   private String ciudad;
@@ -58,10 +59,14 @@ public class DireccionInputDto {
     DireccionInputDto direccionInputDto = new DireccionInputDto();
 
     if (!ContextHelper.isEmpty(context, "longitud")) {
-      direccionInputDto.setLongitud(context.formParam("latitud"));
+      direccionInputDto.setLongitud(
+          Float.valueOf(Objects.requireNonNull(context.formParam("latitud")))
+      );
     }
     if (!ContextHelper.isEmpty(context, "latitud")) {
-      direccionInputDto.setLatitud(context.formParam("longitud"));
+      direccionInputDto.setLatitud(
+          Float.valueOf(Objects.requireNonNull(context.formParam("longitud")))
+      );
     }
     if (!ContextHelper.isEmpty(context, "barrio")) {
       direccionInputDto.setBarrio(context.formParam("barrio"));
@@ -70,7 +75,9 @@ public class DireccionInputDto {
       direccionInputDto.setCalle(context.formParam("calle"));
     }
     if (!ContextHelper.isEmpty(context, "numero")) {
-      direccionInputDto.setNumero(context.formParam("numero"));
+      direccionInputDto.setNumero(
+          Integer.valueOf(Objects.requireNonNull(context.formParam("numero")))
+      );
     }
     if (!ContextHelper.isEmpty(context, "ciudad")) {
       direccionInputDto.setCiudad(context.formParam("ciudad"));

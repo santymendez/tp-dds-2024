@@ -26,14 +26,12 @@ public class FactoryColaboracion {
   public static Colaboracion crearDesdeCsv(ColaboracionInputDto colaboracionInputDto) {
     Colaboracion unaColaboracion = new Colaboracion();
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    unaColaboracion
-        .setFechaColaboracion(LocalDate.parse(colaboracionInputDto.getFecha(), formatter));
+    unaColaboracion.setFechaColaboracion(colaboracionInputDto.getFecha());
 
     unaColaboracion.setTipoColaboracion(TipoColaboracion
         .valueOf(colaboracionInputDto.getTipoColaboracion()));
 
-    Integer cantidad = Integer.parseInt(colaboracionInputDto.getCantidad());
+    Integer cantidad = colaboracionInputDto.getCantidad();
 
     switch (unaColaboracion.getTipoColaboracion()) {
       case DONAR_DINERO -> {

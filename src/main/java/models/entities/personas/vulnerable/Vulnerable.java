@@ -11,15 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import models.db.Persistente;
 import models.entities.direccion.Direccion;
 import models.entities.personas.documento.Documento;
-import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 
 /**
  * Representa una persona vulnerable con nombre, fecha de nacimiento, fecha de registro,
@@ -30,6 +28,7 @@ import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 @Getter
 @Entity
 @Table(name = "vulnerables")
+@AllArgsConstructor
 public class Vulnerable extends Persistente {
   @Column(name = "nombre", nullable = false)
   private String nombre;
@@ -49,22 +48,6 @@ public class Vulnerable extends Persistente {
       joinColumns = @JoinColumn(name = "vulnerable_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "menor_id", referencedColumnName = "id"))
   private List<Vulnerable> menoresAcargo;
-
-  /**
-   * Constructor de vulnerable, sirve para dar de alta.
-   */
-
-  public Vulnerable(String nombre, LocalDate fechaNacimiento, Direccion domicilio,
-                    Documento documento, List<Vulnerable> menoresAcargo) {
-    this.nombre = nombre;
-    this.fechaNacimiento = fechaNacimiento;
-    this.domicilio = domicilio;
-    this.documento = documento;
-    this.menoresAcargo = new ArrayList<>();
-    if (menoresAcargo != null) {
-      this.menoresAcargo.addAll(menoresAcargo);
-    }
-  }
 
   public Vulnerable() {
     this.menoresAcargo = new ArrayList<>();

@@ -3,6 +3,7 @@ package dtos;
 import io.javalin.http.Context;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import lombok.Data;
 import utils.helpers.ContextHelper;
 
@@ -12,8 +13,8 @@ import utils.helpers.ContextHelper;
 
 @Data
 public class SuscripcionInputDto {
-  private String viandasFaltantes;
-  private String viandasRestantes;
+  private Integer viandasFaltantes;
+  private Integer viandasRestantes;
   private List<String> tiposSuscripcion;
 
   /**
@@ -28,12 +29,14 @@ public class SuscripcionInputDto {
     suscripcionInputDto.tiposSuscripcion = new ArrayList<>();
 
     if (!ContextHelper.isEmpty(context, "faltan_n_viandas_check")) {
-      suscripcionInputDto.viandasFaltantes = context.formParam("faltan_n_viandas");
+      suscripcionInputDto.viandasFaltantes =
+          Integer.valueOf(Objects.requireNonNull(context.formParam("faltan_n_viandas")));
       suscripcionInputDto.tiposSuscripcion.add(context.formParam("faltan_n_viandas_check"));
     }
 
     if (!ContextHelper.isEmpty(context, "quedan_n_viandas_check")) {
-      suscripcionInputDto.viandasRestantes = context.formParam("quedan_n_viandas");
+      suscripcionInputDto.viandasRestantes =
+          Integer.valueOf(Objects.requireNonNull(context.formParam("quedan_n_viandas")));
       suscripcionInputDto.tiposSuscripcion.add(context.formParam("quedan_n_viandas_check"));
     }
 

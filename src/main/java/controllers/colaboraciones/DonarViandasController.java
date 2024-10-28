@@ -1,6 +1,6 @@
 package controllers.colaboraciones;
 
-import dtos.DonacionViandasDto;
+import dtos.DonacionViandasInputDto;
 import io.javalin.http.Context;
 import java.util.Objects;
 import java.util.Optional;
@@ -81,18 +81,18 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
       return;
     }
 
-    DonacionViandasDto donacionViandasDto = DonacionViandasDto.fromContext(context);
+    DonacionViandasInputDto donacionViandasInputDto = DonacionViandasInputDto.fromContext(context);
 
     Long idHeladera =
         Long.parseLong(Objects.requireNonNull(context.formParam("heladera")));
     Heladera heladera =
         this.genericRepository.buscarPorId(idHeladera, Heladera.class).get();
 
-    int cantViandas = Integer.parseInt(donacionViandasDto.getCantViandas());
+    int cantViandas = donacionViandasInputDto.getCantViandas();
 
     if (heladera.hayEspacioPara(cantViandas)) {
       Colaboracion colaboracion =
-          this.colaboracionesService.crear(donacionViandasDto, heladera, colaborador);
+          this.colaboracionesService.crear(donacionViandasInputDto, heladera, colaborador);
 
       ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 

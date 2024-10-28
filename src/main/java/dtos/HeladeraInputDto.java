@@ -1,10 +1,11 @@
 package dtos;
 
 import io.javalin.http.Context;
+import java.time.LocalDate;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import models.entities.heladera.Heladera;
 
 /**
  * DTO para la creación de una heladera.
@@ -14,8 +15,8 @@ import models.entities.heladera.Heladera;
 @AllArgsConstructor
 @Builder
 public class HeladeraInputDto {
-  String nombre;
-  String fechaCreacion;
+  private String nombre;
+  private LocalDate fechaCreacion;
 
   /**
    * Crea un HeladeraInputDto a partir de un contexto.
@@ -27,7 +28,9 @@ public class HeladeraInputDto {
   public static HeladeraInputDto fromContext(Context context) {
     return HeladeraInputDto.builder()
         .nombre(context.formParam("nombre"))
-        .fechaCreacion(context.formParam("fechaCreacion"))
+        .fechaCreacion(
+            LocalDate.parse(Objects.requireNonNull(context.formParam("fechaCreacion")))
+        )
         .build();
   }
 }

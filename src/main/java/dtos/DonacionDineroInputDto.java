@@ -1,6 +1,7 @@
 package dtos;
 
 import io.javalin.http.Context;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DonacionDineroDto {
-  private String montoDonado;
+public class DonacionDineroInputDto {
+  private Integer montoDonado;
   private String frecuencia;
 
   /**
@@ -23,9 +24,11 @@ public class DonacionDineroDto {
    * @return una donacion de dinero.
    */
 
-  public static DonacionDineroDto fromContext(Context context) {
-    DonacionDineroDto nuevaDonacion = new DonacionDineroDto();
-    nuevaDonacion.setMontoDonado(context.formParam("montoDonado"));
+  public static DonacionDineroInputDto fromContext(Context context) {
+    DonacionDineroInputDto nuevaDonacion = new DonacionDineroInputDto();
+    nuevaDonacion.setMontoDonado(
+        Integer.valueOf(Objects.requireNonNull(context.formParam("montoDonado")))
+    );
     nuevaDonacion.setFrecuencia(context.formParam("frecuenciaDonacion"));
     return nuevaDonacion;
   }

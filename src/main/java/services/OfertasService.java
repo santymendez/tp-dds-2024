@@ -20,7 +20,7 @@ public class OfertasService {
   public Oferta crear(OfertaInputDto ofertaInputDto, Colaborador colaborador) {
     Oferta oferta = new Oferta();
     oferta.setNombre(ofertaInputDto.getNombre());
-    oferta.setPuntosNecesarios(Float.parseFloat(ofertaInputDto.getPuntosNecesarios()));
+    oferta.setPuntosNecesarios(ofertaInputDto.getPuntosNecesarios());
     oferta.setImagenIlustrativa(ofertaInputDto.getImagenIlustrativa());
     oferta.setDescripcion(ofertaInputDto.getDescripcion());
     oferta.setOfertante(colaborador);

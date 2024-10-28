@@ -11,8 +11,8 @@ import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 @Data
 @Builder
 public class SolicitudAperturaOutputDto {
-  String uuid;
-  String fecha;
+  private String uuid;
+  private String fecha;
 
   /**
    * Convierte un uso de tarjeta en un SolicitudAperturaOutputDto.

@@ -33,7 +33,7 @@ public class FactoryColaborador {
           .tipoColaborador(TipoColaborador.FISICO)
           .contacto(new Contacto(colaboradorInputDto.getContacto(),
               TipoContacto.valueOf(colaboradorInputDto.getTipoContacto())))
-          .documento(new Documento(Integer.valueOf(colaboradorInputDto.getNumeroDocumento()),
+          .documento(new Documento(colaboradorInputDto.getNumeroDocumento(),
               TipoDocumento.valueOf(colaboradorInputDto.getTipoDocumento()))
           )
           .reconocimiento(new Reconocimiento())

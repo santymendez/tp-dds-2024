@@ -1,12 +1,10 @@
 package services;
 
 import dtos.VisitaInputDto;
-import java.time.LocalDate;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.personas.tecnico.Tecnico;
 import models.entities.personas.tecnico.VisitaTecnica;
 import models.repositories.imp.GenericRepository;
-import models.repositories.imp.IncidentesRepository;
 
 /**
  * Service para instanciar visitas técnicas a partir de sus DTOs.
@@ -41,8 +39,8 @@ public class VisitasTecnicasService {
     VisitaTecnica visitaTecnica = new VisitaTecnica();
     visitaTecnica.setFotoVisita(visitaInputDto.getFotoVisita());
     visitaTecnica
-        .setIncidenteSolucionado(Boolean.parseBoolean(visitaInputDto.getIncidenteSolucionado()));
-    visitaTecnica.setFechaVisita(LocalDate.parse(visitaInputDto.getFechaVisita()));
+        .setIncidenteSolucionado(visitaInputDto.getIncidenteSolucionado());
+    visitaTecnica.setFechaVisita(visitaInputDto.getFechaVisita());
     visitaTecnica.setTrabajoRealizado(visitaInputDto.getTrabajoRealizado());
 
     visitaTecnica.setTecnico(tecnico);

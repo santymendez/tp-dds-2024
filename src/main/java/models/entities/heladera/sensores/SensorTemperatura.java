@@ -58,7 +58,7 @@ public class SensorTemperatura extends Persistente {
   }
 
   public Boolean estaConectado() {
-    LocalDateTime fecha = this.mediciones.get(0).getFecha();
+    LocalDateTime fecha = this.mediciones.get(0).getFechaYhora();
     return this.periodoEnMinutos(fecha) > 5;
   }
 

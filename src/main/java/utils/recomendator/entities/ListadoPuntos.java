@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 public class ListadoPuntos {
   public List<Punto> puntos;
-  public int cantidad;
-  public int inicio;
-  public int total;
+  public Integer cantidad;
+  public Integer inicio;
+  public Integer total;
 }

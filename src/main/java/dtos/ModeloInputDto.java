@@ -1,6 +1,7 @@
 package dtos;
 
 import io.javalin.http.Context;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,9 +13,9 @@ import lombok.Data;
 @Builder
 public class ModeloInputDto {
   private String nombre;
-  private String temperaturaMinima;
-  private String temperaturaMaxima;
-  private String capacidadMaximaViandas;
+  private Float temperaturaMinima;
+  private Float temperaturaMaxima;
+  private Integer capacidadMaximaViandas;
 
   /**
    * Crea un ModeloInputDto a partir de un contexto.
@@ -26,9 +27,15 @@ public class ModeloInputDto {
   public static ModeloInputDto fromContext(Context context) {
     return ModeloInputDto.builder()
         .nombre(context.formParam("nombre"))
-        .temperaturaMinima(context.formParam("temperaturaMin"))
-        .temperaturaMaxima(context.formParam("temperaturaMax"))
-        .capacidadMaximaViandas(context.formParam("capacidadMaximaViandas"))
+        .temperaturaMinima(
+            Float.valueOf(Objects.requireNonNull(context.formParam("temperaturaMin")))
+        )
+        .temperaturaMaxima(
+            Float.valueOf(Objects.requireNonNull(context.formParam("temperaturaMax")))
+        )
+        .capacidadMaximaViandas(
+            Integer.valueOf(Objects.requireNonNull(context.formParam("capacidadMaximaViandas")))
+        )
         .build();
   }
 }

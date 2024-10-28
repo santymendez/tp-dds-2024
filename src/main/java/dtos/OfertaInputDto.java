@@ -1,6 +1,7 @@
 package dtos;
 
 import io.javalin.http.Context;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ import utils.helpers.UploadedFilesHelper;
 @Builder
 public class OfertaInputDto {
   private String nombre;
-  private String puntosNecesarios;
+  private Float puntosNecesarios;
   private String imagenIlustrativa;
   private String descripcion;
 
@@ -38,7 +39,9 @@ public class OfertaInputDto {
     return OfertaInputDto.builder()
         .nombre(context.formParam("nombre"))
         .descripcion(context.formParam("descripcion"))
-        .puntosNecesarios(context.formParam("puntosNecesarios"))
+        .puntosNecesarios(
+            Float.valueOf(Objects.requireNonNull(context.formParam("puntosNecesarios")))
+        )
         .imagenIlustrativa(path)
         .build();
   }

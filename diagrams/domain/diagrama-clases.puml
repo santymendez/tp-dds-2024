@@ -23,10 +23,11 @@ class Heladera {
     +Integer calcularMesesActiva()
     +agregarVianda(Vianda vianda)
     +modificaEstado(TipoEstado estado)
+    +intentarNotificarSuscriptores(TipoSuscripcion tipoSuscripcion)
 }
 
 class Direccion {
-    -ubicacion: String
+    -nombreUbicacion: String
     -longitud: Float
     -latitud: Float
     -barrio: Barrio
@@ -71,15 +72,17 @@ class Vulnerable {
     -List<Vulnerable> menoresAcargo
 }
 
-class Colaborador{
-    'De Persona Fisica'
+class Colaborador {
+    -usuario: Usuario
+
+    'Persona Fisica'
     -nombre: String
     -apellido: String
     -documento: Documento
 
     'De Persona Juridica'
     -razonSocial: String
-    -tipo: String
+    -tipo: TipoJuridico
     -rubro: String
     -direccion: Direccion
 
@@ -91,18 +94,22 @@ class Colaborador{
 
     -adapterServicioRecomendacion: AdapterServicioRecomendacion
 
-    +boolean puedeCanjear(Oferta oferta)
+    +Boolean puedeCanjear(Oferta oferta)
     +void aumentarReconocimiento(Colaboracion colaboracion)
-
-    +void agregarSolicitudApertura(Heladera heladera)
-
-    +void agregarSuscripcion(Suscripcion suscripcion)
+    +void agregarColaboracion(Colaboracion colaboracion)
 }
 
 enum TipoColaborador {
     FISICO,
     JURIDICO,
     EMPRESA_ASOCIADA
+}
+
+enum TipoJuridico {
+    ONG,
+    GUBERNAMENTAL,
+    EMPRESA,
+    INSTITUCION
 }
 
 class Formulario {
@@ -121,7 +128,7 @@ class Pregunta {
     -pregunta: String
     -esOpcional: Boolean
     -List<Opcion> opciones
-    -tipoDeSuRespuesta: TipoPregunta
+    -tipoPregunta: TipoPregunta
 }
 
 class Respuesta {
@@ -155,9 +162,9 @@ class Colaboracion {
 
     -distribucionTarjetas: DistribucionTarjetas
 
-    -colocacionHeladera ColocacionHeladera
+    -colocacionHeladera HacerseCargoHeladera
 
-    -realizacionOfertas: RealizacionOfertas
+    -realizacionOfertas: RealizacionOferta
 }
 
 enum TipoColaboracion {
@@ -191,37 +198,36 @@ class DistribucionTarjetas {
     -cantTarjetasEntregadas: Integer
 }
 
-class ColocacionHeladera {
+class HacerseCargoHeladera {
     -heladeraColocada: Heladera
 }
 
-class RealizacionOfertas {
+class RealizacionOferta {
     -ofertaRealizada: Oferta
 }
 
 '========================================== Clases de la entrega 2 ============================================='
 
-class Modelo{
+class Modelo {
     -nombre: String
     -temperaturaMinima: Float
     -temperaturaMaxima: Float
     -capacidadMaximaViandas: Integer
 }
 
-class SensorTemperatura{
-    -id: Integer
+class SensorTemperatura {
     -List<MedicionSensor> mediciones
     -heladera: Heladera
 
-    +Boolean comprobarTemperatura(Float temperatura)
+    +Boolean fueraDeRango(Float temperatura)
     +void recibirMedicion(MedicionSensor medicion)
     +void desactivarHeladera(Incidente incidente)
-    +void activarHeladera()
+    +Boolean estaConectado()
 }
 
-class MedicionSensor{
-    -valorNumerico: Float
-    -fecha: LocalDateTime
+class MedicionSensor {
+    -valor: Float
+    -fechaYhora: LocalDateTime
     -heladera: Heladera
 }
 
@@ -233,7 +239,6 @@ class SensorMovimiento {
     +Boolean debeActivarSensor()
     +void recibirMedicion(MedicionSensor medicion)
     +void desactivarHeladera(Incidente incidente)
-    +void activarHeladera()
 }
 
 class Reconocimiento {
@@ -286,12 +291,14 @@ class CalculoHeladerasActivas {
 
 class TarjetaVulnerable {
     -codigo: String
+    -activo: Boolean
     -fechaAlta: LocalDate
     -cantidadDeUsosMaxima: Integer
     -List<UsoTarjetaVulnerable> registroUsos
     -registroVulnerable: RegistroVulnerable
 
     +Boolean puedeUtilizarse(Heladera heladera)
+    +void calcularUsos()
 }
 
 class UsoTarjetaVulnerable {
@@ -307,14 +314,13 @@ class RegistroVulnerable {
 }
 
 class Tecnico {
+    -usuario: Usuario
     -nombre: String
     -apellido: String
     -documento: Documento
     -cuil: Integer
     -contacto: Contacto
     -areaDeCobertura: Ciudad
-
-    +void puedeVisitarHeladera(Heladera heladera)
 }
 
 enum TipoDocumento {
@@ -327,6 +333,7 @@ class Oferta {
     -nombre: String
     -puntosNecesarios: Float
     -imagenIlustrativa: String
+    -descripcion: String
     -ofertante: Colaborador
 }
 
@@ -346,9 +353,9 @@ class Contacto {
 }
 
 enum TipoContacto {
-    TELEFONO_FIJO,
-    CELULAR,
     MAIL,
+    WHATSAPP,
+    TELEGRAM
 }
 
 interface InterfaceAdapterServicioRecomendacion {
@@ -371,12 +378,12 @@ class ListadoPuntos {
 }
 
 class Punto {
-    +lon: String
     +lat: String
+    +lon: String
     +referencia: String
 }
 
-class Estado{
+class Estado {
     -estado: TipoEstado
     -fechaInicial: LocalDate
     -fechaFinal: LocalDate
@@ -384,7 +391,7 @@ class Estado{
     +Integer calcularMeses()
 }
 
-enum TipoEstado{
+enum TipoEstado {
     ACTIVA,
     INACTIVA_FUNCIONAL,
     INACTIVA_TEMPERATURA,
@@ -397,6 +404,8 @@ enum TipoEstado{
 
 class TarjetaColaborador {
     -codigo: String
+    -activo: Boolean
+    -fechaAlta: LocalDate
     -List<UsoTarjetaColaborador> usos
     -colaborador: Colaborador
 }
@@ -413,24 +422,34 @@ class Apertura {
 }
 
 class Limitador {
-    -unidad: ChronoUnit
+    -unidad: UnidadTiempo
     -tiempoLimite: Float
 
     +Boolean menorAlLimite(Duration duracion)
 }
 
+enum UnidadTiempo {
+    SEGUNDOS,
+    MINUTOS,
+    HORAS,
+    DIAS,
+    SEMANAS,
+    MESES,
+    ANIOS
+}
+
 class Incidente {
-    -heladera: Heladera
     -tipoIncidente: TipoIncidente
     -momentoIncidente: LocalDateTime
+    -heladera: Heladera
 
     'Alerta'
     -tipoAlerta: TipoEstado
 
     'Falla Tecnica'
     -colaborador: Colaborador
-    -descripcionIncidente: String
-    -fotoIncidente: String
+    -descripcion: String
+    -imagen: String
 
     -solucionado: Boolean
 }
@@ -456,13 +475,15 @@ abstract class Suscripcion {
 
     +intentarNotificar()
     +notificar()
-    +seCumpleCondicion()
+    +String getAsunto()
+    +String getCuerpo()
+    +Boolean seCumpleCondicion()
 }
 
 enum TipoSuscripcion {
     QUEDAN_N_VIANDAS,
     FALTAN_N_VIANDAS,
-    DESPERFECTO
+    OCURRIO_DESPERFECTO
 }
 
 class QuedanViandas {
@@ -470,7 +491,9 @@ class QuedanViandas {
 
     +intentarNotificar()
     +notificar()
-    +seCumpleCondicion()
+    +String getAsunto()
+    +String getCuerpo()
+    +Boolean seCumpleCondicion()
 }
 
 class FaltanViandas {
@@ -478,14 +501,18 @@ class FaltanViandas {
 
     +intentarNotificar()
     +notificar()
-    +seCumpleCondicion()
+    +String getAsunto()
+    +String getCuerpo()
+    +Boolean seCumpleCondicion()
 }
 
 class Desperfecto {
 
     +intentarNotificar()
     +notificar()
-    +seCumpleCondicion()
+    +String getAsunto()
+    +String getCuerpo()
+    +Boolean seCumpleCondicion()
 }
 
 class GeneradorReporte {
@@ -494,6 +521,8 @@ class GeneradorReporte {
     -leading: Integer
     -maxLines: Integer
     -currentLines: Integer
+
+    +String generarReporte(List<ReporteHeladera> reportes)
 }
 
 class ReporteHeladera {
@@ -502,6 +531,7 @@ class ReporteHeladera {
     -viandasColocadas: Integer
     -viandasRetiradas: Integer
     -List<ViandasPorColaborador> viandasPorColaborador
+    -fecha: LocalDate
     -path: String
 }
 
@@ -533,6 +563,20 @@ class BuscadorHeladerasFrecuentes {
     +List<Heladera> heladerasFrecuentes(Colaborador colaborador)
 }
 
+class Usuario {
+    -username: String
+    -password: String
+    -rol: Rol
+}
+
+enum Rol {
+    PERSONA_FISICA,
+    PERSONA_JURIDICA,
+    EMPRESA_ASOCIADA,
+    ADMINISTRADOR,
+    TECNICO
+}
+
 '================================================== Relaciones ================================================'
 
 'DIRECCIONES'
@@ -549,6 +593,10 @@ Heladera -->"*" Estado
 Heladera ..> TipoEstado
 Heladera *-- Limitador
 Heladera -->"*" TarjetaColaborador
+Heladera ..> TipoSuscripcion
+
+'LIMITADOR'
+Limitador *-- UnidadTiempo
 
 'VIANDA'
 Vianda *-- Comida
@@ -573,6 +621,8 @@ Colaborador o--- Reconocimiento
 Colaborador ---> AdapterServicioRecomendacion
 Colaborador ..> Heladera
 Colaborador -->"*" Colaboracion
+Colaborador --> Usuario
+Colaborador --> TipoJuridico
 
 'DOCUMENTO'
 Documento o-- TipoDocumento
@@ -621,17 +671,17 @@ Colaboracion *-- TipoColaboracion
 Colaboracion --> DonacionViandas
 Colaboracion --> DistribucionViandas
 Colaboracion --> DistribucionTarjetas
-Colaboracion --> RealizacionOfertas
-Colaboracion --> ColocacionHeladera
+Colaboracion --> RealizacionOferta
+Colaboracion --> HacerseCargoHeladera
 Colaboracion --> DonacionDinero
 Colaboracion --> Colaborador
 
 DonacionViandas -->"*" Vianda
 DistribucionViandas --> Heladera
 DistribucionTarjetas -->"*" TarjetaVulnerable
-RealizacionOfertas --> Oferta
+RealizacionOferta --> Oferta
 Oferta --> Colaborador
-ColocacionHeladera --> Heladera
+HacerseCargoHeladera --> Heladera
 
 'TARJETA'
 TarjetaVulnerable o---"*" UsoTarjetaVulnerable
@@ -650,14 +700,12 @@ RegistroVulnerable *--- Vulnerable
 Vulnerable ---> Direccion
 Vulnerable ---> Documento
 Vulnerable --->"*" Vulnerable
-Vulnerable ..> Heladera
 
 'TECNICO'
 Tecnico *- Documento
 Tecnico *-- Contacto
 Tecnico *-- Ciudad
-Tecnico -->"*" VisitaTecnica
-Tecnico ..> Heladera
+Tecnico --> Usuario
 
 'CANJE'
 Canje *-- Colaborador
@@ -721,5 +769,11 @@ BuscadorHeladerasFrecuentes ..> Colaborador
 
 'GENERADOR REPORTES'
 GeneradorReporte ..> Heladera
+
+'USUARIO'
+Usuario *-- Rol
+
+'GENERADOR REPORTE'
+GeneradorReporte ..> ReporteHeladera
 
 @enduml

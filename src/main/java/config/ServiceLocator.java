@@ -48,7 +48,6 @@ public class ServiceLocator {
     if (!instances.containsKey(serviceName)) {
       if (serviceClass.equals(ColaboradoresService.class)) {
         ColaboradoresService instance = new ColaboradoresService(
-            RepositoryLocator.instanceOf(UsuariosRepository.class),
             RepositoryLocator.instanceOf(ColaboradoresRepository.class)
         );
         instances.put(serviceName, instance);

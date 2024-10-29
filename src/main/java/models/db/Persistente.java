@@ -22,10 +22,10 @@ public abstract class Persistente {
   @Column(unique = true, nullable = false)
   private Long id;
 
-  @Column(name = "activo")
+  @Column(name = "activo", nullable = false)
   private Boolean activo;
 
-  @Column(name = "fechaAlta", columnDefinition = "DATE")
+  @Column(name = "fechaAlta", columnDefinition = "DATE", nullable = false)
   private LocalDate fechaAlta;
 
   public Persistente() {

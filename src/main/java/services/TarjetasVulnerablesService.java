@@ -38,7 +38,7 @@ public class TarjetasVulnerablesService {
         this.tarjetasVulnerablesRepository.buscarPorUuid(uuid);
 
 
-    if(!posibleTarjeta.isEmpty()){
+    if (!posibleTarjeta.isEmpty()) {
       return null;
     }
 

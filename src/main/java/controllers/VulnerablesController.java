@@ -120,7 +120,7 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
     TarjetaVulnerable tarjeta = this.tarjetasVulneralesService
         .crear(colaborador, vulnerable, vulnerableInputDto.getTarjeta());
 
-    if(tarjeta == null){
+    if (tarjeta == null) {
       context.redirect("/heladeras-solidarias/vulnerables?wrongCard=true");
       return;
     }

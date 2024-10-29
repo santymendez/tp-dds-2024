@@ -216,3 +216,9 @@ nav ul li a:hover {
     box-shadow: none;
     border-color: var(--blanco);
 }
+
+.close{
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+}

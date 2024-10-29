@@ -60,6 +60,106 @@
                 </div>
             </div>
         </div>
+            <!-- Modal Exito Suscribir -->
+            <div class="modal fade" id="suscribirseBien" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLongTitle">¡Suscripción Exitosa!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Tu suscripción fue procesada con éxito.</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Exito Vulnerable -->
+            <div class="modal fade" id="vulnerableCreado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLongTitle">¡Registro Exitoso!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>El vulnerable fue registrado con éxito.</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal Exito Acciones Admin Heladera -->
+            <div class="modal fade" id="accionExitosa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLongTitle">¡Acción Exitosa!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>La acción fue realizada con éxito.</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Exito CSV -->
+            <div class="modal fade" id="csvExitoso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLongTitle">¡Carga Exitosa!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>El CSV fue cargado con éxito.</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Exito Canje -->
+            <div class="modal fade" id="canjearBien" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLongTitle">¡Canje Exitoso!</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>El canje fue realizado correctamente!</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </main>
 {{/partial}}
 
@@ -69,10 +169,31 @@
             // Lee los parámetros de la URL
             const params = new URLSearchParams(window.location.search);
 
-            // Si el parámetro "success" es "true", mostramos el modal
+            // Si el parámetro "success" es "true", se muestra el modal
             if (params.get("colabSuccess") === "true") {
                 $('#exampleModalCenter').modal('show');
             }
+
+            if(params.get("actionSuccess") === "true") {
+                $('#accionExitosa').modal('show');
+            }
+
+            if (params.get("suscribeSuccess") === "true") {
+                $('#suscribirseBien').modal('show');
+            }
+
+            if (params.get("vulnerableCreated") === "true") {
+                $('#vulnerableCreado').modal('show');
+            }
+
+            if (params.get("trade") === "true") {
+                $('#canjearBien').modal('show');
+            }
+
+            if (params.get("csvSuccess") === "true") {
+                $('#csvExitoso').modal('show');
+            }
+
         });
     </script>
 

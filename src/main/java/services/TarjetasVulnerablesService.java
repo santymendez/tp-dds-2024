@@ -33,9 +33,14 @@ public class TarjetasVulnerablesService {
    * @param uuid el uuid de la tarjeta.
    */
 
-  public void crear(Colaborador colaborador, Vulnerable vulnerable, String uuid) {
+  public TarjetaVulnerable crear(Colaborador colaborador, Vulnerable vulnerable, String uuid) {
     Optional<TarjetaVulnerable> posibleTarjeta =
         this.tarjetasVulnerablesRepository.buscarPorUuid(uuid);
+
+
+    if(!posibleTarjeta.isEmpty()){
+      return null;
+    }
 
     TarjetaVulnerable tarjetaVulnerable = posibleTarjeta.get();
 
@@ -47,5 +52,6 @@ public class TarjetasVulnerablesService {
     tarjetaVulnerable.calcularUsos();
 
     this.tarjetasVulnerablesRepository.modificar(tarjetaVulnerable);
+    return tarjetaVulnerable;
   }
 }

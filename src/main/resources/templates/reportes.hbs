@@ -52,12 +52,28 @@
         </div>
     </div>
 
+    <div class="modal fade" id="errorFechasAnterior" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">¡Ups! Surgió un Problema</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 id="mensajeError">La fecha anterior tiene que ser previa a la fecha posterior. Inténtalo de nuevo</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {{/partial}}
 
 {{#partial "scripts"}}
-
-    <!-- TODO si ves como combinar esto y se vea como los otros, sos mi nuevo idolo.
-          sino no importa, saca esto y fingimos demencia-->
 
     <script>
         document.querySelector('form').addEventListener('submit', function (event) {
@@ -65,8 +81,7 @@
             var fechaFinal = new Date(document.getElementById('fechaFinal').value);
 
             if (fechaInicial >= fechaFinal) {
-                event.preventDefault();
-                alert('La fecha inicial debe ser anterior a la fecha final.');
+                $('#errorFechasAnteriores').modal('show');
             }
         });
     </script>

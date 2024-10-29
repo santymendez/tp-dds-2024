@@ -119,7 +119,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
 
     if (DateHelper.validate(heladeraInputDto.getFechaCreacion())) {
-      //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
+      context.redirect("/heladeras-solidarias/heladeras?invalidDate=true");
       return;
     }
 
@@ -133,7 +133,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
     this.reportesHeladerasService.crear(heladera);
 
-    context.redirect("/heladeras-solidarias");
+    context.redirect("/heladeras-solidarias?actionSuccess=true");
   }
 
   public void edit(Context context) {
@@ -150,7 +150,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
 
     if (heladeraInputDto.getFechaCreacion().isAfter(LocalDate.now())) {
-      //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
+      context.redirect("/heladeras-solidarias/heladeras?invalidDate=true");
       return;
     }
 
@@ -170,7 +170,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     }
     this.heladerasService.modificar(heladera, heladeraInputDto);
 
-    context.redirect("/heladeras-solidarias");
+    context.redirect("/heladeras-solidarias?actionSuccess=true");
   }
 
   /**
@@ -194,6 +194,6 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
     this.genericRepository.eliminar(heladera);
 
-    context.redirect("/heladeras-solidarias");
+    context.redirect("/heladeras-solidarias?actionSuccess=true");
   }
 }

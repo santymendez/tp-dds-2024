@@ -46,7 +46,7 @@ public class ModelosController implements InterfaceCrudViewsHandler {
       context.redirect("/heladeras-solidarias/heladeras-admin?modelExists=true");
     } else {
       this.modelosService.crear(modeloInputDto);
-      context.redirect("/heladeras-solidarias");
+      context.redirect("/heladeras-solidarias?actionSuccess=true");
     }
   }
 

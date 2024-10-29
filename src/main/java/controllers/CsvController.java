@@ -83,7 +83,7 @@ public class CsvController implements InterfaceCrudViewsHandler {
             .crearDesdeCsv(colaboradorInputDto, this.emailSender, colaboracion);
       }
 
-      context.redirect("/heladeras-solidarias");
+      context.redirect("/heladeras-solidarias?csvSuccess=true");
     } else {
       context.redirect("/heladeras-solidarias/cargar-csv?invalidFile=true");
     }

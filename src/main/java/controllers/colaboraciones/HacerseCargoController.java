@@ -76,7 +76,7 @@ public class HacerseCargoController implements InterfaceCrudViewsHandler {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
 
     if (DateHelper.validate(heladeraInputDto.getFechaCreacion())) {
-      //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
+      context.redirect("/heladeras-solidarias/colaborar?invalidDate=true");
       return;
     }
 

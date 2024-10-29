@@ -79,14 +79,13 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
     context.render("/registrar-vulnerable.hbs", model);
   }
 
-  // TODO atajar error cuando ponen una tarjeta que no es valida
 
   @Override
   public void save(Context context) {
     VulnerableInputDto vulnerableInputDto = VulnerableInputDto.fromContext(context);
 
     if (!DateHelper.legalAge(vulnerableInputDto.getFechaNacimiento())) {
-      //TODO ERROR CON MODAL O HBS DE MENOR DE EDAD
+      context.redirect("/heladeras-solidarias/vulnerables?missingParent=true");
       return;
     }
 
@@ -112,15 +111,21 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
       menoresInputDto.add(menor);
 
       if (DateHelper.legalAge(menor.getFechaNacimiento())) {
-        //TODO ERROR CON MODAL O HBS DE MAYOR DE EDAD
+        context.redirect("/heladeras-solidarias/registrar-vulnerable?oldEnough=true");
         return;
       }
     }
 
     this.vulnerablesService.crearMenores(menoresInputDto, vulnerable, colaborador);
-    this.tarjetasVulneralesService.crear(colaborador, vulnerable, vulnerableInputDto.getTarjeta());
+    TarjetaVulnerable tarjeta = this.tarjetasVulneralesService
+        .crear(colaborador, vulnerable, vulnerableInputDto.getTarjeta());
 
-    context.redirect("/heladeras-solidarias");
+    if(tarjeta == null){
+      context.redirect("/heladeras-solidarias/vulnerables?wrongCard=true");
+      return;
+    }
+
+    context.redirect("/heladeras-solidarias?vulnerableCreated=true");
   }
 
   @Override

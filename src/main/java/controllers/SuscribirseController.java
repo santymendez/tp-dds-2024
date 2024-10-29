@@ -64,7 +64,7 @@ public class SuscribirseController implements InterfaceCrudViewsHandler {
 
     this.heladerasRepository.modificar(heladera);
 
-    context.redirect("/heladeras-solidarias");
+    context.redirect("/heladeras-solidarias?suscribeSuccess=true");
   }
 
   public void edit(Context context) {

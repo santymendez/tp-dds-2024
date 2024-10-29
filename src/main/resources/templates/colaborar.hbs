@@ -281,8 +281,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <h4 id="mensajeError">Tu colaboración no pudo ser procesada.
+                <div class="modal-body"
+                    <h4 id="mensajeError2">Tu colaboración no pudo ser procesada.
                         El espacio disponible en la heladera es </h4>
                 </div>
                 <div class="modal-footer">
@@ -292,6 +292,7 @@
         </div>
     </div>
 
+    <!-- Modal Error Distribucion -->
     <div class="modal fade" id="errorDistribucion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -302,8 +303,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4 id="mensajeError">Tu colaboración no pudo ser procesada.
+                    <h4 id="mensajeError2">Tu colaboración no pudo ser procesada.
                         El espacio disponible para distribuir entre estas heladeras es </h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Error Fecha -->
+    <div class="modal fade" id="errorFecha" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">¡Ups! Surgió un Problema</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 id="mensajeError">La fecha ingresada es inválida. Inténtalo de nuevo </h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
@@ -347,7 +368,7 @@
             // Si el parámetro "success" es "true", mostramos el modal
             if (params.get("errorDonacionViandas") === "true") {
                 $('#errorDonacionViandas').modal('show');
-                document.getElementById("mensajeError").textContent += params.get("espacioDisponible");
+                document.getElementById("mensajeError2").textContent += params.get("espacioDisponible");
             }
         });
     </script>
@@ -362,8 +383,13 @@
                 $('#errorDistribucion').modal('show');
                 document.getElementById("mensajeError").textContent += params.get("espacioDisponible");
             }
+
+            if (params.get("invalidDate") === "true") {
+                $('#errorFecha').modal('show');
+            }
         });
     </script>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

@@ -106,7 +106,7 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
     if (colaborador.puedeCanjear(oferta)) {
       this.canjearPuntosService.crear(oferta, colaborador);
-      context.redirect("/heladeras-solidarias");
+      context.redirect("/heladeras-solidarias?trade=true");
     } else {
       context.redirect("/heladeras-solidarias/canjear-puntos?insufficientFunds=true");
     }

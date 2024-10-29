@@ -82,7 +82,7 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
     VisitaInputDto visitaInputDto = VisitaInputDto.fromContext(context);
 
     if (DateHelper.validate(visitaInputDto.getFechaVisita())) {
-      //TODO ERROR CON MODAL O HBS DE FECHA INVALIDA
+      context.redirect("/heladeras-solidarias/registrar-visita?invalidDate=true");
       return;
     }
 

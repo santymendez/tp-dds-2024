@@ -2,7 +2,6 @@ package models.entities.personas.colaborador.reconocimiento.formula.imp;
 
 import java.util.EnumMap;
 import java.util.function.Function;
-import lombok.Getter;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.personas.colaborador.reconocimiento.formula.InterfazFormula;

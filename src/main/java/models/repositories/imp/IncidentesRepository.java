@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
-import models.entities.heladera.incidente.TipoIncidente;
 
 /**
  * Repositorio de incidentes.
@@ -13,7 +12,7 @@ import models.entities.heladera.incidente.TipoIncidente;
 public class IncidentesRepository extends GenericRepository {
 
   public void guardar(Incidente incidente) {
-    super.guardar((incidente));
+    super.guardar(incidente);
   }
 
   public void modificar(Incidente incidente) {

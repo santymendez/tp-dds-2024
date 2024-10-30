@@ -13,7 +13,7 @@ import models.entities.personas.vulnerable.Vulnerable;
 public class VulnerablesRepository extends GenericRepository {
 
   public void guardar(Vulnerable vulnerable) {
-    super.guardar((vulnerable));
+    super.guardar(vulnerable);
   }
 
   public void modificar(Vulnerable vulnerable) {

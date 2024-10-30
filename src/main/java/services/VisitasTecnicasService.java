@@ -12,21 +12,17 @@ import models.repositories.imp.GenericRepository;
 
 public class VisitasTecnicasService {
   private final GenericRepository genericRepository;
-  private final IncidentesService incidentesService;
 
   /**
    * Constructor del service de visitas técnicas.
    *
    * @param genericRepository repositorio generico.
-   * @param incidentesService service de incidentes.
    */
 
   public VisitasTecnicasService(
-      GenericRepository genericRepository,
-      IncidentesService incidentesService
+      GenericRepository genericRepository
   ) {
     this.genericRepository = genericRepository;
-    this.incidentesService = incidentesService;
   }
 
   /**
@@ -49,7 +45,6 @@ public class VisitasTecnicasService {
     if (visitaTecnica.getIncidenteSolucionado()) {
       incidente.setSolucionado(true);
       this.genericRepository.modificar(incidente);
-      this.incidentesService.intentarHabilitarHeladera(incidente.getHeladera());
     }
 
     this.genericRepository.guardar(visitaTecnica);

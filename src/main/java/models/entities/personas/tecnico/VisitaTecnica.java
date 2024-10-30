@@ -10,8 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.db.Persistente;
-import models.entities.heladera.Heladera;
-import models.entities.heladera.estados.TipoEstado;
 import models.entities.heladera.incidente.Incidente;
 
 /**

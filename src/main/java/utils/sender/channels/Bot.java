@@ -1,7 +1,6 @@
 package utils.sender.channels;
 
 import config.Config;
-import java.util.List;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -42,12 +41,6 @@ public class Bot extends TelegramLongPollingBot {
         sendText(chatId, "El siguiente mensaje no es un comando valido: " + messageText);
       }
     }
-  }
-
-
-  @Override
-  public void onUpdatesReceived(List<Update> updates) {
-    super.onUpdatesReceived(updates);
   }
 
   /**

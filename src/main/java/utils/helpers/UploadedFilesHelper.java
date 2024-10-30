@@ -28,7 +28,7 @@ public class UploadedFilesHelper {
     List<String[]> allLines = null;
     if (file != null) {
       try {
-        CSVReader reader = new CSVReader((new InputStreamReader((file.content()))));
+        CSVReader reader = new CSVReader(new InputStreamReader(file.content()));
         allLines = reader.readAll();
       } catch (IOException | CsvException e) {
         e.printStackTrace();
@@ -48,16 +48,14 @@ public class UploadedFilesHelper {
     UploadedFile file = context.uploadedFile("imagen");
     String imagePath = "/static-imgs/logo.png";
 
-    if (file != null) {
-      if (!file.filename().isEmpty()) {
-        String staticPath = "uploaded-imgs/" + file.filename();
-        try {
-          File directory = new File(staticPath);
-          FileUtils.copyInputStreamToFile(file.content(), directory);
-          imagePath = "/" + staticPath;
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
+    if (file != null && !file.filename().isEmpty()) {
+      String staticPath = "uploaded-imgs/" + file.filename();
+      try {
+        File directory = new File(staticPath);
+        FileUtils.copyInputStreamToFile(file.content(), directory);
+        imagePath = "/" + staticPath;
+      } catch (IOException e) {
+        e.printStackTrace();
       }
     }
 

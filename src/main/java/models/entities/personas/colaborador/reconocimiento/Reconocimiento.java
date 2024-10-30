@@ -5,7 +5,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
-import models.db.Persistente;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.reconocimiento.formula.imp.Formula;
 

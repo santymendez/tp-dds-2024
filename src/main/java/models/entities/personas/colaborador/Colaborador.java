@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,12 +19,10 @@ import lombok.Setter;
 import models.db.Persistente;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
-import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.entities.personas.colaborador.reconocimiento.Reconocimiento;
 import models.entities.personas.contacto.Contacto;
 import models.entities.personas.documento.Documento;
-import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.users.Usuario;
 
 /**

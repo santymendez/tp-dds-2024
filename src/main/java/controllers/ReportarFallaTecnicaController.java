@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.incidente.Incidente;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.reporte.ReporteHeladera;

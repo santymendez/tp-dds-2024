@@ -1,6 +1,5 @@
 package models.searchers;
 
-import config.RepositoryLocator;
 import config.SenderLocator;
 import java.util.List;
 import models.entities.direccion.Ciudad;

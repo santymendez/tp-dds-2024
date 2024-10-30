@@ -12,7 +12,7 @@ import models.entities.reporte.ReporteSemanal;
 public class ReportesSemanalesRepository extends GenericRepository {
 
   public void guardar(ReporteSemanal reporteSemanal) {
-    super.guardar((reporteSemanal));
+    super.guardar(reporteSemanal);
   }
 
   public void modificar(ReporteSemanal reporteSemanal) {

@@ -8,7 +8,6 @@ import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.canje.Oferta;
 import models.repositories.imp.GenericRepository;
 import services.ColaboracionesService;
-import services.OfertasService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
 import utils.helpers.UploadedFilesHelper;
@@ -26,13 +25,11 @@ public class RealizarOfertasController implements InterfaceCrudViewsHandler {
    * Constructor de la clase.
    *
    * @param ofertasRepository repositorio de ofertas.
-   * @param ofertasService servicio de ofertas.
    * @param colaboracionesService servicio de colaboraciones.
    */
 
   public RealizarOfertasController(
       GenericRepository ofertasRepository,
-      OfertasService ofertasService,
       ColaboracionesService colaboracionesService
   ) {
     this.ofertasRepository = ofertasRepository;

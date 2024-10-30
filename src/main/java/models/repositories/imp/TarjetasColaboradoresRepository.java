@@ -11,7 +11,7 @@ import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 public class TarjetasColaboradoresRepository extends GenericRepository {
 
   public void guardar(TarjetaColaborador tarjetaColaborador) {
-    super.guardar((tarjetaColaborador));
+    super.guardar(tarjetaColaborador);
   }
 
   public void modificar(TarjetaColaborador tarjetaColaborador) {

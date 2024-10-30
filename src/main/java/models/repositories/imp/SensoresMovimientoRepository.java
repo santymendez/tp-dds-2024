@@ -11,7 +11,7 @@ import models.entities.heladera.sensores.SensorMovimiento;
 public class SensoresMovimientoRepository extends GenericRepository {
 
   public void guardar(SensorMovimiento sensorMovimiento) {
-    super.guardar((sensorMovimiento));
+    super.guardar(sensorMovimiento);
   }
 
   public void modificar(SensorMovimiento sensorMovimiento) {

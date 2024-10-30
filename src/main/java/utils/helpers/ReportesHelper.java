@@ -61,6 +61,6 @@ public class ReportesHelper {
       reporteOrigen.viandaRetirada();
     }
 
-    ReportesHelper.actualizarReportePorDonacion(reporteDestino, colaborador, cantViandas);
+    actualizarReportePorDonacion(reporteDestino, colaborador, cantViandas);
   }
 }

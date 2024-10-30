@@ -51,7 +51,7 @@ public class OldCsvController {
   public void leerArchivoCsv() {
 
     try {
-      CSVReader reader = new CSVReader(new FileReader(OldCsvController.ruta_archivo));
+      CSVReader reader = new CSVReader(new FileReader(ruta_archivo));
       String[] nextLine;
       while ((nextLine = reader.readNext()) != null) {
         ColaboradorInputDto colaboradorInputDto = ColaboradorInputDto.fromCsv(nextLine);

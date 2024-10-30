@@ -3,7 +3,6 @@ package services;
 import dtos.VulnerableInputDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import models.entities.direccion.Direccion;
@@ -11,10 +10,8 @@ import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.documento.Documento;
 import models.entities.personas.documento.TipoDocumento;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
-import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
-import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.VulnerablesRepository;
 
 /**

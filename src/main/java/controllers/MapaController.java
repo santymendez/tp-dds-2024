@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import models.entities.heladera.Heladera;
 import models.entities.personas.users.TipoRol;
-import models.repositories.imp.GenericRepository;
 import models.repositories.imp.HeladerasRepository;
 import utils.javalin.InterfaceCrudViewsHandler;
 

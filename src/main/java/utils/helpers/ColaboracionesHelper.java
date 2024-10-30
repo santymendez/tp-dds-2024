@@ -1,12 +1,9 @@
 package utils.helpers;
 
 import config.RepositoryLocator;
-import java.util.Optional;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.colaborador.TipoColaborador;
-import models.entities.reporte.ReporteHeladera;
-import models.entities.reporte.ViandasPorColaborador;
 import models.repositories.imp.GenericRepository;
 
 

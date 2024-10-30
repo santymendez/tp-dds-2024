@@ -11,7 +11,7 @@ import models.entities.heladera.Modelo;
 public class ModelosRepository extends GenericRepository {
 
   public void guardar(Modelo modelo) {
-    super.guardar((modelo));
+    super.guardar(modelo);
   }
 
   public void modificar(Modelo modelo) {

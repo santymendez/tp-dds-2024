@@ -51,7 +51,15 @@ public class WhatsAppSender implements SenderInterface {
     String newMensaje = mensaje.aplanarMensaje();
 
     Twilio.init(accountSid, tokenAutenticacion);
-    Message message = Message.creator(
+    //TODO AUGUSTO REVISAR ESTO
+
+    //Message message = Message.creator(
+    //new com.twilio.type.PhoneNumber(nroDestinatario),
+    //new com.twilio.type.PhoneNumber(nroEnvio),
+    //newMensaje)
+    //.create();
+
+    Message.creator(
               new com.twilio.type.PhoneNumber(nroDestinatario),
               new com.twilio.type.PhoneNumber(nroEnvio),
               newMensaje)

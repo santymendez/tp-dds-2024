@@ -3,9 +3,7 @@ package models.repositories.imp;
 import java.util.List;
 import java.util.Optional;
 import models.entities.heladera.Heladera;
-import models.entities.heladera.estados.Estado;
 import models.entities.heladera.estados.TipoEstado;
-import models.entities.personas.users.TipoRol;
 
 /**
  * Repositorio de heladeras.
@@ -14,7 +12,7 @@ import models.entities.personas.users.TipoRol;
 public class HeladerasRepository extends GenericRepository {
 
   public void guardar(Heladera heladera) {
-    super.guardar((heladera));
+    super.guardar(heladera);
   }
 
   public void modificar(Heladera heladera) {

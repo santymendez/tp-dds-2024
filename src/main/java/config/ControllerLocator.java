@@ -45,7 +45,6 @@ import services.DireccionesService;
 import services.HeladerasService;
 import services.IncidentesService;
 import services.ModelosService;
-import services.OfertasService;
 import services.ReportesHeladerasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
@@ -199,7 +198,6 @@ public class ControllerLocator {
       } else if (controllerClass.equals(RealizarOfertasController.class)) {
         RealizarOfertasController instance = new RealizarOfertasController(
             RepositoryLocator.instanceOf(GenericRepository.class),
-            ServiceLocator.instanceOf(OfertasService.class),
             ServiceLocator.instanceOf(ColaboracionesService.class)
         );
         instances.put(controllerName, instance);
@@ -251,8 +249,9 @@ public class ControllerLocator {
         VisitasTecnicasController instance = new VisitasTecnicasController(
             RepositoryLocator.instanceOf(HeladerasRepository.class),
             RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(IncidentesRepository.class),
             ServiceLocator.instanceOf(VisitasTecnicasService.class),
-            RepositoryLocator.instanceOf(IncidentesRepository.class)
+            ServiceLocator.instanceOf(IncidentesService.class)
         );
         instances.put(controllerName, instance);
 

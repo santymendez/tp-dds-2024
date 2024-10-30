@@ -2,7 +2,6 @@ package controllers;
 
 import dtos.VisitaInputDto;
 import io.javalin.http.Context;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import models.entities.personas.tecnico.Tecnico;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.HeladerasRepository;
 import models.repositories.imp.IncidentesRepository;
+import services.IncidentesService;
 import services.VisitasTecnicasService;
 import utils.helpers.ContextHelper;
 import utils.helpers.DateHelper;
@@ -25,8 +25,9 @@ import utils.javalin.InterfaceCrudViewsHandler;
 public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
   private final HeladerasRepository heladerasRepository;
   private final GenericRepository genericRepository;
-  private final VisitasTecnicasService visitasTecnicasService;
   private final IncidentesRepository incidentesRepository;
+  private final VisitasTecnicasService visitasTecnicasService;
+  private final IncidentesService incidentesService;
 
   /**
    * Constructor del controlador de visitas técnicas.
@@ -39,13 +40,15 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
   public VisitasTecnicasController(
       HeladerasRepository heladerasRepository,
       GenericRepository genericRepository,
+      IncidentesRepository incidentesRepository,
       VisitasTecnicasService visitasTecnicasService,
-      IncidentesRepository incidentesRepository
+      IncidentesService incidentesService
   ) {
     this.heladerasRepository = heladerasRepository;
     this.genericRepository = genericRepository;
-    this.visitasTecnicasService = visitasTecnicasService;
     this.incidentesRepository = incidentesRepository;
+    this.visitasTecnicasService = visitasTecnicasService;
+    this.incidentesService = incidentesService;
   }
 
 
@@ -92,6 +95,8 @@ public class VisitasTecnicasController implements InterfaceCrudViewsHandler {
     Tecnico tecnico = ContextHelper.getTecnicoFromContext(context).get();
 
     this.visitasTecnicasService.crear(visitaInputDto, tecnico, incidente);
+
+    this.incidentesService.intentarHabilitarHeladera(incidente.getHeladera());
 
     context.redirect("/heladeras-solidarias");
   }

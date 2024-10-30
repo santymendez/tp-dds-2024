@@ -3,7 +3,6 @@ package models.repositories.imp;
 import java.util.List;
 import java.util.Optional;
 import models.entities.direccion.Ciudad;
-import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tecnico.Tecnico;
 
 /**

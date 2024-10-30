@@ -11,7 +11,7 @@ import models.entities.heladera.sensores.SensorTemperatura;
 public class SensoresTemperaturaRepository extends GenericRepository {
 
   public void guardar(SensorTemperatura sensorTemperatura) {
-    super.guardar((sensorTemperatura));
+    super.guardar(sensorTemperatura);
   }
 
   public void modificar(SensorTemperatura sensorTemperatura) {

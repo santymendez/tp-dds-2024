@@ -1,0 +1,26 @@
+@startuml
+
+node "Heladeras" {
+    component "Sensor de Temperatura"
+    component "Sensor de Movimiento"
+}
+
+node "Usuarios" {
+    component "Navegador Web"
+}
+
+node "AWS Server" {
+    component "RDS-MySQL"
+    component "EC2-Backend App"
+}
+
+
+"Usuarios" .. "AWS Server" : HTTP
+"Heladeras" <.. "AWS Server" : MQTT
+
+"Sensor de Temperatura" -0)- "EC2-Backend App"
+"Sensor de Movimiento" -0)- "EC2-Backend App"
+"RDS-MySQL" -0)- "EC2-Backend App"
+"EC2-Backend App" -0)- "Navegador Web"
+
+@enduml

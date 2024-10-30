@@ -43,4 +43,4 @@ jobs:
         run: mvn checkstyle:check
 
       - name: Run PMD
-        run: mvn pmd:pmd
+        run: mvn pmd:check

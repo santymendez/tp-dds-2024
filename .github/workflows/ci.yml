@@ -3,10 +3,10 @@ name: Pipeline DDS
 on:
   push:
     branches:
-      - "**"    # This triggers the pipeline on push for any branch
+      - "**"
   pull_request:
     branches:
-      - "**"    # This triggers the pipeline on pull requests for any branch
+      - "**"
 
 jobs:
   build:
@@ -41,3 +41,6 @@ jobs:
 
       - name: Run Checkstyle
         run: mvn checkstyle:check
+
+      - name: Run PMD
+        run: mvn pmd:pmd

@@ -188,6 +188,24 @@
       <version>6.3.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>io.javalin</groupId>
+      <artifactId>javalin-micrometer</artifactId>
+      <version>6.3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+      <version>1.13.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-datadog</artifactId>
+      <version>1.13.6</version>
+    </dependency>
+
   </dependencies>
 
   <build>

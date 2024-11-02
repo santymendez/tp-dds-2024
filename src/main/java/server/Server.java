@@ -5,6 +5,7 @@ import brokers.sensores.temperatura.BrokerSensorTemperatura;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import config.Config;
+import config.SenderLocator;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
@@ -12,6 +13,7 @@ import io.javalin.http.staticfiles.Location;
 import java.io.IOException;
 import java.util.function.Consumer;
 import middlewares.AuthMiddleware;
+import models.entities.personas.contacto.TipoContacto;
 import server.handlers.AppHandlers;
 import utils.javalin.Initializer;
 import utils.javalin.JavalinRenderer;
@@ -49,6 +51,9 @@ public class Server {
       int port = Integer
           .parseInt(Config.getServerPort());
       app = Javalin.create(config()).start(port);
+
+      // Para que el bot de telegram este prendido
+      SenderLocator.instanceOf(TipoContacto.TELEGRAM);
 
       AuthMiddleware.apply(app);
       AppHandlers.applyHandlers(app);

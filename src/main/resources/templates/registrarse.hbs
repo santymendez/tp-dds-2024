@@ -258,6 +258,27 @@
             </div>
         </form>
     </div>
+
+    <!-- Modal para cuando selecciona telegram -->
+    <div class="modal fade" id="telegramModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="exampleModalLongTitle">Advertencia</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Para usar Telegram como medio de contacto, asegúrate de que el número proporcionado esté registrado y sea accesible para recibir mensajes accediendo al siguiente link. Es recomendable que te copies el número para luego ingresarlo en el formulario.</p>
+                </div>
+                <div>
+                    <button type="button" class="link-subrayado" onclick="window.open('https://t.me/heladeras_bot', '_blank')">https://t.me/heladeras_bot</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {{/partial}}
 
 {{#partial "scripts"}}
@@ -304,7 +325,6 @@
         });
     </script>
 
-
     <script>
         // Alternar visibilidad de la contraseña
         const togglePassword1 = document.querySelector('#togglePassword1');
@@ -330,6 +350,24 @@
             togglePassword2.classList.toggle('bi-eye-slash');
         });
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById('tipoContactoFisica').addEventListener('change', function() {
+            if (this.value === 'TELEGRAM') {
+                $('#telegramModal').modal('show');
+            }
+        });
+        document.getElementById('tipoContactoJuridica').addEventListener('change', function() {
+            if (this.value === 'TELEGRAM') {
+                $('#telegramModal').modal('show');
+            }
+        });
+    </script>
+
 {{/partial}}
 
 {{> templates/base }}

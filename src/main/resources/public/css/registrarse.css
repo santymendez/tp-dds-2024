@@ -152,3 +152,10 @@ h5{
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
+
+.link-subrayado {
+    text-decoration: underline;
+    color: var(--negro);
+    margin-right: 10px;
+    font-size: 1.4rem;
+}

@@ -22,44 +22,51 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 @Slf4j
 public class DdmetricsUtils {
-    private final StepMeterRegistry registry;
+  private final StepMeterRegistry registry;
 
-    public DdmetricsUtils(String appTag) {
-        // crea un registro para nuestras métricas basadas en DD
-        var config = new DatadogConfig() {
-            @Override
-            public Duration step() {
-                return Duration.ofSeconds(10);
-            }
+  /**
+   * Constructor de la clase DdmetricsUtils.
+   *
+   * @param appTag tag.
+   */
 
-            @Override
-            @NotNull
-            public String apiKey() {
-                return Config.getDataDogApiKey();
-            }
+  public DdmetricsUtils(String appTag) {
+    // crea un registro para nuestras métricas basadas en DD
+    var config = new DatadogConfig() {
+      @Override
+      public Duration step() {
+        return Duration.ofSeconds(10);
+      }
 
-            @Override
-            public String uri() {
-                return "https://api.us5.datadoghq.com";
-            }
+      @Override
+      @NotNull
+      public String apiKey() {
+        return Config.getDataDogApiKey();
+      }
 
-            @Override
-            public String get(String k) {
-                return null; // accept the rest of the defaults
-            }
-        };
-        registry = new DatadogMeterRegistry(config, Clock.SYSTEM);
-        registry.config().commonTags("app", appTag);
-        initInfraMonitoring();
+      @Override
+      public String uri() {
+        return "https://api.us5.datadoghq.com";
+      }
+
+      @Override
+      public String get(String k) {
+        return null; // accept the rest of the defaults
+      }
+    };
+    registry = new DatadogMeterRegistry(config, Clock.SYSTEM);
+    registry.config().commonTags("app", appTag);
+    initInfraMonitoring();
+  }
+
+  private void initInfraMonitoring() {
+    try (var jvmGcMetrics = new JvmGcMetrics();
+         var jvmHeapPressureMetrics = new JvmHeapPressureMetrics()) {
+      jvmGcMetrics.bindTo(registry);
+      jvmHeapPressureMetrics.bindTo(registry);
     }
-
-    private void initInfraMonitoring() {
-        try (var jvmGcMetrics = new JvmGcMetrics(); var jvmHeapPressureMetrics = new JvmHeapPressureMetrics()) {
-            jvmGcMetrics.bindTo(registry);
-            jvmHeapPressureMetrics.bindTo(registry);
-        }
-        new JvmMemoryMetrics().bindTo(registry);
-        new ProcessorMetrics().bindTo(registry);
-        new FileDescriptorMetrics().bindTo(registry);
-    }
+    new JvmMemoryMetrics().bindTo(registry);
+    new ProcessorMetrics().bindTo(registry);
+    new FileDescriptorMetrics().bindTo(registry);
+  }
 }

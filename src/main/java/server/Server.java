@@ -10,16 +10,15 @@ import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.staticfiles.Location;
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 import io.javalin.micrometer.MicrometerPlugin;
-import utils.metrics.DdmetricsUtils;
+import java.io.IOException;
+import java.util.function.Consumer;
 import middlewares.AuthMiddleware;
 import models.entities.personas.contacto.TipoContacto;
 import server.handlers.AppHandlers;
 import utils.javalin.Initializer;
 import utils.javalin.JavalinRenderer;
+import utils.metrics.DdmetricsUtils;
 
 /**
  * Clase que inicializa el servidor Javalin y configura las rutas de la aplicación.
@@ -54,10 +53,6 @@ public class Server {
       final var metricsUtils = new DdmetricsUtils("heladeras_solidarias");
       final var registry = metricsUtils.getRegistry();
 
-      // Metricas
-      final var myGauge = registry.gauge("heladeras_solidarias.unGauge", new AtomicInteger(0));
-
-      // Config
       final var micrometerPlugin = new MicrometerPlugin(config ->
           config.registry = registry
       );

@@ -11,7 +11,10 @@ import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.staticfiles.Location;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import io.javalin.micrometer.MicrometerPlugin;
+import utils.metrics.DdmetricsUtils;
 import middlewares.AuthMiddleware;
 import models.entities.personas.contacto.TipoContacto;
 import server.handlers.AppHandlers;
@@ -48,16 +51,28 @@ public class Server {
   public static void init() {
     if (app == null) {
 
+      final var metricsUtils = new DdmetricsUtils("heladeras_solidarias");
+      final var registry = metricsUtils.getRegistry();
+
+      // Metricas
+      final var myGauge = registry.gauge("heladeras_solidarias.unGauge", new AtomicInteger(0));
+
+      // Config
+      final var micrometerPlugin = new MicrometerPlugin(config ->
+          config.registry = registry
+      );
+
       int port = Integer
           .parseInt(Config.getServerPort());
-      app = Javalin.create(config()).start(port);
+
+      app = Javalin.create(config(micrometerPlugin)).start(port);
 
       // Para que el bot de telegram este prendido
       SenderLocator.instanceOf(TipoContacto.TELEGRAM);
 
       AuthMiddleware.apply(app);
       AppHandlers.applyHandlers(app);
-      Router.init(app);
+      Router.init(app, registry);
 
       if (Boolean.parseBoolean(Config.getDevMode())) {
         Initializer.init("simple-persistence-unit");
@@ -73,7 +88,7 @@ public class Server {
     }
   }
 
-  private static Consumer<JavalinConfig> config() {
+  private static Consumer<JavalinConfig> config(MicrometerPlugin micrometerPlugin) {
     return config -> {
       config.staticFiles.add(staticFiles -> {
         staticFiles.hostedPath = "/";
@@ -105,9 +120,8 @@ public class Server {
           }
         });
 
-        Template template = null;
         try {
-          template = handlebars.compile(
+          Template template = handlebars.compile(
               "templates/" + path.replace(".hbs", ""));
           return template.apply(model);
         } catch (IOException e) {
@@ -117,6 +131,9 @@ public class Server {
         }
 
       }));
+
+      config.registerPlugin(micrometerPlugin);
+
     };
   }
 }

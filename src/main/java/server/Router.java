@@ -25,13 +25,17 @@ import controllers.colaboraciones.HacerseCargoController;
 import controllers.colaboraciones.RealizarOfertasController;
 import io.javalin.Javalin;
 import java.util.Objects;
+import io.micrometer.core.instrument.step.StepMeterRegistry;
+import lombok.extern.slf4j.Slf4j;
 import models.entities.personas.users.TipoRol;
 import utils.helpers.ErrorHelper;
+import utils.metrics.TransactionStatus;
 
 /**
  * Clase Router.
  */
 
+@Slf4j
 public class Router {
 
   /**
@@ -40,7 +44,7 @@ public class Router {
    * @param app la instancia de Javalin
    */
 
-  public static void init(Javalin app) {
+  public static void init(Javalin app, StepMeterRegistry registry) {
 
     //HOME PAGE
     app.get("/heladeras-solidarias",
@@ -50,8 +54,19 @@ public class Router {
     app.get("/heladeras-solidarias/iniciar-sesion",
         ControllerLocator.instanceOf(IniciarSesionController.class)::create);
 
-    app.post("/heladeras-solidarias/iniciar-sesion",
-        ControllerLocator.instanceOf(IniciarSesionController.class)::save);
+    app.post("/heladeras-solidarias/iniciar-sesion", ctx -> {
+      ControllerLocator.instanceOf(IniciarSesionController.class).save(ctx);
+
+      TransactionStatus status = Objects.requireNonNull(ctx.sessionAttribute("loginStatus"));
+
+      if (status.equals(TransactionStatus.SUCCESS)) {
+        registry.counter("heladeras_solidarias.login", "status", "success").increment();
+        log.info("Inicio de Sesión correcto");
+      } else if (status.equals(TransactionStatus.ERROR)) {
+        registry.counter("heladeras_solidarias.login", "status", "rejected").increment();
+        log.warn("Inicio de Sesión incorrecto");
+      }
+    });
 
     app.get("/heladeras-solidarias/registrarse",
         ControllerLocator.instanceOf(RegistrarColaboradorController.class)::create);
@@ -94,7 +109,8 @@ public class Router {
 
     app.post("/heladeras-solidarias/colaborar", ctx -> {
       String formType = ctx.formParam("formType");
-      switch (formType) {
+
+      switch (Objects.requireNonNull(formType)) {
         case "donarDinero" ->
             ControllerLocator.instanceOf(DonarDineroController.class).save(ctx);
         case "donarViandas" ->
@@ -110,8 +126,20 @@ public class Router {
         default -> ctx.status(404).render("/error-base.hbs", ErrorHelper.generateError(
             404,
             "Página No Encontrada",
-            "La página a la que quieres acceder no está disponible"));
+            "La página a la que quieres acceder no está disponible")
+        );
       }
+
+      TransactionStatus status = Objects.requireNonNull(ctx.sessionAttribute("colabStatus"));
+
+      if (status.equals(TransactionStatus.SUCCESS)) {
+        registry.counter("heladeras_solidarias.colaboraciones", "status", "success").increment();
+        log.info("Colaboración realizada");
+      } else if (status.equals(TransactionStatus.ERROR)) {
+        registry.counter("heladeras_solidarias.colaboraciones", "status", "error").increment();
+        log.warn("Colaboración no realizada");
+      }
+
     }, TipoRol.PERSONA_FISICA, TipoRol.PERSONA_JURIDICA, TipoRol.EMPRESA_ASOCIADA);
 
     app.get("/heladeras-solidarias/heladeras",
@@ -168,7 +196,6 @@ public class Router {
     }, TipoRol.ADMINISTRADOR);
 
     // CARGAR CSV
-
     app.get("/heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController.class)::create,
         TipoRol.ADMINISTRADOR);

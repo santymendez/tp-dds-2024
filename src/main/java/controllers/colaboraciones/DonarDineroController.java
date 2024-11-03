@@ -10,6 +10,7 @@ import services.ColaboracionesService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
+import utils.metrics.TransactionStatus;
 
 /**
 
@@ -50,12 +51,8 @@ public class DonarDineroController implements InterfaceCrudViewsHandler {
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
-    //Opcion 1 ponerlo en la sesión
-    //context.sessionAttribute("success", true);
-
-    //Opcion 2 ponerlo en un query param
+    context.sessionAttribute("colabStatus", TransactionStatus.SUCCESS);
     context.redirect("/heladeras-solidarias?colabSuccess=true");
-
   }
 
   @Override

@@ -8,6 +8,7 @@ import services.ColaboracionesService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
+import utils.metrics.TransactionStatus;
 
 /**
  * Controller para la distribucion de tarjetas.
@@ -46,6 +47,7 @@ public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 
     if (colaborador.getDireccion() == null || !colaborador.getDireccion().admiteEnvio()) {
+      context.sessionAttribute("colabStatus", TransactionStatus.RETRY);
       context.redirect("/heladeras-solidarias/agregar-direccion");
       return;
     }
@@ -54,6 +56,7 @@ public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
+    context.sessionAttribute("colabStatus", TransactionStatus.SUCCESS);
     context.redirect("/heladeras-solidarias?colabSuccess=true");
   }
 

@@ -1,5 +1,6 @@
-package metrics;
+package utils.metrics;
 
+import config.Config;
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics;
 import io.micrometer.core.instrument.binder.jvm.JvmHeapPressureMetrics;
@@ -18,9 +19,9 @@ import org.jetbrains.annotations.NotNull;
  * Clase que encapsula la inicialización de las métricas de la aplicación.
  */
 
+@Getter
 @Slf4j
 public class DdmetricsUtils {
-    @Getter
     private final StepMeterRegistry registry;
 
     public DdmetricsUtils(String appTag) {
@@ -34,7 +35,7 @@ public class DdmetricsUtils {
             @Override
             @NotNull
             public String apiKey() {
-                return System.getenv("DDAPI");
+                return Config.getDataDogApiKey();
             }
 
             @Override
@@ -53,8 +54,6 @@ public class DdmetricsUtils {
     }
 
     private void initInfraMonitoring() {
-        // agregamos a nuestro reigstro de métricas todo lo relacionado a infra/tech
-        // de la instancia y JVM
         try (var jvmGcMetrics = new JvmGcMetrics(); var jvmHeapPressureMetrics = new JvmHeapPressureMetrics()) {
             jvmGcMetrics.bindTo(registry);
             jvmHeapPressureMetrics.bindTo(registry);

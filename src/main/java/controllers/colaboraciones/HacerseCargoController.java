@@ -18,6 +18,7 @@ import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
 import utils.helpers.DateHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
+import utils.metrics.TransactionStatus;
 
 /**
  * Controller para la colaboracion hacerse cargo de una heladera.
@@ -75,6 +76,7 @@ public class HacerseCargoController implements InterfaceCrudViewsHandler {
     HeladeraInputDto heladeraInputDto = HeladeraInputDto.fromContext(context);
 
     if (DateHelper.validate(heladeraInputDto.getFechaCreacion())) {
+      context.sessionAttribute("colabStatus", TransactionStatus.ERROR);
       context.redirect("/heladeras-solidarias/colaborar?invalidDate=true");
       return;
     }
@@ -95,6 +97,7 @@ public class HacerseCargoController implements InterfaceCrudViewsHandler {
 
     this.reportesHeladerasService.crear(heladera);
 
+    context.sessionAttribute("colabStatus", TransactionStatus.SUCCESS);
     context.redirect("/heladeras-solidarias?colabSuccess=true");
   }
 

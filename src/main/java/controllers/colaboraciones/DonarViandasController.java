@@ -18,6 +18,7 @@ import utils.helpers.ContextHelper;
 import utils.helpers.ReportesHelper;
 import utils.helpers.SolicitudAperturaHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
+import utils.metrics.TransactionStatus;
 
 /**
  * DonarViandasController.
@@ -72,11 +73,12 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
     Optional<TarjetaColaborador> posibleTarjeta =
         this.tarjetasColaboradoresRepository.buscarPorIdColaborador(colaborador.getId());
 
-    TarjetaColaborador tarjetaColaborador = null;
+    TarjetaColaborador tarjetaColaborador;
 
     if (posibleTarjeta.isPresent()) {
       tarjetaColaborador = posibleTarjeta.get();
     } else {
+      context.sessionAttribute("colabStatus", TransactionStatus.REJECTED);
       context.redirect("/heladeras-solidarias/agregar-direccion");
       return;
     }
@@ -105,9 +107,11 @@ public class DonarViandasController implements InterfaceCrudViewsHandler {
       this.genericRepository.modificar(heladera);
       this.genericRepository.modificar(reporteHeladera);
 
+      context.sessionAttribute("colabStatus", TransactionStatus.SUCCESS);
       context.redirect("/heladeras-solidarias?colabSuccess=true");
     } else {
       int espacioDisponible = heladera.consultarEspacioSobrante();
+      context.sessionAttribute("colabStatus", TransactionStatus.ERROR);
       context.redirect("/heladeras-solidarias/colaborar?"
           + "errorDonacionViandas=true&espacioDisponible="
           + espacioDisponible);

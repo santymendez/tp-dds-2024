@@ -8,6 +8,7 @@ import java.util.Optional;
 import models.entities.personas.users.Usuario;
 import models.repositories.imp.UsuariosRepository;
 import utils.javalin.InterfaceCrudViewsHandler;
+import utils.metrics.TransactionStatus;
 import utils.security.PasswordHasher;
 
 /**
@@ -35,7 +36,6 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
   public void create(Context context) {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Iniciar Sesion");
-
     context.render("iniciar-sesion.hbs", model);
   }
 
@@ -43,6 +43,7 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
   public void save(Context context) {
     if (context.sessionAttribute("idUsuario") != null) {
       context.redirect("/heladeras-solidarias");
+      context.sessionAttribute("loginStatus", TransactionStatus.REJECTED);
       return;
     }
 
@@ -61,11 +62,13 @@ public class IniciarSesionController implements InterfaceCrudViewsHandler {
 
       context.sessionAttribute("idUsuario", usuario.getId());
       context.sessionAttribute("tipoRol", usuario.getTipoRol().toString());
+      context.sessionAttribute("loginStatus", TransactionStatus.SUCCESS);
       context.redirect("/heladeras-solidarias");
     } else {
       Map<String, Object> model = new HashMap<>();
       model.put("titulo", "Iniciar Sesion");
       model.put("error", "Usuario y/o Contraseña Incorrectos");
+      context.sessionAttribute("loginStatus", TransactionStatus.ERROR);
       context.render("iniciar-sesion.hbs", model);
     }
   }

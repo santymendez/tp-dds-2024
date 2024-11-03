@@ -91,4 +91,8 @@ public class Config {
   public static String getUrlApiRecom() {
     return properties.getProperty("url_api_recom");
   }
+
+  public static String getDataDogApiKey() {
+    return properties.getProperty("data_dog_api_key");
+  }
 }

@@ -12,6 +12,7 @@ import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
 import utils.helpers.UploadedFilesHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
+import utils.metrics.TransactionStatus;
 
 /**
  * Controlador de realizar ofertas.
@@ -65,6 +66,7 @@ public class RealizarOfertasController implements InterfaceCrudViewsHandler {
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
+    context.sessionAttribute("colabStatus", TransactionStatus.SUCCESS);
     context.redirect("/heladeras-solidarias/canjear-puntos");
   }
 

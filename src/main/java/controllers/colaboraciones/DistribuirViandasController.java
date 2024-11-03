@@ -17,6 +17,7 @@ import utils.helpers.ContextHelper;
 import utils.helpers.ReportesHelper;
 import utils.helpers.SolicitudAperturaHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
+import utils.metrics.TransactionStatus;
 
 /**
  * DonarViandasController.
@@ -72,11 +73,12 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
     Optional<TarjetaColaborador> posibleTarjeta =
         this.tarjetasColaboradoresRepository.buscarPorIdColaborador(colaborador.getId());
 
-    TarjetaColaborador tarjetaColaborador = null;
+    TarjetaColaborador tarjetaColaborador;
 
     if (posibleTarjeta.isPresent()) {
       tarjetaColaborador = posibleTarjeta.get();
     } else {
+      context.sessionAttribute("colabStatus", TransactionStatus.RETRY);
       context.redirect("/heladeras-solidarias/agregar-direccion");
       return;
     }
@@ -90,11 +92,18 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
         .buscarPorId(Long.parseLong(distrbucionDto.getHeladeraDestino()), Heladera.class)
         .get();
 
+    if (heladeraOrigen.equals(heladeraDestino)) {
+      context.sessionAttribute("colabStatus", TransactionStatus.ERROR);
+      //TODO MODAL ERROR
+      return;
+    }
+
     int cantViandas = distrbucionDto.getCantViandasDistribuidas();
     if (cantViandas > heladeraOrigen.consultarStock()
         || !heladeraDestino.hayEspacioPara(cantViandas)) {
       context.redirect("/heladeras-solidarias/colaborar?errorDistribucion=true&espacioDisponible="
           + cantViandas);
+      context.sessionAttribute("colabStatus", TransactionStatus.ERROR);
       return;
     }
 
@@ -119,6 +128,7 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
     SolicitudAperturaHelper.realizarSolicitud(tarjetaColaborador, heladeraOrigen);
     SolicitudAperturaHelper.realizarSolicitud(tarjetaColaborador, heladeraDestino);
 
+    context.sessionAttribute("colabStatus", TransactionStatus.SUCCESS);
     context.redirect("/heladeras-solidarias?colabSuccess=true");
   }
 

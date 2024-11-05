@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import utils.helpers.UploadedFilesHelper;
 
+
 /**
  * Clase para el output de las ofertas.
  */
@@ -30,11 +31,11 @@ public class OfertaInputDto {
    */
 
   public static OfertaInputDto fromContext(Context context) {
-    String path = UploadedFilesHelper.getImageFromContext(context);
+    String path = Objects.requireNonNullElse(
+        UploadedFilesHelper.getImageFromContext(context),
+        "/static-imgs/logo.png"
+    );
 
-    if (path == null) {
-      path = "/static-imgs/logo.png";
-    }
 
     return OfertaInputDto.builder()
         .nombre(context.formParam("nombre"))

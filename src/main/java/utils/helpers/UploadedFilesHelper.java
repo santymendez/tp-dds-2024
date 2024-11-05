@@ -46,7 +46,7 @@ public class UploadedFilesHelper {
 
   public static String getImageFromContext(Context context) {
     UploadedFile file = context.uploadedFile("imagen");
-    String imagePath = "/static-imgs/logo.png";
+    String imagePath = null;
 
     if (file != null && !file.filename().isEmpty()) {
       String staticPath = "uploaded-imgs/" + file.filename();

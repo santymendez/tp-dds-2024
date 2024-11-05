@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Data;
+import utils.helpers.UploadedFilesHelper;
 
 /**
  * Representa el Input de una Visita Tecnica.
@@ -29,7 +30,7 @@ public class VisitaInputDto {
     return VisitaInputDto.builder()
         .fechaVisita(LocalDate.parse(Objects.requireNonNull(context.formParam("fechaVisita"))))
         .trabajoRealizado(context.formParam("trabajoRealizado"))
-        .fotoVisita(context.formParam("fotoVisita"))
+        .fotoVisita(UploadedFilesHelper.getImageFromContext(context))
         .incidenteSolucionado(Boolean.valueOf(context.formParam("incidenteSolucionado")))
         .build();
   }

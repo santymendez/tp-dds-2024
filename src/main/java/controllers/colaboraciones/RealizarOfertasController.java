@@ -10,7 +10,6 @@ import models.repositories.imp.GenericRepository;
 import services.ColaboracionesService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
-import utils.helpers.UploadedFilesHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 import utils.metrics.TransactionStatus;
 
@@ -55,10 +54,6 @@ public class RealizarOfertasController implements InterfaceCrudViewsHandler {
   @Override
   public void save(Context context) {
     OfertaInputDto ofertaInputDto = OfertaInputDto.fromContext(context);
-
-    String path = UploadedFilesHelper.getImageFromContext(context);
-
-    ofertaInputDto.setImagenIlustrativa(path);
 
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
 

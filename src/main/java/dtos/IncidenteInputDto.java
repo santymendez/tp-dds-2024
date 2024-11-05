@@ -1,7 +1,6 @@
 package dtos;
 
 import io.javalin.http.Context;
-import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,11 +27,9 @@ public class IncidenteInputDto {
    */
 
   public static IncidenteInputDto fromContext(Context context) {
-    String path = UploadedFilesHelper.getImageFromContext(context);
-
     return IncidenteInputDto.builder()
         .descripcion(context.formParam("descripcion"))
-        .imagen(Objects.requireNonNullElse(path, ""))
+        .imagen(UploadedFilesHelper.getImageFromContext(context))
         .build();
   }
 }

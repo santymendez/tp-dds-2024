@@ -88,11 +88,15 @@ public class Config {
     return properties.getProperty("broker_url");
   }
 
-  public static String getUrlApiRecom() {
-    return properties.getProperty("url_api_recom");
-  }
-
   public static String getDataDogApiKey() {
     return properties.getProperty("data_dog_api_key");
+  }
+
+  public static String getEmailQueue() {
+    return properties.getProperty("email_queue");
+  }
+
+  public static String getEmailQueueHost() {
+    return properties.getProperty("email_queue_host");
   }
 }

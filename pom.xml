@@ -67,7 +67,6 @@
       <scope>test</scope>
     </dependency>
 
-
     <dependency>
       <groupId>com.sun.mail</groupId>
       <artifactId>jakarta.mail</artifactId>
@@ -204,6 +203,12 @@
       <groupId>io.micrometer</groupId>
       <artifactId>micrometer-registry-datadog</artifactId>
       <version>1.13.6</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.rabbitmq</groupId>
+      <artifactId>amqp-client</artifactId>
+      <version>5.22.0</version>
     </dependency>
 
   </dependencies>

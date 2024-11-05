@@ -19,6 +19,7 @@ import server.handlers.AppHandlers;
 import utils.javalin.Initializer;
 import utils.javalin.JavalinRenderer;
 import utils.metrics.DdmetricsUtils;
+import utils.sender.channels.EmailConsumer;
 
 /**
  * Clase que inicializa el servidor Javalin y configura las rutas de la aplicación.
@@ -80,6 +81,9 @@ public class Server {
 
       BrokerSensorMovimiento brokerSensorMovimiento = new BrokerSensorMovimiento();
       brokerSensorMovimiento.suscribir(Config.getMovTopic(), Config.getMovCli());
+
+      EmailConsumer emailConsumer = new EmailConsumer();
+      emailConsumer.init();
     }
   }
 

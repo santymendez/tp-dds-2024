@@ -69,8 +69,6 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
       Optional<Colaborador> colaborador = colaboradoresRepository.buscarPorIdUsuario(idSesion);
       List<Canje> canjesRealizados = new ArrayList<>();
 
-      Canje c;
-
       if (colaborador.isPresent()) {
         model.put("puntos", colaborador.get().getReconocimiento().getPuntosPorColaborar());
         canjesRealizados = canjesRepository.buscarCanjesDe(colaborador.get().getId());

@@ -1,7 +1,6 @@
 package services;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
 import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
@@ -30,19 +29,11 @@ public class TarjetasVulnerablesService {
    *
    * @param colaborador el colaborador que crea la tarjeta.
    * @param vulnerable el vulnerable al que se le crea la tarjeta.
-   * @param uuid el uuid de la tarjeta.
+   * @param tarjetaVulnerable la tarjeta a crear.
    */
 
-  public TarjetaVulnerable crear(Colaborador colaborador, Vulnerable vulnerable, String uuid) {
-    Optional<TarjetaVulnerable> posibleTarjeta =
-        this.tarjetasVulnerablesRepository.buscarPorUuid(uuid);
-
-
-    if (!posibleTarjeta.isEmpty()) {
-      return null;
-    }
-
-    TarjetaVulnerable tarjetaVulnerable = posibleTarjeta.get();
+  public void crear(Colaborador colaborador,
+                    Vulnerable vulnerable, TarjetaVulnerable tarjetaVulnerable) {
 
     RegistroVulnerable registroVulnerable =
         new RegistroVulnerable(colaborador, vulnerable, LocalDate.now());
@@ -52,6 +43,5 @@ public class TarjetasVulnerablesService {
     tarjetaVulnerable.calcularUsos();
 
     this.tarjetasVulnerablesRepository.modificar(tarjetaVulnerable);
-    return tarjetaVulnerable;
   }
 }

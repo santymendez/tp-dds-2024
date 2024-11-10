@@ -67,7 +67,10 @@ public class FactoryDireccion {
 
   public static Direccion crearCon(DireccionInputDto direccionInputDto, Provincia provincia) {
     Direccion nuevaDireccion = crearCon(direccionInputDto);
-    nuevaDireccion.getBarrio().getCiudad().setProvincia(provincia);
+
+    if (nuevaDireccion.getBarrio() != null && nuevaDireccion.getBarrio().getCiudad() != null) {
+      nuevaDireccion.getBarrio().getCiudad().setProvincia(provincia);
+    }
 
     return nuevaDireccion;
   }

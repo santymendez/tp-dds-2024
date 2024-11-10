@@ -58,15 +58,20 @@ public class ColaboradorInputDto {
 
   public static ColaboradorInputDto fromContext(Context context) {
     ColaboradorInputDto colaboradorInputDto = new ColaboradorInputDto();
-    colaboradorInputDto.setNombre(context.formParam("nombre"));
-    colaboradorInputDto.setApellido(context.formParam("apellido"));
-    colaboradorInputDto.setTipoDocumento(context.formParam("tipoDocumento"));
-    colaboradorInputDto.setNumeroDocumento(
-        Integer.valueOf(Objects.requireNonNull(context.formParam("numeroDocumento")))
-    );
-    colaboradorInputDto.setRazonSocial(context.formParam("razonSocial"));
-    colaboradorInputDto.setTipo(context.formParam("tipoOrganizacion"));
-    colaboradorInputDto.setRubro(context.formParam("rubro"));
+
+    if (Objects.requireNonNull(context.formParam("tipoColaborador")).equals("JURIDICO")) {
+      colaboradorInputDto.setRazonSocial(context.formParam("razonSocial"));
+      colaboradorInputDto.setTipo(context.formParam("tipoOrganizacion"));
+      colaboradorInputDto.setRubro(context.formParam("rubro"));
+    } else {
+      colaboradorInputDto.setNombre(context.formParam("nombre"));
+      colaboradorInputDto.setApellido(context.formParam("apellido"));
+      colaboradorInputDto.setTipoDocumento(context.formParam("tipoDocumento"));
+      colaboradorInputDto.setNumeroDocumento(
+          Integer.valueOf(Objects.requireNonNull(context.formParam("numeroDocumento")))
+      );
+    }
+
     colaboradorInputDto.setContacto(context.formParam("contacto"));
     colaboradorInputDto.setTipoContacto(context.formParam("tipoContacto"));
     colaboradorInputDto.setTipoColaborador(context.formParam("tipoColaborador"));

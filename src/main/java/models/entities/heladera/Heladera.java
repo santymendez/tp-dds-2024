@@ -1,6 +1,5 @@
 package models.entities.heladera;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class Heladera extends Persistente {
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private List<Estado> estadosHeladera;
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "tarjetas_habilitadas")
   private List<TarjetaColaborador> tarjetasHabilitadas;
 
@@ -192,47 +191,16 @@ public class Heladera extends Persistente {
    * @param tarjeta de la tarjeta con la que se intenta abrir.
    */
 
-  public Boolean intentarAbrirCon(TarjetaColaborador tarjeta) {
-    if (!tarjetasHabilitadas.contains(tarjeta)) {
-      throw new RuntimeException("No posees los permisos necesarios para abrir la heladera.");
+  public Boolean intentarAbrirCon(TarjetaColaborador tarjeta, LocalDateTime fechaHoraApertura) {
+    if (tarjetasHabilitadas.contains(tarjeta)) {
+      UsoTarjetaColaborador ultimoUsoVigente = tarjeta.ultimoUsoVigenteEn(this, fechaHoraApertura);
+
+      if (ultimoUsoVigente != null) {
+        ultimoUsoVigente.getApertura().setFechaApertura(fechaHoraApertura);
+        return true;
+      }
     }
-
-    UsoTarjetaColaborador ultimoUso = this.ultimoUsoDe(tarjeta);
-
-    if (!this.estaVigente(ultimoUso.getApertura().getFechaSolicitud())) {
-      throw new RuntimeException("Tu solicitud ha expirado.");
-    }
-
-    ultimoUso.getApertura().setFechaApertura(LocalDateTime.now());
-    return true;
-  }
-
-  /**
-   * Obtiene el último uso de una tarjeta.
-   *
-   * @param tarjeta de la que quiere obtener el uso.
-   * @return UsoTarjetaColaborador el último uso.
-   */
-
-  public UsoTarjetaColaborador ultimoUsoDe(TarjetaColaborador tarjeta) {
-    List<UsoTarjetaColaborador> usosFiltradosPorHeladera =
-        tarjeta.getUsos().stream().filter(uso -> uso.getHeladera() == this).toList();
-
-    if (usosFiltradosPorHeladera.isEmpty()) {
-      throw new RuntimeException("No hay tarjetas en la lista, o no está inicializada");
-    }
-    return usosFiltradosPorHeladera.get(usosFiltradosPorHeladera.size() - 1);
-  }
-
-  /**
-   * Verifica si una solicitud está vigente.
-   *
-   * @param ultimaSolicitud Solicitud que se intenta verificar si se encuentra vigente.
-   */
-
-  public Boolean estaVigente(LocalDateTime ultimaSolicitud) {
-    Duration duration = Duration.between(ultimaSolicitud, LocalDateTime.now());
-    return this.limitador.menorAlLimite(duration);
+    return false;
   }
 
   //==================================== Suscripciones ========================================

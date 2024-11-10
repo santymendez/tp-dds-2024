@@ -484,12 +484,12 @@ public class Initializer {
   }
 
   static void iniciarContactos() {
-    contactoAugusto = new Contacto("+54 9 11 1234-5678", TipoContacto.WHATSAPP);
-    contactoIniaqui = new Contacto("54645213212", TipoContacto.TELEGRAM);
-    contactoMati = new Contacto("contactofalso@gmail.com", TipoContacto.MAIL);
+    contactoAugusto = new Contacto("5150752592", TipoContacto.TELEGRAM);
+    contactoIniaqui = new Contacto("5491157690328", TipoContacto.TELEGRAM);
+    contactoMati = new Contacto("mjastrebow@frba.utn.edu.ar", TipoContacto.MAIL);
     contactoCitiGroup = new Contacto("citigroup@hdp.com", TipoContacto.MAIL);
-    contactoLiam = new Contacto("liam@gmail.com", TipoContacto.MAIL);
-    contactoSanti = new Contacto("santi@ghost.com", TipoContacto.MAIL);
+    contactoLiam = new Contacto("lwilk@frba.utn.edu.ar", TipoContacto.MAIL);
+    contactoSanti = new Contacto("samendez@frba.utn.edu.ar", TipoContacto.MAIL);
     contactoCorsini = new Contacto("corsini@ghost.com", TipoContacto.MAIL);
   }
 

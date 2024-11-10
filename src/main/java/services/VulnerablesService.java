@@ -103,7 +103,7 @@ public class VulnerablesService {
       padre.agregarMenorCargo(menor);
     }
 
-    this.genericRepository.guardarColeccion(registros);
     this.genericRepository.modificar(padre);
+    this.genericRepository.guardarColeccion(registros);
   }
 }

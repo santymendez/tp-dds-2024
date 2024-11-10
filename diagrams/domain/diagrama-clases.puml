@@ -414,6 +414,7 @@ class UsoTarjetaColaborador {
     -apertura: Apertura
     -heladera: Heladera
     -tarjetaColaborador: TarjetaColaborador
+    -colaboracionAsociada: Colaboracion
 }
 
 class Apertura {
@@ -729,6 +730,7 @@ TarjetaColaborador *-- Colaborador
 UsoTarjetaColaborador --> Apertura
 UsoTarjetaColaborador o-- Heladera
 UsoTarjetaColaborador --> TarjetaColaborador
+UsoTarjetaColaborador --> TipoColaboracion
 
 'INCIDENTE'
 Incidente o-- Heladera

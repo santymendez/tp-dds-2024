@@ -23,12 +23,14 @@ import models.db.Persistente;
 @Entity
 @Table(name = "usuarios")
 public class Usuario extends Persistente {
+  @Getter
   @Column(name = "nombreUsuario")
   String nombreUsuario;
 
   @Column(name = "contrasenia")
   String contrasenia;
 
+  @Getter
   @Enumerated(EnumType.STRING)
   @Column(name = "tipoRol")
   private TipoRol tipoRol;

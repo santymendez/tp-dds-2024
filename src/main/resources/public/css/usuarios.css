@@ -1,0 +1,25 @@
+.usuarios-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.usuarios-tabla thead tr {
+    background-color: var(--grisToggle);
+    color: white;
+}
+
+.usuarios-tabla th, .usuarios-tabla td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.usuarios-tabla tbody tr:nth-child(even) {
+    background-color: var(--grisToggle);
+}
+
+.usuarios-tabla tbody tr:hover {
+    background-color: #ddd;
+}

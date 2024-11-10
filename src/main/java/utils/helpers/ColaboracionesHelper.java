@@ -25,9 +25,10 @@ public class ColaboracionesHelper {
 
     colaborador.agregarColaboracion(colaboracion);
 
-    if (colaborador.getTipoColaborador() == TipoColaborador.FISICO) {
+    if (colaborador.getTipoColaborador() == TipoColaborador.FISICO && colaboracion.noEsParcial()) {
       colaborador.aumentarReconocimiento(colaboracion);
     }
+    //En el caso de las parciales se aumenta el reconocimiento al terminar la colaboracion
 
     GenericRepository repository = RepositoryLocator.instanceOf(GenericRepository.class);
     repository.modificar(colaborador);

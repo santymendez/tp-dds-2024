@@ -26,7 +26,7 @@ public class PublicadorSolicitudApertura {
   ) {
     JsonObject content = new JsonObject();
     content.addProperty("uuid", nuevaSolicitud.getUuid());
-    content.addProperty("fechaSolicitud", nuevaSolicitud.getFecha());
+    content.addProperty("heladeraId", nuevaSolicitud.getHeladeraId());
 
     int qos = 0;
 
@@ -43,9 +43,9 @@ public class PublicadorSolicitudApertura {
       message.setQos(qos);
       // publish message
       client.publish(topic, message);
-      System.out.println("Message published");
-      System.out.println("topic: " + topic);
-      System.out.println("message content: " + content);
+      System.out.println("Mensaje publicado");
+      System.out.println("Topic: " + topic);
+      System.out.println("Contenido del mensaje: " + content);
       // disconnect
       client.disconnect();
     } catch (MqttException e) {

@@ -8,12 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
+import models.entities.colaboracion.Colaboracion;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.vulnerable.Vulnerable;
 import models.repositories.imp.GenericRepository;
+import models.repositories.imp.TarjetasVulnerablesRepository;
+import services.ColaboracionesService;
 import services.DireccionesService;
 import services.TarjetasVulnerablesService;
 import services.VulnerablesService;
@@ -30,7 +34,9 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
   private final GenericRepository genericRepository;
   private final VulnerablesService vulnerablesService;
   private final DireccionesService direccionesService;
-  private final TarjetasVulnerablesService tarjetasVulneralesService;
+  private final TarjetasVulnerablesService tarjetasVulnerablesService;
+  private final ColaboracionesService colaboracionesService;
+  private final TarjetasVulnerablesRepository tarjetasVulnerablesRepository;
 
   /**
    * Construcctor de la clase.
@@ -38,18 +44,24 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
    * @param genericRepository el repo de vulnerables.
    * @param vulnerablesService    el sevice de vulnerables.
    * @param direccionesService    el service de direcciones.
+   * @param tarjetasVulnerablesService servicio de tarjetas.
+   * @param colaboracionesService servicio de colaboraciones.
    */
 
   public VulnerablesController(
       GenericRepository genericRepository,
+      TarjetasVulnerablesRepository tarjetasVulnerablesRepository,
       VulnerablesService vulnerablesService,
       DireccionesService direccionesService,
-      TarjetasVulnerablesService tarjetasVulneralesService
+      TarjetasVulnerablesService tarjetasVulnerablesService,
+      ColaboracionesService colaboracionesService
   ) {
     this.genericRepository = genericRepository;
+    this.tarjetasVulnerablesRepository = tarjetasVulnerablesRepository;
     this.vulnerablesService = vulnerablesService;
     this.direccionesService = direccionesService;
-    this.tarjetasVulneralesService = tarjetasVulneralesService;
+    this.tarjetasVulnerablesService = tarjetasVulnerablesService;
+    this.colaboracionesService = colaboracionesService;
   }
 
   @Override
@@ -88,20 +100,16 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
 
     DireccionInputDto direccionInputDto = DireccionInputDto.fromContext(context);
 
-    Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
+    Optional<TarjetaVulnerable> posibleTarjeta =
+        this.tarjetasVulnerablesRepository.buscarPorUuid(vulnerableInputDto.getTarjeta());
 
-    Direccion direccion = null;
-
-    if (direccionInputDto != null) {
-      direccion = this.direccionesService.crear(direccionInputDto);
-      this.genericRepository.guardar(direccion);
+    if (posibleTarjeta.isEmpty()) {
+      context.redirect("/heladeras-solidarias/vulnerables?wrongCard=true");
+      return;
     }
 
-    Vulnerable vulnerable =
-        this.vulnerablesService.crear(vulnerableInputDto, direccion, colaborador);
-    List<VulnerableInputDto> menoresInputDto = new ArrayList<>();
-
     int cantMenores = Integer.parseInt(Objects.requireNonNull(context.formParam("cantMenores")));
+    List<VulnerableInputDto> menoresInputDto = new ArrayList<>();
 
     for (int i = 1; i <= cantMenores; i++) {
       VulnerableInputDto menor = VulnerableInputDto.fromContext(context, i);
@@ -113,14 +121,26 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
       }
     }
 
-    this.vulnerablesService.crearMenores(menoresInputDto, vulnerable, colaborador);
-    TarjetaVulnerable tarjeta = this.tarjetasVulneralesService
-        .crear(colaborador, vulnerable, vulnerableInputDto.getTarjeta());
+    Direccion direccion = null;
 
-    if (tarjeta == null) {
-      context.redirect("/heladeras-solidarias/vulnerables?wrongCard=true");
-      return;
+    if (direccionInputDto != null) {
+      direccion = this.direccionesService.crear(direccionInputDto);
+      this.genericRepository.guardar(direccion);
     }
+
+    Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
+
+    Vulnerable vulnerable =
+        this.vulnerablesService.crear(vulnerableInputDto, direccion, colaborador);
+
+    this.vulnerablesService.crearMenores(menoresInputDto, vulnerable, colaborador);
+    this.tarjetasVulnerablesService.crear(colaborador, vulnerable, posibleTarjeta.get());
+
+    //Si no hay problema se registran los puntos del colaborador
+    //La colaboracion real ya esta registrada con todas las tarjetas solicitadas
+    //Pero los puntos se suman al momento de registrar a cada vulnerable
+    Colaboracion colaboracionAuxiliar = this.colaboracionesService.crear(1);
+    colaborador.aumentarReconocimiento(colaboracionAuxiliar);
 
     context.redirect("/heladeras-solidarias?vulnerableCreated=true");
   }

@@ -7,14 +7,12 @@ import models.entities.colaboracion.Colaboracion;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
-import models.entities.reporte.ReporteHeladera;
+import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 import models.repositories.imp.GenericRepository;
-import models.repositories.imp.ReportesHeladerasRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
 import services.ColaboracionesService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
-import utils.helpers.ReportesHelper;
 import utils.helpers.SolicitudAperturaHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 import utils.metrics.TransactionStatus;
@@ -26,7 +24,6 @@ import utils.metrics.TransactionStatus;
 public class DistribuirViandasController implements InterfaceCrudViewsHandler {
 
   private final GenericRepository genericRepository;
-  private final ReportesHeladerasRepository reportesHeladerasRepository;
   private final ColaboracionesService colaboracionesService;
   private final TarjetasColaboradoresRepository tarjetasColaboradoresRepository;
 
@@ -34,19 +31,16 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
    * Constructor del controller de distribucion de viandas.
    *
    * @param genericRepository repositorio generico.
-   * @param reportesHeladerasRepository repositorio de reportes.
    * @param colaboracionesService service de colaboraciones.
    * @param tarjetasColaboradoresRepository repositorio de tarjetas.
    */
 
   public DistribuirViandasController(
       GenericRepository genericRepository,
-      ReportesHeladerasRepository reportesHeladerasRepository,
       ColaboracionesService colaboracionesService,
       TarjetasColaboradoresRepository tarjetasColaboradoresRepository
   ) {
     this.genericRepository = genericRepository;
-    this.reportesHeladerasRepository = reportesHeladerasRepository;
     this.colaboracionesService = colaboracionesService;
     this.tarjetasColaboradoresRepository = tarjetasColaboradoresRepository;
   }
@@ -112,21 +106,22 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
-    ReporteHeladera reporteDestino =
-        reportesHeladerasRepository.buscarSemanalPorHeladera(heladeraDestino.getId()).get();
-    ReporteHeladera reporteOrigen =
-        reportesHeladerasRepository.buscarSemanalPorHeladera(heladeraDestino.getId()).get();
+    Colaboracion colaboracionAux = new Colaboracion(colaboracion);
+    colaboracionAux.getDistribucionViandas().setCantViandasDistribuidas(0);
 
-    int cantViandasDistribuidas =
-        colaboracion.getDistribucionViandas().getCantViandasDistribuidas();
+    UsoTarjetaColaborador usoTarjetaColaboradorOrigen = new UsoTarjetaColaborador(colaboracionAux);
+    tarjetaColaborador.agregarUso(usoTarjetaColaboradorOrigen, heladeraOrigen);
+    heladeraOrigen.habilitarTarjeta(tarjetaColaborador);
 
-    ReportesHelper.actualizarReportePorDistribucion(
-            reporteOrigen, reporteDestino,
-            colaborador, cantViandasDistribuidas
-    );
+    UsoTarjetaColaborador usoTarjetaColaboradorDestino = new UsoTarjetaColaborador(colaboracion);
+    tarjetaColaborador.agregarUso(usoTarjetaColaboradorDestino, heladeraDestino);
+    heladeraOrigen.habilitarTarjeta(tarjetaColaborador);
 
-    SolicitudAperturaHelper.realizarSolicitud(tarjetaColaborador, heladeraOrigen);
-    SolicitudAperturaHelper.realizarSolicitud(tarjetaColaborador, heladeraDestino);
+    this.genericRepository.modificar(heladeraOrigen);
+    this.genericRepository.modificar(heladeraDestino);
+
+    SolicitudAperturaHelper.realizarSolicitud(usoTarjetaColaboradorOrigen);
+    SolicitudAperturaHelper.realizarSolicitud(usoTarjetaColaboradorDestino);
 
     context.sessionAttribute("colabStatus", TransactionStatus.SUCCESS);
     context.redirect("/heladeras-solidarias?colabSuccess=true");

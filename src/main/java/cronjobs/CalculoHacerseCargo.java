@@ -7,22 +7,19 @@ import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.personas.colaborador.Colaborador;
 import models.repositories.imp.ColaboradoresRepository;
-
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 /**
  *  Clase para calcular mensualmente los puntos para los colaboradores que se hacen cargo de
  *  una heladera.
  */
 
-public class CalculoHacerseCargo {
+public class CalculoHacerseCargo implements Job {
 
-  /**
-   * Main para el conjob.
-   *
-   * @param args argumentos que no se usan.
-   */
-
-  public static void main(String[] args) {
+  @Override
+  public void execute(JobExecutionContext context) throws JobExecutionException {
 
     PersistenceUnitSwitcher.switchPersistenceUnit("cronjob-persistence-unit");
 

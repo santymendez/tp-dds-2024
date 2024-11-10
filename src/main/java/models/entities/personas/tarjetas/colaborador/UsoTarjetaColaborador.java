@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import models.db.Persistente;
+import models.entities.colaboracion.Colaboracion;
 import models.entities.heladera.Heladera;
 
 /**
@@ -32,11 +33,20 @@ public class UsoTarjetaColaborador extends Persistente {
   @JoinColumn(name = "tarjetaColaborador_codigo", referencedColumnName = "id", nullable = false)
   private TarjetaColaborador tarjetaColaborador;
 
+  @ManyToOne
+  @JoinColumn(name = "colaboracion_id", referencedColumnName = "id")
+  private Colaboracion colaboracionAsociada;
+
   /**
    * Instancia la clase de Uso.
    */
 
   public UsoTarjetaColaborador() {
     this.apertura = new Apertura(LocalDateTime.now());
+  }
+
+  public UsoTarjetaColaborador(Colaboracion colaboracion) {
+    this.apertura = new Apertura(LocalDateTime.now());
+    this.colaboracionAsociada = colaboracion;
   }
 }

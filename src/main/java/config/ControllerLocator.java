@@ -15,6 +15,7 @@ import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
 import controllers.ReportesController;
 import controllers.SuscribirseController;
+import controllers.UsersController;
 import controllers.VisitasTecnicasController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DistribuirTarjetasController;
@@ -37,6 +38,7 @@ import models.repositories.imp.ReportesSemanalesRepository;
 import models.repositories.imp.SensoresMovimientoRepository;
 import models.repositories.imp.SensoresTemperaturaRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
+import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
 import models.searchers.BuscadorTecnicosCercanos;
 import services.CanjearPuntosService;
@@ -108,9 +110,11 @@ public class ControllerLocator {
       } else if (controllerClass.equals(VulnerablesController.class)) {
         VulnerablesController instance = new VulnerablesController(
             RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(TarjetasVulnerablesRepository.class),
             ServiceLocator.instanceOf(VulnerablesService.class),
             ServiceLocator.instanceOf(DireccionesService.class),
-            ServiceLocator.instanceOf(TarjetasVulnerablesService.class)
+            ServiceLocator.instanceOf(TarjetasVulnerablesService.class),
+            ServiceLocator.instanceOf(ColaboracionesService.class)
         );
         instances.put(controllerName, instance);
 
@@ -182,7 +186,6 @@ public class ControllerLocator {
       } else if (controllerClass.equals(DistribuirViandasController.class)) {
         DistribuirViandasController instance = new DistribuirViandasController(
             RepositoryLocator.instanceOf(GenericRepository.class),
-            RepositoryLocator.instanceOf(ReportesHeladerasRepository.class),
             ServiceLocator.instanceOf(ColaboracionesService.class),
             RepositoryLocator.instanceOf(TarjetasColaboradoresRepository.class)
         );
@@ -192,7 +195,6 @@ public class ControllerLocator {
         DonarViandasController instance = new DonarViandasController(
             RepositoryLocator.instanceOf(TarjetasColaboradoresRepository.class),
             RepositoryLocator.instanceOf(GenericRepository.class),
-            RepositoryLocator.instanceOf(ReportesHeladerasRepository.class),
             ServiceLocator.instanceOf(ColaboracionesService.class)
         );
         instances.put(controllerName, instance);
@@ -254,6 +256,12 @@ public class ControllerLocator {
             RepositoryLocator.instanceOf(IncidentesRepository.class),
             ServiceLocator.instanceOf(VisitasTecnicasService.class),
             ServiceLocator.instanceOf(IncidentesService.class)
+        );
+        instances.put(controllerName, instance);
+
+      } else if (controllerClass.equals(UsersController.class)) {
+        UsersController instance = new UsersController(
+            RepositoryLocator.instanceOf(GenericRepository.class)
         );
         instances.put(controllerName, instance);
 

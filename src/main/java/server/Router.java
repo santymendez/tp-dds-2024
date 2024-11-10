@@ -15,6 +15,7 @@ import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
 import controllers.ReportesController;
 import controllers.SuscribirseController;
+import controllers.UsersController;
 import controllers.VisitasTecnicasController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DistribuirTarjetasController;
@@ -203,6 +204,10 @@ public class Router {
     // TODO hacerlo asincronico (si estan al pedo)
     app.post("heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController.class)::save,
+        TipoRol.ADMINISTRADOR);
+
+    app.get("/heladeras-solidarias/usuarios",
+        ControllerLocator.instanceOf(UsersController.class)::index,
         TipoRol.ADMINISTRADOR);
 
     // VER REPORTES

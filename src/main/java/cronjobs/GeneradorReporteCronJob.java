@@ -9,19 +9,23 @@ import models.entities.reporte.ReporteHeladera;
 import models.entities.reporte.ReporteSemanal;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import utils.reportes.GeneradorReporte;
 
 /**
  * CronJob para la generacion de reportes semanal.
  */
 
-public class GeneradorReporteCronJob {
+public class GeneradorReporteCronJob implements Job {
 
   /**
    * Genera el reporte semanal.
    */
 
-  public static void main(String[] args) {
+  @Override
+  public void execute(JobExecutionContext context) throws JobExecutionException {
 
     PersistenceUnitSwitcher.switchPersistenceUnit("cronjob-persistence-unit");
 

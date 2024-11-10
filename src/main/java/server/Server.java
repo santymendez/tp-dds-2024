@@ -2,6 +2,7 @@ package server;
 
 import brokers.sensores.movimiento.BrokerSensorMovimiento;
 import brokers.sensores.temperatura.BrokerSensorTemperatura;
+import brokers.tarjetas.BrokerSolicitudApertura;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import config.Config;
@@ -80,6 +81,9 @@ public class Server {
 
       BrokerSensorMovimiento brokerSensorMovimiento = new BrokerSensorMovimiento();
       brokerSensorMovimiento.suscribir(Config.getMovTopic(), Config.getMovCli());
+
+      BrokerSolicitudApertura brokerSolicitudApertura = new BrokerSolicitudApertura();
+      brokerSolicitudApertura.suscribir(Config.getSolicTopic(), Config.getSolicCli());
     }
   }
 

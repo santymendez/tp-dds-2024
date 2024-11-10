@@ -1,6 +1,7 @@
 package models.entities.personas.tarjetas.vulnerable;
 
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -31,7 +32,7 @@ public class RegistroVulnerable extends Persistente {
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   private Colaborador colaborador;
 
-  @OneToOne
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "vulnerable_id", referencedColumnName = "id", nullable = false)
   private Vulnerable vulnerable;
 

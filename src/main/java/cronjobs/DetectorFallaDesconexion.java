@@ -12,19 +12,23 @@ import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 /**
  * Representa al detector de la falla de conexion entre la heladera
  * y el sensor de temperatura.
  */
 
-public class DetectorFallaDesconexion {
+public class DetectorFallaDesconexion implements Job {
 
   /**
    * Main para el CronJob encargado de la revision de la conexion.
    */
 
-  public static void main(String[] args) {
+  @Override
+  public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
     PersistenceUnitSwitcher.switchPersistenceUnit("cronjob-persistence-unit");
 
     GenericRepository repoGenerico = RepositoryLocator

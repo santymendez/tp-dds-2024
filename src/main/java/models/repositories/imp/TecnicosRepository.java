@@ -2,7 +2,6 @@ package models.repositories.imp;
 
 import java.util.List;
 import java.util.Optional;
-import models.entities.direccion.Ciudad;
 import models.entities.personas.tecnico.Tecnico;
 
 /**
@@ -38,14 +37,16 @@ public class TecnicosRepository extends GenericRepository {
   /**
    * Busca Tecnicos en el Repositorio.
    *
-   * @param ciudad Parámetro de búsqueda.
+   * @param nombreCiudad Parámetro de búsqueda.
    * @return Una lista de Técnicos si llegasen a existir, en otro caso una lista vacía.
    */
 
-  public List<Tecnico> buscarPorCiudad(Ciudad ciudad) {
+  public List<Tecnico> buscarPorCiudad(String nombreCiudad) {
     return entityManager()
-        .createQuery("FROM Tecnico tecnico WHERE tecnico.areaDeCobertura = :ciudad", Tecnico.class)
-        .setParameter("ciudad", ciudad)
+        .createQuery(
+            "FROM Tecnico tecnico WHERE tecnico.areaDeCobertura.nombreCiudad = :nombreCiudad",
+            Tecnico.class)
+        .setParameter("nombreCiudad", nombreCiudad)
         .getResultList();
   }
 

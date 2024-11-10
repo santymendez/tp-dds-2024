@@ -12,7 +12,7 @@ import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
 @Builder
 public class SolicitudAperturaOutputDto {
   private String uuid;
-  private String fecha;
+  private Long heladeraId;
 
   /**
    * Convierte un uso de tarjeta en un SolicitudAperturaOutputDto.
@@ -26,7 +26,7 @@ public class SolicitudAperturaOutputDto {
   ) {
     return SolicitudAperturaOutputDto.builder()
         .uuid(usoTarjetaColaborador.getTarjetaColaborador().getCodigo())
-        .fecha(String.valueOf(usoTarjetaColaborador.getApertura().getFechaSolicitud()))
+        .heladeraId(usoTarjetaColaborador.getHeladera().getId())
         .build();
   }
 }

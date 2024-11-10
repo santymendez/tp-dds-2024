@@ -1,0 +1,27 @@
+{{#partial "estilo"}}
+    <link rel="stylesheet" href="/css/usuarios.css">
+{{/partial}}
+
+{{#partial "cuerpo"}}
+    <h2>Usuarios del Sistema</h2>
+    <table class="usuarios-tabla">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Rol</th>
+            <th>Fecha de Alta</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each usuarios}}
+            <tr>
+                <td>{{this.getNombreUsuario}}</td>
+                <td>{{this.getTipoRol}}</td>
+                <td>{{this.getFechaAlta}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{/partial}}
+
+{{> templates/base }}

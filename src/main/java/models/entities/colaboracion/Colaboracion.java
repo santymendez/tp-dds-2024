@@ -55,6 +55,24 @@ public class Colaboracion extends Persistente {
   @Embedded
   private RealizacionOferta ofertaRealizada;
 
+  /**
+   * Constructor de colaboracion.
+   *
+   * @param colaboracion colaboracion a copiar.
+   */
+
+  public Colaboracion(Colaboracion colaboracion) {
+    this.tipoColaboracion = colaboracion.getTipoColaboracion();
+    this.fechaColaboracion = colaboracion.getFechaColaboracion();
+    this.colaborador = colaboracion.getColaborador();
+    this.donacionViandas = colaboracion.getDonacionViandas();
+    this.donacionDinero = colaboracion.getDonacionDinero();
+    this.distribucionViandas = colaboracion.getDistribucionViandas();
+    this.distribucionTarjetas = colaboracion.getDistribucionTarjetas();
+    this.hacerseCargoHeladera = colaboracion.getHacerseCargoHeladera();
+    this.ofertaRealizada = colaboracion.getOfertaRealizada();
+  }
+
   @PrePersist
   protected void onInsert() {
     if (this.fechaColaboracion == null) {
@@ -62,4 +80,19 @@ public class Colaboracion extends Persistente {
     }
   }
 
+  //=============== Auxiliar Methods ===========================
+
+  /**
+   * Indica si la colaboracion es parcial
+   * Una colaboracion es parcial cuando se completa despues de hacer algo
+   * fisico (dejar una vianda en la heladera, entregar la tarjeta al vulnerable, etc).
+   *
+   * @return true si la colaboracion es parcial, false en caso contrario.
+   */
+
+  public Boolean noEsParcial() {
+    return donacionViandas == null
+        && distribucionTarjetas == null
+        && distribucionViandas == null;
+  }
 }

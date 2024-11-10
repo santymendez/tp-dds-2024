@@ -2,7 +2,6 @@ package models.searchers;
 
 import config.SenderLocator;
 import java.util.List;
-import models.entities.direccion.Ciudad;
 import models.entities.heladera.Heladera;
 import models.entities.personas.tecnico.Tecnico;
 import models.repositories.imp.TecnicosRepository;
@@ -28,9 +27,9 @@ public class BuscadorTecnicosCercanos {
    */
 
   public List<Tecnico> buscarTecnicosCercanosA(Heladera heladera) {
-    Ciudad nombreCiudad = heladera.getDireccion().getBarrio().getCiudad();
+    String ciudad = heladera.getDireccion().getBarrio().getCiudad().getNombreCiudad();
 
-    return this.tecnicosRepository.buscarPorCiudad(nombreCiudad);
+    return this.tecnicosRepository.buscarPorCiudad(ciudad);
   }
 
   /**
@@ -46,8 +45,8 @@ public class BuscadorTecnicosCercanos {
       SenderInterface sender =
           SenderLocator.instanceOf(tecnico.getContacto().getTipoContacto());
 
-      String asunto = "La heladera " + heladera.getNombre() + " ha sufrido una falla tecnica";
-      String cuerpo = "¿Podes acercarte a revisarla? Se encuentra en: "
+      String asunto = "La heladera " + heladera.getNombre() + " ha sufrido una falla.";
+      String cuerpo = "¿Podés acercarte a revisarla? Se encuentra en: "
           + heladera.getDireccion().getNombreUbicacion();
 
       Mensaje mensaje = new Mensaje(asunto, cuerpo);

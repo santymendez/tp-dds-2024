@@ -53,6 +53,10 @@ public class GenericRepository implements PersistenciaSimple {
     }
   }
 
+  public void refresh(Object objeto) {
+    withTransaction(() -> entityManager().refresh(objeto));
+  }
+
   public <T> Optional<T> buscarPorId(Long id, Class<T> clase) {
     return Optional.ofNullable(entityManager().find(clase, id));
   }

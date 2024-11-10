@@ -31,6 +31,7 @@ public class ColaboracionesHelper {
     //En el caso de las parciales se aumenta el reconocimiento al terminar la colaboracion
 
     GenericRepository repository = RepositoryLocator.instanceOf(GenericRepository.class);
+    repository.guardar(colaboracion);
     repository.modificar(colaborador);
   }
 }

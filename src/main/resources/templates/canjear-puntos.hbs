@@ -3,6 +3,26 @@
 {{/partial}}
 
 {{#partial "cuerpo"}}
+
+    {{#verifyRole tipoRol "PERSONA_FISICA"}}
+        <div id="offers-rectangle">
+            <button class="button-green" id="toggle-offers">Ofertas Canjeadas</button>
+            <ul class="canje-list" id="lista-oferta">
+                {{#if ofertasCanjeadas.length}}
+                    {{#each ofertasCanjeadas}}
+                        <li class="text-list">
+                            <span>{{this.getOferta.nombre}}: {{this.fechaAlta}}</span>
+                            <img src="{{this.getOferta.getImagenIlustrativa}}"
+                                 alt="Imagen del Canje" class="canjeado-image">
+                        </li>
+                    {{/each}}
+                {{else}}
+                    <li class="text-list">Todavía no canjeaste ofertas</li>
+                {{/if}}
+            </ul>
+        </div>
+    {{/verifyRole}}
+
     <div class="main-content__titulo">
         {{#verifyRole tipoRol "PERSONA_FISICA"}}
             <h2>Puntos Acumulados:</h2>
@@ -16,7 +36,8 @@
                 <form class="formulario" method="POST"
                       action="/heladeras-solidarias/canjear-puntos">
                     <input type="hidden" name="idOferta" value="{{this.id}}">
-                    <img src="{{this.imagenIlustrativa}}" alt="Service Image" class="service-image">
+                    <img src="{{this.imagenIlustrativa}}" alt="Service Image"
+                         class="service-image">
                     <p class="service-name">{{this.nombre}}</p>
                     <p class="service-description">{{this.descripcion}}</p>
                     <p class="service-points"> Puntos: {{this.puntosNecesarios}}</p>
@@ -26,11 +47,13 @@
         {{/each}}
     </div>
 
-    <div class="modal fade" id="errorPuntos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="errorPuntos" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLongTitle">¡Ups! Surgió un Problema</h3>
+                    <h3 class="modal-title" id="exampleModalLongTitle">¡Ups! Surgió un
+                        Problema</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -40,7 +63,8 @@
                         para canjear esta oferta. ¡A Colaborar!</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar
+                    </button>
                 </div>
             </div>
         </div>
@@ -49,8 +73,9 @@
 {{/partial}}
 
 {{#partial "scripts"}}
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Lee los parámetros de la URL
             const params = new URLSearchParams(window.location.search);
 
@@ -58,6 +83,18 @@
             if (params.get("insufficientFunds") === "true") {
                 $('#errorPuntos').modal('show');
             }
+
+            // Maneja el plegado y desplegado de la lista de ofertas canjeadas
+            const toggleOffersButton = document.getElementById('toggle-offers');
+            const offersList = document.getElementById('lista-oferta');
+
+            toggleOffersButton.addEventListener('click', function () {
+                if (offersList.style.display === 'none') {
+                    offersList.style.display = 'block';
+                } else {
+                    offersList.style.display = 'none';
+                }
+            });
         });
     </script>
 

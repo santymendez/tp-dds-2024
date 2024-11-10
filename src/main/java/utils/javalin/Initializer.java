@@ -1200,30 +1200,29 @@ public class Initializer {
 
   static void iniciarOfertas() {
     oferta1 = new Oferta();
-    oferta1.setNombre("Oferton");
+    oferta1.setNombre("Termo Stanley");
     oferta1.setPuntosNecesarios(1000F);
     oferta1.setOfertante(elCityGroup);
-    oferta1.setDescripcion("En la previa se va a sortear quién toca en los interzonales, "
-        + "con lo cual juegan esas quince fechas el primero y el segundo de cada zona "
-        + "ingresan a los playoffs en cuartos de final, es decir evita la instancia de octavos");
-    oferta1.setImagenIlustrativa("/static-imgs/chiqui_love.jpg");
+    oferta1.setDescripcion("Excelente termo para mantener la temperatura de tus bebidas. "
+        + "Ideal para llevar a la cancha o a la oficina.");
+    oferta1.setImagenIlustrativa("/static-imgs/termo.jpg");
 
     oferta2 = new Oferta();
-    oferta2.setNombre("Estafa ponzi");
+    oferta2.setNombre("Desodorante Reaxona");
     oferta2.setPuntosNecesarios(2877.045F);
     oferta2.setOfertante(elCityGroup);
-    oferta2.setDescripcion("El sistema depende de la entrada continua de "
-        + "nuevos participantes y colapsa cuando no se puede atraer suficiente dinero nuevo.");
-    oferta2.setImagenIlustrativa("/static-imgs/ponzi.jpg");
+    oferta2.setDescripcion("Desodorante en aerosol para hombre. "
+        + "Protección 48 horas. No mancha la ropa y nunca te abandona. A Tinelli le gustó.");
+    oferta2.setImagenIlustrativa("/static-imgs/desodorante.jpg");
 
     oferta3 = new Oferta();
-    oferta3.setNombre("Esta no le gusta al chavo fucks");
+    oferta3.setNombre("TV Noblex 58 pulgadas");
     oferta3.setPuntosNecesarios(45000.500F);
     oferta3.setOfertante(elCityGroup);
-    oferta3.setDescripcion("El pase de Julián Álvarez lo compró el City Group. "
-        + "No fue el Manchester City directamente, sino este conglomerado de equipos "
-        + "de fútbol, de clubes, que tiene el control sobre muchas instituciones a nivel mundial.");
-    oferta3.setImagenIlustrativa("/static-imgs/es_el_city_group.jpg");
+    oferta3.setDescripcion("TV Noblex 58 pulgadas. "
+        + "Resolución 4K. Conexión a internet. Control remoto con comando de voz. "
+        + "Ideal para ver los partidos de la selección y si jugas en la de chile mejor.");
+    oferta3.setImagenIlustrativa("/static-imgs/tele.jpg");
 
     oferta4 = new Oferta();
     oferta4.setNombre("Cazadores de utopías imposibles - Libro");

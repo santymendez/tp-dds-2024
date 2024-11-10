@@ -25,6 +25,7 @@ import controllers.colaboraciones.HacerseCargoController;
 import controllers.colaboraciones.RealizarOfertasController;
 import java.util.HashMap;
 import java.util.Map;
+import models.repositories.imp.CanjesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.HeladerasRepository;
@@ -98,6 +99,7 @@ public class ControllerLocator {
       } else if (controllerClass.equals(CanjearPuntosController.class)) {
         CanjearPuntosController instance = new CanjearPuntosController(
             RepositoryLocator.instanceOf(GenericRepository.class),
+            RepositoryLocator.instanceOf(CanjesRepository.class),
             RepositoryLocator.instanceOf(ColaboradoresRepository.class),
             ServiceLocator.instanceOf(CanjearPuntosService.class)
         );

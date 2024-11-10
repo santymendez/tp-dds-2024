@@ -1,13 +1,16 @@
 package controllers;
 
 import io.javalin.http.Context;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.colaborador.canje.Canje;
 import models.entities.personas.colaborador.canje.Oferta;
+import models.repositories.imp.CanjesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
 import services.CanjearPuntosService;
@@ -21,6 +24,7 @@ import utils.javalin.InterfaceCrudViewsHandler;
 public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
   private final GenericRepository ofertasRepository;
+  private final CanjesRepository canjesRepository;
   private final ColaboradoresRepository colaboradoresRepository;
   private final CanjearPuntosService canjearPuntosService;
 
@@ -34,10 +38,12 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
 
   public CanjearPuntosController(
       GenericRepository ofertasRepository,
+      CanjesRepository canjesRepository,
       ColaboradoresRepository colaboradoresRepository,
       CanjearPuntosService canjearPuntosService
   ) {
     this.ofertasRepository = ofertasRepository;
+    this.canjesRepository = canjesRepository;
     this.colaboradoresRepository = colaboradoresRepository;
     this.canjearPuntosService = canjearPuntosService;
   }
@@ -61,9 +67,14 @@ public class CanjearPuntosController implements InterfaceCrudViewsHandler {
       model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
       Optional<Colaborador> colaborador = colaboradoresRepository.buscarPorIdUsuario(idSesion);
+      List<Canje> canjesRealizados = new ArrayList<>();
+
+      Canje c;
 
       if (colaborador.isPresent()) {
         model.put("puntos", colaborador.get().getReconocimiento().getPuntosPorColaborar());
+        canjesRealizados = canjesRepository.buscarCanjesDe(colaborador.get().getId());
+        model.put("ofertasCanjeadas", canjesRealizados);
       } else {
         model.put("puntos", 0f);
       }

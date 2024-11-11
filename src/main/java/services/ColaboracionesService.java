@@ -6,7 +6,6 @@ import dtos.DonacionDineroInputDto;
 import dtos.DonacionViandasInputDto;
 import dtos.OfertaInputDto;
 import java.time.LocalDate;
-import java.util.List;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.DistribucionTarjetas;
 import models.entities.colaboracion.DistribucionViandas;

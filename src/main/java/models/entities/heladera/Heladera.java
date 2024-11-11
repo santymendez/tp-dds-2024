@@ -139,6 +139,7 @@ public class Heladera extends Persistente {
     }
 
     this.viandas.add(vianda);
+    vianda.setEntregada(true);
     this.notificarCantidadViandas();
   }
 

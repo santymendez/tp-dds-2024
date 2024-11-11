@@ -2,9 +2,12 @@ package brokers.tarjetas;
 
 import config.RepositoryLocator;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.heladera.Heladera;
+import models.entities.heladera.vianda.Vianda;
 import models.entities.personas.colaborador.Colaborador;
 import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.colaborador.UsoTarjetaColaborador;
@@ -27,6 +30,7 @@ public class SolicitudAperturaListener implements IMqttMessageListener {
   private final HeladerasRepository heladerasRepository;
   private final ReportesHeladerasRepository reportesHeladerasRepository;
   private final ColaboradoresRepository colaboradoresRepository;
+  private List<Vianda> viandas;
 
   /**
    * Constructor del listener.
@@ -41,6 +45,7 @@ public class SolicitudAperturaListener implements IMqttMessageListener {
         RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);
     this.colaboradoresRepository =
         RepositoryLocator.instanceOf(ColaboradoresRepository.class);
+    this.viandas = new ArrayList<>();
   }
 
   @Override
@@ -48,8 +53,7 @@ public class SolicitudAperturaListener implements IMqttMessageListener {
     try {
       String uuid = message.toString().split(";")[0];
       Long heladeraId = Long.parseLong(message.toString().split(";")[1]);
-      LocalDateTime fechaHoraApertura = LocalDateTime.parse(message.toString().split(";")[2]);
-      this.intentarAbrirHeladera(uuid, heladeraId, fechaHoraApertura);
+      this.intentarAbrirHeladera(uuid, heladeraId, LocalDateTime.now());
     } catch (NumberFormatException e) {
       e.printStackTrace();
     }
@@ -72,40 +76,87 @@ public class SolicitudAperturaListener implements IMqttMessageListener {
       UsoTarjetaColaborador ultimoUsoVigente =
           tarjeta.ultimoUsoVigenteEn(heladera, fechaHoraApertura);
 
-      this.tarjetasColaboradoresRepository.modificar(tarjeta);
-
       Colaboracion colaboracion = ultimoUsoVigente.getColaboracionAsociada();
       Colaborador colaborador = ultimoUsoVigente.getTarjetaColaborador().getColaborador();
 
       if (colaboracion.getTipoColaboracion().equals(TipoColaboracion.DONAR_VIANDA)) {
-        ReporteHeladera reporteHeladera =
-            this.reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();
-
-        ReportesHelper.actualizarReportePorDonacion(reporteHeladera, colaborador,
-            colaboracion.getDonacionViandas().getCantViandas()
-        );
-
-        this.reportesHeladerasRepository.modificar(reporteHeladera);
+        this.realizarDonacionViandas(colaboracion, heladera, colaborador);
       } else {
-        ReporteHeladera reporteOrigen =
-            this.reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();
-        ReporteHeladera reporteDestino =
-            this.reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();
-
-        ReportesHelper.actualizarReportePorDistribucion(
-            reporteOrigen, reporteDestino, colaborador,
-            colaboracion.getDistribucionViandas().getCantViandasDistribuidas()
-        );
-
-        this.reportesHeladerasRepository.modificar(reporteOrigen);
-        this.reportesHeladerasRepository.modificar(reporteDestino);
+        this.realizarDistribucionViandas(colaboracion, colaborador, heladera);
       }
-
-      colaborador.aumentarReconocimiento(colaboracion);
 
       this.colaboradoresRepository.modificar(colaborador);
     }
 
+  }
+
+  /**
+   * Realiza la donacion de viandas.
+   *
+   * @param colaboracion colaboracion.
+   * @param heladera     heladera.
+   * @param colaborador  colaborador.
+   */
+
+  public void realizarDonacionViandas(
+      Colaboracion colaboracion, Heladera heladera, Colaborador colaborador
+  ) {
+    colaboracion.getDonacionViandas().getViandasDonadas().forEach(vianda -> {
+      vianda.setHeladera(heladera);
+      heladera.agregarVianda(vianda);
+    });
+
+    ReporteHeladera reporteHeladera =
+        this.reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();
+
+    ReportesHelper.actualizarReportePorDonacion(reporteHeladera, colaborador,
+        colaboracion.getDonacionViandas().getCantViandas()
+    );
+
+    colaborador.aumentarReconocimiento(colaboracion);
+
+    this.reportesHeladerasRepository.modificar(reporteHeladera);
+  }
+
+  /**
+   * Realiza la distribucion de viandas.
+   *
+   * @param colaboracion colaboracion
+   * @param colaborador colaborador
+   * @param heladera heladera
+   */
+
+  public void realizarDistribucionViandas(
+      Colaboracion colaboracion, Colaborador colaborador, Heladera heladera
+  ) {
+    if (colaboracion.getDistribucionViandas().getHeladeraOrigen().equals(heladera)) {
+      this.viandas.addAll(heladera.removerViandas(
+          colaboracion.getDistribucionViandas().getCantViandasDistribuidas()
+      ));
+
+    } else {
+      this.viandas.forEach(vianda -> {
+        vianda.setHeladera(heladera);
+        heladera.agregarVianda(vianda);
+      });
+
+      colaborador.aumentarReconocimiento(colaboracion);
+
+      this.viandas.clear();
+
+      ReporteHeladera reporteOrigen =
+          this.reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();
+      ReporteHeladera reporteDestino =
+          this.reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();
+
+      ReportesHelper.actualizarReportePorDistribucion(
+          reporteOrigen, reporteDestino, colaborador,
+          colaboracion.getDistribucionViandas().getCantViandasDistribuidas()
+      );
+
+      this.reportesHeladerasRepository.modificar(reporteOrigen);
+      this.reportesHeladerasRepository.modificar(reporteDestino);
+    }
   }
 
 }

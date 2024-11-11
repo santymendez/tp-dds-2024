@@ -13,7 +13,6 @@ import models.repositories.imp.TarjetasColaboradoresRepository;
 import services.ColaboracionesService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
-import utils.helpers.SolicitudAperturaHelper;
 import utils.javalin.InterfaceCrudViewsHandler;
 import utils.metrics.TransactionStatus;
 
@@ -106,22 +105,19 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
 
     ColaboracionesHelper.realizarColaboracion(colaboracion, colaborador);
 
-    Colaboracion colaboracionAux = new Colaboracion(colaboracion);
-    colaboracionAux.getDistribucionViandas().setCantViandasDistribuidas(0);
-
-    UsoTarjetaColaborador usoTarjetaColaboradorOrigen = new UsoTarjetaColaborador(colaboracionAux);
+    UsoTarjetaColaborador usoTarjetaColaboradorOrigen = new UsoTarjetaColaborador(colaboracion);
     tarjetaColaborador.agregarUso(usoTarjetaColaboradorOrigen, heladeraOrigen);
     heladeraOrigen.habilitarTarjeta(tarjetaColaborador);
 
     UsoTarjetaColaborador usoTarjetaColaboradorDestino = new UsoTarjetaColaborador(colaboracion);
     tarjetaColaborador.agregarUso(usoTarjetaColaboradorDestino, heladeraDestino);
-    heladeraOrigen.habilitarTarjeta(tarjetaColaborador);
+    heladeraDestino.habilitarTarjeta(tarjetaColaborador);
 
+    this.genericRepository.guardar(usoTarjetaColaboradorOrigen);
+    this.genericRepository.guardar(usoTarjetaColaboradorDestino);
+    this.genericRepository.modificar(tarjetaColaborador);
     this.genericRepository.modificar(heladeraOrigen);
     this.genericRepository.modificar(heladeraDestino);
-
-    SolicitudAperturaHelper.realizarSolicitud(usoTarjetaColaboradorOrigen);
-    SolicitudAperturaHelper.realizarSolicitud(usoTarjetaColaboradorDestino);
 
     context.sessionAttribute("colabStatus", TransactionStatus.SUCCESS);
     context.redirect("/heladeras-solidarias?colabSuccess=true");

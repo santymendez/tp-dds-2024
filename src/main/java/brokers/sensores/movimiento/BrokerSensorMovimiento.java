@@ -18,6 +18,7 @@ public class BrokerSensorMovimiento {
    * Suscribe al Broker.
    *
    * @param topic Topico al que suscribe.
+   *
    */
 
   public void suscribir(String topic, String clientId) {

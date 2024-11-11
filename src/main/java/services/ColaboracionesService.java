@@ -92,7 +92,6 @@ public class ColaboracionesService {
       );
 
       donacionViandas.getViandasDonadas().add(vianda);
-      heladera.agregarVianda(vianda);
     }
 
     Colaboracion colaboracion = new Colaboracion();
@@ -121,14 +120,6 @@ public class ColaboracionesService {
     distribucionViandas.setCantViandasDistribuidas(distribucionDto.getCantViandasDistribuidas());
     distribucionViandas.setHeladeraOrigen(heladeraOrigen);
     distribucionViandas.setHeladeraDestino(heladeraDestino);
-
-    List<Vianda> viandas =
-        heladeraOrigen.removerViandas(distribucionViandas.getCantViandasDistribuidas());
-
-    viandas.forEach(vianda -> {
-      vianda.setHeladera(heladeraDestino);
-      heladeraDestino.agregarVianda(vianda);
-    });
 
     Colaboracion colaboracion = new Colaboracion();
     colaboracion.setDistribucionViandas(distribucionViandas);

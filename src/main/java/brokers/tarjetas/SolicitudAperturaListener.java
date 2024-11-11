@@ -3,7 +3,9 @@ package brokers.tarjetas;
 import config.RepositoryLocator;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.colaboracion.TipoColaboracion;
 import models.entities.heladera.Heladera;
@@ -30,7 +32,7 @@ public class SolicitudAperturaListener implements IMqttMessageListener {
   private final HeladerasRepository heladerasRepository;
   private final ReportesHeladerasRepository reportesHeladerasRepository;
   private final ColaboradoresRepository colaboradoresRepository;
-  private List<Vianda> viandas;
+  private final Map<Long, List<Vianda>> viandasPorSolicitud = new HashMap<>();
 
   /**
    * Constructor del listener.
@@ -45,7 +47,6 @@ public class SolicitudAperturaListener implements IMqttMessageListener {
         RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);
     this.colaboradoresRepository =
         RepositoryLocator.instanceOf(ColaboradoresRepository.class);
-    this.viandas = new ArrayList<>();
   }
 
   @Override
@@ -130,19 +131,24 @@ public class SolicitudAperturaListener implements IMqttMessageListener {
       Colaboracion colaboracion, Colaborador colaborador, Heladera heladera
   ) {
     if (colaboracion.getDistribucionViandas().getHeladeraOrigen().equals(heladera)) {
-      this.viandas.addAll(heladera.removerViandas(
+      List<Vianda> viandasRemovidas = new ArrayList<>(heladera.removerViandas(
           colaboracion.getDistribucionViandas().getCantViandasDistribuidas()
       ));
 
+      this.viandasPorSolicitud.put(colaboracion.getId(), viandasRemovidas);
+
     } else {
-      this.viandas.forEach(vianda -> {
+      List<Vianda> viandasPorColocar =
+          new ArrayList<>(viandasPorSolicitud.get(colaboracion.getId()));
+
+      viandasPorColocar.forEach(vianda -> {
         vianda.setHeladera(heladera);
         heladera.agregarVianda(vianda);
       });
 
       colaborador.aumentarReconocimiento(colaboracion);
 
-      this.viandas.clear();
+      this.viandasPorSolicitud.remove(colaboracion.getId());
 
       ReporteHeladera reporteOrigen =
           this.reportesHeladerasRepository.buscarSemanalPorHeladera(heladera.getId()).get();

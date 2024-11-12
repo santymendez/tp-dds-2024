@@ -15,11 +15,13 @@ import models.entities.heladera.Modelo;
 import models.entities.heladera.incidente.Incidente;
 import models.entities.heladera.sensores.SensorMovimiento;
 import models.entities.heladera.sensores.SensorTemperatura;
+import models.entities.personas.tecnico.VisitaTecnica;
 import models.entities.personas.users.TipoRol;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.IncidentesRepository;
 import models.repositories.imp.SensoresMovimientoRepository;
 import models.repositories.imp.SensoresTemperaturaRepository;
+import models.repositories.imp.VisitasTecnicasRepository;
 import services.DireccionesService;
 import services.HeladerasService;
 import services.ReportesHeladerasService;
@@ -38,6 +40,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
   private final ReportesHeladerasService reportesHeladerasService;
   private final SensoresTemperaturaRepository sensoresTemperaturaRepository;
   private final SensoresMovimientoRepository sensoresMovimientoRepository;
+  private  final VisitasTecnicasRepository visitasTecnicasRepository;
 
   /**
    * Constructor del Controller.
@@ -46,6 +49,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
    * @param incidentesRepository repositorio de incidentes.
    * @param sensoresMovimientoRepository repositorio de sensores de movimiento.
    * @param sensoresTemperaturaRepository repositorio de sensores de temperatura.
+   * @param visitasTecnicasRepository repositorio de visitas tecnicas.
    * @param heladerasService servicio de heladeras.
    * @param direccionesService servicio de direcciones.
    * @param reportesHeladerasService servicio de reportes de heladeras.
@@ -56,6 +60,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
       IncidentesRepository incidentesRepository,
       SensoresMovimientoRepository sensoresMovimientoRepository,
       SensoresTemperaturaRepository sensoresTemperaturaRepository,
+      VisitasTecnicasRepository visitasTecnicasRepository,
       HeladerasService heladerasService,
       DireccionesService direccionesService,
       ReportesHeladerasService reportesHeladerasService
@@ -64,6 +69,7 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
     this.incidentesRepository = incidentesRepository;
     this.sensoresMovimientoRepository = sensoresMovimientoRepository;
     this.sensoresTemperaturaRepository = sensoresTemperaturaRepository;
+    this.visitasTecnicasRepository = visitasTecnicasRepository;
     this.heladerasService = heladerasService;
     this.direccionesService = direccionesService;
     this.reportesHeladerasService = reportesHeladerasService;
@@ -91,6 +97,9 @@ public class HeladerasController implements InterfaceCrudViewsHandler {
 
     List<Modelo> modelos = this.genericRepository.buscarTodos(Modelo.class);
     model.put("modelos", modelos);
+
+    List<VisitaTecnica> visitas = this.visitasTecnicasRepository.buscarResueltos();
+    model.put("visitas", visitas);
 
     model.put("activeSession", true);
     model.put("tipoRol", context.sessionAttribute("tipoRol"));

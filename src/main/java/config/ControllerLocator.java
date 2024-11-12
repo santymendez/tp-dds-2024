@@ -40,6 +40,7 @@ import models.repositories.imp.SensoresTemperaturaRepository;
 import models.repositories.imp.TarjetasColaboradoresRepository;
 import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
+import models.repositories.imp.VisitasTecnicasRepository;
 import models.searchers.BuscadorTecnicosCercanos;
 import services.CanjearPuntosService;
 import services.ColaboracionesService;
@@ -84,6 +85,7 @@ public class ControllerLocator {
             RepositoryLocator.instanceOf(IncidentesRepository.class),
             RepositoryLocator.instanceOf(SensoresMovimientoRepository.class),
             RepositoryLocator.instanceOf(SensoresTemperaturaRepository.class),
+            RepositoryLocator.instanceOf(VisitasTecnicasRepository.class),
             ServiceLocator.instanceOf(HeladerasService.class),
             ServiceLocator.instanceOf(DireccionesService.class),
             ServiceLocator.instanceOf(ReportesHeladerasService.class)

@@ -214,11 +214,11 @@ public class Router {
 
     app.get("/heladeras-solidarias/reportes",
         ControllerLocator.instanceOf(ReportesController.class)::index,
-        TipoRol.ADMINISTRADOR);
+        TipoRol.ADMINISTRADOR, TipoRol.PERSONA_JURIDICA);
     
     app.post("/heladeras-solidarias/reportes", 
         ControllerLocator.instanceOf(ReportesController.class)::save,
-        TipoRol.ADMINISTRADOR);
+        TipoRol.ADMINISTRADOR, TipoRol.PERSONA_JURIDICA);
 
     // TECNICOS
 

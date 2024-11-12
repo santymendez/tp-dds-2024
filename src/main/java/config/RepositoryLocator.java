@@ -20,6 +20,7 @@ import models.repositories.imp.TarjetasVulnerablesRepository;
 import models.repositories.imp.TecnicosRepository;
 import models.repositories.imp.UsosTarjetasVulnerablesRepository;
 import models.repositories.imp.UsuariosRepository;
+import models.repositories.imp.VisitasTecnicasRepository;
 import models.repositories.imp.VulnerablesRepository;
 
 /**
@@ -80,6 +81,8 @@ public class RepositoryLocator {
         instances.put(repositoryClassName, new SensoresMovimientoRepository());
       } else if (repositoryClass.equals(CanjesRepository.class)) {
         instances.put(repositoryClassName, new CanjesRepository());
+      } else if (repositoryClass.equals(VisitasTecnicasRepository.class)) {
+        instances.put(repositoryClassName, new VisitasTecnicasRepository());
       }
     }
 

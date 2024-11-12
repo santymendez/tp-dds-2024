@@ -51,6 +51,7 @@ import models.entities.personas.tarjetas.colaborador.TarjetaColaborador;
 import models.entities.personas.tarjetas.vulnerable.RegistroVulnerable;
 import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
 import models.entities.personas.tecnico.Tecnico;
+import models.entities.personas.tecnico.VisitaTecnica;
 import models.entities.personas.users.TipoRol;
 import models.entities.personas.users.Usuario;
 import models.entities.personas.vulnerable.Vulnerable;
@@ -333,6 +334,8 @@ public class Initializer {
 
   static Incidente alerta1;
 
+  static VisitaTecnica visita1;
+
   /**
    * Inicializa la aplicación con datos de prueba.
    */
@@ -368,6 +371,7 @@ public class Initializer {
     iniciarReportes();
     iniciarUsuarios();
     iniciarIncidentes();
+    iniciarVisitas();
 
     persistirEntidades();
   }
@@ -481,6 +485,8 @@ public class Initializer {
     repoGenerico.guardar(reporteSemanal3);
 
     repoGenerico.guardar(alerta1);
+
+    repoGenerico.guardar(visita1);
   }
 
   static void iniciarContactos() {
@@ -1442,6 +1448,16 @@ public class Initializer {
     alerta1 = new Incidente(TipoIncidente.ALERTA, heladeraRota);
     alerta1.setTipoAlerta(TipoEstado.INACTIVA_TEMPERATURA);
     alerta1.setMomentoIncidente(LocalDateTime.of(2024, 6, 16, 12, 0));
+  }
+
+  static void iniciarVisitas() {
+    visita1 = new VisitaTecnica();
+    visita1.setTecnico(santi);
+    visita1.setIncidente(alerta1);
+    visita1.setFechaVisita(LocalDate.of(2024, 6, 16));
+    visita1.setTrabajoRealizado("Se realizo la visita tecnica correspondiente");
+    visita1.setIncidenteSolucionado(true);
+    visita1.setFotoVisita("/static-imgs/logo.png");
   }
 
   static void iniciarRepos() {

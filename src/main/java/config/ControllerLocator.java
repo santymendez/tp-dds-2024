@@ -9,7 +9,6 @@ import controllers.HomePageController;
 import controllers.IniciarSesionController;
 import controllers.MapaController;
 import controllers.ModelosController;
-import controllers.OldCsvController;
 import controllers.RecomendacionesController;
 import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
@@ -89,14 +88,6 @@ public class ControllerLocator {
             ServiceLocator.instanceOf(HeladerasService.class),
             ServiceLocator.instanceOf(DireccionesService.class),
             ServiceLocator.instanceOf(ReportesHeladerasService.class)
-        );
-        instances.put(controllerName, instance);
-
-      } else if (controllerClass.equals(OldCsvController.class)) {
-        OldCsvController instance = new OldCsvController(
-            ServiceLocator.instanceOf(ColaboradoresService.class),
-            EmailSender.getInstance(),
-            ServiceLocator.instanceOf(ColaboracionesService.class)
         );
         instances.put(controllerName, instance);
 

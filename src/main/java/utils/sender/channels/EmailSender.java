@@ -22,6 +22,7 @@ import utils.sender.SenderInterface;
  * Se recomienda utilizar el metodo enviar() para enviar un mensaje de correo
  * electrónico especificando el destinatario y el mensaje a enviar.
  */
+
 public class EmailSender implements SenderInterface {
   private final String nombreDeUsuario = Config.getEmailUser();
   private final String contrasenia = Config.getEmailApiKey(); // Acá se usa la API key
@@ -35,14 +36,12 @@ public class EmailSender implements SenderInterface {
       throw new IllegalStateException("El nombre de usuario o la contraseña no pueden ser nulos");
     }
 
-    // Configuración de las propiedades del servidor de correo
     Properties propiedadesDelServidorDeCorreo = new Properties();
     propiedadesDelServidorDeCorreo.put("mail.smtp.host", "smtp.gmail.com");
     propiedadesDelServidorDeCorreo.put("mail.smtp.auth", "true");
     propiedadesDelServidorDeCorreo.put("mail.smtp.port", "587");
     propiedadesDelServidorDeCorreo.put("mail.smtp.starttls.enable", "true");
 
-    // Crear una sesión de correo electrónico autenticada
     sesion = Session.getInstance(propiedadesDelServidorDeCorreo, new Authenticator() {
       protected PasswordAuthentication getPasswordAuthentication() {
         return new PasswordAuthentication(nombreDeUsuario, contrasenia);
@@ -74,14 +73,12 @@ public class EmailSender implements SenderInterface {
   public void enviarAsync(Mensaje mensajeAenviar, String destinatario) {
     CompletableFuture.runAsync(() -> {
       try {
-        // Crear un mensaje de correo electrónico
         Message message = new MimeMessage(sesion);
         message.setFrom(new InternetAddress(nombreDeUsuario)); // Dirección de quien lo envía
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
         message.setSubject(mensajeAenviar.getAsunto());
         message.setText(mensajeAenviar.getCuerpo());
 
-        // Enviar el mensaje
         Transport.send(message);
 
         logger.info("Correo enviado exitosamente a {}", destinatario);

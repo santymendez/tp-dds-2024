@@ -90,8 +90,6 @@
 }
 
 .form-control:focus, .form-select:focus {
-/*    border-color: var(--verdeBotonesCuadrados);*/
-/*    box-shadow: none;*/
     font-size: 1.4rem;
 }
 

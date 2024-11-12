@@ -148,7 +148,18 @@
     padding-left: 0.5rem;
     margin-bottom: 1rem;
 }
+
 h5{
     margin-top: 0.5rem;
     margin-left: 0.5rem;
+}
+
+.link-telegram {
+    text-decoration: underline;
+    color: var(--verdePrincipal);
+    margin-right: 10px;
+    font-size: 1.4rem;
+    border: none;
+    background: none;
+    padding: 0;
 }

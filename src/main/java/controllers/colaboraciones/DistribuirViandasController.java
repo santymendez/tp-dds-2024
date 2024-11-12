@@ -87,7 +87,7 @@ public class DistribuirViandasController implements InterfaceCrudViewsHandler {
 
     if (heladeraOrigen.equals(heladeraDestino)) {
       context.sessionAttribute("colabStatus", TransactionStatus.ERROR);
-      //TODO MODAL ERROR
+      context.redirect("/heladeras-solidarias/colaborar?errorHeladerasIguales=true");
       return;
     }
 

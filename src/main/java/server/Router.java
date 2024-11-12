@@ -201,7 +201,6 @@ public class Router {
         ControllerLocator.instanceOf(CsvController.class)::create,
         TipoRol.ADMINISTRADOR);
 
-    // TODO hacerlo asincronico (si estan al pedo)
     app.post("heladeras-solidarias/cargar-csv",
         ControllerLocator.instanceOf(CsvController.class)::save,
         TipoRol.ADMINISTRADOR);

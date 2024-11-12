@@ -4,6 +4,8 @@
     margin: 20px 0;
     font-size: 16px;
     text-align: left;
+    font-family: var(--fuenteSubtitulos), sans-serif;
+    color: var(--negro);
 }
 
 .usuarios-tabla thead tr {
@@ -22,4 +24,10 @@
 
 .usuarios-tabla tbody tr:hover {
     background-color: #ddd;
+}
+
+.tabla-titulo {
+    font-family: var(--fuenteSubtitulos), sans-serif;
+    color: var(--negro);
+    text-align: center;
 }

@@ -272,8 +272,12 @@
                     </h2>
                     <div id="visita-{{this.id}}" class="accordion-collapse collapse" aria-labelledby="accordion-header-{{visita.id}}" data-bs-parent="#accordionPanelsStayOpenExample">
                         <div class="accordion-body">
-                            Detalle: {{this.getTrabajoRealizado}}
-                            <img src="{{this.getFotoVisita}}" alt="Imagen de la visita" class="service-image imagen_visita">
+                            <img src="{{this.getFotoVisita}}" alt="Imagen de la visita" class="imagen-falla-solucionada">
+                            <div class="detalle-falla-solucionada">
+                                <strong>Técnico:</strong> {{this.getTecnico.getNombre}} <br>
+                                <strong>Detalle:</strong> {{this.getTrabajoRealizado}} <br>
+                                <strong>Fecha:</strong> {{this.getFechaVisita}}
+                            </div>
                         </div>
                     </div>
                 </div>

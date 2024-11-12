@@ -14,3 +14,16 @@
     background-color: transparent;
     border: none;
 }
+
+.imagen-falla-solucionada {
+    display: block;
+    margin-bottom: 1em;
+    margin-right: 1rem;
+    width: 150px;
+    height: auto;
+}
+
+.detalle-falla-solucionada {
+    text-align: left;
+    font-size: 1rem;
+}

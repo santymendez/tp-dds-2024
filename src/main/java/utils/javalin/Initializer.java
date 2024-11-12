@@ -1455,9 +1455,11 @@ public class Initializer {
     visita1.setTecnico(santi);
     visita1.setIncidente(alerta1);
     visita1.setFechaVisita(LocalDate.of(2024, 6, 16));
-    visita1.setTrabajoRealizado("Se realizo la visita tecnica correspondiente");
+    visita1.setTrabajoRealizado("Se detectó un problema con el sensor de temperatura, "
+        + "el cual estaba descalibrado. Se procedió a recalibrar el sensor y verificar "
+        + "su correcto funcionamiento.");
     visita1.setIncidenteSolucionado(true);
-    visita1.setFotoVisita("/static-imgs/logo.png");
+    visita1.setFotoVisita("/static-imgs/heladera-rota-tem.jpg");
   }
 
   static void iniciarRepos() {

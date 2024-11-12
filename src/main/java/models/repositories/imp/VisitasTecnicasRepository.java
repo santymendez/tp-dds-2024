@@ -3,8 +3,6 @@ package models.repositories.imp;
 import java.util.List;
 import java.util.Optional;
 import models.entities.direccion.Provincia;
-import models.entities.heladera.Heladera;
-import models.entities.heladera.estados.TipoEstado;
 import models.entities.personas.tecnico.VisitaTecnica;
 
 /**

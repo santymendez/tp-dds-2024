@@ -10,6 +10,7 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.sender.Mensaje;
@@ -54,7 +55,6 @@ public class EmailSender implements SenderInterface {
    *
    * @return la instancia del EmailSender.
    */
-
   public static EmailSender getInstance() {
     if (instance == null) {
       instance = new EmailSender();
@@ -63,28 +63,38 @@ public class EmailSender implements SenderInterface {
   }
 
   /**
-   * Se encarga de enviar el mensaje al destinatario. Caso de que ocurriera un error
-   * se lanza una excepción indicando por qué no se pudo realizar el envío.
+   * Se encarga de enviar el mensaje al destinatario de manera asincrónica.
+   * Caso de que ocurra un error se lanza una excepción indicando
+   * por qué no se pudo realizar el envío.
    *
    * @param mensajeAenviar el mensaje que se quiere enviar
    * @param destinatario   el destinatario al cual se quiere enviar el mensaje
    */
 
-  public void enviar(Mensaje mensajeAenviar, String destinatario) {
-    try {
-      // Crear un mensaje de correo electrónico
-      Message message = new MimeMessage(sesion);
-      message.setFrom(new InternetAddress(nombreDeUsuario)); // Dirección de quien lo envía
-      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
-      message.setSubject(mensajeAenviar.getAsunto());
-      message.setText(mensajeAenviar.getCuerpo());
+  public void enviarAsync(Mensaje mensajeAenviar, String destinatario) {
+    CompletableFuture.runAsync(() -> {
+      try {
+        // Crear un mensaje de correo electrónico
+        Message message = new MimeMessage(sesion);
+        message.setFrom(new InternetAddress(nombreDeUsuario)); // Dirección de quien lo envía
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+        message.setSubject(mensajeAenviar.getAsunto());
+        message.setText(mensajeAenviar.getCuerpo());
 
-      // Enviar el mensaje
-      Transport.send(message);
+        // Enviar el mensaje
+        Transport.send(message);
 
-    } catch (MessagingException e) {
-      logger.error("Error al enviar el correo electrónico: ", e);
-      throw new RuntimeException("Error al enviar el correo electrónico: " + e.getMessage());
-    }
+        logger.info("Correo enviado exitosamente a {}", destinatario);
+        System.out.println("Correo enviado exitosamente a " + destinatario);
+      } catch (MessagingException e) {
+        logger.error("Error al enviar el correo electrónico: ", e);
+        System.out.println("Error al enviar el correo electrónico: " + e.getMessage());
+      }
+    });
+  }
+
+  @Override
+  public void enviar(Mensaje mensaje, String destinatario) {
+    this.enviarAsync(mensaje, destinatario);
   }
 }

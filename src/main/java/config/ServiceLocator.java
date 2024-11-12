@@ -8,6 +8,7 @@ import models.repositories.imp.IncidentesRepository;
 import models.repositories.imp.ModelosRepository;
 import models.repositories.imp.ProvinciasRepository;
 import models.repositories.imp.TarjetasVulnerablesRepository;
+import models.repositories.imp.UsuariosRepository;
 import models.repositories.imp.VulnerablesRepository;
 import services.CanjearPuntosService;
 import services.ColaboracionesService;
@@ -47,7 +48,8 @@ public class ServiceLocator {
     if (!instances.containsKey(serviceName)) {
       if (serviceClass.equals(ColaboradoresService.class)) {
         ColaboradoresService instance = new ColaboradoresService(
-            RepositoryLocator.instanceOf(ColaboradoresRepository.class)
+            RepositoryLocator.instanceOf(ColaboradoresRepository.class),
+            RepositoryLocator.instanceOf(UsuariosRepository.class)
         );
         instances.put(serviceName, instance);
 

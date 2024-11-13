@@ -5,6 +5,7 @@ import controllers.AgregarDireccionController;
 import controllers.CanjearPuntosController;
 import controllers.ColaboracionesController;
 import controllers.CsvController;
+import controllers.FormsController;
 import controllers.HeladerasController;
 import controllers.HomePageController;
 import controllers.IniciarSesionController;
@@ -228,5 +229,15 @@ public class Router {
     app.post("/heladeras-solidarias/registrar-visita",
         ControllerLocator.instanceOf(VisitasTecnicasController.class)::save,
         TipoRol.TECNICO);
+
+    // FORMS DINAMICOS
+
+    app.get("/heladeras-solidarias/formularios",
+        ControllerLocator.instanceOf(FormsController.class)::index,
+        TipoRol.ADMINISTRADOR);
+
+    app.post("heladeras-solidarias/formularios",
+        ControllerLocator.instanceOf(FormsController.class)::save,
+        TipoRol.ADMINISTRADOR);
   }
 }

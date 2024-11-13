@@ -19,12 +19,6 @@ import models.entities.direccion.Barrio;
 import models.entities.direccion.Ciudad;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
-import models.entities.formulario.Formulario;
-import models.entities.formulario.Opcion;
-import models.entities.formulario.Pregunta;
-import models.entities.formulario.Respuesta;
-import models.entities.formulario.RespuestaFormulario;
-import models.entities.formulario.TipoPregunta;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
 import models.entities.heladera.estados.Estado;
@@ -159,36 +153,6 @@ public class Initializer {
   static Provincia santiagoDelEstero;
   static Provincia tierraDelFuego;
   static Provincia tucuman;
-
-  static Formulario formulario1;
-
-  static List<Pregunta> lstPreguntas1;
-
-  static Pregunta pregunta1;
-  static Pregunta pregunta2;
-  static Pregunta pregunta3;
-
-  static List<Opcion> lstOpciones1;
-  static List<Opcion> lstOpciones2;
-  static List<Opcion> lstOpciones3;
-
-  static Opcion opcion1;
-  static Opcion opcion2;
-  static Opcion opcion3;
-  static Opcion opcion4;
-  static Opcion opcion5;
-  static Opcion opcion6;
-  static Opcion opcion7;
-  static Opcion opcion8;
-  static Opcion opcion9;
-
-  static Respuesta respuesta1;
-  static Respuesta respuesta2;
-  static Respuesta respuesta3;
-
-  static RespuestaFormulario respuestaFormulario1;
-  static RespuestaFormulario respuestaFormulario2;
-  static RespuestaFormulario respuestaFormulario3;
 
   @Getter
   static Heladera heladera1;
@@ -365,7 +329,6 @@ public class Initializer {
     iniciarOfertas();
     iniciarColaboraciones();
     iniciarTecnicos();
-    iniciarFormularios();
     iniciarSuscripciones();
     iniciarViandasPorColaborador();
     iniciarReportes();
@@ -469,8 +432,6 @@ public class Initializer {
 
     tecnicosRepository.guardar(liam);
     tecnicosRepository.guardar(santi);
-
-    repoGenerico.guardar(formulario1);
 
     repoGenerico.guardar(viandasPorColaborador1);
     repoGenerico.guardar(viandasPorColaborador2);
@@ -1265,106 +1226,6 @@ public class Initializer {
 
     sensorTemperatura4 = new SensorTemperatura();
     sensorTemperatura4.setHeladera(heladeraRota);
-  }
-
-  static void iniciarFormularios() {
-
-    lstPreguntas1 = new ArrayList<>();
-
-    opcion1 = new Opcion();
-    opcion1.setOpcion("2");
-
-    opcion2 = new Opcion();
-    opcion2.setOpcion("3");
-
-    opcion3 = new Opcion();
-    opcion3.setOpcion("5");
-
-    respuesta1 = new Respuesta();
-    respuesta1.setPregunta(pregunta1);
-    respuesta1.setRespuestaSingleChoice(opcion1);
-
-    respuestaFormulario1 = new RespuestaFormulario();
-    respuestaFormulario1.setFormulario(formulario1);
-    respuestaFormulario1.setColaborador(mati);
-    respuestaFormulario1.setDescripcion("tiene 2");
-    respuestaFormulario1.setRespuestas(List.of(respuesta1));
-
-    lstOpciones1 = new ArrayList<>();
-
-    lstOpciones1.add(opcion1);
-    lstOpciones1.add(opcion2);
-    lstOpciones1.add(opcion3);
-
-    pregunta1 = new Pregunta();
-    pregunta1.setPregunta("Cuantos mundiales tiene uruguay?");
-    pregunta1.setOpciones(lstOpciones1);
-    pregunta1.setEsOpcional(true);
-    pregunta1.setTipoPregunta(TipoPregunta.MULTIPLE_CHOICE);
-
-    respuesta2 = new Respuesta();
-    respuesta2.setPregunta(pregunta2);
-    respuesta2.setRespuestaSingleChoice(opcion6);
-
-    respuestaFormulario2 = new RespuestaFormulario();
-    respuestaFormulario2.setFormulario(formulario1);
-    respuestaFormulario2.setColaborador(augusto);
-    respuestaFormulario2.setDescripcion("tiene 700");
-    respuestaFormulario2.setRespuestas(List.of(respuesta2));
-
-    opcion4 = new Opcion();
-    opcion4.setOpcion("500");
-
-    opcion5 = new Opcion();
-    opcion5.setOpcion("600");
-
-    opcion6 = new Opcion();
-    opcion6.setOpcion("700");
-
-    lstOpciones2 = new ArrayList<>();
-
-    lstOpciones2.add(opcion4);
-    lstOpciones2.add(opcion5);
-    lstOpciones2.add(opcion6);
-
-    pregunta2 = new Pregunta();
-    pregunta2.setPregunta("Cuantas lineas tiene este test?");
-    pregunta2.setOpciones(lstOpciones2);
-    pregunta2.setEsOpcional(false);
-    pregunta2.setTipoPregunta(TipoPregunta.MULTIPLE_CHOICE);
-
-    respuesta3 = new Respuesta();
-    respuesta3.setPregunta(pregunta3);
-    respuesta3.setRespuestaSingleChoice(opcion7);
-
-    respuestaFormulario3 = new RespuestaFormulario();
-    respuestaFormulario3.setFormulario(formulario1);
-    respuestaFormulario3.setColaborador(iniaki);
-
-    opcion7 = new Opcion();
-    opcion7.setOpcion("1");
-
-    opcion8 = new Opcion();
-    opcion8.setOpcion("2");
-
-    opcion9 = new Opcion();
-    opcion9.setOpcion("3");
-
-    lstOpciones3 = new ArrayList<>();
-
-    pregunta3 = new Pregunta();
-    pregunta3.setPregunta("Cuantas intercontinentales gano Velez?");
-    pregunta3.setOpciones(lstOpciones3);
-    pregunta3.setEsOpcional(true);
-    pregunta3.setTipoPregunta(TipoPregunta.SINGLE_CHOICE);
-
-    lstPreguntas1.add(pregunta1);
-    lstPreguntas1.add(pregunta2);
-    lstPreguntas1.add(pregunta3);
-
-    formulario1 = new Formulario();
-    formulario1.setNombre("form");
-    formulario1.setPreguntas(lstPreguntas1);
   }
 
   static void iniciarTecnicos() {

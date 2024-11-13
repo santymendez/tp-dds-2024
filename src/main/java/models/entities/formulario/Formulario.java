@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.db.Persistente;
 
@@ -15,6 +17,8 @@ import models.db.Persistente;
  * Representa un formulario. Tiene un listado de preguntas.
  */
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity

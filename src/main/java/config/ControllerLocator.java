@@ -4,6 +4,7 @@ import controllers.AgregarDireccionController;
 import controllers.CanjearPuntosController;
 import controllers.ColaboracionesController;
 import controllers.CsvController;
+import controllers.FormsController;
 import controllers.HeladerasController;
 import controllers.HomePageController;
 import controllers.IniciarSesionController;
@@ -45,9 +46,11 @@ import services.CanjearPuntosService;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.DireccionesService;
+import services.FormulariosService;
 import services.HeladerasService;
 import services.IncidentesService;
 import services.ModelosService;
+import services.PreguntasService;
 import services.ReportesHeladerasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
@@ -258,6 +261,12 @@ public class ControllerLocator {
         );
         instances.put(controllerName, instance);
 
+      } else if (controllerClass.equals(FormsController.class)) {
+        FormsController instance = new FormsController(
+            ServiceLocator.instanceOf(FormulariosService.class),
+            ServiceLocator.instanceOf(PreguntasService.class)
+        );
+        instances.put(controllerName, instance);
       }
     }
     return (T) instances.get(controllerName);

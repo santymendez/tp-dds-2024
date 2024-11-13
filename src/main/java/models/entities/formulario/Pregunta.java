@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import models.db.Persistente;
 
@@ -19,6 +21,8 @@ import models.db.Persistente;
  * Tiene la pregunta en sí misma, la opcionalidad, las opciones y el tipo de la respuesta.
  */
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity

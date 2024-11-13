@@ -14,10 +14,12 @@ import services.CanjearPuntosService;
 import services.ColaboracionesService;
 import services.ColaboradoresService;
 import services.DireccionesService;
+import services.FormulariosService;
 import services.HeladerasService;
 import services.IncidentesService;
 import services.ModelosService;
 import services.OfertasService;
+import services.PreguntasService;
 import services.ReportesHeladerasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
@@ -132,6 +134,14 @@ public class ServiceLocator {
         );
         instances.put(serviceName, instance);
 
+      } else if (serviceClass.equals(FormulariosService.class)) {
+        FormulariosService instance = new FormulariosService(
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
+        instances.put(serviceName, instance);
+      } else if (serviceClass.equals(PreguntasService.class)) {
+        PreguntasService instance = new PreguntasService();
+        instances.put(serviceName, instance);
       }
     }
     return (T) instances.get(serviceName);

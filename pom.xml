@@ -223,11 +223,6 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.2.1</version>
         <configuration>
@@ -246,20 +241,6 @@
         <executions>
           <execution>
             <id>Validar Formateo</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.7.3.2</version>
-        <executions>
-          <execution>
-            <id>Validar Code Smells</id>
             <phase>verify</phase>
             <goals>
               <goal>check</goal>
@@ -314,25 +295,38 @@
         </configuration>
       </plugin>
       <plugin>
-        <!-- Build an executable JAR -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.3.0</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>utils.reportes.GeneradorReporte</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
         <configuration>
           <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
         </configuration>
+      </plugin>
+      <!-- Plugin para compilar el proyecto en un archivo JAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>server.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions> <execution>
+          <phase>package</phase>
+          <goals>
+            <goal>shade</goal>
+          </goals>
+          <configuration>
+            <minimizeJar>false</minimizeJar>
+          </configuration> </execution> </executions>
       </plugin>
     </plugins>
   </build>

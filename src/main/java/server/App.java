@@ -1,7 +1,7 @@
 package server;
 
 import cronjobs.CalculoHacerseCargo;
-import cronjobs.DetectorFallaDesconexion;
+// import cronjobs.DetectorFallaDesconexion;
 import cronjobs.GeneradorReporteCronJob;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
@@ -64,8 +64,8 @@ public class App {
       //             .repeatForever())
       //     .build();
       //
-      // scheduler.scheduleJob(jobCalculoHacerseCargo, triggerCalculoHacerseCargo);
-      // scheduler.scheduleJob(jobReportes, triggerReportes);
+      scheduler.scheduleJob(jobCalculoHacerseCargo, triggerCalculoHacerseCargo);
+      scheduler.scheduleJob(jobReportes, triggerReportes);
       // scheduler.scheduleJob(jobDetectorFallaConexion, triggerDetectorFallaConexion);
       scheduler.start();
 

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 
 /**
@@ -34,7 +36,8 @@ public class ReporteSemanal extends Persistente {
   @Column(name = "nombre")
   private String nombre;
 
-  @Column(name = "fecha", columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fecha")
   private LocalDate fecha;
 
   /**

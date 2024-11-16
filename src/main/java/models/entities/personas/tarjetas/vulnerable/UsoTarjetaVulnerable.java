@@ -2,6 +2,7 @@ package models.entities.personas.tarjetas.vulnerable;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,6 +10,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.heladera.Heladera;
 
@@ -23,7 +25,8 @@ import models.entities.heladera.Heladera;
 @Table(name = "usos_tarjetas_vulnerables")
 public class UsoTarjetaVulnerable extends Persistente {
 
-  @Column(name = "fechaUtilizacion", columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaUtilizacion")
   private LocalDate fechaUtilizacion;
 
   @ManyToOne

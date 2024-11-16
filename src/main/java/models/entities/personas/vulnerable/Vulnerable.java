@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.direccion.Direccion;
 import models.entities.personas.documento.Documento;
@@ -33,7 +35,8 @@ public class Vulnerable extends Persistente {
   @Column(name = "nombre", nullable = false)
   private String nombre;
 
-  @Column(name = "fechaNacimiento", columnDefinition = "DATE", nullable = false)
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaNacimiento", nullable = false)
   private LocalDate fechaNacimiento;
 
   @ManyToOne

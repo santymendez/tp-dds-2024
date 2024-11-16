@@ -2,6 +2,7 @@ package models.entities.personas.tecnico;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,6 +10,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.heladera.incidente.Incidente;
 
@@ -26,7 +28,8 @@ public class VisitaTecnica extends Persistente {
   @JoinColumn(name = "incidente_id", referencedColumnName = "id", nullable = false)
   private Incidente incidente;
 
-  @Column(name = "fechaVisita", columnDefinition = "DATE", nullable = false)
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaVisita", nullable = false)
   private LocalDate fechaVisita;
 
   @Column(name = "trabajoRealizado", columnDefinition = "TEXT")

@@ -2,6 +2,7 @@ package models.entities.heladera.vianda;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
@@ -31,6 +33,7 @@ public class Vianda extends Persistente {
   @Embedded
   private Comida comida;
 
+  @Convert(converter = LocalDateAttributeConverter.class)
   @Column(name = "fechaDonacion")
   private LocalDate fechaDonacion;
 

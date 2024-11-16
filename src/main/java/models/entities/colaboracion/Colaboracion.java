@@ -2,6 +2,7 @@ package models.entities.colaboracion;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.personas.colaborador.Colaborador;
 
@@ -30,7 +32,8 @@ public class Colaboracion extends Persistente {
   @Column(name = "tipo", nullable = false)
   private TipoColaboracion tipoColaboracion;
 
-  @Column(name = "fechaColaboracion", columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaColaboracion")
   private LocalDate fechaColaboracion;
 
   @ManyToOne

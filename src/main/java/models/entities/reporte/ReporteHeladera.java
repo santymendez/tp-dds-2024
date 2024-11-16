@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
@@ -49,7 +51,8 @@ public class ReporteHeladera extends Persistente {
           referencedColumnName = "id"))
   private List<ViandasPorColaborador> viandasPorColaboradores;
 
-  @Column(name = "fecha", columnDefinition = "DATE", nullable = false)
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fecha", nullable = false)
   private LocalDate fecha;
 
   @Column(name = "reportePath", columnDefinition = "TEXT")

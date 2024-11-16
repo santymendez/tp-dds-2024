@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 import models.entities.direccion.Direccion;
 import models.entities.heladera.estados.Estado;
@@ -47,7 +49,8 @@ public class Heladera extends Persistente {
   @Column(name = "nombre", nullable = false)
   private String nombre;
 
-  @Column(name = "fechaCreacion", columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaCreacion")
   private LocalDate fechaDeCreacion;
 
   @Column(name = "estaAbierta")

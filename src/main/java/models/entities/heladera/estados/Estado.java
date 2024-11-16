@@ -3,6 +3,7 @@ package models.entities.heladera.estados;
 import java.time.LocalDate;
 import java.time.Period;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.db.Persistente;
 
 /**
@@ -29,10 +31,12 @@ public class Estado extends Persistente {
   @Column(name = "tipo", nullable = false)
   private TipoEstado estado;
 
-  @Column(name = "fechaInicial", columnDefinition = "DATE", nullable = false)
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaInicial", nullable = false)
   private LocalDate fechaInicial;
 
-  @Column(name = "fechaFinal", columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaFinal")
   private LocalDate fechaFinal;
 
   public Estado(TipoEstado estadoHeladera) {

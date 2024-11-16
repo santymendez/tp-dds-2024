@@ -44,7 +44,7 @@ public class ColaboracionesController implements InterfaceCrudViewsHandler {
     model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
     context.sessionAttribute("colabStatus", false);
-    context.render("/colaborar.hbs", model);
+    context.render("colaborar.hbs", model);
   }
 
   @Override

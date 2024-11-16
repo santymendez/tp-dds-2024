@@ -51,7 +51,7 @@ public class AgregarDireccionController implements InterfaceCrudViewsHandler {
     model.put("activeSession", true);
     model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
-    context.render("/agregar-direccion.hbs", model);
+    context.render("agregar-direccion.hbs", model);
   }
 
   @Override

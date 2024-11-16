@@ -45,7 +45,7 @@ public class ReportesController implements InterfaceCrudViewsHandler {
 
     model.put("reportes", reportes);
 
-    context.render("/reportes.hbs", model);
+    context.render("reportes.hbs", model);
   }
 
   @Override

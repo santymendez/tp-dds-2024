@@ -88,7 +88,7 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
     List<Provincia> provincias = this.provinciasRepository.buscarTodos();
     model.put("provincias", provincias);
 
-    context.render("/registrarse.hbs", model);
+    context.render("registrarse.hbs", model);
   }
 
   @Override

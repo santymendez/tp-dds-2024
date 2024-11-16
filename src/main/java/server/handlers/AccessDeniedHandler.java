@@ -26,7 +26,7 @@ public class AccessDeniedHandler implements Ihandler {
       );
 
       context.status(403);
-      context.render("/error-base.hbs", model);
+      context.render("error-base.hbs", model);
     });
   }
 }

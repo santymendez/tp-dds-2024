@@ -70,7 +70,7 @@ public class ReportarFallaTecnicaController implements InterfaceCrudViewsHandler
     model.put("activeSession", true);
     model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
-    context.render("/reportar-falla-tecnica.hbs", model);
+    context.render("reportar-falla-tecnica.hbs", model);
   }
 
   @Override

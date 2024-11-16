@@ -85,7 +85,7 @@ public class VulnerablesController implements InterfaceCrudViewsHandler {
     model.put("activeSession", true);
     model.put("tipoRol", context.sessionAttribute("tipoRol"));
 
-    context.render("/registrar-vulnerable.hbs", model);
+    context.render("registrar-vulnerable.hbs", model);
   }
 
 

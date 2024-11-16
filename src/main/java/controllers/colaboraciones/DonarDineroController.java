@@ -39,7 +39,7 @@ public class DonarDineroController implements InterfaceCrudViewsHandler {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "dinero");
 
-    context.render("/colaborar.hbs", model);
+    context.render("colaborar.hbs", model);
   }
 
   @Override

@@ -1,7 +1,7 @@
 package server;
 
 import cronjobs.CalculoHacerseCargo;
-// import cronjobs.DetectorFallaDesconexion;
+import cronjobs.DetectorFallaDesconexion;
 import cronjobs.GeneradorReporteCronJob;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
@@ -9,6 +9,7 @@ import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
+import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
@@ -50,23 +51,23 @@ public class App {
           .withSchedule(CronScheduleBuilder.weeklyOnDayAndHourAndMinute(1, 0, 0))
           .build();
 
-      // JobDetail jobDetectorFallaConexion = JobBuilder.newJob(DetectorFallaDesconexion.class)
-      //     .withIdentity("jobDetectorFallaConexion", "sensores")
-      //     .usingJobData("Info", "Valor")
-      //     .build();
-      //
-      // Trigger triggerDetectorFallaConexion = TriggerBuilder.newTrigger()
-      //     .withIdentity("triggerDetectorFallaConexion", "sensores")
-      //     .startNow()
-      //     .withSchedule(
-      //         SimpleScheduleBuilder.simpleSchedule()
-      //             .withIntervalInMinutes(5)
-      //             .repeatForever())
-      //     .build();
-      //
+      JobDetail jobDetectorFallaConexion = JobBuilder.newJob(DetectorFallaDesconexion.class)
+          .withIdentity("jobDetectorFallaConexion", "sensores")
+          .usingJobData("Info", "Valor")
+          .build();
+
+      Trigger triggerDetectorFallaConexion = TriggerBuilder.newTrigger()
+          .withIdentity("triggerDetectorFallaConexion", "sensores")
+          .startNow()
+          .withSchedule(
+              SimpleScheduleBuilder.simpleSchedule()
+                  .withIntervalInMinutes(5)
+                  .repeatForever())
+          .build();
+
       scheduler.scheduleJob(jobCalculoHacerseCargo, triggerCalculoHacerseCargo);
       scheduler.scheduleJob(jobReportes, triggerReportes);
-      // scheduler.scheduleJob(jobDetectorFallaConexion, triggerDetectorFallaConexion);
+      scheduler.scheduleJob(jobDetectorFallaConexion, triggerDetectorFallaConexion);
       scheduler.start();
 
     } catch (SchedulerException e) {

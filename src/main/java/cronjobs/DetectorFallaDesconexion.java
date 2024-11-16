@@ -1,6 +1,8 @@
 package cronjobs;
 
 import config.RepositoryLocator;
+import config.ServiceLocator;
+import config.UtilsLocator;
 import java.util.List;
 import models.db.PersistenceUnitSwitcher;
 import models.entities.heladera.Heladera;
@@ -12,9 +14,11 @@ import models.entities.personas.colaborador.suscripcion.TipoSuscripcion;
 import models.entities.reporte.ReporteHeladera;
 import models.repositories.imp.GenericRepository;
 import models.repositories.imp.ReportesHeladerasRepository;
+import models.searchers.BuscadorTecnicosCercanos;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import services.IncidentesService;
 
 /**
  * Representa al detector de la falla de conexion entre la heladera
@@ -31,34 +35,41 @@ public class DetectorFallaDesconexion implements Job {
   public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
     PersistenceUnitSwitcher.switchPersistenceUnit("cronjob-persistence-unit");
 
-    GenericRepository repoGenerico = RepositoryLocator
+    GenericRepository genericRepository = RepositoryLocator
         .instanceOf(GenericRepository.class);
 
     ReportesHeladerasRepository reportesRepository =
         RepositoryLocator.instanceOf(ReportesHeladerasRepository.class);
 
-    List<SensorTemperatura> sensores = repoGenerico.buscarTodos(SensorTemperatura.class);
+    IncidentesService incidentesService =
+        ServiceLocator.instanceOf(IncidentesService.class);
+
+    BuscadorTecnicosCercanos buscadorTecnicosCercanos =
+        UtilsLocator.instanceOf(BuscadorTecnicosCercanos.class);
+
+    List<SensorTemperatura> sensores = genericRepository.buscarTodos(SensorTemperatura.class);
 
     for (SensorTemperatura sensor : sensores) {
 
-      if (!sensor.estaConectado()) {
+      Heladera heladera = sensor.getHeladera();
 
-        Heladera heladera = sensor.getHeladera();
+      if (!sensor.estaConectado()
+          && incidentesService.noFueAlertadoPor(TipoEstado.INACTIVA_FALLA_CONEXION, heladera)) {
 
-        //Se registra el incidente
         Incidente incidente = new Incidente(TipoIncidente.ALERTA, heladera);
         incidente.setTipoAlerta(TipoEstado.INACTIVA_FALLA_CONEXION);
-        repoGenerico.guardar(incidente);
+        genericRepository.guardar(incidente);
 
-        //Se modifica el estado de la heladera
         heladera.modificarEstado(TipoEstado.INACTIVA_FALLA_CONEXION);
 
-        //Se reporta la falla
+        buscadorTecnicosCercanos.notificarTecnicos(heladera);
+
+        heladera.intentarNotificarSuscriptores(TipoSuscripcion.OCURRIO_DESPERFECTO);
+
         ReporteHeladera reporte =
             reportesRepository.buscarSemanalPorHeladera(heladera.getId()).get();
         reporte.ocurrioUnaFalla();
-        heladera.intentarNotificarSuscriptores(TipoSuscripcion.OCURRIO_DESPERFECTO);
-
+        genericRepository.modificar(reporte);
       }
     }
   }

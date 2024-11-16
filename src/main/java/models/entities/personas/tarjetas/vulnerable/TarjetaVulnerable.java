@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.entities.heladera.Heladera;
 
 /**
@@ -34,7 +36,8 @@ public class TarjetaVulnerable {
   @Column(name = "activo")
   private Boolean activo;
 
-  @Column(name = "fechaAlta", columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaAlta")
   private LocalDate fechaAlta;
 
   @Column(name = "cantUsosMaxima")

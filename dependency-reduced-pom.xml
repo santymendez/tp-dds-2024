@@ -11,15 +11,6 @@
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.2.1</version>
-        <executions>
-          <execution>
-            <id>Validar Formateo</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
         <configuration>
           <configLocation>google_checks.xml</configLocation>
           <suppressionsFileExpression>${basedir}/checkstyle-suppressions.xml</suppressionsFileExpression>

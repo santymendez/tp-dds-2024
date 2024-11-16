@@ -2,12 +2,14 @@ package models.db;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 
 /**
  * Clase abstracta que representa a las entidades persistentes.
@@ -25,7 +27,8 @@ public abstract class Persistente {
   @Column(name = "activo", nullable = false)
   private Boolean activo;
 
-  @Column(name = "fechaAlta", columnDefinition = "DATE", nullable = false)
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaAlta", nullable = false)
   private LocalDate fechaAlta;
 
   public Persistente() {

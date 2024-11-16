@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -20,6 +21,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import models.converters.LocalDateAttributeConverter;
 import models.entities.heladera.Heladera;
 import models.entities.personas.colaborador.Colaborador;
 
@@ -39,7 +41,8 @@ public class TarjetaColaborador {
   @Column(name = "activo")
   private Boolean activo;
 
-  @Column(name = "fechaAlta", columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name = "fechaAlta")
   private LocalDate fechaAlta;
 
   @OneToMany(mappedBy = "tarjetaColaborador",

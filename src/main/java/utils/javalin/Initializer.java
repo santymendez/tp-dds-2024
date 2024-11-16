@@ -277,6 +277,7 @@ public class Initializer {
   static ReporteHeladera reporteHeladera1;
   static ReporteHeladera reporteHeladera2;
   static ReporteHeladera reporteHeladera3;
+  static ReporteHeladera reporteHeladeraRota;
 
   static ReporteSemanal reporteSemanal1;
   static ReporteSemanal reporteSemanal2;
@@ -444,6 +445,7 @@ public class Initializer {
     repoGenerico.guardar(reporteSemanal1);
     repoGenerico.guardar(reporteSemanal2);
     repoGenerico.guardar(reporteSemanal3);
+    repoGenerico.guardar(reporteHeladeraRota);
 
     repoGenerico.guardar(alerta1);
 
@@ -451,8 +453,8 @@ public class Initializer {
   }
 
   static void iniciarContactos() {
-    contactoAugusto = new Contacto("5150752592", TipoContacto.TELEGRAM);
-    contactoIniaqui = new Contacto("5491157690328", TipoContacto.TELEGRAM);
+    contactoAugusto = new Contacto("samendez@frba.utn.edu.ar", TipoContacto.MAIL);
+    contactoIniaqui = new Contacto("samendez@frba.utn.edu.ar", TipoContacto.MAIL);
     contactoMati = new Contacto("mjastrebow@frba.utn.edu.ar", TipoContacto.MAIL);
     contactoCitiGroup = new Contacto("citigroup@hdp.com", TipoContacto.MAIL);
     contactoLiam = new Contacto("lwilk@frba.utn.edu.ar", TipoContacto.MAIL);
@@ -1288,6 +1290,11 @@ public class Initializer {
     reporteHeladera3.setViandasRetiradas(7);
     reporteHeladera3.setViandasColocadas(33);
     reporteHeladera3.agregarNuevaColaboracion(viandasPorColaborador3);
+
+    reporteHeladeraRota = new ReporteHeladera(heladeraRota);
+    reporteHeladera3.setFallas(2);
+    reporteHeladera3.setViandasRetiradas(7);
+    reporteHeladera3.setViandasColocadas(33);
 
     reporteSemanal1 = new ReporteSemanal("/reportes/reporte-semana-2024-06-16.pdf",
         List.of(reporteHeladera1, reporteHeladera2, reporteHeladera3));

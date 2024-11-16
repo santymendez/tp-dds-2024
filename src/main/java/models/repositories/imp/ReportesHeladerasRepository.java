@@ -44,15 +44,21 @@ public class ReportesHeladerasRepository extends GenericRepository {
   public Optional<ReporteHeladera> buscarSemanalPorHeladera(Long id) {
     LocalDate haceUnaSemana = LocalDate.now().minusWeeks(1);
 
-    return Optional.ofNullable(entityManager()
+    // Usamos 'getSingleResult' si esperas solo un resultado o usar un 'LIMIT 1' en la consulta
+    ReporteHeladera resultado = entityManager()
         .createQuery(
-            "SELECT r FROM ReporteHeladera r WHERE r.heladera.id = :id AND "
-                + "r.fecha >= :haceUnaSemana",
+            "SELECT r FROM ReporteHeladera r WHERE r.heladera.id = :id AND r.fecha >= :haceUnaSemana",
             ReporteHeladera.class
         )
         .setParameter("id", id)
         .setParameter("haceUnaSemana", haceUnaSemana)
-        .getSingleResult());
+        .getResultList()
+        .stream() // Convertimos la lista a stream
+        .findFirst() // Tomamos el primer (y único) resultado, si existe
+        .orElse(null); // Si no hay resultados, se devuelve null
+
+    // Retornamos el resultado envuelto en un Optional
+    return Optional.ofNullable(resultado);
   }
 
   /**

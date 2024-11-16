@@ -57,8 +57,17 @@ public class SensorTemperatura extends Persistente {
     this.heladera.modificarEstado(TipoEstado.INACTIVA_TEMPERATURA);
   }
 
+  /**
+   * Comprueba si el sensor esta conectado.
+   *
+   * @return true si el sensor esta conectado, false en caso contrario.
+   */
+
   public Boolean estaConectado() {
-    LocalDateTime fecha = this.mediciones.get(0).getFechaYhora();
+    if (this.mediciones.isEmpty()) {
+      return false;
+    }
+    LocalDateTime fecha = this.mediciones.get(this.mediciones.size() - 1).getFechaYhora();
     return this.periodoEnMinutos(fecha) > 5;
   }
 

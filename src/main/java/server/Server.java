@@ -15,6 +15,7 @@ import io.javalin.micrometer.MicrometerPlugin;
 import java.io.IOException;
 import java.util.function.Consumer;
 import middlewares.AuthMiddleware;
+import models.db.PersistenceUnitSwitcher;
 import models.entities.personas.contacto.TipoContacto;
 import server.handlers.AppHandlers;
 import utils.javalin.Initializer;
@@ -70,10 +71,14 @@ public class Server {
       AppHandlers.applyHandlers(app);
       Router.init(app, registry);
 
-      if (Boolean.parseBoolean(Config.getDevMode())) {
-        Initializer.init("simple-persistence-unit");
+      if (Boolean.parseBoolean(Config.getInitData())) {
+        if (Boolean.parseBoolean(Config.getDevMode())) {
+          Initializer.init("simple-persistence-unit");
+        } else {
+          Initializer.init("database-persistence-unit");
+        }
       } else {
-        Initializer.init("database-persistence-unit");
+        PersistenceUnitSwitcher.switchPersistenceUnit("database-persistence-unit");
       }
 
       BrokerSensorTemperatura brokerSensorTemperatura = new BrokerSensorTemperatura();

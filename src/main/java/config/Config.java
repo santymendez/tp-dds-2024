@@ -60,6 +60,10 @@ public class Config {
     return properties.getProperty("dev_mode");
   }
 
+  public static String getInitData() {
+    return properties.getProperty("init_data");
+  }
+
   public static String getTempTopic() {
     return properties.getProperty("temp_topic");
   }

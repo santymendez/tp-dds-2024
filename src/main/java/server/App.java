@@ -9,7 +9,6 @@ import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
-import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
@@ -60,9 +59,7 @@ public class App {
           .withIdentity("triggerDetectorFallaConexion", "sensores")
           .startNow()
           .withSchedule(
-              SimpleScheduleBuilder.simpleSchedule()
-                  .withIntervalInMinutes(5)
-                  .repeatForever())
+              CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))
           .build();
 
       scheduler.scheduleJob(jobCalculoHacerseCargo, triggerCalculoHacerseCargo);

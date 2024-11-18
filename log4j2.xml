@@ -8,8 +8,14 @@
         <Logger name="modules.email.sender" level="info" additivity="false">
             <AppenderRef ref="MailLog"/>
         </Logger>
-        <Root level="error">
-            <AppenderRef ref="Console"/>
+        <Logger name="org.eclipse.jetty" level="off" additivity="false" />
+
+        <!-- Deshabilitar logs de Javalin -->
+        <Logger name="io.javalin" level="off" additivity="false" />
+
+        <!-- Configuración global -->
+        <Root level="warn">
+            <AppenderRef ref="Console" />
         </Root>
     </Loggers>
 </Configuration>

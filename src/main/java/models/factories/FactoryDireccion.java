@@ -76,8 +76,24 @@ public class FactoryDireccion {
   }
 
   private static String crearNombreUbicacion(Barrio barrio) {
-    return barrio.getCalle() + " " + barrio.getNumero() + ", " + barrio.getNombreBarrio() + ", "
-            + barrio.getCiudad().getNombreCiudad();
+    String nombreUbicacion = "";
+
+    if (barrio != null) {
+      if (barrio.getCalle() != null) {
+        nombreUbicacion += barrio.getCalle();
+      }
+      if (barrio.getNumero() != null) {
+        nombreUbicacion += " " + barrio.getNumero();
+      }
+      if (barrio.getNombreBarrio() != null) {
+        nombreUbicacion += ", " + barrio.getNombreBarrio();
+      }
+      if (barrio.getCiudad() != null && barrio.getCiudad().getNombreCiudad() != null) {
+        nombreUbicacion += ", " + barrio.getCiudad().getNombreCiudad();
+      }
+    }
+
+    return nombreUbicacion;
   }
 
 }

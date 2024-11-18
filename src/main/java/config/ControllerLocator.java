@@ -15,7 +15,7 @@ import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
 import controllers.ReportesController;
 import controllers.SuscribirseController;
-import controllers.UsersController;
+import controllers.UsuariosController;
 import controllers.VisitasTecnicasController;
 import controllers.VulnerablesController;
 import controllers.colaboraciones.DistribuirTarjetasController;
@@ -255,8 +255,8 @@ public class ControllerLocator {
         );
         instances.put(controllerName, instance);
 
-      } else if (controllerClass.equals(UsersController.class)) {
-        UsersController instance = new UsersController(
+      } else if (controllerClass.equals(UsuariosController.class)) {
+        UsuariosController instance = new UsuariosController(
             RepositoryLocator.instanceOf(GenericRepository.class)
         );
         instances.put(controllerName, instance);

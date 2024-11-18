@@ -12,11 +12,11 @@ import utils.javalin.InterfaceCrudViewsHandler;
  * Controlador de usuarios.
  */
 
-public class UsersController implements InterfaceCrudViewsHandler {
+public class UsuariosController implements InterfaceCrudViewsHandler {
 
   private final GenericRepository usuariosRepository;
 
-  public UsersController(
+  public UsuariosController(
       GenericRepository usuariosRepository
   ) {
     this.usuariosRepository = usuariosRepository;

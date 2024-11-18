@@ -44,6 +44,8 @@ public class ModelosController implements InterfaceCrudViewsHandler {
 
     if (this.modelosRepository.buscarPorNombre(modeloInputDto.getNombre()).isPresent()) {
       context.redirect("/heladeras-solidarias/heladeras-admin?modelExists=true");
+    } else if (modeloInputDto.getTemperaturaMaxima() <= modeloInputDto.getTemperaturaMinima()) {
+      context.redirect("/heladeras-solidarias/heladeras-admin?temperatureError=true");
     } else {
       this.modelosService.crear(modeloInputDto);
       context.redirect("/heladeras-solidarias?actionSuccess=true");

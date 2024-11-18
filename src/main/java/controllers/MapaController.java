@@ -24,15 +24,9 @@ public class MapaController implements InterfaceCrudViewsHandler {
   @Override
   public void index(Context context) {
     List<Heladera> heladeras;
-    TipoRol tipoRol = TipoRol.valueOf(context.sessionAttribute("tipoRol"));
+    heladeras = this.repositorioDeHeladeras.buscarTodos();
 
-    if (tipoRol.equals(TipoRol.TECNICO)) {
-      heladeras = this.repositorioDeHeladeras.buscarInactivas();
-    } else if (tipoRol.equals(TipoRol.ADMINISTRADOR)) {
-      heladeras = this.repositorioDeHeladeras.buscarTodos();
-    } else {
-      heladeras = this.repositorioDeHeladeras.buscarActivas();
-    }
+    TipoRol tipoRol = TipoRol.valueOf(context.sessionAttribute("tipoRol"));
 
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Mapa Heladeras");

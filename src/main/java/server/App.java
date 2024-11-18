@@ -1,7 +1,7 @@
 package server;
 
 import cronjobs.CalculoHacerseCargo;
-import cronjobs.DetectorFallaDesconexion;
+//import cronjobs.DetectorFallaDesconexion;
 import cronjobs.GeneradorReporteCronJob;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
@@ -49,7 +49,7 @@ public class App {
           .startNow()
           .withSchedule(CronScheduleBuilder.weeklyOnDayAndHourAndMinute(1, 0, 0))
           .build();
-
+      /*
       JobDetail jobDetectorFallaConexion = JobBuilder.newJob(DetectorFallaDesconexion.class)
           .withIdentity("jobDetectorFallaConexion", "sensores")
           .usingJobData("Info", "Valor")
@@ -61,10 +61,11 @@ public class App {
           .withSchedule(
               CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))
           .build();
+      */
 
       scheduler.scheduleJob(jobCalculoHacerseCargo, triggerCalculoHacerseCargo);
       scheduler.scheduleJob(jobReportes, triggerReportes);
-      scheduler.scheduleJob(jobDetectorFallaConexion, triggerDetectorFallaConexion);
+      //scheduler.scheduleJob(jobDetectorFallaConexion, triggerDetectorFallaConexion);
       scheduler.start();
 
     } catch (SchedulerException e) {

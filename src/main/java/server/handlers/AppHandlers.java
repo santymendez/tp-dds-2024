@@ -10,6 +10,7 @@ import java.util.Arrays;
 public class AppHandlers {
   private final Ihandler[] handlers = new Ihandler[]{
       new AccessDeniedHandler(),
+      new ServerErrorHandler()
   };
 
   public static void applyHandlers(Javalin app) {

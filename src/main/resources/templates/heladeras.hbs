@@ -204,6 +204,10 @@
             input.required = checkbox.checked;
         }
 
+        function toggleCheckboxIfInputNotEmpty(input, checkbox) {
+            checkbox.required = input.value.trim() !== "";
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const faltanCheckbox = document.getElementById('faltan');
             const faltanInput = document.querySelector('input[name="faltan_n_viandas"]');
@@ -211,6 +215,7 @@
             const quedanCheckbox = document.getElementById('quedan');
             const quedanInput = document.querySelector('input[name="quedan_n_viandas"]');
 
+            // Toggle 'required' for the input based on the checkbox state
             faltanCheckbox.addEventListener('change', function () {
                 toggleRequired(faltanCheckbox, faltanInput);
             });
@@ -218,7 +223,17 @@
             quedanCheckbox.addEventListener('change', function () {
                 toggleRequired(quedanCheckbox, quedanInput);
             });
+
+            // Toggle 'required' for the checkbox based on the input value
+            faltanInput.addEventListener('input', function () {
+                toggleCheckboxIfInputNotEmpty(faltanInput, faltanCheckbox);
+            });
+
+            quedanInput.addEventListener('input', function () {
+                toggleCheckboxIfInputNotEmpty(quedanInput, quedanCheckbox);
+            });
         });
+
     </script>
 
     <script>

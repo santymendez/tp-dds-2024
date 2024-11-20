@@ -13,9 +13,9 @@
     text-decoration: none;
     color: var(--blanco);
     background-color: var(--verdeSecundario);
-    padding: 5px 15px;
-    border-radius: 15px;
-    margin-right: 10px;
+    padding: 0.313rem 0.938rem;
+    border-radius: 0.938rem;
+    margin-right: 0.625rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -25,7 +25,7 @@
 .header__button-underline {
     text-decoration: underline;
     color: var(--blanco);
-    margin-right: 10px;
+    margin-right: 0.625rem;
     font-size: 1.4rem;
 }
 

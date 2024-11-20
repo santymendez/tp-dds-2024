@@ -100,7 +100,7 @@ h3 {
 .distribuir-viandas-form .form-control,
 .distribuir-viandas-form .form-select {
     width: 100%;
-    max-width: 300px;
+    max-width: 18.75rem;
 }
 
 .donar-viandas-form .btn-lg,

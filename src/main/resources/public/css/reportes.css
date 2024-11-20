@@ -67,7 +67,7 @@ h2 {
     font-family: var(--fuenteParrafos), serif;
     font-size: 1.4rem;
     color: var(--negro);
-    border-radius: 4px;
+    border-radius: 0.25rem;
     box-sizing: border-box;
     width: 80%;
     margin-inline: auto;

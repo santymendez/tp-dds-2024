@@ -10,6 +10,7 @@
 
 {{#partial "scripts"}}
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="/js/mapa.js"></script>
     <script>
         const map = L.map('map').setView([51.505, -0.09], 13);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -19,13 +20,17 @@
         let nombre, lat, long, marker, markers = [];
 
             {{#each heladeras}}
-                nombre = "{{this.nombre}}";
-                lat = parseFloat({{this.direccion.latitud}});
-                long = parseFloat({{this.direccion.longitud}});
-                marker = L.marker([lat, long]).addTo(map)
-                        .bindPopup('<b>' + nombre + '</b>' +
-                            '<br><div style="text-align: center;"> {{this.estadoActual.estado}}</div>');
-                markers.push(marker)
+            nombre = "{{this.nombre}}";
+            lat = parseFloat({{this.direccion.latitud}});
+            long = parseFloat({{this.direccion.longitud}});
+            marker = L.marker([lat, long]).addTo(map)
+                    .bindPopup('<div style="text-align: center;">' +
+                            '<div class="popup-name">' + nombre + '</div>' +
+                            '<div class="popup-state">{{this.estadoActual.estado}}</div>' +
+                            '<br><button class="btn btn-primary" onclick="copyToClipboard(this, ' + lat + ', ' + long + ')">Copiar coordenadas</button>' +
+                            '<div class="copy-message">Coordenadas copiadas al portapapeles</div>' +
+                            '</div>');
+            markers.push(marker);
             {{/each}}
 
         const group = L.featureGroup(markers);

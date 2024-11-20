@@ -1,5 +1,5 @@
 .logo-container img {
-    width: 50px;
+    width: 3.125rem;
     vertical-align: middle;
 }
 
@@ -56,5 +56,5 @@ p {
 .error-content p {
     font-size: 1.25rem;
     color: #666;
-    margin: 10px 0;
+    margin: 0.625rem 0;
 }

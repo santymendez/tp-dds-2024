@@ -1,8 +1,8 @@
 .usuarios-tabla {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 16px;
+    margin: 1.25rem 0;
+    font-size: 1rem;
     text-align: left;
     font-family: var(--fuenteSubtitulos), sans-serif;
     color: var(--negro);
@@ -14,8 +14,8 @@
 }
 
 .usuarios-tabla th, .usuarios-tabla td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
+    padding: 0.75rem 0.938rem;
+    border: 0.063rem solid #ddd;
 }
 
 .usuarios-tabla tbody tr:nth-child(even) {

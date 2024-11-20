@@ -5,6 +5,7 @@ import models.entities.direccion.Barrio;
 import models.entities.direccion.Ciudad;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
+import java.util.StringJoiner;
 
 /**
  * Clase Factory de direcciones.
@@ -25,25 +26,34 @@ public class FactoryDireccion {
     if (direccionInputDto.getLongitud() != null) {
       nuevaDireccion.setLongitud(direccionInputDto.getLongitud());
     }
+
     if (direccionInputDto.getLatitud() != null) {
       nuevaDireccion.setLatitud(direccionInputDto.getLatitud());
     }
 
-    if (direccionInputDto.getBarrio() != null
-        || direccionInputDto.getNumero() != null
-        || direccionInputDto.getCalle() != null
-        || direccionInputDto.getCiudad() != null) {
+    if (direccionInputDto.getBarrio() != null || direccionInputDto.getNumero() != null
+        || direccionInputDto.getCalle() != null || direccionInputDto.getCiudad() != null) {
+
       Barrio barrio = new Barrio();
-      barrio.setNombreBarrio(direccionInputDto.getBarrio());
-      barrio.setCalle(direccionInputDto.getCalle());
+
+      if (direccionInputDto.getBarrio() != null) {
+        barrio.setNombreBarrio(direccionInputDto.getBarrio());
+      }
+
+      if (direccionInputDto.getCalle() != null) {
+        direccionInputDto.setCalle(direccionInputDto.getCalle());
+      }
+
       if (direccionInputDto.getNumero() != null) {
         barrio.setNumero(direccionInputDto.getNumero());
       }
+
       if (direccionInputDto.getCiudad() != null) {
         Ciudad ciudad = new Ciudad();
         ciudad.setNombreCiudad(direccionInputDto.getCiudad());
         barrio.setCiudad(ciudad);
       }
+
       nuevaDireccion.setBarrio(barrio);
 
       if (direccionInputDto.getNombreUbicacion() != null) {
@@ -68,32 +78,38 @@ public class FactoryDireccion {
   public static Direccion crearCon(DireccionInputDto direccionInputDto, Provincia provincia) {
     Direccion nuevaDireccion = crearCon(direccionInputDto);
 
-    if (nuevaDireccion.getBarrio() != null && nuevaDireccion.getBarrio().getCiudad() != null) {
-      nuevaDireccion.getBarrio().getCiudad().setProvincia(provincia);
+    if (nuevaDireccion.getBarrio() != null) {
+      if (nuevaDireccion.getBarrio().getCiudad() != null) {
+        nuevaDireccion.getBarrio().getCiudad().setProvincia(provincia);
+      } else {
+        Ciudad ciudad = new Ciudad();
+        ciudad.setProvincia(provincia);
+        nuevaDireccion.getBarrio().setCiudad(ciudad);
+      }
     }
 
     return nuevaDireccion;
   }
 
   private static String crearNombreUbicacion(Barrio barrio) {
-    String nombreUbicacion = "";
+    StringJoiner nombreUbicacion = new StringJoiner(", ");
 
-    if (barrio != null) {
-      if (barrio.getCalle() != null) {
-        nombreUbicacion += barrio.getCalle();
+    if (barrio.getCalle() != null && barrio.getNumero() != null) {
+      nombreUbicacion.add(barrio.getCalle() + " " + barrio.getNumero());
+    }
+    if (barrio.getNombreBarrio() != null) {
+      nombreUbicacion.add(barrio.getNombreBarrio());
+    }
+    if (barrio.getCiudad() != null) {
+      if (barrio.getCiudad().getNombreCiudad() != null) {
+        nombreUbicacion.add(barrio.getCiudad().getNombreCiudad());
       }
-      if (barrio.getNumero() != null) {
-        nombreUbicacion += " " + barrio.getNumero();
-      }
-      if (barrio.getNombreBarrio() != null) {
-        nombreUbicacion += ", " + barrio.getNombreBarrio();
-      }
-      if (barrio.getCiudad() != null && barrio.getCiudad().getNombreCiudad() != null) {
-        nombreUbicacion += ", " + barrio.getCiudad().getNombreCiudad();
+      if (barrio.getCiudad().getProvincia() != null) {
+        nombreUbicacion.add(barrio.getCiudad().getProvincia().getNombreProvincia());
       }
     }
 
-    return nombreUbicacion;
+    return nombreUbicacion.toString();
   }
 
 }

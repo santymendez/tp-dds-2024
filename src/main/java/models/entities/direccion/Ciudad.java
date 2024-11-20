@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Embeddable
 public class Ciudad {
-  @Column(name = "nombreCiudad", nullable = false)
+  @Column(name = "nombreCiudad")
   private String nombreCiudad;
 
   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

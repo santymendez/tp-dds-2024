@@ -19,7 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Barrio {
-  @Column(name = "nombreBarrio", nullable = false)
+  @Column(name = "nombreBarrio")
   private String nombreBarrio;
 
   @Column(name = "calle")

@@ -16,14 +16,14 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        let lugar, lat, long, marker, markers = [];
+        let nombre, lat, long, marker, markers = [];
 
             {{#each heladeras}}
-                lugar = "{{this.direccion.nombreUbicacion}}";
+                nombre = "{{this.nombre}}";
                 lat = parseFloat({{this.direccion.latitud}});
                 long = parseFloat({{this.direccion.longitud}});
                 marker = L.marker([lat, long]).addTo(map)
-                        .bindPopup('<b>' + lugar + '</b>' +
+                        .bindPopup('<b>' + nombre + '</b>' +
                             '<br><div style="text-align: center;"> {{this.estadoActual.estado}}</div>');
                 markers.push(marker)
             {{/each}}

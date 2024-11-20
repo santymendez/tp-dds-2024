@@ -46,8 +46,14 @@ public class BuscadorTecnicosCercanos {
           SenderLocator.instanceOf(tecnico.getContacto().getTipoContacto());
 
       String asunto = "La heladera " + heladera.getNombre() + " ha sufrido una falla.";
-      String cuerpo = "¿Podés acercarte a revisarla? Se encuentra en: "
-          + heladera.getDireccion().getNombreUbicacion();
+      String cuerpo = "¿Podés acercarte a revisarla? Se encuentra en: ";
+
+      if (heladera.getDireccion().getNombreUbicacion().isEmpty()) {
+        cuerpo += "Latitud: " + heladera.getDireccion().getLatitud() + "\n"
+            + "Longitud: " + heladera.getDireccion().getLongitud() + "\n";
+      } else {
+        cuerpo += heladera.getDireccion().getNombreUbicacion();
+      }
 
       Mensaje mensaje = new Mensaje(asunto, cuerpo);
 

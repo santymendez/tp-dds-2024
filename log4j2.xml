@@ -1,21 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-        <File name="MailLog" fileName="logs/mail.log">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n%throwable" />
+        </Console>
+        <File name="File" fileName="logs/app.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n%throwable" />
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="modules.email.sender" level="info" additivity="false">
-            <AppenderRef ref="MailLog"/>
-        </Logger>
-        <Logger name="org.eclipse.jetty" level="off" additivity="false" />
+        <Logger name="org.eclipse.jetty" level="warn" additivity="false"/>
+        <Logger name="io.javalin" level="warn" additivity="false"/>
 
-        <!-- Deshabilitar logs de Javalin -->
-        <Logger name="io.javalin" level="off" additivity="false" />
-
-        <!-- Configuración global -->
-        <Root level="warn">
-            <AppenderRef ref="Console" />
+        <!-- Captura de excepciones -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Root>
     </Loggers>
 </Configuration>

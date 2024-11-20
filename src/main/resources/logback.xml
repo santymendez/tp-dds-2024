@@ -1,4 +1,5 @@
 <configuration>
+
     <!-- Appender para consola -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -13,7 +14,10 @@
     <logger name="io.javalin" level="WARN" />
 
     <!-- Configuración general -->
-    <root level="WARN">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
+
+    <!-- Específicamente para excepciones -->
+    <logger name="org.springframework" level="ERROR"/> <!-- Asegurarse de capturar errores de frameworks -->
 </configuration>

@@ -26,6 +26,9 @@ public class ServerErrorHandler implements Ihandler {
 
       context.status(500);
       context.render("error-base.hbs", model);
+
+      e.printStackTrace();
     });
+
   }
 }

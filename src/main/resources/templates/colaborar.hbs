@@ -4,7 +4,7 @@
 
 {{#partial "cuerpo"}}
     <h2>Colaboraciones</h2>
-    <div class="container">
+    <div class="container" id="contenedorPrincipal">
         <div class="mb-3 containerPrincipal">
             <label for="actionSelector" class="form-label chico">Colaboracion</label>
             <select class="form-select form-select-lg chico" id="actionSelector">
@@ -29,7 +29,7 @@
         <!-- Formulario para Donar Dinero -->
         <div id="donar_dinero" class="action-form d-none chico">
             <h3>Donación de Dinero</h3>
-            <form class="formulario" method="POST">
+            <form id="donarDineroForm" class="formulario" method="POST">
                 <input type="hidden" name="formType" value="donarDinero">
                 <div class="mb-3">
                     <label for="monto" class="form-label">Ingresar monto</label>
@@ -54,7 +54,7 @@
         <!-- Formulario para Donar Viandas -->
         <div id="donar_viandas" class="action-form donar-viandas-form d-none">
             <h3>Donación de Viandas</h3>
-            <form class="formulario" method="POST"
+            <form id="donarViandasForm" class="formulario" method="POST"
                   action="/heladeras-solidarias/colaborar">
                 <input type="hidden" name="formType" value="donarViandas">
                 <div class="form-row">
@@ -99,11 +99,10 @@
             </form>
         </div>
 
-
         <!-- Formulario para Realizar Ofertas -->
         <div id="realizar_ofertas" class="action-form d-none mediano">
             <h3>Realizar una Oferta</h3>
-            <form class="formulario realizar-ofertas-form" method="POST" enctype="multipart/form-data">
+            <form id="realizarOfertasForm" class="formulario realizar-ofertas-form" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="formType" value="realizarOfertas">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
@@ -136,7 +135,7 @@
         <!-- Formulario para Distribuir Tarjetas -->
         <div id="distribuir_tarjetas" class="action-form d-none chico">
             <h3>Distribuir Tarjetas</h3>
-            <form class="formulario" method="POST"
+            <form id="distribuirTarjetasForm" class="formulario" method="POST"
                   action="/heladeras-solidarias/colaborar">
                 <input type="hidden" name="formType" value="distribuirTarjetas">
                 <div class="mb-3">
@@ -151,7 +150,7 @@
         <!-- Formulario para Distribuir Viandas -->
         <div id="distribuir_viandas" class="action-form d-none distribuir-viandas-form">
             <h3>Distribución de Viandas</h3>
-            <form class="formulario" method="POST"
+            <form id="distribuirViandasForm" class="formulario" method="POST"
                   action="/heladeras-solidarias/colaborar">
                 <input type="hidden" name="formType" value="distribuirViandas">
                 <div class="form-row">
@@ -196,7 +195,7 @@
         <!-- Formulario para Colocar Heladera -->
         <div id="hacerse_cargo" class="action-form d-none distribuir-viandas-form">
             <h3>Hacerse cargo de una Heladera</h3>
-            <form method="POST" action="/heladeras-solidarias/colaborar">
+            <form id="hacerseCargoForm" method="POST" action="/heladeras-solidarias/colaborar">
                 <input type="hidden" name="formType" value="hacerseCargo">
                 <div class="row justify-content-center">
                     <div class="col-md-6 mb-3">
@@ -358,84 +357,10 @@
 {{/partial}}
 
 {{#partial "scripts"}}
-    <script>
-        document.getElementById('actionSelector').addEventListener('change', function () {
-            let selectedValue = this.value;
-            let actionForms = document.querySelectorAll('.action-form');
-
-            actionForms.forEach(function (form) {
-                if (form.id === selectedValue) {
-                    form.classList.remove('d-none');
-                } else {
-                    form.classList.add('d-none');
-                }
-            });
-        });
-    </script>
-
-    <script>
-        document.getElementById('actionSelector').addEventListener('change', function () {
-            let selectedValue = this.value;
-            if (selectedValue === "/heladeras-solidarias/colaborar/colocar-heladera") {
-                window.location.href = selectedValue;
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Lee los parámetros de la URL
-            const params = new URLSearchParams(window.location.search);
-
-            // Si el parámetro "success" es "true", mostramos el modal
-            if (params.get("errorDonacionViandas") === "true") {
-                $('#errorDonacionViandas').modal('show');
-                document.getElementById("mensajeError2").textContent += params.get("espacioDisponible");
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Lee los parámetros de la URL
-            const params = new URLSearchParams(window.location.search);
-
-            // Si el parámetro "success" es "true", mostramos el modal
-            if (params.get("errorDistribucion") === "true") {
-                $('#errorDistribucion').modal('show');
-                document.getElementById("mensajeError").textContent += params.get("espacioDisponible");
-            }
-
-            if (params.get("invalidDate") === "true") {
-                $('#errorFecha').modal('show');
-            }
-
-            if (params.get("errorHeladerasIguales") === "true") {
-                $('#errorHeladerasIguales').modal('show');
-            }
-        });
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkbox = document.getElementById('direccionPropia');
-            const inputs = document.querySelectorAll('#hacerse_cargo input[type="text"], #hacerse_cargo select');
-
-            checkbox.addEventListener('change', function() {
-                inputs.forEach(input => {
-                    if (!checkbox.checked) {
-                        input.setAttribute('required', true);
-                    } else {
-                        input.removeAttribute('required');
-                    }
-                });
-            });
-        });
-    </script>
 
 {{/partial}}
 

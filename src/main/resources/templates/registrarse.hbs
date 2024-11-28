@@ -374,6 +374,31 @@
         });
     </script>
 
+    <script>
+        // Accede a todas las ciudades cargadas desde el servidor
+        const ciudades = {{ciudadesJson}};
+
+        // Función para filtrar las ciudades por provincia seleccionada
+        document.getElementById("provincia").addEventListener("change", function() {
+            const provinciaId = this.value;
+            const ciudadSelect = document.getElementById("ciudad");
+
+            // Vaciamos las opciones actuales
+            ciudadSelect.innerHTML = '<option value="">Seleccione una ciudad</option>';
+
+            // Filtramos las ciudades que corresponden a la provincia seleccionada
+            const ciudadesFiltradas = ciudades.filter(ciudad => ciudad.provinciaId === provinciaId);
+
+            // Agregamos las ciudades filtradas al select de ciudades
+            ciudadesFiltradas.forEach(ciudad => {
+                const option = document.createElement("option");
+                option.value = ciudad.id;
+                option.textContent = ciudad.nombre;
+                ciudadSelect.appendChild(option);
+            });
+        });
+    </script>
+
 {{/partial}}
 
 {{> templates/base }}

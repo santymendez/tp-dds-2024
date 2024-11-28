@@ -3,6 +3,7 @@ package config;
 import java.util.HashMap;
 import java.util.Map;
 import models.repositories.imp.CanjesRepository;
+import models.repositories.imp.CiudadesRepository;
 import models.repositories.imp.ColaboracionesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.DireccionesRepository;
@@ -83,6 +84,8 @@ public class RepositoryLocator {
         instances.put(repositoryClassName, new CanjesRepository());
       } else if (repositoryClass.equals(VisitasTecnicasRepository.class)) {
         instances.put(repositoryClassName, new VisitasTecnicasRepository());
+      } else if (repositoryClass.equals(CiudadesRepository.class)) {
+        instances.put(repositoryClassName, new CiudadesRepository());
       }
     }
 

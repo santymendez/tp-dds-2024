@@ -362,6 +362,72 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script>
+        document.getElementById('actionSelector').addEventListener('change', function () {
+            let selectedValue = this.value;
+            let actionForms = document.querySelectorAll('.action-form');
+            actionForms.forEach(function (form) {
+                if (form.id === selectedValue) {
+                    form.classList.remove('d-none');
+                } else {
+                    form.classList.add('d-none');
+                }
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('actionSelector').addEventListener('change', function () {
+            let selectedValue = this.value;
+            if (selectedValue === "/heladeras-solidarias/colaborar/colocar-heladera") {
+                window.location.href = selectedValue;
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lee los parámetros de la URL
+            const params = new URLSearchParams(window.location.search);
+            // Si el parámetro "success" es "true", mostramos el modal
+            if (params.get("errorDonacionViandas") === "true") {
+                $('#errorDonacionViandas').modal('show');
+                document.getElementById("mensajeError2").textContent += params.get("espacioDisponible");
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lee los parámetros de la URL
+            const params = new URLSearchParams(window.location.search);
+            // Si el parámetro "success" es "true", mostramos el modal
+            if (params.get("errorDistribucion") === "true") {
+                $('#errorDistribucion').modal('show');
+                document.getElementById("mensajeError").textContent += params.get("espacioDisponible");
+            }
+            if (params.get("invalidDate") === "true") {
+                $('#errorFecha').modal('show');
+            }
+            if (params.get("errorHeladerasIguales") === "true") {
+                $('#errorHeladerasIguales').modal('show');
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.getElementById('direccionPropia');
+            const inputs = document.querySelectorAll('#hacerse_cargo input[type="text"], #hacerse_cargo select');
+            checkbox.addEventListener('change', function() {
+                inputs.forEach(input => {
+                    if (!checkbox.checked) {
+                        input.setAttribute('required', true);
+                    } else {
+                        input.removeAttribute('required');
+                    }
+                });
+            });
+        });
+    </script>
+
 {{/partial}}
 
 {{> templates/base}}

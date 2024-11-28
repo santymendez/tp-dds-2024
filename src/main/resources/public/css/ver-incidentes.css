@@ -1,0 +1,10 @@
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+.imagen_visita {
+    width: 10% !important;
+    height: 10% !important;
+    display: block;
+    margin: 0 auto;
+}

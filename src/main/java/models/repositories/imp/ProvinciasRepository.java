@@ -43,23 +43,4 @@ public class ProvinciasRepository extends GenericRepository {
   public List<Provincia> buscarTodos() {
     return super.buscarTodos(Provincia.class);
   }
-
-  /** Busca una provincia por su nombre.
-   *
-   * @param nombreProvincia nombre de la provincia a buscar.
-   * @return Un Optional con la direccion encontrada, o vacío si no se encontró.
-   */
-
-  public Optional<Provincia> buscarPorNombre(String nombreProvincia) {
-    String query =
-        "SELECT p FROM Provincia p WHERE p.nombreProvincia =: nombreProvincia";
-    List<Provincia> results = entityManager().createQuery(query, Provincia.class)
-        .setParameter("nombreProvincia", nombreProvincia)
-        .getResultList();
-    if (results.isEmpty()) {
-      return Optional.empty();
-    } else {
-      return Optional.of(results.get(0));
-    }
-  }
 }

@@ -6,6 +6,7 @@ import models.entities.direccion.Barrio;
 import models.entities.direccion.Ciudad;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Clase Factory de direcciones.
@@ -34,25 +35,7 @@ public class FactoryDireccion {
     if (direccionInputDto.getBarrio() != null || direccionInputDto.getNumero() != null
         || direccionInputDto.getCalle() != null || direccionInputDto.getCiudad() != null) {
 
-      Barrio barrio = new Barrio();
-
-      if (direccionInputDto.getBarrio() != null) {
-        barrio.setNombreBarrio(direccionInputDto.getBarrio());
-      }
-
-      if (direccionInputDto.getCalle() != null) {
-        direccionInputDto.setCalle(direccionInputDto.getCalle());
-      }
-
-      if (direccionInputDto.getNumero() != null) {
-        barrio.setNumero(direccionInputDto.getNumero());
-      }
-
-      if (direccionInputDto.getCiudad() != null) {
-        Ciudad ciudad = new Ciudad();
-        ciudad.setNombreCiudad(direccionInputDto.getCiudad());
-        barrio.setCiudad(ciudad);
-      }
+      Barrio barrio = getBarrio(direccionInputDto);
 
       nuevaDireccion.setBarrio(barrio);
 
@@ -61,7 +44,7 @@ public class FactoryDireccion {
       } else {
         nuevaDireccion.setNombreUbicacion(crearNombreUbicacion(barrio));
       }
-      
+
     }
 
     return nuevaDireccion;
@@ -110,6 +93,30 @@ public class FactoryDireccion {
     }
 
     return nombreUbicacion.toString();
+  }
+
+  @NotNull
+  private static Barrio getBarrio(DireccionInputDto direccionInputDto) {
+    Barrio barrio = new Barrio();
+
+    if (direccionInputDto.getBarrio() != null) {
+      barrio.setNombreBarrio(direccionInputDto.getBarrio());
+    }
+
+    if (direccionInputDto.getCalle() != null) {
+      barrio.setCalle(direccionInputDto.getCalle());
+    }
+
+    if (direccionInputDto.getNumero() != null) {
+      barrio.setNumero(direccionInputDto.getNumero());
+    }
+
+    if (direccionInputDto.getCiudad() != null) {
+      Ciudad ciudad = new Ciudad();
+      ciudad.setNombreCiudad(direccionInputDto.getCiudad());
+      barrio.setCiudad(ciudad);
+    }
+    return barrio;
   }
 
 }

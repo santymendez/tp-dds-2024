@@ -17,7 +17,7 @@ import models.db.Persistente;
 @Entity
 @Table(name = "direcciones")
 public class Direccion extends Persistente {
-  @Column(name = "nombreUbicacion", nullable = false)
+  @Column(name = "nombreUbicacion")
   private String nombreUbicacion;
 
   @Column(name = "longitud")

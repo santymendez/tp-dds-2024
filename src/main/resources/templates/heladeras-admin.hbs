@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="/css/baja-heladera.css">
     <link rel="stylesheet" href="/css/modificar-heladera.css">
     <link rel="stylesheet" href="/css/alertas.css">
+    <link rel="stylesheet" href="/css/ver-incidentes">
 {{/partial}}
 
 {{#partial "cuerpo"}}
@@ -272,12 +273,8 @@
                     </h2>
                     <div id="visita-{{this.id}}" class="accordion-collapse collapse" aria-labelledby="accordion-header-{{visita.id}}" data-bs-parent="#accordionPanelsStayOpenExample">
                         <div class="accordion-body">
-                            <img src="{{this.getFotoVisita}}" alt="Imagen de la visita" class="imagen-falla-solucionada">
-                            <div class="detalle-falla-solucionada">
-                                <strong>Técnico:</strong> {{this.getTecnico.getNombre}} <br>
-                                <strong>Detalle:</strong> {{this.getTrabajoRealizado}} <br>
-                                <strong>Fecha:</strong> {{this.getFechaVisita}}
-                            </div>
+                            Detalle: {{this.getTrabajoRealizado}}
+                            <img src="{{this.getFotoVisita}}" alt="Imagen de la visita" class="service-image">
                         </div>
                     </div>
                 </div>
@@ -383,9 +380,9 @@
         });
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Asegúrate de usar esta versión de jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script> <!-- Popper.js correcto -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap 5 -->
 
 {{/partial}}
 

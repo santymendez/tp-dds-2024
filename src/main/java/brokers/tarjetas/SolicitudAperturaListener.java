@@ -55,7 +55,7 @@ public class SolicitudAperturaListener implements IMqttMessageListener {
       String uuid = message.toString().split(";")[0];
       Long heladeraId = Long.parseLong(message.toString().split(";")[1]);
       this.intentarAbrirHeladera(uuid, heladeraId, LocalDateTime.now());
-    } catch (NumberFormatException e) {
+    } catch (RuntimeException e) {
       e.printStackTrace();
     }
   }

@@ -47,7 +47,7 @@ public class MovimientoListener implements IMqttMessageListener {
     try {
       Long sensorId = Long.parseLong(message.toString().split(";")[0]);
       this.activarSensor(sensorId);
-    } catch (NumberFormatException e) {
+    } catch (RuntimeException e) {
       e.printStackTrace();
     }
   }

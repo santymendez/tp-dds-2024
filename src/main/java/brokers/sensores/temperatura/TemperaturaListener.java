@@ -47,7 +47,7 @@ public class TemperaturaListener implements IMqttMessageListener {
       Long sensorId = Long.parseLong(message.toString().split(";")[0]);
       Float temp = Float.parseFloat(message.toString().split(";")[1]);
       this.enviarMedicion(sensorId, temp);
-    } catch (NumberFormatException e) {
+    } catch (RuntimeException e) {
       e.printStackTrace();
     }
   }

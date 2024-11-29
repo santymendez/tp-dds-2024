@@ -77,7 +77,7 @@ public class Colaborador extends Persistente {
   @Embedded
   private Reconocimiento reconocimiento;
 
-  @OneToMany(mappedBy = "colaborador", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @OneToMany(mappedBy = "colaborador")
   private List<Colaboracion> colaboraciones;
 
   /**

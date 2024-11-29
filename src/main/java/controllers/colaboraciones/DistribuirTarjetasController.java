@@ -4,6 +4,8 @@ import io.javalin.http.Context;
 import java.util.Objects;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
+import models.entities.personas.tarjetas.vulnerable.TarjetaVulnerable;
+import models.repositories.imp.GenericRepository;
 import services.ColaboracionesService;
 import utils.helpers.ColaboracionesHelper;
 import utils.helpers.ContextHelper;
@@ -16,12 +18,15 @@ import utils.metrics.TransactionStatus;
 
 public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
 
+  private final GenericRepository genericRepository;
   private final ColaboracionesService colaboracionesService;
 
   public DistribuirTarjetasController(
+      GenericRepository genericRepository,
       ColaboracionesService colaboracionesService
   ) {
     this.colaboracionesService = colaboracionesService;
+    this.genericRepository = genericRepository;
   }
 
   @Override
@@ -50,6 +55,13 @@ public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
       context.sessionAttribute("colabStatus", TransactionStatus.RETRY);
       context.redirect("/heladeras-solidarias/agregar-direccion");
       return;
+    }
+
+    //Se generan las tarjetas en el sistema, que despues van a ser entregadas
+    //al colaborador para que pueda registrar vulnerables.
+    for (int i = 0; i < cantidadTarjetas; i++) {
+      TarjetaVulnerable tarjetaVulnerable = new TarjetaVulnerable();
+      this.genericRepository.guardar(tarjetaVulnerable);
     }
 
     Colaboracion colaboracion = this.colaboracionesService.crear(cantidadTarjetas);

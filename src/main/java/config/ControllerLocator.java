@@ -204,6 +204,7 @@ public class ControllerLocator {
 
       } else if (controllerClass.equals(DistribuirTarjetasController.class)) {
         DistribuirTarjetasController instance = new DistribuirTarjetasController(
+            RepositoryLocator.instanceOf(GenericRepository.class),
             ServiceLocator.instanceOf(ColaboracionesService.class)
         );
         instances.put(controllerName, instance);

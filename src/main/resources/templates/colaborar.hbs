@@ -58,12 +58,12 @@
                   action="/heladeras-solidarias/colaborar">
                 <input type="hidden" name="formType" value="donarViandas">
                 <div class="form-row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="nombreComida" class="form-label">Nombre de la Comida</label>
                         <input name="nombreComida" type="text" class="form-control form-control-lg" id="nombreComida"
                                placeholder="Nombre" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="heladera" class="form-label">Heladera</label>
                         <select name="heladera" class="form-select form-select-lg" id="heladera" required>
                             <option value="" selected>Seleccione una Heladera</option>
@@ -73,22 +73,22 @@
                         </select>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="cantidad" class="form-label">Cantidad</label>
                         <input name="cantidad" type="number" class="form-control form-control-lg" id="cantidad"
                                placeholder="Ej. 3" min="0" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="calorias" class="form-label">Calorías</label>
                         <input name="calorias" type="number" class="form-control form-control-lg" id="calorias"
                                placeholder="Ej. 500" min="0" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="vencimiento" class="form-label">Fecha de vencimiento</label>
                         <input name="fechaVencimiento" type="date" class="form-control form-control-lg" id="vencimiento"
                                required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="peso" class="form-label">Peso en gramos</label>
                         <input name="peso" type="number" class="form-control form-control-lg" id="peso"
                                placeholder="Ej. 200 gr" min="0" required>
@@ -154,7 +154,7 @@
                   action="/heladeras-solidarias/colaborar">
                 <input type="hidden" name="formType" value="distribuirViandas">
                 <div class="form-row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="heladera_origen" class="form-label extra-class">Heladera Origen</label>
                         <select name = "heladeraOrigen" class="form-select form-select-lg" id="heladera_origen" required>
                             <option value="" selected>Seleccione una Heladera</option>
@@ -163,7 +163,7 @@
                             {{/each}}
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="heladera_destino" class="form-label extra-class">Heladera Destino</label>
                         <select name = "heladeraDestino" class="form-select form-select-lg" id="heladera_destino" required>
                             <option value="" selected>Seleccione una Heladera</option>
@@ -172,12 +172,12 @@
                             {{/each}}
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="cantidad_viandas" class="form-label extra-class">Cantidad de Viandas</label>
                         <input name = "cantidad" type="number" class="form-control form-control-lg"
                                id="cantidad_viandas" placeholder="Ej. 3" min="0" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="motivo" class="form-label extra-class">Motivo de la
                             Distribución</label>
                         <select name = "motivo" class="form-select form-select-lg" id="motivo" required>
@@ -197,14 +197,14 @@
             <h3>Hacerse cargo de una Heladera</h3>
             <form id="hacerseCargoForm" method="POST" action="/heladeras-solidarias/colaborar">
                 <input type="hidden" name="formType" value="hacerseCargo">
-                <div class="row justify-content-center">
-                    <div class="col-md-6 mb-3">
+                <div class="form-row justify-content-center">
+                    <div class="col-md-6 mb-3 Ecol">
                         <label for="nombreHeladera" class="form-label">Nombre de la Heladera</label>
-                        <input name="nombre" type="text" class="form-control" id="nombreHeladera" placeholder="Ingresar nombre" required>
+                        <input name="nombre" type="text" class="form-control form-control-lg" id="nombreHeladera" placeholder="Ingresar nombre" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="modeloHeladera" class="form-label">Modelo de la Heladera</label>
-                        <select name="modelo" class="form-select" id="modeloHeladera" required>
+                        <select name="modelo" class="form-select form-select-lg" id="modeloHeladera" required>
                             <option selected value="">Seleccione un Modelo</option>
                             {{#each modelos}}
                                 <option value="{{this.getId}}">{{this.getNombre}}</option>
@@ -212,14 +212,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3 Ecol">
                         <label for="fechaAltaHeladera" class="form-label">Fecha de Alta</label>
-                        <input name="fechaCreacion" type="date" class="form-control" id="fechaAltaHeladera" required>
+                        <input name="fechaCreacion" type="date" class="form-control form-control-lg" id="fechaAltaHeladera" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="provincia" class="form-label">Provincia</label>
-                        <select name="provincia" class="form-select" id="provincia">
+                        <select name="provincia" class="form-select form-select-lg" id="provincia">
                             <option selected value="">Seleccione una Provincia</option>
                             {{#each provincias}}
                                 <option value="{{this.getId}}">{{this.getNombreProvincia}}</option>
@@ -227,44 +227,44 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3 Ecol">
                         <label for="ciudad" class="form-label">Ciudad</label>
-                        <input name="ciudad" type="text" class="form-control" id="ciudad"
+                        <input name="ciudad" type="text" class="form-control form-control-lg" id="ciudad"
                                placeholder="ej: CABA" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="barrio" class="form-label">Barrio</label>
-                        <input name="barrio" type="text" class="form-control" id="barrio"
+                        <input name="barrio" type="text" class="form-control form-control-lg" id="barrio"
                                placeholder="ej: Villa Crespo" required>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3 Ecol">
                         <label for="calle" class="form-label">Calle</label>
-                        <input name="calle" type="text" class="form-control" id="calle"
+                        <input name="calle" type="text" class="form-control form-control-lg" id="calle"
                                placeholder="ej: Malabia" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="numero" class="form-label">Numero</label>
-                        <input name="numero" type="text" class="form-control" id="numero"
+                        <input name="numero" type="text" class="form-control form-control-lg" id="numero"
                                placeholder="ej: 411" required>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
+                <div class="form-row">
+                    <div class="col-md-6 mb-3 Ecol">
                         <label for="longitud" class="form-label">Longitud</label>
-                        <input name="longitud" type="text" class="form-control" id="longitud"
+                        <input name="longitud" type="text" class="form-control form-control-lg formEnd" id="longitud"
                                placeholder="ej: -321.341" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6 mb-3 col">
                         <label for="latitud" class="form-label">Latitud</label>
-                        <input name="latitud" type="text" class="form-control" id="latitud"
+                        <input name="latitud" type="text" class="form-control form-control-lg formEnd" id="latitud"
                                placeholder="ej: 1.1212" required>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary">Registrar Heladera</button>
+                    <button type="submit" class="btn btn-lg btn-primary">Registrar Heladera</button>
                 </div>
             </form>
         </div>

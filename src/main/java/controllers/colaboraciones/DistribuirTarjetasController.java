@@ -1,6 +1,8 @@
 package controllers.colaboraciones;
 
 import io.javalin.http.Context;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import models.entities.colaboracion.Colaboracion;
 import models.entities.personas.colaborador.Colaborador;
@@ -46,7 +48,7 @@ public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-    Integer cantidadTarjetas =
+    int cantidadTarjetas =
         Integer.parseInt(Objects.requireNonNull(context.formParam("cant_tarjetas")));
 
     Colaborador colaborador = ContextHelper.getColaboradorFromContext(context).get();
@@ -57,12 +59,16 @@ public class DistribuirTarjetasController implements InterfaceCrudViewsHandler {
       return;
     }
 
+    List<TarjetaVulnerable> tarjetasVulnerables = new ArrayList<>();
+
     //Se generan las tarjetas en el sistema, que despues van a ser entregadas
     //al colaborador para que pueda registrar vulnerables.
     for (int i = 0; i < cantidadTarjetas; i++) {
       TarjetaVulnerable tarjetaVulnerable = new TarjetaVulnerable();
-      this.genericRepository.guardar(tarjetaVulnerable);
+      tarjetasVulnerables.add(tarjetaVulnerable);
     }
+
+    this.genericRepository.guardarColeccion(tarjetasVulnerables);
 
     Colaboracion colaboracion = this.colaboracionesService.crear(cantidadTarjetas);
 

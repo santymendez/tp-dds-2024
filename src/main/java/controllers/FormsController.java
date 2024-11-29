@@ -49,20 +49,15 @@ public class FormsController implements InterfaceCrudViewsHandler {
 
   @Override
   public void save(Context context) {
-    Map<String, Object> model = new HashMap<>();
-    model.put("titulo", "Formularios");
-    model.put("activeSession", true);
-    model.put("tipoRol", context.sessionAttribute("tipoRol"));
-
     FormularioInputdto form = FormularioInputdto.from(context);
     List<Pregunta> preguntas = new ArrayList<>();
 
     for (int i = 0; i < Integer.parseInt(form.getCantPreguntas()); i++) {
       PreguntaInputdto preguntaInputdto = PreguntaInputdto.from(context, i);
-      preguntas.add(preguntasService.crearCon(preguntaInputdto));
+      preguntas.add(this.preguntasService.crearCon(preguntaInputdto));
     }
 
-    formulariosService.crearCon(form, preguntas);
+    this.formulariosService.crearCon(form, preguntas);
 
     context.redirect("/heladeras-solidarias?formOK=true");
   }

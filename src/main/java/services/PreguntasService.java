@@ -29,20 +29,13 @@ public class PreguntasService {
           return opcion;
         }).collect(Collectors.toList());
 
-    TipoPregunta tipo = switch (preguntaInputdto.getTipoPregunta()) {
-      case "texto_libre" -> TipoPregunta.TEXTO_LIBRE;
-      case "single_choice" -> TipoPregunta.SINGLE_CHOICE;
-      case "multiple_choice" -> TipoPregunta.MULTIPLE_CHOICE;
-      default -> null;
-    };
+    TipoPregunta tipo = TipoPregunta.valueOf(preguntaInputdto.getTipoPregunta());
 
-    Pregunta pregunta = new Pregunta(
+    return new Pregunta(
         preguntaInputdto.getNombre(),
-        "TRUE".equals(preguntaInputdto.getEsOpcional()),
+        "TRUE".equals(preguntaInputdto.getEsObligatoria()),
         opciones,
         tipo
     );
-
-    return pregunta;
   }
 }

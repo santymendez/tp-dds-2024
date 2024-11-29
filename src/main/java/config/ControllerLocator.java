@@ -14,6 +14,7 @@ import controllers.RecomendacionesController;
 import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
 import controllers.ReportesController;
+import controllers.RespuestaFormularioController;
 import controllers.SuscribirseController;
 import controllers.UsuariosController;
 import controllers.VisitasTecnicasController;
@@ -26,6 +27,7 @@ import controllers.colaboraciones.HacerseCargoController;
 import controllers.colaboraciones.RealizarOfertasController;
 import java.util.HashMap;
 import java.util.Map;
+import models.repositories.FormulariosRepository;
 import models.repositories.imp.CanjesRepository;
 import models.repositories.imp.ColaboradoresRepository;
 import models.repositories.imp.GenericRepository;
@@ -52,6 +54,8 @@ import services.IncidentesService;
 import services.ModelosService;
 import services.PreguntasService;
 import services.ReportesHeladerasService;
+import services.RespuestasFormulariosService;
+import services.RespuestasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
 import services.TarjetasVulnerablesService;
@@ -268,6 +272,16 @@ public class ControllerLocator {
             ServiceLocator.instanceOf(PreguntasService.class)
         );
         instances.put(controllerName, instance);
+
+      } else if (controllerClass.equals(RespuestaFormularioController.class)) {
+        RespuestaFormularioController instance = new RespuestaFormularioController(
+            ServiceLocator.instanceOf(RespuestasFormulariosService.class),
+            ServiceLocator.instanceOf(RespuestasService.class),
+            RepositoryLocator.instanceOf(FormulariosRepository.class),
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
+        instances.put(controllerName, instance);
+
       }
     }
     return (T) instances.get(controllerName);

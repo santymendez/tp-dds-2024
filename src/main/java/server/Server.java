@@ -124,6 +124,21 @@ public class Server {
           }
         });
 
+        handlebars.registerHelper("switch", (value, options) -> {
+          options.context.data("switchValue", value);
+          return options.fn();
+        });
+
+        handlebars.registerHelper("case", (value, options) -> {
+          Object switchValue = options.context.data("switchValue");
+
+          if (switchValue != null && switchValue.equals(value)) {
+            return options.fn();
+          }
+
+          return options.inverse();
+        });
+
         try {
           Template template = handlebars.compile(
               "templates/" + path.replace(".hbs", ""));
@@ -137,8 +152,6 @@ public class Server {
       }));
 
       config.registerPlugin(micrometerPlugin);
-
-
 
     };
   }

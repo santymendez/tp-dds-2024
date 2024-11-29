@@ -37,6 +37,9 @@ import models.entities.personas.users.Usuario;
 @AllArgsConstructor
 public class Colaborador extends Persistente {
 
+  @Column(name = "respondioForm")
+  private Boolean respondioForm;
+
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "usuario_id", referencedColumnName = "id")
   private Usuario usuario;

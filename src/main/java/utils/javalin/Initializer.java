@@ -19,6 +19,10 @@ import models.entities.direccion.Barrio;
 import models.entities.direccion.Ciudad;
 import models.entities.direccion.Direccion;
 import models.entities.direccion.Provincia;
+import models.entities.formulario.Formulario;
+import models.entities.formulario.Opcion;
+import models.entities.formulario.Pregunta;
+import models.entities.formulario.TipoPregunta;
 import models.entities.heladera.Heladera;
 import models.entities.heladera.Modelo;
 import models.entities.heladera.estados.Estado;
@@ -301,6 +305,18 @@ public class Initializer {
 
   static VisitaTecnica visita1;
 
+  static Formulario formulario;
+
+  static Pregunta pregunta1;
+  static Pregunta pregunta2;
+  static Pregunta pregunta3;
+
+  static Opcion opcion1;
+  static Opcion opcion2;
+  static Opcion opcion3;
+  static Opcion opcion4;
+  static Opcion opcion5;
+
   /**
    * Inicializa la aplicación con datos de prueba.
    */
@@ -336,6 +352,7 @@ public class Initializer {
     iniciarUsuarios();
     iniciarIncidentes();
     iniciarVisitas();
+    iniciarFormulario();
 
     persistirEntidades();
   }
@@ -450,6 +467,8 @@ public class Initializer {
     repoGenerico.guardar(alerta1);
 
     repoGenerico.guardar(visita1);
+
+    repoGenerico.guardar(formulario);
   }
 
   static void iniciarContactos() {
@@ -1352,6 +1371,31 @@ public class Initializer {
 
     usuariosRepository =
         RepositoryLocator.instanceOf(UsuariosRepository.class);
+  }
+
+  static void iniciarFormulario() {
+    pregunta1 = new Pregunta("es mati bueno?", false, new ArrayList<>(), TipoPregunta.TEXTO_LIBRE);
+    pregunta2 = new Pregunta("es mati malo?", true, new ArrayList<>(), TipoPregunta.SINGLE_CHOICE);
+    pregunta3 = new Pregunta("matii", true, new ArrayList<>(), TipoPregunta.MULTIPLE_CHOICE);
+
+    opcion1 = new Opcion("Si");
+    opcion2 = new Opcion("No");
+    opcion3 = new Opcion("Siempre");
+    opcion4 = new Opcion("Nunca");
+    opcion5 = new Opcion("Opcion 5");
+
+    pregunta2.agregarOpcion(opcion1);
+    pregunta2.agregarOpcion(opcion2);
+
+    pregunta3.agregarOpcion(opcion3);
+    pregunta3.agregarOpcion(opcion4);
+    pregunta3.agregarOpcion(opcion5);
+
+    formulario = new Formulario(new ArrayList<>(), "formulario mati");
+    formulario.agregarPregunta(pregunta1);
+    formulario.agregarPregunta(pregunta2);
+    formulario.agregarPregunta(pregunta3);
+
   }
 
 }

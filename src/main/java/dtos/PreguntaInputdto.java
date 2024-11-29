@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PreguntaInputdto {
   String nombre;
-  String esOpcional;
+  String esObligatoria;
   String tipoPregunta;
   List<String> opciones;
 
@@ -35,7 +35,7 @@ public class PreguntaInputdto {
     String tipoPregunta = context.formParam("tipoPregunta-" + index);
     List<String> opciones = new ArrayList<>();
 
-    if ("multiple_choice".equals(tipoPregunta) || "single_choice".equals(tipoPregunta)) {
+    if ("MULTIPLE_CHOICE".equals(tipoPregunta) || "SINGLE_CHOICE".equals(tipoPregunta)) {
       int cantOpciones = Integer.parseInt(
           Objects.requireNonNull(context.formParam("cantOpciones-" + index)));
       opciones = obtenerOpciones(context, index, cantOpciones);
@@ -43,7 +43,9 @@ public class PreguntaInputdto {
 
     return PreguntaInputdto.builder()
         .nombre(context.formParam("preguntaNombre-" + index))
-        .esOpcional(context.formParam("esOpcional-" + index))
+        .esObligatoria((context.formParam("preguntaObligatoria-" + index) != null
+            && !context.formParam("preguntaObligatoria-" + index).isBlank())
+            ? context.formParam("preguntaObligatoria-" + index) : "FALSE")
         .tipoPregunta(tipoPregunta)
         .opciones(opciones)
         .build();

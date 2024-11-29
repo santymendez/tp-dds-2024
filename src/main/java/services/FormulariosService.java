@@ -26,9 +26,8 @@ public class FormulariosService {
    */
 
   public void crearCon(FormularioInputdto form, List<Pregunta> preguntas) {
-
     Formulario formulario = new Formulario(preguntas, form.getNombre());
 
-    repo.guardar(formulario);
+    this.repo.guardar(formulario);
   }
 }

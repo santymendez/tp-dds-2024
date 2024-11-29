@@ -30,4 +30,8 @@ public class Formulario extends Persistente {
 
   @Column(name = "nombre", nullable = false)
   private String nombre;
+
+  public void agregarPregunta(Pregunta pregunta) {
+    this.preguntas.add(pregunta);
+  }
 }

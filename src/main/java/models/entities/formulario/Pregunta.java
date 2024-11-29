@@ -32,8 +32,8 @@ public class Pregunta extends Persistente {
   @Column(name = "pregunta", nullable = false)
   private String pregunta;
 
-  @Column(name = "opcional", columnDefinition = "SMALLINT", nullable = false)
-  private Boolean esOpcional;
+  @Column(name = "esObligatoria", nullable = false)
+  private Boolean obligatoria = false;
 
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch =  FetchType.EAGER)
   @JoinColumn(name = "pregunta_id", referencedColumnName = "id")
@@ -42,4 +42,8 @@ public class Pregunta extends Persistente {
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo", nullable = false)
   private TipoPregunta tipoPregunta;
+
+  public void agregarOpcion(Opcion opcion) {
+    this.opciones.add(opcion);
+  }
 }

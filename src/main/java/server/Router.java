@@ -15,6 +15,7 @@ import controllers.RecomendacionesController;
 import controllers.RegistrarColaboradorController;
 import controllers.ReportarFallaTecnicaController;
 import controllers.ReportesController;
+import controllers.RespuestaFormularioController;
 import controllers.SuscribirseController;
 import controllers.UsuariosController;
 import controllers.VisitasTecnicasController;
@@ -236,8 +237,14 @@ public class Router {
         ControllerLocator.instanceOf(FormsController.class)::index,
         TipoRol.ADMINISTRADOR);
 
-    app.post("heladeras-solidarias/formularios",
+    app.post("/heladeras-solidarias/formularios",
         ControllerLocator.instanceOf(FormsController.class)::save,
         TipoRol.ADMINISTRADOR);
+
+    app.get("/heladeras-solidarias/formulario-registro",
+        ControllerLocator.instanceOf(RespuestaFormularioController.class)::index);
+
+    app.post("/heladeras-solidarias/formulario-registro",
+        ControllerLocator.instanceOf(RespuestaFormularioController.class)::save);
   }
 }

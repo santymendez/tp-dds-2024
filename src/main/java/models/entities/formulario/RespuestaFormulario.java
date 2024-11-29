@@ -1,12 +1,12 @@
 package models.entities.formulario;
 
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -24,10 +24,6 @@ import models.entities.personas.colaborador.Colaborador;
 @Entity
 @Table(name = "respuestas_formularios")
 public class RespuestaFormulario extends Persistente {
-
-  @Column(name = "descripcion", columnDefinition = "TEXT")
-  private String descripcion;
-
   @ManyToOne
   @JoinColumn(name = "formulario_id", referencedColumnName = "id", nullable = false)
   private Formulario formulario;
@@ -36,12 +32,16 @@ public class RespuestaFormulario extends Persistente {
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id", nullable = false)
   private Colaborador colaborador;
 
-  @ManyToMany
-  @JoinTable(name = "respuestas_por_respuestasFormularios",
-      joinColumns = @JoinColumn(name = "respuesta_id",
-          referencedColumnName = "id", nullable = false),
-      inverseJoinColumns = @JoinColumn(name = "respuestaFormulario_id",
-          referencedColumnName = "id", nullable = false))
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinColumn(name = "respuestaFormulario_id", referencedColumnName = "id", nullable = false)
   private List<Respuesta> respuestas;
+
+  public RespuestaFormulario() {
+    this.respuestas = new ArrayList<>();
+  }
+
+  public void agregarRespuesta(Respuesta respuesta) {
+    this.respuestas.add(respuesta);
+  }
 
 }

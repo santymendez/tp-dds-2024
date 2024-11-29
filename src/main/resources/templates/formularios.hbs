@@ -50,20 +50,20 @@
                     </div>
 
                     <div class="d-flex align-items-center justify-content-center mb-3">
-                        <label class="form-check-label me-2" for="visualOpcional-${i}">Opcional</label>
-                        <input type="checkbox" id="visualOpcional-${i}" class="form-check-input me-4" onchange="setOpcional(${i})">
+                        <label class="form-check-label me-2" for="visualObligatoria-${i}">Obligatoria</label>
+                        <input name="esObligatoria" type="checkbox" id="visualObligatoria-${i}" class="form-check-input me-4" onchange="setObligatoria(${i})">
 
                         <label class="form-label me-2" for="tipoPregunta-${i}">Tipo de Pregunta</label>
-                        <select id="tipoPregunta-${i}" class="form-select" style="width: auto;" onchange="cambiarTipo(${i})">
-                            <option value="texto_libre">Texto Libre</option>
-                            <option value="single_choice">Single Choice</option>
-                            <option value="multiple_choice">Multiple Choice</option>
+                        <select id="tipoPregunta-${i}" name="tipoPregunta" class="form-select" style="width: auto;" onchange="cambiarTipo(${i})">
+                            <option value="TEXTO_LIBRE">Texto Libre</option>
+                            <option value="SINGLE_CHOICE">Single Choice</option>
+                            <option value="MULTIPLE_CHOICE">Multiple Choice</option>
                         </select>
                     </div>
 
                     <div id="respuestaContainer-${i}"></div>
-                    <input type="hidden" id="esOpcional-${i}" name="preguntaOpcional-${i}" value="FALSE">
-                    <input type="hidden" id="tipoPreguntaInput-${i}" name="tipoPregunta-${i}" value="texto_libre">
+                    <input type="hidden" id="esObligatoria-${i}" name="preguntaObligatoria-${i}" value="FALSE">
+                    <input type="hidden" id="tipoPreguntaInput-${i}" name="tipoPregunta-${i}" value="TEXTO_LIBRE">
                     <input type="hidden" id="cantOpciones-${i}" name="cantOpciones-${i}" value="0">
                 `;
 
@@ -72,9 +72,9 @@
             });
         });
 
-        function setOpcional(index) {
-            const isChecked = document.getElementById(`visualOpcional-${index}`).checked;
-            document.getElementById(`esOpcional-${index}`).value = isChecked ? "TRUE" : "FALSE";
+        function setObligatoria(index) {
+            const isChecked = document.getElementById(`visualObligatoria-${index}`).checked;
+            document.getElementById(`esObligatoria-${index}`).value = isChecked ? "TRUE" : "FALSE";
         }
 
         function cambiarTipo(index) {
@@ -83,7 +83,7 @@
             respuestaContainer.innerHTML = ""; // Limpiar opciones anteriores
             document.getElementById(`tipoPreguntaInput-${index}`).value = tipoPregunta;
 
-            if (tipoPregunta === "multiple_choice" || tipoPregunta === "single_choice") {
+            if (tipoPregunta === "MULTIPLE_CHOICE" || tipoPregunta === "SINGLE_CHOICE") {
                 respuestaContainer.innerHTML = `
                 <label class="form-label">Opciones</label>
                 <div id="opcionesContainer-${index}" class="mb-2"></div>

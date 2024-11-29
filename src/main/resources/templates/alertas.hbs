@@ -5,41 +5,16 @@
 {{#partial "cuerpo"}}
     <h2>Ver Alertas</h2>
     <div class="container chico">
-        <!--
-        <div class="mb-3 containerPrincipal">
-            <label for="actionSelector" class="form-label chico">Elige una Heladera</label>
-            <select name="heladera" class="form-select form-select-lg chico" id="actionSelector">
-                <option value="" disabled selected>Seleccione una heladera</option>
-                {{#each heladeras}}
-                    <option value="{{this.getId}}">{{this.getNombre}}</option>
-                {{/each}}
-            </select>
-        </div>
--->
         <div id="heladera_1" class="list-group">
             {{#each alertas}}
                 <a class="list-group-item">
                     <div class="d-flex w-100 justify-content-between temperatura">
                         <h4>Alerta: {{this.getTipoAlerta}}</h4>
-                        <!--<h4>Valor: 23.5º</h4>-->
                         <h4>Heladera: {{this.getHeladera.getNombre}}</h4>
                         <h4>Momento: {{this.getMomento}}</h4>
                     </div>
                 </a>
             {{/each}}
-            <a class="list-group-item">
-                <div class="d-flex w-100 justify-content-between temperatura">
-                    <h4>Exceso de Temperatura</h4>
-                    <h4>Valor: 23.5º</h4>
-                    <h4>Momento: 23-10-2024-11:55</h4>
-                </div>
-            </a>
-            <a class="list-group-item">
-                <div class="d-flex w-100 justify-content-between temperatura">
-                    <h4>Fraude</h4>
-                    <h4>Momento: 23-10-2024-11:55</h4>
-                </div>
-            </a>
         </div>
     </div>
 {{/partial}}

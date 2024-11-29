@@ -1,0 +1,100 @@
+{{#partial "cuerpo"}}
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <h1 class="text-center text-primary">{{formulario.nombre}}</h1>
+                <p class="text-center text-muted">
+                    Para hacer efectivo tu registro en la plataforma, te pedimos por favor que contestes las siguientes preguntas.
+                </p>
+
+                <form id="form-rta-form" id="myForm" method="POST" action="/heladeras-solidarias/formulario-registro">
+                    <input type="hidden" name="formularioId" value="{{formulario.id}}">
+                    {{#each formulario.preguntas}}
+                        <div class="mb-3">
+                            <label for="campo_{{this.id}}" class="form-label">
+                                {{this.pregunta}}
+                                {{#if this.obligatoria}}
+                                    <span class="text-danger">*</span>
+                                {{/if}}
+                            </label>
+
+                            {{#switch this.tipoPregunta}}
+                                {{#case "TEXTO_LIBRE"}}
+                                    <textarea
+                                            name="campo_{{this.id}}"
+                                            id="campo_{{this.id}}"
+                                            class="form-control"
+                                            rows="4"
+                                            {{#if this.obligatoria}}required{{/if}}
+                                    ></textarea>
+                                {{/case}}
+                                {{#case "MULTIPLE_CHOICE"}}
+                                    {{#each this.opciones}}
+                                        <div class="form-check">
+                                            <input
+                                                    class="form-check-input"
+                                                    type="checkbox"
+                                                    id="opcion_{{this.id}}"
+                                                    name="campo_{{../id}}"
+                                                    value="{{this.id}}"
+                                            />
+                                            <label class="form-check-label" for="opcion_{{this.id}}">
+                                                {{this.opcion}}
+                                            </label>
+                                        </div>
+                                    {{/each}}
+                                {{/case}}
+                                {{#case "SINGLE_CHOICE"}}
+                                    {{#each this.opciones}}
+                                        <div class="form-check">
+                                            <input
+                                                    class="form-check-input"
+                                                    type="radio"
+                                                    id="opcion_{{this.id}}"
+                                                    name="campo_{{../id}}"
+                                                    value="{{this.id}}"
+                                                    {{#if ../obligatoria}}required{{/if}}
+                                            />
+                                            <label class="form-check-label" for="opcion_{{this.id}}">
+                                                {{this.opcion}}
+                                            </label>
+                                        </div>
+                                    {{/each}}
+                                {{/case}}
+                            {{/switch}}
+                        </div>
+                    {{/each}}
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Enviar Respuesta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{{/partial}}
+
+{{#partial "scripts"}}
+    <script>
+        document.getElementById("myForm").onsubmit = function (e) {
+            {{#each formulario.preguntas}}
+                {{#if this.obligatoria}}
+                    {{#switch this.tipoPregunta}}
+                        {{#case "MULTIPLE_CHOICE"}}
+                            var checkboxes = document.querySelectorAll('input[name="campo_{{this.id}}"]');
+                            var isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                            if (!isChecked) {
+                                e.preventDefault();
+                                alert("Por favor, debes responder el campo '{{this.pregunta}}'");
+                                return false;
+                            }
+                        {{/case}}
+                    {{/switch}}
+                {{/if}}
+            {{/each}}
+        };
+    </script>
+{{/partial}}
+
+{{> templates/base }}

@@ -148,8 +148,8 @@ public class RegistrarColaboradorController implements InterfaceCrudViewsHandler
     context.sessionAttribute("idUsuario", nuevoUsuario.getId());
     context.sessionAttribute("tipoRol", nuevoUsuario.getTipoRol().toString());
 
-    //Se redirige a la homepage
-    context.redirect("/heladeras-solidarias");
+    //se redirige a forms dinamicos
+    context.redirect("/heladeras-solidarias/formulario-registro");
   }
 
   @Override

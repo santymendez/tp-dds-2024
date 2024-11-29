@@ -21,6 +21,8 @@ import services.ModelosService;
 import services.OfertasService;
 import services.PreguntasService;
 import services.ReportesHeladerasService;
+import services.RespuestasFormulariosService;
+import services.RespuestasService;
 import services.SuscripcionesService;
 import services.TarjetaColaboradorService;
 import services.TarjetasVulnerablesService;
@@ -139,9 +141,23 @@ public class ServiceLocator {
             RepositoryLocator.instanceOf(GenericRepository.class)
         );
         instances.put(serviceName, instance);
+
       } else if (serviceClass.equals(PreguntasService.class)) {
         PreguntasService instance = new PreguntasService();
         instances.put(serviceName, instance);
+
+      } else if (serviceClass.equals(RespuestasFormulariosService.class)) {
+        RespuestasFormulariosService instance = new RespuestasFormulariosService(
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
+        instances.put(serviceName, instance);
+
+      } else if (serviceClass.equals(RespuestasService.class)) {
+        RespuestasService instance = new RespuestasService(
+            RepositoryLocator.instanceOf(GenericRepository.class)
+        );
+        instances.put(serviceName, instance);
+
       }
     }
     return (T) instances.get(serviceName);

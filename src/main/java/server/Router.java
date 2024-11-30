@@ -242,9 +242,11 @@ public class Router {
         TipoRol.ADMINISTRADOR);
 
     app.get("/heladeras-solidarias/formulario-registro",
-        ControllerLocator.instanceOf(RespuestaFormularioController.class)::index);
+        ControllerLocator.instanceOf(RespuestaFormularioController.class)::index,
+        TipoRol.PERSONA_JURIDICA, TipoRol.PERSONA_FISICA);
 
     app.post("/heladeras-solidarias/formulario-registro",
-        ControllerLocator.instanceOf(RespuestaFormularioController.class)::save);
+        ControllerLocator.instanceOf(RespuestaFormularioController.class)::save,
+        TipoRol.PERSONA_JURIDICA, TipoRol.PERSONA_FISICA);
   }
 }

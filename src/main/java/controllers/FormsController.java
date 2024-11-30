@@ -58,7 +58,7 @@ public class FormsController implements InterfaceCrudViewsHandler {
     }
 
     this.formulariosService.crearCon(form, preguntas);
-
+    
     context.redirect("/heladeras-solidarias?formOK=true");
   }
 

@@ -61,7 +61,10 @@ public class RespuestaFormularioController implements InterfaceCrudViewsHandler 
     if (form.isEmpty()) {
       context.redirect("/heladeras-solidarias");
     } else {
-      model.put("formulario", FormularioOutputDto.fromFormulario(form.get()));
+      FormularioOutputDto formularioOutputDto = FormularioOutputDto.fromFormulario(form.get());
+
+      model.put("formulario", formularioOutputDto);
+      model.put("nombre-formulario", formularioOutputDto.getFormulario());
       context.render("mostrar-formularios.hbs", model);
     }
   }

@@ -53,11 +53,11 @@
                     </div>
 
                     <div class="containerPregunta">
-                        <div>
+                        <div class="input-group">
                             <label class="form-check-label me-2" for="visualObligatoria-${i}">Obligatoria</label>
                             <input name="esObligatoria" type="checkbox" id="visualObligatoria-${i}" class="form-check-input me-4" onchange="setObligatoria(${i})">
                         </div>
-                        <div>
+                        <div class="input-group">
                             <label class="form-label tipoPregunta me-2" for="tipoPregunta-${i}">Tipo de Pregunta</label>
                             <select id="tipoPregunta-${i}" name="tipoPregunta" class="form-select" style="width: auto;" onchange="cambiarTipo(${i})">
                                 <option value="TEXTO_LIBRE">Texto Libre</option>

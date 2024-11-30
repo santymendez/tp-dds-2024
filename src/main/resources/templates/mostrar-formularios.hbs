@@ -1,8 +1,12 @@
+{{#partial "estilo"}}
+    <link rel="stylesheet" href="/css/mostrar-formulario.css">
+{{/partial}}
+
 {{#partial "cuerpo"}}
     <div class="container mt-5">
         <div class="card shadow-lg">
             <div class="card-body">
-                <h1 class="text-center text-primary">{{formulario.nombre}}</h1>
+                <h1 class="text-center">{{nombre-formulario}}</h1>
                 <p class="text-center text-muted">
                     Para hacer efectivo tu registro en la plataforma, te pedimos por favor que contestes las siguientes preguntas.
                 </p>
@@ -38,7 +42,7 @@
                                                     name="campo_{{../id}}"
                                                     value="{{this.id}}"
                                             />
-                                            <label class="form-check-label" for="opcion_{{this.id}}">
+                                            <label class="form-check-label textoIzquierda" for="opcion_{{this.id}}">
                                                 {{this.opcion}}
                                             </label>
                                         </div>
@@ -72,8 +76,8 @@
             </div>
         </div>
     </div>
-
 {{/partial}}
+
 
 {{#partial "scripts"}}
     <script>

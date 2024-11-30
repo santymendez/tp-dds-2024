@@ -63,13 +63,11 @@ form {
     color: var(--blanco);
 }
 
-/* Estilo para los mensajes de error */
 .invalid-feedback {
     color: red;
     font-size: 12px;
 }
 
-/* Estilo para los contenedores de preguntas */
 #preguntasContainer .border {
     border: 1px solid var(--blanco);
     padding: 15px;
@@ -98,10 +96,18 @@ form {
 
 .containerPregunta {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+    gap: 1rem;
     margin-bottom: 1rem;
     width: 100%;
+}
+
+.input-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .form-check-label {

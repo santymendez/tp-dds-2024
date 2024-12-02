@@ -14,4 +14,4 @@ Desarrollo de una Aplicación Web con Java, Javalin, Hibernate como ORM y Handle
 
 ## Enunciado
 
-[Enunciado](https://docs.google.com/document/d/13niiEppxrm8LjyrxmH5Pskrc7VVuPKWSFRi3WvhsXns/edit?tab=t.0)
+[Trabajo Práctico Anual 2024](https://docs.google.com/document/d/13niiEppxrm8LjyrxmH5Pskrc7VVuPKWSFRi3WvhsXns/edit?tab=t.0)
